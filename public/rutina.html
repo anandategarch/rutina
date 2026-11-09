@@ -3212,6 +3212,7 @@ function renderIdentity(){
 /* ---------- ring & agenda hari ini ---------- */
 function renderAgenda(){
   let html='',lastGrp='__';
+  if(!HABITS.length){$('#agendaList').innerHTML=`<div class="empty-state" style="padding:22px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Agenda kosong</b><p>Semua kebiasaan terhapus dari sesi — tambahkan yang baru untuk mengisi hari.</p></div>`;return}
   HABITS.forEach(h=>{
     const g=h.grp,gk=g?g.id:'_none';
     if(gk!==lastGrp){lastGrp=gk;
@@ -3233,15 +3234,16 @@ function renderAgenda(){
   animateBars($('#agendaList'));
 }
 function renderRing(){
-  const total=HABITS.length||1,done=doneTodayCount(),C=389.6;
-  $('#ringFg').style.strokeDashoffset=(C*(1-Math.min(1,done/total))).toFixed(1);
-  $('#ringText').textContent=`${done}/${total}`;
-  $('#heroSisa').textContent=Math.max(0,total-done);
-  $('#agendaCount').textContent=`${done}/${total} selesai`;
-  $('#msHariIni').textContent=`${done}/${total}`;
-  const sisa=total-done;
-  $('#agendaNoteText').textContent=sisa===0?'Semua kebiasaan hari ini sudah tercatat. Luar biasa!'
-    :sisa===total?`${sisa} kebiasaan menunggu — mulai dari yang paling ringan.`
+  const n=HABITS.length,done=doneTodayCount(),C=389.6;
+  $('#ringFg').style.strokeDashoffset=(C*(1-(n?Math.min(1,done/n):0))).toFixed(1);
+  $('#ringText').textContent=`${done}/${n}`;
+  $('#heroSisa').textContent=Math.max(0,n-done);
+  $('#agendaCount').textContent=`${done}/${n} selesai`;
+  $('#msHariIni').textContent=`${done}/${n}`;
+  const sisa=Math.max(0,n-done);
+  $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan — tambahkan satu untuk memulai.'
+    :sisa===0?'Semua kebiasaan hari ini sudah tercatat. Luar biasa!'
+    :sisa===n?`${sisa} kebiasaan menunggu — mulai dari yang paling ringan.`
     :`${sisa} kebiasaan lagi — jangan biarkan apimu padam.`;
   const ch=champion();
   $('#heroCopy').textContent=ch?`menuju hari yang sempurna. Jangkar terkuatmu: ${ch.name} (${ch.total} catatan).`:'';
@@ -3254,11 +3256,11 @@ function renderRing(){
   const tick=$('#ringTarget'),cap=$('#ringTargetCap');
   if(tick){
     tick.setAttribute('transform',`rotate(${(360*TARGET/100).toFixed(1)} 75 75)`);
-    tick.style.opacity=TARGET>0&&total>0?'1':'0';
+    tick.style.opacity=TARGET>0&&n>0?'1':'0';
   }
   if(cap){
-    const need=Math.ceil(total*TARGET/100);
-    cap.innerHTML=!total||TARGET<=0?'':(done>=need
+    const need=n?Math.ceil(n*TARGET/100):0;
+    cap.innerHTML=!n||TARGET<=0?'':(done>=need
       ?`<i></i><span class="ok">Target ${TARGET}% tercapai</span>`
       :`<i></i><span>Target ${TARGET}% · ${need-done} kebiasaan lagi</span>`);
   }
@@ -3396,6 +3398,8 @@ function renderTip(){
 /* ---------- halaman kebiasaan ---------- */
 function renderHabitChips(){
   const kats=['semua',...new Set(HABITS.map(h=>h.category))];
+  /* kategori terpilih bisa hilang lewat penghapusan — pulihkan ke Semua */
+  if(state.habitFilter!=='semua'&&!kats.includes(state.habitFilter))state.habitFilter='semua';
   $('#habitChips').innerHTML=kats.map(k=>`<button class="chip ${state.habitFilter===k?'active':''}" data-habit-filter="${esc(k)}">${k==='semua'?'Semua':esc(k)}</button>`).join('');
 }
 function weeklyDots(h){
@@ -3781,7 +3785,7 @@ function doDelete(){
     delete doneToday[key];delete valueToday[key];
     Object.keys(logsByDate).forEach(k=>{const a=logsByDate[k].filter(x=>x!==key);if(a.length)logsByDate[k]=a;else delete logsByDate[k]});
     syncToday();
-    renderIdentity();refreshToday();renderHabitChips();renderBanner();renderFindings();renderReko();renderBadges();
+    renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
     if(inited.wawasan)renderConsChart();
     toast('Kebiasaan dihapus (sesi konsep)',`${name} keluar dari tampilan — database asli tak berubah.`,'i-trash','rose');
   }else{
@@ -4081,6 +4085,8 @@ $('#formTx').addEventListener('submit',e=>{
   const note=$('#txNote').value.trim();
   TXS.unshift({id:'local-'+Date.now(),type:txType==='masuk'?'income':'expense',amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
   if(!months.includes(dv.slice(0,7))){months.push(dv.slice(0,7));months.sort()}
+  /* langsung arahkan riwayat & statistik ke bulan transaksi baru supaya terlihat */
+  state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   refinance();fillTxMonths();
   if(inited.cal)renderDayDetail(state.calSel);
