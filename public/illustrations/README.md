@@ -157,6 +157,17 @@ Dua gradien baru terdaftar selaras kategori §2.5: `g-rose`
 |---|---|---|
 | `hero-bg.webp` | latar botani 8KB (1024², dekorasi hanya di tepi kanan & bawah-kanan; zona teks mint polos `#DEF8D5`) | layer `.hero-bg` kartu hero `public/rutina.html`; `background: center/cover`, gradient mint sebagai fallback |
 
+## Untaian sudut kartu (v2.5 — semua kartu, semua halaman)
+
+| Berkas | Konsep | Konteks pakai |
+|---|---|---|
+| `card-sprig.svg` | untaian botani sudut kanan-atas (viewBox 180×170): batang melengkung mengikuti sudut, 6 daun bergantian (isi `#ECFDF5`/`#D1FAE5`/`#A7F3D0`/gradasi `lf`, urat tipis `#10B981`), 2 koin amber (gradasi `amb` + `#FCD34D`), beri, percik bintang & titik; cuci radial mint dari sudut | `background-image` aturan `.card` (token `--ill-corner`), posisi `100% 0`, ukuran via `--ill-size-c` (kartu besar) / `--ill-seg` (segmen strip statistik) |
+| `card-sprig-bl.svg` | tunas kecil sudut kiri-bawah (viewBox 110×100): batang `#6EE7B7` 2px + 4 daun gaya garis tipis, koin kecil & percik; cuci radial `#ECFDF5` — sangat halus agar aman di belakang teks bawah | layer kedua `.card` (token `--ill-mini`), posisi `0 100%`; dimatikan lewat `.card-plain-bl` (kartu grid data: 2 heatmap + kalender) & `.habit-card` |
+
+Prinsip keterbacaan: bentuk berisi warna terang (mint/honey-soft) hanya di pita
+luar sudut ± 60px; interior kartu tetap putih polos untuk zona teks. Aset SVG
+garis (stroke) menjaga ketajaman di semua DPI dan total < 6KB.
+
 ## Ringkasan
 
 - **63 spot 96×96** dalam 12 batch tematik + **3 scene hero 480×320** — total 66 aset baru.
