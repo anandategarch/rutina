@@ -1209,6 +1209,7 @@ input,select,textarea{font:inherit;color:inherit}
 <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
 <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-arr-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-arr-dr" viewBox="0 0 24 24"><path d="M7 7l10 10M17 9v8H9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
@@ -1218,6 +1219,8 @@ input,select,textarea{font:inherit;color:inherit}
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.2 14.5A8.5 8.5 0 0 1 9.5 3.8a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
 <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></g></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></g></symbol>
 
 <!-- ==================== GLYPH KATEGORI ==================== -->
 <symbol id="c-makanan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5h16c0 4-3.5 6.5-8 6.5s-8-2.5-8-6.5z"/><path d="M9 10c-.8-1 .8-2 0-3M13.5 10c-.8-1 .8-2 0-3"/></g></symbol>
@@ -1476,6 +1479,8 @@ input,select,textarea{font:inherit;color:inherit}
     <button class="nav-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
     <button class="nav-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
     <button class="nav-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+    <div class="nav-label" style="margin-top:16px">Lainnya</div>
+    <button class="nav-item" data-nav="pengaturan"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Pengaturan</button>
   </nav>
   <div class="side-spacer"></div>
   <div class="side-card">
@@ -1508,7 +1513,7 @@ input,select,textarea{font:inherit;color:inherit}
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
       <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span>
     </button>
-    <span class="avatar" aria-hidden="true">A</span>
+    <button class="avatar" data-nav="pengaturan" aria-label="Pengaturan — kelola kebiasaan & kategori">A</button>
   </div>
 </header>
 
@@ -1873,11 +1878,17 @@ input,select,textarea{font:inherit;color:inherit}
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
         <div>
           <div class="eyebrow">Riwayat</div>
-          <h3 class="h-serif">Semua transaksi</h3>
+          <h3 class="h-serif" id="txHistTitle">Riwayat bulan ini</h3>
         </div>
       </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="txCount">—</span>
     </div>
     <div class="tx-tools" style="margin-top:-6px">
+      <label class="month-sel" for="txMonth">
+        <svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>
+        <select id="txMonth" aria-label="Rentang bulan riwayat transaksi"></select>
+        <svg class="ic chev" aria-hidden="true"><use href="#i-chev-d"/></svg>
+      </label>
       <div class="chips" id="txChips" role="group" aria-label="Filter transaksi">
         <button class="chip active" data-tx-filter="semua">Semua</button>
         <button class="chip" data-tx-filter="masuk">Masuk</button>
@@ -2023,6 +2034,72 @@ input,select,textarea{font:inherit;color:inherit}
   </div>
 </section>
 
+<!-- ================= HALAMAN: PENGATURAN ================= -->
+<section class="page" data-page="pengaturan" aria-label="Pengaturan">
+  <div class="page-head">
+    <div class="ph-id">
+      <span class="ph-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-perisai"/></svg></span>
+      <div>
+        <h1 class="h-serif">Pengaturan</h1>
+        <p class="t-sub">Kelola isi Rutina — hapus yang tak terpakai, kenali sumber datamu.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- profil & data: satu kartu, empat informasi -->
+  <div class="card card-pad">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+        <div>
+          <div class="eyebrow">Profil &amp; data</div>
+          <h3 class="h-serif">Ringkasan akun</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setDataSrc">memuat…</span>
+    </div>
+    <div class="set-grid">
+      <div class="set-cell"><small>Nama</small><b id="setUserName">—</b></div>
+      <div class="set-cell"><small>Awal minggu</small><b id="setWeek">—</b></div>
+      <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
+      <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
+    </div>
+    <p class="t-sub" style="font-size:11px;margin-top:12px">Sumber: <b id="setSrcNote">—</b> · Mode konsep — penghapusan hanya berlaku di sesi ini, database asli tak tersentuh.</p>
+  </div>
+
+  <div class="grid g-set">
+    <!-- kelola kebiasaan -->
+    <div class="card card-pad">
+      <div class="card-head">
+        <div class="ch-title">
+          <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
+          <div>
+            <div class="eyebrow">Kelola kebiasaan</div>
+            <h3 class="h-serif">Hapus kebiasaan</h3>
+          </div>
+        </div>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setHabCount">—</span>
+      </div>
+      <div class="manage-list" id="setHabitList"><div class="t-sub">memuat…</div></div>
+    </div>
+
+    <!-- kelola kategori keuangan -->
+    <div class="card card-pad">
+      <div class="card-head">
+        <div class="ch-title">
+          <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
+          <div>
+            <div class="eyebrow">Kelola keuangan</div>
+            <h3 class="h-serif">Hapus kategori</h3>
+          </div>
+        </div>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setCatCount">—</span>
+      </div>
+      <div class="manage-list" id="setCatList"><div class="t-sub">memuat…</div></div>
+    </div>
+  </div>
+</section>
+
 </main>
 <footer class="appfooter">Rutina · Konsep — kebiasaan, kategori & keuangan dari database asli · <span id="footSrc">memuat…</span></footer>
 </div><!-- /.main -->
@@ -2124,6 +2201,25 @@ input,select,textarea{font:inherit;color:inherit}
   </div>
 </div>
 
+<!-- ================= MODAL: KONFIRMASI HAPUS ================= -->
+<div class="modal" id="modalDel" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet" style="max-width:440px">
+    <div class="sheet-head">
+      <div><div class="eyebrow" id="delEyebrow">Hapus</div><h3 class="h-serif" id="delTitle">…</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sheet-body">
+      <p class="del-desc" id="delDesc">…</p>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="button" class="btn btn-danger" id="btnDelConfirm"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Ya, hapus</button>
+      </div>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep — perubahan hanya berlaku di sesi ini.</p>
+    </div>
+  </div>
+</div>
+
 <style>
 /* grid responsif tambahan (menggantikan inline style) */
 .g-main{grid-template-columns:1.45fr 1fr;margin-bottom:20px}
@@ -2151,6 +2247,41 @@ input,select,textarea{font:inherit;color:inherit}
 .dd-well{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:900px){.dompet-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.dompet-grid{grid-template-columns:1fr}}
+/* ---------- halaman pengaturan ---------- */
+.g-set{grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(max-width:900px){.g-set{grid-template-columns:1fr}}
+.set-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface-2);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden}
+.set-cell{padding:13px 16px;border-left:1px solid var(--line-soft);min-width:0}
+.set-cell:first-child{border-left:none}
+.set-cell small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.set-cell b{font-size:14.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+@media(max-width:640px){.set-grid{grid-template-columns:1fr 1fr}.set-cell:nth-child(3){border-left:none}.set-cell:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}}
+.manage-list{display:flex;flex-direction:column;gap:2px;max-height:400px;overflow-y:auto;padding-right:4px}
+@media(max-width:640px){.manage-list{max-height:320px}}
+.mg-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:14px;transition:background .15s}
+.mg-row:hover{background:var(--surface-2)}
+.mg-row .spot{width:44px;height:44px}
+.mg-row .spot .ill{width:36px}
+.mg-row .dl-ic{width:44px;height:44px;border-radius:14px}
+.mg-row .dl-ic .ic{width:22px;height:22px}
+.mg-row>div{min-width:0}
+.mg-row b{font-size:13.5px;display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg-row small{font-size:11px;color:var(--ink-3);font-weight:700;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-del{width:40px;height:40px;border-radius:13px;border:1.5px solid #FECDD3;background:#FFF1F2;color:var(--rose-deep);display:grid;place-items:center;cursor:pointer;transition:all .15s;flex:none}
+.btn-del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
+.btn-del .ic{width:18px;height:18px}
+@media(max-width:640px){.btn-del{width:44px;height:44px;border-radius:14px}}
+.btn-danger{background:var(--rose);color:#FFFFFF;box-shadow:var(--shadow-sm)}
+.btn-danger:hover{background:var(--rose-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-md)}
+.del-desc{font-size:13.5px;font-weight:600;color:var(--ink-2);line-height:1.55;padding:4px 2px 0}
+button.avatar{cursor:pointer;padding:0;transition:all .18s}
+button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+/* pemilih rentang bulan riwayat */
+.month-sel{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 15px;min-height:42px;transition:border .18s;flex:none}
+.month-sel:focus-within{border-color:var(--terra)}
+.month-sel .ic{width:16px;height:16px;color:var(--ink-3);flex:none}
+.month-sel select{appearance:none;-webkit-appearance:none;border:none;background:none;outline:none;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;padding:0;min-width:112px}
+.month-sel .chev{width:14px;height:14px;color:var(--ink-3);flex:none}
 </style>
 <script type="text/plain" data-legacy>
 'use strict';
@@ -2916,9 +3047,9 @@ const SRC_STYLE={cash:{i:'k-kas',c:'#059669'},bank:{i:'k-bank',c:'#0EA5E9'},ewal
 const srcStyle=t=>SRC_STYLE[t]||{i:'k-bank',c:'#64748B'};
 
 /* ---------- state ---------- */
-const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',finMonth:'ALL',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
-const inited={heatmap:false,cal:false,wawasan:false};
-const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan'};
+const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',txMonth:dayKey(TODAY).slice(0,7),finMonth:'ALL',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
+const inited={heatmap:false,cal:false,wawasan:false,set:false};
+const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan',pengaturan:'Pengaturan'};
 let HABITS=[],GROUPS=[],HCAT={},FINCATS=[],SOURCES=[],TXS=[],BUDGETS=[],DAILY={},SETTINGS=null;
 let logsByDate={},doneToday={},valueToday={},months=[],WS=1;
 let DOWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
@@ -3546,14 +3677,19 @@ function renderWallets(){
   $('#dompetSum').textContent=`Total ${rupiah(sumBy(SOURCES,s=>w[s.id]))}`;
 }
 function renderTx(){
-  const f=state.txFilter,q=state.txQuery.trim().toLowerCase();
-  let list=TXS.filter(t=>f==='semua'||(f==='masuk'?t.type==='income':f==='keluar'?t.type==='expense':t.type==='transfer'));
+  const f=state.txFilter,q=state.txQuery.trim().toLowerCase(),mk=state.txMonth,cur=dayKey(TODAY).slice(0,7);
+  let list=TXS.filter(t=>(mk==='ALL'||t.date.slice(0,7)===mk)&&(f==='semua'||(f==='masuk'?t.type==='income':f==='keluar'?t.type==='expense':t.type==='transfer')));
   if(q)list=list.filter(t=>(t.description+' '+t.category+' '+srcName(t.sourceId)).toLowerCase().includes(q));
   list=[...list].sort((a,b)=>b.date.localeCompare(a.date));
+  const judul=mk==='ALL'?'Semua transaksi':mk===cur?'Riwayat bulan ini':`Riwayat · ${monthLabel(mk)}`;
+  const tEl=$('#txHistTitle');if(tEl)tEl.textContent=judul;
+  const cEl=$('#txCount');if(cEl)cEl.textContent=`${list.length} transaksi`;
   if(!list.length){
+    const kosongBulan=mk!=='ALL'&&!q&&f==='semua';
     $('#txList').innerHTML=`<div class="empty-state">
       <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
-      <b>Tidak ada transaksi</b><p>Coba ubah kata kunci atau filter yang kamu pilih.</p></div>`;
+      <b>${kosongBulan?(mk===cur?'Belum ada transaksi bulan ini':'Tidak ada transaksi di '+monthLabel(mk)):'Tidak ada transaksi'}</b>
+      <p>${kosongBulan?'Coba pilih rentang “Semua bulan” atau bulan lain di filter.':'Coba ubah kata kunci atau filter yang kamu pilih.'}</p></div>`;
     return;
   }
   let html='',lastKey='';
@@ -3574,6 +3710,86 @@ function renderTx(){
     </div>`;
   });
   $('#txList').innerHTML=html;
+}
+
+/* ---------- rentang bulan riwayat ---------- */
+function fillTxMonths(){
+  const cur=dayKey(TODAY).slice(0,7);
+  const opts=[...new Set([...months,cur])].sort().reverse();
+  if(state.txMonth!=='ALL'&&!opts.includes(state.txMonth))state.txMonth=cur;
+  const sel=$('#txMonth');if(!sel)return;
+  sel.innerHTML=`<option value="${cur}">Bulan ini · ${monthShort(cur)}</option>`
+    +opts.filter(m=>m!==cur).map(m=>`<option value="${m}">${monthLabel(m)}</option>`).join('')
+    +`<option value="ALL">Semua bulan</option>`;
+  sel.value=state.txMonth;
+}
+
+/* ---------- pengaturan ---------- */
+const catUsage=name=>TXS.filter(t=>t.category===name).length;
+function renderSettings(){
+  $('#setUserName').textContent=SETTINGS.userName||'—';
+  $('#setWeek').textContent=WS===0?'Minggu':'Senin';
+  $('#setTarget').textContent=Math.round(+SETTINGS.targetCompletion||80)+'% catatan';
+  $('#setDataCounts').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
+  $('#setDataSrc').textContent=LIVE?'Data langsung':'Snapshot';
+  $('#setSrcNote').textContent=LIVE?'Turso (langsung)':'snapshot tersemat';
+  $('#setHabCount').textContent=`${HABITS.length} aktif`;
+  $('#setHabitList').innerHTML=HABITS.length?HABITS.map(h=>`
+    <div class="mg-row">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
+      <div><b>${esc(h.name)}</b><small>${esc(h.category)}${h.grp?` · ${esc(h.grp.name)}`:''} · ${h.total} catatan</small></div>
+      <button class="btn-del" data-del-habit="${esc(h.id)}" aria-label="Hapus kebiasaan ${esc(h.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+    </div>`).join('')
+    :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kebiasaan</b><p>Semua kebiasaan sudah dihapus dari sesi ini.</p></div>`;
+  const outC=FINCATS.filter(c=>c.type==='expense'),inC=FINCATS.filter(c=>c.type==='income');
+  const row=c=>{const st=finStyle(c.name),n=catUsage(c.name);
+    return `<div class="mg-row">
+      <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+      <div><b>${esc(c.name)}</b><small>${c.type==='income'?'Pemasukan':'Pengeluaran'} · ${n} transaksi</small></div>
+      <button class="btn-del" data-del-cat="${esc(c.name)}" aria-label="Hapus kategori ${esc(c.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+    </div>`};
+  $('#setCatList').innerHTML=!FINCATS.length
+    ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus dari sesi ini.</p></div>`
+    :`<div class="agenda-cap">Pengeluaran · ${outC.length}</div>`+outC.map(row).join('')
+     +(inC.length?`<div class="agenda-cap">Pemasukan · ${inC.length}</div>`+inC.map(row).join(''):'');
+  $('#setCatCount').textContent=`${FINCATS.length} kategori`;
+}
+let delTarget=null;
+function askDelete(kind,key){
+  let name='',desc='';
+  if(kind==='habit'){
+    const h=habitById(key);if(!h)return;
+    name=h.name;
+    desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini — semuanya ikut keluar dari statistik sesi (ring, streak, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
+    $('#delEyebrow').textContent='Hapus kebiasaan';
+  }else{
+    name=key;
+    const n=catUsage(key);
+    desc=n?`Ada <b>${n} transaksi</b> memakai kategori ini — transaksinya tetap tampil, hanya pilihannya yang hilang dari formulir catat.`:'Belum ada transaksi memakai kategori ini.';
+    $('#delEyebrow').textContent='Hapus kategori';
+  }
+  delTarget={kind,key,name};
+  $('#delTitle').textContent=name;
+  $('#delDesc').innerHTML=desc;
+  openModal('modalDel');
+}
+function doDelete(){
+  if(!delTarget)return;
+  const {kind,key,name}=delTarget;
+  if(kind==='habit'){
+    HABITS=HABITS.filter(h=>h.id!==key);
+    delete doneToday[key];delete valueToday[key];
+    Object.keys(logsByDate).forEach(k=>{const a=logsByDate[k].filter(x=>x!==key);if(a.length)logsByDate[k]=a;else delete logsByDate[k]});
+    syncToday();
+    renderIdentity();refreshToday();renderHabitChips();renderBanner();renderFindings();renderReko();renderBadges();
+    if(inited.wawasan)renderConsChart();
+    toast('Kebiasaan dihapus (sesi konsep)',`${name} keluar dari tampilan — database asli tak berubah.`,'i-trash','rose');
+  }else{
+    FINCATS=FINCATS.filter(c=>c.name!==key);
+    fillTxType(txType);
+    toast('Kategori dihapus (sesi konsep)',`${name} tak lagi muncul di formulir transaksi.`,'i-trash','rose');
+  }
+  delTarget=null;closeModals();renderSettings();
 }
 
 /* ---------- kalender ---------- */
@@ -3771,6 +3987,7 @@ function go(page){
   if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap();inited.heatmap=true}
   if(page==='kalender'&&!inited.cal){renderCal();renderDayDetail(state.calSel);inited.cal=true}
   if(page==='wawasan'&&!inited.wawasan){renderConsChart();inited.wawasan=true}
+  if(page==='pengaturan'&&!inited.set){renderSettings();inited.set=true}
 }
 function toggleCheck(id){
   const h=habitById(id);if(!h)return;
@@ -3815,6 +4032,10 @@ document.addEventListener('click',e=>{
     return}
   const fm=e.target.closest('[data-fin-month]');
   if(fm){state.finMonth=fm.dataset.finMonth;refinance();return}
+  const delH=e.target.closest('[data-del-habit]');
+  if(delH){askDelete('habit',delH.dataset.delHabit);return}
+  const delC=e.target.closest('[data-del-cat]');
+  if(delC){askDelete('cat',delC.dataset.delCat);return}
   const chip=e.target.closest('[data-habit-filter]');
   if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
   const txChip=e.target.closest('[data-tx-filter]');
@@ -3861,7 +4082,7 @@ $('#formTx').addEventListener('submit',e=>{
   TXS.unshift({id:'local-'+Date.now(),type:txType==='masuk'?'income':'expense',amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
   if(!months.includes(dv.slice(0,7))){months.push(dv.slice(0,7));months.sort()}
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
-  refinance();
+  refinance();fillTxMonths();
   if(inited.cal)renderDayDetail(state.calSel);
   toast('Transaksi tercatat (konsep)',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${cat}${src?' · '+srcName(src):''}`,'i-check','sage');
 });
@@ -3905,6 +4126,8 @@ $('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMon
 $('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal()});
 $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal();renderDayDetail(state.calSel)});
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
+$('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderTx()});
+$('#btnDelConfirm').addEventListener('click',doDelete);
 $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Menampilkan snapshot database — Turso tak terjangkau.','i-bell'));
 
 /* ---------- animasi masuk "Tunas Pagi" ----------
@@ -3987,7 +4210,7 @@ function tunasWake(){
   prepData();syncToday();
   renderIdentity();renderAgenda();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
-  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();
+  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();fillTxMonths();
   renderHabitChips();renderHabitCards();
   renderFindings();renderReko();renderBadges();
   fillTxType('keluar');fillTxSources();fillHabitSelects();
