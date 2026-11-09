@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Rutina · Konsep Redesain",
   description:
-    "Konsep redesain Rutina: pelacak kebiasaan dan keuangan dengan tampilan terang, hangat, dan penuh ilustrasi.",
+    "Konsep redesain Rutina: pelacak kebiasaan & keuangan dengan design system emerald, ilustrasi flat 3D, dan bottom dock mengambang.",
   applicationName: "Rutina",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAF5EC",
+  themeColor: "#F8FAFC",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

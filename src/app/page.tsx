@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <div
-      className="fixed inset-0 z-[100] bg-[#FAF5EC]"
+      className="fixed inset-0 z-[100] bg-[#F8FAFC]"
       style={{ height: "100dvh" }}
     >
       <iframe

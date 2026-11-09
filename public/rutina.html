@@ -51,8 +51,8 @@ input,select,textarea{font:inherit;color:inherit}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
 
 /* ---------- utilitas tipografi ---------- */
-.h-serif{font-family:var(--font-display);font-weight:600;letter-spacing:-.015em;line-height:1.18}
-.eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+.h-serif{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.18;text-wrap:balance}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep)}
 .t-sub{font-size:13px;color:var(--ink-3);font-weight:500}
 .t-num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -108,18 +108,29 @@ input,select,textarea{font:inherit;color:inherit}
 .icon-btn:hover{color:var(--terra-deep);border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:1.5px solid var(--surface)}
 
-/* ---------- bottom nav (mobile) ---------- */
-.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:space-around;align-items:stretch;gap:2px;padding:8px 10px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 86%,#fff);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(15,23,42,.06)}
-.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;min-height:52px;border-radius:14px;color:var(--ink-3);font-size:10px;font-weight:700;transition:color .18s}
-.bn-item .ic{width:21px;height:21px}
-.bn-item.active{color:var(--terra-deep)}
-.bn-item.active .ic{transform:translateY(-1px) scale(1.06)}
+/* ---------- bottom nav (mobile) — floating island dock ---------- */
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:0 16px 40px -12px rgba(15,23,42,.22),0 2px 6px rgba(15,23,42,.05)}
+.bn-item{flex:1;min-width:0;min-height:50px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink-3);overflow:hidden;transition:background .28s,color .28s,box-shadow .28s,flex-grow .4s cubic-bezier(.2,.9,.3,1)}
+.bn-item .ic{width:21px;height:21px;flex:none;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:800;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
+.bn-item:active .ic{transform:scale(.86)}
+.bn-item.active{flex-grow:1.8;background:linear-gradient(135deg,var(--terra),var(--terra-deep));color:#FFFFFF;box-shadow:0 10px 22px -8px rgba(5,150,105,.6)}
+.bn-item.active .lb{max-width:86px;opacity:1;margin-left:8px}
+.bn-item.active .ic{transform:translateY(-1px)}
 
 /* ---------- kartu & grid ---------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
 .card-pad{padding:16px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
-.card-head h3{font-size:16.5px}
+.card-head h3{font-size:17px}
+.ch-title{display:flex;align-items:center;gap:12px;min-width:0}
+.head-art{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
+.head-art .ill{width:36px}
+.head-art.em{background:var(--terra-softer)}
+.head-art.sky{background:var(--sky-soft)}
+.head-art.honey{background:var(--honey-soft)}
+.head-art.blue{background:var(--blue-soft)}
+.head-art.sage{background:var(--sage-soft)}
 .card-head .t-sub{font-size:12px;margin-top:2px}
 .grid{display:grid;gap:16px}
 .row{display:flex;flex-direction:column;gap:16px}
@@ -288,7 +299,8 @@ input,select,textarea{font:inherit;color:inherit}
 .scene-stat .ill{width:110px;flex:none;position:relative;z-index:1}
 .scene-stat .num{font-family:var(--font-display);font-size:23px;font-weight:700;line-height:1.1}
 .scene-stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2);margin:3px 0 2px}
-.scene-stat .sub{font-size:11px;font-weight:600}
+.scene-stat .sub{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
+.scene-stat .sub .ic{width:14px;height:14px}
 .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 .donut-wrap{position:relative;width:210px;height:210px;flex:none;margin:auto}
 .donut-wrap svg{width:100%;height:100%}
@@ -418,7 +430,7 @@ input,select,textarea{font:inherit;color:inherit}
 .sheet-body{padding:16px 26px 26px;display:flex;flex-direction:column;gap:16px}
 .field label{display:block;font-size:12px;font-weight:800;color:var(--ink-2);margin-bottom:7px;letter-spacing:.02em}
 .field input[type=text],.field input[type=date],.field input[type=time],.field select{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;transition:border .18s;outline:none;appearance:none}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B5A49' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647568' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
 .field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface)}
 .money{position:relative}
 .money span{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--terra-deep);font-size:15px}
@@ -437,7 +449,7 @@ input,select,textarea{font:inherit;color:inherit}
 .target-reveal.show{display:block;animation:pageIn .3s}
 
 /* ---------- toast ---------- */
-.toast-root{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+.toast-root{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
 @media(min-width:1024px){.toast-root{left:auto;right:26px;bottom:26px;transform:none;align-items:flex-end}}
 .toast{display:flex;gap:12px;align-items:center;padding:13px 18px 13px 13px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);max-width:min(92vw,380px);animation:toastIn .45s cubic-bezier(.25,1.2,.4,1)}
 .toast.out{animation:toastOut .35s forwards}
@@ -445,6 +457,7 @@ input,select,textarea{font:inherit;color:inherit}
 .toast-ic .ic{width:18px;height:18px}
 .toast-ic.sage{background:var(--sage-soft);color:var(--sage-deep)}
 .toast-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
+.toast-ic.rose{background:#FEE2E2;color:var(--rose-deep)}
 .toast b{font-size:13px;display:block;line-height:1.3}
 .toast small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.35;display:block}
 @keyframes toastIn{from{opacity:0;transform:translateY(24px) scale(.92)}}
@@ -453,6 +466,37 @@ input,select,textarea{font:inherit;color:inherit}
 /* ---------- confetti ---------- */
 .cp{position:fixed;top:-16px;z-index:130;pointer-events:none;border-radius:3px;animation:fall 1.5s cubic-bezier(.3,.5,.6,1) forwards}
 @keyframes fall{to{transform:translate(var(--dx,0),106vh) rotate(var(--rot,540deg));opacity:.9}}
+
+/* ---------- ilustrasi identitas halaman & kartu baru ---------- */
+.ph-id{display:flex;align-items:center;gap:14px;min-width:0}
+.ph-art{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft);box-shadow:inset 0 -8px 14px rgba(15,23,42,.04),var(--shadow-sm)}
+.ph-art .ill{width:42px}
+.ph-art.em{background:var(--terra-softer)}
+.ph-art.sky{background:var(--sky-soft)}
+.ph-art.honey{background:var(--honey-soft)}
+.ph-art.blue{background:var(--blue-soft)}
+
+/* ---------- banner streak ---------- */
+.streak-banner{display:flex;align-items:center;gap:16px;padding:16px 18px;margin-bottom:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+.streak-banner::after{content:"";position:absolute;right:-46px;top:-56px;width:170px;height:170px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.14),transparent)}
+.streak-banner .sb-body{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px;position:relative;z-index:1}
+.streak-banner b{font-family:var(--font-display);font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.streak-banner .bar{height:9px;max-width:360px}
+
+/* ---------- kartu tabungan ---------- */
+.save-card{display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.save-main{display:flex;gap:16px;align-items:center;flex:1;min-width:250px}
+.save-spot{width:78px;height:78px}
+.save-spot .ill{width:66px}
+.save-info{display:flex;flex-direction:column;gap:5px;min-width:0}
+.save-info h3{font-size:18px}
+.save-meter{display:flex;align-items:center;gap:10px;max-width:340px}
+.save-meter .bar{flex:1;height:9px}
+.save-meter b{font-size:13px;color:var(--terra-deep)}
+.save-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.save-chips{display:flex;gap:8px;flex-wrap:wrap}
+.save-chips .chip{min-height:36px;padding:6px 13px}
+@media(max-width:640px){.save-card{flex-direction:column;align-items:stretch;gap:14px}.save-actions{align-items:flex-start}}
 
 /* ---------- grafik svg umum ---------- */
 .chart-label{font-size:10.5px;font-weight:700;fill:var(--ink-2)}
@@ -463,7 +507,7 @@ input,select,textarea{font:inherit;color:inherit}
 /* ---------- scrollbar ---------- */
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px;border:2px solid var(--bg)}
-::-webkit-scrollbar-thumb:hover{background:var(--peach)}
+::-webkit-scrollbar-thumb:hover{background:#94A3B8}
 ::-webkit-scrollbar-track{background:transparent}
 
 /* ---------- responsive ---------- */
@@ -494,7 +538,8 @@ input,select,textarea{font:inherit;color:inherit}
   .stat .num{font-size:20px}
   .stat .ill-deco{display:none}
   .mini-stats{grid-template-columns:1fr}
-  .scene-stat .ill{width:88px}
+  .scene-stat{padding:16px;gap:12px}
+  .scene-stat .ill{width:86px}
   .donut-flex{flex-direction:column;align-items:stretch}
   .donut-wrap{margin:0 auto}
   .field-row{grid-template-columns:1fr}
@@ -524,339 +569,490 @@ input,select,textarea{font:inherit;color:inherit}
 <!-- ================= SPRITE ILUSTRASI & IKON (digambar tangan, gaya flat hangat) ================= -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<g id="spark4"><path d="M0-1l.3.7.7.3-.7.3L0 1l-.3-.7L-1 0l.7-.3z"/></g>
+<!-- ===== gradien bersama (gaya flat 3D / soft 3D) ===== -->
+<linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+<linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B7"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+<linearGradient id="g-amb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/></linearGradient>
+<linearGradient id="g-amb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+<linearGradient id="g-org" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FB923C"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+<linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#0284C7"/></linearGradient>
+<linearGradient id="g-blu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+<linearGradient id="g-slate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CBD5E1"/><stop offset="1" stop-color="#94A3B8"/></linearGradient>
+<radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
 </defs>
 
 <!-- ============ SPOT: MEDITASI ============ -->
 <symbol id="ill-meditasi" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M26 64c7-9 16-13 22-13s15 4 22 13c2.5 3.5.5 7-3.5 7H29.5c-4 0-6-3.5-3.5-7z" fill="#8FAE8B"/>
-  <path d="M35 43c0-7 5.5-11 13-11s13 4 13 11v11c0 5.5-5.5 9-13 9s-13-3.5-13-9z" fill="#C05B3C"/>
-  <path d="M35 51c-5 3-7 8-5.5 13M61 51c5 3 7 8 5.5 13" stroke="#EBB896" stroke-width="7" stroke-linecap="round" fill="none"/>
-  <circle cx="48" cy="27" r="12.5" fill="#EBB896"/>
-  <path d="M35.5 27c0-8.5 5.5-12 12.5-12s12.5 3.5 12.5 12c-2.5-3.5-6.5-5-12.5-5s-10 1.5-12.5 5z" fill="#4A342A"/>
-  <circle cx="48" cy="12" r="5" fill="#4A342A"/>
-  <path d="M43 27.5q2.2 2.2 4.4 0M52.6 27.5q2.2 2.2 4.4 0" stroke="#4A342A" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M46.5 32.5q1.5 1.5 3 0" stroke="#9E4529" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M26 14l1.6 4.4L32 20l-4.4 1.6L26 26l-1.6-4.4L20 20l4.4-1.6z" fill="#DCA43D"/>
-  <path d="M70 22l1.2 3.2 3.2 1.2-3.2 1.2L70 30.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#DCA43D"/>
-  <path d="M20 72c5-4 11-4 15 0-4 4-10 4-15 0z" fill="#8FAE8B"/>
-  <path d="M62 74c4-3.5 9-3.5 13 0-4 3.5-9 3.5-13 0z" fill="#A9C29B"/>
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="73" rx="25" ry="4.5" fill="#0F172A" opacity=".07"/>
+  <path d="M26 64c7-9 16-13 22-13s15 4 22 13c2.5 3.5.5 7-3.5 7H29.5c-4 0-6-3.5-3.5-7z" fill="url(#g-em2)"/>
+  <path d="M26 64c7-9 16-13 22-13s15 4 22 13" fill="none" stroke="#059669" stroke-width="1.5" opacity=".35"/>
+  <path d="M35 43c0-7 5.5-11 13-11s13 4 13 11v11c0 5.5-5.5 9-13 9s-13-3.5-13-9z" fill="url(#g-em)"/>
+  <path d="M38 36c3-2.5 15-2.5 18 0" stroke="#FFFFFF" stroke-width="2.5" opacity=".35" fill="none" stroke-linecap="round"/>
+  <path d="M35 51c-5 3-7 8-5.5 13M61 51c5 3 7 8 5.5 13" stroke="#FCD9B8" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="48" cy="27" r="12.5" fill="#FCD9B8"/>
+  <path d="M35.5 27c0-8.5 5.5-12 12.5-12s12.5 3.5 12.5 12c-2.5-3.5-6.5-5-12.5-5s-10 1.5-12.5 5z" fill="#1E293B"/>
+  <circle cx="48" cy="12" r="5" fill="#1E293B"/>
+  <path d="M43 27.5q2.2 2.2 4.4 0M52.6 27.5q2.2 2.2 4.4 0" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M46.5 32.5q1.5 1.5 3 0" stroke="#C2410C" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M20 72c5-4 11-4 15 0-4 4-10 4-15 0z" fill="url(#g-em)"/>
+  <path d="M62 74c4-3.5 9-3.5 13 0-4 3.5-9 3.5-13 0z" fill="#6EE7B7"/>
+  <path d="M26 14l1.6 4.4L32 20l-4.4 1.6L26 26l-1.6-4.4L20 20l4.4-1.6z" fill="#FBBF24"/>
+  <path d="M70 22l1.2 3.2 3.2 1.2-3.2 1.2L70 30.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: LARI PAGI ============ -->
 <symbol id="ill-lari" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M18 70h60" stroke="#E7F0E0" stroke-width="5" stroke-linecap="round"/>
-  <path d="M33 70a15 15 0 0 1 30 0z" fill="#F5D98F"/>
-  <rect x="49" y="39" width="13" height="20" rx="5.5" fill="#C05B3C" transform="rotate(8 55.5 49)"/>
-  <path d="M60 44c6 .5 10 3.5 12 8.5" stroke="#EBB896" stroke-width="6.5" stroke-linecap="round" fill="none"/>
-  <path d="M51 45c-6 0-10 3-12 8" stroke="#D69B72" stroke-width="6.5" stroke-linecap="round" fill="none"/>
-  <path d="M61 60c7 1 12 5 13 12" stroke="#6E8F6A" stroke-width="7" stroke-linecap="round" fill="none"/>
-  <path d="M55 62c-6 2-9 6-8 12" stroke="#6E8F6A" stroke-width="7" stroke-linecap="round" fill="none"/>
-  <circle cx="75" cy="73.5" r="3.5" fill="#9E4529"/>
-  <circle cx="46.5" cy="75" r="3.5" fill="#9E4529"/>
-  <circle cx="55" cy="30" r="9" fill="#EBB896"/>
-  <path d="M46.5 29c0-5 3.5-8 8.5-8s8.5 3 8.5 8c-1.8-2.4-4.4-3.4-8.5-3.4s-6.7 1-8.5 3.4z" fill="#4A342A"/>
-  <path d="M16 42h13M12.5 50h10M17 58h9" stroke="#DCA43D" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M76 22l1.4 3.8 3.8 1.4-3.8 1.4L76 32.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#FFEDD5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <path d="M18 70h60" stroke="#FED7AA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M33 70a15 15 0 0 1 30 0z" fill="url(#g-amb2)"/>
+  <rect x="49" y="39" width="13" height="20" rx="5.5" fill="url(#g-org)" transform="rotate(8 55.5 49)"/>
+  <path d="M51 42q5-2 9 1" stroke="#FFFFFF" stroke-width="2" opacity=".4" fill="none" stroke-linecap="round"/>
+  <path d="M60 44c6 .5 10 3.5 12 8.5" stroke="#FCD9B8" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M51 45c-6 0-10 3-12 8" stroke="#F5C09A" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M61 60c7 1 12 5 13 12" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M55 62c-6 2-9 6-8 12" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="75" cy="73.5" r="3.5" fill="#1E293B"/><circle cx="46.5" cy="75" r="3.5" fill="#1E293B"/>
+  <circle cx="55" cy="30" r="9" fill="#FCD9B8"/>
+  <path d="M46.5 29c0-5 3.5-8 8.5-8s8.5 3 8.5 8c-1.8-2.4-4.4-3.4-8.5-3.4s-6.7 1-8.5 3.4z" fill="#1E293B"/>
+  <path d="M16 42h13M12.5 50h10M17 58h9" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M76 22l1.4 3.8 3.8 1.4-3.8 1.4L76 32.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: SARAPAN SEHAT ============ -->
 <symbol id="ill-sarapan" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M25 50h46c0 13-10.3 21-23 21s-23-8-23-21z" fill="#9E4529"/>
-  <rect x="23" y="48" width="50" height="7" rx="3.5" fill="#DCA43D"/>
-  <path d="M40 42c-3-3.5 3-6 0-9.5M52 42c-3-3.5 3-6 0-9.5" stroke="#B98F75" stroke-width="3" stroke-linecap="round" fill="none"/>
-  <path d="M42 48c4-4.5 10-4.5 14 0-4 4.5-10 4.5-14 0z" fill="#8FAE8B"/>
-  <circle cx="74" cy="60" r="6.5" fill="#C05B3C"/>
-  <path d="M74 54.5c.8-1.6 2-2.5 3.5-3" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <path d="M76.5 52.5c3-1.5 5.5-1 7 .5-2 1.5-4.5 2-7-.5z" fill="#8FAE8B"/>
-  <path d="M28 24l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="74" rx="24" ry="4" fill="#0F172A" opacity=".07"/>
+  <path d="M25 50h46c0 13-10.3 21-23 21s-23-8-23-21z" fill="url(#g-amb)"/>
+  <path d="M30 56c8 4 28 4 36 0" stroke="#FFFFFF" stroke-width="2.5" opacity=".35" fill="none" stroke-linecap="round"/>
+  <rect x="23" y="46" width="50" height="8" rx="4" fill="#F59E0B"/>
+  <path d="M40 40c-3-3.5 3-6 0-9.5M52 40c-3-3.5 3-6 0-9.5" stroke="#FDBA74" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M42 47c4-4.5 10-4.5 14 0-4 4.5-10 4.5-14 0z" fill="url(#g-em2)"/>
+  <circle cx="74" cy="60" r="6.5" fill="url(#g-org)"/>
+  <path d="M74 54.5c.8-1.6 2-2.5 3.5-3" stroke="#7C2D12" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M76.5 52.5c3-1.5 5.5-1 7 .5-2 1.5-4.5 2-7-.5z" fill="#34D399"/>
+  <path d="M28 24l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: MEMBACA ============ -->
 <symbol id="ill-baca" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M22 40c8-5 18-6 26-3v30c-8-3-18-2-26 3z" fill="#9E4529"/>
-  <path d="M74 40c-8-5-18-6-26-3v30c8-3 18-2 26 3z" fill="#C05B3C"/>
-  <path d="M24.5 41.5c7-4.5 16-5.5 22.5-3v26c-6.5-2.5-15.5-1.5-22.5 3z" fill="#FFF9EF"/>
-  <path d="M71.5 41.5c-7-4.5-16-5.5-22.5-3v26c6.5-2.5 15.5-1.5 22.5 3z" fill="#FFF9EF"/>
-  <path d="M48 38.5v26" stroke="#EBDFCC" stroke-width="2"/>
-  <path d="M29 45c5-2 10-2.5 15-1M29 50c5-2 10-2.5 15-1M29 55c5-2 10-2.5 15-1" stroke="#D9C7B2" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <path d="M52 44c5-1.5 10-1 15 1M52 49c5-1.5 10-1 15 1" stroke="#D9C7B2" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <path d="M46 24c3-4 8-4.5 11-2-2.5 3.5-7 4.5-11 2z" fill="#8FAE8B"/>
-  <path d="M44 27c-1.5-4.5-1-8.5 1.5-11 2 3.5 1.5 7.5-1.5 11z" fill="#A9C29B"/>
-  <path d="M70 26l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
-  <circle cx="26" cy="30" r="3" fill="#F2C6A0"/>
+  <circle cx="48" cy="48" r="46" fill="#DBEAFE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="76" rx="27" ry="4" fill="#0F172A" opacity=".07"/>
+  <path d="M22 40c8-5 18-6 26-3v30c-8-3-18-2-26 3z" fill="#1D4ED8"/>
+  <path d="M74 40c-8-5-18-6-26-3v30c8-3 18-2 26 3z" fill="url(#g-blu)"/>
+  <path d="M24.5 41.5c7-4.5 16-5.5 22.5-3v26c-6.5-2.5-15.5-1.5-22.5 3z" fill="#FFFFFF"/>
+  <path d="M71.5 41.5c-7-4.5-16-5.5-22.5-3v26c6.5-2.5 15.5-1.5 22.5 3z" fill="#F8FAFC"/>
+  <path d="M48 38.5v26" stroke="#CBD5E1" stroke-width="2"/>
+  <path d="M29 45c5-2 10-2.5 15-1M29 50c5-2 10-2.5 15-1M29 55c5-2 10-2.5 15-1" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M52 44c5-1.5 10-1 15 1M52 49c5-1.5 10-1 15 1" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M46 24c3-4 8-4.5 11-2-2.5 3.5-7 4.5-11 2z" fill="url(#g-em)"/>
+  <path d="M44 27c-1.5-4.5-1-8.5 1.5-11 2 3.5 1.5 7.5-1.5 11z" fill="#6EE7B7"/>
+  <path d="M70 26l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#FBBF24"/>
+  <circle cx="26" cy="30" r="3" fill="#93C5FD"/>
 </symbol>
 
 <!-- ============ SPOT: MINUM AIR ============ -->
 <symbol id="ill-air" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M35 26l-4.5 44c-.5 4.5 3 7.5 7.5 7.5h20c4.5 0 8-3 7.5-7.5L61 26z" fill="#FFF9EF" stroke="#D9C7B2" stroke-width="2.5"/>
-  <path d="M36.6 42l-3.4 28c-.5 4.5 3 7.5 7.5 7.5h15.6c4.5 0 8-3 7.5-7.5l-3.4-28c-3.5 2.6-6.7 2.4-8.9.3-2.4 2.3-5.9 2.3-8.2 0-2 1.9-4.9 2-7.1.2z" fill="#7FB5A6"/>
-  <path d="M38 52c4 2 9 2 13 0s9-2 13 0" stroke="#FFF9EF" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <circle cx="44" cy="62" r="2.5" fill="#FFF9EF" opacity=".6"/>
-  <circle cx="54" cy="68" r="2" fill="#FFF9EF" opacity=".6"/>
-  <path d="M24 40c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#7FB5A6"/>
-  <path d="M74 46c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#7FB5A6"/>
-  <path d="M30 22l1.4 3.6 3.6 1.4-3.6 1.4L30 32l-1.4-3.6-3.6-1.4 3.6-1.4z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#E0F2FE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="80" rx="20" ry="4" fill="#0F172A" opacity=".07"/>
+  <path d="M35 26l-4.5 44c-.5 4.5 3 7.5 7.5 7.5h20c4.5 0 8-3 7.5-7.5L61 26z" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2.5"/>
+  <path d="M36.6 42l-3.4 28c-.5 4.5 3 7.5 7.5 7.5h15.6c4.5 0 8-3 7.5-7.5l-3.4-28c-3.5 2.6-6.7 2.4-8.9.3-2.4 2.3-5.9 2.3-8.2 0-2 1.9-4.9 2-7.1.2z" fill="url(#g-sky)"/>
+  <path d="M38 52c4 2 9 2 13 0s9-2 13 0" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="44" cy="62" r="2.5" fill="#FFFFFF" opacity=".6"/><circle cx="54" cy="68" r="2" fill="#FFFFFF" opacity=".6"/>
+  <path d="M24 40c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#38BDF8"/>
+  <path d="M74 46c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#38BDF8"/>
+  <path d="M30 22l1.4 3.6 3.6 1.4-3.6 1.4L30 32l-1.4-3.6-3.6-1.4 3.6-1.4z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: MENULIS JURNAL ============ -->
 <symbol id="ill-jurnal" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <rect x="25" y="22" width="44" height="54" rx="7" fill="#FFF9EF" stroke="#EBDFCC" stroke-width="2"/>
-  <path d="M32 22h-1a6 6 0 0 0-6 6v42a6 6 0 0 0 6 6h1z" fill="#C05B3C"/>
-  <path d="M25 32h-5M25 42h-5M25 52h-5M25 62h-5" stroke="#B98F75" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M40 34h20M40 42h20M40 50h20M40 58h13" stroke="#D9C7B2" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M54 63c-2-2-5-.8-5 1.6 0 2.8 5 5.2 5 5.2s5-2.4 5-5.2c0-2.4-3-3.6-5-1.6z" fill="#D98A7E"/>
-  <path d="M60 80L78 62" stroke="#DCA43D" stroke-width="7" stroke-linecap="round"/>
-  <path d="M76.5 60.5l6.5-6.5-2 8.5z" fill="#4A342A"/>
-  <path d="M78 20l1.3 3.4 3.4 1.3-3.4 1.3L78 29.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="80" rx="24" ry="4" fill="#0F172A" opacity=".07"/>
+  <rect x="25" y="22" width="44" height="54" rx="7" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M32 22h-1a6 6 0 0 0-6 6v42a6 6 0 0 0 6 6h1z" fill="url(#g-em)"/>
+  <path d="M25 32h-5M25 42h-5M25 52h-5M25 62h-5" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M40 34h20M40 42h20M40 50h20M40 58h13" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M54 63c-2-2-5-.8-5 1.6 0 2.8 5 5.2 5 5.2s5-2.4 5-5.2c0-2.4-3-3.6-5-1.6z" fill="#FB923C"/>
+  <path d="M60 80L78 62" stroke="url(#g-amb)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M76.5 60.5l6.5-6.5-2 8.5z" fill="#334155"/>
+  <path d="M78 20l1.3 3.4 3.4 1.3-3.4 1.3L78 29.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: TIDUR CEPAT ============ -->
 <symbol id="ill-tidur" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M62 17A29 29 0 1 0 79 58 23.5 23.5 0 0 1 62 17z" fill="#DCA43D"/>
-  <path d="M30 26l1.6 4.2 4.2 1.6-4.2 1.6L30 37.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#DCA43D"/>
-  <path d="M36 52l1.1 2.9 2.9 1.1-2.9 1.1L36 59.1l-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#C05B3C"/>
-  <path d="M64 36h7l-7 7h7" stroke="#9E4529" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M75 26h5l-5 5h5" stroke="#C05B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <ellipse cx="30" cy="70" rx="14" ry="6.5" fill="#FFF9EF"/>
-  <ellipse cx="41" cy="67" rx="9" ry="5" fill="#FFF9EF"/>
+  <circle cx="48" cy="48" r="46" fill="#E0F2FE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <path d="M62 17A29 29 0 1 0 79 58 23.5 23.5 0 0 1 62 17z" fill="url(#g-amb2)"/>
+  <path d="M57 24A22 22 0 1 0 73 51 18 18 0 0 1 57 24z" fill="#FDE68A" opacity=".55"/>
+  <path d="M30 26l1.6 4.2 4.2 1.6-4.2 1.6L30 37.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#F59E0B"/>
+  <path d="M36 52l1.1 2.9 2.9 1.1-2.9 1.1L36 59.1l-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FB923C"/>
+  <path d="M64 36h7l-7 7h7" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M75 26h5l-5 5h5" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <ellipse cx="30" cy="70" rx="14" ry="6.5" fill="#FFFFFF"/>
+  <ellipse cx="41" cy="67" rx="9" ry="5" fill="#F8FAFC"/>
 </symbol>
 
 <!-- ============ SPOT: ANGKAT BEBAN ============ -->
 <symbol id="ill-beban" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <rect x="20" y="31" width="9" height="34" rx="4" fill="#9E4529"/>
-  <rect x="29" y="37" width="7" height="22" rx="3.5" fill="#C05B3C"/>
-  <rect x="34" y="42" width="28" height="11" rx="5.5" fill="#B98F75"/>
-  <rect x="60" y="37" width="7" height="22" rx="3.5" fill="#C05B3C"/>
-  <rect x="67" y="31" width="9" height="34" rx="4" fill="#9E4529"/>
-  <path d="M14 38h6M12 48h6M14 58h6" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
-  <path d="M76 38h6M78 48h6M76 58h6" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
-  <path d="M48 16l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#F1F5F9"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <rect x="20" y="31" width="9" height="34" rx="4" fill="url(#g-slate)"/>
+  <rect x="29" y="37" width="7" height="22" rx="3.5" fill="url(#g-em)"/>
+  <rect x="34" y="42" width="28" height="11" rx="5.5" fill="#F59E0B"/>
+  <path d="M37 45.5h22" stroke="#FFFFFF" stroke-width="2" opacity=".4" stroke-linecap="round"/>
+  <rect x="60" y="37" width="7" height="22" rx="3.5" fill="url(#g-em)"/>
+  <rect x="67" y="31" width="9" height="34" rx="4" fill="url(#g-slate)"/>
+  <path d="M14 38h6M12 48h6M14 58h6" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M76 38h6M78 48h6M76 58h6" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M48 16l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SPOT: MENABUNG (kecil) ============ -->
 <symbol id="ill-tabungan" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <ellipse cx="46" cy="56" rx="27" ry="19" fill="#F2C6A0"/>
-  <path d="M28 42l-4-10 10 5z" fill="#E9AF85"/>
-  <path d="M26 64h40" stroke="#E9AF85" stroke-width="6" stroke-linecap="round"/>
-  <ellipse cx="66" cy="56" rx="8" ry="6.5" fill="#E9AF85"/>
-  <circle cx="63.5" cy="56" r="1.5" fill="#B97F54"/>
-  <circle cx="68.5" cy="56" r="1.5" fill="#B97F54"/>
-  <path d="M58 48q2.5 2.5 5 0" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <path d="M20 52c-5-1-6.5-5-3.5-8" stroke="#E9AF85" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <rect x="40" y="37" width="12" height="3.5" rx="1.75" fill="#5C4632"/>
-  <circle cx="46" cy="22" r="7" fill="#DCA43D"/>
-  <circle cx="46" cy="22" r="4.5" fill="none" stroke="#B98F2E" stroke-width="1.8"/>
-  <path d="M42 32l-.8 3M46 32v3M50 32l.8 3" stroke="#DCA43D" stroke-width="2.5" stroke-linecap="round"/>
-  <ellipse cx="78" cy="68" rx="7" ry="2.6" fill="#DCA43D"/>
-  <ellipse cx="78" cy="63" rx="7" ry="2.6" fill="#E5B95C"/>
-  <path d="M72 34l1.2 3.2 3.2 1.2-3.2 1.2L72 42.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#DCA43D"/>
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="46" cy="74" rx="24" ry="4" fill="#0F172A" opacity=".07"/>
+  <ellipse cx="46" cy="56" rx="27" ry="19" fill="#FDBA74"/>
+  <path d="M28 42l-4-10 10 5z" fill="#FB923C"/>
+  <path d="M26 64h40" stroke="#FB923C" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="66" cy="56" rx="8" ry="6.5" fill="#FB923C"/>
+  <circle cx="63.5" cy="56" r="1.5" fill="#C2410C"/><circle cx="68.5" cy="56" r="1.5" fill="#C2410C"/>
+  <path d="M58 48q2.5 2.5 5 0" stroke="#7C2D12" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M20 52c-5-1-6.5-5-3.5-8" stroke="#FDBA74" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <rect x="40" y="37" width="12" height="3.5" rx="1.75" fill="#334155"/>
+  <circle cx="46" cy="22" r="7" fill="url(#g-amb)"/>
+  <circle cx="46" cy="22" r="4.5" fill="none" stroke="#B45309" stroke-width="1.8"/>
+  <path d="M42 32l-.8 3M46 32v3M50 32l.8 3" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="78" cy="68" rx="7" ry="2.6" fill="#F59E0B"/>
+  <ellipse cx="78" cy="63" rx="7" ry="2.6" fill="#FBBF24"/>
+  <path d="M72 34l1.2 3.2 3.2 1.2-3.2 1.2L72 42.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SCENE: HERO MENYIRAM TANAMAN ============ -->
 <symbol id="ill-hero" viewBox="0 0 480 320">
-  <path d="M240 16c82 0 152 42 178 106 24 60 4 130-56 162-64 34-168 36-234-8C66 236 42 156 74 94 106 36 158 16 240 16z" fill="#FBF2E2"/>
-  <circle cx="396" cy="62" r="25" fill="#F5D98F"/>
-  <circle cx="396" cy="62" r="37" fill="none" stroke="#F5D98F" stroke-width="3" stroke-dasharray="1 11" stroke-linecap="round" opacity=".8"/>
+  <path d="M240 16c82 0 152 42 178 106 24 60 4 130-56 162-64 34-168 36-234-8C66 236 42 156 74 94 106 36 158 16 240 16z" fill="#ECFDF5"/>
+  <path d="M240 16c82 0 152 42 178 106 24 60 4 130-56 162-64 34-168 36-234-8C66 236 42 156 74 94 106 36 158 16 240 16z" fill="url(#g-bghigh)"/>
+  <circle cx="396" cy="62" r="25" fill="url(#g-amb2)"/>
+  <circle cx="396" cy="62" r="37" fill="none" stroke="#FCD34D" stroke-width="3" stroke-dasharray="1 11" stroke-linecap="round" opacity=".8"/>
   <g fill="#FFFFFF"><ellipse cx="112" cy="56" rx="27" ry="12"/><ellipse cx="134" cy="50" rx="17" ry="9"/></g>
-  <path d="M40 272c80-26 260-28 348-9 26 5.5 46 13 52 21H32c1-5 4-9 8-12z" fill="#E7F0E0"/>
-  <path d="M150 234v20M176 234v20" stroke="#6E8F6A" stroke-width="15" stroke-linecap="round"/>
-  <path d="M136 150c0-11 11-17 27-17h10c16 0 27 6 27 17l7 72c1 9-6 16-15 16h-48c-9 0-16-7-15-16z" fill="#C05B3C"/>
-  <circle cx="168" cy="120" r="24" fill="#EBB896"/>
-  <path d="M144 118c0-17 11-27 24-27s24 10 24 27c-3.5-4.5-11-7.5-24-7.5s-20.5 3-24 7.5z" fill="#4A342A"/>
-  <circle cx="168" cy="87" r="10.5" fill="#4A342A"/>
-  <path d="M160 122q3 3 6 0M172 122q3 3 6 0" stroke="#4A342A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M165 130q3 3 6 0" stroke="#9E4529" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <circle cx="156" cy="129" r="3.5" fill="#F2C6A0"/>
-  <circle cx="181" cy="129" r="3.5" fill="#F2C6A0"/>
-  <path d="M188 162c17 4 29 12 35 23" stroke="#EBB896" stroke-width="12" stroke-linecap="round" fill="none"/>
-  <path d="M148 162c-9 7-12 17-10 27" stroke="#EBB896" stroke-width="12" stroke-linecap="round" fill="none"/>
-  <path d="M228 178h46l-7 36h-32z" fill="#DCA43D"/>
-  <ellipse cx="251" cy="178" rx="23" ry="5.5" fill="#C99330"/>
-  <path d="M228 182L202 164" stroke="#DCA43D" stroke-width="11" stroke-linecap="round"/>
-  <circle cx="199" cy="162" r="6.5" fill="#C99330"/>
-  <path d="M274 186c15 2 23 11 25 23" stroke="#DCA43D" stroke-width="8" stroke-linecap="round" fill="none"/>
-  <path d="M196 172l-3.5 11M208 180l-3 10M185 180l-3 10" stroke="#7FB5A6" stroke-width="5" stroke-linecap="round"/>
-  <path d="M336 234c-4-24 2-46 12-56" stroke="#6E8F6A" stroke-width="8" stroke-linecap="round" fill="none"/>
-  <ellipse cx="314" cy="160" rx="27" ry="14" fill="#8FAE8B" transform="rotate(-20 314 160)"/>
-  <ellipse cx="362" cy="178" rx="27" ry="14" fill="#8FAE8B" transform="rotate(22 362 178)"/>
-  <ellipse cx="344" cy="124" rx="16" ry="26" fill="#6E8F6A"/>
-  <ellipse cx="312" cy="196" rx="14" ry="8" fill="#A9C29B" transform="rotate(-28 312 196)"/>
-  <circle cx="372" cy="126" r="14" fill="#FFF9EF"/>
-  <path d="M366 126l4.5 5 8.5-9.5" stroke="#C05B3C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M306 242h60l-8 28h-44z" fill="#9E4529"/>
-  <rect x="300" y="234" width="72" height="13" rx="6" fill="#C05B3C"/>
-  <path d="M262 96c8-6.5 17-6.5 23 0-6 6.5-15 6.5-23 0z" fill="#8FAE8B"/>
-  <path d="M96 128l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6z" fill="#DCA43D"/>
-  <path d="M430 170l2.2 5.8 5.8 2.2-5.8 2.2-2.2 5.8-2.2-5.8-5.8-2.2 5.8-2.2z" fill="#DCA43D"/>
-  <circle cx="70" cy="196" r="4.5" fill="#F2C6A0"/>
-  <circle cx="448" cy="118" r="5" fill="#F2C6A0"/>
+  <path d="M40 272c80-26 260-28 348-9 26 5.5 46 13 52 21H32c1-5 4-9 8-12z" fill="#D1FAE5"/>
+  <ellipse cx="168" cy="292" rx="60" ry="7" fill="#0F172A" opacity=".07"/>
+  <ellipse cx="336" cy="292" rx="58" ry="7" fill="#0F172A" opacity=".07"/>
+  <path d="M150 234v20M176 234v20" stroke="#475569" stroke-width="15" stroke-linecap="round"/>
+  <path d="M136 150c0-11 11-17 27-17h10c16 0 27 6 27 17l7 72c1 9-6 16-15 16h-48c-9 0-16-7-15-16z" fill="url(#g-em)"/>
+  <path d="M141 148c4-3 34-3 38 0" stroke="#FFFFFF" stroke-width="4" opacity=".3" fill="none" stroke-linecap="round"/>
+  <circle cx="168" cy="120" r="24" fill="#FCD9B8"/>
+  <path d="M144 118c0-17 11-27 24-27s24 10 24 27c-3.5-4.5-11-7.5-24-7.5s-20.5 3-24 7.5z" fill="#1E293B"/>
+  <circle cx="168" cy="87" r="10.5" fill="#1E293B"/>
+  <path d="M160 122q3 3 6 0M172 122q3 3 6 0" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M165 130q3 3 6 0" stroke="#C2410C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="156" cy="129" r="3.5" fill="#FBC4A0"/><circle cx="181" cy="129" r="3.5" fill="#FBC4A0"/>
+  <path d="M188 162c17 4 29 12 35 23" stroke="#FCD9B8" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M148 162c-9 7-12 17-10 27" stroke="#F5C09A" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M228 178h46l-7 36h-32z" fill="url(#g-amb)"/>
+  <ellipse cx="251" cy="178" rx="23" ry="5.5" fill="#B45309"/>
+  <path d="M228 182L202 164" stroke="#D97706" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="199" cy="162" r="6.5" fill="#B45309"/>
+  <path d="M274 186c15 2 23 11 25 23" stroke="#F59E0B" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M196 172l-3.5 11M208 180l-3 10M185 180l-3 10" stroke="#7DD3FC" stroke-width="5" stroke-linecap="round"/>
+  <path d="M336 234c-4-24 2-46 12-56" stroke="#047857" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="314" cy="160" rx="27" ry="14" fill="#34D399" transform="rotate(-20 314 160)"/>
+  <ellipse cx="362" cy="178" rx="27" ry="14" fill="#6EE7B7" transform="rotate(22 362 178)"/>
+  <ellipse cx="344" cy="124" rx="16" ry="26" fill="url(#g-em)"/>
+  <ellipse cx="312" cy="196" rx="14" ry="8" fill="#A7F3D0" transform="rotate(-28 312 196)"/>
+  <circle cx="372" cy="126" r="14" fill="#FFFFFF"/>
+  <path d="M366 126l4.5 5 8.5-9.5" stroke="#059669" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M306 242h60l-8 28h-44z" fill="#B45309"/>
+  <rect x="300" y="234" width="72" height="13" rx="6" fill="url(#g-amb)"/>
+  <path d="M262 96c8-6.5 17-6.5 23 0-6 6.5-15 6.5-23 0z" fill="#34D399"/>
+  <path d="M96 128l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6z" fill="#F59E0B"/>
+  <path d="M430 170l2.2 5.8 5.8 2.2-5.8 2.2-2.2 5.8-2.2-5.8-5.8-2.2 5.8-2.2z" fill="#FBBF24"/>
+  <circle cx="70" cy="196" r="4.5" fill="#A7F3D0"/>
+  <circle cx="448" cy="118" r="5" fill="#FCD34D"/>
 </symbol>
 
 <!-- ============ SCENE: CELENGAN ============ -->
 <symbol id="ill-piggy" viewBox="0 0 200 140">
-  <path d="M100 12c34 0 62 18 70 46 8 28-10 58-46 64-40 7-72-10-80-40-8-32 16-70 56-70z" fill="#FBF2E2"/>
-  <ellipse cx="96" cy="122" rx="46" ry="6" fill="#EBDFCC"/>
-  <path d="M64 108v16M84 112v14M104 112v14M118 108v16" stroke="#E9AF85" stroke-width="9" stroke-linecap="round"/>
-  <ellipse cx="92" cy="86" rx="47" ry="33" fill="#F2C6A0"/>
-  <path d="M60 62l-8-18 19 9z" fill="#E9AF85"/>
-  <path d="M46 82c-9-2-11-9-5-13" stroke="#E9AF85" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <ellipse cx="132" cy="90" rx="13" ry="10" fill="#E9AF85"/>
-  <circle cx="128" cy="90" r="2.2" fill="#B97F54"/>
-  <circle cx="136" cy="90" r="2.2" fill="#B97F54"/>
-  <path d="M112 78q3 3 6 0" stroke="#4A342A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <rect x="82" y="53" width="20" height="4.5" rx="2.25" fill="#5C4632"/>
-  <circle cx="92" cy="32" r="11" fill="#DCA43D"/>
-  <circle cx="92" cy="32" r="7.5" fill="none" stroke="#B98F2E" stroke-width="2"/>
-  <path d="M86 46l-1 5M92 46v5.5M98 46l1 5" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
-  <ellipse cx="162" cy="116" rx="13" ry="4.5" fill="#DCA43D"/>
-  <ellipse cx="162" cy="108" rx="13" ry="4.5" fill="#E5B95C"/>
-  <ellipse cx="162" cy="100" rx="13" ry="4.5" fill="#DCA43D"/>
-  <path d="M158 64l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#DCA43D"/>
+  <path d="M100 12c34 0 62 18 70 46 8 28-10 58-46 64-40 7-72-10-80-40-8-32 16-70 56-70z" fill="#FEF3C7"/>
+  <path d="M100 12c34 0 62 18 70 46 8 28-10 58-46 64-40 7-72-10-80-40-8-32 16-70 56-70z" fill="url(#g-bghigh)"/>
+  <ellipse cx="96" cy="122" rx="46" ry="6" fill="#0F172A" opacity=".08"/>
+  <path d="M64 108v16M84 112v14M104 112v14M118 108v16" stroke="#FB923C" stroke-width="9" stroke-linecap="round"/>
+  <ellipse cx="92" cy="86" rx="47" ry="33" fill="#FDBA74"/>
+  <path d="M74 62q18-10 36 0" stroke="#FFF" stroke-width="3" opacity=".35" fill="none" stroke-linecap="round"/>
+  <path d="M60 62l-8-18 19 9z" fill="#FB923C"/>
+  <path d="M46 82c-9-2-11-9-5-13" stroke="#FDBA74" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <ellipse cx="132" cy="90" rx="13" ry="10" fill="#FB923C"/>
+  <circle cx="128" cy="90" r="2.2" fill="#C2410C"/><circle cx="136" cy="90" r="2.2" fill="#C2410C"/>
+  <path d="M112 78q3 3 6 0" stroke="#7C2D12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <rect x="82" y="53" width="20" height="4.5" rx="2.25" fill="#334155"/>
+  <circle cx="92" cy="32" r="11" fill="url(#g-amb)"/>
+  <circle cx="92" cy="32" r="7.5" fill="none" stroke="#B45309" stroke-width="2"/>
+  <path d="M86 46l-1 5M92 46v5.5M98 46l1 5" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="162" cy="116" rx="13" ry="4.5" fill="#F59E0B"/>
+  <ellipse cx="162" cy="108" rx="13" ry="4.5" fill="#FBBF24"/>
+  <ellipse cx="162" cy="100" rx="13" ry="4.5" fill="#F59E0B"/>
+  <path d="M158 64l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#FBBF24"/>
 </symbol>
 
 <!-- ============ SCENE: DOMPET ============ -->
 <symbol id="ill-dompet" viewBox="0 0 160 130">
-  <path d="M78 10c30 0 55 16 62 42 7 27-9 55-42 61-35 7-62-10-69-38C22 45 42 10 78 10z" fill="#E7F0E0"/>
-  <rect x="52" y="20" width="34" height="22" rx="5" fill="#C05B3C" transform="rotate(-10 69 31)"/>
-  <rect x="74" y="14" width="34" height="22" rx="5" fill="#8FAE8B" transform="rotate(8 91 25)"/>
-  <rect x="36" y="46" width="88" height="54" rx="14" fill="#9E4529"/>
-  <rect x="48" y="58" width="64" height="10" rx="5" fill="#7A3520"/>
-  <path d="M103 62c6-4 12-4 18 0" stroke="#DCA43D" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <circle cx="112" cy="74" r="9" fill="#DCA43D"/>
-  <circle cx="44" cy="26" r="7" fill="#DCA43D"/>
-  <circle cx="134" cy="30" r="5.5" fill="#DCA43D"/>
-  <path d="M126 52l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#DCA43D"/>
+  <path d="M78 10c30 0 55 16 62 42 7 27-9 55-42 61-35 7-62-10-69-38C22 45 42 10 78 10z" fill="#DBEAFE"/>
+  <path d="M78 10c30 0 55 16 62 42 7 27-9 55-42 61-35 7-62-10-69-38C22 45 42 10 78 10z" fill="url(#g-bghigh)"/>
+  <ellipse cx="80" cy="104" rx="38" ry="6" fill="#0F172A" opacity=".07"/>
+  <rect x="52" y="20" width="34" height="22" rx="5" fill="url(#g-em)" transform="rotate(-10 69 31)"/>
+  <rect x="74" y="14" width="34" height="22" rx="5" fill="url(#g-amb)" transform="rotate(8 91 25)"/>
+  <rect x="36" y="46" width="88" height="54" rx="14" fill="url(#g-blu)"/>
+  <path d="M46 52q34-6 68 0" stroke="#FFFFFF" stroke-width="3" opacity=".3" fill="none" stroke-linecap="round"/>
+  <rect x="48" y="58" width="64" height="9" rx="4.5" fill="#1E40AF" opacity=".35"/>
+  <path d="M103 62c6-4 12-4 18 0" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="112" cy="74" r="9" fill="url(#g-amb)"/>
+  <circle cx="112" cy="74" r="3.5" fill="#B45309"/>
+  <circle cx="44" cy="26" r="7" fill="#F59E0B"/>
+  <circle cx="134" cy="30" r="5.5" fill="#FBBF24"/>
+  <path d="M126 52l1.6 4.4 4.4 1.6-4.4 1.6L126 64l-1.6-4.4L120 58l4.4-1.6z" fill="#F59E0B"/>
 </symbol>
 
 <!-- ============ SCENE: GRAFIK NAIK ============ -->
 <symbol id="ill-naik" viewBox="0 0 160 130">
-  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#FBF2E2"/>
-  <rect x="36" y="76" width="18" height="34" rx="6" fill="#A9C29B"/>
-  <rect x="62" y="60" width="18" height="50" rx="6" fill="#8FAE8B"/>
-  <rect x="88" y="42" width="18" height="68" rx="6" fill="#7C9B72"/>
-  <path d="M34 82L70 58 98 36" stroke="#C05B3C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M98 36l-1 12M98 36l-12 2" stroke="#C05B3C" stroke-width="5" stroke-linecap="round"/>
-  <path d="M126 44l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#DCA43D"/>
-  <circle cx="30" cy="40" r="3.5" fill="#F2C6A0"/>
-  <circle cx="122" cy="92" r="4" fill="#F2C6A0"/>
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#ECFDF5"/>
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="url(#g-bghigh)"/>
+  <ellipse cx="80" cy="114" rx="38" ry="5" fill="#0F172A" opacity=".07"/>
+  <rect x="36" y="76" width="18" height="34" rx="6" fill="#6EE7B7"/>
+  <rect x="62" y="60" width="18" height="50" rx="6" fill="url(#g-em2)"/>
+  <rect x="88" y="42" width="18" height="68" rx="6" fill="url(#g-em)"/>
+  <path d="M90 46h14" stroke="#FFFFFF" stroke-width="2.5" opacity=".4" stroke-linecap="round"/>
+  <path d="M34 82L70 58 98 36" stroke="#F97316" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M98 36l-1 12M98 36l-12 2" stroke="#F97316" stroke-width="5" stroke-linecap="round"/>
+  <path d="M126 44l1.6 4.4 4.4 1.6-4.4 1.6L126 56l-1.6-4.4L120 50l4.4-1.6z" fill="#F59E0B"/>
+  <circle cx="30" cy="40" r="3.5" fill="#A7F3D0"/>
+  <circle cx="122" cy="92" r="4" fill="#FCD34D"/>
 </symbol>
 
 <!-- ============ SCENE: KERANJANG BELANJA ============ -->
 <symbol id="ill-keranjang" viewBox="0 0 160 130">
-  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#F9ECD1"/>
-  <path d="M52 64c0-20 12-30 28-30s28 10 28 30" stroke="#B98F2E" stroke-width="6" fill="none" stroke-linecap="round"/>
-  <circle cx="60" cy="52" r="11" fill="#7C9B72"/>
-  <path d="M60 41c-3-6-9-8-15-7 1 6 7 9 15 7z" fill="#8FAE8B"/>
-  <path d="M60 41c3-6 9-8 15-7-1 6-7 9-15 7z" fill="#A9C29B"/>
-  <path d="M86 30l10-6 10 6v22l-10 6-10-6z" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="2"/>
-  <path d="M86 30l10 5 10-5M96 35v23" stroke="#E4D5C2" stroke-width="2" fill="none"/>
-  <circle cx="120" cy="52" r="8" fill="#C05B3C"/>
-  <path d="M120 44c.5-2 2-3.5 4-4" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <path d="M40 64h80l-9 42c-.8 4-4 6.5-8 6.5H57c-4 0-7.2-2.5-8-6.5z" fill="#DCA43D"/>
-  <path d="M42 78h76M45 92h70" stroke="#C08A2C" stroke-width="3" opacity=".7"/>
-  <path d="M64 66l3 44M96 66l-3 44" stroke="#C08A2C" stroke-width="3" opacity=".5"/>
-  <path d="M34 40l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#FEF3C7"/>
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="url(#g-bghigh)"/>
+  <ellipse cx="80" cy="106" rx="30" ry="5" fill="#0F172A" opacity=".07"/>
+  <path d="M52 60c0-18 12-28 28-28s28 10 28 28" stroke="#D97706" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="58" cy="46" r="11" fill="url(#g-em2)"/>
+  <path d="M58 35c-3-6-9-8-15-7 1 6 7 9 15 7z" fill="#34D399"/>
+  <path d="M58 35c3-6 9-8 15-7-1 6-7 9-15 7z" fill="#6EE7B7"/>
+  <circle cx="102" cy="50" r="9" fill="url(#g-org)"/>
+  <path d="M102 41c-2.5-5 2.5-8 6-8 0 5-2.5 8-6 8z" fill="#34D399"/>
+  <path d="M88 40c-2.5-5-8-6.5-13-5 1.5 5 7.5 8 13 5z" fill="url(#g-em)"/>
+  <path d="M50 62h60l-7 34c-.7 3.4-3.6 6-7 6H64c-3.4 0-6.3-2.6-7-6z" fill="url(#g-amb)"/>
+  <path d="M50 62h60l-1.5 8h-57z" fill="#B45309" opacity=".3"/>
+  <path d="M64 72l2.5 22M80 72v22M96 72l-2.5 22M57 80h46" stroke="#B45309" stroke-width="2.5" opacity=".5" stroke-linecap="round"/>
+  <path d="M126 44l1.6 4.4 4.4 1.6-4.4 1.6L126 56l-1.6-4.4L120 50l4.4-1.6z" fill="#F59E0B"/>
+  <circle cx="34" cy="46" r="3.5" fill="#6EE7B7"/>
 </symbol>
 
-<!-- ============ SCENE: KOSONG (empty state) ============ -->
+<!-- ============ SCENE: KOSONG ============ -->
 <symbol id="ill-kosong" viewBox="0 0 200 150">
-  <circle cx="100" cy="72" r="56" fill="none" stroke="#E4D5C2" stroke-width="2.5" stroke-dasharray="3 8" stroke-linecap="round"/>
-  <rect x="64" y="70" width="72" height="40" rx="4" fill="#B97F4E"/>
-  <path d="M60 78L40 62l26-6z" fill="#C68B57"/>
-  <path d="M140 78l20-16-26-6z" fill="#C68B57"/>
-  <path d="M60 78l8-8h64l8 8v26c0 3-2 5-5 5H65c-3 0-5-2-5-5z" fill="#D9A06B"/>
-  <path d="M100 70c0-10 2-16 8-22" stroke="#6E8F6A" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <path d="M100 52c-4-8-12-11-19-10 2 8 10 13 19 10z" fill="#8FAE8B"/>
-  <path d="M102 48c4-8 12-10 18-8-2 8-9 12-18 8z" fill="#A9C29B"/>
-  <path d="M152 30l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#DCA43D"/>
-  <path d="M42 30l1.4 3.8 3.8 1.4-3.8 1.4L42 40.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#DCA43D"/>
-  <ellipse cx="100" cy="116" rx="52" ry="6" fill="#F1E6D4"/>
+  <circle cx="100" cy="72" r="56" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="3 8" stroke-linecap="round"/>
+  <ellipse cx="100" cy="116" rx="52" ry="6" fill="#E2E8F0"/>
+  <path d="M60 78L40 62l26-6z" fill="#B45309"/>
+  <path d="M140 78l20-16-26-6z" fill="#B45309"/>
+  <path d="M64 66h72l-6 36c-.5 3-3 5-6 5H76c-3 0-5.5-2-6-5z" fill="url(#g-amb)"/>
+  <path d="M64 66h72l-1 8H65z" fill="#B45309" opacity=".28"/>
+  <path d="M84 66v-6c0-2 1.5-3.5 3.5-3.5h25c2 0 3.5 1.5 3.5 3.5v6" fill="#F59E0B"/>
+  <path d="M100 58c0-10 2-16 8-22" stroke="#047857" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M100 42c-4-8-12-11-19-10 2 8 10 13 19 10z" fill="url(#g-em2)"/>
+  <path d="M102 38c4-8 12-10 18-8-2 8-9 12-18 8z" fill="#6EE7B7"/>
+  <path d="M152 30l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#F59E0B"/>
+  <path d="M42 30l1.4 3.8 3.8 1.4-3.8 1.4L42 40.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
+  <circle cx="100" cy="20" r="3" fill="#38BDF8"/>
 </symbol>
 
 <!-- ============ SCENE: PAGI (hari terbaik) ============ -->
 <symbol id="ill-pagi" viewBox="0 0 170 120">
-  <path d="M85 8c30 0 55 14 60 40 5 27-12 54-44 58-33 4-58-12-63-40C33 38 52 8 85 8z" fill="#F9ECD1"/>
-  <path d="M53 78a32 32 0 0 1 64 0z" fill="#DCA43D"/>
-  <circle cx="85" cy="66" r="12" fill="#F5D98F"/>
-  <path d="M85 44v-8M62 52l-5.5-6M108 52l5.5-6" stroke="#DCA43D" stroke-width="3.5" stroke-linecap="round"/>
-  <ellipse cx="52" cy="88" rx="36" ry="16" fill="#A9C29B"/>
-  <ellipse cx="116" cy="92" rx="40" ry="15" fill="#8FAE8B"/>
-  <path d="M28 34c4-4 8-4 10 0 2-4 6-4 10 0" stroke="#6B5A49" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M136 32l1.8 4.8 4.8 1.8-4.8 1.8-1.8 4.8-1.8-4.8-4.8-1.8 4.8-1.8z" fill="#DCA43D"/>
+  <path d="M85 8c30 0 55 14 60 40 5 27-12 54-44 58-33 4-58-12-63-40C33 38 52 8 85 8z" fill="#FEF3C7"/>
+  <path d="M85 8c30 0 55 14 60 40 5 27-12 54-44 58-33 4-58-12-63-40C33 38 52 8 85 8z" fill="url(#g-bghigh)"/>
+  <path d="M53 78a32 32 0 0 1 64 0z" fill="url(#g-amb2)"/>
+  <circle cx="85" cy="66" r="12" fill="#FDE68A"/>
+  <circle cx="85" cy="66" r="6" fill="#FCD34D"/>
+  <path d="M85 44v-8M62 52l-5.5-6M108 52l5.5-6" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="52" cy="88" rx="36" ry="16" fill="url(#g-em2)"/>
+  <ellipse cx="116" cy="92" rx="40" ry="15" fill="url(#g-em)"/>
+  <path d="M28 34c4-4 8-4 10 0 2-4 6-4 10 0" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M136 32l1.8 4.8 4.8 1.8-4.8 1.8-1.8 4.8-1.8-4.8-4.8-1.8 4.8-1.8z" fill="#F59E0B"/>
 </symbol>
 
 <!-- ============ SCENE: RUMAH ============ -->
 <symbol id="ill-rumah" viewBox="0 0 140 110">
-  <path d="M70 8c26 0 48 13 53 35 5 24-11 48-38 52-28 4-50-10-55-34C25 36 42 8 70 8z" fill="#E7F0E0"/>
-  <rect x="86" y="28" width="8" height="14" rx="2" fill="#9E4529"/>
-  <path d="M90 26c-4-4 4-7 0-11" stroke="#B98F75" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M38 50l32-24 32 24z" fill="#C05B3C"/>
-  <rect x="44" y="48" width="52" height="40" rx="5" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="2"/>
-  <rect x="50" y="58" width="10" height="10" rx="2.5" fill="#F9ECD1" stroke="#E4D5C2" stroke-width="1.5"/>
-  <rect x="62" y="64" width="15" height="24" rx="3" fill="#8FAE8B"/>
-  <circle cx="38" cy="86" r="7" fill="#A9C29B"/>
-  <circle cx="102" cy="86" r="6.5" fill="#8FAE8B"/>
+  <path d="M70 8c26 0 48 13 53 35 5 24-11 48-38 52-28 4-50-10-55-34C25 36 42 8 70 8z" fill="#ECFDF5"/>
+  <path d="M70 8c26 0 48 13 53 35 5 24-11 48-38 52-28 4-50-10-55-34C25 36 42 8 70 8z" fill="url(#g-bghigh)"/>
+  <ellipse cx="70" cy="94" rx="34" ry="5" fill="#0F172A" opacity=".06"/>
+  <rect x="86" y="28" width="8" height="14" rx="2" fill="#EA580C"/>
+  <path d="M90 26c-4-4 4-7 0-11" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M38 50l32-24 32 24z" fill="url(#g-org)"/>
+  <path d="M70 26l32 24H70z" fill="#C2410C" opacity=".25"/>
+  <rect x="44" y="48" width="52" height="40" rx="5" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="50" y="58" width="10" height="10" rx="2.5" fill="#FEF3C7" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="62" y="64" width="15" height="24" rx="3" fill="url(#g-em)"/>
+  <circle cx="38" cy="86" r="7" fill="#34D399"/>
+  <circle cx="102" cy="86" r="6.5" fill="url(#g-em2)"/>
 </symbol>
 
 <!-- ============ LENCANA: API ============ -->
 <symbol id="ill-api" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M48 20c5 7 14 11 14 24a14 14 0 0 1-28 0c0-7 3.5-11.5 7-16 1 5 3 7.5 6 9.5-1.5-6 .5-12 1-17.5z" fill="#C05B3C"/>
-  <path d="M48 42c3 4 6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 3-7 6-11z" fill="#DCA43D"/>
-  <path d="M24 30l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
-  <path d="M72 26l1.2 3.2 3.2 1.2-3.2 1.2L72 34.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#C05B3C"/>
+  <circle cx="48" cy="48" r="46" fill="#FFEDD5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="72" rx="15" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <path d="M48 20c5 7 14 11 14 24a14 14 0 0 1-28 0c0-7 3.5-11.5 7-16 1 5 3 7.5 6 9.5-1.5-6 .5-12 1-17.5z" fill="url(#g-org)"/>
+  <path d="M48 42c3 4 6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 3-7 6-11z" fill="url(#g-amb2)"/>
+  <path d="M48 49c1.5 2 3 3.2 3 5.5a3 3 0 0 1-6 0c0-2.3 1.5-3.5 3-5.5z" fill="#FEF3C7"/>
+  <path d="M24 30l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#F59E0B"/>
+  <path d="M72 26l1.2 3.2 3.2 1.2-3.2 1.2L72 34.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FB923C"/>
 </symbol>
 
 <!-- ============ LENCANA: PIALA ============ -->
 <symbol id="ill-piala" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M30 28c-7 0-10 4-9 9 1 4 5 6 9 5M66 28c7 0 10 4 9 9-1 4-5 6-9 5" stroke="#B98F2E" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M30 24h36v14c0 13-8 22-18 22s-18-9-18-22z" fill="#DCA43D"/>
-  <path d="M44 60h8l-1 8h-6z" fill="#B98F2E"/>
-  <rect x="36" y="68" width="24" height="7" rx="3" fill="#9E4529"/>
-  <path d="M48 32l2.6 6.8 7.4.6-5.6 4.8 1.7 7.2-6.1-3.8-6.1 3.8 1.7-7.2-5.6-4.8 7.4-.6z" fill="#FFF9EF"/>
-  <circle cx="22" cy="22" r="3" fill="#C05B3C"/>
-  <circle cx="76" cy="30" r="2.5" fill="#8FAE8B"/>
-  <rect x="70" y="16" width="5" height="5" rx="1.5" fill="#F2C6A0" transform="rotate(20 72.5 18.5)"/>
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="80" rx="18" ry="3.5" fill="#0F172A" opacity=".08"/>
+  <path d="M30 28c-7 0-10 4-9 9 1 4 5 6 9 5M66 28c7 0 10 4 9 9-1 4-5 6-9 5" stroke="#B45309" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M30 24h36v14c0 13-8 22-18 22s-18-9-18-22z" fill="url(#g-amb)"/>
+  <path d="M32 27c4-2 10-3 16-3v10H32z" fill="#FFFFFF" opacity=".18"/>
+  <path d="M44 60h8l-1 8h-6z" fill="#B45309"/>
+  <rect x="36" y="68" width="24" height="7" rx="3" fill="#334155"/>
+  <path d="M48 32l2.6 6.8 7.4.6-5.6 4.8 1.7 7.2-6.1-3.8-6.1 3.8 1.7-7.2-5.6-4.8 7.4-.6z" fill="#FFFFFF"/>
+  <circle cx="22" cy="22" r="3" fill="#10B981"/><circle cx="76" cy="30" r="2.5" fill="#38BDF8"/>
+  <rect x="70" y="16" width="5" height="5" rx="1.5" fill="#FB923C" transform="rotate(20 72.5 18.5)"/>
 </symbol>
 
 <!-- ============ LENCANA: MEDALI ============ -->
 <symbol id="ill-medali" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M38 18l10 22-8 4-10-22z" fill="#C05B3C"/>
-  <path d="M58 18l-10 22 8 4 10-22z" fill="#8FAE8B"/>
-  <circle cx="48" cy="54" r="21" fill="#DCA43D" stroke="#B98F2E" stroke-width="3"/>
-  <path d="M48 43l3.2 8.3 9 .7-6.8 5.9 2 8.8-7.4-4.6-7.4 4.6 2-8.8-6.8-5.9 9-.7z" fill="#FFF9EF"/>
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="80" rx="17" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <path d="M38 18l10 22-8 4-10-22z" fill="url(#g-blu)"/>
+  <path d="M58 18l-10 22 8 4 10-22z" fill="url(#g-em)"/>
+  <circle cx="48" cy="54" r="21" fill="url(#g-amb)" stroke="#B45309" stroke-width="3"/>
+  <path d="M37 44a15 15 0 0 1 8-6" stroke="#FFFFFF" stroke-width="2.5" opacity=".5" fill="none" stroke-linecap="round"/>
+  <path d="M48 43l3.2 8.3 9 .7-6.8 5.9 2 8.8-7.4-4.6-7.4 4.6 2-8.8-6.8-5.9 9-.7z" fill="#FFFFFF"/>
 </symbol>
 
 <!-- ============ LENCANA: TUNAS ============ -->
 <symbol id="ill-sprout" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <circle cx="48" cy="48" r="30" fill="#E7F0E0" stroke="#8FAE8B" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>
-  <path d="M48 62c0-8 0-13 1-18" stroke="#6E8F6A" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <path d="M48 46c-3-9-11-13-19-12 1 9 10 15 19 12z" fill="#8FAE8B"/>
-  <path d="M49 42c3-9 11-13 19-12-1 9-10 15-19 12z" fill="#A9C29B"/>
-  <circle cx="64" cy="64" r="9" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="1.5"/>
-  <path d="M60 64l3 3.5 5.5-6" stroke="#C05B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="74" rx="17" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <circle cx="48" cy="48" r="30" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>
+  <path d="M48 62c0-8 0-13 1-18" stroke="#047857" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M48 46c-3-9-11-13-19-12 1 9 10 15 19 12z" fill="url(#g-em2)"/>
+  <path d="M49 42c3-9 11-13 19-12-1 9-10 15-19 12z" fill="#6EE7B7"/>
+  <circle cx="64" cy="64" r="9" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <path d="M60 64l3 3.5 5.5-6" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </symbol>
 
 <!-- ============ LENCANA: BULAN (terkunci) ============ -->
 <symbol id="ill-bulan" viewBox="0 0 96 96">
-  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
-  <path d="M56 20A26 26 0 1 0 72 54 21 21 0 0 1 56 20z" fill="#DCA43D"/>
-  <path d="M28 30l1.6 4.2 4.2 1.6-4.2 1.6L28 41.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#DCA43D"/>
-  <path d="M58 40h6l-6 6h6" stroke="#9E4529" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M68 32h4.5l-4.5 4.5h4.5" stroke="#C05B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="48" cy="48" r="46" fill="#E0F2FE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <path d="M56 20A26 26 0 1 0 72 54 21 21 0 0 1 56 20z" fill="url(#g-amb2)"/>
+  <path d="M52 26A20 20 0 1 0 66 50 16 16 0 0 1 52 26z" fill="#FDE68A" opacity=".55"/>
+  <path d="M28 30l1.6 4.2 4.2 1.6-4.2 1.6L28 41.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#F59E0B"/>
+  <path d="M58 40h6l-6 6h6" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M68 32h4.5l-4.5 4.5h4.5" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</symbol>
+
+<!-- ============ BARU: ROKET ============ -->
+<symbol id="ill-roket" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#E0F2FE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="78" rx="17" ry="3.5" fill="#0F172A" opacity=".08"/>
+  <path d="M38 40c-5 3-8 8-8 14l8 4zM58 40c5 3 8 8 8 14l-8 4z" fill="url(#g-em)"/>
+  <path d="M48 16c7 8 10 18 10 28v14H38V44c0-10 3-20 10-28z" fill="#FFFFFF"/>
+  <path d="M48 16c7 8 10 18 10 28v14H48z" fill="#E2E8F0" opacity=".55"/>
+  <path d="M48 16c-3.6 4.2-6.3 9.5-8 15h16c-1.7-5.5-4.4-10.8-8-15z" fill="url(#g-em)"/>
+  <circle cx="48" cy="43" r="6.5" fill="url(#g-sky)" stroke="#FFFFFF" stroke-width="2.5"/>
+  <path d="M43 58h10l-2 9h-6z" fill="url(#g-amb)"/>
+  <path d="M46 58h4l-1.2 6h-1.6z" fill="#FDE68A"/>
+  <circle cx="53" cy="74" r="2.6" fill="#94A3B8"/><circle cx="58" cy="78" r="2.1" fill="#CBD5E1"/><circle cx="44" cy="78" r="2.2" fill="#CBD5E1"/>
+  <path d="M24 28l1.4 3.8 3.8 1.4-3.8 1.4L24 38.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
+  <path d="M70 22l1.2 3.2 3.2 1.2-3.2 1.2L70 30.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#38BDF8"/>
+  <circle cx="76" cy="44" r="3" fill="#FB923C"/>
+</symbol>
+
+<!-- ============ BARU: TARGET ============ -->
+<symbol id="ill-target" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="46" cy="76" rx="24" ry="4" fill="#0F172A" opacity=".07"/>
+  <circle cx="46" cy="52" r="26" fill="#FFFFFF"/>
+  <circle cx="46" cy="52" r="26" fill="url(#g-bghigh)"/>
+  <circle cx="46" cy="52" r="19" fill="#D1FAE5"/>
+  <circle cx="46" cy="52" r="12.5" fill="url(#g-em2)"/>
+  <circle cx="46" cy="52" r="5.5" fill="#FFFFFF"/>
+  <path d="M46 26a26 26 0 0 0-22 12" stroke="#FFFFFF" stroke-width="4" opacity=".55" fill="none" stroke-linecap="round"/>
+  <path d="M64 34L48 50" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <path d="M48 50l1.2-6.5M48 50l6.5-1.2" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <path d="M64 34l7-9M64 34l10-1" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M26 24l1.4 3.8 3.8 1.4-3.8 1.4L26 34.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
+  <circle cx="74" cy="66" r="3" fill="#38BDF8"/>
+</symbol>
+
+<!-- ============ BARU: BOHLAM IDE ============ -->
+<symbol id="ill-bulb" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="80" rx="16" ry="3.5" fill="#0F172A" opacity=".08"/>
+  <path d="M48 18a19 19 0 0 1 11 34.4c-2 1.4-3 3.4-3 5.6h-16c0-2.2-1-4.2-3-5.6A19 19 0 0 1 48 18z" fill="url(#g-amb)"/>
+  <path d="M41 23a14 14 0 0 1 8-2" stroke="#FFFFFF" stroke-width="3" opacity=".5" fill="none" stroke-linecap="round"/>
+  <path d="M45 44q3-4.5 6 0" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="40" y="60" width="16" height="5" rx="2.5" fill="#94A3B8"/>
+  <rect x="41.5" y="66" width="13" height="4.5" rx="2.25" fill="#64748B"/>
+  <rect x="43.5" y="71.5" width="9" height="4" rx="2" fill="#334155"/>
+  <path d="M48 6v5M24 18l4 4M72 18l-4 4" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 28l1.3 3.4 3.4 1.3-3.4 1.3L22 37.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#F59E0B"/>
+  <path d="M74 28l1.3 3.4 3.4 1.3-3.4 1.3L74 37.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#F59E0B"/>
+</symbol>
+
+<!-- ============ BARU: KALENDER ============ -->
+<symbol id="ill-kal" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#E0F2FE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="78" rx="22" ry="4" fill="#0F172A" opacity=".07"/>
+  <rect x="26" y="26" width="44" height="46" rx="9" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M26 35a9 9 0 0 1 9-9h26a9 9 0 0 1 9 9v6H26z" fill="url(#g-em)"/>
+  <rect x="36" y="20" width="5" height="11" rx="2.5" fill="#64748B"/>
+  <rect x="55" y="20" width="5" height="11" rx="2.5" fill="#64748B"/>
+  <path d="M29 46h38" stroke="#F1F5F9" stroke-width="2"/>
+  <circle cx="37" cy="53" r="4" fill="#D1FAE5"/><path d="M35.2 53l1.4 1.5 2.4-2.7" stroke="#059669" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="45" y="50.5" width="16" height="4" rx="2" fill="#E2E8F0"/>
+  <circle cx="37" cy="63" r="4" fill="#D1FAE5"/><path d="M35.2 63l1.4 1.5 2.4-2.7" stroke="#059669" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="45" y="60.5" width="12" height="4" rx="2" fill="#E2E8F0"/>
+  <path d="M70 64l1.4 3.8 3.8 1.4-3.8 1.4L70 74.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
+</symbol>
+
+<!-- ============ BARU: TUMPUKAN KOIN ============ -->
+<symbol id="ill-koin" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="44" cy="74" rx="24" ry="4.5" fill="#0F172A" opacity=".07"/>
+  <ellipse cx="44" cy="70" rx="20" ry="7" fill="#B45309"/>
+  <ellipse cx="44" cy="67" rx="20" ry="7" fill="url(#g-amb)"/>
+  <ellipse cx="44" cy="56" rx="20" ry="7" fill="#B45309"/>
+  <ellipse cx="44" cy="53" rx="20" ry="7" fill="url(#g-amb)"/>
+  <ellipse cx="44" cy="42" rx="20" ry="7" fill="#B45309"/>
+  <ellipse cx="44" cy="39" rx="20" ry="7" fill="url(#g-amb)"/>
+  <path d="M30 37.5c4-2.5 24-2.5 28 0" stroke="#FFFFFF" stroke-width="2" opacity=".45" fill="none" stroke-linecap="round"/>
+  <circle cx="70" cy="22" r="13" fill="url(#g-amb)" stroke="#B45309" stroke-width="2"/>
+  <text x="70" y="26.5" text-anchor="middle" font-family="Poppins,Plus Jakarta Sans,sans-serif" font-size="10.5" font-weight="700" fill="#FFFFFF">Rp</text>
+  <path d="M24 26l1.4 3.8 3.8 1.4-3.8 1.4L24 36.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#F59E0B"/>
+  <path d="M20 52l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#FBBF24"/>
+</symbol>
+
+<!-- ============ BARU: BINTANG ============ -->
+<symbol id="ill-bintang" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="76" rx="18" ry="4" fill="#0F172A" opacity=".08"/>
+  <path d="M48 22l7.6 15.4 17 2.5-12.3 12 2.9 16.9L48 60.9l-15.2 8-2.9-16.9-12.3-12 17-2.5z" fill="url(#g-amb)"/>
+  <path d="M48 22l7.6 15.4 17 2.5-12.3 12 2.9 16.9L48 60.9z" fill="#B45309" opacity=".28"/>
+  <path d="M41 30l5-6 4.5 6.5" stroke="#FFFFFF" stroke-width="2.5" opacity=".55" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="30" r="3.5" fill="#FB923C"/>
+  <path d="M72 66l1.4 3.8 3.8 1.4-3.8 1.4L72 76.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#F59E0B"/>
+  <circle cx="70" cy="28" r="2.5" fill="#FCD34D"/>
+</symbol>
+
+<!-- ============ BARU: PERISAI ============ -->
+<symbol id="ill-perisai" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="48" cy="78" rx="17" ry="4" fill="#0F172A" opacity=".07"/>
+  <path d="M48 18l22 8v18c0 14-9.5 22.5-22 27-12.5-4.5-22-13-22-27V26z" fill="url(#g-em)"/>
+  <path d="M48 18l22 8v18c0 14-9.5 22.5-22 27z" fill="#047857" opacity=".22"/>
+  <path d="M40 30q4-2 8 0" stroke="#FFFFFF" stroke-width="2.5" opacity=".45" fill="none" stroke-linecap="round"/>
+  <path d="M39 46l6.5 7L59 39" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M24 26l1.4 3.8 3.8 1.4-3.8 1.4L24 36.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#FBBF24"/>
+  <circle cx="72" cy="60" r="3" fill="#38BDF8"/>
 </symbol>
 
 <!-- ==================== IKON UI (stroke) ==================== -->
@@ -970,10 +1166,10 @@ input,select,textarea{font:inherit;color:inherit}
       <div class="hero-ring">
         <div class="ring-wrap" role="img" aria-label="Progres kebiasaan hari ini">
           <svg viewBox="0 0 150 150">
-            <circle cx="75" cy="75" r="62" fill="none" stroke="#F0E2CE" stroke-width="12"/>
-            <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#C05B3C" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
-            <text x="75" y="72" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="32" font-weight="700" fill="#9E4529" id="ringText">4/7</text>
-            <text x="75" y="92" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10.5" font-weight="700" fill="#9C8A74" letter-spacing="1">SELESAI</text>
+            <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
+            <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
+            <text x="75" y="72" text-anchor="middle" font-family="Poppins,'Plus Jakarta Sans',sans-serif" font-size="32" font-weight="700" fill="#047857" id="ringText">4/7</text>
+            <text x="75" y="92" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700" fill="#64748B" letter-spacing="1">SELESAI</text>
           </svg>
         </div>
         <div class="ring-info">
@@ -1031,13 +1227,28 @@ input,select,textarea{font:inherit;color:inherit}
     </div>
   </div>
 
+  <!-- BANNER STREAK -->
+  <div class="card streak-banner">
+    <span class="ph-art em"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+    <div class="sb-body">
+      <b>Menuju lencana Api 30 Hari</b>
+      <p class="t-sub">6 hari lagi — jangan biarkan rantainya putus.</p>
+      <div class="bar"><i data-w="80%"></i></div>
+      <small class="t-sub t-num" style="font-size:11px">24 dari 30 hari tercapai</small>
+    </div>
+    <button class="btn btn-ghost btn-sm" data-go="kebiasaan">Lihat <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+  </div>
+
   <!-- AGENDA + ARUS KAS -->
   <div class="grid g-main" id="rowAgenda">
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Agenda</div>
-          <h3 class="h-serif">Hari ini</h3>
+        <div class="ch-title">
+          <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+          <div>
+            <div class="eyebrow">Agenda</div>
+            <h3 class="h-serif">Hari ini</h3>
+          </div>
         </div>
         <span class="pill pill-streak" id="agendaCount">4/7 selesai</span>
       </div>
@@ -1050,13 +1261,16 @@ input,select,textarea{font:inherit;color:inherit}
     <div class="row" style="gap:18px">
       <div class="card card-pad">
         <div class="card-head">
-          <div>
-            <div class="eyebrow">Arus kas</div>
-            <h3 class="h-serif">7 hari terakhir</h3>
+          <div class="ch-title">
+            <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
+            <div>
+              <div class="eyebrow">Arus kas</div>
+              <h3 class="h-serif">7 hari terakhir</h3>
+            </div>
           </div>
           <div class="legend">
             <span><i style="background:var(--sage)"></i>Masuk</span>
-            <span><i style="background:var(--terra)"></i>Keluar</span>
+            <span><i style="background:#F97316"></i>Keluar</span>
           </div>
         </div>
         <div id="cfChart"></div>
@@ -1066,7 +1280,7 @@ input,select,textarea{font:inherit;color:inherit}
             <div><small>Masuk</small><b class="t-num" id="cfIn">Rp 0</b></div>
           </div>
           <div>
-            <svg class="ic" style="color:var(--terra-deep)" aria-hidden="true"><use href="#i-arr-ur"/></svg>
+            <svg class="ic" style="color:#EA580C" aria-hidden="true"><use href="#i-arr-ur"/></svg>
             <div><small>Keluar</small><b class="t-num" id="cfOut">Rp 0</b></div>
           </div>
         </div>
@@ -1085,9 +1299,12 @@ input,select,textarea{font:inherit;color:inherit}
   <!-- ANGGARAN MINI -->
   <div class="card card-pad">
     <div class="card-head">
-      <div>
-        <div class="eyebrow">Anggaran</div>
-        <h3 class="h-serif">Ringkasan bulan ini</h3>
+      <div class="ch-title">
+        <span class="head-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-target"/></svg></span>
+        <div>
+          <div class="eyebrow">Anggaran</div>
+          <h3 class="h-serif">Ringkasan bulan ini</h3>
+        </div>
       </div>
       <button class="link-btn" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
@@ -1098,9 +1315,12 @@ input,select,textarea{font:inherit;color:inherit}
 <!-- ================= HALAMAN: KEBIASAAN ================= -->
 <section class="page" data-page="kebiasaan" aria-label="Kebiasaan">
   <div class="page-head">
-    <div>
-      <h1 class="h-serif">Kebiasaan</h1>
-      <p class="t-sub">Bangun ritme harianmu, satu centang demi satu centang.</p>
+    <div class="ph-id">
+      <span class="ph-art em"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
+      <div>
+        <h1 class="h-serif">Kebiasaan</h1>
+        <p class="t-sub">Bangun ritme harianmu, satu centang demi satu centang.</p>
+      </div>
     </div>
     <button class="btn btn-primary" data-open-modal="modalHabit"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Kebiasaan baru</button>
   </div>
@@ -1122,11 +1342,14 @@ input,select,textarea{font:inherit;color:inherit}
 
   <div class="card card-pad" style="margin-bottom:20px">
     <div class="card-head" style="margin-bottom:12px">
-      <div>
-        <div class="eyebrow">Peta konsistensi</div>
-        <h3 class="h-serif">120 hari terakhir</h3>
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-kal"/></svg></span>
+        <div>
+          <div class="eyebrow">Peta konsistensi</div>
+          <h3 class="h-serif">120 hari terakhir</h3>
+        </div>
       </div>
-      <div class="hm-legend">Kurang <i style="background:#F1E6D4"></i><i style="background:#F0CDBB"></i><i style="background:#E3A184"></i><i style="background:#C05B3C"></i> Konsisten</div>
+      <div class="hm-legend">Kurang <i style="background:#F1F5F9"></i><i style="background:#D1FAE5"></i><i style="background:#6EE7B7"></i><i style="background:#059669"></i> Konsisten</div>
     </div>
     <div class="hm-flex">
       <div class="heatmap-wrap">
@@ -1144,9 +1367,12 @@ input,select,textarea{font:inherit;color:inherit}
 <!-- ================= HALAMAN: KEUANGAN ================= -->
 <section class="page" data-page="keuangan" aria-label="Keuangan">
   <div class="page-head">
-    <div>
-      <h1 class="h-serif">Keuangan</h1>
-      <p class="t-sub" id="finSub">Denyut finansialmu bulan ini.</p>
+    <div class="ph-id">
+      <span class="ph-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
+      <div>
+        <h1 class="h-serif">Keuangan</h1>
+        <p class="t-sub" id="finSub">Denyut finansialmu bulan ini.</p>
+      </div>
     </div>
     <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
   </div>
@@ -1171,7 +1397,7 @@ input,select,textarea{font:inherit;color:inherit}
     <div class="card scene-stat">
       <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
       <div>
-        <div class="num t-num" style="color:var(--terra-deep)" id="statOut">Rp 0</div>
+        <div class="num t-num" style="color:#C2410C" id="statOut">Rp 0</div>
         <div class="lbl">Pengeluaran</div>
         <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-dr"/></svg>−5% dari bulan lalu</div>
       </div>
@@ -1181,9 +1407,12 @@ input,select,textarea{font:inherit;color:inherit}
   <div class="grid g-donut">
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Komposisi</div>
-          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        <div class="ch-title">
+          <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+          <div>
+            <div class="eyebrow">Komposisi</div>
+            <h3 class="h-serif">Pengeluaran per kategori</h3>
+          </div>
         </div>
       </div>
       <div class="donut-flex">
@@ -1196,23 +1425,56 @@ input,select,textarea{font:inherit;color:inherit}
     </div>
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Anggaran bulanan</div>
-          <h3 class="h-serif">Sisa batas per kategori</h3>
+        <div class="ch-title">
+          <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-perisai"/></svg></span>
+          <div>
+            <div class="eyebrow">Anggaran bulanan</div>
+            <h3 class="h-serif">Sisa batas per kategori</h3>
+          </div>
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
       </div>
       <div class="hm-legend" style="gap:14px;margin:-8px 0 16px">
         <span><i style="background:var(--sage)"></i>aman</span>
         <span><i style="background:var(--honey)"></i>mulai penuh</span>
-        <span><i style="background:var(--terra)"></i>hampir habis</span>
+        <span><i style="background:#EF4444"></i>hampir habis</span>
       </div>
       <div class="budget-list" id="budgetList"></div>
     </div>
   </div>
 
+  <!-- TABUNGAN -->
+  <div class="card card-pad save-card" id="saveCard">
+    <div class="save-main">
+      <span class="spot save-spot"><svg class="ill" aria-hidden="true"><use href="#ill-piggy"/></svg></span>
+      <div class="save-info">
+        <div class="eyebrow">Tujuan tabungan</div>
+        <h3 class="h-serif">Dana darurat</h3>
+        <p class="t-sub t-num" id="saveAmt">Rp 6.800.000 <span style="color:var(--ink-3)">dari Rp 10.000.000</span></p>
+        <div class="save-meter"><div class="bar"><i id="saveBar" data-w="68%"></i></div><b class="t-num" id="savePct">68%</b></div>
+      </div>
+    </div>
+    <div class="save-actions">
+      <span class="t-sub" style="font-size:11px;font-weight:700">Tambah cepat</span>
+      <div class="save-chips">
+        <button class="chip" data-save="50000">+50 rb</button>
+        <button class="chip" data-save="100000">+100 rb</button>
+        <button class="chip" data-save="250000">+250 rb</button>
+      </div>
+    </div>
+  </div>
+
   <div class="card card-pad">
-    <div class="tx-tools">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
+        <div>
+          <div class="eyebrow">Riwayat</div>
+          <h3 class="h-serif">Semua transaksi</h3>
+        </div>
+      </div>
+    </div>
+    <div class="tx-tools" style="margin-top:-6px">
       <div class="chips" id="txChips" role="group" aria-label="Filter transaksi">
         <button class="chip active" data-tx-filter="semua">Semua</button>
         <button class="chip" data-tx-filter="masuk">Masuk</button>
@@ -1230,9 +1492,12 @@ input,select,textarea{font:inherit;color:inherit}
 <!-- ================= HALAMAN: KALENDER ================= -->
 <section class="page" data-page="kalender" aria-label="Kalender">
   <div class="page-head">
-    <div>
-      <h1 class="h-serif">Kalender</h1>
-      <p class="t-sub">Retrospektif harian: kebiasaan dan arus kas dalam satu tampilan.</p>
+    <div class="ph-id">
+      <span class="ph-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-kal"/></svg></span>
+      <div>
+        <h1 class="h-serif">Kalender</h1>
+        <p class="t-sub">Retrospektif harian: kebiasaan dan arus kas dalam satu tampilan.</p>
+      </div>
     </div>
     <div style="display:flex;gap:10px;align-items:center">
       <button class="icon-btn" id="calPrev" aria-label="Bulan sebelumnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
@@ -1273,18 +1538,24 @@ input,select,textarea{font:inherit;color:inherit}
 <!-- ================= HALAMAN: WAWASAN ================= -->
 <section class="page" data-page="wawasan" aria-label="Wawasan">
   <div class="page-head">
-    <div>
-      <h1 class="h-serif">Wawasan</h1>
-      <p class="t-sub">Cerita di balik angka-angakamu — tanpa drama, hanya data.</p>
+    <div class="ph-id">
+      <span class="ph-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-target"/></svg></span>
+      <div>
+        <h1 class="h-serif">Wawasan</h1>
+        <p class="t-sub">Cerita di balik angka-angkamu — tanpa drama, hanya data.</p>
+      </div>
     </div>
   </div>
 
   <div class="grid g-waw">
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Tren</div>
-          <h3 class="h-serif">Konsistensi 8 minggu terakhir</h3>
+        <div class="ch-title">
+          <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-bintang"/></svg></span>
+          <div>
+            <div class="eyebrow">Tren</div>
+            <h3 class="h-serif">Konsistensi 8 minggu terakhir</h3>
+          </div>
         </div>
         <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
       </div>
@@ -1296,9 +1567,12 @@ input,select,textarea{font:inherit;color:inherit}
     </div>
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Temuan</div>
-          <h3 class="h-serif">Yang menonjol</h3>
+        <div class="ch-title">
+          <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-roket"/></svg></span>
+          <div>
+            <div class="eyebrow">Temuan</div>
+            <h3 class="h-serif">Yang menonjol</h3>
+          </div>
         </div>
       </div>
       <div class="find-list">
@@ -1325,9 +1599,12 @@ input,select,textarea{font:inherit;color:inherit}
   <div class="grid g-waw">
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Pola</div>
-          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        <div class="ch-title">
+          <span class="head-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg></span>
+          <div>
+            <div class="eyebrow">Pola</div>
+            <h3 class="h-serif">Pengeluaran per kategori</h3>
+          </div>
         </div>
         <span class="t-sub" style="font-size:11.5px" id="polaSub">—</span>
       </div>
@@ -1335,9 +1612,12 @@ input,select,textarea{font:inherit;color:inherit}
     </div>
     <div class="card card-pad">
       <div class="card-head">
-        <div>
-          <div class="eyebrow">Rekomendasi</div>
-          <h3 class="h-serif">Untukmu</h3>
+        <div class="ch-title">
+          <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-bulb"/></svg></span>
+          <div>
+            <div class="eyebrow">Rekomendasi</div>
+            <h3 class="h-serif">Untukmu</h3>
+          </div>
         </div>
       </div>
       <div class="find-list">
@@ -1407,11 +1687,11 @@ input,select,textarea{font:inherit;color:inherit}
 
 <!-- ================= BOTTOM NAV (mobile) ================= -->
 <nav class="bottomnav" aria-label="Navigasi utama">
-  <button class="bn-item active" data-nav="ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Ringkasan</button>
-  <button class="bn-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
-  <button class="bn-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
-  <button class="bn-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
-  <button class="bn-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+  <button class="bn-item active" data-nav="ringkasan" aria-label="Ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span class="lb">Ringkasan</span></button>
+  <button class="bn-item" data-nav="kebiasaan" aria-label="Kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg><span class="lb">Kebiasaan</span></button>
+  <button class="bn-item" data-nav="keuangan" aria-label="Keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><span class="lb">Keuangan</span></button>
+  <button class="bn-item" data-nav="kalender" aria-label="Kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span class="lb">Kalender</span></button>
+  <button class="bn-item" data-nav="wawasan" aria-label="Wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span class="lb">Wawasan</span></button>
 </nav>
 
 <!-- ================= TOAST ================= -->
@@ -1529,17 +1809,17 @@ const seed=s=>{const x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x)
 
 /* ============ data ============ */
 const KATEGORI={
-  makanan:{label:'Makanan & Minuman',warna:'#C96A4E',ikon:'c-makanan',jenis:'keluar'},
-  transportasi:{label:'Transportasi',warna:'#D9A06B',ikon:'c-transport',jenis:'keluar'},
-  belanja:{label:'Belanja',warna:'#DCA43D',ikon:'c-belanja',jenis:'keluar'},
-  tagihan:{label:'Tagihan',warna:'#B98F75',ikon:'c-tagihan',jenis:'keluar'},
-  kesehatan:{label:'Kesehatan',warna:'#7C9B72',ikon:'c-kesehatan',jenis:'keluar'},
-  hiburan:{label:'Hiburan',warna:'#E5C1A6',ikon:'c-hiburan',jenis:'keluar'},
-  tempat_tinggal:{label:'Tempat Tinggal',warna:'#9E4529',ikon:'c-rumah',jenis:'keluar'},
-  donasi:{label:'Donasi',warna:'#7FB5A6',ikon:'c-gift',jenis:'keluar'},
-  gaji:{label:'Gaji',warna:'#7C9B72',ikon:'c-gaji',jenis:'masuk'},
-  freelance:{label:'Freelance',warna:'#DCA43D',ikon:'c-freelance',jenis:'masuk'},
-  penjualan:{label:'Penjualan',warna:'#D9A06B',ikon:'c-tag',jenis:'masuk'},
+  makanan:{label:'Makanan & Minuman',warna:'#F97316',ikon:'c-makanan',jenis:'keluar'},
+  transportasi:{label:'Transportasi',warna:'#0EA5E9',ikon:'c-transport',jenis:'keluar'},
+  belanja:{label:'Belanja',warna:'#3B82F6',ikon:'c-belanja',jenis:'keluar'},
+  tagihan:{label:'Tagihan',warna:'#64748B',ikon:'c-tagihan',jenis:'keluar'},
+  kesehatan:{label:'Kesehatan',warna:'#22C55E',ikon:'c-kesehatan',jenis:'keluar'},
+  hiburan:{label:'Hiburan',warna:'#F59E0B',ikon:'c-hiburan',jenis:'keluar'},
+  tempat_tinggal:{label:'Tempat Tinggal',warna:'#059669',ikon:'c-rumah',jenis:'keluar'},
+  donasi:{label:'Donasi',warna:'#34D399',ikon:'c-gift',jenis:'keluar'},
+  gaji:{label:'Gaji',warna:'#22C55E',ikon:'c-gaji',jenis:'masuk'},
+  freelance:{label:'Freelance',warna:'#F59E0B',ikon:'c-freelance',jenis:'masuk'},
+  penjualan:{label:'Penjualan',warna:'#0EA5E9',ikon:'c-tag',jenis:'masuk'},
 };
 let HABITS=[
   {id:'meditasi',nama:'Meditasi 10 menit',kategori:'Ketenangan',ikon:'ill-meditasi',waktu:'06:00',streak:24,konsistensi:.86,selesai:true,riwayat:[true,true,true,false,true,true]},
@@ -1579,7 +1859,9 @@ const BUDGETS=[
 const ICON_OPTS=[
   {id:'ill-meditasi',label:'Meditasi'},{id:'ill-lari',label:'Lari'},{id:'ill-sarapan',label:'Sarapan'},
   {id:'ill-baca',label:'Baca'},{id:'ill-air',label:'Air'},{id:'ill-jurnal',label:'Jurnal'},
-  {id:'ill-tidur',label:'Tidur'},{id:'ill-beban',label:'Beban'},
+  {id:'ill-tidur',label:'Tidur'},{id:'ill-beban',label:'Beban'},{id:'ill-roket',label:'Roket'},
+  {id:'ill-target',label:'Target'},{id:'ill-bulb',label:'Ide'},{id:'ill-kal',label:'Agenda'},
+  {id:'ill-koin',label:'Uang'},{id:'ill-bintang',label:'Bintang'},{id:'ill-perisai',label:'Perisai'},
 ];
 const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
 
@@ -1616,7 +1898,7 @@ function countUp(el,to,{dur=850,fmt=rupiah}={}){
 }
 function animateBars(root=document){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    root.querySelectorAll('.bar i[data-w]').forEach(b=>b.style.width=b.dataset.w);
+    root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w]').forEach(b=>b.style.width=b.dataset.w);
   }));
 }
 function toast(title,sub='',ikon='i-check',tone=''){
@@ -1627,7 +1909,7 @@ function toast(title,sub='',ikon='i-check',tone=''){
 }
 function confetti(){
   if(reduced)return;
-  const warna=['#C05B3C','#DCA43D','#7C9B72','#F2C6A0','#E5C1A6','#7FB5A6'];
+  const warna=['#10B981','#3B82F6','#F59E0B','#0EA5E9','#22C55E','#F97316'];
   for(let i=0;i<28;i++){
     const s=document.createElement('i');s.className='cp';
     s.style.left=(Math.random()*100)+'vw';
@@ -1643,8 +1925,8 @@ function confetti(){
 
 /* ============ render: agenda & ring ============ */
 function catColor(h){
-  const map={'Ketenangan':'#7C9B72','Kebugaran':'#DCA43D','Kesehatan':'#7FB5A6','Belajar':'#C96A4E','Refleksi':'#D98A7E'};
-  return map[h.kategori]||'#C05B3C';
+  const map={'Ketenangan':'#10B981','Kebugaran':'#F97316','Kesehatan':'#0EA5E9','Belajar':'#3B82F6','Refleksi':'#F59E0B'};
+  return map[h.kategori]||'#059669';
 }
 function renderAgenda(){
   $('#agendaList').innerHTML=HABITS.map(h=>{
@@ -1691,8 +1973,8 @@ function spark(el,vals,color){
   el.innerHTML=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
 }
 function renderStats(){
-  spark($('#sparkStreak'),[12,14,15,17,20,22,23,24],'#C05B3C');
-  spark($('#sparkKons'),[62,71,68,74,79,76,84,86],'#7C9B72');
+  spark($('#sparkStreak'),[12,14,15,17,20,22,23,24],'#059669');
+  spark($('#sparkKons'),[62,71,68,74,79,76,84,86],'#0EA5E9');
   const t=totals();
   const budgetTotal=sumBy(BUDGETS,b=>b.batas);
   const pct=Math.min(999,Math.round(t.keluar/budgetTotal*100));
@@ -1722,12 +2004,12 @@ function renderCashflow(){
     const cx=L+gw*i+gw/2;
     const bw=17;
     const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
-    s+=`<rect x="${cx-bw-2.5}" y="${(H-B)-hM}" width="${bw}" height="${Math.max(hM,2)}" rx="5" fill="#7C9B72"/>`;
-    s+=`<rect x="${cx+2.5}" y="${(H-B)-hK}" width="${bw}" height="${Math.max(hK,2)}" rx="5" fill="#C05B3C"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${cx-bw/2-2.5}" y="${(H-B)-hM-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#59794F">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${cx+bw/2+2.5}" y="${(H-B)-hK-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#9E4529">${ringkas(keluar[i])}</text>`;
+    s+=`<rect x="${cx-bw-2.5}" y="${(H-B)-hM}" width="${bw}" height="${Math.max(hM,2)}" rx="5" fill="#22C55E"/>`;
+    s+=`<rect x="${cx+2.5}" y="${(H-B)-hK}" width="${bw}" height="${Math.max(hK,2)}" rx="5" fill="#F97316"/>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${cx-bw/2-2.5}" y="${(H-B)-hM-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#15803D">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${cx+bw/2+2.5}" y="${(H-B)-hK-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#C2410C">${ringkas(keluar[i])}</text>`;
     const isToday=i===6;
-    s+=`<text x="${cx}" y="${H-9}" text-anchor="middle" class="chart-label" ${isToday?'font-weight="800" fill="#9E4529"':''}>${DOW[DOW_IDX(d)]}</text>`;
+    s+=`<text x="${cx}" y="${H-9}" text-anchor="middle" class="chart-label" ${isToday?'font-weight="800" fill="#047857"':''}>${DOW[DOW_IDX(d)]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas 7 hari">${s}</svg>`;
   countUp($('#cfIn'),sumBy(masuk,v=>v));
@@ -1738,7 +2020,7 @@ function renderMiniBudgets(){
   const rows=BUDGETS.map(b=>({...b,used:used[b.k]||0})).sort((a,b)=>b.used/b.batas-a.used/a.batas).slice(0,3);
   $('#miniBudgets').innerHTML=rows.map(b=>{
     const pct=Math.round(b.used/b.batas*100);
-    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--terra)';
+    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--rose)';
     const K=KATEGORI[b.k];
     return `<div>
       <div class="mb-row">
@@ -1875,7 +2157,7 @@ function renderBudgets(){
   $('#budgetList').innerHTML=rows.map(r=>{
     const pct=Math.min(100,Math.round(r.used/r.batas*100));
     const sisa=r.batas-r.used;
-    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--terra)';
+    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--rose)';
     const over=r.used>r.batas;
     return `<div class="b-row">
       <div class="b-head">
@@ -1919,6 +2201,16 @@ function renderTx(){
 function refinance(){
   renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderMiniBudgets();renderTx();
   if(inited.cal)renderCalStrip();
+}
+
+/* ============ tabungan ============ */
+const SAVINGS={target:10000000,now:6800000};
+function renderSavings(){
+  const el=$('#saveAmt');if(!el)return;
+  const pct=Math.min(100,Math.round(SAVINGS.now/SAVINGS.target*100));
+  el.innerHTML=`${rupiah(SAVINGS.now)} <span style="color:var(--ink-3)">dari ${rupiah(SAVINGS.target)}</span>`;
+  $('#saveBar').style.width=pct+'%';
+  $('#savePct').textContent=pct+'%';
 }
 
 /* ============ render: kalender ============ */
@@ -1985,7 +2277,7 @@ function renderDayDetail(d){
     const K=KATEGORI[t.k];
     return `<div class="dd-tx-row">
       <span class="tx-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
-      <span>${esc(t.nama)}</span><b class="t-num" style="color:${t.t==='masuk'?'var(--sage-deep)':'var(--terra-deep)'}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}</b></div>`;
+      <span>${esc(t.nama)}</span><b class="t-num" style="color:${t.t==='masuk'?'var(--sage-deep)':'var(--rose-deep)'}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}</b></div>`;
   }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:11px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:'')
   :`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
   $('#dayDetail').innerHTML=`
@@ -2020,18 +2312,18 @@ function renderConsChart(){
   const pts=vals.map((v,i)=>[x(i),y(v)]);
   const line=smoothPath(pts);
   const area=line+`L${x(7).toFixed(1)} ${(H-B).toFixed(1)} L${x(0).toFixed(1)} ${(H-B).toFixed(1)} Z`;
-  let s=`<path d="${area}" fill="#7C9B72" opacity=".12"/>`;
+  let s=`<path d="${area}" fill="#10B981" opacity=".12"/>`;
   [60,70,80,90].forEach(v=>{
     s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="chart-grid"/>`;
     s+=`<text x="${L-8}" y="${y(v)+3.5}" text-anchor="end" class="chart-label">${v}</text>`;
   });
-  s+=`<line x1="${L}" x2="${W-R}" y1="${y(70)}" y2="${y(70)}" stroke="#DCA43D" stroke-width="2" stroke-dasharray="6 6"/>`;
+  s+=`<line x1="${L}" x2="${W-R}" y1="${y(70)}" y2="${y(70)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
   pts.forEach((p,i)=>{
-    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#FFF9EF" stroke="#C05B3C" stroke-width="2.5"/>`;
-    if(i%2===0||i===7)s+=`<text x="${p[0].toFixed(1)}" y="${p[1]-12}" text-anchor="middle" class="chart-label" font-weight="800" fill="#9E4529">${vals[i]}%</text>`;
+    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"/>`;
+    if(i%2===0||i===7)s+=`<text x="${p[0].toFixed(1)}" y="${p[1]-12}" text-anchor="middle" class="chart-label" font-weight="800" fill="#047857">${vals[i]}%</text>`;
     s+=`<text x="${p[0].toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${i+1}</text>`;
   });
-  s+=`<path d="${line}" fill="none" stroke="#C05B3C" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
+  s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik konsistensi 8 minggu">${s}</svg>`;
   const ps=$('#polaSub');if(ps)ps.textContent=`${BULAN[TODAY.getMonth()]} ${TODAY.getFullYear()}`;
   // pola pengeluaran
@@ -2075,6 +2367,15 @@ document.addEventListener('click',e=>{
   if(minus){bumpWater(minus.dataset.minus,-1);return}
   const cell=e.target.closest('[data-cal]');
   if(cell){state.calSel=new Date(cell.dataset.cal+'T00:00:00');renderCal();renderDayDetail(state.calSel);return}
+  const save=e.target.closest('[data-save]');
+  if(save){
+    const v=+save.dataset.save;const was=SAVINGS.now;
+    SAVINGS.now=Math.min(SAVINGS.target,SAVINGS.now+v);
+    renderSavings();
+    if(SAVINGS.now>=SAVINGS.target&&was<SAVINGS.target){confetti();toast('Target tabungan tercapai!','Dana darurat penuh — waktu merayakan.','i-sparkle','honey')}
+    else toast('Tabungan bertambah','+'+rupiah(v)+' menuju dana daruratmu.','i-check','sage');
+    return
+  }
   const chip=e.target.closest('[data-habit-filter]');
   if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
   const txChip=e.target.closest('[data-tx-filter]');
@@ -2123,11 +2424,11 @@ $('#txAmount').addEventListener('input',e=>{
 $('#formTx').addEventListener('submit',e=>{
   e.preventDefault();
   const nominal=+($('#txAmount').value||'0').replace(/\./g,'');
-  if(!nominal){toast('Nominal belum terisi','Masukkan angka lebih besar dari nol.','i-x','terra');return}
+  if(!nominal){toast('Nominal belum terisi','Masukkan angka lebih besar dari nol.','i-x','rose');return}
   const k=$('#txCat').value;
-  const dv=$('#txDate').value;if(!dv){toast('Tanggal belum dipilih','','i-x','terra');return}
+  const dv=$('#txDate').value;if(!dv){toast('Tanggal belum dipilih','','i-x','rose');return}
   const d=new Date(dv+'T00:00:00');
-  if(d>TODAY){toast('Tanggal di masa depan','Prototipe ini hanya menerima hari ini atau sebelumnya.','i-x','terra');return}
+  if(d>TODAY){toast('Tanggal di masa depan','Prototipe ini hanya menerima hari ini atau sebelumnya.','i-x','rose');return}
   const offset=Math.round((TODAY-d)/864e5);
   const note=$('#txNote').value.trim();
   TXS.unshift({t:txType,n:nominal,k,nama:note||KATEGORI[k].label,offset});
@@ -2148,7 +2449,7 @@ $('#iconPicker').addEventListener('change',e=>{pickedIcon=e.target.value;renderI
 $('#formHabit').addEventListener('submit',e=>{
   e.preventDefault();
   const nama=$('#habitName').value.trim();
-  if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','terra');return}
+  if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','rose');return}
   HABITS.push({
     id:'h'+Date.now(),nama,kategori:$('#habitCat').value,ikon:pickedIcon,waktu:$('#habitTime').value||'07:00',
     streak:0,konsistensi:.5,selesai:false,riwayat:[false,false,false,false,false,false]
@@ -2174,7 +2475,7 @@ $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru','Ka
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
   $('#greetSub').textContent=tglLengkap+' — hari yang baik untuk merawat ritual kecilmu.';
   $('#tbDate').innerHTML=`Hari ini: <b>${tglLengkap}</b>`;
-  renderAgenda();renderRing();
+  renderAgenda();renderRing();renderSavings();
   setTimeout(()=>{renderRing()},60); // picu transisi ring
   renderStats();renderCashflow();renderMiniBudgets();
   renderSceneStats();renderDonut();renderBudgets();renderTx();
