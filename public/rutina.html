@@ -27,9 +27,10 @@
   --blue:#3B82F6; --blue-deep:#2563EB; --blue-soft:#DBEAFE;
   --sky:#0EA5E9; --sky-soft:#E0F2FE;
   --peach:#FDBA74; --rose:#EF4444; --rose-deep:#DC2626; --water:#0EA5E9;
-  --shadow-sm:0 1px 2px rgba(15,23,42,.05);
-  --shadow-md:0 2px 6px rgba(15,23,42,.04),0 12px 28px -10px rgba(15,23,42,.10);
-  --shadow-lg:0 20px 48px -16px rgba(15,23,42,.18);
+  /* Beautiful shadows — layered, neutral, refined */
+  --shadow-sm:0px 2px 3px -1px rgba(0,0,0,.1),0px 1px 0px 0px rgba(25,28,33,.02),0px 0px 0px 1px rgba(25,28,33,.08);
+  --shadow-md:0px 0px 0px 1px rgba(0,0,0,.06),0px 1px 1px -.5px rgba(0,0,0,.06),0px 3px 3px -1.5px rgba(0,0,0,.06),0px 6px 6px -3px rgba(0,0,0,.06),0px 12px 12px -6px rgba(0,0,0,.06),0px 24px 24px -12px rgba(0,0,0,.06);
+  --shadow-lg:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12);
   --r-sm:10px; --r-md:12px; --r-lg:16px; --r-xl:20px;
   --font-display:"Poppins","Plus Jakarta Sans",system-ui,sans-serif;
   --font-body:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
@@ -72,7 +73,7 @@ input,select,textarea{font:inherit;color:inherit}
 /* ---------- sidebar ---------- */
 .sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);z-index:50;display:none;flex-direction:column;gap:6px;padding:24px 18px 20px;background:var(--surface);border-right:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px;padding:0 8px 18px}
-.brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(140deg,#34D399,#059669);display:grid;place-items:center;color:#FFFFFF;box-shadow:0 6px 16px -6px rgba(5,150,105,.5)}
+.brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(140deg,#34D399,#059669);display:grid;place-items:center;color:#FFFFFF;box-shadow:var(--shadow-sm)}
 .brand-mark .ic{width:22px;height:22px}
 .brand-name{font-size:21px}
 .brand-sub{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:1px}
@@ -109,17 +110,17 @@ input,select,textarea{font:inherit;color:inherit}
 .icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:1.5px solid var(--surface)}
 
 /* ---------- bottom nav (mobile) — floating island dock ---------- */
-.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:0 16px 40px -12px rgba(15,23,42,.22),0 2px 6px rgba(15,23,42,.05)}
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-lg)}
 .bn-item{flex:1;min-width:0;min-height:50px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink-3);overflow:hidden;transition:background .28s,color .28s,box-shadow .28s,flex-grow .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item .ic{width:21px;height:21px;flex:none;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
 .bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:800;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item:active .ic{transform:scale(.86)}
-.bn-item.active{flex-grow:1.8;background:linear-gradient(135deg,var(--terra),var(--terra-deep));color:#FFFFFF;box-shadow:0 10px 22px -8px rgba(5,150,105,.6)}
+.bn-item.active{flex-grow:1.8;background:linear-gradient(135deg,var(--terra),var(--terra-deep));color:#FFFFFF;box-shadow:var(--shadow-sm)}
 .bn-item.active .lb{max-width:86px;opacity:1;margin-left:8px}
 .bn-item.active .ic{transform:translateY(-1px)}
 
 /* ---------- kartu & grid ---------- */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md)}
 .card-pad{padding:16px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
 .card-head h3{font-size:17px}
@@ -141,8 +142,8 @@ input,select,textarea{font:inherit;color:inherit}
 /* ---------- tombol ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:700;font-size:14px;transition:all .18s;min-height:46px;padding:0 22px;white-space:nowrap}
 .btn .ic{width:18px;height:18px}
-.btn-primary{background:var(--terra);color:#FFFFFF;box-shadow:0 8px 20px -8px rgba(5,150,105,.45)}
-.btn-primary:hover{background:var(--terra-deep);transform:translateY(-1.5px);box-shadow:0 12px 26px -8px rgba(5,150,105,.5)}
+.btn-primary{background:var(--terra);color:#FFFFFF;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{background:var(--terra-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-md)}
 .btn-primary:active{transform:none}
 .btn-ghost{background:var(--surface);border:1.5px solid var(--line);color:var(--ink-2)}
 .btn-ghost:hover{border-color:var(--terra);color:var(--terra-deep)}
@@ -158,7 +159,7 @@ input,select,textarea{font:inherit;color:inherit}
 .seg button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
 
 /* ---------- hero ringkasan ---------- */
-.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid var(--line);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-sm);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
+.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid var(--line);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
 .hero h2{font-size:clamp(21px,2.6vw,26px);max-width:340px}
@@ -169,7 +170,7 @@ input,select,textarea{font:inherit;color:inherit}
 .ring-info{display:flex;flex-direction:column;gap:8px;min-width:0}
 .ring-info .big{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.05}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px}
-.hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px;filter:drop-shadow(0 14px 20px rgba(15,23,42,.08))}
+.hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))}
 .hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:11.5px;font-weight:700;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
 
@@ -469,7 +470,7 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- ilustrasi identitas halaman & kartu baru ---------- */
 .ph-id{display:flex;align-items:center;gap:14px;min-width:0}
-.ph-art{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft);box-shadow:inset 0 -8px 14px rgba(15,23,42,.04),var(--shadow-sm)}
+.ph-art{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft);box-shadow:var(--shadow-sm)}
 .ph-art .ill{width:42px}
 .ph-art.em{background:var(--terra-softer)}
 .ph-art.sky{background:var(--sky-soft)}
