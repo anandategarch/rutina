@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,6 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Transitions UI generation (transitions.dev) — animasi "agen sedang membuat UI" -->
+<link rel="stylesheet" href="/vendor/transitions/ui-generation.css">
+<link rel="stylesheet" href="/vendor/transitions/text-image-generation.css">
 <style>
 /* ============================================================
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
@@ -3588,6 +3591,19 @@ $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru',LIV
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
+
+  /* ---------- animasi "agen sedang membuat UI" (transitions.dev) ----------
+     Diputar SEKALI setelah data & render selesai: wireframe bertitik digambar
+     di atas halaman aktif, lalu UI asli terungkap di balik garis pindai.
+     Runtime sendiri mematuhi prefers-reduced-motion (fade 200ms). */
+  setTimeout(async()=>{
+    try{
+      await document.fonts.ready;
+      const {generate}=await import('/vendor/transitions/ui-generation.js');
+      const target=$('#view .page.active');
+      if(target) generate(target,{mode:'skeleton',done:'Ringkasan siap'});
+    }catch(err){/* animasi bersifat opsional — jangan ganggu aplikasi */}
+  },420);
 })();
 
 </script>

@@ -15,6 +15,7 @@ export default defineConfig([
   },
   // examples/, skills/, mini-services/, tool-results/ adalah aset platform,
   // bukan kode aplikasi Rutina — jangan ikut di-lint.
+  // public/vendor/** — runtime pihak ketiga (transitions.dev), jangan di-lint.
   globalIgnores([
     ".next/**",
     "out/**",
@@ -24,5 +25,6 @@ export default defineConfig([
     "skills/**",
     "mini-services/**",
     "tool-results/**",
+    "public/vendor/**",
   ]),
 ]);
