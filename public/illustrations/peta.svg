@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img">
+  <title>Peta — perjalanan membangun kebiasaan</title>
+  <defs>
+    <linearGradient id="g-org" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FB923C"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1 latar tema biru -->
+  <circle cx="48" cy="48" r="46" fill="#DBEAFE"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2 bayangan tanah -->
+  <ellipse cx="48" cy="80" rx="26" ry="4" fill="#0F172A" opacity=".07"/>
+  <!-- L3 peta terlipat (3 panel zig-zag) -->
+  <path d="M20 30l18-6v46l-18 6z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M38 24l20 6v46l-20-6z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M58 30l18-6v46l-18 6z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" stroke-linejoin="round"/>
+  <!-- L4 lipatan tengah -->
+  <path d="M38 24v46M58 30v46" stroke="#E2E8F0" stroke-width="1.5"/>
+  <!-- jalur perjalanan bertitik -->
+  <path d="M26 62c8-2 8-10 16-10s8 8 16 6 8-8 12-10" stroke="#93C5FD" stroke-width="3" stroke-linecap="round" stroke-dasharray=".1 6.5" fill="none"/>
+  <!-- pin lokasi tujuan -->
+  <path d="M66 26c6.5 0 11 5 11 11 0 8-7.5 14-11 17-3.5-3-11-9-11-17 0-6 4.5-11 11-11z" fill="url(#g-org)"/>
+  <circle cx="66" cy="37" r="4.5" fill="#FFFFFF"/>
+  <!-- titik awal -->
+  <circle cx="28" cy="62" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="2"/>
+  <!-- L5 pohon & rumah kecil di peta -->
+  <path d="M46 38l3.5 6h-7z" fill="#10B981"/>
+  <rect x="44.5" y="44" width="2.5" height="3" rx="1" fill="#059669"/>
+  <circle cx="30" cy="40" r="3" fill="#6EE7B7"/>
+  <!-- L6 bintang kilau -->
+  <path d="M24 24l1.2 3 3 1.2-3 1.2L24 32.4l-1.2-3-3-1.2 3-1.2z" fill="#FBBF24"/>
+  <circle cx="76" cy="60" r="3" fill="#38BDF8"/>
+</svg>

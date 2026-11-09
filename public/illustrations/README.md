@@ -63,6 +63,23 @@ CSS background, atau di-inline langsung ke komponen.
 | `panen.svg` | hasil konsistensi | peach `#FFEDD5` |
 | `kunci.svg` | pencapaian terbuka | amber `#FEF3C7` |
 
+### Wawasan & alat (batch 5)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `teropong.svg` | melihat wawasan lebih jauh | sky `#E0F2FE` |
+| `kompas.svg` | arah tujuan yang jelas | sky `#E0F2FE` |
+| `peta.svg` | perjalanan membangun kebiasaan | biru `#DBEAFE` |
+| `jam.svg` | waktu yang konsisten | sky `#E0F2FE` |
+| `awan.svg` | cadangan tersimpan aman | sky `#E0F2FE` |
+| `kado.svg` | hadiah pencapaian | peach `#FFEDD5` |
+
+## Ringkasan
+
+- **30 spot ilustrasi baru** dalam 5 batch tematik: gaya hidup & olahraga,
+  kesehatan & kreativitas, keuangan, tumbuh & pencapaian, wawasan & alat.
+- Semua latar tema & gradien mengikuti katalog warna resmi §2 & §8.2.
+
 ---
 
 *Semua ilustrasi digambar tangan mengikuti palet & aturan §8 design-foundation
