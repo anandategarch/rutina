@@ -177,6 +177,10 @@ input,select,textarea{font:inherit;color:inherit}
 .ring-wrap{position:relative;width:138px;height:138px;flex:none}
 .ring-wrap svg{width:100%;height:100%;display:block}
 .ring-fg{transition:stroke-dashoffset .9s cubic-bezier(.3,.8,.3,1)}
+.ring-col{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none}
+.ring-target{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--ink-3);white-space:nowrap}
+.ring-target i{width:12px;height:3.5px;border-radius:99px;background:var(--honey-deep);flex:none}
+.ring-target .ok{color:var(--terra-deep)}
 .ring-info{display:flex;flex-direction:column;gap:8px;min-width:0}
 .ring-info .big{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.05}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px}
@@ -1402,14 +1406,18 @@ input,select,textarea{font:inherit;color:inherit}
       <span class="eyebrow">Fokus hari ini</span>
       <h2 class="h-serif">Kebiasaan kecil yang kamu rawat hari ini</h2>
       <div class="hero-ring">
-        <div class="ring-wrap" role="img" aria-label="Progres kebiasaan hari ini">
-          <svg viewBox="0 0 150 150">
-            <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
-            <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
-            <text x="75" y="72" text-anchor="middle" font-family="Poppins,'Plus Jakarta Sans',sans-serif" font-size="32" font-weight="700" fill="#047857" id="ringText">4/7</text>
-            <text x="75" y="92" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700" fill="#64748B" letter-spacing="1">SELESAI</text>
-          </svg>
-        </div>
+          <div class="ring-col">
+            <div class="ring-wrap" role="img" aria-label="Progres kebiasaan hari ini">
+              <svg viewBox="0 0 150 150">
+                <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
+                <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
+                <line id="ringTarget" x1="75" y1="7" x2="75" y2="19" stroke="#D97706" stroke-width="3.2" stroke-linecap="round" style="opacity:0"/>
+                <text x="75" y="72" text-anchor="middle" font-family="Poppins,'Plus Jakarta Sans',sans-serif" font-size="32" font-weight="700" fill="#047857" id="ringText">4/7</text>
+                <text x="75" y="92" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700" fill="#64748B" letter-spacing="1">SELESAI</text>
+              </svg>
+            </div>
+            <div class="ring-target" id="ringTargetCap" aria-live="polite"></div>
+          </div>
         <div class="ring-info">
           <div class="big"><span id="heroSisa">3</span> kebiasaan lagi</div>
           <p class="t-sub" style="font-size:12.5px;max-width:230px" id="heroCopy">memuat data…</p>
@@ -2934,6 +2942,20 @@ function renderRing(){
   const maxRun=Math.max(0,...HABITS.map(h=>h.best));
   $('#heroPill1').textContent=`Streak terbaik ${maxRun} hari`;
   $('#heroPill2').textContent=`${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
+
+  /* garis target harian — AppSettings.targetCompletion (persen catatan) */
+  const TARGET=Math.min(100,Math.max(0,Math.round(+SETTINGS.targetCompletion||80)));
+  const tick=$('#ringTarget'),cap=$('#ringTargetCap');
+  if(tick){
+    tick.setAttribute('transform',`rotate(${(360*TARGET/100).toFixed(1)} 75 75)`);
+    tick.style.opacity=TARGET>0&&total>0?'1':'0';
+  }
+  if(cap){
+    const need=Math.ceil(total*TARGET/100);
+    cap.innerHTML=!total||TARGET<=0?'':(done>=need
+      ?`<i></i><span class="ok">Target ${TARGET}% tercapai</span>`
+      :`<i></i><span>Target ${TARGET}% · ${need-done} kebiasaan lagi</span>`);
+  }
 }
 
 /* ---------- statistik ringkasan ---------- */
