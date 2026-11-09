@@ -85,7 +85,7 @@ export async function GET() {
       habitLogs: logs.rows.map((r) => ({
         habitId: String(r.habitId),
         date: dpart(r.date),
-        completed: r.completed === 1 || r.completed === true,
+        completed: num(r.completed) === 1,
         value: Number(r.value ?? 1),
       })),
       financeCategories: finCats.rows.map((r) => ({
