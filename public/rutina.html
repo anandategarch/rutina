@@ -217,6 +217,11 @@ input,select,textarea{font:inherit;color:inherit}
 .agenda-name{font-size:14.5px;font-weight:700;line-height:1.25}
 .agenda-row.done .agenda-name{color:var(--ink-2)}
 .agenda-meta{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-3);font-weight:600;margin-top:2px;flex-wrap:wrap}
+/* habit kuantitatif (amount): bar progres unit hari ini */
+.amt-row{display:flex;align-items:center;gap:8px;margin-top:7px}
+.amt-row .bar{flex:1;height:7px}
+.amt-row small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);flex:none}
+.amt-row .t-num{font-size:11px;font-weight:800;color:var(--ink-2);flex:none;white-space:nowrap}
 .cat-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .streak-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--terra-deep);background:var(--terra-soft);padding:4px 9px;border-radius:999px}
 .streak-pill .ic{width:12px;height:12px}
@@ -2759,7 +2764,7 @@ const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',fi
 const inited={heatmap:false,cal:false,wawasan:false};
 const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan'};
 let HABITS=[],GROUPS=[],HCAT={},FINCATS=[],SOURCES=[],TXS=[],BUDGETS=[],DAILY={},SETTINGS=null;
-let logsByDate={},doneToday={},months=[],WS=1;
+let logsByDate={},doneToday={},valueToday={},months=[],WS=1;
 let DOWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
 
 /* ---------- turunan & indeks ---------- */
@@ -2784,6 +2789,15 @@ function prepData(){
   });
   logsByDate={};(DB.habitLogs||[]).forEach(l=>{if(!l.completed)return;(logsByDate[l.date]=logsByDate[l.date]||[]).push(l.habitId)});
   doneToday={};(logsByDate[dayKey(TODAY)]||[]).forEach(id=>doneToday[id]=true);
+  /* habit kuantitatif (amount): nilai hari ini = total unit tercatat dari
+     semua log (lengkap maupun parsial); selesai bila mencapai target */
+  valueToday={};(DB.habitLogs||[]).forEach(l=>{
+    if(l.date!==dayKey(TODAY))return;
+    valueToday[l.habitId]=(valueToday[l.habitId]||0)+(+l.value||0);
+  });
+  HABITS.forEach(h=>{
+    if(h.habitType==='amount'&&h.target>1)doneToday[h.id]=(valueToday[h.id]||0)>=h.target;
+  });
   TXS=DB.transactions||[];SOURCES=DB.fundSources||[];FINCATS=DB.financeCategories||[];
   BUDGETS=DB.weeklyBudgets||[];DAILY={};(DB.dailyLogs||[]).forEach(d=>DAILY[d.date]=d);
   months=[...new Set(TXS.map(t=>t.date.slice(0,7)))].sort();
@@ -2796,6 +2810,9 @@ function syncToday(){
 }
 const habitById=id=>HABITS.find(h=>h.id===id);
 const doneTodayCount=()=>HABITS.filter(h=>!!doneToday[h.id]).length;
+const isAmount=h=>h.habitType==='amount'&&h.target>1;
+const amtLabel=h=>`${valueToday[h.id]||0}/${h.target} ${h.unit||'kali'}`;
+const amtPct=h=>Math.min(100,Math.round((valueToday[h.id]||0)/h.target*100));
 const activeDaysAll=()=>Object.keys(logsByDate).length;
 function champion(){return HABITS.slice().sort((a,b)=>b.total-a.total||b.best-a.best)[0]}
 const srcName=id=>{const s=SOURCES.find(x=>x.id===id);return s?s.name:''};
@@ -2914,17 +2931,19 @@ function renderAgenda(){
       const n=HABITS.filter(x=>(x.grp?x.grp.id:'_none')===gk).length;
       html+=`<div class="agenda-cap">${g?`<i style="background:${esc(g.color)}"></i>${esc(g.name.toUpperCase())}`:'Tanpa grup'} · ${n} kebiasaan</div>`;
     }
-    const done=!!doneToday[h.id];
+    const done=!!doneToday[h.id],amt=isAmount(h);
     html+=`<div class="agenda-row ${done?'done':''}">
       <span class="time-chip">${h.reminder?esc(h.reminder):'—'}</span>
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
       <div><div class="agenda-name">${esc(h.name)}</div>
-        <div class="agenda-meta"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}${h.grp?` · <span style="color:${esc(h.grp.color)};font-weight:800">${esc(h.grp.name)}</span>`:''}</div></div>
+        <div class="agenda-meta"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}${h.grp?` · <span style="color:${esc(h.grp.color)};font-weight:800">${esc(h.grp.name)}</span>`:''}</div>
+        ${amt?`<div class="amt-row" title="Progres hari ini"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}</div>
       <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
       <button class="btn-check ${done?'done':''}" data-check="${esc(h.id)}" aria-pressed="${done}" aria-label="Tandai ${esc(h.name)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
     </div>`;
   });
   $('#agendaList').innerHTML=html;
+  animateBars($('#agendaList'));
 }
 function renderRing(){
   const total=HABITS.length||1,done=doneTodayCount(),C=389.6;
@@ -3115,12 +3134,14 @@ function renderHabitCards(){
             <div class="hc-name">${esc(h.name)}</div>
             <div class="hc-meta">
               <span class="tag" style="color:${h.warna}"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}</span>
+              ${isAmount(h)?`<span class="tag" style="color:var(--honey-deep)"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>${h.target} ${esc(h.unit||'kali')}/hari</span>`:''}
               ${h.grp?`<span class="tag" style="color:${esc(h.grp.color)}">${esc(h.grp.name)}</span>`:''}
               ${h.reminder?`<span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>${esc(h.reminder)}</span>`:''}
               <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
             </div>
           </div>
         </div>
+        ${isAmount(h)?`<div class="amt-row"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}
         <div class="wd-row">${weeklyDots(h)}</div>
         <div class="hc-bottom">
           <div class="hc-consist"><small>${h.total} catatan · terbaik ${h.best} hari beruntun</small><div class="bar"><i data-w="${pct}%"></i></div></div>
@@ -3486,10 +3507,17 @@ function go(page){
 }
 function toggleCheck(id){
   const h=habitById(id);if(!h)return;
-  doneToday[id]=!doneToday[id];
+  if(isAmount(h)){
+    /* mode konsep: satu ketuk melompat ke target penuh / mengosongkan */
+    valueToday[id]=doneToday[id]?0:h.target;
+    doneToday[id]=(valueToday[id]||0)>=h.target;
+  }else{
+    doneToday[id]=!doneToday[id];
+  }
   syncToday();
   if(doneToday[id]){
     if(doneTodayCount()>=HABITS.length&&HABITS.length>0){confetti();toast('Hari yang sempurna!',`Semua ${HABITS.length} kebiasaan tercatat — luar biasa.`,'i-sparkle','honey')}
+    else if(isAmount(h))toast('Target tercapai',`${h.name} — ${amtLabel(h)} · tersimpan di sesi konsep.`,'i-check','sage');
     else toast('Kebiasaan selesai',`${h.name} — tersimpan di sesi konsep.`,'i-check','sage');
   }
   refreshToday();
