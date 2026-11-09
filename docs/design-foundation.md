@@ -106,23 +106,25 @@ Kategori baru tanpa entri memakai fallback: hash nama →
 
 ## 3. Tipografi
 
-Pasangan: **Poppins** (display, 700) + **Plus Jakarta Sans** (body, 400–800).
-Keduanya dimuat via Google Fonts dengan `display=swap`.
+Pasangan: **Source Serif 4** (display, 700 — serif editorial, optical sizing otomatis) + **Inter** (body, 400–800).
+Keduanya variable font via Google Fonts dengan `display=swap`. Kontras serif-di-atas-sans
+adalah keputusan sadar: judul & angka besar bersuara editorial dan tenang, antarmuka
+tetap netral dan tajam di ukuran kecil.
 
 ### 3.1 Skala
 
 | Peran | Font | Ukuran | Berat | Lain-lain |
 |---|---|---|---|---|
-| H1 halaman | Poppins | `clamp(24px, 3vw, 28px)` | 700 | `ls -.02em; lh 1.18; text-wrap: balance` |
-| H2 hero | Poppins | `clamp(21px, 2.6vw, 26px)` | 700 | maks lebar ±340px |
-| H3 kartu | Poppins | 17px | 700 | — |
-| Angka besar (stat) | Poppins | 25px (mobile 20px) | 700 | `t-num` (tabular), unit `<small>` body 600 |
-| Angka hero | Poppins | 30px | 700 | warna `--terra-deep` |
-| Eyebrow | PJS | 11px | 800 | `uppercase; ls .14em; color --terra-deep` |
-| Body | PJS | 14–16px | 400–500 | `lh 1.55` |
-| Sub / meta | PJS | 13px | 500–600 | `--ink-3` |
-| Caption/tag | PJS | 10.5–12px | 600–800 | tag: 10.5/800 |
-| Nominal transaksi | PJS | 14.5px | 800 | `t-num`, rata kanan |
+| H1 halaman | Source Serif 4 | `clamp(24px, 3vw, 28px)` | 700 | `ls -.02em; lh 1.18; text-wrap: balance` |
+| H2 hero | Source Serif 4 | `clamp(21px, 2.6vw, 26px)` | 700 | maks lebar ±340px |
+| H3 kartu | Source Serif 4 | 17px | 700 | — |
+| Angka besar (stat) | Source Serif 4 | 25px (mobile 20px) | 700 | `t-num` (tabular), unit `<small>` body 600 |
+| Angka hero | Source Serif 4 | 30px | 700 | warna `--terra-deep` |
+| Eyebrow | Inter | 11px | 800 | `uppercase; ls .14em; color --terra-deep` |
+| Body | Inter | 14–16px | 400–500 | `lh 1.55` |
+| Sub / meta | Inter | 13px | 500–600 | `--ink-3` |
+| Caption/tag | Inter | 10.5–12px | 600–800 | tag: 10.5/800 |
+| Nominal transaksi | Inter | 14.5px | 800 | `t-num`, rata kanan |
 
 ### 3.2 Aturan angka
 
@@ -313,14 +315,14 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | `pill` | pad 7 13 · 12.5/700 · radius 999 |
 | `icon-btn` | 44×44 · radius 14 · dot notifikasi 7px `--terra` |
 | `btn-check` | 44 lingkaran · border 2 · `pop` .4s saat selesai |
-| `avatar` | 40 · inisial Poppins 700 · border `#A7F3D0` |
+| `avatar` | 40 · inisial Source Serif 4 700 · border `#A7F3D0` |
 | `brand-mark` | 42 (tb 34) · radius 12 · gradasi `#34D399→#059669` |
 | `card` | `--surface` · border `--line` · radius 16 · shadow **md** |
 | `agenda-row` | grid `54 52 1fr auto auto` (mobile `44 1fr 44`) · radius 16 · `done`: wash hijau |
 | `habit-card` | spot 56 · `wd` 27/hari · bar konsistensi + `btn-check` |
 | `streak-pill` | `--terra-soft` + `--terra-deep` · 11/800 |
 | `tx-row` | `tx-ic` 44 r14 · nominal 14.5/800 kanan · sub `kategori · dompet` |
-| `dompet-card` | pad 13 15 · r16 · shadow **sm** · `src-ic` 42 r13 · saldo 15.5 Poppins |
+| `dompet-card` | pad 13 15 · r16 · shadow **sm** · `src-ic` 42 r13 · saldo 15.5 Source Serif 4 |
 | Dock | r24 · blur 18 · `rgba(255,255,255,.92)` · item min-h 50 r16 · aktif `flex-grow 1.8` + label max-w 86 |
 | Sidebar | 268 · nav-item 46 r14 · aktif `--terra-soft` + bar kiri 4×24 |
 | Sheet modal | maks 520 · r28 · maks-h 92dvh · field 48 r14 · icon-picker grid 4 |
@@ -328,7 +330,7 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | Heatmap | sel 13 gap 3.5 · 18 minggu · level: kosong `#F1F5F9`, l1 `#A7F3D0`, l2 `#6EE7B7`, l3 `#10B981` · hari ini ring 2+4px |
 | Heatmap pengeluaran | grid 7 kolom gap 5 · sel aspek-rasio r9 · level honey: kosong `#F1F5F9`, l1 `#FDE68A`, l2 `#F59E0B`, l3 `#D97706` · hari ini ring 2+4px `--honey` · masa depan dashed .45 · klik sel → toast hari |
 | Kalender | 7 kolom `minmax(0,1fr)` gap 6 (mobile 4) · sel r14 min 44 (mobile 40 r11) · ticks 3.5×7 · `today` border `--terra` + `--terra-softer` · `sel` solid `--terra` putih · `future` dashed .45 · bintang ≥5 catatan |
-| Donat | R76 stroke 27 · pusat: caps 10.5 + total Poppins 16 |
+| Donat | R76 stroke 27 · pusat: caps 10.5 + total Source Serif 4 16 |
 | Grafik batang | batang 17 r5 · masuk `#22C55E` · keluar `#F97316` · sumbu `ringkas()` |
 
 ---
@@ -412,6 +414,7 @@ Semua angka berasal dari database asli (atau snapshot identik saat offline) —
 
 | Versi | Tanggal | Perubahan |
 |---|---|---|
+| 2.2 | 2026-11 | Tipografi: pasangan font diganti ke **Source Serif 4 + Inter** (variable font, kontras serif/sans profesional — menggantikan Poppins/Plus Jakarta Sans yang terlalu mirip). Tabular-nums dipertahankan di semua angka; font smoothing penuh (webkit + moz) di root. |
 | 2.1 | 2026-11 | Fitur baca-saja dari aplikasi v1: garis target harian (tick honey pada ring), habit kuantitatif (amount) dengan bar progres unit, kartu Jatah Harian & proyeksi (bar laju + penanda ideal), dan Heatmap Pengeluaran (§9, skala honey). Simbol spot baru: `ill-jatah` & `ill-panas`. |
 | 2.0 | 2026-11 | “Evergreen”: emerald `#10B981` + netral slate; Poppins/Plus Jakarta Sans; radius 16; **Beautiful shadows** sm/md/lg (netral berlapis); ilustrasi flat-3D + 17 ilustrasi kebiasaan & 24 ikon kategori dari data asli; data jujur dari Turso (baca-saja). |
 | 1.x | — | “Playful Botanical” (lavender/ivory, Nunito) — **diarsipkan** ke `docs/design-system.md`; hanya untuk aplikasi lama `src/`. |
