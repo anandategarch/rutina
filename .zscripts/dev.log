@@ -861,3 +861,6 @@ Use 'kill 1050' to stop it.
  GET /icons/icon-192 200 in 69ms
  GET /manifest.webmanifest 200 in 5ms (next.js: 0.7ms, application-code: 5ms)
  GET /icons/icon-192 200 in 17ms
+ GET / 200 in 27ms (next.js: 1.0ms, application-code: 26ms)
+ GET / 200 in 23ms (next.js: 0.9ms, application-code: 22ms)
+ GET / 200 in 24ms (next.js: 0.8ms, application-code: 23ms)
