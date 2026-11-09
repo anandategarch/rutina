@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Rutina · Konsep Redesain",
   description:
-    "Konsep redesain Rutina: pelacak kebiasaan & keuangan dengan design system emerald, ilustrasi flat 3D, dan bottom dock mengambang.",
+    "Konsep Rutina: pelacak kebiasaan & keuangan dengan data asli dari database Turso — kebiasaan, kategori, transaksi, dompet, dan anggaran.",
   applicationName: "Rutina",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
