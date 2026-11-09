@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAF5EC">
+<meta name="description" content="Rutina — konsep redesain aplikasi pelacak kebiasaan dan keuangan. Terang, hangat, dan penuh ilustrasi.">
+<title>Rutina · Konsep Redesain</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23C05B3C'/%3E%3Cpath d='M32 47V27M32 30c-2-8-8-12-14-12 0 8 5 13 14 11zM32 36c2-8 8-12 14-12 0 8-5 13-14 11z' stroke='%23FFF7EC' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RUTINA · KONSEP "TERRA" — terang, hangat, tanpa warna gelap
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF5EC; --bg-deep:#F4EBDA;
+  --surface:#FFFFFF; --surface-2:#FCF8F1; --cream:#F7EEDF;
+  --line:#EBDFCC; --line-soft:#F2EADB;
+  --ink:#3E2E22; --ink-2:#6B5A49; --ink-3:#9C8A74;
+  --terra:#C05B3C; --terra-deep:#9E4529; --terra-soft:#F5DFD4; --terra-softer:#FAEEE6;
+  --sage:#7C9B72; --sage-deep:#59794F; --sage-soft:#E7F0E0;
+  --honey:#DCA43D; --honey-deep:#A87A22; --honey-soft:#F9ECD1;
+  --peach:#F2C6A0; --rose:#D98A7E; --water:#7FB5A6;
+  --shadow-sm:0 1px 2px rgba(62,46,34,.05);
+  --shadow-md:0 2px 6px rgba(62,46,34,.05),0 14px 34px -10px rgba(62,46,34,.14);
+  --shadow-lg:0 24px 64px -16px rgba(62,46,34,.28);
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:26px;
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --sidebar-w:268px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);color:var(--ink);background-color:var(--bg);
+  background-image:radial-gradient(var(--line-soft) 1px,transparent 1.2px);
+  background-size:26px 26px;-webkit-font-smoothing:antialiased;line-height:1.55;
+  min-height:100dvh;
+}
+::selection{background:var(--terra-soft);color:var(--terra-deep)}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--terra);outline-offset:2px;border-radius:6px}
+.ic{width:20px;height:20px;flex:none;display:block}
+.ill{display:block;width:100%;height:auto}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- utilitas tipografi ---------- */
+.h-serif{font-family:var(--font-display);font-weight:600;letter-spacing:-.015em;line-height:1.18}
+.eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+.t-sub{font-size:13px;color:var(--ink-3);font-weight:500}
+.t-num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- kerangka aplikasi ---------- */
+.app{min-height:100dvh}
+.main{min-height:100dvh;display:flex;flex-direction:column}
+.view{flex:1;width:100%;max-width:1180px;margin:0 auto;padding:26px 30px 44px}
+.page{display:none}
+.page.active{display:block;animation:pageIn .45s cubic-bezier(.2,.7,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.page-head{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+.page-head h1{font-size:clamp(26px,3.4vw,32px)}
+.page-head .t-sub{margin-top:4px}
+.appfooter{margin-top:auto;padding:18px 30px 24px;text-align:center;font-size:12px;color:var(--ink-3);font-weight:500}
+
+/* ---------- sidebar ---------- */
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);z-index:50;display:none;flex-direction:column;gap:6px;padding:24px 18px 20px;background:var(--surface);border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px 18px}
+.brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(140deg,var(--terra),var(--terra-deep));display:grid;place-items:center;color:#FFF7EC;box-shadow:0 6px 16px -6px rgba(158,69,41,.5)}
+.brand-mark .ic{width:22px;height:22px}
+.brand-name{font-size:21px}
+.brand-sub{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:1px}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav-label{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
+.nav-item{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;color:var(--ink-2);transition:background .18s,color .18s;min-height:46px;text-align:left}
+.nav-item:hover{background:var(--surface-2);color:var(--ink)}
+.nav-item.active{background:var(--terra-soft);color:var(--terra-deep)}
+.nav-item.active::before{content:"";position:absolute;left:-18px;top:50%;transform:translateY(-50%);width:4px;height:24px;border-radius:0 4px 4px 0;background:var(--terra)}
+.nav-item .ic{width:21px;height:21px}
+.side-spacer{flex:1}
+.side-card{position:relative;background:linear-gradient(150deg,#FDF4E4,#F8E9D2);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;overflow:hidden;margin:8px 0}
+.side-card .ill{width:78px;position:absolute;right:-3px;top:-5px;opacity:.95}
+.side-card-t{font-family:var(--font-display);font-size:16.5px;font-weight:700;color:var(--terra-deep)}
+.side-card-s{font-size:11.5px;color:var(--ink-2);margin:3px 0 10px;line-height:1.45;max-width:150px}
+.side-card .bar{height:8px}
+.side-profile{display:flex;align-items:center;gap:11px;padding:12px 10px 2px;border-top:1px solid var(--line-soft);margin-top:8px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:17px;flex:none;border:1.5px solid #F0D4C4}
+
+/* ---------- topbar ---------- */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px;padding:0 30px;background:color-mix(in srgb,var(--bg) 82%,#fff);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.tb-left{display:flex;align-items:center;gap:14px;min-width:0}
+.tb-brand{display:none;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:700}
+.tb-brand .brand-mark{width:34px;height:34px;border-radius:11px}
+.tb-brand .brand-mark .ic{width:18px;height:18px}
+.tb-date{font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-date b{color:var(--terra-deep)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill .ic{width:15px;height:15px}
+.pill-streak{background:var(--terra-soft);color:var(--terra-deep)}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);transition:all .18s}
+.icon-btn:hover{color:var(--terra-deep);border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:1.5px solid var(--surface)}
+
+/* ---------- bottom nav (mobile) ---------- */
+.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:space-around;align-items:stretch;gap:2px;padding:8px 10px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 86%,#fff);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(62,46,34,.08)}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;min-height:52px;border-radius:14px;color:var(--ink-3);font-size:10px;font-weight:700;transition:color .18s}
+.bn-item .ic{width:21px;height:21px}
+.bn-item.active{color:var(--terra-deep)}
+.bn-item.active .ic{transform:translateY(-1px) scale(1.06)}
+
+/* ---------- kartu & grid ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.card-pad{padding:20px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.card-head h3{font-size:16.5px}
+.card-head .t-sub{font-size:12px;margin-top:2px}
+.grid{display:grid;gap:18px}
+.row{display:flex;flex-direction:column;gap:18px}
+.link-btn{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--terra-deep);padding:6px 4px;border-radius:8px;transition:gap .18s}
+.link-btn:hover{gap:8px}
+.link-btn .ic{width:15px;height:15px}
+
+/* ---------- tombol ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:700;font-size:14px;transition:all .18s;min-height:46px;padding:0 22px;white-space:nowrap}
+.btn .ic{width:18px;height:18px}
+.btn-primary{background:var(--terra);color:#FFF7EC;box-shadow:0 8px 20px -8px rgba(158,69,41,.55)}
+.btn-primary:hover{background:var(--terra-deep);transform:translateY(-1.5px);box-shadow:0 12px 26px -8px rgba(158,69,41,.6)}
+.btn-primary:active{transform:none}
+.btn-ghost{background:var(--surface);border:1.5px solid var(--line);color:var(--ink-2)}
+.btn-ghost:hover{border-color:var(--terra);color:var(--terra-deep)}
+.btn-sm{min-height:40px;padding:0 16px;font-size:13px}
+
+/* ---------- chip & segmented ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 15px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--ink-2);transition:all .18s;min-height:37px;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--terra);color:var(--terra-deep)}
+.chip.active{background:var(--terra);border-color:var(--terra);color:#FFF7EC}
+.seg{display:flex;background:var(--bg-deep);border-radius:999px;padding:4px;gap:4px}
+.seg button{flex:1;min-height:40px;border-radius:999px;font-size:13px;font-weight:700;color:var(--ink-2);padding:0 16px;transition:all .18s}
+.seg button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
+
+/* ---------- hero ringkasan ---------- */
+.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid var(--line);background:linear-gradient(135deg,#FDF6E9 0%,#F8EAD6 58%,#F6E3CF 100%);box-shadow:var(--shadow-sm);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:30px 34px;margin-bottom:20px}
+.hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(220,164,61,.16),transparent)}
+.hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
+.hero h2{font-size:clamp(21px,2.6vw,26px);max-width:340px}
+.hero-ring{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.ring-wrap{position:relative;width:138px;height:138px;flex:none}
+.ring-wrap svg{width:100%;height:100%;display:block}
+.ring-fg{transition:stroke-dashoffset .9s cubic-bezier(.3,.8,.3,1)}
+.ring-info{display:flex;flex-direction:column;gap:8px;min-width:0}
+.ring-info .big{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.05}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px;filter:drop-shadow(0 14px 20px rgba(62,46,34,.10))}
+.hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:11.5px;font-weight:700;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
+.hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
+
+/* ---------- kartu statistik ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:20px}
+.stat{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;padding:18px 20px}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stat-ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:none}
+.stat-ic .ic{width:19px;height:19px}
+.stat-ic.terra{background:var(--terra-soft);color:var(--terra-deep)}
+.stat-ic.sage{background:var(--sage-soft);color:var(--sage-deep)}
+.stat-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
+.stat .num{font-family:var(--font-display);font-size:25px;font-weight:700;line-height:1.1}
+.stat .num small{font-size:14px;font-weight:600;color:var(--ink-2);font-family:var(--font-body)}
+.stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
+.stat .sub{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:5px;font-weight:600}
+.stat .sub .ic{width:13px;height:13px}
+.up{color:var(--sage-deep)}.down{color:var(--terra-deep)}
+.stat .ill-deco{position:absolute;right:-8px;bottom:-13px;width:84px;opacity:.85;pointer-events:none}
+.spark{width:100%;height:30px;display:block;margin-top:2px}
+
+/* ---------- agenda hari ini ---------- */
+.agenda-list{display:flex;flex-direction:column;gap:8px}
+.agenda-row{display:grid;grid-template-columns:54px 52px 1fr auto auto;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;border:1px solid var(--line-soft);background:var(--surface-2);transition:all .2s}
+.agenda-row:hover{border-color:#E4D2BC;background:#F8EFDF}
+.agenda-row.done{background:linear-gradient(90deg,var(--terra-softer),transparent 70%);border-color:#F3E2D5}
+.time-chip{min-width:54px;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.02em;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 6px;border-radius:10px}
+.spot{width:52px;height:52px;border-radius:50%;background:var(--cream);border:1px solid var(--line-soft);display:grid;place-items:center;flex:none;overflow:hidden}
+.spot .ill{width:44px}
+.agenda-name{font-size:14.5px;font-weight:700;line-height:1.25}
+.agenda-row.done .agenda-name{color:var(--ink-2)}
+.agenda-meta{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-3);font-weight:600;margin-top:2px;flex-wrap:wrap}
+.cat-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.streak-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--terra-deep);background:var(--terra-soft);padding:4px 9px;border-radius:999px}
+.streak-pill .ic{width:12px;height:12px}
+.btn-check{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center;color:transparent;transition:all .2s;position:relative;flex:none}
+.btn-check:hover{border-color:var(--terra);transform:scale(1.06)}
+.btn-check.done{background:var(--terra);border-color:var(--terra);color:#FFF7EC;animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+.btn-check .ic{width:19px;height:19px}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.counter{display:inline-flex;align-items:center;gap:7px}
+.counter button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink-2);transition:all .15s}
+.counter button:hover{border-color:var(--terra);color:var(--terra-deep)}
+.counter button .ic{width:13px;height:13px}
+.counter b{font-size:12.5px;font-weight:800;min-width:34px;text-align:center;color:#4E8273}
+.agenda-note{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 15px;border-radius:14px;background:var(--terra-softer);border:1px dashed #ECCBB6;font-size:12.5px;font-weight:600;color:var(--terra-deep)}
+.agenda-note .ic{width:17px;height:17px;flex:none}
+
+/* ---------- bar progress ---------- */
+.bar{height:10px;border-radius:99px;background:var(--bg-deep);overflow:hidden;position:relative}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--sage);width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.bar.slate i{background:var(--terra)}
+.bar.warna-honey i{background:var(--honey)}
+
+/* ---------- arus kas ---------- */
+.legend{display:flex;gap:14px;font-size:11.5px;font-weight:700;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3.5px;display:inline-block}
+.cf-total{display:flex;gap:10px;margin-top:14px}
+.cf-total>div{flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line-soft)}
+.cf-total .ic{width:17px;height:17px}
+.cf-total b{font-size:13.5px;display:block}
+.cf-total small{font-size:10.5px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+
+/* ---------- mini anggaran ---------- */
+.mini-budget{display:flex;flex-direction:column;gap:13px}
+.mb-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center}
+.mb-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center}
+.mb-ic .ic{width:17px;height:17px}
+.mb-row .bar{height:8px;margin-top:5px}
+.mb-info{min-width:0}
+.mb-info b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mb-amt{font-size:11px;color:var(--ink-3);font-weight:700;white-space:nowrap}
+
+/* ---------- tip kartu ---------- */
+.tip-card{position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;padding:20px}
+.tip-card .ill{width:104px;flex:none}
+.tip-card b{font-family:var(--font-display);font-size:15.5px;display:block;margin-bottom:4px}
+.tip-card p{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- halaman kebiasaan ---------- */
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.mini-stat{display:flex;align-items:center;gap:13px;padding:15px 18px}
+.mini-stat .spot{width:46px;height:46px}
+.mini-stat .spot .ill{width:38px}
+.mini-stat .num{font-family:var(--font-display);font-size:21px;font-weight:700;line-height:1}
+.mini-stat .lbl{font-size:11px;color:var(--ink-3);font-weight:700;margin-top:3px}
+.heatmap-wrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.hm-flex{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
+.hm-side{flex:0 0 250px;display:flex;flex-direction:column;gap:4px}
+.hm-side .find-item{padding:10px}
+@media(max-width:900px){.hm-side{flex-basis:100%}}
+.hm-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);gap:3.5px;width:max-content}
+.hm-cell{width:13px;height:13px;border-radius:3.5px;background:#F1E6D4}
+.hm-cell.l1{background:#F0CDBB}.hm-cell.l2{background:#E3A184}.hm-cell.l3{background:#C05B3C}
+.hm-cell.today{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--terra)}
+.hm-months{display:grid;grid-auto-flow:column;gap:3.5px;width:max-content;margin-bottom:6px}
+.hm-months span{font-size:9.5px;font-weight:800;color:var(--ink-3);width:13px;overflow:visible;white-space:nowrap}
+.hm-legend{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-3);font-weight:700}
+.hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.habit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.habit-card{display:flex;gap:14px;padding:18px;transition:all .2s}
+.habit-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:#E4D2BC}
+.hc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.hc-top{display:flex;gap:12px;align-items:flex-start}
+.hc-top .spot{width:56px;height:56px}
+.hc-top .spot .ill{width:48px}
+.hc-name{font-size:15.5px;font-weight:800;line-height:1.2}
+.hc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--ink-2)}
+.tag .ic{width:11px;height:11px}
+.wd-row{display:flex;gap:5px}
+.wd{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink-2);background:var(--surface-2)}
+.wd.on{background:var(--terra-soft);color:var(--terra-deep)}
+.wd.today{box-shadow:inset 0 0 0 2px var(--terra)}
+.hc-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.hc-consist{flex:1;min-width:90px}
+.hc-consist small{font-size:10.5px;font-weight:700;color:var(--ink-3)}
+.hc-consist .bar{height:7px;margin-top:4px}
+.empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:36px 20px}
+.empty-state .ill{width:180px;max-width:70%}
+.empty-state b{font-family:var(--font-display);font-size:16px}
+.empty-state p{font-size:12.5px;color:var(--ink-3);max-width:280px}
+
+/* ---------- halaman keuangan ---------- */
+.scene-stat{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:20px}
+.scene-stat .ill{width:110px;flex:none;position:relative;z-index:1}
+.scene-stat .num{font-family:var(--font-display);font-size:23px;font-weight:700;line-height:1.1}
+.scene-stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2);margin:3px 0 2px}
+.scene-stat .sub{font-size:11px;font-weight:600}
+.donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.donut-wrap{position:relative;width:210px;height:210px;flex:none;margin:auto}
+.donut-wrap svg{width:100%;height:100%}
+.donut-slice{transition:opacity .2s}
+.donut-wrap:hover .donut-slice{opacity:.45}
+.donut-wrap .donut-slice:hover{opacity:1}
+.donut-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
+.donut-center small{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.donut-center b{font-family:var(--font-display);font-size:16px;font-weight:700;margin-top:2px;letter-spacing:-.02em}
+.donut-legend{flex:1;min-width:230px;display:flex;flex-direction:column;gap:3px}
+.dl-row{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:7px 9px;border-radius:12px;transition:background .15s}
+.dl-row:hover{background:var(--surface-2)}
+.dl-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center}
+.dl-ic .ic{width:16px;height:16px}
+.dl-row b{font-size:13px;display:block}
+.dl-row small{font-size:10.5px;color:var(--ink-3);font-weight:700}
+.dl-amt{text-align:right}
+.dl-amt b{font-size:13px}
+.dl-amt small{font-size:10.5px;color:var(--ink-3);font-weight:700}
+.budget-list{display:flex;flex-direction:column;gap:16px}
+.b-row{display:flex;flex-direction:column;gap:7px}
+.b-head{display:flex;align-items:center;gap:10px}
+.b-head .dl-ic{width:36px;height:36px}
+.b-head b{font-size:13.5px}
+.b-head small{font-size:10.5px;color:var(--ink-3);font-weight:700;margin-left:auto;white-space:nowrap}
+.b-head .warn{color:var(--terra-deep)}
+.tx-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.search-box{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 15px;min-height:42px;flex:1;min-width:200px;max-width:320px;transition:border .18s}
+.search-box:focus-within{border-color:var(--terra)}
+.search-box .ic{width:16px;height:16px;color:var(--ink-3)}
+.search-box input{border:none;background:none;outline:none;width:100%;font-size:13.5px;font-weight:500}
+.search-box input::placeholder{color:var(--ink-3)}
+.tx-group{margin-bottom:6px}
+.tx-date{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
+.tx-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
+.tx-row:hover{background:var(--surface-2)}
+.tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.tx-ic .ic{width:19px;height:19px}
+.tx-row b{font-size:14px;display:block;line-height:1.25}
+.tx-row small{font-size:11.5px;color:var(--ink-3);font-weight:600}
+.tx-amt{font-size:14.5px;font-weight:800;text-align:right;white-space:nowrap}
+.tx-amt small{display:block;font-size:10.5px;font-weight:700;color:var(--ink-3)}
+.tx-amt.masuk{color:var(--sage-deep)}
+.tx-amt.keluar{color:var(--terra-deep)}
+.tx-scroll{padding-right:2px}
+
+/* ---------- halaman kalender ---------- */
+.cal-head-row{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:8px}
+.cal-head-row span{text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-cell{position:relative;aspect-ratio:1/.92;border-radius:14px;border:1.5px solid var(--line-soft);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:all .15s;min-height:44px}
+.cal-cell:hover{border-color:var(--terra);transform:translateY(-1px)}
+.cal-cell .d{font-size:13.5px;font-weight:700;font-family:var(--font-display)}
+.cal-cell.blank{border:none;background:none;pointer-events:none}
+.cal-cell.future{opacity:.45;border-style:dashed;background:transparent}
+.cal-cell.today{border-color:var(--terra);background:var(--terra-softer)}
+.cal-cell.sel{background:var(--terra);border-color:var(--terra)}
+.cal-cell.sel .d{color:#FFF7EC}
+.cal-cell.sel .ticks i{background:rgba(255,247,236,.45)}
+.cal-cell.sel .ticks i.on{background:#FFF7EC}
+.ticks{display:flex;gap:2px}
+.ticks i{width:3.5px;height:7px;border-radius:2px;background:var(--line)}
+.ticks i.on{background:var(--terra)}
+.cal-cell.today .ticks i.on{background:var(--terra-deep)}
+.perf-star{position:absolute;top:6px;right:7px;width:11px;height:11px;color:var(--honey)}
+.day-detail{display:flex;flex-direction:column;gap:16px}
+.dd-head{display:flex;gap:14px;align-items:center}
+.dd-head .spot{width:62px;height:62px}
+.dd-head .spot .ill{width:52px}
+.dd-head b{font-family:var(--font-display);font-size:19px;display:block}
+.dd-head small{font-size:12px;color:var(--ink-3);font-weight:600}
+.dd-stats{display:flex;gap:10px;flex-wrap:wrap}
+.dd-stats .pill{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line-soft)}
+.dd-habits{display:flex;flex-direction:column;gap:7px}
+.dd-habit{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:8px 11px;border-radius:12px;background:var(--surface-2)}
+.dd-habit .ic{width:16px;height:16px;flex:none}
+.dd-habit.y{color:var(--sage-deep)}
+.dd-habit.n{color:var(--ink-3)}
+.dd-tx{display:flex;flex-direction:column;gap:7px}
+.dd-tx-row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.dd-tx-row .tx-ic{width:34px;height:34px;border-radius:11px}
+.dd-tx-row .tx-ic .ic{width:15px;height:15px}
+.dd-tx-row span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.cal-strip .mini-stat{padding:14px 16px}
+.cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:700}
+
+/* ---------- halaman wawasan ---------- */
+.find-list{display:flex;flex-direction:column;gap:6px}
+.find-item{display:flex;gap:13px;align-items:center;padding:11px}
+.find-item .spot{width:50px;height:50px}
+.find-item .spot .ill{width:42px}
+.find-item b{font-size:13.5px;display:block;line-height:1.3}
+.find-item small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.4;display:block;margin-top:1px}
+.pola-list{display:flex;flex-direction:column;gap:14px}
+.pola-row{display:flex;flex-direction:column;gap:6px}
+.pola-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pola-head .lbl{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700}
+.pola-head .dl-ic{width:28px;height:28px;border-radius:9px}
+.pola-head .dl-ic .ic{width:14px;height:14px}
+.pola-head b{font-size:12.5px;white-space:nowrap}
+.pola-bar{height:14px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
+.pola-bar i{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 15px}
+.badge .ill{width:74px;height:74px}
+.badge b{font-size:12.5px;line-height:1.25}
+.badge small{font-size:10.5px;color:var(--ink-3);font-weight:600;line-height:1.35}
+.badge.locked{filter:grayscale(1);opacity:.55}
+.badge .lock-tag{display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);filter:none}
+.badge .lock-tag .ic{width:11px;height:11px}
+.badge.unlocked .lock-tag{color:var(--sage-deep)}
+.cons-note{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--sage-soft);border:1px solid #D8E6CE;font-size:12.5px;font-weight:600;color:var(--sage-deep)}
+.cons-note .ic{width:17px;height:17px;flex:none}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:none}
+.modal.open{display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.modal.open{align-items:center;padding:24px}}
+.modal-backdrop{position:absolute;inset:0;background:rgba(62,46,34,.42);backdrop-filter:blur(3px);animation:fadeIn .25s}
+.sheet{position:relative;width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--surface);border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg);animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
+@media(min-width:640px){.sheet{border-radius:28px}}
+@keyframes sheetIn{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}}
+.sheet-head{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 26px 6px}
+.sheet-head h3{font-size:21px}
+.sheet-body{padding:16px 26px 26px;display:flex;flex-direction:column;gap:16px}
+.field label{display:block;font-size:12px;font-weight:800;color:var(--ink-2);margin-bottom:7px;letter-spacing:.02em}
+.field input[type=text],.field input[type=date],.field input[type=time],.field select{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;transition:border .18s;outline:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B5A49' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
+.field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface)}
+.money{position:relative}
+.money span{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--terra-deep);font-size:15px}
+.money input{padding-left:44px !important;font-size:19px !important;font-weight:800;letter-spacing:-.01em}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.icon-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ip-opt{position:relative;border:2px solid var(--line);border-radius:16px;background:var(--surface-2);padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .15s}
+.ip-opt .ill{width:44px}
+.ip-opt small{font-size:9.5px;font-weight:800;color:var(--ink-3)}
+.ip-opt:hover{border-color:var(--terra)}
+.ip-opt.sel{border-color:var(--terra);background:var(--terra-softer)}
+.ip-opt.sel small{color:var(--terra-deep)}
+.ip-opt input{position:absolute;opacity:0;pointer-events:none}
+.sheet-actions{display:flex;gap:10px;justify-content:flex-end;padding-top:6px}
+.target-reveal{display:none}
+.target-reveal.show{display:block;animation:pageIn .3s}
+
+/* ---------- toast ---------- */
+.toast-root{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+@media(min-width:1024px){.toast-root{left:auto;right:26px;bottom:26px;transform:none;align-items:flex-end}}
+.toast{display:flex;gap:12px;align-items:center;padding:13px 18px 13px 13px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);max-width:min(92vw,380px);animation:toastIn .45s cubic-bezier(.25,1.2,.4,1)}
+.toast.out{animation:toastOut .35s forwards}
+.toast-ic{width:38px;height:38px;border-radius:13px;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;flex:none}
+.toast-ic .ic{width:18px;height:18px}
+.toast-ic.sage{background:var(--sage-soft);color:var(--sage-deep)}
+.toast-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
+.toast b{font-size:13px;display:block;line-height:1.3}
+.toast small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.35;display:block}
+@keyframes toastIn{from{opacity:0;transform:translateY(24px) scale(.92)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(14px) scale(.94)}}
+
+/* ---------- confetti ---------- */
+.cp{position:fixed;top:-16px;z-index:130;pointer-events:none;border-radius:3px;animation:fall 1.5s cubic-bezier(.3,.5,.6,1) forwards}
+@keyframes fall{to{transform:translate(var(--dx,0),106vh) rotate(var(--rot,540deg));opacity:.9}}
+
+/* ---------- grafik svg umum ---------- */
+.chart-label{font-size:10.5px;font-weight:700;fill:var(--ink-2)}
+.chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
+.line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ---------- scrollbar ---------- */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#E4D5BE;border-radius:99px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--peach)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- responsive ---------- */
+@media(min-width:1024px){
+  .sidebar{display:flex}
+  .main{margin-left:var(--sidebar-w)}
+  .bottomnav{display:none}
+}
+@media(max-width:1023px){
+  .tb-brand{display:flex}
+  .tb-date{display:none}
+  .view{padding:22px 18px 110px}
+  .topbar{padding:0 18px}
+  .appfooter{padding:14px 18px 108px}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:24px 22px}
+  .hero-ill{max-width:340px;margin:0 auto;order:-1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .habit-grid{grid-template-columns:1fr}
+  .badge-grid{grid-template-columns:repeat(3,1fr)}
+  .cal-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .sheet{padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
+  .stats{grid-template-columns:1fr 1fr;gap:12px}
+  .stat{padding:14px 15px}
+  .stat .num{font-size:20px}
+  .stat .ill-deco{display:none}
+  .mini-stats{grid-template-columns:1fr}
+  .scene-stat .ill{width:88px}
+  .donut-flex{flex-direction:column;align-items:stretch}
+  .donut-wrap{margin:0 auto}
+  .field-row{grid-template-columns:1fr}
+  .agenda-row{grid-template-columns:44px 1fr 44px;gap:6px 10px}
+  .agenda-row .spot{width:40px;height:40px;grid-row:1/3;align-self:center}
+  .agenda-row .spot .ill{width:34px}
+  .agenda-row .counter{grid-column:2;grid-row:2;justify-self:start;gap:7px}
+  .agenda-row .btn-check{grid-column:3;grid-row:1/3;align-self:center}
+  .agenda-row .time-chip{display:none}
+  .agenda-row .streak-pill{display:none}
+  .badge-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-quote{display:none}
+  .pill-streak span{display:none}
+  .pill-streak{padding:7px 11px}
+  .chip{padding:7px 12px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<!-- ================= SPRITE ILUSTRASI & IKON (digambar tangan, gaya flat hangat) ================= -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<g id="spark4"><path d="M0-1l.3.7.7.3-.7.3L0 1l-.3-.7L-1 0l.7-.3z"/></g>
+</defs>
+
+<!-- ============ SPOT: MEDITASI ============ -->
+<symbol id="ill-meditasi" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M26 64c7-9 16-13 22-13s15 4 22 13c2.5 3.5.5 7-3.5 7H29.5c-4 0-6-3.5-3.5-7z" fill="#8FAE8B"/>
+  <path d="M35 43c0-7 5.5-11 13-11s13 4 13 11v11c0 5.5-5.5 9-13 9s-13-3.5-13-9z" fill="#C05B3C"/>
+  <path d="M35 51c-5 3-7 8-5.5 13M61 51c5 3 7 8 5.5 13" stroke="#EBB896" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="48" cy="27" r="12.5" fill="#EBB896"/>
+  <path d="M35.5 27c0-8.5 5.5-12 12.5-12s12.5 3.5 12.5 12c-2.5-3.5-6.5-5-12.5-5s-10 1.5-12.5 5z" fill="#4A342A"/>
+  <circle cx="48" cy="12" r="5" fill="#4A342A"/>
+  <path d="M43 27.5q2.2 2.2 4.4 0M52.6 27.5q2.2 2.2 4.4 0" stroke="#4A342A" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M46.5 32.5q1.5 1.5 3 0" stroke="#9E4529" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M26 14l1.6 4.4L32 20l-4.4 1.6L26 26l-1.6-4.4L20 20l4.4-1.6z" fill="#DCA43D"/>
+  <path d="M70 22l1.2 3.2 3.2 1.2-3.2 1.2L70 30.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#DCA43D"/>
+  <path d="M20 72c5-4 11-4 15 0-4 4-10 4-15 0z" fill="#8FAE8B"/>
+  <path d="M62 74c4-3.5 9-3.5 13 0-4 3.5-9 3.5-13 0z" fill="#A9C29B"/>
+</symbol>
+
+<!-- ============ SPOT: LARI PAGI ============ -->
+<symbol id="ill-lari" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M18 70h60" stroke="#E7F0E0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M33 70a15 15 0 0 1 30 0z" fill="#F5D98F"/>
+  <rect x="49" y="39" width="13" height="20" rx="5.5" fill="#C05B3C" transform="rotate(8 55.5 49)"/>
+  <path d="M60 44c6 .5 10 3.5 12 8.5" stroke="#EBB896" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M51 45c-6 0-10 3-12 8" stroke="#D69B72" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M61 60c7 1 12 5 13 12" stroke="#6E8F6A" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M55 62c-6 2-9 6-8 12" stroke="#6E8F6A" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <circle cx="75" cy="73.5" r="3.5" fill="#9E4529"/>
+  <circle cx="46.5" cy="75" r="3.5" fill="#9E4529"/>
+  <circle cx="55" cy="30" r="9" fill="#EBB896"/>
+  <path d="M46.5 29c0-5 3.5-8 8.5-8s8.5 3 8.5 8c-1.8-2.4-4.4-3.4-8.5-3.4s-6.7 1-8.5 3.4z" fill="#4A342A"/>
+  <path d="M16 42h13M12.5 50h10M17 58h9" stroke="#DCA43D" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M76 22l1.4 3.8 3.8 1.4-3.8 1.4L76 32.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SPOT: SARAPAN SEHAT ============ -->
+<symbol id="ill-sarapan" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M25 50h46c0 13-10.3 21-23 21s-23-8-23-21z" fill="#9E4529"/>
+  <rect x="23" y="48" width="50" height="7" rx="3.5" fill="#DCA43D"/>
+  <path d="M40 42c-3-3.5 3-6 0-9.5M52 42c-3-3.5 3-6 0-9.5" stroke="#B98F75" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M42 48c4-4.5 10-4.5 14 0-4 4.5-10 4.5-14 0z" fill="#8FAE8B"/>
+  <circle cx="74" cy="60" r="6.5" fill="#C05B3C"/>
+  <path d="M74 54.5c.8-1.6 2-2.5 3.5-3" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M76.5 52.5c3-1.5 5.5-1 7 .5-2 1.5-4.5 2-7-.5z" fill="#8FAE8B"/>
+  <path d="M28 24l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SPOT: MEMBACA ============ -->
+<symbol id="ill-baca" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M22 40c8-5 18-6 26-3v30c-8-3-18-2-26 3z" fill="#9E4529"/>
+  <path d="M74 40c-8-5-18-6-26-3v30c8-3 18-2 26 3z" fill="#C05B3C"/>
+  <path d="M24.5 41.5c7-4.5 16-5.5 22.5-3v26c-6.5-2.5-15.5-1.5-22.5 3z" fill="#FFF9EF"/>
+  <path d="M71.5 41.5c-7-4.5-16-5.5-22.5-3v26c6.5-2.5 15.5-1.5 22.5 3z" fill="#FFF9EF"/>
+  <path d="M48 38.5v26" stroke="#EBDFCC" stroke-width="2"/>
+  <path d="M29 45c5-2 10-2.5 15-1M29 50c5-2 10-2.5 15-1M29 55c5-2 10-2.5 15-1" stroke="#D9C7B2" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M52 44c5-1.5 10-1 15 1M52 49c5-1.5 10-1 15 1" stroke="#D9C7B2" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M46 24c3-4 8-4.5 11-2-2.5 3.5-7 4.5-11 2z" fill="#8FAE8B"/>
+  <path d="M44 27c-1.5-4.5-1-8.5 1.5-11 2 3.5 1.5 7.5-1.5 11z" fill="#A9C29B"/>
+  <path d="M70 26l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+  <circle cx="26" cy="30" r="3" fill="#F2C6A0"/>
+</symbol>
+
+<!-- ============ SPOT: MINUM AIR ============ -->
+<symbol id="ill-air" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M35 26l-4.5 44c-.5 4.5 3 7.5 7.5 7.5h20c4.5 0 8-3 7.5-7.5L61 26z" fill="#FFF9EF" stroke="#D9C7B2" stroke-width="2.5"/>
+  <path d="M36.6 42l-3.4 28c-.5 4.5 3 7.5 7.5 7.5h15.6c4.5 0 8-3 7.5-7.5l-3.4-28c-3.5 2.6-6.7 2.4-8.9.3-2.4 2.3-5.9 2.3-8.2 0-2 1.9-4.9 2-7.1.2z" fill="#7FB5A6"/>
+  <path d="M38 52c4 2 9 2 13 0s9-2 13 0" stroke="#FFF9EF" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="44" cy="62" r="2.5" fill="#FFF9EF" opacity=".6"/>
+  <circle cx="54" cy="68" r="2" fill="#FFF9EF" opacity=".6"/>
+  <path d="M24 40c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#7FB5A6"/>
+  <path d="M74 46c-2.8 3.4-2.8 6 0 8.2 2.8-2.2 2.8-4.8 0-8.2z" fill="#7FB5A6"/>
+  <path d="M30 22l1.4 3.6 3.6 1.4-3.6 1.4L30 32l-1.4-3.6-3.6-1.4 3.6-1.4z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SPOT: MENULIS JURNAL ============ -->
+<symbol id="ill-jurnal" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <rect x="25" y="22" width="44" height="54" rx="7" fill="#FFF9EF" stroke="#EBDFCC" stroke-width="2"/>
+  <path d="M32 22h-1a6 6 0 0 0-6 6v42a6 6 0 0 0 6 6h1z" fill="#C05B3C"/>
+  <path d="M25 32h-5M25 42h-5M25 52h-5M25 62h-5" stroke="#B98F75" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M40 34h20M40 42h20M40 50h20M40 58h13" stroke="#D9C7B2" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M54 63c-2-2-5-.8-5 1.6 0 2.8 5 5.2 5 5.2s5-2.4 5-5.2c0-2.4-3-3.6-5-1.6z" fill="#D98A7E"/>
+  <path d="M60 80L78 62" stroke="#DCA43D" stroke-width="7" stroke-linecap="round"/>
+  <path d="M76.5 60.5l6.5-6.5-2 8.5z" fill="#4A342A"/>
+  <path d="M78 20l1.3 3.4 3.4 1.3-3.4 1.3L78 29.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SPOT: TIDUR CEPAT ============ -->
+<symbol id="ill-tidur" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M62 17A29 29 0 1 0 79 58 23.5 23.5 0 0 1 62 17z" fill="#DCA43D"/>
+  <path d="M30 26l1.6 4.2 4.2 1.6-4.2 1.6L30 37.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#DCA43D"/>
+  <path d="M36 52l1.1 2.9 2.9 1.1-2.9 1.1L36 59.1l-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#C05B3C"/>
+  <path d="M64 36h7l-7 7h7" stroke="#9E4529" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M75 26h5l-5 5h5" stroke="#C05B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <ellipse cx="30" cy="70" rx="14" ry="6.5" fill="#FFF9EF"/>
+  <ellipse cx="41" cy="67" rx="9" ry="5" fill="#FFF9EF"/>
+</symbol>
+
+<!-- ============ SPOT: ANGKAT BEBAN ============ -->
+<symbol id="ill-beban" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <rect x="20" y="31" width="9" height="34" rx="4" fill="#9E4529"/>
+  <rect x="29" y="37" width="7" height="22" rx="3.5" fill="#C05B3C"/>
+  <rect x="34" y="42" width="28" height="11" rx="5.5" fill="#B98F75"/>
+  <rect x="60" y="37" width="7" height="22" rx="3.5" fill="#C05B3C"/>
+  <rect x="67" y="31" width="9" height="34" rx="4" fill="#9E4529"/>
+  <path d="M14 38h6M12 48h6M14 58h6" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M76 38h6M78 48h6M76 58h6" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M48 16l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SPOT: MENABUNG (kecil) ============ -->
+<symbol id="ill-tabungan" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <ellipse cx="46" cy="56" rx="27" ry="19" fill="#F2C6A0"/>
+  <path d="M28 42l-4-10 10 5z" fill="#E9AF85"/>
+  <path d="M26 64h40" stroke="#E9AF85" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="66" cy="56" rx="8" ry="6.5" fill="#E9AF85"/>
+  <circle cx="63.5" cy="56" r="1.5" fill="#B97F54"/>
+  <circle cx="68.5" cy="56" r="1.5" fill="#B97F54"/>
+  <path d="M58 48q2.5 2.5 5 0" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M20 52c-5-1-6.5-5-3.5-8" stroke="#E9AF85" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <rect x="40" y="37" width="12" height="3.5" rx="1.75" fill="#5C4632"/>
+  <circle cx="46" cy="22" r="7" fill="#DCA43D"/>
+  <circle cx="46" cy="22" r="4.5" fill="none" stroke="#B98F2E" stroke-width="1.8"/>
+  <path d="M42 32l-.8 3M46 32v3M50 32l.8 3" stroke="#DCA43D" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="78" cy="68" rx="7" ry="2.6" fill="#DCA43D"/>
+  <ellipse cx="78" cy="63" rx="7" ry="2.6" fill="#E5B95C"/>
+  <path d="M72 34l1.2 3.2 3.2 1.2-3.2 1.2L72 42.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SCENE: HERO MENYIRAM TANAMAN ============ -->
+<symbol id="ill-hero" viewBox="0 0 480 320">
+  <path d="M240 16c82 0 152 42 178 106 24 60 4 130-56 162-64 34-168 36-234-8C66 236 42 156 74 94 106 36 158 16 240 16z" fill="#FBF2E2"/>
+  <circle cx="396" cy="62" r="25" fill="#F5D98F"/>
+  <circle cx="396" cy="62" r="37" fill="none" stroke="#F5D98F" stroke-width="3" stroke-dasharray="1 11" stroke-linecap="round" opacity=".8"/>
+  <g fill="#FFFFFF"><ellipse cx="112" cy="56" rx="27" ry="12"/><ellipse cx="134" cy="50" rx="17" ry="9"/></g>
+  <path d="M40 272c80-26 260-28 348-9 26 5.5 46 13 52 21H32c1-5 4-9 8-12z" fill="#E7F0E0"/>
+  <path d="M150 234v20M176 234v20" stroke="#6E8F6A" stroke-width="15" stroke-linecap="round"/>
+  <path d="M136 150c0-11 11-17 27-17h10c16 0 27 6 27 17l7 72c1 9-6 16-15 16h-48c-9 0-16-7-15-16z" fill="#C05B3C"/>
+  <circle cx="168" cy="120" r="24" fill="#EBB896"/>
+  <path d="M144 118c0-17 11-27 24-27s24 10 24 27c-3.5-4.5-11-7.5-24-7.5s-20.5 3-24 7.5z" fill="#4A342A"/>
+  <circle cx="168" cy="87" r="10.5" fill="#4A342A"/>
+  <path d="M160 122q3 3 6 0M172 122q3 3 6 0" stroke="#4A342A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M165 130q3 3 6 0" stroke="#9E4529" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="156" cy="129" r="3.5" fill="#F2C6A0"/>
+  <circle cx="181" cy="129" r="3.5" fill="#F2C6A0"/>
+  <path d="M188 162c17 4 29 12 35 23" stroke="#EBB896" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M148 162c-9 7-12 17-10 27" stroke="#EBB896" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M228 178h46l-7 36h-32z" fill="#DCA43D"/>
+  <ellipse cx="251" cy="178" rx="23" ry="5.5" fill="#C99330"/>
+  <path d="M228 182L202 164" stroke="#DCA43D" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="199" cy="162" r="6.5" fill="#C99330"/>
+  <path d="M274 186c15 2 23 11 25 23" stroke="#DCA43D" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M196 172l-3.5 11M208 180l-3 10M185 180l-3 10" stroke="#7FB5A6" stroke-width="5" stroke-linecap="round"/>
+  <path d="M336 234c-4-24 2-46 12-56" stroke="#6E8F6A" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="314" cy="160" rx="27" ry="14" fill="#8FAE8B" transform="rotate(-20 314 160)"/>
+  <ellipse cx="362" cy="178" rx="27" ry="14" fill="#8FAE8B" transform="rotate(22 362 178)"/>
+  <ellipse cx="344" cy="124" rx="16" ry="26" fill="#6E8F6A"/>
+  <ellipse cx="312" cy="196" rx="14" ry="8" fill="#A9C29B" transform="rotate(-28 312 196)"/>
+  <circle cx="372" cy="126" r="14" fill="#FFF9EF"/>
+  <path d="M366 126l4.5 5 8.5-9.5" stroke="#C05B3C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M306 242h60l-8 28h-44z" fill="#9E4529"/>
+  <rect x="300" y="234" width="72" height="13" rx="6" fill="#C05B3C"/>
+  <path d="M262 96c8-6.5 17-6.5 23 0-6 6.5-15 6.5-23 0z" fill="#8FAE8B"/>
+  <path d="M96 128l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6z" fill="#DCA43D"/>
+  <path d="M430 170l2.2 5.8 5.8 2.2-5.8 2.2-2.2 5.8-2.2-5.8-5.8-2.2 5.8-2.2z" fill="#DCA43D"/>
+  <circle cx="70" cy="196" r="4.5" fill="#F2C6A0"/>
+  <circle cx="448" cy="118" r="5" fill="#F2C6A0"/>
+</symbol>
+
+<!-- ============ SCENE: CELENGAN ============ -->
+<symbol id="ill-piggy" viewBox="0 0 200 140">
+  <path d="M100 12c34 0 62 18 70 46 8 28-10 58-46 64-40 7-72-10-80-40-8-32 16-70 56-70z" fill="#FBF2E2"/>
+  <ellipse cx="96" cy="122" rx="46" ry="6" fill="#EBDFCC"/>
+  <path d="M64 108v16M84 112v14M104 112v14M118 108v16" stroke="#E9AF85" stroke-width="9" stroke-linecap="round"/>
+  <ellipse cx="92" cy="86" rx="47" ry="33" fill="#F2C6A0"/>
+  <path d="M60 62l-8-18 19 9z" fill="#E9AF85"/>
+  <path d="M46 82c-9-2-11-9-5-13" stroke="#E9AF85" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <ellipse cx="132" cy="90" rx="13" ry="10" fill="#E9AF85"/>
+  <circle cx="128" cy="90" r="2.2" fill="#B97F54"/>
+  <circle cx="136" cy="90" r="2.2" fill="#B97F54"/>
+  <path d="M112 78q3 3 6 0" stroke="#4A342A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <rect x="82" y="53" width="20" height="4.5" rx="2.25" fill="#5C4632"/>
+  <circle cx="92" cy="32" r="11" fill="#DCA43D"/>
+  <circle cx="92" cy="32" r="7.5" fill="none" stroke="#B98F2E" stroke-width="2"/>
+  <path d="M86 46l-1 5M92 46v5.5M98 46l1 5" stroke="#DCA43D" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="162" cy="116" rx="13" ry="4.5" fill="#DCA43D"/>
+  <ellipse cx="162" cy="108" rx="13" ry="4.5" fill="#E5B95C"/>
+  <ellipse cx="162" cy="100" rx="13" ry="4.5" fill="#DCA43D"/>
+  <path d="M158 64l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SCENE: DOMPET ============ -->
+<symbol id="ill-dompet" viewBox="0 0 160 130">
+  <path d="M78 10c30 0 55 16 62 42 7 27-9 55-42 61-35 7-62-10-69-38C22 45 42 10 78 10z" fill="#E7F0E0"/>
+  <rect x="52" y="20" width="34" height="22" rx="5" fill="#C05B3C" transform="rotate(-10 69 31)"/>
+  <rect x="74" y="14" width="34" height="22" rx="5" fill="#8FAE8B" transform="rotate(8 91 25)"/>
+  <rect x="36" y="46" width="88" height="54" rx="14" fill="#9E4529"/>
+  <rect x="48" y="58" width="64" height="10" rx="5" fill="#7A3520"/>
+  <path d="M103 62c6-4 12-4 18 0" stroke="#DCA43D" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="112" cy="74" r="9" fill="#DCA43D"/>
+  <circle cx="44" cy="26" r="7" fill="#DCA43D"/>
+  <circle cx="134" cy="30" r="5.5" fill="#DCA43D"/>
+  <path d="M126 52l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SCENE: GRAFIK NAIK ============ -->
+<symbol id="ill-naik" viewBox="0 0 160 130">
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#FBF2E2"/>
+  <rect x="36" y="76" width="18" height="34" rx="6" fill="#A9C29B"/>
+  <rect x="62" y="60" width="18" height="50" rx="6" fill="#8FAE8B"/>
+  <rect x="88" y="42" width="18" height="68" rx="6" fill="#7C9B72"/>
+  <path d="M34 82L70 58 98 36" stroke="#C05B3C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M98 36l-1 12M98 36l-12 2" stroke="#C05B3C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M126 44l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#DCA43D"/>
+  <circle cx="30" cy="40" r="3.5" fill="#F2C6A0"/>
+  <circle cx="122" cy="92" r="4" fill="#F2C6A0"/>
+</symbol>
+
+<!-- ============ SCENE: KERANJANG BELANJA ============ -->
+<symbol id="ill-keranjang" viewBox="0 0 160 130">
+  <path d="M80 10c30 0 56 15 62 42 6 28-10 56-42 62-34 6-62-12-68-40C26 44 46 10 80 10z" fill="#F9ECD1"/>
+  <path d="M52 64c0-20 12-30 28-30s28 10 28 30" stroke="#B98F2E" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="60" cy="52" r="11" fill="#7C9B72"/>
+  <path d="M60 41c-3-6-9-8-15-7 1 6 7 9 15 7z" fill="#8FAE8B"/>
+  <path d="M60 41c3-6 9-8 15-7-1 6-7 9-15 7z" fill="#A9C29B"/>
+  <path d="M86 30l10-6 10 6v22l-10 6-10-6z" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="2"/>
+  <path d="M86 30l10 5 10-5M96 35v23" stroke="#E4D5C2" stroke-width="2" fill="none"/>
+  <circle cx="120" cy="52" r="8" fill="#C05B3C"/>
+  <path d="M120 44c.5-2 2-3.5 4-4" stroke="#4A342A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M40 64h80l-9 42c-.8 4-4 6.5-8 6.5H57c-4 0-7.2-2.5-8-6.5z" fill="#DCA43D"/>
+  <path d="M42 78h76M45 92h70" stroke="#C08A2C" stroke-width="3" opacity=".7"/>
+  <path d="M64 66l3 44M96 66l-3 44" stroke="#C08A2C" stroke-width="3" opacity=".5"/>
+  <path d="M34 40l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SCENE: KOSONG (empty state) ============ -->
+<symbol id="ill-kosong" viewBox="0 0 200 150">
+  <circle cx="100" cy="72" r="56" fill="none" stroke="#E4D5C2" stroke-width="2.5" stroke-dasharray="3 8" stroke-linecap="round"/>
+  <rect x="64" y="70" width="72" height="40" rx="4" fill="#B97F4E"/>
+  <path d="M60 78L40 62l26-6z" fill="#C68B57"/>
+  <path d="M140 78l20-16-26-6z" fill="#C68B57"/>
+  <path d="M60 78l8-8h64l8 8v26c0 3-2 5-5 5H65c-3 0-5-2-5-5z" fill="#D9A06B"/>
+  <path d="M100 70c0-10 2-16 8-22" stroke="#6E8F6A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M100 52c-4-8-12-11-19-10 2 8 10 13 19 10z" fill="#8FAE8B"/>
+  <path d="M102 48c4-8 12-10 18-8-2 8-9 12-18 8z" fill="#A9C29B"/>
+  <path d="M152 30l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" fill="#DCA43D"/>
+  <path d="M42 30l1.4 3.8 3.8 1.4-3.8 1.4L42 40.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#DCA43D"/>
+  <ellipse cx="100" cy="116" rx="52" ry="6" fill="#F1E6D4"/>
+</symbol>
+
+<!-- ============ SCENE: PAGI (hari terbaik) ============ -->
+<symbol id="ill-pagi" viewBox="0 0 170 120">
+  <path d="M85 8c30 0 55 14 60 40 5 27-12 54-44 58-33 4-58-12-63-40C33 38 52 8 85 8z" fill="#F9ECD1"/>
+  <path d="M53 78a32 32 0 0 1 64 0z" fill="#DCA43D"/>
+  <circle cx="85" cy="66" r="12" fill="#F5D98F"/>
+  <path d="M85 44v-8M62 52l-5.5-6M108 52l5.5-6" stroke="#DCA43D" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="52" cy="88" rx="36" ry="16" fill="#A9C29B"/>
+  <ellipse cx="116" cy="92" rx="40" ry="15" fill="#8FAE8B"/>
+  <path d="M28 34c4-4 8-4 10 0 2-4 6-4 10 0" stroke="#6B5A49" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M136 32l1.8 4.8 4.8 1.8-4.8 1.8-1.8 4.8-1.8-4.8-4.8-1.8 4.8-1.8z" fill="#DCA43D"/>
+</symbol>
+
+<!-- ============ SCENE: RUMAH ============ -->
+<symbol id="ill-rumah" viewBox="0 0 140 110">
+  <path d="M70 8c26 0 48 13 53 35 5 24-11 48-38 52-28 4-50-10-55-34C25 36 42 8 70 8z" fill="#E7F0E0"/>
+  <rect x="86" y="28" width="8" height="14" rx="2" fill="#9E4529"/>
+  <path d="M90 26c-4-4 4-7 0-11" stroke="#B98F75" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M38 50l32-24 32 24z" fill="#C05B3C"/>
+  <rect x="44" y="48" width="52" height="40" rx="5" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="2"/>
+  <rect x="50" y="58" width="10" height="10" rx="2.5" fill="#F9ECD1" stroke="#E4D5C2" stroke-width="1.5"/>
+  <rect x="62" y="64" width="15" height="24" rx="3" fill="#8FAE8B"/>
+  <circle cx="38" cy="86" r="7" fill="#A9C29B"/>
+  <circle cx="102" cy="86" r="6.5" fill="#8FAE8B"/>
+</symbol>
+
+<!-- ============ LENCANA: API ============ -->
+<symbol id="ill-api" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M48 20c5 7 14 11 14 24a14 14 0 0 1-28 0c0-7 3.5-11.5 7-16 1 5 3 7.5 6 9.5-1.5-6 .5-12 1-17.5z" fill="#C05B3C"/>
+  <path d="M48 42c3 4 6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 3-7 6-11z" fill="#DCA43D"/>
+  <path d="M24 30l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#DCA43D"/>
+  <path d="M72 26l1.2 3.2 3.2 1.2-3.2 1.2L72 34.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#C05B3C"/>
+</symbol>
+
+<!-- ============ LENCANA: PIALA ============ -->
+<symbol id="ill-piala" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M30 28c-7 0-10 4-9 9 1 4 5 6 9 5M66 28c7 0 10 4 9 9-1 4-5 6-9 5" stroke="#B98F2E" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M30 24h36v14c0 13-8 22-18 22s-18-9-18-22z" fill="#DCA43D"/>
+  <path d="M44 60h8l-1 8h-6z" fill="#B98F2E"/>
+  <rect x="36" y="68" width="24" height="7" rx="3" fill="#9E4529"/>
+  <path d="M48 32l2.6 6.8 7.4.6-5.6 4.8 1.7 7.2-6.1-3.8-6.1 3.8 1.7-7.2-5.6-4.8 7.4-.6z" fill="#FFF9EF"/>
+  <circle cx="22" cy="22" r="3" fill="#C05B3C"/>
+  <circle cx="76" cy="30" r="2.5" fill="#8FAE8B"/>
+  <rect x="70" y="16" width="5" height="5" rx="1.5" fill="#F2C6A0" transform="rotate(20 72.5 18.5)"/>
+</symbol>
+
+<!-- ============ LENCANA: MEDALI ============ -->
+<symbol id="ill-medali" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M38 18l10 22-8 4-10-22z" fill="#C05B3C"/>
+  <path d="M58 18l-10 22 8 4 10-22z" fill="#8FAE8B"/>
+  <circle cx="48" cy="54" r="21" fill="#DCA43D" stroke="#B98F2E" stroke-width="3"/>
+  <path d="M48 43l3.2 8.3 9 .7-6.8 5.9 2 8.8-7.4-4.6-7.4 4.6 2-8.8-6.8-5.9 9-.7z" fill="#FFF9EF"/>
+</symbol>
+
+<!-- ============ LENCANA: TUNAS ============ -->
+<symbol id="ill-sprout" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <circle cx="48" cy="48" r="30" fill="#E7F0E0" stroke="#8FAE8B" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>
+  <path d="M48 62c0-8 0-13 1-18" stroke="#6E8F6A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M48 46c-3-9-11-13-19-12 1 9 10 15 19 12z" fill="#8FAE8B"/>
+  <path d="M49 42c3-9 11-13 19-12-1 9-10 15-19 12z" fill="#A9C29B"/>
+  <circle cx="64" cy="64" r="9" fill="#FFF9EF" stroke="#E4D5C2" stroke-width="1.5"/>
+  <path d="M60 64l3 3.5 5.5-6" stroke="#C05B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</symbol>
+
+<!-- ============ LENCANA: BULAN (terkunci) ============ -->
+<symbol id="ill-bulan" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#F7EEDF"/>
+  <path d="M56 20A26 26 0 1 0 72 54 21 21 0 0 1 56 20z" fill="#DCA43D"/>
+  <path d="M28 30l1.6 4.2 4.2 1.6-4.2 1.6L28 41.2l-1.6-4.2-4.2-1.6 4.2-1.6z" fill="#DCA43D"/>
+  <path d="M58 40h6l-6 6h6" stroke="#9E4529" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M68 32h4.5l-4.5 4.5h4.5" stroke="#C05B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</symbol>
+
+<!-- ==================== IKON UI (stroke) ==================== -->
+<symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="8" height="8" rx="2.2"/><rect x="13" y="13" width="8" height="8" rx="2.2"/></g></symbol>
+<symbol id="i-checklist" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 6h10M10.5 12h10M10.5 18h10"/><path d="m3 6.2 1.7 1.8L8 4.4M3 12.2l1.7 1.8L8 10.4M3 18.2l1.7 1.8L8 16.4"/></g></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 8V6.8c0-1-.8-1.8-1.8-1.8H5.2C4 5 3 6 3 7.2v9.6C3 18 4 19 5.2 19h13c1.2 0 2.2-1 2.2-2.2v-8c0-1-.8-1.8-1.8-1.8H5"/><circle cx="16.3" cy="13.5" r="1.15" fill="currentColor" stroke="none"/></g></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M8 3v4M16 3v4M3.5 10.5h17M8 14.5h2M14 14.5h2M8 17.5h2"/></g></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 20v-6M12 20V10M17 20V6"/></g></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5.5 12h13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 0 1 12 0c0 4.8 1.8 5.8 1.8 5.8H4.2S6 14.3 6 9.5"/><path d="M10 18.8a2.2 2.2 0 0 0 4 0"/></g></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-arr-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-arr-dr" viewBox="0 0 24 24"><path d="M7 7l10 10M17 9v8H9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.4L19.3 10l-5.4 1.9L12 17.3l-1.9-5.4L4.7 10l5.4-1.6zM19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" fill="currentColor"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></g></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></g></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.2 14.5A8.5 8.5 0 0 1 9.5 3.8a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></g></symbol>
+
+<!-- ==================== GLYPH KATEGORI ==================== -->
+<symbol id="c-makanan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5h16c0 4-3.5 6.5-8 6.5s-8-2.5-8-6.5z"/><path d="M9 10c-.8-1 .8-2 0-3M13.5 10c-.8-1 .8-2 0-3"/></g></symbol>
+<symbol id="c-transport" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-3.5L6 8h12l2 4.5V16M4 16h16"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="16.5" cy="17" r="1.8"/><path d="M4 12.5h16"/></g></symbol>
+<symbol id="c-belanja" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l1.2 12a1.8 1.8 0 0 1-1.8 2H7.1a1.8 1.8 0 0 1-1.8-2z"/><path d="M9 11V7a3 3 0 0 1 6 0v4"/></g></symbol>
+<symbol id="c-tagihan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12V20l-2-1.4-2 1.4-2-1.4L10 20l-2-1.4L6 20z"/><path d="M9 8h6M9 11.5h6M9 15h3.5"/></g></symbol>
+<symbol id="c-kesehatan" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 11c-1.8 4.4-9.3 9-9.3 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="c-hiburan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M10.2 8.8l5 3.2-5 3.2z"/></g></symbol>
+<symbol id="c-rumah" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11 12 4l7.5 7"/><path d="M6.5 10v9.5h11V10"/><path d="M10.5 19.5v-5h3v5"/></g></symbol>
+<symbol id="c-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="8.5" width="15" height="4" rx="1"/><path d="M5.5 12.5h13V20h-13zM12 8.5V20"/><path d="M12 8.5C10 4 7.5 4.5 7.5 6.5S10 8.5 12 8.5zM12 8.5c2-4.5 4.5-4 4.5-2s-2.5 2-4.5 2z"/></g></symbol>
+<symbol id="c-gaji" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="17" height="11.5" rx="2.5"/><path d="M9.5 8V6.5a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2V8M3.5 13h17M12 12v2.5"/></g></symbol>
+<symbol id="c-freelance" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16.5 4.5a2.12 2.12 0 0 1 3 3L8 19z"/><path d="M13.5 7.5l3 3"/></g></symbol>
+<symbol id="c-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5V5A1.5 1.5 0 0 1 5 3.5h7.5L21 12l-8.5 8.5z"/><circle cx="8" cy="8" r="1.6"/></g></symbol>
+</svg>
+
+<div class="app">
+<!-- ================= SIDEBAR (desktop) ================= -->
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+    <div>
+      <div class="brand-name h-serif">Rutina</div>
+      <div class="brand-sub">Ritme harian &amp; keuangan</div>
+    </div>
+  </div>
+  <nav class="nav" aria-label="Navigasi utama">
+    <div class="nav-label">Menu</div>
+    <button class="nav-item active" data-nav="ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Ringkasan</button>
+    <button class="nav-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
+    <button class="nav-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
+    <button class="nav-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
+    <button class="nav-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+  </nav>
+  <div class="side-spacer"></div>
+  <div class="side-card">
+    <svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg>
+    <div class="side-card-t">24 hari beruntun!</div>
+    <div class="side-card-s">6 hari lagi menuju lencana <b>Api 30 Hari</b></div>
+    <div class="bar slate"><i data-w="80%"></i></div>
+  </div>
+  <div class="side-profile">
+    <span class="avatar" aria-hidden="true">A</span>
+    <div>
+      <div style="font-size:13.5px;font-weight:700">Arunika</div>
+      <div style="font-size:11px;color:var(--ink-3);font-weight:600">arunika@rutina.id</div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <div class="tb-left">
+    <div class="tb-brand">
+      <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+      Rutina
+    </div>
+    <div class="tb-date" id="tbDate">Memuat tanggal…</div>
+  </div>
+  <div class="tb-right">
+    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">24</b><span>hari</span></span>
+    <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
+      <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span>
+    </button>
+    <span class="avatar" aria-hidden="true">A</span>
+  </div>
+</header>
+
+<main class="view" id="view">
+
+<!-- ================= HALAMAN: RINGKASAN ================= -->
+<section class="page active" data-page="ringkasan" aria-label="Ringkasan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif" id="greetTitle">Selamat pagi, Arunika</h1>
+      <p class="t-sub" id="greetSub">Hari yang baik untuk merawat ritual kecilmu.</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-body">
+      <span class="eyebrow">Fokus hari ini</span>
+      <h2 class="h-serif">Kebiasaan kecil yang kamu rawat hari ini</h2>
+      <div class="hero-ring">
+        <div class="ring-wrap" role="img" aria-label="Progres kebiasaan hari ini">
+          <svg viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="62" fill="none" stroke="#F0E2CE" stroke-width="12"/>
+            <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#C05B3C" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
+            <text x="75" y="72" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="32" font-weight="700" fill="#9E4529" id="ringText">4/7</text>
+            <text x="75" y="92" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10.5" font-weight="700" fill="#9C8A74" letter-spacing="1">SELESAI</text>
+          </svg>
+        </div>
+        <div class="ring-info">
+          <div class="big"><span id="heroSisa">3</span> kebiasaan lagi</div>
+          <p class="t-sub" style="font-size:12.5px;max-width:230px">menuju hari yang sempurna. Kamu sudah 95 menit fokus hari ini.</p>
+          <button class="btn btn-primary btn-sm" data-go="kebiasaan">Lihat agenda <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <span class="pill" style="background:var(--surface);border:1px solid var(--line)"><svg class="ic" style="color:var(--terra-deep)" aria-hidden="true"><use href="#i-flame"/></svg>Streak terpanjang 31 hari</span>
+        <span class="pill" style="background:var(--surface);border:1px solid var(--line)"><svg class="ic" style="color:var(--sage-deep)" aria-hidden="true"><use href="#i-target"/></svg>95 menit fokus</span>
+      </div>
+    </div>
+    <div class="hero-ill">
+      <svg class="ill" role="img" aria-label="Ilustrasi seseorang menyiram tanaman kebiasaan yang tumbuh"><use href="#ill-hero"/></svg>
+      <div class="hero-quote"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Konsistensi kecil, perubahan besar.</div>
+    </div>
+  </div>
+
+  <!-- STATISTIK -->
+  <div class="stats">
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span>
+        <svg class="spark" id="sparkStreak" aria-hidden="true"></svg>
+      </div>
+      <div><div class="num t-num" id="statStreak">24<small> hari</small></div><div class="lbl">Streak berjalan</div></div>
+      <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>+3 dari minggu lalu</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
+        <svg class="spark" id="sparkKons" aria-hidden="true"></svg>
+      </div>
+      <div><div class="num t-num" id="statKons">86<small>%</small></div><div class="lbl">Konsistensi minggu ini</div></div>
+      <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>+9 poin dari minggu lalu</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-ic honey"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span>
+      </div>
+      <div><div class="num t-num" id="statSpend">Rp 0</div><div class="lbl">Pengeluaran bulan ini</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="bar slate" style="flex:1;height:7px"><i id="statSpendBar" data-w="0%"></i></div>
+        <span class="sub" id="statSpendPct" style="flex:none">0%</span>
+      </div>
+    </div>
+    <div class="card stat">
+      <svg class="ill ill-deco" aria-hidden="true"><use href="#ill-tabungan"/></svg>
+      <div class="stat-top">
+        <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span>
+      </div>
+      <div><div class="num t-num" id="statSisa">Rp 0</div><div class="lbl">Dana tersisa bulan ini</div></div>
+      <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg><span id="statSisaPct">0%</span> dari pemasukan</div>
+    </div>
+  </div>
+
+  <!-- AGENDA + ARUS KAS -->
+  <div class="grid g-main" id="rowAgenda">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Agenda</div>
+          <h3 class="h-serif">Hari ini</h3>
+        </div>
+        <span class="pill pill-streak" id="agendaCount">4/7 selesai</span>
+      </div>
+      <div class="agenda-list" id="agendaList"></div>
+      <div class="agenda-note" id="agendaNote">
+        <svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>
+        <span id="agendaNoteText">3 kebiasaan lagi — jangan biarkan apimu padam.</span>
+      </div>
+    </div>
+    <div class="row" style="gap:18px">
+      <div class="card card-pad">
+        <div class="card-head">
+          <div>
+            <div class="eyebrow">Arus kas</div>
+            <h3 class="h-serif">7 hari terakhir</h3>
+          </div>
+          <div class="legend">
+            <span><i style="background:var(--sage)"></i>Masuk</span>
+            <span><i style="background:var(--terra)"></i>Keluar</span>
+          </div>
+        </div>
+        <div id="cfChart"></div>
+        <div class="cf-total">
+          <div>
+            <svg class="ic" style="color:var(--sage-deep)" aria-hidden="true"><use href="#i-arr-dr"/></svg>
+            <div><small>Masuk</small><b class="t-num" id="cfIn">Rp 0</b></div>
+          </div>
+          <div>
+            <svg class="ic" style="color:var(--terra-deep)" aria-hidden="true"><use href="#i-arr-ur"/></svg>
+            <div><small>Keluar</small><b class="t-num" id="cfOut">Rp 0</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-pad tip-card">
+        <svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg>
+        <div>
+          <b>Tips: kebiasaan mikro</b>
+          <p>Tempel kebiasaan baru tepat setelah rutinitas lama — otak menyukai pola yang familiar.</p>
+          <button class="link-btn" data-go="wawasan" style="margin-top:6px">Wawasan lain <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANGGARAN MINI -->
+  <div class="card card-pad">
+    <div class="card-head">
+      <div>
+        <div class="eyebrow">Anggaran</div>
+        <h3 class="h-serif">Ringkasan bulan ini</h3>
+      </div>
+      <button class="link-btn" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+    </div>
+    <div class="grid grid3" id="miniBudgets"></div>
+  </div>
+</section>
+
+<!-- ================= HALAMAN: KEBIASAAN ================= -->
+<section class="page" data-page="kebiasaan" aria-label="Kebiasaan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Kebiasaan</h1>
+      <p class="t-sub">Bangun ritme harianmu, satu centang demi satu centang.</p>
+    </div>
+    <button class="btn btn-primary" data-open-modal="modalHabit"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Kebiasaan baru</button>
+  </div>
+
+  <div class="mini-stats">
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+      <div><div class="num t-num" id="msHariIni">4/7</div><div class="lbl">Kebiasaan selesai hari ini</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+      <div><div class="num t-num">78%</div><div class="lbl">Konsistensi 30 hari terakhir</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+      <div><div class="num t-num">128</div><div class="lbl">Total centang bulan ini</div></div>
+    </div>
+  </div>
+
+  <div class="card card-pad" style="margin-bottom:20px">
+    <div class="card-head" style="margin-bottom:12px">
+      <div>
+        <div class="eyebrow">Peta konsistensi</div>
+        <h3 class="h-serif">120 hari terakhir</h3>
+      </div>
+      <div class="hm-legend">Kurang <i style="background:#F1E6D4"></i><i style="background:#F0CDBB"></i><i style="background:#E3A184"></i><i style="background:#C05B3C"></i> Konsisten</div>
+    </div>
+    <div class="hm-flex">
+      <div class="heatmap-wrap">
+        <div class="hm-months" id="hmMonths"></div>
+        <div class="hm-grid" id="hmGrid"></div>
+      </div>
+      <div class="hm-side" id="hmSide"></div>
+    </div>
+  </div>
+
+  <div class="chips" id="habitChips" style="margin-bottom:18px" role="group" aria-label="Filter kategori"></div>
+  <div class="habit-grid" id="habitGrid"></div>
+</section>
+
+<!-- ================= HALAMAN: KEUANGAN ================= -->
+<section class="page" data-page="keuangan" aria-label="Keuangan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Keuangan</h1>
+      <p class="t-sub" id="finSub">Denyut finansialmu bulan ini.</p>
+    </div>
+    <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
+  </div>
+
+  <div class="grid g-fin">
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg>
+      <div>
+        <div class="num t-num" id="statSaldo">Rp 0</div>
+        <div class="lbl">Dana tersisa bulan ini</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg><span id="statSaldoPct">0%</span> dari pemasukan</div>
+      </div>
+    </div>
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg>
+      <div>
+        <div class="num t-num" style="color:var(--sage-deep)" id="statIn">Rp 0</div>
+        <div class="lbl">Pemasukan</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>+8% dari bulan lalu</div>
+      </div>
+    </div>
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
+      <div>
+        <div class="num t-num" style="color:var(--terra-deep)" id="statOut">Rp 0</div>
+        <div class="lbl">Pengeluaran</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-dr"/></svg>−5% dari bulan lalu</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g-donut">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Komposisi</div>
+          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        </div>
+      </div>
+      <div class="donut-flex">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 210 210" id="donutSvg" role="img" aria-label="Diagram donat pengeluaran per kategori"></svg>
+          <div class="donut-center"><small>Total keluar</small><b class="t-num" id="donutTotal">Rp 0</b></div>
+        </div>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Anggaran bulanan</div>
+          <h3 class="h-serif">Sisa batas per kategori</h3>
+        </div>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
+      </div>
+      <div class="hm-legend" style="gap:14px;margin:-8px 0 16px">
+        <span><i style="background:var(--sage)"></i>aman</span>
+        <span><i style="background:var(--honey)"></i>mulai penuh</span>
+        <span><i style="background:var(--terra)"></i>hampir habis</span>
+      </div>
+      <div class="budget-list" id="budgetList"></div>
+    </div>
+  </div>
+
+  <div class="card card-pad">
+    <div class="tx-tools">
+      <div class="chips" id="txChips" role="group" aria-label="Filter transaksi">
+        <button class="chip active" data-tx-filter="semua">Semua</button>
+        <button class="chip" data-tx-filter="masuk">Masuk</button>
+        <button class="chip" data-tx-filter="keluar">Keluar</button>
+      </div>
+      <div class="search-box">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input type="text" id="txSearch" placeholder="Cari transaksi…" aria-label="Cari transaksi">
+      </div>
+    </div>
+    <div class="tx-scroll" id="txList"></div>
+  </div>
+</section>
+
+<!-- ================= HALAMAN: KALENDER ================= -->
+<section class="page" data-page="kalender" aria-label="Kalender">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Kalender</h1>
+      <p class="t-sub">Retrospektif harian: kebiasaan dan arus kas dalam satu tampilan.</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="icon-btn" id="calPrev" aria-label="Bulan sebelumnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+      <span class="pill" style="background:var(--surface);border:1px solid var(--line);min-width:150px;justify-content:center" id="calTitle">—</span>
+      <button class="icon-btn" id="calNext" aria-label="Bulan berikutnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <button class="btn btn-ghost btn-sm" id="calToday">Hari ini</button>
+    </div>
+  </div>
+
+  <div class="grid g-cal">
+    <div class="card card-pad">
+      <div class="cal-head-row" id="calDows"></div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    <div class="card card-pad day-detail" id="dayDetail"></div>
+  </div>
+
+  <div class="cal-strip">
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+      <div><div class="num t-num" id="csPerfect">6 <small>hari</small></div><div class="lbl">Hari sempurna bulan ini</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+      <div><div class="num t-num" id="csDone">128</div><div class="lbl">Total kebiasaan selesai</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+      <div><div class="num t-num">31 <small>hari</small></div><div class="lbl">Streak terpanjang</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+      <div><div class="num t-num" id="csSpend">Rp 0</div><div class="lbl">Pengeluaran bulan ini</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HALAMAN: WAWASAN ================= -->
+<section class="page" data-page="wawasan" aria-label="Wawasan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Wawasan</h1>
+      <p class="t-sub">Cerita di balik angka-angakamu — tanpa drama, hanya data.</p>
+    </div>
+  </div>
+
+  <div class="grid g-waw">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Tren</div>
+          <h3 class="h-serif">Konsistensi 8 minggu terakhir</h3>
+        </div>
+        <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
+      </div>
+      <div id="consChart"></div>
+      <div class="cons-note">
+        <svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>
+        <span>Tren naik <b>+26 poin</b> dalam 8 minggu — kamu berada di jalur yang benar.</span>
+      </div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Temuan</div>
+          <h3 class="h-serif">Yang menonjol</h3>
+        </div>
+      </div>
+      <div class="find-list">
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+          <div><b>Minggu adalah hari terbaikmu</b><small>92% kebiasaan selesai — rata-rata tertinggi sepanjang 8 minggu.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-rumah"/></svg></span>
+          <div><b>Tempat tinggal porsi terbesar</b><small id="findRumahPct">47% dari total pengeluaran bulan ini.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+          <div><b>Belanja harianmu menurun</b><small>Rata-rata Rp 78 rb/hari, turun 6% dari bulan lalu.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+          <div><b>Meditasi pagi memicu hari produktif</b><small>Hari-hari setelah meditasi 06.00, kebiasaan lain 2× lebih jarang terlewat.</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g-waw">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Pola</div>
+          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        </div>
+        <span class="t-sub" style="font-size:11.5px" id="polaSub">—</span>
+      </div>
+      <div class="pola-list" id="polaList"></div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Rekomendasi</div>
+          <h3 class="h-serif">Untukmu</h3>
+        </div>
+      </div>
+      <div class="find-list">
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
+          <div><b>Catat sebelum tidur</b><small>Luangkan 3 menit menulis jurnal — hari yang ditutup rapi membuka esok yang lebih tenang.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-air"/></svg></span>
+          <div><b>Atur pengingat air</b><small>Taruh botol di meja kerja agar target 8 gelas lebih mudah tercapai.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-tabungan"/></svg></span>
+          <div><b>Pisahkan tabungan otomatis</b><small>Alihkan 20% pemasukan di awal bulan, sebelum sempat terpakai.</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pad">
+    <div class="card-head">
+      <div>
+        <div class="eyebrow">Lencana</div>
+        <h3 class="h-serif">Koleksi pencapaianmu</h3>
+      </div>
+      <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)">4 dari 6 terbuka</span>
+    </div>
+    <div class="badge-grid">
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg>
+        <b>Api Pertama</b><small>Streak 7 hari berturut-turut</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg>
+        <b>Benih Pertama</b><small>Kebiasaan pertama berhasil dibuat</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg>
+        <b>Minggu Sempurna</b><small>Semua kebiasaan selesai selama 7 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-medali"/></svg>
+        <b>Penjaga 30 Hari</b><small>Menjaga satu streak selama 30 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge locked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-bulan"/></svg>
+        <b>Ritual Malam</b><small>Tidur sebelum 23.00 selama 14 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>8/14 hari</span>
+      </div>
+      <div class="badge locked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-lari"/></svg>
+        <b>Pelari Fajar</b><small>Lari pagi 30 kali total</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>17/30 kali</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="appfooter">Rutina · Konsep redesain — terang, hangat, dan penuh ilustrasi</footer>
+</div><!-- /.main -->
+</div><!-- /.app -->
+
+<!-- ================= BOTTOM NAV (mobile) ================= -->
+<nav class="bottomnav" aria-label="Navigasi utama">
+  <button class="bn-item active" data-nav="ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Ringkasan</button>
+  <button class="bn-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
+  <button class="bn-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
+  <button class="bn-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
+  <button class="bn-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+</nav>
+
+<!-- ================= TOAST ================= -->
+<div class="toast-root" id="toastRoot" aria-live="polite"></div>
+
+<!-- ================= MODAL: TRANSAKSI ================= -->
+<div class="modal" id="modalTx" role="dialog" aria-modal="true" aria-labelledby="txTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Catat</div><h3 class="h-serif" id="txTitle">Transaksi baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formTx" novalidate>
+      <div class="seg" role="group" aria-label="Jenis transaksi">
+        <button type="button" class="active" data-tx-type="keluar">Pengeluaran</button>
+        <button type="button" data-tx-type="masuk">Pemasukan</button>
+      </div>
+      <div class="field">
+        <label for="txAmount">Nominal</label>
+        <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required></div>
+      </div>
+      <div class="field">
+        <label for="txCat">Kategori</label>
+        <select id="txCat" required></select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="txDate">Tanggal</label>
+          <input type="date" id="txDate" required>
+        </div>
+        <div class="field">
+          <label for="txNote">Catatan <span style="color:var(--ink-3);font-weight:600">(opsional)</span></label>
+          <input type="text" id="txNote" placeholder="cth: kopi sore">
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: KEBIASAAN BARU ================= -->
+<div class="modal" id="modalHabit" role="dialog" aria-modal="true" aria-labelledby="habitTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Mulai ritual baru</div><h3 class="h-serif" id="habitTitle">Kebiasaan baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formHabit" novalidate>
+      <div class="field">
+        <label for="habitName">Nama kebiasaan</label>
+        <input type="text" id="habitName" placeholder="cth: stretching 10 menit" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="habitCat">Kategori</label>
+          <select id="habitCat">
+            <option value="Ketenangan">Ketenangan</option>
+            <option value="Kebugaran">Kebugaran</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Belajar">Belajar</option>
+            <option value="Refleksi">Refleksi</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="habitTime">Jam pengingat</label>
+          <input type="time" id="habitTime" value="07:00">
+        </div>
+      </div>
+      <div class="field">
+        <label id="iconPickLabel">Pilih ilustrasi</label>
+        <div class="icon-picker" id="iconPicker" role="radiogroup" aria-labelledby="iconPickLabel"></div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+/* grid responsif tambahan (menggantikan inline style) */
+.g-main{grid-template-columns:1.45fr 1fr;margin-bottom:20px}
+.g-fin{grid-template-columns:repeat(3,1fr);margin-bottom:20px}
+.g-donut{grid-template-columns:1fr 1.35fr;margin-bottom:20px}
+.g-cal{grid-template-columns:1.5fr 1fr}
+.g-waw{grid-template-columns:1.5fr 1fr;margin-bottom:20px}
+.grid3{grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.g-main,.g-donut,.g-cal,.g-waw{grid-template-columns:1fr}.g-fin{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g-fin,.grid3{grid-template-columns:1fr}}
+</style>
+<script>
+'use strict';
+/* ============ util ============ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const rupiah=n=>'Rp '+Math.round(n).toLocaleString('id-ID');
+const ringkas=n=>n>=1e6?(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt':n>=1e3?Math.round(n/1e3)+' rb':''+Math.round(n);
+const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const DOW=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+const BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const BULAN_S=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const startOfDay=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+const TODAY=startOfDay(new Date());
+const addDays=(b,n)=>{const d=new Date(b);d.setDate(d.getDate()+n);return d};
+const DOW_IDX=d=>(d.getDay()+6)%7;
+const dayKey=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const seed=s=>{const x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+
+/* ============ data ============ */
+const KATEGORI={
+  makanan:{label:'Makanan & Minuman',warna:'#C96A4E',ikon:'c-makanan',jenis:'keluar'},
+  transportasi:{label:'Transportasi',warna:'#D9A06B',ikon:'c-transport',jenis:'keluar'},
+  belanja:{label:'Belanja',warna:'#DCA43D',ikon:'c-belanja',jenis:'keluar'},
+  tagihan:{label:'Tagihan',warna:'#B98F75',ikon:'c-tagihan',jenis:'keluar'},
+  kesehatan:{label:'Kesehatan',warna:'#7C9B72',ikon:'c-kesehatan',jenis:'keluar'},
+  hiburan:{label:'Hiburan',warna:'#E5C1A6',ikon:'c-hiburan',jenis:'keluar'},
+  tempat_tinggal:{label:'Tempat Tinggal',warna:'#9E4529',ikon:'c-rumah',jenis:'keluar'},
+  donasi:{label:'Donasi',warna:'#7FB5A6',ikon:'c-gift',jenis:'keluar'},
+  gaji:{label:'Gaji',warna:'#7C9B72',ikon:'c-gaji',jenis:'masuk'},
+  freelance:{label:'Freelance',warna:'#DCA43D',ikon:'c-freelance',jenis:'masuk'},
+  penjualan:{label:'Penjualan',warna:'#D9A06B',ikon:'c-tag',jenis:'masuk'},
+};
+let HABITS=[
+  {id:'meditasi',nama:'Meditasi 10 menit',kategori:'Ketenangan',ikon:'ill-meditasi',waktu:'06:00',streak:24,konsistensi:.86,selesai:true,riwayat:[true,true,true,false,true,true]},
+  {id:'lari',nama:'Lari pagi 3 km',kategori:'Kebugaran',ikon:'ill-lari',waktu:'06:30',streak:12,konsistensi:.62,selesai:true,riwayat:[true,false,true,true,false,true]},
+  {id:'sarapan',nama:'Sarapan sehat',kategori:'Kesehatan',ikon:'ill-sarapan',waktu:'07:00',streak:8,konsistensi:.74,selesai:true,riwayat:[true,true,false,true,true,false]},
+  {id:'air',nama:'Minum 8 gelas air',kategori:'Kesehatan',ikon:'ill-air',waktu:'Sepanjang hari',streak:17,konsistensi:.78,selesai:false,tipe:'hitung',target:8,progress:5,riwayat:[true,true,true,true,false,true]},
+  {id:'baca',nama:'Membaca 20 halaman',kategori:'Belajar',ikon:'ill-baca',waktu:'21:00',streak:31,konsistensi:.9,selesai:true,riwayat:[true,true,true,true,true,true]},
+  {id:'jurnal',nama:'Menulis jurnal',kategori:'Refleksi',ikon:'ill-jurnal',waktu:'22:00',streak:5,konsistensi:.55,selesai:false,riwayat:[false,true,true,false,true,false]},
+  {id:'tidur',nama:'Tidur sebelum 23.00',kategori:'Kesehatan',ikon:'ill-tidur',waktu:'23:00',streak:9,konsistensi:.66,selesai:false,riwayat:[true,true,false,true,true,false]},
+];
+let TXS=[
+  {t:'masuk',n:8500000,k:'gaji',nama:'Gaji bulanan',offset:10},
+  {t:'keluar',n:2000000,k:'tempat_tinggal',nama:'Sewa tempat tinggal',offset:10},
+  {t:'keluar',n:850000,k:'makanan',nama:'Belanja bulanan',offset:9},
+  {t:'keluar',n:54900,k:'hiburan',nama:'Langganan Spotify',offset:8},
+  {t:'keluar',n:250000,k:'kesehatan',nama:'Membership gym',offset:8},
+  {t:'keluar',n:340000,k:'tagihan',nama:'Listrik & air',offset:7},
+  {t:'keluar',n:100000,k:'donasi',nama:'Donasi mingguan',offset:6},
+  {t:'masuk',n:1750000,k:'freelance',nama:'Proyek desain lepas',offset:5},
+  {t:'keluar',n:45000,k:'makanan',nama:'Makan siang',offset:5},
+  {t:'keluar',n:150000,k:'transportasi',nama:'Isi bensin',offset:4},
+  {t:'masuk',n:420000,k:'penjualan',nama:'Jual barang preloved',offset:3},
+  {t:'keluar',n:42000,k:'makanan',nama:'Kopi & roti',offset:3},
+  {t:'keluar',n:320000,k:'belanja',nama:'Belanja online',offset:2},
+  {t:'keluar',n:65000,k:'makanan',nama:'Buah & sayur',offset:2},
+  {t:'keluar',n:38000,k:'makanan',nama:'Makan malam',offset:1},
+  {t:'keluar',n:32000,k:'makanan',nama:'Kopi sore',offset:1},
+  {t:'keluar',n:92000,k:'makanan',nama:'Brunch teman lama',offset:0},
+  {t:'keluar',n:36000,k:'transportasi',nama:'Ojek ke kantor',offset:0},
+];
+/* jaga agar seluruh transaksi tetap berada di bulan berjalan (prototipe) */
+TXS.forEach(t=>t.offset=Math.min(t.offset,TODAY.getDate()-1));
+const BUDGETS=[
+  {k:'makanan',batas:1500000},{k:'tempat_tinggal',batas:2200000},{k:'belanja',batas:400000},
+  {k:'tagihan',batas:500000},{k:'transportasi',batas:600000},{k:'hiburan',batas:300000},{k:'kesehatan',batas:500000},
+];
+const ICON_OPTS=[
+  {id:'ill-meditasi',label:'Meditasi'},{id:'ill-lari',label:'Lari'},{id:'ill-sarapan',label:'Sarapan'},
+  {id:'ill-baca',label:'Baca'},{id:'ill-air',label:'Air'},{id:'ill-jurnal',label:'Jurnal'},
+  {id:'ill-tidur',label:'Tidur'},{id:'ill-beban',label:'Beban'},
+];
+const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
+
+/* ============ turunan data ============ */
+const txDate=t=>addDays(TODAY,-t.offset);
+const txThisMonth=()=>TXS.filter(t=>{const d=txDate(t);return d.getMonth()===TODAY.getMonth()&&d.getFullYear()===TODAY.getFullYear()&&d<=TODAY});
+const sumBy=(arr,f)=>arr.reduce((a,x)=>a+f(x),0);
+const totals=()=>{const m=txThisMonth();const masuk=sumBy(m.filter(t=>t.t==='masuk'),t=>t.n);const keluar=sumBy(m.filter(t=>t.t==='keluar'),t=>t.n);return{masuk,keluar,sisa:masuk-keluar}};
+const usedByCat=()=>{const m=txThisMonth().filter(t=>t.t==='keluar');const map={};m.forEach(t=>map[t.k]=(map[t.k]||0)+t.n);return map};
+function hariRatio(d){
+  const t=(TODAY-d)/864e5;
+  if(t<0)return null;
+  if(t===0)return HABITS.filter(h=>h.selesai).length/HABITS.length;
+  const recency=1-Math.min(t,120)/120;
+  const wknd=[5,6].includes(DOW_IDX(d));
+  const v=.40+.42*recency+(wknd?.1:0)+(seed(t*7.13+3)-.5)*.34;
+  return Math.max(0,Math.min(1,v));
+}
+function habitOn(h,d){
+  const t=(TODAY-d)/864e5;
+  if(t<0)return null;
+  if(t===0)return h.selesai;
+  const hsh=[...h.id].reduce((a,c)=>a+c.charCodeAt(0),0);
+  return seed(hsh*3.7+t*13.7)<h.konsistensi;
+}
+const doneCount=()=>HABITS.filter(h=>h.selesai).length;
+
+/* ============ efek ============ */
+function countUp(el,to,{dur=850,fmt=rupiah}={}){
+  if(reduced){el.textContent=fmt(to);return}
+  const t0=performance.now();
+  const step=t=>{const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=fmt(to*e);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(to)};
+  requestAnimationFrame(step);
+}
+function animateBars(root=document){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    root.querySelectorAll('.bar i[data-w]').forEach(b=>b.style.width=b.dataset.w);
+  }));
+}
+function toast(title,sub='',ikon='i-check',tone=''){
+  const el=document.createElement('div');el.className='toast';
+  el.innerHTML=`<span class="toast-ic ${tone}"><svg class="ic" aria-hidden="true"><use href="#${ikon}"/></svg></span><div><b>${esc(title)}</b>${sub?`<small>${esc(sub)}</small>`:''}</div>`;
+  $('#toastRoot').appendChild(el);
+  setTimeout(()=>{el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true})},3400);
+}
+function confetti(){
+  if(reduced)return;
+  const warna=['#C05B3C','#DCA43D','#7C9B72','#F2C6A0','#E5C1A6','#7FB5A6'];
+  for(let i=0;i<28;i++){
+    const s=document.createElement('i');s.className='cp';
+    s.style.left=(Math.random()*100)+'vw';
+    const sz=6+Math.random()*7;s.style.width=s.style.height=sz+'px';
+    s.style.background=warna[i%warna.length];
+    s.style.setProperty('--dx',(Math.random()*180-90)+'px');
+    s.style.setProperty('--rot',(360+Math.random()*720)+'deg');
+    s.style.animationDelay=(Math.random()*.3)+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),2000);
+  }
+}
+
+/* ============ render: agenda & ring ============ */
+function catColor(h){
+  const map={'Ketenangan':'#7C9B72','Kebugaran':'#DCA43D','Kesehatan':'#7FB5A6','Belajar':'#C96A4E','Refleksi':'#D98A7E'};
+  return map[h.kategori]||'#C05B3C';
+}
+function renderAgenda(){
+  $('#agendaList').innerHTML=HABITS.map(h=>{
+    const done=h.selesai;
+    const kanan=h.tipe==='hitung'
+      ?`<span class="counter"><button type="button" data-minus="${h.id}" aria-label="Kurangi gelas"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg></button><b>${h.progress}/${h.target}</b><button type="button" data-plus="${h.id}" aria-label="Tambah gelas"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></button></span>`
+      :`<span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.streak} hari</span>`;
+    return `<div class="agenda-row ${done?'done':''}">
+      <span class="time-chip">${h.waktu}</span>
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
+      <div><div class="agenda-name">${esc(h.nama)}</div>
+        <div class="agenda-meta"><span class="cat-dot" style="background:${catColor(h)}"></span>${h.kategori}</div></div>
+      ${kanan}
+      <button class="btn-check ${done?'done':''}" data-check="${h.id}" aria-pressed="${done}" aria-label="Tandai ${esc(h.nama)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
+    </div>`;
+  }).join('');
+}
+function renderRing(){
+  const total=HABITS.length,done=doneCount(),C=389.6;
+  $('#ringFg').style.strokeDashoffset=(C*(1-done/total)).toFixed(1);
+  $('#ringText').textContent=`${done}/${total}`;
+  $('#heroSisa').textContent=total-done;
+  $('#agendaCount').textContent=`${done}/${total} selesai`;
+  $('#msHariIni').textContent=`${done}/${total}`;
+  const sisa=total-done;
+  $('#agendaNoteText').textContent=sisa===0
+    ?'Semua kebiasaan selesai — hari yang sempurna. Nikmati malammu!'
+    :`${sisa} kebiasaan lagi — jangan biarkan apimu padam.`;
+}
+function refreshToday(){
+  renderAgenda();renderRing();renderHabitCards();
+  if(inited.heatmap)renderHeatmap();
+  if(inited.cal){renderCal();renderDayDetail(state.calSel)}
+}
+
+/* ============ render: statistik & grafik ringkasan ============ */
+function spark(el,vals,color){
+  const w=90,hh=30,p=3;
+  const mn=Math.min(...vals),mx=Math.max(...vals);
+  const pts=vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1),hh-p-(v-mn)/(mx-mn||1)*(hh-2*p)]);
+  const d='M'+pts.map(pt=>pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' L');
+  const last=pts[pts.length-1];
+  el.setAttribute('viewBox',`0 0 ${w} ${hh}`);
+  el.innerHTML=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
+}
+function renderStats(){
+  spark($('#sparkStreak'),[12,14,15,17,20,22,23,24],'#C05B3C');
+  spark($('#sparkKons'),[62,71,68,74,79,76,84,86],'#7C9B72');
+  const t=totals();
+  const budgetTotal=sumBy(BUDGETS,b=>b.batas);
+  const pct=Math.min(999,Math.round(t.keluar/budgetTotal*100));
+  countUp($('#statSpend'),t.keluar);
+  $('#statSpendPct').textContent=pct+'%';
+  $('#statSpendBar').dataset.w=Math.min(100,pct)+'%';
+  countUp($('#statSisa'),t.sisa);
+  $('#statSisaPct').textContent=Math.round(t.sisa/t.masuk*100)+'%';
+  animateBars($('#statSpendBar').closest('.stat'));
+}
+function renderCashflow(){
+  const days=[];for(let i=6;i>=0;i--)days.push(addDays(TODAY,-i));
+  const masuk=days.map(d=>sumBy(TXS.filter(t=>t.t==='masuk'&&dayKey(txDate(t))===dayKey(d)),t=>t.n));
+  const keluar=days.map(d=>sumBy(TXS.filter(t=>t.t==='keluar'&&dayKey(txDate(t))===dayKey(d)),t=>t.n));
+  const W=560,H=210,L=50,R=14,T=22,B=30;
+  const gw=(W-L-R)/7;
+  const maxV=Math.max(...masuk,...keluar,100000);
+  const nice=Math.ceil(maxV/250000)*250000;
+  const y=v=>T+(H-T-B)*(1-v/nice);
+  let s='';
+  for(let g=0;g<=4;g++){
+    const gy=y(nice*g/4);
+    s+=`<line x1="${L}" x2="${W-R}" y1="${gy}" y2="${gy}" class="chart-grid"/>`;
+    s+=`<text x="${L-8}" y="${gy+3.5}" text-anchor="end" class="chart-label">${ringkas(nice*g/4)}</text>`;
+  }
+  days.forEach((d,i)=>{
+    const cx=L+gw*i+gw/2;
+    const bw=17;
+    const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
+    s+=`<rect x="${cx-bw-2.5}" y="${(H-B)-hM}" width="${bw}" height="${Math.max(hM,2)}" rx="5" fill="#7C9B72"/>`;
+    s+=`<rect x="${cx+2.5}" y="${(H-B)-hK}" width="${bw}" height="${Math.max(hK,2)}" rx="5" fill="#C05B3C"/>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${cx-bw/2-2.5}" y="${(H-B)-hM-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#59794F">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${cx+bw/2+2.5}" y="${(H-B)-hK-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#9E4529">${ringkas(keluar[i])}</text>`;
+    const isToday=i===6;
+    s+=`<text x="${cx}" y="${H-9}" text-anchor="middle" class="chart-label" ${isToday?'font-weight="800" fill="#9E4529"':''}>${DOW[DOW_IDX(d)]}</text>`;
+  });
+  $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas 7 hari">${s}</svg>`;
+  countUp($('#cfIn'),sumBy(masuk,v=>v));
+  countUp($('#cfOut'),sumBy(keluar,v=>v));
+}
+function renderMiniBudgets(){
+  const used=usedByCat();
+  const rows=BUDGETS.map(b=>({...b,used:used[b.k]||0})).sort((a,b)=>b.used/b.batas-a.used/a.batas).slice(0,3);
+  $('#miniBudgets').innerHTML=rows.map(b=>{
+    const pct=Math.round(b.used/b.batas*100);
+    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--terra)';
+    const K=KATEGORI[b.k];
+    return `<div>
+      <div class="mb-row">
+        <span class="mb-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
+        <div class="mb-info"><b>${K.label}</b><div class="bar"><i data-w="${Math.min(100,pct)}%" style="background:${warna}"></i></div></div>
+        <span class="mb-amt">${pct}%</span>
+      </div>
+      <div class="t-sub" style="font-size:10.5px;margin-top:5px">${rupiah(b.used)} dari ${rupiah(b.batas)}</div>
+    </div>`;
+  }).join('');
+  animateBars($('#miniBudgets'));
+}
+
+/* ============ render: kebiasaan ============ */
+function renderHabitChips(){
+  const kats=['semua',...new Set(HABITS.map(h=>h.kategori))];
+  $('#habitChips').innerHTML=kats.map(k=>`<button class="chip ${state.habitFilter===k?'active':''}" data-habit-filter="${esc(k)}">${k==='semua'?'Semua':esc(k)}</button>`).join('');
+}
+function weeklyDots(h){
+  const start=DOW_IDX(TODAY);
+  let out='';
+  for(let j=0;j<7;j++){
+    const d=addDays(TODAY,j-start);
+    const isToday=dayKey(d)===dayKey(TODAY);
+    const on=isToday?h.selesai:(d<TODAY||dayKey(d)===dayKey(TODAY)?habitOn(h,d):null);
+    const future=d>TODAY&&!isToday;
+    out+=`<span class="wd ${on?'on':''} ${isToday?'today':''}" ${future?'style="opacity:.35"':''} title="${DOW[j]}">${DOW[j]}</span>`;
+  }
+  return out;
+}
+function renderHabitCards(){
+  const f=state.habitFilter;
+  const list=HABITS.filter(h=>f==='semua'||h.kategori===f);
+  if(!list.length){
+    $('#habitGrid').innerHTML=`<div class="card" style="grid-column:1/-1"><div class="empty-state">
+      <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
+      <b>Belum ada kebiasaan di sini</b><p>Tambahkan kebiasaan baru atau pilih kategori lain.</p></div></div>`;
+    return;
+  }
+  $('#habitGrid').innerHTML=list.map(h=>{
+    const done=h.selesai,pct=Math.round(h.konsistensi*100);
+    return `<div class="card habit-card">
+      <div class="hc-main">
+        <div class="hc-top">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
+          <div style="min-width:0">
+            <div class="hc-name">${esc(h.nama)}</div>
+            <div class="hc-meta">
+              <span class="tag" style="color:${catColor(h)}"><span class="cat-dot" style="background:${catColor(h)}"></span>${h.kategori}</span>
+              <span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>${h.waktu}</span>
+              <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.streak} hari</span>
+            </div>
+          </div>
+        </div>
+        <div class="wd-row">${weeklyDots(h)}</div>
+        <div class="hc-bottom">
+          <div class="hc-consist"><small>${pct}% dalam 30 hari</small><div class="bar"><i data-w="${pct}%"></i></div></div>
+          <button class="btn-check ${done?'done':''}" data-check="${h.id}" aria-pressed="${done}" aria-label="Tandai ${esc(h.nama)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  animateBars($('#habitGrid'));
+}
+function renderHeatmap(){
+  const cells=$('#hmGrid'),months=$('#hmMonths');
+  cells.innerHTML='';months.innerHTML='';
+  const N=119+DOW_IDX(TODAY);
+  let d=addDays(TODAY,-N),col=0,lastM=-1;
+  for(let c=0;c<18;c++){
+    let mlabel='';
+    if(d.getMonth()!==lastM&&d<=TODAY){mlabel=BULAN_S[d.getMonth()];lastM=d.getMonth()}
+    months.insertAdjacentHTML('beforeend',`<span>${mlabel}</span>`);
+    for(let r=0;r<7;r++){
+      if(d>TODAY){cells.insertAdjacentHTML('beforeend','<span class="hm-cell" style="visibility:hidden"></span>');d=addDays(d,1);continue}
+      const ratio=hariRatio(d),done=Math.round(ratio*7);
+      const lvl=ratio<.25?'':ratio<.5?'l1':ratio<.8?'l2':'l3';
+      const isToday=dayKey(d)===dayKey(TODAY);
+      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''}" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${done}/7 kebiasaan"></span>`);
+      d=addDays(d,1);
+    }
+    col++;
+  }
+  // hari terbaik (8 minggu) + hari sempurna (30 hari)
+  const sums=Array(7).fill(0),cnts=Array(7).fill(0);
+  for(let i=0;i<56;i++){const dd=addDays(TODAY,-i);const di=DOW_IDX(dd);sums[di]+=hariRatio(dd);cnts[di]++}
+  let best=0;for(let i=1;i<7;i++)if(sums[i]/cnts[i]>sums[best]/cnts[best])best=i;
+  const fullDow=HARI[[1,2,3,4,5,6,0][best]];
+  const bestPct=Math.round(sums[best]/cnts[best]*100);
+  let perfect30=0;for(let i=0;i<30;i++){if(hariRatio(addDays(TODAY,-i))>=.999)perfect30++}
+  $('#hmSide').innerHTML=`
+    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+      <div><b>${fullDow} — hari terbaikmu</b><small>Rata-rata ${bestPct}% kebiasaan selesai.</small></div></div>
+    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+      <div><b>${perfect30} hari sempurna</b><small>Semua kebiasaan tuntas, 30 hari terakhir.</small></div></div>
+    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+      <div><b>Streak terpanjang 31 hari</b><small>Membaca 20 halaman — masih berjalan.</small></div></div>`;
+}
+
+/* ============ render: keuangan ============ */
+function renderSceneStats(){
+  const t=totals();
+  countUp($('#statSaldo'),t.sisa);
+  $('#statSaldoPct').textContent=Math.round(t.sisa/t.masuk*100)+'%';
+  countUp($('#statIn'),t.masuk);
+  countUp($('#statOut'),t.keluar);
+  $('#finSub').textContent=`Denyut finansialmu — ${BULAN[TODAY.getMonth()]} ${TODAY.getFullYear()}.`;
+}
+function renderDonut(){
+  const used=usedByCat();
+  const cats=Object.entries(used).map(([k,v])=>({k,v,...KATEGORI[k]})).sort((a,b)=>b.v-a.v);
+  const total=sumBy(cats,c=>c.v);
+  const R=76,C=2*Math.PI*R;let off=0,slices='';
+  cats.forEach(c=>{
+    const frac=c.v/total,len=Math.max(frac*C-3,.01);
+    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${c.warna}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`;
+    off+=frac*C;
+  });
+  $('#donutSvg').innerHTML=`<g transform="rotate(-90 105 105)">${slices}</g>`;
+  $('#donutTotal').textContent=rupiah(total);
+  const cnt={};txThisMonth().filter(t=>t.t==='keluar').forEach(t=>cnt[t.k]=(cnt[t.k]||0)+1);
+  $('#donutLegend').innerHTML=cats.map(c=>`
+    <div class="dl-row">
+      <span class="dl-ic" style="background:${c.warna}1F;color:${c.warna}"><svg class="ic" aria-hidden="true"><use href="#${c.ikon}"/></svg></span>
+      <div><b>${c.label}</b><small>${Math.round(c.v/total*100)}% dari total</small></div>
+      <div class="dl-amt"><b class="t-num">${rupiah(c.v)}</b><small>${cnt[c.k]||1} transaksi</small></div>
+    </div>`).join('');
+  const p=used.tempat_tinggal?Math.round(used.tempat_tinggal/total*100):0;
+  $('#findRumahPct').textContent=`${p}% dari total pengeluaran bulan ini.`;
+}
+function renderBudgets(){
+  const used=usedByCat();
+  const rows=BUDGETS.map(b=>({batas:b.batas,used:used[b.k]||0,...KATEGORI[b.k]}));
+  $('#budgetList').innerHTML=rows.map(r=>{
+    const pct=Math.min(100,Math.round(r.used/r.batas*100));
+    const sisa=r.batas-r.used;
+    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--terra)';
+    const over=r.used>r.batas;
+    return `<div class="b-row">
+      <div class="b-head">
+        <span class="dl-ic" style="background:${r.warna}1F;color:${r.warna}"><svg class="ic" aria-hidden="true"><use href="#${r.ikon}"/></svg></span>
+        <b>${r.label}</b>
+        <small class="${over?'warn':''}">${over?'Melebihi batas!':`sisa ${rupiah(sisa)}`}</small>
+      </div>
+      <div class="bar"><i data-w="${pct}%" style="background:${warna}"></i></div>
+      <div class="t-sub t-num" style="font-size:11px">${rupiah(r.used)} dari ${rupiah(r.batas)}</div>
+    </div>`;
+  }).join('');
+  const totB=sumBy(BUDGETS,b=>b.batas),totU=sumBy(rows,r=>r.used);
+  $('#budgetLeft').textContent=rupiah(totB-totU)+' tersisa';
+  animateBars($('#budgetList'));
+}
+function renderTx(){
+  const f=state.txFilter,q=state.txQuery.trim().toLowerCase();
+  let list=TXS.filter(t=>f==='semua'||t.t===f);
+  if(q)list=list.filter(t=>(t.nama+' '+KATEGORI[t.k].label+' '+(t.note||'')).toLowerCase().includes(q));
+  list=[...list].sort((a,b)=>a.offset-b.offset);
+  if(!list.length){
+    $('#txList').innerHTML=`<div class="empty-state">
+      <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
+      <b>Tidak ada transaksi</b><p>Coba ubah kata kunci atau filter yang kamu pilih.</p></div>`;
+    return;
+  }
+  let html='',lastKey='';
+  list.forEach(t=>{
+    const d=txDate(t);
+    const lbl=t.offset===0?'Hari ini':t.offset===1?'Kemarin':`${HARI[d.getDay()]}, ${d.getDate()} ${BULAN_S[d.getMonth()]}`;
+    if(lbl!==lastKey){html+=`<div class="tx-date">${lbl}</div>`;lastKey=lbl}
+    const K=KATEGORI[t.k];
+    html+=`<div class="tx-row">
+      <span class="tx-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
+      <div><b>${esc(t.nama)}</b><small>${K.label}</small></div>
+      <div class="tx-amt ${t.t}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}<small>${d.getDate()} ${BULAN_S[d.getMonth()]}</small></div>
+    </div>`;
+  });
+  $('#txList').innerHTML=html;
+}
+function refinance(){
+  renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderMiniBudgets();renderTx();
+  if(inited.cal)renderCalStrip();
+}
+
+/* ============ render: kalender ============ */
+function renderCal(){
+  const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
+  $('#calTitle').textContent=`${BULAN[m]} ${y}`;
+  $('#calDows').innerHTML=DOW.map(d=>`<span>${d}</span>`).join('');
+  const first=new Date(y,m,1),lead=DOW_IDX(first);
+  const dim=new Date(y,m+1,0).getDate();
+  let html='';
+  for(let i=0;i<lead;i++)html+='<span class="cal-cell blank"></span>';
+  const ticksN=HABITS.length;
+  for(let i=1;i<=dim;i++){
+    const d=new Date(y,m,i);
+    const future=d>TODAY,isToday=dayKey(d)===dayKey(TODAY),isSel=dayKey(d)===dayKey(state.calSel);
+    let done=0;
+    if(!future)done=isToday?doneCount():Math.round(hariRatio(d)*7);
+    const on=Math.round(done/HABITS.length*ticksN);
+    const perfect=!future&&on>=ticksN;
+    let ticks='';
+    if(!future)for(let j=0;j<ticksN;j++)ticks+=`<i class="${j<on?'on':''}"></i>`;
+    const ticksHtml=future?'':`<span class="ticks">${ticks}</span>`;
+    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" data-cal="${dayKey(d)}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} — ${done} kebiasaan selesai">
+      <span class="d">${i}</span>${ticksHtml}
+      ${perfect?'<svg class="perf-star" aria-hidden="true"><use href="#i-sparkle"/></svg>':''}
+    </button>`;
+  }
+  $('#calGrid').innerHTML=html;
+  renderCalStrip();
+}
+function renderCalStrip(){
+  const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
+  const dim=new Date(y,m+1,0).getDate();
+  let perfect=0,doneSum=0,spend=0;
+  for(let i=1;i<=dim;i++){
+    const d=new Date(y,m,i);if(d>TODAY)break;
+    if(d.getTime()===TODAY.getTime()){const c=doneCount();doneSum+=c;if(c>=HABITS.length)perfect++}
+    else{const r=hariRatio(d);doneSum+=Math.round(r*7);if(r>=.999)perfect++}
+  }
+  txThisMonth().filter(t=>t.t==='keluar').forEach(t=>spend+=t.n);
+  $('#csPerfect').innerHTML=`${perfect} <small>hari</small>`;
+  $('#csDone').textContent=doneSum;
+  $('#csSpend').textContent=ringkas(spend);
+}
+function renderDayDetail(d){
+  const future=d>TODAY;
+  const dow=HARI[d.getDay()];
+  const tgl=`${d.getDate()} ${BULAN[d.getMonth()]}`;
+  const isToday=dayKey(d)===dayKey(TODAY);
+  const done=isToday?doneCount():future?0:Math.round(hariRatio(d)*7);
+  const ratio=isToday?doneCount()/HABITS.length:future?0:hariRatio(d);
+  const sempurna=!future&&done>=HABITS.length;
+  const spotIll=sempurna?'ill-pagi':done>0?'ill-sprout':'ill-kosong';
+  const judul=sempurna?'Hari yang sempurna!':done>=5?'Hari yang rapi':done>0?'Setengah jalan':'Hari yang berat';
+  const tx=TXS.filter(t=>dayKey(txDate(t))===dayKey(d));
+  const masuk=sumBy(tx.filter(t=>t.t==='masuk'),t=>t.n),keluar=sumBy(tx.filter(t=>t.t==='keluar'),t=>t.n);
+  const habitRows=HABITS.map(h=>{
+    const on=habitOn(h,d);
+    return `<div class="dd-habit ${on?'y':'n'}">
+      <svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.nama)}
+      <span style="margin-left:auto;font-size:10.5px;color:var(--ink-3)">${on?'selesai':'terlewat'}</span></div>`;
+  }).join('');
+  const txRows=tx.length?tx.slice(0,4).map(t=>{
+    const K=KATEGORI[t.k];
+    return `<div class="dd-tx-row">
+      <span class="tx-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
+      <span>${esc(t.nama)}</span><b class="t-num" style="color:${t.t==='masuk'?'var(--sage-deep)':'var(--terra-deep)'}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}</b></div>`;
+  }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:11px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:'')
+  :`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
+  $('#dayDetail').innerHTML=`
+    <div class="dd-head">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
+      <div><b>${dow}</b><small>${tgl}${isToday?' · hari ini':''}</small></div>
+    </div>
+    ${future?`<p class="t-sub" style="font-size:13px">Belum terjadi — istirahatkan rencanamu, besok punya halaman sendiri.</p>`
+    :`<div class="dd-stats">
+      <span class="pill"><svg class="ic" style="width:14px;height:14px;color:var(--terra-deep)" aria-hidden="true"><use href="#i-checklist"/></svg>${done}/${HABITS.length} kebiasaan · ${judul}</span>
+      ${masuk?`<span class="pill" style="color:var(--sage-deep)">+${rupiah(masuk)}</span>`:''}
+      ${keluar?`<span class="pill" style="color:var(--terra-deep)">−${rupiah(keluar)}</span>`:''}
+    </div>
+    <div><div class="eyebrow" style="margin-bottom:8px">Kebiasaan</div><div class="dd-habits">${habitRows}</div></div>
+    <div><div class="eyebrow" style="margin-bottom:8px">Transaksi</div><div class="dd-tx">${txRows}</div></div>`}`;
+}
+
+/* ============ render: wawasan ============ */
+function smoothPath(pts){
+  let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];
+    d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  }
+  return d;
+}
+function renderConsChart(){
+  const vals=[62,71,68,74,79,76,84,88];
+  const W=560,H=240,L=44,R=14,T=18,B=34;
+  const x=i=>L+(W-L-R)*i/(vals.length-1);
+  const y=v=>T+(H-T-B)*(1-(v-50)/50);
+  const pts=vals.map((v,i)=>[x(i),y(v)]);
+  const line=smoothPath(pts);
+  const area=line+`L${x(7).toFixed(1)} ${(H-B).toFixed(1)} L${x(0).toFixed(1)} ${(H-B).toFixed(1)} Z`;
+  let s=`<path d="${area}" fill="#7C9B72" opacity=".12"/>`;
+  [60,70,80,90].forEach(v=>{
+    s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="chart-grid"/>`;
+    s+=`<text x="${L-8}" y="${y(v)+3.5}" text-anchor="end" class="chart-label">${v}</text>`;
+  });
+  s+=`<line x1="${L}" x2="${W-R}" y1="${y(70)}" y2="${y(70)}" stroke="#DCA43D" stroke-width="2" stroke-dasharray="6 6"/>`;
+  pts.forEach((p,i)=>{
+    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#FFF9EF" stroke="#C05B3C" stroke-width="2.5"/>`;
+    if(i%2===0||i===7)s+=`<text x="${p[0].toFixed(1)}" y="${p[1]-12}" text-anchor="middle" class="chart-label" font-weight="800" fill="#9E4529">${vals[i]}%</text>`;
+    s+=`<text x="${p[0].toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${i+1}</text>`;
+  });
+  s+=`<path d="${line}" fill="none" stroke="#C05B3C" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
+  $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik konsistensi 8 minggu">${s}</svg>`;
+  const ps=$('#polaSub');if(ps)ps.textContent=`${BULAN[TODAY.getMonth()]} ${TODAY.getFullYear()}`;
+  // pola pengeluaran
+  const used=usedByCat();
+  const cats=Object.entries(used).map(([k,v])=>({k,v,...KATEGORI[k]})).sort((a,b)=>b.v-a.v).slice(0,6);
+  const mx=cats[0]?cats[0].v:1,total=sumBy(cats,c=>c.v);
+  $('#polaList').innerHTML=cats.map(c=>`
+    <div class="pola-row">
+      <div class="pola-head">
+        <span class="lbl"><span class="dl-ic" style="background:${c.warna}1F;color:${c.warna}"><svg class="ic" aria-hidden="true"><use href="#${c.ikon}"/></svg></span>${c.label}</span>
+        <b class="t-num">${rupiah(c.v)} <span style="color:var(--ink-3);font-weight:600">· ${Math.round(c.v/total*100)}%</span></b>
+      </div>
+      <div class="pola-bar"><i data-w="${Math.round(c.v/mx*100)}%" style="background:${c.warna}"></i></div>
+    </div>`).join('');
+  animateBars($('#polaList'));
+}
+
+/* ============ interaksi ============ */
+const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan'};
+const inited={heatmap:false,cal:false,wawasan:false};
+function go(page){
+  state.page=page;
+  $$('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
+  $$('.page').forEach(p=>p.classList.toggle('active',p.dataset.page===page));
+  window.scrollTo(0,0);
+  document.title=TITLES[page]+' · Rutina';
+  if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap();inited.heatmap=true}
+  if(page==='kalender'&&!inited.cal){renderCal();renderDayDetail(state.calSel);inited.cal=true}
+  if(page==='wawasan'&&!inited.wawasan){renderConsChart();inited.wawasan=true}
+}
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('[data-nav]');
+  if(nav){go(nav.dataset.nav);return}
+  const goBtn=e.target.closest('[data-go]');
+  if(goBtn){go(goBtn.dataset.go);return}
+  const chk=e.target.closest('[data-check]');
+  if(chk){toggleHabit(chk.dataset.check);return}
+  const plus=e.target.closest('[data-plus]');
+  if(plus){bumpWater(plus.dataset.plus,1);return}
+  const minus=e.target.closest('[data-minus]');
+  if(minus){bumpWater(minus.dataset.minus,-1);return}
+  const cell=e.target.closest('[data-cal]');
+  if(cell){state.calSel=new Date(cell.dataset.cal+'T00:00:00');renderCal();renderDayDetail(state.calSel);return}
+  const chip=e.target.closest('[data-habit-filter]');
+  if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
+  const txChip=e.target.closest('[data-tx-filter]');
+  if(txChip){state.txFilter=txChip.dataset.txFilter;$$('#txChips .chip').forEach(c=>c.classList.toggle('active',c===txChip));renderTx();return}
+  const opener=e.target.closest('[data-open-modal]');
+  if(opener){openModal(opener.dataset.openModal);return}
+  if(e.target.closest('[data-close]')){closeModals();return}
+});
+function toggleHabit(id){
+  const h=HABITS.find(x=>x.id===id);if(!h)return;
+  if(h.tipe==='hitung'){h.selesai=!h.selesai;h.progress=h.selesai?h.target:0}
+  else h.selesai=!h.selesai;
+  if(h.selesai){
+    if(doneCount()===HABITS.length){confetti();toast('Hari yang sempurna!','Semua kebiasaan selesai — lencana Minggu Sempurna menunggumu.','i-sparkle','honey')}
+    else toast('Kebiasaan selesai',h.nama+' — api tetap menyala!','i-check','sage');
+  }
+  refreshToday();
+}
+function bumpWater(id,dir){
+  const h=HABITS.find(x=>x.id===id);if(!h)return;
+  h.progress=Math.max(0,Math.min(h.target,h.progress+dir));
+  const justDone=h.progress>=h.target;
+  if(justDone&&!h.selesai){h.selesai=true;toast('Target 8 gelas tercapai','Hydrasi penuh — tubuhmu berterima kasih.','i-check','sage');if(doneCount()===HABITS.length){confetti()}}
+  if(!justDone)h.selesai=false;
+  refreshToday();
+}
+/* modal */
+let txType='keluar';
+function openModal(id){
+  const m=$('#'+id);m.classList.add('open');document.body.style.overflow='hidden';
+  const inp=m.querySelector('input:not([type=hidden])');
+  setTimeout(()=>inp&&inp.focus(),120);
+}
+function closeModals(){$$('.modal').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}
+function fillTxType(t){
+  txType=t;
+  $$('#modalTx .seg button').forEach(b=>b.classList.toggle('active',b.dataset.txType===t));
+  const opts=Object.entries(KATEGORI).filter(([k,v])=>v.jenis===t);
+  $('#txCat').innerHTML=opts.map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
+}
+$('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
+$('#txAmount').addEventListener('input',e=>{
+  const digits=e.target.value.replace(/[^\d]/g,'');
+  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
+});
+$('#formTx').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nominal=+($('#txAmount').value||'0').replace(/\./g,'');
+  if(!nominal){toast('Nominal belum terisi','Masukkan angka lebih besar dari nol.','i-x','terra');return}
+  const k=$('#txCat').value;
+  const dv=$('#txDate').value;if(!dv){toast('Tanggal belum dipilih','','i-x','terra');return}
+  const d=new Date(dv+'T00:00:00');
+  if(d>TODAY){toast('Tanggal di masa depan','Prototipe ini hanya menerima hari ini atau sebelumnya.','i-x','terra');return}
+  const offset=Math.round((TODAY-d)/864e5);
+  const note=$('#txNote').value.trim();
+  TXS.unshift({t:txType,n:nominal,k,nama:note||KATEGORI[k].label,offset});
+  closeModals();e.target.reset();fillTxType(txType);$('#txDate').value=dayKey(TODAY);
+  refinance();renderDayDetail(state.calSel);
+  toast('Transaksi tercatat',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${KATEGORI[k].label}`,'i-check','sage');
+});
+/* modal kebiasaan */
+let pickedIcon='ill-meditasi';
+function renderIconPicker(){
+  $('#iconPicker').innerHTML=ICON_OPTS.map(o=>`
+    <label class="ip-opt ${o.id===pickedIcon?'sel':''}">
+      <input type="radio" name="pik" value="${o.id}" ${o.id===pickedIcon?'checked':''}>
+      <svg class="ill" aria-hidden="true"><use href="#${o.id}"/></svg><small>${o.label}</small>
+    </label>`).join('');
+}
+$('#iconPicker').addEventListener('change',e=>{pickedIcon=e.target.value;renderIconPicker()});
+$('#formHabit').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nama=$('#habitName').value.trim();
+  if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','terra');return}
+  HABITS.push({
+    id:'h'+Date.now(),nama,kategori:$('#habitCat').value,ikon:pickedIcon,waktu:$('#habitTime').value||'07:00',
+    streak:0,konsistensi:.5,selesai:false,riwayat:[false,false,false,false,false,false]
+  });
+  closeModals();e.target.reset();pickedIcon='ill-meditasi';renderIconPicker();
+  renderHabitChips();state.habitFilter='semua';renderHabitChips();refreshToday();
+  toast('Kebiasaan baru ditambahkan',nama+' — mulai hari ini!','i-sparkle','honey');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModals()});
+/* kalender nav */
+$('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal()});
+$('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal()});
+$('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal();renderDayDetail(state.calSel)});
+$('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
+$('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru','Kamu sudah penuh gaya hari ini.','i-bell'));
+
+/* ============ init ============ */
+(function init(){
+  const now=new Date();
+  const jam=now.getHours();
+  const sapa=jam<11?'Selamat pagi':jam<15?'Selamat siang':jam<19?'Selamat sore':'Selamat malam';
+  $('#greetTitle').textContent=`${sapa}, Arunika`;
+  const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
+  $('#greetSub').textContent=tglLengkap+' — hari yang baik untuk merawat ritual kecilmu.';
+  $('#tbDate').innerHTML=`Hari ini: <b>${tglLengkap}</b>`;
+  renderAgenda();renderRing();
+  setTimeout(()=>{renderRing()},60); // picu transisi ring
+  renderStats();renderCashflow();renderMiniBudgets();
+  renderSceneStats();renderDonut();renderBudgets();renderTx();
+  renderHabitChips();renderHabitCards();
+  renderIconPicker();fillTxType('keluar');$('#txDate').value=dayKey(TODAY);
+  animateBars(document);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+<div class="app">
+<!-- ================= SIDEBAR (desktop) ================= -->
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+    <div>
+      <div class="brand-name h-serif">Rutina</div>
+      <div class="brand-sub">Ritme harian &amp; keuangan</div>
+    </div>
+  </div>
+  <nav class="nav" aria-label="Navigasi utama">
+    <div class="nav-label">Menu</div>
+    <button class="nav-item active" data-nav="ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Ringkasan</button>
+    <button class="nav-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
+    <button class="nav-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
+    <button class="nav-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
+    <button class="nav-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+  </nav>
+  <div class="side-spacer"></div>
+  <div class="side-card">
+    <svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg>
+    <div class="side-card-t">24 hari beruntun!</div>
+    <div class="side-card-s">6 hari lagi menuju lencana <b>Api 30 Hari</b></div>
+    <div class="bar slate"><i data-w="80%"></i></div>
+  </div>
+  <div class="side-profile">
+    <span class="avatar" aria-hidden="true">A</span>
+    <div>
+      <div style="font-size:13.5px;font-weight:700">Arunika</div>
+      <div style="font-size:11px;color:var(--ink-3);font-weight:600">arunika@rutina.id</div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <div class="tb-left">
+    <div class="tb-brand">
+      <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+      Rutina
+    </div>
+    <div class="tb-date" id="tbDate">Memuat tanggal…</div>
+  </div>
+  <div class="tb-right">
+    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">24</b><span>hari</span></span>
+    <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
+      <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span>
+    </button>
+    <span class="avatar" aria-hidden="true">A</span>
+  </div>
+</header>
+
+<main class="view" id="view">

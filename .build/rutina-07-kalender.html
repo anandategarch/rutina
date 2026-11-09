@@ -1,0 +1,173 @@
+
+<!-- ================= HALAMAN: KALENDER ================= -->
+<section class="page" data-page="kalender" aria-label="Kalender">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Kalender</h1>
+      <p class="t-sub">Retrospektif harian: kebiasaan dan arus kas dalam satu tampilan.</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="icon-btn" id="calPrev" aria-label="Bulan sebelumnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+      <span class="pill" style="background:var(--surface);border:1px solid var(--line);min-width:150px;justify-content:center" id="calTitle">—</span>
+      <button class="icon-btn" id="calNext" aria-label="Bulan berikutnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <button class="btn btn-ghost btn-sm" id="calToday">Hari ini</button>
+    </div>
+  </div>
+
+  <div class="grid g-cal">
+    <div class="card card-pad">
+      <div class="cal-head-row" id="calDows"></div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    <div class="card card-pad day-detail" id="dayDetail"></div>
+  </div>
+
+  <div class="cal-strip">
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+      <div><div class="num t-num" id="csPerfect">6 <small>hari</small></div><div class="lbl">Hari sempurna bulan ini</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+      <div><div class="num t-num" id="csDone">128</div><div class="lbl">Total kebiasaan selesai</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+      <div><div class="num t-num">31 <small>hari</small></div><div class="lbl">Streak terpanjang</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+      <div><div class="num t-num" id="csSpend">Rp 0</div><div class="lbl">Pengeluaran bulan ini</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HALAMAN: WAWASAN ================= -->
+<section class="page" data-page="wawasan" aria-label="Wawasan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Wawasan</h1>
+      <p class="t-sub">Cerita di balik angka-angakamu — tanpa drama, hanya data.</p>
+    </div>
+  </div>
+
+  <div class="grid g-waw">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Tren</div>
+          <h3 class="h-serif">Konsistensi 8 minggu terakhir</h3>
+        </div>
+        <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
+      </div>
+      <div id="consChart"></div>
+      <div class="cons-note">
+        <svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>
+        <span>Tren naik <b>+26 poin</b> dalam 8 minggu — kamu berada di jalur yang benar.</span>
+      </div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Temuan</div>
+          <h3 class="h-serif">Yang menonjol</h3>
+        </div>
+      </div>
+      <div class="find-list">
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+          <div><b>Minggu adalah hari terbaikmu</b><small>92% kebiasaan selesai — rata-rata tertinggi sepanjang 8 minggu.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-rumah"/></svg></span>
+          <div><b>Tempat tinggal porsi terbesar</b><small id="findRumahPct">47% dari total pengeluaran bulan ini.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+          <div><b>Belanja harianmu menurun</b><small>Rata-rata Rp 78 rb/hari, turun 6% dari bulan lalu.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+          <div><b>Meditasi pagi memicu hari produktif</b><small>Hari-hari setelah meditasi 06.00, kebiasaan lain 2× lebih jarang terlewat.</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g-waw">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Pola</div>
+          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        </div>
+        <span class="t-sub" style="font-size:11.5px" id="polaSub">—</span>
+      </div>
+      <div class="pola-list" id="polaList"></div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Rekomendasi</div>
+          <h3 class="h-serif">Untukmu</h3>
+        </div>
+      </div>
+      <div class="find-list">
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
+          <div><b>Catat sebelum tidur</b><small>Luangkan 3 menit menulis jurnal — hari yang ditutup rapi membuka esok yang lebih tenang.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-air"/></svg></span>
+          <div><b>Atur pengingat air</b><small>Taruh botol di meja kerja agar target 8 gelas lebih mudah tercapai.</small></div>
+        </div>
+        <div class="find-item">
+          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-tabungan"/></svg></span>
+          <div><b>Pisahkan tabungan otomatis</b><small>Alihkan 20% pemasukan di awal bulan, sebelum sempat terpakai.</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pad">
+    <div class="card-head">
+      <div>
+        <div class="eyebrow">Lencana</div>
+        <h3 class="h-serif">Koleksi pencapaianmu</h3>
+      </div>
+      <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)">4 dari 6 terbuka</span>
+    </div>
+    <div class="badge-grid">
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg>
+        <b>Api Pertama</b><small>Streak 7 hari berturut-turut</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg>
+        <b>Benih Pertama</b><small>Kebiasaan pertama berhasil dibuat</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg>
+        <b>Minggu Sempurna</b><small>Semua kebiasaan selesai selama 7 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge unlocked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-medali"/></svg>
+        <b>Penjaga 30 Hari</b><small>Menjaga satu streak selama 30 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Terbuka</span>
+      </div>
+      <div class="badge locked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-bulan"/></svg>
+        <b>Ritual Malam</b><small>Tidur sebelum 23.00 selama 14 hari</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>8/14 hari</span>
+      </div>
+      <div class="badge locked">
+        <svg class="ill" aria-hidden="true"><use href="#ill-lari"/></svg>
+        <b>Pelari Fajar</b><small>Lari pagi 30 kali total</small>
+        <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>17/30 kali</span>
+      </div>
+    </div>
+  </div>
+</section>

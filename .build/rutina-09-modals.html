@@ -1,0 +1,97 @@
+
+</main>
+<footer class="appfooter">Rutina · Konsep redesain — terang, hangat, dan penuh ilustrasi</footer>
+</div><!-- /.main -->
+</div><!-- /.app -->
+
+<!-- ================= BOTTOM NAV (mobile) ================= -->
+<nav class="bottomnav" aria-label="Navigasi utama">
+  <button class="bn-item active" data-nav="ringkasan"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Ringkasan</button>
+  <button class="bn-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
+  <button class="bn-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
+  <button class="bn-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
+  <button class="bn-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+</nav>
+
+<!-- ================= TOAST ================= -->
+<div class="toast-root" id="toastRoot" aria-live="polite"></div>
+
+<!-- ================= MODAL: TRANSAKSI ================= -->
+<div class="modal" id="modalTx" role="dialog" aria-modal="true" aria-labelledby="txTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Catat</div><h3 class="h-serif" id="txTitle">Transaksi baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formTx" novalidate>
+      <div class="seg" role="group" aria-label="Jenis transaksi">
+        <button type="button" class="active" data-tx-type="keluar">Pengeluaran</button>
+        <button type="button" data-tx-type="masuk">Pemasukan</button>
+      </div>
+      <div class="field">
+        <label for="txAmount">Nominal</label>
+        <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required></div>
+      </div>
+      <div class="field">
+        <label for="txCat">Kategori</label>
+        <select id="txCat" required></select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="txDate">Tanggal</label>
+          <input type="date" id="txDate" required>
+        </div>
+        <div class="field">
+          <label for="txNote">Catatan <span style="color:var(--ink-3);font-weight:600">(opsional)</span></label>
+          <input type="text" id="txNote" placeholder="cth: kopi sore">
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: KEBIASAAN BARU ================= -->
+<div class="modal" id="modalHabit" role="dialog" aria-modal="true" aria-labelledby="habitTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Mulai ritual baru</div><h3 class="h-serif" id="habitTitle">Kebiasaan baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formHabit" novalidate>
+      <div class="field">
+        <label for="habitName">Nama kebiasaan</label>
+        <input type="text" id="habitName" placeholder="cth: stretching 10 menit" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="habitCat">Kategori</label>
+          <select id="habitCat">
+            <option value="Ketenangan">Ketenangan</option>
+            <option value="Kebugaran">Kebugaran</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Belajar">Belajar</option>
+            <option value="Refleksi">Refleksi</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="habitTime">Jam pengingat</label>
+          <input type="time" id="habitTime" value="07:00">
+        </div>
+      </div>
+      <div class="field">
+        <label id="iconPickLabel">Pilih ilustrasi</label>
+        <div class="icon-picker" id="iconPicker" role="radiogroup" aria-labelledby="iconPickLabel"></div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
+      </div>
+    </form>
+  </div>
+</div>

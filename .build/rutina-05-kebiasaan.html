@@ -1,0 +1,132 @@
+
+<!-- ================= HALAMAN: KEBIASAAN ================= -->
+<section class="page" data-page="kebiasaan" aria-label="Kebiasaan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Kebiasaan</h1>
+      <p class="t-sub">Bangun ritme harianmu, satu centang demi satu centang.</p>
+    </div>
+    <button class="btn btn-primary" data-open-modal="modalHabit"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Kebiasaan baru</button>
+  </div>
+
+  <div class="mini-stats">
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
+      <div><div class="num t-num" id="msHariIni">4/7</div><div class="lbl">Kebiasaan selesai hari ini</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+      <div><div class="num t-num">78%</div><div class="lbl">Konsistensi 30 hari terakhir</div></div>
+    </div>
+    <div class="card mini-stat">
+      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+      <div><div class="num t-num">128</div><div class="lbl">Total centang bulan ini</div></div>
+    </div>
+  </div>
+
+  <div class="card card-pad" style="margin-bottom:20px">
+    <div class="card-head" style="margin-bottom:12px">
+      <div>
+        <div class="eyebrow">Peta konsistensi</div>
+        <h3 class="h-serif">120 hari terakhir</h3>
+      </div>
+      <div class="hm-legend">Kurang <i style="background:#F1E6D4"></i><i style="background:#F0CDBB"></i><i style="background:#E3A184"></i><i style="background:#C05B3C"></i> Konsisten</div>
+    </div>
+    <div class="hm-flex">
+      <div class="heatmap-wrap">
+        <div class="hm-months" id="hmMonths"></div>
+        <div class="hm-grid" id="hmGrid"></div>
+      </div>
+      <div class="hm-side" id="hmSide"></div>
+    </div>
+  </div>
+
+  <div class="chips" id="habitChips" style="margin-bottom:18px" role="group" aria-label="Filter kategori"></div>
+  <div class="habit-grid" id="habitGrid"></div>
+</section>
+
+<!-- ================= HALAMAN: KEUANGAN ================= -->
+<section class="page" data-page="keuangan" aria-label="Keuangan">
+  <div class="page-head">
+    <div>
+      <h1 class="h-serif">Keuangan</h1>
+      <p class="t-sub" id="finSub">Denyut finansialmu bulan ini.</p>
+    </div>
+    <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
+  </div>
+
+  <div class="grid g-fin">
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg>
+      <div>
+        <div class="num t-num" id="statSaldo">Rp 0</div>
+        <div class="lbl">Dana tersisa bulan ini</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg><span id="statSaldoPct">0%</span> dari pemasukan</div>
+      </div>
+    </div>
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg>
+      <div>
+        <div class="num t-num" style="color:var(--sage-deep)" id="statIn">Rp 0</div>
+        <div class="lbl">Pemasukan</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>+8% dari bulan lalu</div>
+      </div>
+    </div>
+    <div class="card scene-stat">
+      <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
+      <div>
+        <div class="num t-num" style="color:var(--terra-deep)" id="statOut">Rp 0</div>
+        <div class="lbl">Pengeluaran</div>
+        <div class="sub up"><svg class="ic" aria-hidden="true"><use href="#i-arr-dr"/></svg>−5% dari bulan lalu</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g-donut">
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Komposisi</div>
+          <h3 class="h-serif">Pengeluaran per kategori</h3>
+        </div>
+      </div>
+      <div class="donut-flex">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 210 210" id="donutSvg" role="img" aria-label="Diagram donat pengeluaran per kategori"></svg>
+          <div class="donut-center"><small>Total keluar</small><b class="t-num" id="donutTotal">Rp 0</b></div>
+        </div>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow">Anggaran bulanan</div>
+          <h3 class="h-serif">Sisa batas per kategori</h3>
+        </div>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
+      </div>
+      <div class="hm-legend" style="gap:14px;margin:-8px 0 16px">
+        <span><i style="background:var(--sage)"></i>aman</span>
+        <span><i style="background:var(--honey)"></i>mulai penuh</span>
+        <span><i style="background:var(--terra)"></i>hampir habis</span>
+      </div>
+      <div class="budget-list" id="budgetList"></div>
+    </div>
+  </div>
+
+  <div class="card card-pad">
+    <div class="tx-tools">
+      <div class="chips" id="txChips" role="group" aria-label="Filter transaksi">
+        <button class="chip active" data-tx-filter="semua">Semua</button>
+        <button class="chip" data-tx-filter="masuk">Masuk</button>
+        <button class="chip" data-tx-filter="keluar">Keluar</button>
+      </div>
+      <div class="search-box">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input type="text" id="txSearch" placeholder="Cari transaksi…" aria-label="Cari transaksi">
+      </div>
+    </div>
+    <div class="tx-scroll" id="txList"></div>
+  </div>
+</section>
