@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img">
+  <title>Lompat tali — kebiasaan kardio</title>
+  <defs>
+    <linearGradient id="g-amb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/></linearGradient>
+    <linearGradient id="g-org" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FB923C"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1 latar tema peach -->
+  <circle cx="48" cy="48" r="46" fill="#FFEDD5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2 bayangan lompatan -->
+  <ellipse cx="48" cy="82" rx="16" ry="3" fill="#0F172A" opacity=".06"/>
+  <!-- L3 tali melengkung di atas kepala (ujung pas di puncak gagang) -->
+  <path d="M25 49C21 2 75 2 71 49" stroke="url(#g-amb)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- badan -->
+  <rect x="41" y="38" width="14" height="18" rx="6" fill="url(#g-org)"/>
+  <path d="M43.5 42q4.5-2 9 0" stroke="#FFFFFF" stroke-width="2" opacity=".4" fill="none" stroke-linecap="round"/>
+  <!-- L4 kedua lengan memegang gagang -->
+  <path d="M43 44C37 46 32 48 28.5 51" stroke="#FCD9B8" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M54 44C60 46 65 48 68.5 51" stroke="#F5C09A" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <rect x="24.5" y="48.5" width="6" height="10" rx="3" fill="#1E293B" transform="rotate(-32 27.5 53.5)"/>
+  <rect x="65.5" y="48.5" width="6" height="10" rx="3" fill="#1E293B" transform="rotate(32 68.5 53.5)"/>
+  <!-- kepala -->
+  <circle cx="48" cy="30" r="9" fill="#FCD9B8"/>
+  <path d="M39 30c0-5.5 4-8.5 9-8.5s9 3 9 8.5c-2-2.6-5-3.6-9-3.6s-7 1-9 3.6z" fill="#1E293B"/>
+  <path d="M43.5 30q1.5 1.5 3 0M50.5 30q1.5 1.5 3 0" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M45 34q3 2 6 0" stroke="#C2410C" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- kaki tertekuk saat melayang -->
+  <path d="M45 55C43 60 43 64 46 68" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M52 55C54 60 54 64 51 68" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M41 68h8M48 68h8" stroke="#1E293B" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- L5 garis gerak pantulan -->
+  <path d="M32 78h9M52 78h9M42 84h10" stroke="#FDBA74" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- L6 bintang kilau -->
+  <path d="M24 24l1.3 3.4 3.4 1.3-3.4 1.3L24 33.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
+  <circle cx="74" cy="26" r="3" fill="#38BDF8"/>
+</svg>

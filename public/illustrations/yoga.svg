@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img">
+  <title>Yoga — pose pohon</title>
+  <defs>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1 latar tema emerald -->
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2 bayangan tanah -->
+  <ellipse cx="48" cy="84" rx="17" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <g transform="translate(48 49.5) scale(1.12) translate(-48 -48)">
+  <!-- kaki menapak -->
+  <path d="M48 76V57" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <rect x="40" y="74" width="12" height="5" rx="2.5" fill="#1E293B"/>
+  <!-- kaki tertekuk (pose pohon) -->
+  <path d="M47 60C38 60 34 52 36 44" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- L3 badan -->
+  <rect x="41.5" y="36" width="13" height="24" rx="6" fill="url(#g-em2)"/>
+  <path d="M43.5 42q4.5-2.5 9 0" stroke="#FFFFFF" stroke-width="2" opacity=".35" fill="none" stroke-linecap="round"/>
+  <!-- L4 kedua lengan melengkung di atas kepala -->
+  <path d="M43 40C37 30 39 16 48 14" stroke="#FCD9B8" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path d="M53 40C59 30 57 16 48 14" stroke="#F5C09A" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <!-- kepala -->
+  <circle cx="48" cy="26" r="9.5" fill="#FCD9B8"/>
+  <path d="M39.5 26c0-6 4-9 8.5-9s8.5 3 8.5 9c-2-2.6-5-3.6-8.5-3.6s-6.5 1-8.5 3.6z" fill="#1E293B"/>
+  <circle cx="48" cy="12.5" r="4" fill="#1E293B"/>
+  <path d="M43.5 27q1.5 1.5 3 0M50.5 27q1.5 1.5 3 0" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M46 30.5q2 1.8 4 0" stroke="#C2410C" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- L5 daun napas -->
+  <path d="M28 24c-1.5-5 1.5-8.5 6-8.5.5 4.5-2.5 8-6 8.5z" fill="#6EE7B7"/>
+  <path d="M66 20c1-4-1-7-4.5-7.5-.5 3.5 1.5 6.5 4.5 7.5z" fill="#34D399"/>
+  </g>
+  <!-- L6 bintang kilau -->
+  <path d="M26 44l1.2 3 3 1.2-3 1.2L26 52.4l-1.2-3-3-1.2 3-1.2z" fill="#FBBF24"/>
+  <circle cx="70" cy="52" r="3" fill="#10B981"/>
+</svg>

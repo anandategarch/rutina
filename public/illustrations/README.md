@@ -1,0 +1,36 @@
+# Ilustrasi spot “Evergreen flat-3D” — katalog
+
+Aset SVG mandiri 96×96 yang mengikuti grammar 7 lapis
+[`docs/design-foundation.md`](../../docs/design-foundation.md) §8: latar tema pastel +
+kilau radial (`g-bghigh`), bayangan tanah `#0F172A`/opacity .07, subjek bergradien `g-*`,
+kilau putih (stroke 2–2.5, opacity .18–.55), aksen kecil, dan maksimal 2 bintang kilau.
+Setiap berkas berdiri sendiri (`<defs>` internal) sehingga aman dipakai lewat `<img>`,
+CSS background, atau di-inline langsung ke komponen.
+
+## Cara pakai
+
+- Ukuran pakai (§8.3): **34–48** baris agenda · **42–54** judul halaman ·
+  **86–110** kartu scene · **180** empty state (maks 70% lebar).
+- Gradien memakai ID kanonik (`g-em`, `g-amb`, `g-sky`, …) dengan nilai identik
+  dengan sprite `public/rutina.html`, sehingga aman di-inline bersama sprite.
+- Uji wajib (§8.5): terbaca pada 34px, tetap indah pada 110px.
+- Latar tema per keluarga warna: emerald `#ECFDF5` · amber `#FEF3C7` · sky `#E0F2FE` ·
+  biru `#DBEAFE` · peach `#FFEDD5` · slate `#F1F5F9`.
+
+## Katalog
+
+### Kebiasaan — gaya hidup & olahraga (batch 1)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `sepeda.svg` | bersepeda | peach `#FFEDD5` |
+| `renang.svg` | berenang | sky `#E0F2FE` |
+| `yoga.svg` | yoga pose pohon | emerald `#ECFDF5` |
+| `peregangan.svg` | peregangan tubuh | amber `#FEF3C7` |
+| `lompat-tali.svg` | lompat tali | peach `#FFEDD5` |
+| `hiking.svg` | mendaki gunung | sky `#E0F2FE` |
+
+---
+
+*Semua ilustrasi digambar tangan mengikuti palet & aturan §8 design-foundation
+(v2 Evergreen). Aset lama: `avatar.png`, `botanical-gardener.svg` (gaya v1).*
