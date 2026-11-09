@@ -151,6 +151,12 @@ Dua gradien baru terdaftar selaras kategori §2.5: `g-rose`
 (`#F9A8D9 → #EC4899`, kategori Social) untuk sakura & kupu-kupu taman, dan
 `g-wood` (`#A16207 → #713F12`) untuk batang keluarga tanaman.
 
+## Latar hero (full-bleed)
+
+| Berkas | Konsep | Konteks pakai |
+|---|---|---|
+| `hero-bg.webp` | latar botani 8KB (1024², dekorasi hanya di tepi kanan & bawah-kanan; zona teks mint polos `#DEF8D5`) | layer `.hero-bg` kartu hero `public/rutina.html`; `background: center/cover`, gradient mint sebagai fallback |
+
 ## Ringkasan
 
 - **63 spot 96×96** dalam 12 batch tematik + **3 scene hero 480×320** — total 66 aset baru.

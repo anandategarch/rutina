@@ -416,6 +416,7 @@ Semua angka berasal dari database asli (atau snapshot identik saat offline) —
 
 | Versi | Tanggal | Perubahan |
 |---|---|---|
+| 2.4 | 2026-11 | Ilustrasi latar hero: aset statis `public/illustrations/hero-bg.webp` (8KB, dekorasi botani hanya di tepi kanan, zona teks mint polos) sebagai layer `.hero-bg` di bawah konten hero; gradient mint tetap jadi fallback. Zona teks diverifikasi polos via profil deviasi piksel + uji keterbacaan VLM. Ornamen sudut `.hero-ill` mobile diredam ke opacity .8. |
 | 2.3 | 2026-11 | Tipografi: sistem font tunggal **Plus Jakarta Sans** (karya Tokotype/Indonesia, dipakai Gojek) menggantikan pasangan Source Serif 4 + Inter — sejajar dengan bahasa visual fintech Indonesia (GoPay/Livin'). Heading `.h-serif` naik ke ExtraBold 800; tabular-nums terverifikasi bekerja (`tnum`). |
 | 2.2 | 2026-11 | Tipografi: pasangan font diganti ke **Source Serif 4 + Inter** (variable font, kontras serif/sans profesional — menggantikan Poppins/Plus Jakarta Sans yang terlalu mirip). Tabular-nums dipertahankan di semua angka; font smoothing penuh (webkit + moz) di root. |
 | 2.1 | 2026-11 | Fitur baca-saja dari aplikasi v1: garis target harian (tick honey pada ring), habit kuantitatif (amount) dengan bar progres unit, kartu Jatah Harian & proyeksi (bar laju + penanda ideal), dan Heatmap Pengeluaran (§9, skala honey). Simbol spot baru: `ill-jatah` & `ill-panas`. |

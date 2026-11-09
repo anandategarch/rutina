@@ -170,6 +170,7 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- hero ringkasan ---------- */
 .hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid var(--line);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
+.hero-bg{position:absolute;inset:0;z-index:0;background:#D1FAE5 url("/illustrations/hero-bg.webp") center/cover no-repeat}
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
 .hero h2{font-size:clamp(21px,2.6vw,26px);max-width:340px}
@@ -581,7 +582,7 @@ input,select,textarea{font:inherit;color:inherit}
 }
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;padding:18px 16px;gap:4px;margin-bottom:18px}
-  .hero-ill{position:absolute;right:-8px;top:-6px;width:118px;max-width:118px;margin:0;order:0;opacity:.9;z-index:0}
+  .hero-ill{position:absolute;right:-8px;top:-6px;width:118px;max-width:118px;margin:0;order:0;opacity:.8;z-index:0}
   .hero-quote{display:none}
   .hero-body{gap:10px}
   .hero .h-serif{font-size:20px;padding-right:104px}
@@ -1530,6 +1531,7 @@ input,select,textarea{font:inherit;color:inherit}
 
   <!-- HERO -->
   <div class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-body">
       <span class="eyebrow">Fokus hari ini</span>
       <h2 class="h-serif">Kebiasaan kecil yang kamu rawat hari ini</h2>
