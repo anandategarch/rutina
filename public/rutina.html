@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,9 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- Transitions UI generation (transitions.dev) — animasi "agen sedang membuat UI" -->
-<link rel="stylesheet" href="/vendor/transitions/ui-generation.css">
-<link rel="stylesheet" href="/vendor/transitions/text-image-generation.css">
 <style>
 /* ============================================================
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
@@ -38,6 +35,7 @@
   --font-display:"Poppins","Plus Jakarta Sans",system-ui,sans-serif;
   --font-body:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
   --sidebar-w:268px;
+  --ease-tunas:cubic-bezier(.22,1,.36,1);
 }
 html{scroll-behavior:smooth}
 body{
@@ -68,6 +66,15 @@ input,select,textarea{font:inherit;color:inherit}
 .page{display:none}
 .page.active{display:block;animation:pageIn .45s cubic-bezier(.2,.7,.3,1)}
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+/* ---------- animasi masuk "Tunas Pagi" (Ringkasan, sekali per muat) ----------
+   Section "tumbuh" berurutan dari atas ke bawah; sapaan menajam dari kabur;
+   ilustrasi hero menyusul dengan pegas ringan. Dikendalikan dari tunasPrep(). */
+.tunas{opacity:0;transform:translateY(16px)}
+.page-head.tunas,.hero.tunas{filter:blur(5px)}
+.tunas.tunas-on{opacity:1;transform:none;transition:opacity .65s var(--ease-tunas),transform .65s var(--ease-tunas),filter .65s var(--ease-tunas)}
+.page-head.tunas-on,.hero.tunas-on{filter:none}
+.tunas-ill{opacity:0;transform:translateY(12px) scale(.95)}
+.tunas-ill.tunas-on{opacity:1;transform:none;transition:opacity .75s cubic-bezier(.3,1.3,.45,1),transform .75s cubic-bezier(.3,1.3,.45,1)}
 .page-head{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
 .page-head h1{font-size:clamp(24px,3vw,28px)}
 .page-head .t-sub{margin-top:4px}
@@ -3577,10 +3584,83 @@ $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFu
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
 $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Menampilkan snapshot database — Turso tak terjangkau.','i-bell'));
 
+/* ---------- animasi masuk "Tunas Pagi" ----------
+   Sekali per muat, hanya di halaman Ringkasan: begitu data tiba, section
+   tumbuh berurutan dari atas ke bawah seperti tunas di pagi hari — sapaan
+   menajam dari kabur, hero & ilustrasi menyusul dengan pegas ringan,
+   ring progres menggambar dirinya, sparkline merambat.
+   Dilewati penuh bila prefers-reduced-motion. */
+let tunasState=0; // 0 belum · 1 terpasang (tersembunyi) · 2 terungkap
+function tunasPrep(){
+  if(reduced||tunasState)return false;
+  const page=$('.page[data-page="ringkasan"]');
+  if(!page)return false;
+  const steps=[
+    page.querySelector('.page-head'),
+    page.querySelector('.hero'),
+    ...page.querySelectorAll('.stats > .card'),
+    page.querySelector('.streak-banner'),
+    page.querySelector('#rowAgenda > .card'),
+    ...page.querySelectorAll('#rowAgenda > .row > .card')
+  ].filter(Boolean);
+  const last=page.lastElementChild;
+  if(last&&last.classList.contains('card'))steps.push(last);
+  if(!steps.length)return false;
+  steps.forEach(el=>el.classList.add('tunas'));
+  const ill=page.querySelector('.hero-ill');
+  if(ill)ill.classList.add('tunas-ill');
+  tunasState=1;
+  setTimeout(tunasReveal,2500); // jaring pengaman — konten tak boleh tersembunyi selamanya
+  return true;
+}
+function tunasReveal(){
+  const page=$('.page[data-page="ringkasan"]');
+  if(!page||tunasState!==1)return;
+  tunasState=2;
+  const GAP=75;
+  const seq=page.querySelectorAll('.tunas,.tunas-ill');
+  seq.forEach((el,i)=>{el.style.transitionDelay=(i*GAP)+'ms';el.classList.add('tunas-on')});
+  const hero=page.querySelector('.hero');
+  const heroDelay=hero&&hero.style.transitionDelay?(parseInt(hero.style.transitionDelay)||0):0;
+  /* ring progres digambar ulang tepat saat hero mulai terlihat */
+  const ring=$('#ringFg');
+  if(ring){
+    ring.style.transition='none';
+    ring.style.strokeDashoffset='389.6';
+    setTimeout(()=>{ring.style.transition='';renderRing()},heroDelay+140);
+  }
+  /* sparkline ikut merambat setelah kartu statistik muncul */
+  setTimeout(()=>{
+    $$('.spark path').forEach(p=>{
+      try{
+        const L=p.getTotalLength();
+        p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{
+          p.style.transition='stroke-dashoffset .9s cubic-bezier(.25,.8,.3,1)';
+          p.style.strokeDashoffset=0;
+        }));
+      }catch(err){}
+    });
+  },heroDelay+320);
+  /* lepas kelas setelah kaskade usai supaya re-render berikutnya bersih */
+  setTimeout(()=>{
+    page.querySelectorAll('.tunas,.tunas-ill,.tunas-on').forEach(el=>{
+      el.classList.remove('tunas','tunas-ill','tunas-on');
+      el.style.transitionDelay='';
+    });
+  },seq.length*GAP+950);
+}
+function tunasWake(){
+  /* tunggu font maks. 700ms agar teks tak berganti wajah di tengah animasi */
+  const ready=document.fonts&&document.fonts.ready?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,700))]):Promise.resolve();
+  ready.then(()=>requestAnimationFrame(()=>requestAnimationFrame(tunasReveal)));
+}
+
 /* ---------- init ---------- */
 (async function init(){
+  const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
   await loadData();
-  if(!DB){$('#greetTitle').textContent='Rutina';$('#footSrc').textContent='sumber data tidak tersedia';return}
+  if(!DB){$('#greetTitle').textContent='Rutina';$('#footSrc').textContent='sumber data tidak tersedia';tunasReveal();return}
   prepData();syncToday();
   renderIdentity();renderAgenda();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
@@ -3591,19 +3671,7 @@ $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru',LIV
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
-
-  /* ---------- animasi "agen sedang membuat UI" (transitions.dev) ----------
-     Diputar SEKALI setelah data & render selesai: wireframe bertitik digambar
-     di atas halaman aktif, lalu UI asli terungkap di balik garis pindai.
-     Runtime sendiri mematuhi prefers-reduced-motion (fade 200ms). */
-  setTimeout(async()=>{
-    try{
-      await document.fonts.ready;
-      const {generate}=await import('/vendor/transitions/ui-generation.js');
-      const target=$('#view .page.active');
-      if(target) generate(target,{mode:'skeleton',done:'Ringkasan siap'});
-    }catch(err){/* animasi bersifat opsional — jangan ganggu aplikasi */}
-  },420);
+  if(tunas)tunasWake();
 })();
 
 </script>

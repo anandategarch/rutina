@@ -7,7 +7,7 @@ Pelacak kebiasaan dan arus kas harian. Satu repo, dua lapisan:
 | Aplikasi (v1) — PWA Next.js | `src/` | Terpelihara | `docs/design-system.md` (arsip "Playful Botanical") |
 | Konsep (v2) "Evergreen" | `public/rutina.html` + `src/app/api/rutina` | Aktif, arah ke depan | `docs/design-foundation.md` |
 
-Konsep v2 adalah prototipe satu file yang membaca data asli dari Turso secara baca-saja. Kenapa dibatasi begitu: prototipe tidak boleh berisiko menyentuh skema database yang dipakai aplikasi utama, jadi `/api/rutina` hanya menjalankan SELECT dan memakai nama env berbeda (`RUTINA_TURSO_URL`, `RUTINA_TURSO_TOKEN`) supaya tidak tertukar dengan kredensial aplikasi lama. Bila Turso tak terjangkau, halaman jatuh ke snapshot data asli yang tertanam; footer selalu menyebut sumbernya, tidak pernah ada angka karangan. Di dalamnya ada 41 ilustrasi dan ikon SVG yang digambar tangan, plus animasi pembuka di halaman Ringkasan: wireframe bertitik "sedang dibangun agen" (runtime [transitions.dev](https://transitions.dev) di `public/vendor/transitions/`) sebelum UI asli terungkap.
+Konsep v2 adalah prototipe satu file yang membaca data asli dari Turso secara baca-saja. Kenapa dibatasi begitu: prototipe tidak boleh berisiko menyentuh skema database yang dipakai aplikasi utama, jadi `/api/rutina` hanya menjalankan SELECT dan memakai nama env berbeda (`RUTINA_TURSO_URL`, `RUTINA_TURSO_TOKEN`) supaya tidak tertukar dengan kredensial aplikasi lama. Bila Turso tak terjangkau, halaman jatuh ke snapshot data asli yang tertanam; footer selalu menyebut sumbernya, tidak pernah ada angka karangan. Di dalamnya ada 41 ilustrasi dan ikon SVG yang digambar tangan, plus animasi pembuka "Tunas Pagi" di halaman Ringkasan: begitu data tiba, section tumbuh berurutan dari atas ke bawah — sapaan menajam dari kabur, ring progres menggambar dirinya, sparkline merambat — dengan pegas ringan khas tema Evergreen, dan otomatis dilewati bila pengguna mengaktifkan reduced-motion.
 
 ## Prinsip
 
@@ -50,7 +50,6 @@ public/
   rutina.html             Konsep v2 "Evergreen" — satu file mandiri
   illustrations/          30+ ilustrasi SVG Evergreen flat-3D
   tree/                   Tahap pertumbuhan pohon (benih → dewasa)
-  vendor/transitions/     Runtime animasi generation (transitions.dev)
 docs/
   design-foundation.md    ★ Pedoman AKTIF v2 (warna, tipografi, elevasi, ilustrasi…)
   design-tokens.css       ★ Nilai token canonical siap salin
