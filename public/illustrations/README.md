@@ -30,6 +30,17 @@ CSS background, atau di-inline langsung ke komponen.
 | `lompat-tali.svg` | lompat tali | peach `#FFEDD5` |
 | `hiking.svg` | mendaki gunung | sky `#E0F2FE` |
 
+### Kebiasaan — kesehatan & kreativitas (batch 2)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `vitamin.svg` | minum vitamin | emerald `#ECFDF5` |
+| `teh.svg` | waktu minum teh | amber `#FEF3C7` |
+| `melukis.svg` | melukis di palet | biru `#DBEAFE` |
+| `gitar.svg` | bermain gitar | peach `#FFEDD5` |
+| `musik.svg` | dengar musik (headphone) | sky `#E0F2FE` |
+| `berkebun.svg` | menyiram tanaman | emerald `#ECFDF5` |
+
 ---
 
 *Semua ilustrasi digambar tangan mengikuti palet & aturan §8 design-foundation
