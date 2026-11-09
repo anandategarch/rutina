@@ -17,3 +17,6 @@ tool-results/
 shots/
 .zscripts/dev.log
 .zscripts/dev.pid
+
+# log dev di root
+dev.log
