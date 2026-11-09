@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none" role="img" aria-label="Permata langka">
+  <defs>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#0284C7"/></linearGradient>
+    <linearGradient id="g-blu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1: latar biru -->
+  <circle cx="48" cy="48" r="46" fill="#DBEAFE"/>
+  <circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2: bayangan tanah -->
+  <ellipse cx="48" cy="76" rx="18" ry="3.4" fill="#0F172A" opacity=".07"/>
+  <!-- L3: mahkota permata -->
+  <path d="M30 34h36l8 12H22z" fill="url(#g-sky)"/>
+  <!-- pavilion -->
+  <path d="M22 46h52L48 74z" fill="url(#g-blu)"/>
+  <!-- garis facets -->
+  <path d="M36 34l-4 12M48 34v12M60 34l4 12" stroke="#FFFFFF" stroke-width="2" opacity=".45" stroke-linecap="round"/>
+  <path d="M36 46l12 28M60 46L48 74" stroke="#FFFFFF" stroke-width="2" opacity=".3" stroke-linecap="round"/>
+  <!-- L4: kilau meja -->
+  <path d="M32 39l3-4" stroke="#FFFFFF" stroke-width="2.5" opacity=".6" stroke-linecap="round"/>
+  <path d="M38 39l3-4" stroke="#FFFFFF" stroke-width="2" opacity=".4" stroke-linecap="round"/>
+  <!-- L5: titik cahaya -->
+  <circle cx="26" cy="30" r="2.2" fill="#38BDF8"/>
+  <circle cx="70" cy="54" r="2.2" fill="#93C5FD"/>
+  <!-- L6: bintang kilau -->
+  <path d="M68 22l1.3 3.4 3.4 1.3-3.4 1.3L68 31.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
+</svg>

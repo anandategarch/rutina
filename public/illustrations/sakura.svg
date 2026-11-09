@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none" role="img" aria-label="Pohon sakura">
+  <defs>
+    <linearGradient id="g-rose" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A8D9"/><stop offset="1" stop-color="#EC4899"/></linearGradient>
+    <linearGradient id="g-wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A16207"/><stop offset="1" stop-color="#713F12"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1: latar slate lembut -->
+  <circle cx="48" cy="48" r="46" fill="#F1F5F9"/>
+  <circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2: bayangan tanah -->
+  <ellipse cx="48" cy="78" rx="23" ry="3.4" fill="#0F172A" opacity=".07"/>
+  <!-- L3: batang & cabang -->
+  <path d="M44 74q-1-14 2-22l5 1q-3 8-2 21z" fill="url(#g-wood)"/>
+  <path d="M49 54q8-5 10-13l4 2q-4 9-11 13z" fill="url(#g-wood)"/>
+  <!-- kanopi bunga -->
+  <ellipse cx="45" cy="36" rx="17" ry="12.5" fill="url(#g-rose)"/>
+  <ellipse cx="61" cy="42" rx="10" ry="8" fill="url(#g-rose)"/>
+  <ellipse cx="36" cy="29" rx="8" ry="6" fill="#FBCFE8" opacity=".7"/>
+  <!-- kelopak detail -->
+  <g fill="#FDE68A">
+    <circle cx="40" cy="33" r="1.4"/><circle cx="44" cy="35" r="1.4"/><circle cx="42" cy="30" r="1.4"/>
+    <circle cx="52" cy="28" r="1.4"/><circle cx="56" cy="30" r="1.4"/><circle cx="54" cy="26" r="1.4"/>
+  </g>
+  <!-- L4: kilau kanopi -->
+  <path d="M34 32q3-6 9-8" stroke="#FFFFFF" stroke-width="2.4" opacity=".4" stroke-linecap="round" fill="none"/>
+  <!-- L5: kelopak gugur -->
+  <path d="M28 50q3-2 5.5 0-2.5 3-5.5 0z" fill="#F9A8D9"/>
+  <path d="M64 54q3-2 5.5 0-2.5 3-5.5 0z" fill="#FBCFE8"/>
+  <path d="M33 64q3-2 5.5 0-2.5 3-5.5 0z" fill="#F9A8D9"/>
+  <circle cx="70" cy="38" r="1.7" fill="#FBCFE8"/>
+  <!-- L6: bintang kilau -->
+  <path d="M26 22l1.1 3 3 1.1-3 1.1-1.1 3-1.1-3-3-1.1 3-1.1z" fill="#FBBF24"/>
+</svg>

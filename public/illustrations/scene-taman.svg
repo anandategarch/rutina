@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320" fill="none" role="img" aria-label="Ilustrasi taman tenang: bukit hijau berlapis dengan pohon rimbun, bangku taman putih, jalur setapak berkelok, kupu-kupu kecil, dan bunga-bunga di rumput">
+  <defs>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="g-wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A16207"/><stop offset="1" stop-color="#713F12"/>
+    </linearGradient>
+    <linearGradient id="g-rose" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F9A8D9"/><stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="g-slate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CBD5E1"/><stop offset="1" stop-color="#94A3B8"/>
+    </linearGradient>
+    <!-- Kilau radial putih untuk bangku taman -->
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>
+      <stop offset=".55" stop-color="#FFFFFF" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Kanvas dasar -->
+  <rect width="480" height="320" fill="#F8FAFC"/>
+
+  <!-- Langit #E0F2FE dengan tepi horizon melengkung lembut -->
+  <path d="M0 0H480V150c-80 26-170 32-250 18C150 190 70 186 0 162Z" fill="#E0F2FE" opacity=".85"/>
+  <!-- Blob udara besar beropacity rendah -->
+  <circle cx="90" cy="130" r="110" fill="#ECFDF5" opacity=".5"/>
+  <circle cx="420" cy="80" r="100" fill="#FEF3C7" opacity=".45"/>
+  <circle cx="380" cy="200" r="110" fill="#D1FAE5" opacity=".45"/>
+  <circle cx="60" cy="250" r="85" fill="#ECFDF5" opacity=".4"/>
+
+  <!-- Bukit belakang -->
+  <path d="M0 320V198c56-40 128-44 188-18 50 22 98 26 152 6 44-16 92-16 140-8v142Z" fill="url(#g-em)"/>
+  <!-- Kabut tipis di lereng sebagai garis horizon lembut -->
+  <ellipse cx="240" cy="206" rx="210" ry="16" fill="#FFFFFF" opacity=".18"/>
+  <!-- Bukit depan -->
+  <path d="M0 320v-58c78-24 152-18 232 2 80 20 164 22 248-2v58Z" fill="url(#g-em2)"/>
+
+  <!-- Pohon rimbun di bukit belakang -->
+  <ellipse cx="136" cy="234" rx="54" ry="8" fill="#0F172A" opacity=".07"/>
+  <path d="M127 188c3 15 2 30-3 44h24c-5-14-6-29-3-44z" fill="url(#g-wood)"/>
+  <circle cx="99" cy="162" r="29" fill="url(#g-em2)"/>
+  <circle cx="177" cy="160" r="27" fill="url(#g-em2)"/>
+  <circle cx="146" cy="108" r="24" fill="url(#g-em2)"/>
+  <circle cx="138" cy="142" r="47" fill="url(#g-em2)"/>
+  <circle cx="158" cy="162" r="20" fill="url(#g-em)" opacity=".3"/>
+  <path d="M100 130a44 44 0 0 1 28-22" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".35"/>
+
+  <!-- Jalur setapak berkelok menuju bangku (mengecil ke arah bangku) -->
+  <path d="M272 322C271 306 262 296 250 285l13-5c10 10 38 21 51 41z" fill="#E2E8F0" opacity=".95"/>
+  <path d="M272 322C271 306 262 296 250 285l13-5c10 10 38 21 51 41z" fill="url(#g-slate)" opacity=".2"/>
+  <circle cx="256" cy="281" r="6" fill="#E2E8F0" opacity=".95"/>
+  <!-- Rumput di ujung jalur -->
+  <path d="M226 298q1-5 4-7M232 300q0-6 3-8M256 302q1-5 4-6" stroke="#059669" stroke-width="2" stroke-linecap="round" fill="none" opacity=".6"/>
+
+  <!-- Bangku taman putih sederhana -->
+  <ellipse cx="252" cy="268" rx="72" ry="8" fill="#0F172A" opacity=".08"/>
+  <rect x="206" y="240" width="8" height="27" rx="3" fill="url(#g-slate)"/>
+  <rect x="290" y="240" width="8" height="27" rx="3" fill="url(#g-slate)"/>
+  <rect x="204" y="200" width="8" height="33" rx="4" fill="#FFFFFF"/>
+  <rect x="248" y="200" width="8" height="33" rx="4" fill="#FFFFFF"/>
+  <rect x="292" y="200" width="8" height="33" rx="4" fill="#FFFFFF"/>
+  <rect x="196" y="192" width="112" height="11" rx="5.5" fill="#FFFFFF"/>
+  <rect x="196" y="192" width="112" height="11" rx="5.5" fill="url(#g-bghigh)"/>
+  <rect x="192" y="228" width="120" height="13" rx="6.5" fill="#FFFFFF"/>
+  <rect x="192" y="228" width="120" height="13" rx="6.5" fill="url(#g-bghigh)"/>
+  <path d="M304 231v8" stroke="#E2E8F0" stroke-width="2.5" opacity=".5"/>
+
+  <!-- Semak kecil di kedua sisi taman -->
+  <circle cx="42" cy="284" r="18" fill="url(#g-em)"/>
+  <circle cx="60" cy="290" r="13" fill="url(#g-em)"/>
+  <circle cx="416" cy="276" r="22" fill="url(#g-em)"/>
+  <circle cx="438" cy="283" r="16" fill="url(#g-em)"/>
+  <circle cx="34" cy="276" r="2.5" fill="#F9A8D9"/>
+  <circle cx="52" cy="292" r="2.5" fill="#FCD34D"/>
+  <circle cx="48" cy="270" r="2" fill="#FCD34D"/>
+  <circle cx="410" cy="270" r="2.5" fill="#F9A8D9"/>
+  <circle cx="432" cy="278" r="2.5" fill="#F9A8D9"/>
+  <circle cx="424" cy="266" r="2" fill="#FCD34D"/>
+
+  <!-- Bunga-bunga titik kecil di rumput -->
+  <g stroke="#059669" stroke-width="1.5" opacity=".55" stroke-linecap="round">
+    <path d="M98 300v-9M118 284v-8M162 297v-8M244 313v-9M330 290v-8M382 292v-8M462 296v-8"/>
+  </g>
+  <circle cx="98" cy="290" r="3.5" fill="#FCD34D"/>
+  <circle cx="118" cy="275" r="3" fill="#F9A8D9"/>
+  <circle cx="162" cy="288" r="3.5" fill="#F9A8D9"/>
+  <circle cx="244" cy="303" r="3.5" fill="#FCD34D"/>
+  <circle cx="330" cy="281" r="3" fill="#F9A8D9"/>
+  <circle cx="382" cy="283" r="3.5" fill="#F9A8D9"/>
+  <circle cx="462" cy="287" r="3" fill="#FCD34D"/>
+  <circle cx="58" cy="224" r="3" fill="#F9A8D9"/>
+  <circle cx="442" cy="216" r="3" fill="#F9A8D9"/>
+
+  <!-- Kupu-kupu kecil -->
+  <g transform="rotate(-16 352 150)">
+    <path d="M349 146c-14-9-27-5-29 7-2 11 9 17 19 13 6-3 10-11 10-20z" fill="#F9A8D9"/>
+    <path d="M355 146c14-9 27-5 29 7 2 11-9 17-19 13-6-3-10-11-10-20z" fill="url(#g-rose)"/>
+    <rect x="349.5" y="139" width="5" height="22" rx="2.5" fill="#1E293B"/>
+    <path d="M351 140c-2-4-5-6-8-7M353 140c2-4 5-6 8-7" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M358 152c4 2 8 2 11 0" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  </g>
+
+  <!-- Dua awan putih di langit -->
+  <g fill="#FFFFFF" opacity=".95">
+    <ellipse cx="110" cy="62" rx="26" ry="13"/>
+    <ellipse cx="88" cy="68" rx="16" ry="9"/>
+    <ellipse cx="133" cy="67" rx="15" ry="8"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".9">
+    <ellipse cx="374" cy="46" rx="22" ry="11"/>
+    <ellipse cx="356" cy="51" rx="13" ry="7"/>
+    <ellipse cx="392" cy="51" rx="12" ry="7"/>
+  </g>
+
+  <!-- Bintang kilau taman -->
+  <path transform="translate(192 102) scale(.8)" d="M0 -8L2 -2 8 0 2 2 0 8 -2 2 -8 0 -2 -2Z" fill="#FBBF24"/>
+  <path transform="translate(398 128) scale(.7)" d="M0 -8L2 -2 8 0 2 2 0 8 -2 2 -8 0 -2 -2Z" fill="#FBBF24"/>
+</svg>

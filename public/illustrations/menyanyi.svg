@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none" role="img" aria-label="Menyanyi">
+  <defs>
+    <linearGradient id="g-slate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CBD5E1"/><stop offset="1" stop-color="#94A3B8"/></linearGradient>
+    <linearGradient id="g-org" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FB923C"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1: latar peach -->
+  <circle cx="48" cy="48" r="46" fill="#FFEDD5"/>
+  <circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2: bayangan tanah -->
+  <ellipse cx="46" cy="79" rx="19" ry="3.4" fill="#0F172A" opacity=".07"/>
+  <!-- L3: kepala mikrofon -->
+  <rect x="35" y="18" width="26" height="28" rx="13" fill="url(#g-slate)"/>
+  <path d="M39 27h18M38 33h20M39 39h18" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>
+  <!-- badan mikrofon -->
+  <path d="M39.5 46h17l-2.5 20h-12z" fill="url(#g-org)"/>
+  <path d="M42.5 52h11" stroke="#FFFFFF" stroke-width="1.8" opacity=".4" stroke-linecap="round"/>
+  <!-- kabel -->
+  <path d="M46 66q-3 10-14 11" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- L4: kilau kepala mic -->
+  <path d="M39 23q4-4 10-4" stroke="#FFFFFF" stroke-width="2.4" opacity=".5" stroke-linecap="round" fill="none"/>
+  <!-- L5: not-not melayang -->
+  <circle cx="22" cy="36" r="3.2" fill="#10B981"/>
+  <path d="M25.2 36v-9l4 2" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <circle cx="74" cy="30" r="2.8" fill="#F59E0B"/>
+  <path d="M76.8 30v-8l3.5 1.8" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <circle cx="72" cy="52" r="2.4" fill="#38BDF8"/>
+  <path d="M74.4 52v-7l3 1.6" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <!-- L6: bintang kilau -->
+  <path d="M26 58l1.1 3 3 1.1-3 1.1-1.1 3-1.1-3-3-1.1 3-1.1z" fill="#FBBF24"/>
+</svg>

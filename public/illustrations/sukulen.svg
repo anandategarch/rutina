@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none" role="img" aria-label="Sukulen">
+  <defs>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <linearGradient id="g-amb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1: latar emerald -->
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/>
+  <circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2: bayangan tanah -->
+  <ellipse cx="48" cy="79" rx="21" ry="3.4" fill="#0F172A" opacity=".07"/>
+  <!-- L3: rosette daun luar (8 daun) -->
+  <g fill="url(#g-em2)">
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(45 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(90 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(135 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(180 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(225 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(270 48 48)"/>
+    <path d="M48 46c-3-6-3-13 0-17 3 4 3 11 0 17z" transform="rotate(315 48 48)"/>
+  </g>
+  <!-- rosette dalam (4 daun lebih gelap) -->
+  <g fill="url(#g-em)">
+    <path d="M48 48c-2-4-2-9 0-12 2 3 2 8 0 12z" transform="rotate(22.5 48 48)"/>
+    <path d="M48 48c-2-4-2-9 0-12 2 3 2 8 0 12z" transform="rotate(112.5 48 48)"/>
+    <path d="M48 48c-2-4-2-9 0-12 2 3 2 8 0 12z" transform="rotate(202.5 48 48)"/>
+    <path d="M48 48c-2-4-2-9 0-12 2 3 2 8 0 12z" transform="rotate(292.5 48 48)"/>
+  </g>
+  <!-- pusat -->
+  <circle cx="48" cy="48" r="3.4" fill="#A7F3D0"/>
+  <!-- L4: kilau daun -->
+  <path d="M46 36q1-3 2-4" stroke="#FFFFFF" stroke-width="2" opacity=".5" stroke-linecap="round" fill="none"/>
+  <!-- pot -->
+  <rect x="35" y="62" width="26" height="5.5" rx="2.75" fill="url(#g-amb)"/>
+  <path d="M38 67.5h20l-2 8q-8 2.5-16 0z" fill="url(#g-amb)"/>
+  <!-- L5: butir tanah -->
+  <circle cx="30" cy="74" r="1.7" fill="#B45309" opacity=".6"/>
+  <circle cx="66" cy="73" r="1.5" fill="#B45309" opacity=".5"/>
+  <!-- L6: bintang kilau -->
+  <path d="M26 28l1.1 3 3 1.1-3 1.1-1.1 3-1.1-3-3-1.1 3-1.1z" fill="#FBBF24"/>
+</svg>

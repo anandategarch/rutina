@@ -74,10 +74,89 @@ CSS background, atau di-inline langsung ke komponen.
 | `awan.svg` | cadangan tersimpan aman | sky `#E0F2FE` |
 | `kado.svg` | hadiah pencapaian | peach `#FFEDD5` |
 
+### Kebiasaan aktif lanjutan (batch 6)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `tinju.svg` | latihan tinju | slate `#F1F5F9` |
+| `jantung.svg` | kesehatan jantung (ECG) | emerald `#ECFDF5` |
+
+### Kreatif & tenang (batch 7)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `piano.svg` | bermain piano | slate `#F1F5F9` |
+| `menulis.svg` | menulis kreatif (pena + kertas) | emerald `#ECFDF5` |
+| `foto.svg` | fotografi (kamera retro) | slate `#F1F5F9` |
+| `menyanyi.svg` | menyanyi (mikrofon) | peach `#FFEDD5` |
+| `kerajinan.svg` | kerajinan tangan (benang & jarum) | peach `#FFEDD5` |
+
+### Sosial & belajar (batch 8)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `kode.svg` | belajar coding (laptop) | biru `#DBEAFE` |
+| `bahasa.svg` | belajar bahasa (balon percakapan) | biru `#DBEAFE` |
+| `menelepon.svg` | menelepon keluarga | emerald `#ECFDF5` |
+| `keluarga.svg` | waktu keluarga (rumah) | emerald `#ECFDF5` |
+| `sahabat.svg` | bertemu sahabat (sodor tinju) | peach `#FFEDD5` |
+| `catur.svg` | bermain catur (kuda) | slate `#F1F5F9` |
+| `teka-teki.svg` | menyusun puzzle | biru `#DBEAFE` |
+| `menyiram.svg` | menyiram tunas muda | sky `#E0F2FE` |
+
+### Sistem, UI & produktivitas (batch 9)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `jam-pasir.svg` | waktu berjalu | amber `#FEF3C7` |
+| `lonceng.svg` | pengingat | amber `#FEF3C7` |
+| `kirim.svg` | kirim (pesawat kertas) | sky `#E0F2FE` |
+| `energi.svg` | energi harian (baterai) | emerald `#ECFDF5` |
+| `laporan.svg` | laporan mingguan (grafik batang) | slate `#F1F5F9` |
+
+### Lencana & pencapaian (batch 10)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `mahkota.svg` | mahkota juara | amber `#FEF3C7` |
+| `berlian.svg` | permata langka | biru `#DBEAFE` |
+| `kunang.svg` | kunang-kunang senja | slate `#F1F5F9` |
+| `pelangi.svg` | setelah hujan | sky `#E0F2FE` |
+| `meteor.svg` | bintang jatuh | sky `#E0F2FE` |
+| `lentera.svg` | lentera harapan | amber `#FEF3C7` |
+
+### Teman pohon — varian tanaman (batch 11)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `kaktus.svg` | kaktus berbunga | peach `#FFEDD5` |
+| `sukulen.svg` | sukulen rosette | emerald `#ECFDF5` |
+| `bambu.svg` | rumpun bambu | emerald `#ECFDF5` |
+| `jamur.svg` | jamur sepasang | peach `#FFEDD5` |
+| `sakura.svg` | pohon sakura (musim semi) | slate `#F1F5F9` |
+| `gugur.svg` | pohon musim gugur | amber `#FEF3C7` |
+| `salju.svg` | pohon musim dingin | sky `#E0F2FE` |
+
+### Scene hero 480×320 (batch 12)
+
+| Berkas | Konsep | Konteks pakai |
+|---|---|---|
+| `scene-pagi.svg` | rutinitas pagi (jendela, teh, buku) | hero onboarding |
+| `scene-taman.svg` | taman tenang (pohon, bangku, jalur) | hero insights |
+| `scene-juara.svg` | perayaan juara (podium, piala, konfeti) | hero pencapaian |
+
+## Ekstensi gradien koleksi
+
+Dua gradien baru terdaftar selaras kategori §2.5: `g-rose`
+(`#F9A8D9 → #EC4899`, kategori Social) untuk sakura & kupu-kupu taman, dan
+`g-wood` (`#A16207 → #713F12`) untuk batang keluarga tanaman.
+
 ## Ringkasan
 
-- **30 spot ilustrasi baru** dalam 5 batch tematik: gaya hidup & olahraga,
-  kesehatan & kreativitas, keuangan, tumbuh & pencapaian, wawasan & alat.
+- **63 spot 96×96** dalam 12 batch tematik + **3 scene hero 480×320** — total 66 aset baru.
+- Batch 6–12 menambah: kebiasaan aktif lanjutan, kreatif & tenang, sosial & belajar,
+  sistem/UI/produktivitas, lencana pencapaian, varian tanaman teman pohon, dan scene hero.
+- Galeri pratinjau seluruh katalog: buka `index.html`.
 - Semua latar tema & gradien mengikuti katalog warna resmi §2 & §8.2.
 
 ---

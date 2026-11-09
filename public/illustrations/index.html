@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri Ilustrasi Evergreen · Rutina</title>
+<style>
+  :root {
+    --terra:#10B981; --terra-deep:#059669; --terra-soft:#D1FAE5; --terra-softer:#ECFDF5;
+    --bg:#F8FAFC; --surface:#FFFFFF; --line:#E2E8F0; --line-soft:#EEF2F6;
+    --ink:#0F172A; --ink-2:#475569; --ink-3:#94A3B8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Plus Jakarta Sans','Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+    background:var(--bg); color:var(--ink); min-height:100vh; display:flex; flex-direction:column;
+    background-image:radial-gradient(var(--line-soft) 1px, transparent 1px); background-size:26px 26px;
+  }
+  header { background:var(--surface); border-bottom:1px solid var(--line); padding:2rem 1.5rem; }
+  .kepala { max-width:1080px; margin:0 auto; }
+  .eyebrow { color:var(--terra-deep); font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:800; margin:.35rem 0 .4rem; }
+  h1 em { font-style:normal; color:var(--terra-deep); }
+  .sub { color:var(--ink-2); max-width:64ch; line-height:1.65; font-size:.95rem; }
+  .meta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
+  .chip { background:var(--terra-softer); color:var(--terra-deep); border:1px solid #A7F3D0; border-radius:999px; padding:.3rem .85rem; font-size:.8rem; font-weight:600; }
+  main { flex:1; width:100%; max-width:1080px; margin:0 auto; padding:1.75rem 1.5rem 3rem; }
+  .grup { margin-bottom:2.25rem; }
+  .grup h2 { display:flex; align-items:center; gap:.6rem; font-size:1.05rem; font-weight:700; margin-bottom:1rem; }
+  .tit { width:11px; height:11px; border-radius:4px; display:inline-block; flex-shrink:0; }
+  .hitung { margin-left:.15rem; background:var(--surface); border:1px solid var(--line); color:var(--ink-3); font-size:.72rem; font-weight:700; border-radius:999px; padding:.15rem .55rem; }
+  .kisi { display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:.9rem; }
+  .kartu {
+    min-width:0;
+    background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:1.1rem .8rem .85rem;
+    display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    box-shadow:0 1px 2px rgba(15,23,42,.04), 0 4px 12px -4px rgba(15,23,42,.05);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .kartu:hover { transform:translateY(-3px); border-color:#A7F3D0; box-shadow:0 4px 10px rgba(15,23,42,.06), 0 12px 24px -8px rgba(5,150,105,.14); }
+  .kartu img { width:96px; height:96px; max-width:100%; }
+  .kartu.scene { padding:.6rem .6rem .85rem; }
+  .kartu.scene img { width:100%; height:auto; border-radius:10px; }
+  figcaption { display:flex; flex-direction:column; align-items:center; gap:.2rem; text-align:center; }
+  figcaption code { font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:.7rem; color:var(--terra-deep); background:var(--terra-softer); padding:.12rem .5rem; border-radius:6px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  figcaption span { font-size:.8rem; color:var(--ink-2); font-weight:600; line-height:1.3; }
+  .scene-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.9rem; }
+  footer { background:var(--surface); border-top:1px solid var(--line); padding:1.1rem 1.5rem; margin-top:auto; }
+  .kaki { max-width:1080px; margin:0 auto; display:flex; flex-wrap:wrap; gap:.4rem 1rem; align-items:center; justify-content:space-between; color:var(--ink-3); font-size:.78rem; }
+  .kaki a { color:var(--terra-deep); text-decoration:none; font-weight:600; }
+  @media (max-width:480px) { .kisi { grid-template-columns:repeat(3,1fr); gap:.6rem; } .kartu { padding:.8rem .4rem .7rem; } .kartu img { width:72px; height:72px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="kepala">
+    <p class="eyebrow">Rutina · Koleksi Ilustrasi</p>
+    <h1>Galeri <em>Evergreen flat-3D</em></h1>
+    <p class="sub">66 ilustrasi SVG mandiri — 63 spot 96×96 dalam 11 batch tematik dan 3 scene hero 480×320 — digambar tangan mengikuti grammar resmi <code>docs/design-foundation.md</code> §8. Siap dipakai sebagai &lt;img&gt;, CSS background, atau di-inline ke komponen.</p>
+    <div class="meta">
+      <span class="chip">66 ilustrasi</span>
+      <span class="chip">11 batch tematik</span>
+      <span class="chip">3 scene hero</span>
+      <span class="chip">Grammar §8 Evergreen</span>
+    </div>
+  </div>
+</header>
+<main>
+<section class="grup"><h2><span class="tit" style="background:#10B981"></span>Kebiasaan — gaya hidup &amp; olahraga (batch 1)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="sepeda.svg" width="96" height="96" alt="Ilustrasi bersepeda" loading="lazy"><figcaption><code>sepeda.svg</code><span>bersepeda</span></figcaption></figure>
+<figure class="kartu"><img src="renang.svg" width="96" height="96" alt="Ilustrasi berenang" loading="lazy"><figcaption><code>renang.svg</code><span>berenang</span></figcaption></figure>
+<figure class="kartu"><img src="yoga.svg" width="96" height="96" alt="Ilustrasi yoga pose pohon" loading="lazy"><figcaption><code>yoga.svg</code><span>yoga pose pohon</span></figcaption></figure>
+<figure class="kartu"><img src="peregangan.svg" width="96" height="96" alt="Ilustrasi peregangan tubuh" loading="lazy"><figcaption><code>peregangan.svg</code><span>peregangan tubuh</span></figcaption></figure>
+<figure class="kartu"><img src="lompat-tali.svg" width="96" height="96" alt="Ilustrasi lompat tali" loading="lazy"><figcaption><code>lompat-tali.svg</code><span>lompat tali</span></figcaption></figure>
+<figure class="kartu"><img src="hiking.svg" width="96" height="96" alt="Ilustrasi mendaki gunung" loading="lazy"><figcaption><code>hiking.svg</code><span>mendaki gunung</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#F59E0B"></span>Kebiasaan — kesehatan &amp; kreativitas (batch 2)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="vitamin.svg" width="96" height="96" alt="Ilustrasi minum vitamin" loading="lazy"><figcaption><code>vitamin.svg</code><span>minum vitamin</span></figcaption></figure>
+<figure class="kartu"><img src="teh.svg" width="96" height="96" alt="Ilustrasi waktu minum teh" loading="lazy"><figcaption><code>teh.svg</code><span>waktu minum teh</span></figcaption></figure>
+<figure class="kartu"><img src="melukis.svg" width="96" height="96" alt="Ilustrasi melukis di palet" loading="lazy"><figcaption><code>melukis.svg</code><span>melukis di palet</span></figcaption></figure>
+<figure class="kartu"><img src="gitar.svg" width="96" height="96" alt="Ilustrasi bermain gitar" loading="lazy"><figcaption><code>gitar.svg</code><span>bermain gitar</span></figcaption></figure>
+<figure class="kartu"><img src="musik.svg" width="96" height="96" alt="Ilustrasi dengar musik (headphone)" loading="lazy"><figcaption><code>musik.svg</code><span>dengar musik (headphone)</span></figcaption></figure>
+<figure class="kartu"><img src="berkebun.svg" width="96" height="96" alt="Ilustrasi menyiram tanaman" loading="lazy"><figcaption><code>berkebun.svg</code><span>menyiram tanaman</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#3B82F6"></span>Keuangan (batch 3)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="qris.svg" width="96" height="96" alt="Ilustrasi bayar QRIS dari ponsel" loading="lazy"><figcaption><code>qris.svg</code><span>bayar QRIS dari ponsel</span></figcaption></figure>
+<figure class="kartu"><img src="tagihan.svg" width="96" height="96" alt="Ilustrasi bayar tagihan (stempel lunas)" loading="lazy"><figcaption><code>tagihan.svg</code><span>bayar tagihan (stempel lunas)</span></figcaption></figure>
+<figure class="kartu"><img src="donasi.svg" width="96" height="96" alt="Ilustrasi berbagi donasi" loading="lazy"><figcaption><code>donasi.svg</code><span>berbagi donasi</span></figcaption></figure>
+<figure class="kartu"><img src="tumbuh-koin.svg" width="96" height="96" alt="Ilustrasi dana tumbuh (koin + kecambah)" loading="lazy"><figcaption><code>tumbuh-koin.svg</code><span>dana tumbuh (koin + kecambah)</span></figcaption></figure>
+<figure class="kartu"><img src="sarang.svg" width="96" height="96" alt="Ilustrasi telur emas di sarang" loading="lazy"><figcaption><code>sarang.svg</code><span>telur emas di sarang</span></figcaption></figure>
+<figure class="kartu"><img src="payung.svg" width="96" height="96" alt="Ilustrasi perlindungan anggaran" loading="lazy"><figcaption><code>payung.svg</code><span>perlindungan anggaran</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#0EA5E9"></span>Tumbuh &amp; pencapaian (batch 4)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="bunga-matahari.svg" width="96" height="96" alt="Ilustrasi mekar penuh semangat" loading="lazy"><figcaption><code>bunga-matahari.svg</code><span>mekar penuh semangat</span></figcaption></figure>
+<figure class="kartu"><img src="kupu-kupu.svg" width="96" height="96" alt="Ilustrasi transformasi kebiasaan" loading="lazy"><figcaption><code>kupu-kupu.svg</code><span>transformasi kebiasaan</span></figcaption></figure>
+<figure class="kartu"><img src="lebah.svg" width="96" height="96" alt="Ilustrasi produktif setiap hari" loading="lazy"><figcaption><code>lebah.svg</code><span>produktif setiap hari</span></figcaption></figure>
+<figure class="kartu"><img src="bonsai.svg" width="96" height="96" alt="Ilustrasi kesabaran merawat" loading="lazy"><figcaption><code>bonsai.svg</code><span>kesabaran merawat</span></figcaption></figure>
+<figure class="kartu"><img src="panen.svg" width="96" height="96" alt="Ilustrasi hasil konsistensi" loading="lazy"><figcaption><code>panen.svg</code><span>hasil konsistensi</span></figcaption></figure>
+<figure class="kartu"><img src="kunci.svg" width="96" height="96" alt="Ilustrasi pencapaian terbuka" loading="lazy"><figcaption><code>kunci.svg</code><span>pencapaian terbuka</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#8B5CF6"></span>Wawasan &amp; alat (batch 5)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="teropong.svg" width="96" height="96" alt="Ilustrasi melihat wawasan lebih jauh" loading="lazy"><figcaption><code>teropong.svg</code><span>melihat wawasan lebih jauh</span></figcaption></figure>
+<figure class="kartu"><img src="kompas.svg" width="96" height="96" alt="Ilustrasi arah tujuan yang jelas" loading="lazy"><figcaption><code>kompas.svg</code><span>arah tujuan yang jelas</span></figcaption></figure>
+<figure class="kartu"><img src="peta.svg" width="96" height="96" alt="Ilustrasi perjalanan membangun kebiasaan" loading="lazy"><figcaption><code>peta.svg</code><span>perjalanan membangun kebiasaan</span></figcaption></figure>
+<figure class="kartu"><img src="jam.svg" width="96" height="96" alt="Ilustrasi waktu yang konsisten" loading="lazy"><figcaption><code>jam.svg</code><span>waktu yang konsisten</span></figcaption></figure>
+<figure class="kartu"><img src="awan.svg" width="96" height="96" alt="Ilustrasi cadangan tersimpan aman" loading="lazy"><figcaption><code>awan.svg</code><span>cadangan tersimpan aman</span></figcaption></figure>
+<figure class="kartu"><img src="kado.svg" width="96" height="96" alt="Ilustrasi hadiah pencapaian" loading="lazy"><figcaption><code>kado.svg</code><span>hadiah pencapaian</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#059669"></span>Kebiasaan aktif lanjutan (batch 6)<span class="hitung">2</span></h2><div class="kisi">
+<figure class="kartu"><img src="tinju.svg" width="96" height="96" alt="Ilustrasi latihan tinju" loading="lazy"><figcaption><code>tinju.svg</code><span>latihan tinju</span></figcaption></figure>
+<figure class="kartu"><img src="jantung.svg" width="96" height="96" alt="Ilustrasi kesehatan jantung (ECG)" loading="lazy"><figcaption><code>jantung.svg</code><span>kesehatan jantung (ECG)</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#F97316"></span>Kreatif &amp; tenang (batch 7)<span class="hitung">5</span></h2><div class="kisi">
+<figure class="kartu"><img src="piano.svg" width="96" height="96" alt="Ilustrasi bermain piano" loading="lazy"><figcaption><code>piano.svg</code><span>bermain piano</span></figcaption></figure>
+<figure class="kartu"><img src="menulis.svg" width="96" height="96" alt="Ilustrasi menulis kreatif (pena + kertas)" loading="lazy"><figcaption><code>menulis.svg</code><span>menulis kreatif (pena + kertas)</span></figcaption></figure>
+<figure class="kartu"><img src="foto.svg" width="96" height="96" alt="Ilustrasi fotografi (kamera retro)" loading="lazy"><figcaption><code>foto.svg</code><span>fotografi (kamera retro)</span></figcaption></figure>
+<figure class="kartu"><img src="menyanyi.svg" width="96" height="96" alt="Ilustrasi menyanyi (mikrofon)" loading="lazy"><figcaption><code>menyanyi.svg</code><span>menyanyi (mikrofon)</span></figcaption></figure>
+<figure class="kartu"><img src="kerajinan.svg" width="96" height="96" alt="Ilustrasi kerajinan tangan (benang &amp; jarum)" loading="lazy"><figcaption><code>kerajinan.svg</code><span>kerajinan tangan (benang &amp; jarum)</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#D97706"></span>Sosial &amp; belajar (batch 8)<span class="hitung">8</span></h2><div class="kisi">
+<figure class="kartu"><img src="kode.svg" width="96" height="96" alt="Ilustrasi belajar coding (laptop)" loading="lazy"><figcaption><code>kode.svg</code><span>belajar coding (laptop)</span></figcaption></figure>
+<figure class="kartu"><img src="bahasa.svg" width="96" height="96" alt="Ilustrasi belajar bahasa (balon percakapan)" loading="lazy"><figcaption><code>bahasa.svg</code><span>belajar bahasa (balon percakapan)</span></figcaption></figure>
+<figure class="kartu"><img src="menelepon.svg" width="96" height="96" alt="Ilustrasi menelepon keluarga" loading="lazy"><figcaption><code>menelepon.svg</code><span>menelepon keluarga</span></figcaption></figure>
+<figure class="kartu"><img src="keluarga.svg" width="96" height="96" alt="Ilustrasi waktu keluarga (rumah)" loading="lazy"><figcaption><code>keluarga.svg</code><span>waktu keluarga (rumah)</span></figcaption></figure>
+<figure class="kartu"><img src="sahabat.svg" width="96" height="96" alt="Ilustrasi bertemu sahabat (sodor tinju)" loading="lazy"><figcaption><code>sahabat.svg</code><span>bertemu sahabat (sodor tinju)</span></figcaption></figure>
+<figure class="kartu"><img src="catur.svg" width="96" height="96" alt="Ilustrasi bermain catur (kuda)" loading="lazy"><figcaption><code>catur.svg</code><span>bermain catur (kuda)</span></figcaption></figure>
+<figure class="kartu"><img src="teka-teki.svg" width="96" height="96" alt="Ilustrasi menyusun puzzle" loading="lazy"><figcaption><code>teka-teki.svg</code><span>menyusun puzzle</span></figcaption></figure>
+<figure class="kartu"><img src="menyiram.svg" width="96" height="96" alt="Ilustrasi menyiram tunas muda" loading="lazy"><figcaption><code>menyiram.svg</code><span>menyiram tunas muda</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#10B981"></span>Sistem, UI &amp; produktivitas (batch 9)<span class="hitung">5</span></h2><div class="kisi">
+<figure class="kartu"><img src="jam-pasir.svg" width="96" height="96" alt="Ilustrasi waktu berjalu" loading="lazy"><figcaption><code>jam-pasir.svg</code><span>waktu berjalu</span></figcaption></figure>
+<figure class="kartu"><img src="lonceng.svg" width="96" height="96" alt="Ilustrasi pengingat" loading="lazy"><figcaption><code>lonceng.svg</code><span>pengingat</span></figcaption></figure>
+<figure class="kartu"><img src="kirim.svg" width="96" height="96" alt="Ilustrasi kirim (pesawat kertas)" loading="lazy"><figcaption><code>kirim.svg</code><span>kirim (pesawat kertas)</span></figcaption></figure>
+<figure class="kartu"><img src="energi.svg" width="96" height="96" alt="Ilustrasi energi harian (baterai)" loading="lazy"><figcaption><code>energi.svg</code><span>energi harian (baterai)</span></figcaption></figure>
+<figure class="kartu"><img src="laporan.svg" width="96" height="96" alt="Ilustrasi laporan mingguan (grafik batang)" loading="lazy"><figcaption><code>laporan.svg</code><span>laporan mingguan (grafik batang)</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#F59E0B"></span>Lencana &amp; pencapaian (batch 10)<span class="hitung">6</span></h2><div class="kisi">
+<figure class="kartu"><img src="mahkota.svg" width="96" height="96" alt="Ilustrasi mahkota juara" loading="lazy"><figcaption><code>mahkota.svg</code><span>mahkota juara</span></figcaption></figure>
+<figure class="kartu"><img src="berlian.svg" width="96" height="96" alt="Ilustrasi permata langka" loading="lazy"><figcaption><code>berlian.svg</code><span>permata langka</span></figcaption></figure>
+<figure class="kartu"><img src="kunang.svg" width="96" height="96" alt="Ilustrasi kunang-kunang senja" loading="lazy"><figcaption><code>kunang.svg</code><span>kunang-kunang senja</span></figcaption></figure>
+<figure class="kartu"><img src="pelangi.svg" width="96" height="96" alt="Ilustrasi setelah hujan" loading="lazy"><figcaption><code>pelangi.svg</code><span>setelah hujan</span></figcaption></figure>
+<figure class="kartu"><img src="meteor.svg" width="96" height="96" alt="Ilustrasi bintang jatuh" loading="lazy"><figcaption><code>meteor.svg</code><span>bintang jatuh</span></figcaption></figure>
+<figure class="kartu"><img src="lentera.svg" width="96" height="96" alt="Ilustrasi lentera harapan" loading="lazy"><figcaption><code>lentera.svg</code><span>lentera harapan</span></figcaption></figure>
+</div></section>
+<section class="grup"><h2><span class="tit" style="background:#3B82F6"></span>Teman pohon — varian tanaman (batch 11)<span class="hitung">7</span></h2><div class="kisi">
+<figure class="kartu"><img src="kaktus.svg" width="96" height="96" alt="Ilustrasi kaktus berbunga" loading="lazy"><figcaption><code>kaktus.svg</code><span>kaktus berbunga</span></figcaption></figure>
+<figure class="kartu"><img src="sukulen.svg" width="96" height="96" alt="Ilustrasi sukulen rosette" loading="lazy"><figcaption><code>sukulen.svg</code><span>sukulen rosette</span></figcaption></figure>
+<figure class="kartu"><img src="bambu.svg" width="96" height="96" alt="Ilustrasi rumpun bambu" loading="lazy"><figcaption><code>bambu.svg</code><span>rumpun bambu</span></figcaption></figure>
+<figure class="kartu"><img src="jamur.svg" width="96" height="96" alt="Ilustrasi jamur sepasang" loading="lazy"><figcaption><code>jamur.svg</code><span>jamur sepasang</span></figcaption></figure>
+<figure class="kartu"><img src="sakura.svg" width="96" height="96" alt="Ilustrasi pohon sakura (musim semi)" loading="lazy"><figcaption><code>sakura.svg</code><span>pohon sakura (musim semi)</span></figcaption></figure>
+<figure class="kartu"><img src="gugur.svg" width="96" height="96" alt="Ilustrasi pohon musim gugur" loading="lazy"><figcaption><code>gugur.svg</code><span>pohon musim gugur</span></figcaption></figure>
+<figure class="kartu"><img src="salju.svg" width="96" height="96" alt="Ilustrasi pohon musim dingin" loading="lazy"><figcaption><code>salju.svg</code><span>pohon musim dingin</span></figcaption></figure>
+</div></section>
+<section class="grup">
+  <h2><span class="tit" style="background:#0F172A"></span>Scene Hero 480×320<span class="hitung">3</span></h2>
+  <div class="scene-grid">
+<figure class="kartu scene"><img src="scene-pagi.svg" alt="Scene rutinitas pagi (jendela, teh, buku)" loading="lazy"><figcaption><code>scene-pagi.svg</code><span>rutinitas pagi (jendela, teh, buku)</span></figcaption></figure>
+<figure class="kartu scene"><img src="scene-taman.svg" alt="Scene taman tenang (pohon, bangku, jalur)" loading="lazy"><figcaption><code>scene-taman.svg</code><span>taman tenang (pohon, bangku, jalur)</span></figcaption></figure>
+<figure class="kartu scene"><img src="scene-juara.svg" alt="Scene perayaan juara (podium, piala, konfeti)" loading="lazy"><figcaption><code>scene-juara.svg</code><span>perayaan juara (podium, piala, konfeti)</span></figcaption></figure>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="kaki">
+    <span>Rutina · Koleksi ilustrasi Evergreen — katalog lengkap di <a href="README.md">README.md</a>.</span>
+    <span>viewBox 96 &amp; 480 · flat-3D · emerald #10B981</span>
+  </div>
+</footer>
+</body>
+</html>

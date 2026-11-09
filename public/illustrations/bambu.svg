@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none" role="img" aria-label="Bambu">
+  <defs>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1: latar emerald -->
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/>
+  <circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2: bayangan tanah -->
+  <ellipse cx="48" cy="78" rx="22" ry="3.4" fill="#0F172A" opacity=".07"/>
+  <!-- L3: batang utama -->
+  <rect x="41" y="16" width="9.5" height="58" rx="4.75" fill="url(#g-em2)"/>
+  <path d="M41 31h9.5M41 46h9.5M41 61h9.5" stroke="#047857" stroke-width="2" opacity=".55"/>
+  <!-- batang kedua -->
+  <rect x="57" y="34" width="8" height="40" rx="4" fill="url(#g-em)"/>
+  <path d="M57 47h8M57 60h8" stroke="#047857" stroke-width="1.8" opacity=".5"/>
+  <!-- batang ketiga kecil -->
+  <rect x="30" y="42" width="7" height="32" rx="3.5" fill="url(#g-em)" opacity=".55"/>
+  <!-- daun -->
+  <path d="M46 17q-2-10 6.5-14 1.5 8-6.5 14z" fill="url(#g-em)"/>
+  <path d="M49 15q6-8 14.5-7.5-3.5 8.5-14.5 7.5z" fill="url(#g-em2)"/>
+  <path d="M61 34q1-9 9-12 0 9-9 12z" fill="url(#g-em2)"/>
+  <path d="M58 36q-6-6-4.5-14 6.5 4 4.5 14z" fill="url(#g-em)" opacity=".8"/>
+  <!-- tunas muda -->
+  <path d="M36 76q-1.5-7 3.5-9 1.5 5-3.5 9z" fill="#6EE7B7"/>
+  <!-- L4: kilau batang -->
+  <path d="M43.5 20v52" stroke="#FFFFFF" stroke-width="1.8" opacity=".4" stroke-linecap="round"/>
+  <!-- L5: titik embun -->
+  <circle cx="35" cy="32" r="2" fill="#A7F3D0"/>
+  <circle cx="70" cy="28" r="1.7" fill="#A7F3D0"/>
+  <!-- L6: bintang kilau -->
+  <path d="M26 22l1.1 3 3 1.1-3 1.1-1.1 3-1.1-3-3-1.1 3-1.1z" fill="#FBBF24"/>
+</svg>
