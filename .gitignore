@@ -12,3 +12,8 @@ coverage/
 # Personal workspace exports must never be committed
 rutina-backup*.json
 tool-results/
+
+# Artefak pengembangan — bukan bagian dari repo
+shots/
+.zscripts/dev.log
+.zscripts/dev.pid
