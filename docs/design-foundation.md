@@ -288,7 +288,7 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
   + sorotan kuning pada zona otot).
 - **Sistem & keuangan:** `ill-hero(480×320) · piggy · dompet · naik · keranjang · kosong ·
   pagi · rumah · api · piala · medali · sprout · bulan · roket · target · bulb · kal ·
-  koin · bintang · perisai`.
+  koin · bintang · perisai · jatah · panas`.
 - **Ikon kategori:** `c-*` (makanan … tag) dan `k-*` (pendidikan, investasi, kopi, jajan,
   servis, dating, parkir, badminton, loundry, skincare, potong, takterduga, pajak, hutang,
   listrik, air, pulsa, iuran, adjust, transfer) + dompet `k-kas · k-bank · k-ewallet`.
@@ -326,6 +326,7 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | Sheet modal | maks 520 · r28 · maks-h 92dvh · field 48 r14 · icon-picker grid 4 |
 | Toast | r18 · pad 13 · ikon 38 r13 · bawah 96 (mobile) / kanan 26 (desktop) |
 | Heatmap | sel 13 gap 3.5 · 18 minggu · level: kosong `#F1F5F9`, l1 `#A7F3D0`, l2 `#6EE7B7`, l3 `#10B981` · hari ini ring 2+4px |
+| Heatmap pengeluaran | grid 7 kolom gap 5 · sel aspek-rasio r9 · level honey: kosong `#F1F5F9`, l1 `#FDE68A`, l2 `#F59E0B`, l3 `#D97706` · hari ini ring 2+4px `--honey` · masa depan dashed .45 · klik sel → toast hari |
 | Kalender | 7 kolom `minmax(0,1fr)` gap 6 (mobile 4) · sel r14 min 44 (mobile 40 r11) · ticks 3.5×7 · `today` border `--terra` + `--terra-softer` · `sel` solid `--terra` putih · `future` dashed .45 · bintang ≥5 catatan |
 | Donat | R76 stroke 27 · pusat: caps 10.5 + total Poppins 16 |
 | Grafik batang | batang 17 r5 · masuk `#22C55E` · keluar `#F97316` · sumbu `ringkas()` |
@@ -411,5 +412,6 @@ Semua angka berasal dari database asli (atau snapshot identik saat offline) —
 
 | Versi | Tanggal | Perubahan |
 |---|---|---|
+| 2.1 | 2026-11 | Fitur baca-saja dari aplikasi v1: garis target harian (tick honey pada ring), habit kuantitatif (amount) dengan bar progres unit, kartu Jatah Harian & proyeksi (bar laju + penanda ideal), dan Heatmap Pengeluaran (§9, skala honey). Simbol spot baru: `ill-jatah` & `ill-panas`. |
 | 2.0 | 2026-11 | “Evergreen”: emerald `#10B981` + netral slate; Poppins/Plus Jakarta Sans; radius 16; **Beautiful shadows** sm/md/lg (netral berlapis); ilustrasi flat-3D + 17 ilustrasi kebiasaan & 24 ikon kategori dari data asli; data jujur dari Turso (baca-saja). |
 | 1.x | — | “Playful Botanical” (lavender/ivory, Nunito) — **diarsipkan** ke `docs/design-system.md`; hanya untuk aplikasi lama `src/`. |
