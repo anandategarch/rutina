@@ -20,7 +20,7 @@
   --bg:#F8FAFC; --bg-deep:#F1F5F9;
   --surface:#FFFFFF; --surface-2:#F8FAFC; --cream:#ECFDF5;
   --line:#E2E8F0; --line-soft:#EEF2F6;
-  --ink:#0F172A; --ink-2:#475569; --ink-3:#94A3B8;
+  --ink:#0F172A; --ink-2:#475569; --ink-3:#64748B; /* ink-3 dinaikkan kontrasnya — teks sekunder wajib lolos AA (pola Linear) */
   --terra:#10B981; --terra-deep:#059669; --terra-soft:#D1FAE5; --terra-softer:#ECFDF5;
   --sage:#22C55E; --sage-deep:#16A34A; --sage-soft:#DCFCE7;
   --honey:#F59E0B; --honey-deep:#D97706; --honey-soft:#FEF3C7;
@@ -124,6 +124,9 @@ input,select,textarea{font:inherit;color:inherit}
 .icon-btn{position:relative;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);transition:all .18s}
 .icon-btn:hover{color:var(--terra-deep);border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:1.5px solid var(--surface)}
+/* lencana penghitung — pola Linear: angka yang bisa ditindak, bukan sekadar titik */
+.icon-btn .dot-cnt{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--rose);color:#FFFFFF;font-size:10.5px;font-weight:800;display:grid;place-items:center;border:2px solid var(--surface);line-height:1}
+.icon-btn .dot-cnt[hidden]{display:none}
 
 /* ---------- bottom nav (mobile) — floating island dock ---------- */
 .bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-lg)}
@@ -179,7 +182,7 @@ input,select,textarea{font:inherit;color:inherit}
 .seg button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
 
 /* ---------- hero ringkasan ---------- */
-.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid var(--line);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
+.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.22);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
 .hero-bg{position:absolute;inset:0;z-index:0;background:#D1FAE5 url("/illustrations/hero-bg.webp") center/cover no-repeat}
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
@@ -189,9 +192,12 @@ input,select,textarea{font:inherit;color:inherit}
 .ring-wrap svg{width:100%;height:100%;display:block}
 .ring-fg{transition:stroke-dashoffset .9s cubic-bezier(.3,.8,.3,1)}
 .ring-col{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none}
-.ring-target{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--ink-3);white-space:nowrap}
+.ring-target{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--ink-2);white-space:nowrap}
 .ring-target i{width:12px;height:3.5px;border-radius:99px;background:var(--honey-deep);flex:none}
 .ring-target .ok{color:var(--terra-deep)}
+/* keadaan nol — cincin "bernapas" mengajak aksi (zero-state hidup, pola Duolingo) */
+.ring-wrap.zero::before{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px dashed rgba(5,150,105,.38);animation:ringPulse 2.8s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{transform:scale(.95);opacity:.35}50%{transform:scale(1.06);opacity:.85}}
 .ring-info{display:flex;flex-direction:column;gap:8px;min-width:0;align-items:flex-start}
 .ring-info .big{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.05}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px}
@@ -199,6 +205,7 @@ input,select,textarea{font:inherit;color:inherit}
 .hero-ill .ill{aspect-ratio:480/320}
 .hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:11.5px;font-weight:700;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
+@media(max-width:640px){.hero-ill{opacity:.88}}
 
 /* ---------- kartu statistik ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-md)}
@@ -238,7 +245,7 @@ input,select,textarea{font:inherit;color:inherit}
 /* ---------- jatah harian & proyeksi anggaran ---------- */
 .jatah-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:20px;align-items:center}
 .jatah-main{display:flex;flex-direction:column;gap:2px;padding:16px 18px;background:var(--terra-softer);border:1px solid #A7F3D0;border-radius:var(--r-lg)}
-.jatah-main .num{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.1}
+.jatah-main .num{font-family:var(--font-display);font-size:clamp(23px,6.6vw,30px);font-weight:700;color:var(--terra-deep);line-height:1.1}
 .jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:700;color:var(--ink-3)}
 .jatah-main .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
 .jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
@@ -273,6 +280,12 @@ input,select,textarea{font:inherit;color:inherit}
 .btn-check:hover{border-color:var(--terra);transform:scale(1.06)}
 .btn-check.done{background:var(--terra);border-color:var(--terra);color:#FFFFFF;animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
 .btn-check .ic{width:22px;height:22px}
+/* respons tekan — pola Linear: semua kontrol terasa "fisik" saat disentuh */
+.btn:active{transform:scale(.96)}
+.chip:active{transform:scale(.95)}
+.icon-btn:active{transform:scale(.9)}
+.link-btn:active{opacity:.6}
+.btn-check:active{transform:scale(.88)}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
 .counter{display:inline-flex;align-items:center;gap:7px}
 .counter button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink-2);transition:all .15s}
@@ -363,7 +376,7 @@ input,select,textarea{font:inherit;color:inherit}
 .scene-stat{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:16px;border:none;border-radius:0;box-shadow:none;--ill-seg:64px}
 .scene-stat .ill{width:96px;aspect-ratio:160/130;flex:none;position:relative;z-index:1}
 .scene-stat + .scene-stat{border-left:1px solid var(--line-soft)}
-.scene-stat .num{font-family:var(--font-display);font-size:23px;font-weight:700;line-height:1.1}
+.scene-stat .num{font-family:var(--font-display);font-size:clamp(19px,5.2vw,23px);font-weight:700;line-height:1.1}
 .scene-stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2);margin:3px 0 2px}
 .scene-stat .sub{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
 .scene-stat .sub .ic{width:14px;height:14px}
@@ -619,6 +632,9 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 
 /* ---------- confetti ---------- */
 .cp{position:fixed;top:-16px;z-index:130;pointer-events:none;border-radius:3px;animation:fall 1.5s cubic-bezier(.3,.5,.6,1) forwards}
+/* burst partikel lokal di titik centang — pola "heart" Twitter × Duolingo */
+.bp{position:fixed;z-index:125;pointer-events:none;border-radius:50%;opacity:0;animation:bpOut .6s cubic-bezier(.15,.65,.35,1) forwards}
+@keyframes bpOut{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(1.15)}}
 @keyframes fall{to{transform:translate(var(--dx,0),106vh) rotate(var(--rot,540deg));opacity:.9}}
 
 /* ---------- ilustrasi identitas halaman & kartu baru ---------- */
@@ -658,6 +674,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .chart-label{font-size:10.5px;font-weight:700;fill:var(--ink-2)}
 .chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
 .line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
+.chart-last{transform-box:fill-box;transform-origin:center;animation:chartPulse 2.4s ease-in-out infinite}
+@keyframes chartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
 @keyframes draw{to{stroke-dashoffset:0}}
 
 /* ---------- scrollbar ---------- */
@@ -1615,7 +1633,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <div class="tb-right">
     <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">—</b><span id="tbStreakUnit">hari aktif</span></span>
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
-      <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span>
+      <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-cnt" id="bellCnt" aria-hidden="true" hidden></span>
     </button>
     <button class="avatar" data-nav="pengaturan" aria-label="Pengaturan — kelola kebiasaan & kategori">A</button>
   </div>
@@ -1640,7 +1658,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <h2 class="h-serif">Kebiasaan kecil yang kamu rawat hari ini</h2>
       <div class="hero-ring">
           <div class="ring-col">
-            <div class="ring-wrap" role="img" aria-label="Progres kebiasaan hari ini">
+            <div class="ring-wrap" id="ringWrap" role="img" aria-label="Progres kebiasaan hari ini">
               <svg viewBox="0 0 150 150">
                 <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
                 <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
@@ -1880,7 +1898,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <div class="card scene-stat">
       <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
       <div>
-        <div class="num t-num" style="color:#C2410C" id="statOut">Rp 0</div>
+        <div class="num t-num" style="color:var(--honey-deep)" id="statOut">Rp 0</div>
         <div class="lbl">Pengeluaran</div>
         <div class="sub" id="statOutSub">memuat…</div>
       </div>
@@ -3094,7 +3112,7 @@ $('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru','Ka
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const rupiah=n=>'Rp '+Math.round(n).toLocaleString('id-ID');
+const rupiah=n=>{const a=Math.abs(Math.round(n)).toLocaleString('id-ID');return n<0?'–Rp '+a:'Rp '+a}; /* konvensi minus: –Rp 1.000, bukan Rp -1.000 */
 const ringkas=n=>n>=1e6?(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt':n>=1e3?Math.round(n/1e3)+' rb':''+Math.round(n);
 const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 const BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -3243,6 +3261,20 @@ function weekLogCounts(nWeeks){const out=[];let ws=weekStartOf(TODAY);
 }
 
 /* ---------- efek ---------- */
+/* burst partikel lokal di titik centang — pola "heart" Twitter × Duolingo */
+function burst(x,y){
+  if(reduced)return;
+  for(let i=0;i<10;i++){
+    const p=document.createElement('i');p.className='bp';
+    const a=Math.PI*2*i/10,r=24+Math.random()*22;
+    p.style.left=x+'px';p.style.top=y+'px';
+    p.style.setProperty('--bx',(Math.cos(a)*r).toFixed(1)+'px');
+    p.style.setProperty('--by',(Math.sin(a)*r).toFixed(1)+'px');
+    p.style.background=['#34D399','#10B981','#A7F3D0'][i%3];
+    const sz=4+Math.random()*3;p.style.width=p.style.height=sz+'px';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),720);
+  }
+}
 function countUp(el,to,{dur=850,fmt=rupiah}={}){
   if(reduced||!el){if(el)el.textContent=fmt(to);return}
   const t0=performance.now();
@@ -3345,6 +3377,9 @@ function renderRing(){
   $('#heroSisa').textContent=Math.max(0,n-done);
   $('#agendaCount').textContent=`${done}/${n} selesai`;
   $('#msHariIni').textContent=`${done}/${n}`;
+  const rw=$('#ringWrap');
+  if(rw)rw.classList.toggle('zero',n>0&&done===0);
+  syncBell(n-done);
   const sisa=Math.max(0,n-done);
   $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan — tambahkan satu untuk memulai.'
     :sisa===0?'Semua kebiasaan hari ini sudah tercatat. Luar biasa!'
@@ -3382,7 +3417,8 @@ function renderStats(){
   $('#statStreakSub').textContent=logs7>0?`+${logs7} catatan dalam 7 hari terakhir`:'Belum ada catatan 7 hari terakhir';
   spark($('#sparkKons'),[activeDaysInLast(7),activeDaysInLast(14),activeDaysInLast(21),activeDaysInLast(30),activeDaysAll()],'#0EA5E9');
   $('#statKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
-  $('#statKonsSub').textContent=`${activeDaysAll()} hari aktif sepanjang histori`;
+  const a7=activeDaysInLast(7),d7=a7-(activeDaysInLast(14)-a7);
+  $('#statKonsSub').innerHTML=d7>0?`<b class="up">↑ ${d7} hari</b> vs minggu lalu · ${activeDaysAll()} total`:d7<0?`<b class="down">↓ ${-d7} hari</b> vs minggu lalu · ${activeDaysAll()} total`:`${activeDaysAll()} hari aktif · setara minggu lalu`;
   $('#msKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
   $('#msKonsLbl').textContent='Hari aktif · 30 hari';
   $('#msTotal').innerHTML=`${sumBy(HABITS,h=>h.total)}<small> catatan</small>`;
@@ -3449,7 +3485,7 @@ function renderCashflow(){
     s+=`<rect x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
     s+=`<rect x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
     if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="800" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="800" fill="#C2410C">${ringkas(keluar[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="800" fill="#B45309">${ringkas(keluar[i])}</text>`;
     s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label">${d.getDate()}/${d.getMonth()+1}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
@@ -4007,10 +4043,14 @@ function renderConsChart(){
     s+=`<text x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end" class="chart-label">${v}</text>`;
   });
   s+=`<line x1="${L}" x2="${W-R}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
+  s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" font-weight="800" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
   pts.forEach((p,i)=>{
-    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"/>`;
+    const akhir=i===vals.length-1;
+    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''}/>`;
+    if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" font-weight="800" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
     const d=new Date(weeks[i].s+'T00:00:00');
-    if(i%2===0||i===vals.length-1)s+=`<text x="${p[0].toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${d.getDate()}/${d.getMonth()+1}</text>`;
+    const step=vals.length>15?4:vals.length>9?3:2;
+    if(i%step===0||i===vals.length-1)s+=`<text x="${p[0].toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${d.getDate()}/${d.getMonth()+1}</text>`;
   });
   s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Catatan kebiasaan per minggu">${s}</svg>`;
@@ -4098,7 +4138,13 @@ function go(page){
   if(page==='wawasan'&&!inited.wawasan){renderConsChart();inited.wawasan=true}
   if(page==='pengaturan'&&!inited.set){renderSettings();inited.set=true}
 }
-function toggleCheck(id){
+function syncBell(sisa){
+  const bc=$('#bellCnt');if(!bc)return;
+  sisa=Math.max(0,sisa||0);
+  bc.hidden=sisa===0;
+  bc.textContent=sisa>9?'9+':sisa;
+}
+function toggleCheck(id,src){
   const h=habitById(id);if(!h)return;
   if(isAmount(h)){
     /* mode konsep: satu ketuk melompat ke target penuh / mengosongkan */
@@ -4109,6 +4155,7 @@ function toggleCheck(id){
   }
   syncToday();
   if(doneToday[id]){
+    if(src){const r=src.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2)}
     if(doneTodayCount()>=HABITS.length&&HABITS.length>0){confetti();toast('Hari yang sempurna!',`Semua ${HABITS.length} kebiasaan tercatat — luar biasa.`,'i-sparkle','honey')}
     else if(isAmount(h))toast('Target tercapai',`${h.name} — ${amtLabel(h)} · tersimpan di sesi konsep.`,'i-check','sage');
     else toast('Kebiasaan selesai',`${h.name} — tersimpan di sesi konsep.`,'i-check','sage');
@@ -4130,7 +4177,7 @@ document.addEventListener('click',e=>{
   const goBtn=e.target.closest('[data-go]');
   if(goBtn){go(goBtn.dataset.go);return}
   const chk=e.target.closest('[data-check]');
-  if(chk){toggleCheck(chk.dataset.check);return}
+  if(chk){toggleCheck(chk.dataset.check,chk);return}
   const cell=e.target.closest('[data-cal]');
   if(cell){state.calSel=new Date(cell.dataset.cal+'T00:00:00');renderCal();renderDayDetail(state.calSel);return}
   const hc=e.target.closest('[data-heat]');
@@ -4239,7 +4286,11 @@ $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFu
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
 $('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderTx()});
 $('#btnDelConfirm').addEventListener('click',doDelete);
-$('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Menampilkan snapshot database — Turso tak terjangkau.','i-bell'));
+$('#btnBell').addEventListener('click',()=>{
+  const sisa=HABITS.length-doneTodayCount();
+  if(sisa>0)toast(`${sisa} kebiasaan menunggu`,sisa===HABITS.length?'Hari masih segar — mulai dari yang paling ringan.':`Sisa ${sisa} catatan — hampir sempurna!`,'i-flame');
+  else toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Menampilkan snapshot database — Turso tak terjangkau.','i-bell');
+});
 
 /* ---------- animasi masuk "Tunas Pagi" ----------
    Sekali per muat, hanya di halaman Ringkasan: begitu data tiba, section
