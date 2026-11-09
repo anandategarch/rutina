@@ -222,6 +222,25 @@ input,select,textarea{font:inherit;color:inherit}
 .amt-row .bar{flex:1;height:7px}
 .amt-row small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);flex:none}
 .amt-row .t-num{font-size:11px;font-weight:800;color:var(--ink-2);flex:none;white-space:nowrap}
+/* ---------- jatah harian & proyeksi anggaran ---------- */
+.jatah-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:20px;align-items:center}
+.jatah-main{display:flex;flex-direction:column;gap:2px;padding:16px 18px;background:var(--terra-softer);border:1px solid #A7F3D0;border-radius:var(--r-lg)}
+.jatah-main .num{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.1}
+.jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:700;color:var(--ink-3)}
+.jatah-main .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
+.jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
+.jatah-main.over{background:#FEE2E2;border-color:#FECACA}
+.jatah-main.over .num,.jatah-main.over .lbl{color:var(--rose-deep)}
+.jatah-rows{display:flex;flex-direction:column;gap:9px}
+.jatah-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px}
+.jatah-row small{color:var(--ink-3);font-weight:600}
+.jatah-row b{font-weight:800}
+.pace{margin-top:13px}
+.pace-head{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);font-weight:700;margin-bottom:6px}
+.pace-wrap{position:relative}
+.pace-tick{position:absolute;top:-3px;bottom:-3px;width:3px;border-radius:99px;background:var(--honey-deep);transform:translateX(-50%);z-index:1}
+.pace-note{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:7px}
+@media(max-width:640px){.jatah-body{grid-template-columns:1fr}}
 .cat-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .streak-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--terra-deep);background:var(--terra-soft);padding:4px 9px;border-radius:999px}
 .streak-pill .ic{width:12px;height:12px}
@@ -1052,6 +1071,23 @@ input,select,textarea{font:inherit;color:inherit}
   <path d="M20 52l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#FBBF24"/>
 </symbol>
 
+<!-- ============ BARU: JATAH HARIAN (koin ber-jam jatuh ke dompet) ============ -->
+<symbol id="ill-jatah" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <ellipse cx="46" cy="77" rx="25" ry="4.5" fill="#0F172A" opacity=".07"/>
+  <rect x="22" y="52" width="48" height="26" rx="9" fill="url(#g-em)"/>
+  <path d="M30 58q15-4.5 30 0" stroke="#FFFFFF" stroke-width="2.5" opacity=".4" fill="none" stroke-linecap="round"/>
+  <circle cx="63" cy="65" r="6.5" fill="url(#g-amb)"/>
+  <circle cx="63" cy="65" r="2.5" fill="#B45309"/>
+  <circle cx="45" cy="29" r="16" fill="url(#g-amb)"/>
+  <circle cx="45" cy="29" r="12" fill="#FDE68A"/>
+  <path d="M45 22v7l5 3" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M35 21a14 14 0 0 1 8-5" stroke="#FFFFFF" stroke-width="2.5" opacity=".5" fill="none" stroke-linecap="round"/>
+  <circle cx="70" cy="44" r="5" fill="url(#g-amb2)"/>
+  <circle cx="21" cy="26" r="3" fill="#10B981"/>
+  <path d="M73 16l1.3 3.4 3.4 1.3-3.4 1.3L73 25.4l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
+</symbol>
+
 <!-- ============ BARU: BINTANG ============ -->
 <symbol id="ill-bintang" viewBox="0 0 96 96">
   <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
@@ -1557,7 +1593,10 @@ input,select,textarea{font:inherit;color:inherit}
           <h3 class="h-serif" id="miniBudgetTitle">Anggaran</h3>
         </div>
       </div>
-      <button class="link-btn" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="pill" id="miniJatah" hidden></span>
+        <button class="link-btn" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      </div>
     </div>
     <div class="grid grid3" id="miniBudgets"></div>
   </div>
@@ -1654,6 +1693,21 @@ input,select,textarea{font:inherit;color:inherit}
         <div class="sub" id="statOutSub">memuat…</div>
       </div>
     </div>
+  </div>
+
+  <!-- JATAH HARIAN & PROYEKSI (WeeklyBudget + Transaction) -->
+  <div class="card card-pad" id="jatahCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jatah"/></svg></span>
+        <div>
+          <div class="eyebrow">Jatah harian</div>
+          <h3 class="h-serif" id="jatahTitle">Kuota belanja per hari</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="jatahMonth">—</span>
+    </div>
+    <div class="jatah-body" id="jatahBody"><div class="t-sub">memuat…</div></div>
   </div>
 
   <div class="grid g-donut">
@@ -3066,6 +3120,15 @@ function renderCashflow(){
 function renderMiniBudgets(){
   const mk=months[months.length-1];
   $('#miniBudgetTitle').textContent=mk?`Anggaran · ${monthShort(mk)}`:'Anggaran';
+  /* pill jatah harian bulan berjalan (mengarah ke kartu Jatah di Keuangan) */
+  const cj=jatahInfo(dayKey(TODAY).slice(0,7)),mini=$('#miniJatah');
+  if(mini){
+    if(cj.rows.length&&cj.daysLeft>0){
+      mini.hidden=false;
+      if(cj.sisa<0){mini.textContent='Anggaran terlampaui';mini.style.background='#FEE2E2';mini.style.color='var(--rose-deep)'}
+      else{mini.textContent=`Jatah ${rupiah(Math.round(cj.jatah))}/hari`;mini.style.background='var(--terra-soft)';mini.style.color='var(--terra-deep)'}
+    }else mini.hidden=true;
+  }
   const used=mk?expByCat(mk):{};
   const rows=BUDGETS.filter(b=>mk&&b.month===mk).map(b=>{
     const u=used[b.category]||0;
@@ -3263,6 +3326,57 @@ function renderBudgets(){
   const totB=sumBy(rows,r=>r.amount),totU=sumBy(rows,r=>r.used);
   $('#budgetLeft').textContent=rupiah(Math.max(0,totB-totU))+' tersisa';
   animateBars($('#budgetList'));
+}
+
+/* ---------- jatah harian & proyeksi anggaran ---------- */
+function jatahInfo(mk){
+  const rows=BUDGETS.filter(b=>b.month===mk);
+  const usedMap=expByCat(mk);
+  const totB=sumBy(rows,r=>r.amount);
+  const used=sumBy(rows,r=>usedMap[r.category]||0);
+  const dim=new Date(+mk.slice(0,4),+mk.slice(5,7),0).getDate();
+  const cur=mk===dayKey(TODAY).slice(0,7);
+  const d=TODAY.getDate();
+  const daysLeft=cur?dim-d+1:0;
+  const avg=cur?used/Math.max(1,d):0;
+  const proj=cur?used+avg*Math.max(0,daysLeft-1):used;
+  const sisa=totB-used;
+  return{rows,totB,used,dim,cur,d,daysLeft,avg,proj,sisa,
+    jatah:daysLeft>0?Math.max(0,sisa)/daysLeft:0,
+    pct:totB?Math.round(used/totB*100):0};
+}
+function renderJatah(){
+  const mk=state.finMonth,body=$('#jatahBody');
+  if(!body)return;
+  $('#jatahMonth').textContent=monthLabel(mk);
+  if(mk==='ALL'||!BUDGETS.some(b=>b.month===mk)){
+    $('#jatahTitle').textContent='Kuota belanja per hari';
+    body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada anggaran bulan ini</b><p>Pilih bulan yang punya batas kategori tercatat untuk melihat jatah harianmu.</p></div>`;
+    return;
+  }
+  const j=jatahInfo(mk),over=j.sisa<0;
+  $('#jatahTitle').textContent=j.cur?'Kuota belanja per hari':`Hasil anggaran · ${monthShort(mk)}`;
+  const main=j.cur
+    ?(over
+      ?`<div class="jatah-main over"><div class="num t-num">Rp 0<small>/hari</small></div><div class="lbl">Jatah habis</div><div class="sub">Anggaran terlampaui ${rupiah(-j.sisa)} — belanja jeda dulu.</div></div>`
+      :`<div class="jatah-main"><div class="num t-num">${rupiah(Math.round(j.jatah))}<small>/hari</small></div><div class="lbl">Jatah hari ini</div><div class="sub">Sisa ${rupiah(j.sisa)} untuk ${j.daysLeft} hari lagi — sampai tgl ${j.dim}.</div></div>`)
+    :`<div class="jatah-main${over?' over':''}"><div class="num t-num">${rupiah(j.used)}</div><div class="lbl">Terpakai</div><div class="sub">Dari anggaran ${rupiah(j.totB)} — bulan ini sudah selesai.</div></div>`;
+  const status=j.proj<=j.totB?'<span style="color:var(--sage-deep)">aman</span>':j.proj<=j.totB*1.1?'<span style="color:var(--honey-deep)">waspada</span>':'<span style="color:var(--rose-deep)">lewati batas</span>';
+  const warna=j.pct<70?'var(--sage)':j.pct<90?'var(--honey)':'var(--rose)';
+  const side=`<div class="jatah-rows">
+      <div class="jatah-row"><small>Anggaran bulan · ${j.rows.length} kategori</small><b class="t-num">${rupiah(j.totB)}</b></div>
+      <div class="jatah-row"><small>Terpakai</small><b class="t-num">${rupiah(j.used)} · ${j.pct}%</b></div>
+      ${j.cur?`<div class="jatah-row"><small>Rata-rata harian</small><b class="t-num">${rupiah(Math.round(j.avg))}</b></div>
+      <div class="jatah-row"><small>Proyeksi akhir bulan</small><b class="t-num">${rupiah(Math.round(j.proj))} · ${status}</b></div>`:''}
+    </div>
+    ${j.cur?`<div class="pace">
+      <div class="pace-head"><span>Laju belanja vs anggaran</span><span class="t-num">${j.pct}%</span></div>
+      <div class="pace-wrap"><div class="bar"><i data-w="${Math.min(100,j.pct)}%" style="background:${warna}"></i></div>
+        <span class="pace-tick" style="left:${Math.round(j.d/j.dim*100)}%" title="Laju ideal — hari ke-${j.d} dari ${j.dim}"></span></div>
+      <div class="pace-note">Garis amber = posisi ideal hari ini (ke-${j.d} dari ${j.dim}). Di kirinya berarti hemat, di kanannya berarti cepat.</div>
+    </div>`:''}`;
+  body.innerHTML=main+`<div>${side}</div>`;
+  animateBars(body);
 }
 function renderWallets(){
   const w=walletBalances();
@@ -3528,7 +3642,7 @@ function refreshToday(){
   if(inited.cal){renderCal();renderDayDetail(state.calSel)}
 }
 function refinance(){
-  renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderMiniBudgets();renderWallets();renderTx();renderTip();
+  renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderJatah();renderMiniBudgets();renderWallets();renderTx();renderTip();
   if(inited.cal)renderCalStrip();
 }
 document.addEventListener('click',e=>{
@@ -3714,7 +3828,7 @@ function tunasWake(){
   prepData();syncToday();
   renderIdentity();renderAgenda();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
-  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderWallets();renderTx();
+  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderWallets();renderTx();
   renderHabitChips();renderHabitCards();
   renderFindings();renderReko();renderBadges();
   fillTxType('keluar');fillTxSources();fillHabitSelects();
