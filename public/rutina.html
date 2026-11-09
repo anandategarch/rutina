@@ -498,8 +498,95 @@ input,select,textarea{font:inherit;color:inherit}
 .field label{display:block;font-size:12px;font-weight:800;color:var(--ink-2);margin-bottom:7px;letter-spacing:.02em}
 .field input[type=text],.field input[type=date],.field input[type=time],.field select{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;transition:border .18s;outline:none;appearance:none}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647568' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
-.field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface)}
+.field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-softer)}
+.field input{caret-color:var(--terra)}
+.field input::placeholder{color:var(--ink-3);font-weight:500}
+.search-box input{caret-color:var(--terra)}
+input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var(--surface) inset;-webkit-text-fill-color:var(--ink);caret-color:var(--terra)}
 .money{position:relative}
+
+/* ============================================================
+   v2.6 · KONTROL FORM CUSTOM — dropdown, kalender & roda jam.
+   Elemen native disembunyikan (tetap sumber nilai untuk form);
+   tampilan digantikan widget buatan sendiri, tanpa popup default.
+   ============================================================ */
+.cs-native{display:none !important}
+.cs{position:relative}
+/* --- pemicu (tombol pengganti input native) --- */
+.cs-trigger{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:10px;justify-content:space-between;text-align:left;transition:border .18s,box-shadow .18s,background .18s;outline:none}
+.cs-trigger .cs-lab{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-trigger .cs-chev{width:16px;height:16px;color:var(--ink-3);flex:none;transition:transform .25s var(--ease-tunas)}
+.cs-trigger .cs-ic{width:17px;height:17px;color:var(--ink-3);flex:none}
+.cs-trigger .cs-tag{font-size:10.5px;font-weight:800;color:var(--terra-deep);background:var(--terra-softer);padding:3px 9px;border-radius:999px;flex:none;white-space:nowrap}
+.cs-trigger .cs-lab.ph{color:var(--ink-3);font-weight:500}
+.cs-trigger .cs-emoji{font-size:18px;line-height:1;flex:none}
+.cs.open>.cs-trigger{border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-softer)}
+.cs.open>.cs-trigger .cs-chev{transform:rotate(180deg)}
+.cs-trigger:focus-visible{outline:none;border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-softer)}
+/* --- menu dropdown --- */
+.cs-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:6px;max-height:266px;overflow-y:auto;overscroll-behavior:contain;display:none;transform-origin:top center}
+.cs-menu.up{top:auto;bottom:calc(100% + 8px);transform-origin:bottom center}
+.cs.open>.cs-menu{display:block;animation:menuIn .3s cubic-bezier(.25,1.1,.4,1)}
+@keyframes menuIn{from{opacity:0;transform:translateY(-7px) scale(.975)}to{opacity:1;transform:none}}
+.cs-opt{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:9px 12px;border-radius:11px;font-size:14px;font-weight:600;color:var(--ink-2);text-align:left;transition:background .12s,color .12s}
+.cs-opt .cs-emoji{font-size:17px;line-height:1;flex:none}
+.cs-opt .cs-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-opt .cs-check{width:16px;height:16px;color:var(--terra-deep);flex:none;opacity:0;transform:scale(.4);transition:opacity .18s,transform .18s var(--ease-tunas)}
+.cs-opt:hover,.cs-opt:focus-visible{background:var(--surface-2);color:var(--ink);outline:none}
+.cs-opt.on{background:var(--terra-softer);color:var(--terra-deep)}
+.cs-opt.on .cs-check{opacity:1;transform:none}
+.cs-menu::-webkit-scrollbar{width:8px}
+.cs-menu::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;border:2px solid var(--surface)}
+.cs-menu::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+/* --- varian pill (pemilih bulan di kartu riwayat) --- */
+.month-sel .cs{flex:0 1 auto;min-width:0}
+.month-sel .cs-trigger{width:auto;min-height:auto;padding:0;border:none;background:none;font-size:13px;font-weight:700;border-radius:8px;gap:0}
+.month-sel .cs-trigger .cs-chev{display:none}
+.month-sel .cs-menu{left:auto;right:0;min-width:216px}
+.month-sel .chev{transition:transform .25s var(--ease-tunas)}
+.month-sel.open .chev{transform:rotate(180deg)}
+.month-sel.open{border-color:var(--terra)}
+/* ============================================================
+   POPUP LAYAR PENUH KECIL — kalender & roda jam (di atas modal)
+   ============================================================ */
+.pop-scrim{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .2s;display:flex;align-items:center;justify-content:center;padding:20px}
+.pop-scrim.closing{animation:fadeOut .18s forwards}
+@keyframes fadeOut{to{opacity:0}}
+.dp{width:322px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-lg);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
+@keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+.dp-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+.dp-title{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.dp-nav{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line);background:var(--surface-2);transition:all .15s;flex:none}
+.dp-nav:hover{border-color:var(--terra);color:var(--terra-deep);background:var(--surface)}
+.dp-nav .ic{width:17px;height:17px}
+.dp-dows{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px}
+.dp-dow{text-align:center;font-size:10.5px;font-weight:800;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dp-grid.swap{animation:menuIn .22s ease}
+.dp-d{aspect-ratio:1;min-height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;transition:background .12s,transform .12s;border:1.5px solid transparent;font-variant-numeric:tabular-nums}
+.dp-d:hover{background:var(--surface-2)}
+.dp-d:hover:not(.sel){transform:translateY(-1px)}
+.dp-d.out{color:var(--ink-3);font-weight:600;opacity:.55}
+.dp-d.today{border-color:var(--terra);background:var(--terra-softer)}
+.dp-d.sel{background:var(--terra);color:#fff;box-shadow:var(--shadow-sm)}
+.dp-foot{display:flex;justify-content:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft)}
+.dp-today-btn{font-size:12.5px;font-weight:800;color:var(--terra-deep);padding:8px 16px;border-radius:999px;background:var(--terra-softer);transition:all .15s;min-height:36px}
+.dp-today-btn:hover{background:var(--terra-soft)}
+/* --- roda jam (gaya iOS) --- */
+.tp{width:296px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-lg);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
+.tp-wheels{position:relative;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface-2)}
+.tp-band{position:absolute;left:12px;right:12px;top:50%;height:46px;transform:translateY(-50%);background:var(--terra-softer);border:1.5px solid var(--terra);border-radius:12px;pointer-events:none;z-index:1}
+.tp-col{height:276px;overflow-y:auto;scroll-snap-type:y mandatory;padding:115px 0;position:relative;z-index:2;text-align:center;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent);mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent)}
+.tp-col::-webkit-scrollbar{display:none}
+.tp-col+.tp-col{border-left:1px dashed var(--line)}
+.tp-sep{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;font-size:20px;font-weight:800;color:var(--terra-deep);pointer-events:none}
+.tp-item{height:46px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:17px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums;cursor:pointer;transition:color .15s,font-size .15s}
+.tp-item.on{color:var(--terra-deep);font-size:18.5px}
+.tp-lab{position:absolute;top:10px;width:50%;text-align:center;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);z-index:3;pointer-events:none}
+.tp-lab.l{left:0}.tp-lab.r{right:0}
+.tp-quick{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.tp-quick .chip{min-height:34px;padding:5px 12px;font-size:11.5px}
+.tp-done{margin-top:12px;width:100%}
 .money span{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--terra-deep);font-size:15px}
 .money input{padding-left:44px !important;font-size:19px !important;font-weight:800;letter-spacing:-.01em}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -4225,6 +4312,348 @@ function tunasWake(){
   const ready=document.fonts&&document.fonts.ready?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,700))]):Promise.resolve();
   ready.then(()=>requestAnimationFrame(()=>requestAnimationFrame(tunasReveal)));
 }
+
+/* ============================================================
+   v2.6 · KONTROL FORM CUSTOM — dropdown, kalender & roda jam.
+   Elemen native disembunyikan namun tetap menjadi sumber nilai,
+   sehingga seluruh logika form/submit lama bekerja tanpa ubahan.
+   ============================================================ */
+(function formCtl(){
+  const SVG=(id,cls)=>`<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+  const CHEV=SVG('i-chev-d','cs-chev'),CHECK=SVG('i-check','cs-check');
+  const CLOSERS=[];                 /* fungsi tutup semua popup aktif */
+  const SYNCERS=[];                 /* sinkron label setelah form.reset() */
+  const esc_=typeof esc==='function'?esc:(s=>String(s));
+  const pad2=n=>String(n).padStart(2,'0');
+  const EMO=/^((?:\p{Extended_Pictographic}|\uFE0F|\u200D|\p{Emoji_Modifier})+)\s*([\s\S]*)$/u;
+  const splitEmoji=t=>{const m=String(t).match(EMO);return m?{e:m[1],t:m[2]}:{e:'',t:String(t)}};
+
+  /* ---------- 1 · DROPDOWN pengganti <select> ---------- */
+  function mountSelect(sel){
+    if(!sel||sel.__cs)return;sel.__cs=1;
+    sel.classList.add('cs-native');
+    const desc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value');
+    const wrap=document.createElement('div');wrap.className='cs';
+    sel.insertAdjacentElement('afterend',wrap);
+    const trig=document.createElement('button');
+    trig.type='button';trig.className='cs-trigger';trig.setAttribute('role','combobox');
+    trig.setAttribute('aria-haspopup','listbox');trig.setAttribute('aria-expanded','false');
+    const aria=sel.getAttribute('aria-label');if(aria)trig.setAttribute('aria-label',aria);
+    const menu=document.createElement('div');menu.className='cs-menu';menu.setAttribute('role','listbox');
+    wrap.append(trig,menu);
+    const open=()=>{
+      if(wrap.classList.contains('open'))return;
+      render();wrap.classList.add('open');
+      const pill=wrap.closest('.month-sel');if(pill)pill.classList.add('open');
+      trig.setAttribute('aria-expanded','true');
+      const r=trig.getBoundingClientRect();
+      menu.classList.toggle('up',r.bottom+290>window.innerHeight&&r.top>300);
+      /* varian pill: center pada pemicu, jepit agar tetap di dalam layar */
+      menu.style.left='';menu.style.right='';
+      if(pill){
+        const w=Math.max(216,r.width);
+        let l=r.left+r.width/2-w/2;
+        l=Math.max(8,Math.min(l,window.innerWidth-8-w));
+        menu.style.left=Math.round(l-wrap.getBoundingClientRect().left)+'px';
+        menu.style.right='auto';
+      }
+      const on=menu.querySelector('.cs-opt.on');if(on)on.scrollIntoView({block:'nearest'});
+      else menu.scrollTop=0;
+    };
+    const close=()=>{
+      if(!wrap.classList.contains('open'))return false;
+      wrap.classList.remove('open');
+      const pill=wrap.closest('.month-sel');if(pill)pill.classList.remove('open');
+      trig.setAttribute('aria-expanded','false');
+      return true;
+    };
+    CLOSERS.push(close);
+    const render=()=>{
+      const cur=desc.get.call(sel);
+      menu.innerHTML='';
+      [...sel.options].forEach(o=>{
+        const b=document.createElement('button');
+        b.type='button';b.className='cs-opt'+(o.value===cur?' on':'');
+        b.setAttribute('role','option');b.setAttribute('aria-selected',o.value===cur?'true':'false');
+        const p=splitEmoji(o.textContent);
+        b.innerHTML=(p.e?`<span class="cs-emoji">${p.e}</span>`:'')
+          +`<span class="cs-t">${esc_(p.t||o.textContent)}</span>`+CHECK;
+        b.addEventListener('click',ev=>{ev.stopPropagation();pick(o)});
+        menu.appendChild(b);
+      });
+      sync();
+    };
+    const pick=o=>{
+      desc.set.call(sel,o.value);
+      sel.dispatchEvent(new Event('change',{bubbles:true}));
+      sync();close();trig.focus();
+    };
+    const sync=()=>{
+      const o=sel.options[sel.selectedIndex];
+      const lab=o?splitEmoji(o.textContent):null;
+      trig.innerHTML=(lab&&lab.e?`<span class="cs-emoji">${lab.e}</span>`:'')
+        +`<span class="cs-lab${o?'':' ph'}">${o?esc_(lab.t||o.textContent):'— pilih —'}</span>`+CHEV;
+    };
+    SYNCERS.push(sync);
+    trig.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
+      wrap.classList.contains('open')?close():open()});
+    trig.addEventListener('keydown',e=>{
+      if(!wrap.classList.contains('open')){
+        if(e.key==='ArrowDown'||e.key==='ArrowUp'||e.key==='Enter'||e.key===' '){e.preventDefault();open();const f=menu.querySelector('.cs-opt');f&&f.focus()}
+        return;
+      }
+      if(e.key==='Escape'){e.stopPropagation();close();trig.focus()}
+    });
+    menu.addEventListener('keydown',e=>{
+      const b=e.target.closest('.cs-opt');if(!b)return;
+      if(e.key==='Escape'){e.stopPropagation();close();trig.focus()}
+      else if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+        e.preventDefault();
+        const dir=e.key==='ArrowDown'?1:-1;
+        const sib=dir>0?b.nextElementSibling:b.previousElementSibling;
+        sib&&sib.focus();
+      }else if(e.key==='Home'||e.key==='End'){
+        e.preventDefault();
+        const f=e.key==='Home'?menu.querySelector('.cs-opt'):menu.querySelector('.cs-opt:last-child');
+        f&&f.focus();
+      }else if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();b.click();
+      }else if(e.key==='Tab'){close()}
+    });
+    document.addEventListener('pointerdown',e=>{
+      if(wrap.classList.contains('open')&&!wrap.contains(e.target)&&!e.target.closest('.month-sel'))close();
+    },true);
+    new MutationObserver(render).observe(sel,{childList:true});
+    Object.defineProperty(sel,'value',{
+      get(){return desc.get.call(sel)},
+      set(v){desc.set.call(sel,v);sync()},
+      configurable:true
+    });
+    sel.addEventListener('change',sync);
+    render();
+  }
+
+  /* ---------- kerangka popup layar (kalender & jam) ---------- */
+  function popupShell(inner){
+    const scrim=document.createElement('div');
+    scrim.className='pop-scrim';scrim.innerHTML=inner;
+    document.body.appendChild(scrim);
+    scrim.addEventListener('pointerdown',e=>{if(e.target===scrim)kill()});
+    let dead=false;
+    function kill(){
+      if(dead)return false;
+      dead=true;
+      scrim.classList.add('closing');
+      setTimeout(()=>scrim.remove(),170);
+      const i=CLOSERS.indexOf(kill);if(i>-1)CLOSERS.splice(i,1);
+      return true;
+    }
+    CLOSERS.push(kill);
+    return {scrim,kill};
+  }
+
+  /* ---------- 2 · KALENDER pengganti <input type=date> ---------- */
+  function mountDate(inp){
+    if(!inp||inp.__dp)return;inp.__dp=1;
+    inp.classList.add('cs-native');
+    const desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
+    const wrap=document.createElement('div');wrap.className='cs';
+    inp.insertAdjacentElement('afterend',wrap);
+    const trig=document.createElement('button');
+    trig.type='button';trig.className='cs-trigger';
+    trig.setAttribute('aria-label','Pilih tanggal');
+    trig.innerHTML=`<svg class="cs-ic" aria-hidden="true"><use href="#i-calendar"/></svg><span class="cs-lab"></span>`+CHEV;
+    wrap.append(trig);
+    const fmt=v=>{
+      if(!v)return{ph:true,t:'Pilih tanggal'};
+      const d=new Date(v+'T00:00:00');
+      return{ph:false,t:`${HARI[d.getDay()].slice(0,3)}, ${d.getDate()} ${BULAN_S[d.getMonth()]} ${d.getFullYear()}`};
+    };
+    const sync=()=>{
+      const f=fmt(desc.get.call(inp));
+      const lab=trig.querySelector('.cs-lab');
+      lab.textContent=f.t;lab.classList.toggle('ph',f.ph);
+    };
+    SYNCERS.push(sync);
+    Object.defineProperty(inp,'value',{
+      get(){return desc.get.call(inp)},
+      set(v){desc.set.call(inp,v);sync()},
+      configurable:true
+    });
+    inp.addEventListener('change',sync);
+    let view=null,shell=null;
+    const dows=()=>DOWS.map(d=>`<span class="dp-dow">${d}</span>`).join('');
+    function gridHTML(){
+      const selV=desc.get.call(inp);
+      const y=view.getFullYear(),m=view.getMonth();
+      const dim=new Date(y,m+1,0).getDate();
+      const startIdx=(new Date(y,m,1).getDay()-(WS===0?0:1)+7)%7;
+      const weeks=Math.ceil((startIdx+dim)/7);
+      const tk=dayKey(TODAY);
+      let html='';
+      for(let i=0;i<weeks*7;i++){
+        const d=new Date(y,m,1-startIdx+i);
+        const dk=dayKey(d);
+        const out=d.getMonth()!==m;
+        html+=`<button type="button" class="dp-d${out?' out':''}${dk===tk?' today':''}${dk===selV?' sel':''}" data-dd="${dk}" aria-label="${d.getDate()} ${BULAN[d.getMonth()]}">${d.getDate()}</button>`;
+      }
+      return html;
+    }
+    function open(){
+      const v=desc.get.call(inp);
+      const cur=v?new Date(v+'T00:00:00'):new Date(TODAY);
+      view=new Date(cur.getFullYear(),cur.getMonth(),1);
+      shell=popupShell(`<div class="dp" role="dialog" aria-label="Pilih tanggal">
+        <div class="dp-head">
+          <button type="button" class="dp-nav" data-dnav="-1" aria-label="Bulan sebelumnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+          <div class="dp-title"></div>
+          <button type="button" class="dp-nav" data-dnav="1" aria-label="Bulan berikutnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+        </div>
+        <div class="dp-dows">${dows()}</div>
+        <div class="dp-grid"></div>
+        <div class="dp-foot"><button type="button" class="dp-today-btn" data-dtoday>Hari ini</button></div>
+      </div>`);
+      const dp=shell.scrim.querySelector('.dp');
+      const paint=()=>{
+        dp.querySelector('.dp-title').textContent=`${BULAN[view.getMonth()]} ${view.getFullYear()}`;
+        const g=dp.querySelector('.dp-grid');
+        g.innerHTML=gridHTML();
+        g.classList.remove('swap');void g.offsetWidth;g.classList.add('swap');
+      };
+      paint();
+      dp.addEventListener('click',e=>{
+        const nav=e.target.closest('[data-dnav]');
+        if(nav){view=new Date(view.getFullYear(),view.getMonth()+ +nav.dataset.dnav,1);paint();return}
+        if(e.target.closest('[data-dtoday]')){set(dayKey(TODAY));return}
+        const d=e.target.closest('[data-dd]');
+        if(d)set(d.dataset.dd);
+      });
+      shell.scrim.addEventListener('click',e=>{if(e.target.closest('[data-dclose]'))shell.kill()});
+    }
+    const set=v=>{
+      desc.set.call(inp,v);
+      inp.dispatchEvent(new Event('change',{bubbles:true}));
+      sync();shell&&shell.kill();
+    };
+    trig.addEventListener('click',e=>{e.preventDefault();open()});
+    sync();
+  }
+
+  /* ---------- 3 · RODA JAM pengganti <input type=time> ---------- */
+  function mountTime(inp){
+    if(!inp||inp.__tp)return;inp.__tp=1;
+    inp.classList.add('cs-native');
+    const desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
+    const wrap=document.createElement('div');wrap.className='cs';
+    inp.insertAdjacentElement('afterend',wrap);
+    const trig=document.createElement('button');
+    trig.type='button';trig.className='cs-trigger';
+    trig.setAttribute('aria-label','Pilih jam pengingat');
+    trig.innerHTML=`<svg class="cs-ic" aria-hidden="true"><use href="#i-clock"/></svg><span class="cs-lab"></span><span class="cs-tag"></span>`+CHEV;
+    wrap.append(trig);
+    const IH=46;
+    const period=h=>h<4?'Dini hari':h<11?'Pagi':h<15?'Siang':h<18?'Sore':'Malam';
+    const sync=()=>{
+      const v=desc.get.call(inp)||'07:00';
+      const[h,m]=v.split(':').map(Number);
+      trig.querySelector('.cs-lab').textContent=`${pad2(h)}.${pad2(m)}`;
+      trig.querySelector('.cs-tag').textContent=period(h);
+    };
+    SYNCERS.push(sync);
+    Object.defineProperty(inp,'value',{
+      get(){return desc.get.call(inp)},
+      set(v){desc.set.call(inp,v);sync()},
+      configurable:true
+    });
+    inp.addEventListener('change',sync);
+    let shell=null,colH=null,colM=null;
+    const commit=()=>{
+      const h=+colH.dataset.cur||0,m=+colM.dataset.cur||0;
+      desc.set.call(inp,`${pad2(h)}:${pad2(m)}`);
+      inp.dispatchEvent(new Event('change',{bubbles:true}));
+      sync();
+    };
+    function wheel(col,n,init){
+      col.dataset.cur=init;
+      col.innerHTML=Array.from({length:n},(_,i)=>`<button type="button" class="tp-item${i===init?' on':''}" data-i="${i}">${pad2(i)}</button>`).join('');
+      col.scrollTop=init*IH;
+      let t;
+      const setOn=i=>{
+        col.dataset.cur=i;
+        col.querySelectorAll('.tp-item').forEach((b,bi)=>b.classList.toggle('on',bi===i));
+        commit();
+      };
+      col.addEventListener('scroll',()=>{
+        clearTimeout(t);
+        t=setTimeout(()=>{
+          const i=Math.max(0,Math.min(n-1,Math.round(col.scrollTop/IH)));
+          if(Math.abs(col.scrollTop-i*IH)>1.5)col.scrollTo({top:i*IH,behavior:'smooth'});
+          else if(i!==+col.dataset.cur)setOn(i);
+        },90);
+      },{passive:true});
+      col.addEventListener('click',e=>{
+        const b=e.target.closest('.tp-item');if(!b)return;
+        col.scrollTop=+b.dataset.i*IH;
+        setOn(+b.dataset.i);
+      });
+    }
+    function open(){
+      const v=desc.get.call(inp)||'07:00';
+      const[h,m]=v.split(':').map(Number);
+      shell=popupShell(`<div class="tp" role="dialog" aria-label="Pilih jam pengingat">
+        <div class="dp-head">
+          <div class="dp-title">Jam pengingat</div>
+          <button type="button" class="dp-nav" data-dclose aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </div>
+        <div class="tp-wheels">
+          <div class="tp-band"></div>
+          <span class="tp-lab l">Jam</span><span class="tp-lab r">Menit</span><span class="tp-sep">:</span>
+          <div class="tp-col" id="tpWheelH"></div>
+          <div class="tp-col" id="tpWheelM"></div>
+        </div>
+        <div class="tp-quick">
+          <button type="button" class="chip" data-th="06" data-tm="00">Pagi · 06.00</button>
+          <button type="button" class="chip" data-th="12" data-tm="00">Siang · 12.00</button>
+          <button type="button" class="chip" data-th="15" data-tm="00">Sore · 15.00</button>
+          <button type="button" class="chip" data-th="21" data-tm="00">Malam · 21.00</button>
+        </div>
+        <button type="button" class="btn btn-primary tp-done" data-tdone>${SVG('i-check','ic')}Selesai</button>
+      </div>`);
+      const tp=shell.scrim.querySelector('.tp');
+      colH=tp.querySelector('#tpWheelH');colM=tp.querySelector('#tpWheelM');
+      wheel(colH,24,h);wheel(colM,60,m);
+      const chips=[...tp.querySelectorAll('.tp-quick .chip')];
+      chips.forEach(c=>{if(+c.dataset.th===h&&+c.dataset.tm===m)c.classList.add('active')});
+      tp.addEventListener('click',e=>{
+        const q=e.target.closest('[data-th]');
+        if(q){
+          colH.scrollTop=+q.dataset.th*IH;colM.scrollTop=+q.dataset.tm*IH;
+          colH.querySelectorAll('.tp-item').forEach((b,bi)=>b.classList.toggle('on',bi===+q.dataset.th));
+          colM.querySelectorAll('.tp-item').forEach((b,bi)=>b.classList.toggle('on',bi===+q.dataset.tm));
+          colH.dataset.cur=+q.dataset.th;colM.dataset.cur=+q.dataset.tm;
+          chips.forEach(c=>c.classList.toggle('active',c===q));
+          commit();return;
+        }
+        if(e.target.closest('[data-tdone]')||e.target.closest('[data-dclose]'))shell.kill();
+      });
+    }
+    trig.addEventListener('click',e=>{e.preventDefault();open()});
+    sync();
+  }
+
+  /* ---------- pasang & tautkan ---------- */
+  ['txMonth','txCat','txSource','habitCat','habitGroup'].forEach(id=>mountSelect($('#'+id)));
+  mountDate($('#txDate'));
+  mountTime($('#habitTime'));
+  [$('#formTx'),$('#formHabit')].forEach(f=>f&&f.addEventListener('reset',()=>setTimeout(()=>SYNCERS.forEach(f=>f()),0)));
+  /* Escape menutup popup terbuka dulu — modal di belakangnya tetap */
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    let closed=false;
+    [...CLOSERS].forEach(c=>{if(c())closed=true});
+    if(closed){e.stopImmediatePropagation();e.stopPropagation()}
+  },true);
+})();
 
 /* ---------- init ---------- */
 (async function init(){
