@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img">
+  <title>Bunga matahari — mekacat penuh semangat</title>
+  <defs>
+    <linearGradient id="g-amb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1 latar tema amber -->
+  <circle cx="48" cy="48" r="46" fill="#FEF3C7"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2 bayangan tanah -->
+  <ellipse cx="48" cy="82" rx="18" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <!-- L3 kelopak bunga matahari -->
+  <g fill="url(#g-amb2)">
+    <ellipse cx="48" cy="16" rx="6" ry="9"/>
+    <ellipse cx="48" cy="34" rx="6" ry="9" transform="rotate(180 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(45 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(90 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(135 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(225 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(270 48 48)"/>
+    <ellipse cx="48" cy="16" rx="6" ry="9" transform="rotate(315 48 48)"/>
+  </g>
+  <!-- kelopak antara (belakang) -->
+  <circle cx="48" cy="48" r="26" fill="#FCD34D" opacity=".6"/>
+  <!-- L4 kelopak depan -->
+  <g fill="url(#g-amb2)">
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(22.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(67.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(112.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(157.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(202.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(247.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(292.5 48 48)"/>
+    <ellipse cx="48" cy="17" rx="5.5" ry="10" transform="rotate(337.5 48 48)"/>
+  </g>
+  <!-- biji tengah -->
+  <circle cx="48" cy="48" r="13.5" fill="#B45309"/>
+  <circle cx="48" cy="48" r="11" fill="url(#g-em)" opacity=".001"/>
+  <path d="M48 40.5l1.8 4.6 4.9.4-3.7 3.2 1.1 4.8-4.1-2.5-4.1 2.5 1.1-4.8-3.7-3.2 4.9-.4z" fill="#7C2D12"/>
+  <path d="M41 43.5a10 10 0 0 1 5-4.5" stroke="#D97706" stroke-width="2" opacity=".7" fill="none" stroke-linecap="round"/>
+  <!-- L5 daun -->
+  <path d="M31 79c-1.5-6 1.5-9.5 6.5-9.5.5 5-3 9-6.5 9.5z" fill="url(#g-em2)"/>
+  <path d="M65 76c1.5-6-1.5-9.5-6.5-9.5-.5 5 3 9 6.5 9.5z" fill="url(#g-em)"/>
+  <!-- L6 bintang kilau -->
+  <path d="M22 26l1.4 3.6 3.6 1.4-3.6 1.4L22 36.4l-1.4-3.6-3.6-1.4 3.6-1.4z" fill="#F59E0B"/>
+  <circle cx="76" cy="28" r="3" fill="#10B981"/>
+</svg>

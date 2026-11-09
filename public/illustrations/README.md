@@ -52,6 +52,17 @@ CSS background, atau di-inline langsung ke komponen.
 | `sarang.svg` | telur emas di sarang | peach `#FFEDD5` |
 | `payung.svg` | perlindungan anggaran | sky `#E0F2FE` |
 
+### Tumbuh & pencapaian (batch 4)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `bunga-matahari.svg` | mekar penuh semangat | amber `#FEF3C7` |
+| `kupu-kupu.svg` | transformasi kebiasaan | emerald `#ECFDF5` |
+| `lebah.svg` | produktif setiap hari | amber `#FEF3C7` |
+| `bonsai.svg` | kesabaran merawat | slate `#F1F5F9` |
+| `panen.svg` | hasil konsistensi | peach `#FFEDD5` |
+| `kunci.svg` | pencapaian terbuka | amber `#FEF3C7` |
+
 ---
 
 *Semua ilustrasi digambar tangan mengikuti palet & aturan §8 design-foundation

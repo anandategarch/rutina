@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img">
+  <title>Kupu-kupu — transformasi kebiasaan</title>
+  <defs>
+    <linearGradient id="g-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g-em2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6EE7B8"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <radialGradient id="g-bghigh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".65"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".14"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- L1 latar tema emerald -->
+  <circle cx="48" cy="48" r="46" fill="#ECFDF5"/><circle cx="48" cy="48" r="46" fill="url(#g-bghigh)"/>
+  <!-- L2 bayangan tanah -->
+  <ellipse cx="48" cy="78" rx="18" ry="3.5" fill="#0F172A" opacity=".07"/>
+  <!-- L3 sayap atas -->
+  <path d="M46 46C36 26 20 20 13 28c-6 7-1 19 10 22 6 1.7 15 1.5 23-4z" fill="url(#g-em)"/>
+  <path d="M50 46c10-20 26-26 33-18 6 7 1 19-10 22-6 1.7-15 1.5-23-4z" fill="url(#g-em2)"/>
+  <!-- sayap bawah -->
+  <path d="M45 52c-9-2-20 2-22 10-1.5 7 6 11 12 8 5-2.6 9-9 10-18z" fill="url(#g-em2)"/>
+  <path d="M51 52c9-2 20 2 22 10 1.5 7-6 11-12 8-5-2.6-9-9-10-18z" fill="url(#g-em)"/>
+  <!-- L4 bintik sayap -->
+  <circle cx="26" cy="32" r="4" fill="#FFFFFF" opacity=".85"/>
+  <circle cx="70" cy="32" r="4" fill="#FFFFFF" opacity=".85"/>
+  <circle cx="29" cy="60" r="2.6" fill="#ECFDF5"/>
+  <circle cx="67" cy="60" r="2.6" fill="#ECFDF5"/>
+  <path d="M22 27q3-2 6-1M68 27q3-1 6 1" stroke="#FFFFFF" stroke-width="2" opacity=".5" stroke-linecap="round" fill="none"/>
+  <!-- badan & antena -->
+  <ellipse cx="48" cy="54" rx="4" ry="13" fill="#1E293B"/>
+  <circle cx="48" cy="40" r="4.5" fill="#1E293B"/>
+  <path d="M46 37C43 32 39 30 36 30M50 37c3-5 7-7 10-7" stroke="#1E293B" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <circle cx="36" cy="30" r="1.6" fill="#1E293B"/><circle cx="60" cy="30" r="1.6" fill="#1E293B"/>
+  <!-- L6 bintang kilau -->
+  <path d="M22 66l1.2 3 3 1.2-3 1.2L22 74.6l-1.2-3-3-1.2 3-1.2z" fill="#FBBF24"/>
+  <circle cx="76" cy="62" r="3" fill="#FBBF24"/>
+</svg>
