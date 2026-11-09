@@ -41,6 +41,17 @@ CSS background, atau di-inline langsung ke komponen.
 | `musik.svg` | dengar musik (headphone) | sky `#E0F2FE` |
 | `berkebun.svg` | menyiram tanaman | emerald `#ECFDF5` |
 
+### Keuangan (batch 3)
+
+| Berkas | Konsep | Latar tema |
+|---|---|---|
+| `qris.svg` | bayar QRIS dari ponsel | emerald `#ECFDF5` |
+| `tagihan.svg` | bayar tagihan (stempel lunas) | peach `#FFEDD5` |
+| `donasi.svg` | berbagi donasi | amber `#FEF3C7` |
+| `tumbuh-koin.svg` | dana tumbuh (koin + kecambah) | amber `#FEF3C7` |
+| `sarang.svg` | telur emas di sarang | peach `#FFEDD5` |
+| `payung.svg` | perlindungan anggaran | sky `#E0F2FE` |
+
 ---
 
 *Semua ilustrasi digambar tangan mengikuti palet & aturan §8 design-foundation
