@@ -1,5 +1,9 @@
 # Rutina Design System
 
+> **⚠️ ARSIP — v1 “Playful Botanical”.** Pedoman ini hanya berlaku untuk aplikasi lama
+> di `src/`. Untuk seluruh UI baru dan konsep `public/rutina.html`, ikuti
+> **`docs/design-foundation.md` (v2 “Evergreen”)** beserta `docs/design-tokens.css`.
+
 ## Arah visual
 
 **Playful Botanical**: hangat, segar, ramah, dan terinspirasi ruang tumbuh. UI harus terasa seperti ruang pribadi yang ringan, bukan panel administrasi yang padat. Gunakan ilustrasi tanaman, bentuk organik, permukaan seperti kertas hangat, serta aksen lavender untuk interaksi penting.

@@ -4,6 +4,13 @@
 
 Menjaga desain, implementasi, dan perilaku produk tetap konsisten ketika fitur berkembang.
 
+## Pedoman desain aktif (2026-11)
+
+Untuk **seluruh UI baru** (termasuk konsep `public/rutina.html`), ikuti
+`docs/design-foundation.md` (v2 “Evergreen”) + `docs/design-tokens.css` +
+`docs/code-conventions.md`. `docs/design-system.md` (v1 “Playful Botanical”)
+sudah **diarsipkan** dan hanya berlaku untuk aplikasi lama di `src/`.
+
 ## Aturan wajib
 
 1. Gunakan TypeScript strict. Hindari `any`; definisikan domain type di `src/lib/types.ts`.
