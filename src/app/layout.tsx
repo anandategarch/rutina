@@ -4,9 +4,10 @@ import "@fontsource-variable/inter";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rutina OS — konsol kebiasaan & keuangan",
-  description: "Konsol operasional pribadi: lacak kebiasaan, kelola arus kas, dan baca tren hidupmu dalam satu dasbor.",
-  applicationName: "Rutina OS",
+  title: "Rutina · Konsep Redesain",
+  description:
+    "Konsep redesain Rutina: pelacak kebiasaan dan keuangan dengan tampilan terang, hangat, dan penuh ilustrasi.",
+  applicationName: "Rutina",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#090c0a",
+  themeColor: "#FAF5EC",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

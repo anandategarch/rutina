@@ -333,9 +333,9 @@ input,select,textarea{font:inherit;color:inherit}
 .tx-scroll{padding-right:2px}
 
 /* ---------- halaman kalender ---------- */
-.cal-head-row{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:8px}
+.cal-head-row{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:8px}
 .cal-head-row span{text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .cal-cell{position:relative;aspect-ratio:1/.92;border-radius:14px;border:1.5px solid var(--line-soft);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:all .15s;min-height:44px}
 .cal-cell:hover{border-color:var(--terra);transform:translateY(-1px)}
 .cal-cell .d{font-size:13.5px;font-weight:700;font-family:var(--font-display)}
@@ -503,6 +503,10 @@ input,select,textarea{font:inherit;color:inherit}
   .agenda-row .time-chip{display:none}
   .agenda-row .streak-pill{display:none}
   .badge-grid{grid-template-columns:repeat(2,1fr)}
+  .cal-head-row,.cal-grid{gap:4px}
+  .cal-cell{min-height:40px;aspect-ratio:auto;border-radius:11px;gap:4px}
+  .cal-cell .d{font-size:12.5px}
+  .ticks i{width:3px;height:6px}
   .hero-quote{display:none}
   .pill-streak span{display:none}
   .pill-streak{padding:7px 11px}

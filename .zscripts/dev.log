@@ -816,3 +816,48 @@ Use 'kill 1050' to stop it.
  GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 1.0ms, application-code: 3ms)
  GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 0.8ms, application-code: 3ms)
  GET / 200 in 30ms (next.js: 0.8ms, application-code: 29ms)
+ GET / 200 in 31ms (next.js: 0.8ms, application-code: 31ms)
+ GET / 200 in 31ms (next.js: 0.9ms, application-code: 30ms)
+ GET /api/workspace?today=2026-11-09 503 in 5ms (next.js: 0.8ms, application-code: 4ms)
+ GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 1.0ms, application-code: 3ms)
+ GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 0.9ms, application-code: 3ms)
+ GET / 200 in 35ms (next.js: 0.9ms, application-code: 34ms)
+ GET /api/workspace?today=2026-11-09 503 in 5ms (next.js: 1.1ms, application-code: 4ms)
+ GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 0.8ms, application-code: 3ms)
+ GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 1.0ms, application-code: 3ms)
+ GET / 200 in 39ms (next.js: 0.9ms, application-code: 38ms)
+ GET /api/workspace?today=2026-11-09 503 in 5ms (next.js: 0.8ms, application-code: 4ms)
+ GET /api/workspace?today=2026-11-09 503 in 3ms (next.js: 0.8ms, application-code: 3ms)
+ GET /api/workspace?today=2026-11-09 503 in 4ms (next.js: 0.8ms, application-code: 3ms)
+✓ Compiled in 224ms
+ GET / 200 in 33ms (next.js: 5ms, application-code: 28ms)
+✓ Compiled in 141ms
+ GET / 200 in 18ms (next.js: 1.9ms, application-code: 16ms)
+✓ Compiled in 138ms
+ GET / 200 in 17ms (next.js: 1.5ms, application-code: 16ms)
+ GET / 200 in 169ms (next.js: 0.8ms, application-code: 169ms)
+ GET /manifest.webmanifest 200 in 85ms (next.js: 70ms, application-code: 15ms)
+ GET /manifest.webmanifest 200 in 10ms (next.js: 0.8ms, application-code: 9ms)
+⚠ The Edge Runtime is deprecated. You can use the "nodejs" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated
+ GET /icons/icon-192 200 in 248ms
+ GET /icons/icon-192 200 in 17ms
+✓ Compiled in 143ms
+ GET / 200 in 23ms (next.js: 1.7ms, application-code: 22ms)
+ GET /manifest.webmanifest 200 in 5ms (next.js: 0.7ms, application-code: 4ms)
+ GET /icons/icon-192 200 in 17ms
+ GET / 200 in 17ms (next.js: 1.0ms, application-code: 16ms)
+ GET / 200 in 22ms (next.js: 0.8ms, application-code: 22ms)
+ GET /manifest.webmanifest 200 in 3ms (next.js: 0.8ms, application-code: 3ms)
+ GET /icons/icon-192 200 in 69ms
+ GET /manifest.webmanifest 200 in 11ms (next.js: 0.8ms, application-code: 10ms)
+ GET /icons/icon-192 200 in 30ms
+ GET / 200 in 24ms (next.js: 1.3ms, application-code: 23ms)
+ GET /manifest.webmanifest 200 in 13ms (next.js: 5ms, application-code: 8ms)
+ GET /icons/icon-192 200 in 34ms
+ GET /manifest.webmanifest 200 in 39ms (next.js: 2ms, application-code: 37ms)
+ GET /icons/icon-192 200 in 25ms
+ GET / 200 in 32ms (next.js: 0.9ms, application-code: 31ms)
+ GET /manifest.webmanifest 200 in 10ms (next.js: 4ms, application-code: 6ms)
+ GET /icons/icon-192 200 in 69ms
+ GET /manifest.webmanifest 200 in 5ms (next.js: 0.7ms, application-code: 5ms)
+ GET /icons/icon-192 200 in 17ms
