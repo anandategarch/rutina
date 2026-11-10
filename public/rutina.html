@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F8FAFC">
-<meta name="description" content="Rutina — konsep redesain aplikasi pelacak kebiasaan dan keuangan. Terang, hangat, dan penuh ilustrasi.">
-<title>Rutina · Konsep Redesain</title>
+<meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
+<title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2310B981'/%3E%3Cpath d='M32 47V27M32 30c-2-8-8-12-14-12 0 8 5 13 14 11zM32 36c2-8 8-12 14-12 0 8-5 13-14 11z' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1654,7 +1654,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
       <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-cnt" id="bellCnt" aria-hidden="true" hidden></span>
     </button>
-    <button class="avatar" data-nav="pengaturan" aria-label="Pengaturan — kelola kebiasaan & kategori">A</button>
+    <button class="avatar" data-nav="pengaturan" aria-label="Pengaturan: kelola kebiasaan & kategori">A</button>
   </div>
 </header>
 
@@ -1931,7 +1931,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jatah"/></svg></span>
         <div>
           <div class="eyebrow">Jatah harian</div>
-          <h3 class="h-serif" id="jatahTitle">Kuota belanja per hari</h3>
+          <h3 class="h-serif" id="jatahTitle">Sisa belanja per hari</h3>
         </div>
       </div>
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="jatahMonth">—</span>
@@ -2111,7 +2111,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
           <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-bintang"/></svg></span>
           <div>
             <div class="eyebrow">Tren</div>
-            <h3 class="h-serif">Konsistensi 8 minggu terakhir</h3>
+            <h3 class="h-serif" id="consTitle">Konsistensi per minggu</h3>
           </div>
         </div>
         <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
@@ -2183,7 +2183,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <span class="ph-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-perisai"/></svg></span>
       <div>
         <h1 class="h-serif">Pengaturan</h1>
-        <p class="t-sub">Kelola isi Rutina — hapus yang tak terpakai, kenali sumber datamu.</p>
+        <p class="t-sub">Hapus yang tak terpakai, kenali sumber datamu.</p>
       </div>
     </div>
   </div>
@@ -2206,7 +2206,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
       <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
     </div>
-    <p class="t-sub" style="font-size:11px;margin-top:12px">Sumber: <b id="setSrcNote">—</b> · Mode konsep — penghapusan hanya berlaku di sesi ini, database asli tak tersentuh.</p>
+    <p class="t-sub" style="font-size:11px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: penghapusan hanya berlaku di sesi ini; database asli tak tersentuh.</p>
   </div>
 
   <div class="grid g-set">
@@ -2243,7 +2243,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 </section>
 
 </main>
-<footer class="appfooter">Rutina · Konsep — kebiasaan, kategori & keuangan dari database asli · <span id="footSrc">memuat…</span></footer>
+<footer class="appfooter">Rutina · Mode konsep · <span id="footSrc">memuat…</span></footer>
 </div><!-- /.main -->
 </div><!-- /.app -->
 
@@ -2298,7 +2298,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep — database hanya dibaca; input tersimpan di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; input tersimpan di sesi ini.</p>
     </form>
   </div>
 </div>
@@ -2338,7 +2338,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep — database hanya dibaca; kebiasaan baru tersimpan di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; kebiasaan baru tersimpan di sesi ini.</p>
     </form>
   </div>
 </div>
@@ -2357,7 +2357,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="button" class="btn btn-danger" id="btnDelConfirm"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Ya, hapus</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep — perubahan hanya berlaku di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: perubahan hanya berlaku di sesi ini.</p>
     </div>
   </div>
 </div>
@@ -2425,704 +2425,6 @@ button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-sha
 .month-sel select{appearance:none;-webkit-appearance:none;border:none;background:none;outline:none;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;padding:0;min-width:112px}
 .month-sel .chev{width:14px;height:14px;color:var(--ink-3);flex:none}
 </style>
-<script type="text/plain" data-legacy>
-'use strict';
-/* ============ util ============ */
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const rupiah=n=>'Rp '+Math.round(n).toLocaleString('id-ID');
-const ringkas=n=>n>=1e6?(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt':n>=1e3?Math.round(n/1e3)+' rb':''+Math.round(n);
-const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-const DOW=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
-const BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-const BULAN_S=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-const startOfDay=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
-const TODAY=startOfDay(new Date());
-const addDays=(b,n)=>{const d=new Date(b);d.setDate(d.getDate()+n);return d};
-const DOW_IDX=d=>(d.getDay()+6)%7;
-const dayKey=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-const seed=s=>{const x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x)};
-
-/* ============ data ============ */
-const KATEGORI={
-  makanan:{label:'Makanan & Minuman',warna:'#F97316',ikon:'c-makanan',jenis:'keluar'},
-  transportasi:{label:'Transportasi',warna:'#0EA5E9',ikon:'c-transport',jenis:'keluar'},
-  belanja:{label:'Belanja',warna:'#3B82F6',ikon:'c-belanja',jenis:'keluar'},
-  tagihan:{label:'Tagihan',warna:'#64748B',ikon:'c-tagihan',jenis:'keluar'},
-  kesehatan:{label:'Kesehatan',warna:'#22C55E',ikon:'c-kesehatan',jenis:'keluar'},
-  hiburan:{label:'Hiburan',warna:'#F59E0B',ikon:'c-hiburan',jenis:'keluar'},
-  tempat_tinggal:{label:'Tempat Tinggal',warna:'#059669',ikon:'c-rumah',jenis:'keluar'},
-  donasi:{label:'Donasi',warna:'#34D399',ikon:'c-gift',jenis:'keluar'},
-  gaji:{label:'Gaji',warna:'#22C55E',ikon:'c-gaji',jenis:'masuk'},
-  freelance:{label:'Freelance',warna:'#F59E0B',ikon:'c-freelance',jenis:'masuk'},
-  penjualan:{label:'Penjualan',warna:'#0EA5E9',ikon:'c-tag',jenis:'masuk'},
-};
-let HABITS=[
-  {id:'meditasi',nama:'Meditasi 10 menit',kategori:'Ketenangan',ikon:'ill-meditasi',waktu:'06:00',streak:24,konsistensi:.86,selesai:true,riwayat:[true,true,true,false,true,true]},
-  {id:'lari',nama:'Lari pagi 3 km',kategori:'Kebugaran',ikon:'ill-lari',waktu:'06:30',streak:12,konsistensi:.62,selesai:true,riwayat:[true,false,true,true,false,true]},
-  {id:'sarapan',nama:'Sarapan sehat',kategori:'Kesehatan',ikon:'ill-sarapan',waktu:'07:00',streak:8,konsistensi:.74,selesai:true,riwayat:[true,true,false,true,true,false]},
-  {id:'air',nama:'Minum 8 gelas air',kategori:'Kesehatan',ikon:'ill-air',waktu:'Sepanjang hari',streak:17,konsistensi:.78,selesai:false,tipe:'hitung',target:8,progress:5,riwayat:[true,true,true,true,false,true]},
-  {id:'baca',nama:'Membaca 20 halaman',kategori:'Belajar',ikon:'ill-baca',waktu:'21:00',streak:31,konsistensi:.9,selesai:true,riwayat:[true,true,true,true,true,true]},
-  {id:'jurnal',nama:'Menulis jurnal',kategori:'Refleksi',ikon:'ill-jurnal',waktu:'22:00',streak:5,konsistensi:.55,selesai:false,riwayat:[false,true,true,false,true,false]},
-  {id:'tidur',nama:'Tidur sebelum 23.00',kategori:'Kesehatan',ikon:'ill-tidur',waktu:'23:00',streak:9,konsistensi:.66,selesai:false,riwayat:[true,true,false,true,true,false]},
-];
-let TXS=[
-  {t:'masuk',n:8500000,k:'gaji',nama:'Gaji bulanan',offset:10},
-  {t:'keluar',n:2000000,k:'tempat_tinggal',nama:'Sewa tempat tinggal',offset:10},
-  {t:'keluar',n:850000,k:'makanan',nama:'Belanja bulanan',offset:9},
-  {t:'keluar',n:54900,k:'hiburan',nama:'Langganan Spotify',offset:8},
-  {t:'keluar',n:250000,k:'kesehatan',nama:'Membership gym',offset:8},
-  {t:'keluar',n:340000,k:'tagihan',nama:'Listrik & air',offset:7},
-  {t:'keluar',n:100000,k:'donasi',nama:'Donasi mingguan',offset:6},
-  {t:'masuk',n:1750000,k:'freelance',nama:'Proyek desain lepas',offset:5},
-  {t:'keluar',n:45000,k:'makanan',nama:'Makan siang',offset:5},
-  {t:'keluar',n:150000,k:'transportasi',nama:'Isi bensin',offset:4},
-  {t:'masuk',n:420000,k:'penjualan',nama:'Jual barang preloved',offset:3},
-  {t:'keluar',n:42000,k:'makanan',nama:'Kopi & roti',offset:3},
-  {t:'keluar',n:320000,k:'belanja',nama:'Belanja online',offset:2},
-  {t:'keluar',n:65000,k:'makanan',nama:'Buah & sayur',offset:2},
-  {t:'keluar',n:38000,k:'makanan',nama:'Makan malam',offset:1},
-  {t:'keluar',n:32000,k:'makanan',nama:'Kopi sore',offset:1},
-  {t:'keluar',n:92000,k:'makanan',nama:'Brunch teman lama',offset:0},
-  {t:'keluar',n:36000,k:'transportasi',nama:'Ojek ke kantor',offset:0},
-];
-/* jaga agar seluruh transaksi tetap berada di bulan berjalan (prototipe) */
-TXS.forEach(t=>t.offset=Math.min(t.offset,TODAY.getDate()-1));
-const BUDGETS=[
-  {k:'makanan',batas:1500000},{k:'tempat_tinggal',batas:2200000},{k:'belanja',batas:400000},
-  {k:'tagihan',batas:500000},{k:'transportasi',batas:600000},{k:'hiburan',batas:300000},{k:'kesehatan',batas:500000},
-];
-const ICON_OPTS=[
-  {id:'ill-meditasi',label:'Meditasi'},{id:'ill-lari',label:'Lari'},{id:'ill-sarapan',label:'Sarapan'},
-  {id:'ill-baca',label:'Baca'},{id:'ill-air',label:'Air'},{id:'ill-jurnal',label:'Jurnal'},
-  {id:'ill-tidur',label:'Tidur'},{id:'ill-beban',label:'Beban'},{id:'ill-roket',label:'Roket'},
-  {id:'ill-target',label:'Target'},{id:'ill-bulb',label:'Ide'},{id:'ill-kal',label:'Agenda'},
-  {id:'ill-koin',label:'Uang'},{id:'ill-bintang',label:'Bintang'},{id:'ill-perisai',label:'Perisai'},
-];
-const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
-
-/* ============ turunan data ============ */
-const txDate=t=>addDays(TODAY,-t.offset);
-const txThisMonth=()=>TXS.filter(t=>{const d=txDate(t);return d.getMonth()===TODAY.getMonth()&&d.getFullYear()===TODAY.getFullYear()&&d<=TODAY});
-const sumBy=(arr,f)=>arr.reduce((a,x)=>a+f(x),0);
-const totals=()=>{const m=txThisMonth();const masuk=sumBy(m.filter(t=>t.t==='masuk'),t=>t.n);const keluar=sumBy(m.filter(t=>t.t==='keluar'),t=>t.n);return{masuk,keluar,sisa:masuk-keluar}};
-const usedByCat=()=>{const m=txThisMonth().filter(t=>t.t==='keluar');const map={};m.forEach(t=>map[t.k]=(map[t.k]||0)+t.n);return map};
-function hariRatio(d){
-  const t=(TODAY-d)/864e5;
-  if(t<0)return null;
-  if(t===0)return HABITS.filter(h=>h.selesai).length/HABITS.length;
-  const recency=1-Math.min(t,120)/120;
-  const wknd=[5,6].includes(DOW_IDX(d));
-  const v=.40+.42*recency+(wknd?.1:0)+(seed(t*7.13+3)-.5)*.34;
-  return Math.max(0,Math.min(1,v));
-}
-function habitOn(h,d){
-  const t=(TODAY-d)/864e5;
-  if(t<0)return null;
-  if(t===0)return h.selesai;
-  const hsh=[...h.id].reduce((a,c)=>a+c.charCodeAt(0),0);
-  return seed(hsh*3.7+t*13.7)<h.konsistensi;
-}
-const doneCount=()=>HABITS.filter(h=>h.selesai).length;
-
-/* ============ efek ============ */
-function countUp(el,to,{dur=850,fmt=rupiah}={}){
-  if(reduced){el.textContent=fmt(to);return}
-  const t0=performance.now();
-  const step=t=>{const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=fmt(to*e);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(to)};
-  requestAnimationFrame(step);
-}
-function animateBars(root=document){
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w]').forEach(b=>b.style.width=b.dataset.w);
-  }));
-}
-function toast(title,sub='',ikon='i-check',tone=''){
-  const el=document.createElement('div');el.className='toast';
-  el.innerHTML=`<span class="toast-ic ${tone}"><svg class="ic" aria-hidden="true"><use href="#${ikon}"/></svg></span><div><b>${esc(title)}</b>${sub?`<small>${esc(sub)}</small>`:''}</div>`;
-  $('#toastRoot').appendChild(el);
-  setTimeout(()=>{el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true})},3400);
-}
-function confetti(){
-  if(reduced)return;
-  const warna=['#10B981','#3B82F6','#F59E0B','#0EA5E9','#22C55E','#F97316'];
-  for(let i=0;i<28;i++){
-    const s=document.createElement('i');s.className='cp';
-    s.style.left=(Math.random()*100)+'vw';
-    const sz=6+Math.random()*7;s.style.width=s.style.height=sz+'px';
-    s.style.background=warna[i%warna.length];
-    s.style.setProperty('--dx',(Math.random()*180-90)+'px');
-    s.style.setProperty('--rot',(360+Math.random()*720)+'deg');
-    s.style.animationDelay=(Math.random()*.3)+'s';
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),2000);
-  }
-}
-
-/* ============ render: agenda & ring ============ */
-function catColor(h){
-  const map={'Ketenangan':'#10B981','Kebugaran':'#F97316','Kesehatan':'#0EA5E9','Belajar':'#3B82F6','Refleksi':'#F59E0B'};
-  return map[h.kategori]||'#059669';
-}
-function renderAgenda(){
-  $('#agendaList').innerHTML=HABITS.map(h=>{
-    const done=h.selesai;
-    const kanan=h.tipe==='hitung'
-      ?`<span class="counter"><button type="button" data-minus="${h.id}" aria-label="Kurangi gelas"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg></button><b>${h.progress}/${h.target}</b><button type="button" data-plus="${h.id}" aria-label="Tambah gelas"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></button></span>`
-      :`<span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.streak} hari</span>`;
-    return `<div class="agenda-row ${done?'done':''}">
-      <span class="time-chip">${h.waktu}</span>
-      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
-      <div><div class="agenda-name">${esc(h.nama)}</div>
-        <div class="agenda-meta"><span class="cat-dot" style="background:${catColor(h)}"></span>${h.kategori}</div></div>
-      ${kanan}
-      <button class="btn-check ${done?'done':''}" data-check="${h.id}" aria-pressed="${done}" aria-label="Tandai ${esc(h.nama)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
-    </div>`;
-  }).join('');
-}
-function renderRing(){
-  const total=HABITS.length,done=doneCount(),C=389.6;
-  $('#ringFg').style.strokeDashoffset=(C*(1-done/total)).toFixed(1);
-  $('#ringText').textContent=`${done}/${total}`;
-  $('#heroSisa').textContent=total-done;
-  $('#agendaCount').textContent=`${done}/${total} selesai`;
-  $('#msHariIni').textContent=`${done}/${total}`;
-  const sisa=total-done;
-  $('#agendaNoteText').textContent=sisa===0
-    ?'Semua kebiasaan hari ini sudah tercatat.'
-    :`${sisa} kebiasaan belum dicatat hari ini.`;
-}
-function refreshToday(){
-  renderAgenda();renderRing();renderHabitCards();
-  if(inited.heatmap)renderHeatmap();
-  if(inited.cal){renderCal();renderDayDetail(state.calSel)}
-}
-
-/* ============ render: statistik & grafik ringkasan ============ */
-function spark(el,vals,color){
-  const w=90,hh=30,p=3;
-  const mn=Math.min(...vals),mx=Math.max(...vals);
-  const pts=vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1),hh-p-(v-mn)/(mx-mn||1)*(hh-2*p)]);
-  const d='M'+pts.map(pt=>pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' L');
-  const last=pts[pts.length-1];
-  el.setAttribute('viewBox',`0 0 ${w} ${hh}`);
-  el.innerHTML=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
-}
-function renderStats(){
-  spark($('#sparkStreak'),[12,14,15,17,20,22,23,24],'#059669');
-  spark($('#sparkKons'),[62,71,68,74,79,76,84,86],'#0EA5E9');
-  const t=totals();
-  const budgetTotal=sumBy(BUDGETS,b=>b.batas);
-  const pct=Math.min(999,Math.round(t.keluar/budgetTotal*100));
-  countUp($('#statSpend'),t.keluar);
-  $('#statSpendPct').textContent=pct+'%';
-  $('#statSpendBar').dataset.w=Math.min(100,pct)+'%';
-  countUp($('#statSisa'),t.sisa);
-  $('#statSisaPct').textContent=Math.round(t.sisa/t.masuk*100)+'%';
-  animateBars($('#statSpendBar').closest('.stat'));
-}
-function renderCashflow(){
-  const days=[];for(let i=6;i>=0;i--)days.push(addDays(TODAY,-i));
-  const masuk=days.map(d=>sumBy(TXS.filter(t=>t.t==='masuk'&&dayKey(txDate(t))===dayKey(d)),t=>t.n));
-  const keluar=days.map(d=>sumBy(TXS.filter(t=>t.t==='keluar'&&dayKey(txDate(t))===dayKey(d)),t=>t.n));
-  const W=560,H=210,L=50,R=14,T=22,B=30;
-  const gw=(W-L-R)/7;
-  const maxV=Math.max(...masuk,...keluar,100000);
-  const nice=Math.ceil(maxV/250000)*250000;
-  const y=v=>T+(H-T-B)*(1-v/nice);
-  let s='';
-  for(let g=0;g<=4;g++){
-    const gy=y(nice*g/4);
-    s+=`<line x1="${L}" x2="${W-R}" y1="${gy}" y2="${gy}" class="chart-grid"/>`;
-    s+=`<text x="${L-8}" y="${gy+3.5}" text-anchor="end" class="chart-label">${ringkas(nice*g/4)}</text>`;
-  }
-  days.forEach((d,i)=>{
-    const cx=L+gw*i+gw/2;
-    const bw=17;
-    const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
-    s+=`<rect x="${cx-bw-2.5}" y="${(H-B)-hM}" width="${bw}" height="${Math.max(hM,2)}" rx="5" fill="#22C55E"/>`;
-    s+=`<rect x="${cx+2.5}" y="${(H-B)-hK}" width="${bw}" height="${Math.max(hK,2)}" rx="5" fill="#F97316"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${cx-bw/2-2.5}" y="${(H-B)-hM-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${cx+bw/2+2.5}" y="${(H-B)-hK-5}" text-anchor="middle" class="chart-label" font-weight="800" fill="#C2410C">${ringkas(keluar[i])}</text>`;
-    const isToday=i===6;
-    s+=`<text x="${cx}" y="${H-9}" text-anchor="middle" class="chart-label" ${isToday?'font-weight="800" fill="#047857"':''}>${DOW[DOW_IDX(d)]}</text>`;
-  });
-  $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas 7 hari">${s}</svg>`;
-  countUp($('#cfIn'),sumBy(masuk,v=>v));
-  countUp($('#cfOut'),sumBy(keluar,v=>v));
-}
-function renderMiniBudgets(){
-  const used=usedByCat();
-  const rows=BUDGETS.map(b=>({...b,used:used[b.k]||0})).sort((a,b)=>b.used/b.batas-a.used/a.batas).slice(0,3);
-  $('#miniBudgets').innerHTML=rows.map(b=>{
-    const pct=Math.round(b.used/b.batas*100);
-    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--rose)';
-    const K=KATEGORI[b.k];
-    return `<div>
-      <div class="mb-row">
-        <span class="mb-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
-        <div class="mb-info"><b>${K.label}</b><div class="bar"><i data-w="${Math.min(100,pct)}%" style="background:${warna}"></i></div></div>
-        <span class="mb-amt">${pct}%</span>
-      </div>
-      <div class="t-sub" style="font-size:10.5px;margin-top:5px">${rupiah(b.used)} dari ${rupiah(b.batas)}</div>
-    </div>`;
-  }).join('');
-  animateBars($('#miniBudgets'));
-}
-
-/* ============ render: kebiasaan ============ */
-function renderHabitChips(){
-  const kats=['semua',...new Set(HABITS.map(h=>h.kategori))];
-  $('#habitChips').innerHTML=kats.map(k=>`<button class="chip ${state.habitFilter===k?'active':''}" data-habit-filter="${esc(k)}">${k==='semua'?'Semua':esc(k)}</button>`).join('');
-}
-function weeklyDots(h){
-  const start=DOW_IDX(TODAY);
-  let out='';
-  for(let j=0;j<7;j++){
-    const d=addDays(TODAY,j-start);
-    const isToday=dayKey(d)===dayKey(TODAY);
-    const on=isToday?h.selesai:(d<TODAY||dayKey(d)===dayKey(TODAY)?habitOn(h,d):null);
-    const future=d>TODAY&&!isToday;
-    out+=`<span class="wd ${on?'on':''} ${isToday?'today':''}" ${future?'style="opacity:.35"':''} title="${DOW[j]}">${DOW[j]}</span>`;
-  }
-  return out;
-}
-function renderHabitCards(){
-  const f=state.habitFilter;
-  const list=HABITS.filter(h=>f==='semua'||h.kategori===f);
-  if(!list.length){
-    $('#habitGrid').innerHTML=`<div class="card" style="grid-column:1/-1"><div class="empty-state">
-      <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
-      <b>Belum ada kebiasaan di sini</b><p>Tambahkan kebiasaan baru atau pilih kategori lain.</p></div></div>`;
-    return;
-  }
-  $('#habitGrid').innerHTML=list.map(h=>{
-    const done=h.selesai,pct=Math.round(h.konsistensi*100);
-    return `<div class="card habit-card">
-      <div class="hc-main">
-        <div class="hc-top">
-          <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
-          <div style="min-width:0">
-            <div class="hc-name">${esc(h.nama)}</div>
-            <div class="hc-meta">
-              <span class="tag" style="color:${catColor(h)}"><span class="cat-dot" style="background:${catColor(h)}"></span>${h.kategori}</span>
-              <span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>${h.waktu}</span>
-              <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.streak} hari</span>
-            </div>
-          </div>
-        </div>
-        <div class="wd-row">${weeklyDots(h)}</div>
-        <div class="hc-bottom">
-          <div class="hc-consist"><small>${pct}% dalam 30 hari</small><div class="bar"><i data-w="${pct}%"></i></div></div>
-          <button class="btn-check ${done?'done':''}" data-check="${h.id}" aria-pressed="${done}" aria-label="Tandai ${esc(h.nama)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  animateBars($('#habitGrid'));
-}
-function renderHeatmap(){
-  const cells=$('#hmGrid'),months=$('#hmMonths');
-  cells.innerHTML='';months.innerHTML='';
-  const N=119+DOW_IDX(TODAY);
-  let d=addDays(TODAY,-N),col=0,lastM=-1;
-  for(let c=0;c<18;c++){
-    let mlabel='';
-    if(d.getMonth()!==lastM&&d<=TODAY){mlabel=BULAN_S[d.getMonth()];lastM=d.getMonth()}
-    months.insertAdjacentHTML('beforeend',`<span>${mlabel}</span>`);
-    for(let r=0;r<7;r++){
-      if(d>TODAY){cells.insertAdjacentHTML('beforeend','<span class="hm-cell" style="visibility:hidden"></span>');d=addDays(d,1);continue}
-      const ratio=hariRatio(d),done=Math.round(ratio*7);
-      const lvl=ratio<.25?'':ratio<.5?'l1':ratio<.8?'l2':'l3';
-      const isToday=dayKey(d)===dayKey(TODAY);
-      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''}" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${done}/7 kebiasaan"></span>`);
-      d=addDays(d,1);
-    }
-    col++;
-  }
-  // hari terbaik (8 minggu) + hari sempurna (30 hari)
-  const sums=Array(7).fill(0),cnts=Array(7).fill(0);
-  for(let i=0;i<56;i++){const dd=addDays(TODAY,-i);const di=DOW_IDX(dd);sums[di]+=hariRatio(dd);cnts[di]++}
-  let best=0;for(let i=1;i<7;i++)if(sums[i]/cnts[i]>sums[best]/cnts[best])best=i;
-  const fullDow=HARI[[1,2,3,4,5,6,0][best]];
-  const bestPct=Math.round(sums[best]/cnts[best]*100);
-  let perfect30=0;for(let i=0;i<30;i++){if(hariRatio(addDays(TODAY,-i))>=.999)perfect30++}
-  const maxBest=Math.max(0,...HABITS.map(h=>h.best||0));
-  const champ=HABITS.slice().sort((a,b)=>(b.best||0)-(a.best||0))[0];
-  $('#hmSide').innerHTML=`
-    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
-      <div><b>Hari terbaik: ${fullDow}</b><small>Rata-rata ${bestPct}% kebiasaan selesai.</small></div></div>
-    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
-      <div><b>${perfect30} hari sempurna</b><small>Semua kebiasaan tuntas, 30 hari terakhir.</small></div></div>
-    ${champ&&maxBest>0?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><b>Streak terpanjang ${maxBest} hari</b><small>${esc(champ.nama)} — catatan beruntun terbaik.</small></div></div>`:''}`;
-}
-
-/* ============ render: keuangan ============ */
-function renderSceneStats(){
-  const t=totals();
-  countUp($('#statSaldo'),t.sisa);
-  $('#statSaldoPct').textContent=Math.round(t.sisa/t.masuk*100)+'%';
-  countUp($('#statIn'),t.masuk);
-  countUp($('#statOut'),t.keluar);
-  $('#finSub').textContent=`Arus kas ${BULAN[TODAY.getMonth()]} ${TODAY.getFullYear()}.`;
-}
-function renderDonut(){
-  const used=usedByCat();
-  const cats=Object.entries(used).map(([k,v])=>({k,v,...KATEGORI[k]})).sort((a,b)=>b.v-a.v);
-  const total=sumBy(cats,c=>c.v);
-  const R=76,C=2*Math.PI*R;let off=0,slices='';
-  cats.forEach(c=>{
-    const frac=c.v/total,len=Math.max(frac*C-3,.01);
-    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${c.warna}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`;
-    off+=frac*C;
-  });
-  $('#donutSvg').innerHTML=`<g transform="rotate(-90 105 105)">${slices}</g>`;
-  $('#donutTotal').textContent=rupiah(total);
-  const cnt={};txThisMonth().filter(t=>t.t==='keluar').forEach(t=>cnt[t.k]=(cnt[t.k]||0)+1);
-  $('#donutLegend').innerHTML=cats.map(c=>`
-    <div class="dl-row">
-      <span class="dl-ic" style="background:${c.warna}1F;color:${c.warna}"><svg class="ic" aria-hidden="true"><use href="#${c.ikon}"/></svg></span>
-      <div><b>${c.label}</b><small>${Math.round(c.v/total*100)}% dari total</small></div>
-      <div class="dl-amt"><b class="t-num">${rupiah(c.v)}</b><small>${cnt[c.k]||1} transaksi</small></div>
-    </div>`).join('');
-  const p=used.tempat_tinggal?Math.round(used.tempat_tinggal/total*100):0;
-  $('#findRumahPct').textContent=`${p}% dari total pengeluaran bulan ini.`;
-}
-function renderBudgets(){
-  const used=usedByCat();
-  const rows=BUDGETS.map(b=>({batas:b.batas,used:used[b.k]||0,...KATEGORI[b.k]}));
-  $('#budgetList').innerHTML=rows.map(r=>{
-    const pct=Math.min(100,Math.round(r.used/r.batas*100));
-    const sisa=r.batas-r.used;
-    const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--rose)';
-    const over=r.used>r.batas;
-    return `<div class="b-row">
-      <div class="b-head">
-        <span class="dl-ic" style="background:${r.warna}1F;color:${r.warna}"><svg class="ic" aria-hidden="true"><use href="#${r.ikon}"/></svg></span>
-        <b>${r.label}</b>
-        <small class="${over?'warn':''}">${over?'Melebihi batas!':`sisa ${rupiah(sisa)}`}</small>
-      </div>
-      <div class="bar"><i data-w="${pct}%" style="background:${warna}"></i></div>
-      <div class="t-sub t-num" style="font-size:11px">${rupiah(r.used)} dari ${rupiah(r.batas)}</div>
-    </div>`;
-  }).join('');
-  const totB=sumBy(BUDGETS,b=>b.batas),totU=sumBy(rows,r=>r.used);
-  $('#budgetLeft').textContent=rupiah(totB-totU)+' tersisa';
-  animateBars($('#budgetList'));
-}
-function renderTx(){
-  const f=state.txFilter,q=state.txQuery.trim().toLowerCase();
-  let list=TXS.filter(t=>f==='semua'||t.t===f);
-  if(q)list=list.filter(t=>(t.nama+' '+KATEGORI[t.k].label+' '+(t.note||'')).toLowerCase().includes(q));
-  list=[...list].sort((a,b)=>a.offset-b.offset);
-  if(!list.length){
-    $('#txList').innerHTML=`<div class="empty-state">
-      <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
-      <b>Tidak ada transaksi</b><p>Coba ubah kata kunci atau filter yang kamu pilih.</p></div>`;
-    return;
-  }
-  let html='',lastKey='';
-  list.forEach(t=>{
-    const d=txDate(t);
-    const lbl=t.offset===0?'Hari ini':t.offset===1?'Kemarin':`${HARI[d.getDay()]}, ${d.getDate()} ${BULAN_S[d.getMonth()]}`;
-    if(lbl!==lastKey){html+=`<div class="tx-date">${lbl}</div>`;lastKey=lbl}
-    const K=KATEGORI[t.k];
-    html+=`<div class="tx-row">
-      <span class="tx-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
-      <div><b>${esc(t.nama)}</b><small>${K.label}</small></div>
-      <div class="tx-amt ${t.t}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}<small>${d.getDate()} ${BULAN_S[d.getMonth()]}</small></div>
-    </div>`;
-  });
-  $('#txList').innerHTML=html;
-}
-function refinance(){
-  renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderMiniBudgets();renderTx();
-  if(inited.cal)renderCalStrip();
-}
-
-/* ============ tabungan ============ */
-const SAVINGS={target:10000000,now:6800000};
-function renderSavings(){
-  const el=$('#saveAmt');if(!el)return;
-  const pct=Math.min(100,Math.round(SAVINGS.now/SAVINGS.target*100));
-  el.innerHTML=`${rupiah(SAVINGS.now)} <span style="color:var(--ink-3)">dari ${rupiah(SAVINGS.target)}</span>`;
-  $('#saveBar').style.width=pct+'%';
-  $('#savePct').textContent=pct+'%';
-}
-
-/* ============ render: kalender ============ */
-function renderCal(){
-  const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
-  $('#calTitle').textContent=`${BULAN[m]} ${y}`;
-  $('#calDows').innerHTML=DOW.map(d=>`<span>${d}</span>`).join('');
-  const first=new Date(y,m,1),lead=DOW_IDX(first);
-  const dim=new Date(y,m+1,0).getDate();
-  let html='';
-  for(let i=0;i<lead;i++)html+='<span class="cal-cell blank"></span>';
-  const ticksN=HABITS.length;
-  for(let i=1;i<=dim;i++){
-    const d=new Date(y,m,i);
-    const future=d>TODAY,isToday=dayKey(d)===dayKey(TODAY),isSel=dayKey(d)===dayKey(state.calSel);
-    let done=0;
-    if(!future)done=isToday?doneCount():Math.round(hariRatio(d)*7);
-    const on=Math.round(done/HABITS.length*ticksN);
-    const perfect=!future&&on>=ticksN;
-    let ticks='';
-    if(!future)for(let j=0;j<ticksN;j++)ticks+=`<i class="${j<on?'on':''}"></i>`;
-    const ticksHtml=future?'':`<span class="ticks">${ticks}</span>`;
-    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" data-cal="${dayKey(d)}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} — ${done} kebiasaan selesai">
-      <span class="d">${i}</span>${ticksHtml}
-      ${perfect?'<svg class="perf-star" aria-hidden="true"><use href="#i-sparkle"/></svg>':''}
-    </button>`;
-  }
-  $('#calGrid').innerHTML=html;
-  renderCalStrip();
-}
-function renderCalStrip(){
-  const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
-  const dim=new Date(y,m+1,0).getDate();
-  let perfect=0,doneSum=0,spend=0;
-  for(let i=1;i<=dim;i++){
-    const d=new Date(y,m,i);if(d>TODAY)break;
-    if(d.getTime()===TODAY.getTime()){const c=doneCount();doneSum+=c;if(c>=HABITS.length)perfect++}
-    else{const r=hariRatio(d);doneSum+=Math.round(r*7);if(r>=.999)perfect++}
-  }
-  txThisMonth().filter(t=>t.t==='keluar').forEach(t=>spend+=t.n);
-  $('#csPerfect').innerHTML=`${perfect} <small>hari</small>`;
-  $('#csDone').textContent=doneSum;
-  $('#csSpend').textContent=ringkas(spend);
-}
-function renderDayDetail(d){
-  const future=d>TODAY;
-  const dow=HARI[d.getDay()];
-  const tgl=`${d.getDate()} ${BULAN[d.getMonth()]}`;
-  const isToday=dayKey(d)===dayKey(TODAY);
-  const done=isToday?doneCount():future?0:Math.round(hariRatio(d)*7);
-  const ratio=isToday?doneCount()/HABITS.length:future?0:hariRatio(d);
-  const sempurna=!future&&done>=HABITS.length;
-  const spotIll=sempurna?'ill-pagi':done>0?'ill-sprout':'ill-kosong';
-  const judul=sempurna?'Semua selesai!':done>=5?'Hari produktif':done>0?'Setengah jalan':'Belum dimulai';
-  const tx=TXS.filter(t=>dayKey(txDate(t))===dayKey(d));
-  const masuk=sumBy(tx.filter(t=>t.t==='masuk'),t=>t.n),keluar=sumBy(tx.filter(t=>t.t==='keluar'),t=>t.n);
-  const habitRows=HABITS.map(h=>{
-    const on=habitOn(h,d);
-    return `<div class="dd-habit ${on?'y':'n'}">
-      <svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.nama)}
-      <span style="margin-left:auto;font-size:10.5px;color:var(--ink-3)">${on?'selesai':'terlewat'}</span></div>`;
-  }).join('');
-  const txRows=tx.length?tx.slice(0,4).map(t=>{
-    const K=KATEGORI[t.k];
-    return `<div class="dd-tx-row">
-      <span class="tx-ic" style="background:${K.warna}1F;color:${K.warna}"><svg class="ic" aria-hidden="true"><use href="#${K.ikon}"/></svg></span>
-      <span>${esc(t.nama)}</span><b class="t-num" style="color:${t.t==='masuk'?'var(--sage-deep)':'var(--rose-deep)'}">${t.t==='masuk'?'+':'−'}${rupiah(t.n)}</b></div>`;
-  }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:11px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:'')
-  :`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
-  $('#dayDetail').innerHTML=`
-    <div class="dd-head">
-      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
-      <div><b>${dow}</b><small>${tgl}${isToday?' · hari ini':''}</small></div>
-    </div>
-    ${future?`<p class="t-sub" style="font-size:13px">Tanggal di masa depan — belum bisa dilihat.</p>`
-    :`<div class="dd-stats">
-      <span class="pill"><svg class="ic" style="width:14px;height:14px;color:var(--terra-deep)" aria-hidden="true"><use href="#i-checklist"/></svg>${done}/${HABITS.length} kebiasaan · ${judul}</span>
-      ${masuk?`<span class="pill" style="color:var(--sage-deep)">+${rupiah(masuk)}</span>`:''}
-      ${keluar?`<span class="pill" style="color:var(--terra-deep)">−${rupiah(keluar)}</span>`:''}
-    </div>
-    <div><div class="eyebrow" style="margin-bottom:8px">Kebiasaan</div><div class="dd-habits">${habitRows}</div></div>
-    <div><div class="eyebrow" style="margin-bottom:8px">Transaksi</div><div class="dd-tx">${txRows}</div></div>`}`;
-}
-
-/* ============ render: wawasan ============ */
-function smoothPath(pts){
-  let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
-  for(let i=0;i<pts.length-1;i++){
-    const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];
-    d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
-  }
-  return d;
-}
-function renderConsChart(){
-  const vals=[62,71,68,74,79,76,84,88];
-  const W=560,H=240,L=44,R=14,T=18,B=34;
-  const x=i=>L+(W-L-R)*i/(vals.length-1);
-  const y=v=>T+(H-T-B)*(1-(v-50)/50);
-  const pts=vals.map((v,i)=>[x(i),y(v)]);
-  const line=smoothPath(pts);
-  const area=line+`L${x(7).toFixed(1)} ${(H-B).toFixed(1)} L${x(0).toFixed(1)} ${(H-B).toFixed(1)} Z`;
-  let s=`<path d="${area}" fill="#10B981" opacity=".12"/>`;
-  [60,70,80,90].forEach(v=>{
-    s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="chart-grid"/>`;
-    s+=`<text x="${L-8}" y="${y(v)+3.5}" text-anchor="end" class="chart-label">${v}</text>`;
-  });
-  s+=`<line x1="${L}" x2="${W-R}" y1="${y(70)}" y2="${y(70)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
-  pts.forEach((p,i)=>{
-    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"/>`;
-    if(i%2===0||i===7)s+=`<text x="${p[0].toFixed(1)}" y="${p[1]-12}" text-anchor="middle" class="chart-label" font-weight="800" fill="#047857">${vals[i]}%</text>`;
-    s+=`<text x="${p[0].toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${i+1}</text>`;
-  });
-  s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
-  $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik konsistensi 8 minggu">${s}</svg>`;
-  const ps=$('#polaSub');if(ps)ps.textContent=`${BULAN[TODAY.getMonth()]} ${TODAY.getFullYear()}`;
-  // pola pengeluaran
-  const used=usedByCat();
-  const cats=Object.entries(used).map(([k,v])=>({k,v,...KATEGORI[k]})).sort((a,b)=>b.v-a.v).slice(0,6);
-  const mx=cats[0]?cats[0].v:1,total=sumBy(cats,c=>c.v);
-  $('#polaList').innerHTML=cats.map(c=>`
-    <div class="pola-row">
-      <div class="pola-head">
-        <span class="lbl"><span class="dl-ic" style="background:${c.warna}1F;color:${c.warna}"><svg class="ic" aria-hidden="true"><use href="#${c.ikon}"/></svg></span>${c.label}</span>
-        <b class="t-num">${rupiah(c.v)} <span style="color:var(--ink-3);font-weight:600">· ${Math.round(c.v/total*100)}%</span></b>
-      </div>
-      <div class="pola-bar"><i data-w="${Math.round(c.v/mx*100)}%" style="background:${c.warna}"></i></div>
-    </div>`).join('');
-  animateBars($('#polaList'));
-}
-
-/* ============ interaksi ============ */
-const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan'};
-const inited={heatmap:false,cal:false,wawasan:false};
-function go(page){
-  state.page=page;
-  $$('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
-  $$('.page').forEach(p=>p.classList.toggle('active',p.dataset.page===page));
-  window.scrollTo(0,0);
-  document.title=TITLES[page]+' · Rutina';
-  if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap();inited.heatmap=true}
-  if(page==='kalender'&&!inited.cal){renderCal();renderDayDetail(state.calSel);inited.cal=true}
-  if(page==='wawasan'&&!inited.wawasan){renderConsChart();inited.wawasan=true}
-}
-document.addEventListener('click',e=>{
-  const nav=e.target.closest('[data-nav]');
-  if(nav){go(nav.dataset.nav);return}
-  const goBtn=e.target.closest('[data-go]');
-  if(goBtn){go(goBtn.dataset.go);return}
-  const chk=e.target.closest('[data-check]');
-  if(chk){toggleHabit(chk.dataset.check);return}
-  const plus=e.target.closest('[data-plus]');
-  if(plus){bumpWater(plus.dataset.plus,1);return}
-  const minus=e.target.closest('[data-minus]');
-  if(minus){bumpWater(minus.dataset.minus,-1);return}
-  const cell=e.target.closest('[data-cal]');
-  if(cell){state.calSel=new Date(cell.dataset.cal+'T00:00:00');renderCal();renderDayDetail(state.calSel);return}
-  const save=e.target.closest('[data-save]');
-  if(save){
-    const v=+save.dataset.save;const was=SAVINGS.now;
-    SAVINGS.now=Math.min(SAVINGS.target,SAVINGS.now+v);
-    renderSavings();
-    if(SAVINGS.now>=SAVINGS.target&&was<SAVINGS.target){confetti();toast('Target tabungan tercapai!','Dana darurat penuh tercapai.','i-sparkle','honey')}
-    else toast('Tabungan bertambah','+'+rupiah(v)+' masuk ke dana darurat.','i-check','sage');
-    return
-  }
-  const chip=e.target.closest('[data-habit-filter]');
-  if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
-  const txChip=e.target.closest('[data-tx-filter]');
-  if(txChip){state.txFilter=txChip.dataset.txFilter;$$('#txChips .chip').forEach(c=>c.classList.toggle('active',c===txChip));renderTx();return}
-  const opener=e.target.closest('[data-open-modal]');
-  if(opener){openModal(opener.dataset.openModal);return}
-  if(e.target.closest('[data-close]')){closeModals();return}
-});
-function toggleHabit(id){
-  const h=HABITS.find(x=>x.id===id);if(!h)return;
-  if(h.tipe==='hitung'){h.selesai=!h.selesai;h.progress=h.selesai?h.target:0}
-  else h.selesai=!h.selesai;
-  if(h.selesai){
-    if(doneCount()===HABITS.length){confetti();toast('Semua kebiasaan selesai!','Lencana Minggu Sempurna terbuka.','i-sparkle','honey')}
-    else toast('Kebiasaan selesai',h.nama+' tercatat.','i-check','sage');
-  }
-  refreshToday();
-}
-function bumpWater(id,dir){
-  const h=HABITS.find(x=>x.id===id);if(!h)return;
-  h.progress=Math.max(0,Math.min(h.target,h.progress+dir));
-  const justDone=h.progress>=h.target;
-  if(justDone&&!h.selesai){h.selesai=true;toast('Target 8 gelas tercapai','Air putih hari ini cukup.','i-check','sage');if(doneCount()===HABITS.length){confetti()}}
-  if(!justDone)h.selesai=false;
-  refreshToday();
-}
-/* modal */
-let txType='keluar';
-function openModal(id){
-  const m=$('#'+id);m.classList.add('open');document.body.style.overflow='hidden';
-  const inp=m.querySelector('input:not([type=hidden])');
-  setTimeout(()=>inp&&inp.focus(),120);
-}
-function closeModals(){$$('.modal').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}
-function fillTxType(t){
-  txType=t;
-  $$('#modalTx .seg button').forEach(b=>b.classList.toggle('active',b.dataset.txType===t));
-  const opts=Object.entries(KATEGORI).filter(([k,v])=>v.jenis===t);
-  $('#txCat').innerHTML=opts.map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
-}
-$('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
-$('#txAmount').addEventListener('input',e=>{
-  const digits=e.target.value.replace(/[^\d]/g,'');
-  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
-});
-$('#formTx').addEventListener('submit',e=>{
-  e.preventDefault();
-  const nominal=+($('#txAmount').value||'0').replace(/\./g,'');
-  if(!nominal){toast('Nominal belum terisi','Masukkan angka lebih besar dari nol.','i-x','rose');return}
-  const k=$('#txCat').value;
-  const dv=$('#txDate').value;if(!dv){toast('Tanggal belum dipilih','','i-x','rose');return}
-  const d=new Date(dv+'T00:00:00');
-  if(d>TODAY){toast('Tanggal di masa depan','Prototipe ini hanya menerima hari ini atau sebelumnya.','i-x','rose');return}
-  const offset=Math.round((TODAY-d)/864e5);
-  const note=$('#txNote').value.trim();
-  TXS.unshift({t:txType,n:nominal,k,nama:note||KATEGORI[k].label,offset});
-  closeModals();e.target.reset();fillTxType(txType);$('#txDate').value=dayKey(TODAY);
-  refinance();renderDayDetail(state.calSel);
-  toast('Transaksi tercatat',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${KATEGORI[k].label}`,'i-check','sage');
-});
-/* modal kebiasaan */
-let pickedIcon='ill-meditasi';
-function renderIconPicker(){
-  $('#iconPicker').innerHTML=ICON_OPTS.map(o=>`
-    <label class="ip-opt ${o.id===pickedIcon?'sel':''}">
-      <input type="radio" name="pik" value="${o.id}" ${o.id===pickedIcon?'checked':''}>
-      <svg class="ill" aria-hidden="true"><use href="#${o.id}"/></svg><small>${o.label}</small>
-    </label>`).join('');
-}
-$('#iconPicker').addEventListener('change',e=>{pickedIcon=e.target.value;renderIconPicker()});
-$('#formHabit').addEventListener('submit',e=>{
-  e.preventDefault();
-  const nama=$('#habitName').value.trim();
-  if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','rose');return}
-  HABITS.push({
-    id:'h'+Date.now(),nama,kategori:$('#habitCat').value,ikon:pickedIcon,waktu:$('#habitTime').value||'07:00',
-    streak:0,konsistensi:.5,selesai:false,riwayat:[false,false,false,false,false,false]
-  });
-  closeModals();e.target.reset();pickedIcon='ill-meditasi';renderIconPicker();
-  renderHabitChips();state.habitFilter='semua';renderHabitChips();refreshToday();
-  toast('Kebiasaan baru ditambahkan',nama+' siap dicatat.','i-sparkle','honey');
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModals()});
-/* kalender nav */
-$('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal()});
-$('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal()});
-$('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal();renderDayDetail(state.calSel)});
-$('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
-$('#btnBell').addEventListener('click',()=>toast('Tidak ada notifikasi baru','Semua sudah terbaca.','i-bell'));
-
-/* ============ init ============ */
-(function init(){
-  const now=new Date();
-  const jam=now.getHours();
-  const sapa=jam<11?'Selamat pagi':jam<15?'Selamat siang':jam<19?'Selamat sore':'Selamat malam';
-  $('#greetTitle').textContent=`${sapa}, Arunika`;
-  const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
-  $('#greetSub').textContent=tglLengkap+' · ringkasan hari ini.';
-  $('#tbDate').innerHTML=`Hari ini: <b>${tglLengkap}</b>`;
-  renderAgenda();renderRing();renderSavings();
-  setTimeout(()=>{renderRing()},60); // picu transisi ring
-  renderStats();renderCashflow();renderMiniBudgets();
-  renderSceneStats();renderDonut();renderBudgets();renderTx();
-  renderHabitChips();renderHabitCards();
-  renderIconPicker();fillTxType('keluar');$('#txDate').value=dayKey(TODAY);
-  animateBars(document);
-})();
-</script>
 <script type="application/json" id="dbSnapshot">{"ok":true,"source":"snapshot","fetchedAt":"2026-11-09T03:29:00.400Z","data":{"settings":{"userName":"Ananda Tegar C.S","weekStart":1,"targetCompletion":80},"habitGroups":[{"id":"cmrn1xkd40000l104fayio2ct","name":"Pagi","color":"#22c55e"},{"id":"cmu8mks570001jn0402fn9czw","name":"Gym","color":"#1589ff"}],"habitCategories":[{"name":"General","color":"#64748b"},{"name":"Health","color":"#10b981"},{"name":"Fitness","color":"#f97316"},{"name":"Learning","color":"#3b82f6"},{"name":"Mindfulness","color":"#8b5cf6"},{"name":"Productivity","color":"#f59e0b"},{"name":"Social","color":"#ec4899"},{"name":"Creative","color":"#d946ef"},{"name":"Olahraga","color":"#f49b25"}],"habits":[{"id":"cmrbqo6qi0001l6042qs6qcxb","name":"Bangun Pagi","emoji":"💤","category":"Productivity","priority":"Medium","difficulty":"Hard","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmrn1xkd40000l104fayio2ct"},{"id":"cmrbqploi0003l604qe8m4uax","name":"Membaca","emoji":"📚","category":"Learning","priority":"High","difficulty":"Expert","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrbqq4g40004l604cy3nik3x","name":"Jalan","emoji":"🏃","category":"Fitness","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrbqr2l50005l604rowc59wm","name":"Memasak","emoji":"🍳","category":"General","priority":"Medium","difficulty":"Hard","habitType":"normal","target":8,"unit":null,"reminder":"05.00 AM","groupId":null},{"id":"cmrcbau5w0000ju04az32ysmu","name":"Badminton","emoji":"🏸","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrcbz5s20000l2046ts46wq6","name":"Daily Learning","emoji":"📚","category":"Learning","priority":"High","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrfzlo8h0002jp04un25l6qc","name":"Bersih-Bersih Rumah","emoji":"🚮","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrh75gc90000l704uict3dbo","name":"Beresin Tempat Tidur","emoji":"🛏","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmrn1xkd40000l104fayio2ct"},{"id":"cmrh76j5l0001l704m2wd9shc","name":"Cuci Sepatu","emoji":"👞","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmtrienea0001l604dvdi7b7w","name":"Sikat Gigi Malam","emoji":"💪","category":"Health","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmu8mksek0003jn04ykgtt1ps","name":"Latihan Dada","emoji":"💪","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkso40005jn045h42x2af","name":"Latihan Punggung","emoji":"🏋️","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mksxh0007jn04ga24fqg7","name":"Latihan Bahu","emoji":"🤸","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkt7h0009jn04hfycdkq9","name":"Latihan Lengan","emoji":"🦾","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkthv000bjn04jhwl4i6t","name":"Latihan Perut","emoji":"🧘","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkts3000djn04g25mpdyy","name":"Latihan Kaki","emoji":"🦵","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mku24000fjn04jo783au7","name":"Latihan Full Body","emoji":"🏃","category":"Olahraga","priority":"Sedang","difficulty":"Sulit","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"}],"habitLogs":[{"habitId":"cmrbqq4g40004l604cy3nik3x","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-06","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-07","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-08","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-07-08","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-09","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-07-09","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-10","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-13","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-14","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-14","completed":false,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-14","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-15","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-16","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-17","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-19","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-20","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-20","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-22","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-24","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-25","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-26","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-27","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-27","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-07-27","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-28","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-07-28","completed":false,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-28","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-29","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-30","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-07-30","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-01","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-02","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-06","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-08-06","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-03","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-09-04","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-04","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-05","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-07","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-09","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-10","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-10","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-09-14","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-09-14","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqq4g40004l604cy3nik3x","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-17","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-18","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-19","completed":true,"value":1},{"habitId":"cmu8mksek0003jn04ykgtt1ps","date":"2026-09-20","completed":true,"value":1},{"habitId":"cmu8mkt7h0009jn04hfycdkq9","date":"2026-09-20","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-11-02","completed":true,"value":1}],"financeCategories":[{"name":"Makanan Berat","emoji":"🍽️","color":"#ef4444","type":"expense"},{"name":"Bensin","emoji":"🚗","color":"#f97316","type":"expense"},{"name":"Belanja","emoji":"🛍️","color":"#eab308","type":"expense"},{"name":"Hiburan","emoji":"🎮","color":"#a855f7","type":"expense"},{"name":"Kesehatan","emoji":"🏥","color":"#ec4899","type":"expense"},{"name":"Pendidikan","emoji":"📚","color":"#3b82f6","type":"expense"},{"name":"Tagihan & Utilitas","emoji":"📋","color":"#6366f1","type":"expense"},{"name":"Lainnya","emoji":"📦","color":"#78716c","type":"expense"},{"name":"Gaji","emoji":"💵","color":"#e1ff4d","type":"income"},{"name":"Investasi","emoji":"📈","color":"#f59e0b","type":"income"},{"name":"Lainnya (Pemasukan)","emoji":"💸","color":"#78716c","type":"income"},{"name":"Kopi","emoji":"☕️","color":"#78716c","type":"expense"},{"name":"Jajan","emoji":"🍱","color":"#c2290a","type":"expense"},{"name":"Servis Motor","emoji":"🛠️ ","color":"#41951d","type":"expense"},{"name":"Dating","emoji":"💕","color":"#ec1349","type":"expense"},{"name":"Parkir","emoji":"🏍","color":"#00ffff","type":"expense"},{"name":"Badminton","emoji":"🏸","color":"#78716c","type":"expense"},{"name":"Loundry","emoji":"🧺","color":"#1b71b5","type":"expense"},{"name":"Skin Care","emoji":"💀","color":"#78716c","type":"expense"},{"name":"Potong Rambut","emoji":"💇‍♂","color":"#2273c3","type":"expense"},{"name":"Tak Terduga","emoji":"🏳","color":"#00ff00","type":"expense"},{"name":"Pajak Motor","emoji":"🧾","color":"#78716c","type":"expense"},{"name":"Hutang","emoji":"💳","color":"#78716c","type":"expense"},{"name":"Tagihan Listrik","emoji":"💡","color":"#ffd679","type":"expense"},{"name":"Tagihan Air","emoji":"💧","color":"#00bcf2","type":"expense"},{"name":"Pulsa & Paket Data","emoji":"🌍","color":"#16c60c","type":"expense"},{"name":"Iuran Kas","emoji":"💰","color":"#cc8800","type":"expense"}],"fundSources":[{"id":"cmrbvll5h0000jv04oi4ssvqj","name":"Kas","type":"cash","emoji":"💵","initialBalance":1916100},{"id":"cmrbvllaf0001jv04got0yaol","name":"Bank CIMB","type":"bank","emoji":"🏦","initialBalance":285187},{"id":"cmrbvllfh0002jv046a4c235f","name":"Bank BRI","type":"bank","emoji":"🏧","initialBalance":1081896},{"id":"cmrbvllkc0003jv04wvhd7mdi","name":"Bank Superbank","type":"bank","emoji":"🏦","initialBalance":1405630},{"id":"cmrbvlm450007jv04d6m4tarb","name":"GoPay","type":"ewallet","emoji":"💚","initialBalance":615},{"id":"cmrbvlm920008jv04voq83zj7","name":"OVO","type":"ewallet","emoji":"💜","initialBalance":10435},{"id":"cmrbvlmdx0009jv045ujdtwoe","name":"DANA","type":"ewallet","emoji":"💙","initialBalance":27612}],"transactions":[{"id":"cmundn9i00001jn04t7gjmbah","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-30"},{"id":"cmuddfn050001jv04pfekd50v","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-23"},{"id":"cmuddg8iq0001jz049l87zxqh","type":"expense","amount":10000,"category":"Loundry","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Loundry","date":"2026-09-22"},{"id":"cmuddgxb90001lc04146rpiwl","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Dikichi","date":"2026-09-22"},{"id":"cmucsc2470003if04o4aj47q5","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bolen","date":"2026-09-22"},{"id":"cmucsbhht0001if04z7n9pvdq","type":"expense","amount":20000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-22"},{"id":"cmuby9bfb0001l004g50kdsag","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-22"},{"id":"cmub4ax7s0001jk04nldxgq89","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mangcuk","date":"2026-09-21"},{"id":"cmub4bupa0001jv04qbrhpp50","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-21"},{"id":"cmub4ch5v0001l904gxjlrbqx","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-09-21"},{"id":"cmuby8vfw0001jp04pqsi50p3","type":"expense","amount":25000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan Malam","date":"2026-09-21"},{"id":"cmuby6bo90001id04fziscwzq","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"AIR mineral","date":"2026-09-21"},{"id":"cmuaih0130001l904hb0105y4","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-21"},{"id":"cmu9wk9ih0001jx04vf9v6ycn","type":"expense","amount":39000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakso UB","date":"2026-09-20"},{"id":"cmu9wleb80001l804pt46aivz","type":"expense","amount":56000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tomoro","date":"2026-09-20"},{"id":"cmu9fx4310001l804hhzkemv4","type":"expense","amount":26000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kak rose","date":"2026-09-20"},{"id":"cmu8k3n2b0003ii04r19a3yyy","type":"expense","amount":59400,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Calf","date":"2026-09-19"},{"id":"cmu8k30ex0003jm04ft3yewde","type":"expense","amount":16000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Es Pisang Ijo","date":"2026-09-19"},{"id":"cmu8k27jx0001jm0441u6feq9","type":"expense","amount":19000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-09-18"},{"id":"cmu8k0ymd0001i904hwp4p4c2","type":"expense","amount":11000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan MBA","date":"2026-09-18"},{"id":"cmu8k1pbk0001ii04bbnq17mb","type":"expense","amount":40000,"category":"Badminton","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Badmin MBA","date":"2026-09-18"},{"id":"cmu6tuj2i0001l804q8nux4pi","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-09-18"},{"id":"cmu6gmg9f0001l804h2esp3pg","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-18"},{"id":"cmu68nvhv0003jq04bqy6o7xs","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Point","date":"2026-09-18"},{"id":"cmu6gldg70003k00402pbhwnk","type":"expense","amount":14000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sosis","date":"2026-09-17"},{"id":"cmu6gkt100001k0042xdk75hi","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-17"},{"id":"cmu68nhvi0001jq04i655uv12","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-09-17"},{"id":"cmu59lts40001jq048y3g4wfd","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-17"},{"id":"cmu4sovgn0001jp04n9hucne9","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar","date":"2026-09-17"},{"id":"cmu4a6zlw0001l9045yisq5tt","type":"expense","amount":12000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Susu","date":"2026-09-16"},{"id":"cmu4a4zs00001lh044wk98kgk","type":"expense","amount":37000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"4 liter","date":"2026-09-16"},{"id":"cmu4a61420001l8046n5iovya","type":"expense","amount":42000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Nasgor","date":"2026-09-16"},{"id":"cmu42gvgn0001jm042fvfxuyz","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kabul","date":"2026-09-16"},{"id":"cmu3p4fu20003l204hqr590yc","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-16"},{"id":"cmu3p3hfm0001l204bsa4c9sx","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Es krim","date":"2026-09-16"},{"id":"cmu3dqmy10001jr04j1w1p3tz","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Point","date":"2026-09-16"},{"id":"cmu3dqawo0001jp04fndn8mla","type":"expense","amount":35000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tomoro Shopee","date":"2026-09-15"},{"id":"cmu2j4toe0001lc045eaxt0d2","type":"expense","amount":14000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Mangcuk","date":"2026-09-15"},{"id":"cmu2igh220001ld04z410bfgg","type":"expense","amount":150000,"category":"Pulsa & Paket Data","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pulsa Dan Paket","date":"2026-09-15"},{"id":"cmu2e5phu0003l904gujy5fot","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Puyam","date":"2026-09-15"},{"id":"cmu2e4aqs0001jn04ja9zzqnk","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-15"},{"id":"cmu2e56bg0001l904s045w919","type":"expense","amount":7500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan","date":"2026-09-15"},{"id":"cmu1xs47b0001ig0465dp022m","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-15"},{"id":"cmu2if0rz0001l804ohcg9431","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"1 Liter","date":"2026-09-15"},{"id":"cmu1e0hhw0001jk04vir4mitm","type":"expense","amount":18000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopken","date":"2026-09-14"},{"id":"cmu1876kv0001k204ozqx2crb","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-09-14"},{"id":"cmu11gz7r0001l0041l2ir369","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-14"},{"id":"cmu0ncnpa0001i904a1och32f","type":"expense","amount":3000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-09-14"},{"id":"cmu0im7n40001l5044d72mhhq","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-14"},{"id":"cmtzsdv1p0001jk045oq1pir7","type":"expense","amount":20000,"category":"Loundry","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Pengering","date":"2026-09-13"},{"id":"cmtzqvrq00001jt043lphrtif","type":"expense","amount":10000,"category":"Loundry","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Loundry","date":"2026-09-13"},{"id":"cmtzmxun10001ia04gsd4z6bi","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Parkir Tomoro","date":"2026-09-13"},{"id":"cmtzful9s0001l504o4xfthe9","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Tomoro","date":"2026-09-13"},{"id":"cmtzeny260001l204ep3zinsp","type":"expense","amount":26500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kak rose","date":"2026-09-13"},{"id":"cmtzc6z0a0003jx04nh9l8pu5","type":"expense","amount":45700,"category":"Tagihan Air","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Air September 26","date":"2026-09-13"},{"id":"cmtzc5g690001jx04hccsqil1","type":"expense","amount":56539,"category":"Tagihan Listrik","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Listrik Agustus 26","date":"2026-09-13"},{"id":"cmtykwf080001l8048g2cm3ah","type":"expense","amount":34000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Soto","date":"2026-09-12"},{"id":"cmtydhmjn0001jt0431wqaoic","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir Fore","date":"2026-09-12"},{"id":"cmty1g3020001jj04yvdaaf6f","type":"expense","amount":30600,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Fore","date":"2026-09-12"},{"id":"cmty5dpe00001jg048alnrqdx","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir","date":"2026-09-12"},{"id":"cmty1extv0001jj04jva8n30o","type":"expense","amount":38500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Rawon Kiroman","date":"2026-09-12"},{"id":"cmtxtrib90001lb04uhihqm3x","type":"expense","amount":20000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cenil","date":"2026-09-12"},{"id":"cmtx4x55v0001jm04c6ftp70o","type":"expense","amount":21000,"category":"Dating","sourceId":null,"description":"bakmi","date":"2026-09-11"},{"id":"cmtxtqz0j0001l804l432fdxr","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"mie gacoan","date":"2026-09-11"},{"id":"cmtwsx16o0001l304kpwdqu6r","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-11"},{"id":"cmtw98ygz0001jp0406fxqqqb","type":"expense","amount":3000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan","date":"2026-09-11"},{"id":"cmtw8dns90001jj04neolqiww","type":"expense","amount":14000,"category":"Kopi","sourceId":null,"description":"Domar","date":"2026-09-11"},{"id":"cmtvfgshe0001k104wpizhv35","type":"expense","amount":17000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Nasgor","date":"2026-09-10"},{"id":"cmtvfg5zp0001ia047ndpwor8","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Pentol Kabul","date":"2026-09-10"},{"id":"cmtv8i1as0001l6040qfdqr45","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-10"},{"id":"cmtuyoisq0001l5041df3a21t","type":"expense","amount":16000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kinton","date":"2026-09-10"},{"id":"cmttzsake0001ju04dpmih3i1","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin Eceran 1 Liter","date":"2026-09-09"},{"id":"cmttxtj400001jl04zexunz3q","type":"expense","amount":44000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Mam Siang Lalapan Dewandaru","date":"2026-09-09"},{"id":"cmtuvkas10001l704p1n2xdt6","type":"expense","amount":38000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Tahu Telur","date":"2026-09-09"},{"id":"cmtv8japy0001i1048xuyhmjk","type":"expense","amount":36000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Malam Tahu Lontong","date":"2026-09-09"},{"id":"cmtsmdcbx0000l2040qmrbk2s","type":"expense","amount":20000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pentol","date":"2026-09-08"},{"id":"cmtsme1lv0003l704qyj7ov2w","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Ayam Almaz","date":"2026-09-08"},{"id":"cmtscgv730003kz040od2bmh6","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"crepes","date":"2026-09-08"},{"id":"cmtscg6qy0003l604kav3mwbw","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-08"},{"id":"cmtrxzcr10000l804u7foftl6","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-08"},{"id":"cmtr4nkrv0000jp04msw59ptg","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-09-07"},{"id":"cmtqvygbg0000l904dp1hvcxj","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-07"},{"id":"cmtqjmrl00000js04o61waqe9","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point kopi","date":"2026-09-07"},{"id":"cmtpv4ahk0000jr04bwwtivcv","type":"expense","amount":27000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-09-06"},{"id":"cmtpulbtp0000k304kby24a3n","type":"expense","amount":26000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-09-06"},{"id":"cmtpu3jlo0009jr040adcl2od","type":"expense","amount":6000,"category":"Servis Motor","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tambah angin","date":"2026-09-06"},{"id":"cmtps2xvs0003l804nquueycm","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir","date":"2026-09-06"},{"id":"cmtpdvh5o0000l804g8yitosf","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopi Tomoro","date":"2026-09-06"},{"id":"cmtpdqyfq0003i50406797wc8","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kak Rose","date":"2026-09-06"},{"id":"cmtpuah7p0007l5047i623t3i","type":"expense","amount":19000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopken","date":"2026-09-05"},{"id":"cmtmu1uuc0003l604z156oqvq","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-09-04"},{"id":"cmtmpwce50006l10411q68hec","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-04"},{"id":"cmtmpvrlh0006kt04os84ueko","type":"expense","amount":28000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-04"},{"id":"cmtpu7kl30000ld05k1775tk2","type":"expense","amount":37500,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cemilan","date":"2026-09-03"},{"id":"cmtpu71pj0000l204dsbg6vgd","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cahtering","date":"2026-09-03"},{"id":"cmtpu675h0003ky04zdh56nks","type":"expense","amount":29500,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Dolar dan Kintoun","date":"2026-09-03"},{"id":"cmtom6nsr0000jj04t7dk68xv","type":"expense","amount":19000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopken","date":"2026-09-02"},{"id":"cmtpd7mql0009l0044jywqy5r","type":"expense","amount":39000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"kopken","date":"2026-09-02"},{"id":"cmtpd5y260000ju04050tsv2i","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-02"},{"id":"cmtpd52n20006ie049tsf4htv","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Jajan sempol","date":"2026-09-02"},{"id":"cmtpd3ol20003i80448hpy8ry","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakmie Jogja","date":"2026-09-01"},{"id":"cmtpupdly0000jp045a1axk9x","type":"expense","amount":519208,"category":"Hutang","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Spay Later","date":"2026-09-01"},{"id":"cmtpd18l40000le04dbnht4dx","type":"expense","amount":200000,"category":"Lainnya","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Arisan","date":"2026-09-01"},{"id":"cmtpu9dld0003l5044g81j22m","type":"expense","amount":128071,"category":"Hutang","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Hutang Superbank","date":"2026-09-01"},{"id":"cmsn2otgn0000jp047j09ptn3","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"test from bug-scan-2","date":"2026-08-10"},{"id":"cmsmi3sp90006lb042qi4uvo6","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-10"},{"id":"cmsmi0fk00003ju0410gvukcd","type":"expense","amount":252000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Token AI","date":"2026-08-09"},{"id":"cmslxpo1l0003kz042dmvfjsq","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Sejawat","date":"2026-08-09"},{"id":"cmslxp7vh0000i604p5a4c272","type":"expense","amount":15000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Jus Alpukat","date":"2026-08-09"},{"id":"cmsmi3gsp0000l4045p7ezku9","type":"income","amount":20000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sisa Uang Galon","date":"2026-08-09"},{"id":"cmsk9gqzn0000ia04ax1qly3q","type":"income","amount":23000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Rembes adek","date":"2026-08-08"},{"id":"cmsk9g8cy0000jl04528qqksy","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"mangcuk","date":"2026-08-08"},{"id":"cmsk7849l0000kz048yg6mjqf","type":"expense","amount":57000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Ston","date":"2026-08-08"},{"id":"cmsj1truv0004l504qdx20m0v","type":"expense","amount":10000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"15 ri, 5 ribu adek","date":"2026-08-07"},{"id":"cmsj1szhw0000l50411rcftia","type":"expense","amount":44000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tahu Campur","date":"2026-08-07"},{"id":"cmsj1s7eu0000jx04t26k3c3b","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-07"},{"id":"cmsi8yzz30003jl04ftu8hu4a","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-07"},{"id":"cmsi7yvqh0000js042ymlguxq","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point Coffe","date":"2026-08-07"},{"id":"cmshqptur0008jp04zxkluwtz","type":"expense","amount":22000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan Indomaret","date":"2026-08-06"},{"id":"cmsj1vqrq0008l504knghqice","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mie dan Sosis","date":"2026-08-06"},{"id":"cmshqqwos0007jx04hyb7io9q","type":"expense","amount":3000,"category":"Loundry","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sabun Loundry","date":"2026-08-06"},{"id":"cmshqq7sr0003jx04p6jph4kn","type":"expense","amount":30000,"category":"Loundry","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Loundry","date":"2026-08-06"},{"id":"cmshn711b0003la04nqfb8ppm","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Malam Prek jon","date":"2026-08-06"},{"id":"cmsh5o2ik0000i804k1y90fkx","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-06"},{"id":"cmsj1y3le0000ju04132lkiou","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cilok","date":"2026-08-06"},{"id":"cmsgu9p710000ic04xmmuagjy","type":"expense","amount":9000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-06"},{"id":"cmsgs0u2k0003l104mfi10wds","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-08-06"},{"id":"cmsgq0wr00000ld04z1x4tmow","type":"expense","amount":18000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-08-05"},{"id":"cmsgq06rm0003i804asiv5i8l","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tahu telur","date":"2026-08-05"},{"id":"cmsfx0yac0003l2044xk3n412","type":"expense","amount":45700,"category":"Tagihan Air","sourceId":"cmrbvllfh0002jv046a4c235f","description":"PDAM Juli 26","date":"2026-08-05"},{"id":"cmsfwzpe20001l504vzvmlfza","type":"transfer","amount":100000,"category":"Transfer Masuk","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Bayar Tagihan","date":"2026-08-05"},{"id":"cmsfwzp9g0000l504liskhi90","type":"transfer","amount":100000,"category":"Transfer Keluar","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bayar Tagihan","date":"2026-08-05"},{"id":"cmsfx06110002l504zenl8agc","type":"expense","amount":56539,"category":"Tagihan Listrik","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Listrik Juli 26","date":"2026-08-05"},{"id":"cmsfvrhmd0001l204vs7i61in","type":"transfer","amount":50000,"category":"Transfer Masuk","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Transfer Kas → Bank CIMB","date":"2026-08-05"},{"id":"cmsfvrhhz0000l2041srdyqod","type":"transfer","amount":50000,"category":"Transfer Keluar","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Transfer Kas → Bank CIMB","date":"2026-08-05"},{"id":"cmsfv6awh0001lb04h3jmonx9","type":"transfer","amount":50000,"category":"Transfer Masuk","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tes","date":"2026-08-05"},{"id":"cmsfv6arw0000lb0471yibl2y","type":"transfer","amount":50000,"category":"Transfer Keluar","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tes","date":"2026-08-05"},{"id":"cmsftkk5x0000jo04f2ttn1cd","type":"expense","amount":200800,"category":"Penyesuaian Saldo","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Adjustment saldo Kas","date":"2026-08-05"},{"id":"cmsft21vn0001jo04u47hzy02","type":"expense","amount":615270,"category":"Penyesuaian Saldo","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Adjustment saldo Bank Superbank","date":"2026-08-05"},{"id":"cmsft0zzn0000kz04rmqfv3vv","type":"expense","amount":181358,"category":"Penyesuaian Saldo","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Adjustment saldo Bank BRI","date":"2026-08-05"},{"id":"cmsft0dnl0000jo04e046j4yc","type":"income","amount":3469783,"category":"Penyesuaian Saldo","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Adjustment saldo Bank CIMB","date":"2026-08-05"},{"id":"cmsfml6wi0000jm0437ogesc9","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-05"},{"id":"cmsfikpwf0008l104ai8mfvfg","type":"expense","amount":30000,"category":"Iuran Kas","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kas Juni Juli","date":"2026-08-05"},{"id":"cmsfi754p0000jo04u11k69xd","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-05"},{"id":"cmsfd15190000il04lkm1qznn","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-05"},{"id":"cmsfbuirq0004l804n9mx34xs","type":"expense","amount":27000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mie Bangka","date":"2026-08-04"},{"id":"cmsec5csh0000l404cslul4po","type":"expense","amount":90000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mam siang di Pakuwon","date":"2026-08-04"},{"id":"cmse3ix720004l804af2yxl08","type":"expense","amount":31000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan Indomaret Sidoarjo","date":"2026-08-04"},{"id":"cmse3gzsl0000jl04jy9g01lx","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point Sidoarjo","date":"2026-08-04"},{"id":"cmsd573js0000ky04tf44cjeg","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-08-03"},{"id":"cmsd1tpho000djr04w4bmjodc","type":"expense","amount":101500,"category":"Pulsa & Paket Data","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Pulsa 100k","date":"2026-08-03"},{"id":"cmscw5nzr0000jt04pdteozb0","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-03"},{"id":"cmscqsyf40000l404vrs4th2o","type":"expense","amount":30000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Subsidi Adek Yoga","date":"2026-08-03"},{"id":"cmsckk1cx0000jv0411uz4pha","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-08-03"},{"id":"cmsbtre860000l8046hkkt9j2","type":"expense","amount":47600,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Calf","date":"2026-08-02"},{"id":"cmsbfp7fj0000l2041ix150y2","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Geprek","date":"2026-08-02"},{"id":"cmsallw9y0000l5046rbilq5a","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Ecer","date":"2026-08-01"},{"id":"cmsafjaj10000jp048hm4wnnh","type":"expense","amount":50000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tomoro","date":"2026-08-01"},{"id":"cmsafis4k0000kw04ip7u64sz","type":"expense","amount":50000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-08-01"},{"id":"cmsaagci40004l3043ar1pq2w","type":"expense","amount":551026,"category":"Hutang","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Spay Later","date":"2026-08-01"},{"id":"cmsagqrz90000l704mjipkz95","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-08-01"},{"id":"cms9yf3qq0004l404k4ah912e","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pop Iced","date":"2026-08-01"},{"id":"cms9xqx4v0000i304gbencfep","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan siang di kantor","date":"2026-08-01"},{"id":"cmsa7f2rd0000kw0401npl8s0","type":"expense","amount":24000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bendera","date":"2026-08-01"},{"id":"cms9ye99w0000gt047o2agwlg","type":"expense","amount":2000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Gorengan mas bagas","date":"2026-08-01"},{"id":"cms9r71g40004jo04c807w68u","type":"expense","amount":100000,"category":"Tak Terduga","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bensin Pakde karna bayar pajak 5 Tahun","date":"2026-08-01"},{"id":"cms9r6cqj0004if04pwobu361","type":"expense","amount":550000,"category":"Pajak Motor","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pajak 5 Tahun + Gesek","date":"2026-08-01"},{"id":"cms9n6gfl0000jv04bkkumv3i","type":"expense","amount":12500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Say Bread","date":"2026-08-01"},{"id":"cms9n5mo90000gl04gfpkzvps","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-01"},{"id":"cms8zum160000ie04690ldxx9","type":"expense","amount":57000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Nowhere","date":"2026-07-31"},{"id":"cms8teqx40004jo04cjfp1va9","type":"expense","amount":2000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sosis","date":"2026-07-31"},{"id":"cms8ted4p0000jx04lp66ldzy","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"1 Liter","date":"2026-07-31"},{"id":"cms8gunja0004jx04elthq1ch","type":"expense","amount":10000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopsu","date":"2026-07-31"},{"id":"cms8gucu30004l704ecb8sekt","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Maksi Soto","date":"2026-07-31"},{"id":"cms8a5r750000i604fjn05dum","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-31"},{"id":"cms87q8xk0000ju04hu9e56qz","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-31"},{"id":"cms7kp6hr0009jy04d35jpk1c","type":"expense","amount":23000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Buah","date":"2026-07-30"},{"id":"cms7kore50004jy047mce59ja","type":"expense","amount":33000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bakso Brow","date":"2026-07-30"},{"id":"cms7koa4k0004la049zz169e4","type":"expense","amount":10000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jasuke","date":"2026-07-30"},{"id":"cms75ioz80000l204nklzqags","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Cathering","date":"2026-07-30"},{"id":"cms6uh3890000kv04g29x1iqh","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-30"},{"id":"cms6s7jgv0000l204f4s4l3nl","type":"expense","amount":7800,"category":"Belanja","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tisu basah","date":"2026-07-30"},{"id":"cms6s78x70004l8047f5e5n54","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Donar","date":"2026-07-30"},{"id":"cms6cmxt50000ih04veb4tf8h","type":"expense","amount":98000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bioskop","date":"2026-07-29"},{"id":"cms5zcxw50000ic04sa3r6t9t","type":"expense","amount":36000,"category":"Belanja","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Migor, Odol, Mie","date":"2026-07-29"},{"id":"cms5l1nng0004kt04vztsuob0","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan berat","date":"2026-07-29"},{"id":"cms5ijccs0004jr04ozcbwe95","type":"expense","amount":9500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan jajan basah","date":"2026-07-29"},{"id":"cms4z7ceq0004kz04tkpnilyy","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-28"},{"id":"cms4o3w120004l8044cstz5fw","type":"expense","amount":21000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopken","date":"2026-07-28"},{"id":"cms45lzr10000jm04ahbi1z06","type":"expense","amount":17000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Makan siang depan Kantor","date":"2026-07-28"},{"id":"cms3ybeac0008l504nrzgwqbl","type":"expense","amount":26000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Transport Grab","date":"2026-07-28"},{"id":"cms41xmhp0004l204drbacmtt","type":"expense","amount":4500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-28"},{"id":"cms3yaoh10000l6047pf8hedk","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-28"},{"id":"cms3bsb1i0004ld04wg7tp2ea","type":"expense","amount":7000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Susu","date":"2026-07-27"},{"id":"cms33kltj0000jt04x2joxnuq","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mangcuk","date":"2026-07-27"},{"id":"cms2rpzsq0000ju04qybr44at","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-27"},{"id":"cms2rba2l0004jv04t4le6m85","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pentol Korea","date":"2026-07-27"},{"id":"cms2hvnye0000l504e33zn4ym","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar","date":"2026-07-27"},{"id":"cms0d9dyw0000l604cdxsrgo7","type":"expense","amount":44000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Makan malam di kereta","date":"2026-07-25"},{"id":"cms02vpfh0000l5044riuidnk","type":"expense","amount":26000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kopi Tomoro","date":"2026-07-25"},{"id":"cms02plbg0000ky04usckgjou","type":"expense","amount":26500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan indomaret","date":"2026-07-25"},{"id":"cmrzzt84m0001i604f91z6otc","type":"expense","amount":15000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Roti O","date":"2026-07-25"},{"id":"cmrzzsynq0000i6042hiz1kuc","type":"expense","amount":104000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Oleh oleh adek","date":"2026-07-25"},{"id":"cmrzybgch0000l80456m5z07l","type":"expense","amount":9000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Minum","date":"2026-07-25"},{"id":"cmrzyb4op0000jj04u3l2enn2","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Siomay Bandung","date":"2026-07-25"},{"id":"cmrzyh86x0000ic048pe543nq","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Siang","date":"2026-07-24"},{"id":"cmrzygwbp0001jj04hv99zwhc","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mie Gacoan","date":"2026-07-24"},{"id":"cmrzw70oi0000l104s4svfb3p","type":"expense","amount":14000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Transport ke Stasiun","date":"2026-07-23"},{"id":"cmrzw4wl10000js049lh1rxy3","type":"expense","amount":80000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Bus ke Slt","date":"2026-07-23"},{"id":"cmrzw494m0000lc046qj62gjl","type":"expense","amount":294000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kereta Ke Solo","date":"2026-07-23"},{"id":"cmry9ai8u0000ky04dp4tircs","type":"expense","amount":27000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-23"},{"id":"cmry8ndyj0000l2042nluzyqt","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Gorengan","date":"2026-07-23"},{"id":"cmry8mhcx0002kz04fxlod1ai","type":"expense","amount":28000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-07-23"},{"id":"cmrxdjrzl0000l304h81b5aco","type":"expense","amount":30000,"category":"Loundry","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-23"},{"id":"cmrycp7320000ju04w35jmni1","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-07-22"},{"id":"cmrw2yr9l0001jx04esgx2gz3","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-07-22"},{"id":"cmrw2ygpi0000jx04cdp6fihc","type":"expense","amount":6000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-22"},{"id":"cmruwicg60000jx04lna5bgin","type":"expense","amount":12000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-22"},{"id":"cmrvctji80000l704cf40h4hr","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-21"},{"id":"cmruwjvmy0004jx04xr2qljt4","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cathering","date":"2026-07-21"},{"id":"cmruwjfq10003jx0465sxiyo2","type":"expense","amount":62000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Maitri","date":"2026-07-21"},{"id":"cmruwj3g50002jx04n6bbivk4","type":"expense","amount":60000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-21"},{"id":"cmruwisvu0001jx04qpbdyuw4","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Crepes","date":"2026-07-21"},{"id":"cmrtethga0001l704oq8lfcac","type":"expense","amount":28000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-07-20"},{"id":"cmrtet0490000l7048lxaanjt","type":"expense","amount":68000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan Cak ri","date":"2026-07-20"},{"id":"cmrt394jd0001l904rn6p5jqz","type":"expense","amount":11000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Chatering","date":"2026-07-20"},{"id":"cmrt38nt00000jv04ts00b71g","type":"expense","amount":18000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin","date":"2026-07-20"},{"id":"cmrt388t70000l904qzni2ry5","type":"expense","amount":6000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-20"},{"id":"cmrs11w0e0004i5045cxrurtt","type":"expense","amount":20000,"category":"Potong Rambut","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-19"},{"id":"cmrs10cy90002i504rz5jsrml","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-19"},{"id":"cmrs0zwda0001i5043e9t2zgt","type":"expense","amount":42000,"category":"Skin Care","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mouis","date":"2026-07-19"},{"id":"cmrrrope10000ih0479z0yq0n","type":"expense","amount":40000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan","date":"2026-07-19"},{"id":"cmrrri2jm0000jx04qa7h1mf4","type":"expense","amount":40000,"category":"Servis Motor","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Ban Dalam","date":"2026-07-19"},{"id":"cmrrdsy3a0000l4040np0u6m4","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Tomoro","date":"2026-07-19"},{"id":"cmrqgyj1h0001l704ozlqyo47","type":"expense","amount":4000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-18"},{"id":"cmrqgybsq0001jv042aohmzcu","type":"expense","amount":15000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pempek Alun alun","date":"2026-07-18"},{"id":"cmrqgxypv0000l704n3us1xy2","type":"expense","amount":33000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Es krim momoyo","date":"2026-07-18"},{"id":"cmrqgxn480000jv048yf5l5uj","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakso","date":"2026-07-18"},{"id":"cmrq78lg90001jp04gyy5yqci","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-07-18"},{"id":"cmrq7838s0000jp04hepujlqm","type":"expense","amount":15000,"category":"Servis Motor","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tambal Ban","date":"2026-07-18"},{"id":"cmrpu07500000k104mu524hnc","type":"expense","amount":33000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"stmj","date":"2026-07-17"},{"id":"cmrofwpbn0000l204yxoq6xwd","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-17"},{"id":"cmro9pqk60001jr04tf9246t3","type":"expense","amount":7000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-17"},{"id":"cmro9pbuk0000jr04jp6ir6x3","type":"expense","amount":13000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bean","date":"2026-07-17"},{"id":"cmrn69py30000l704k5p5mthk","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-16"},{"id":"cmrn3vzqq0000jo04n6krvjo7","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cahtering Makan Siang","date":"2026-07-16"},{"id":"cmrms1hmx0000l4044kx0b4qm","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-16"},{"id":"cmrm4vga90000l4042rwuazms","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-07-15"},{"id":"cmrlou9vy0006ky0488jo3rrv","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"prek jon","date":"2026-07-15"},{"id":"cmrlcq1fs0000js04mj9f2hbn","type":"expense","amount":12000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar for better day","date":"2026-07-15"},{"id":"cmrlcpkap0000l404wt7p0298","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-14"},{"id":"cmrkywakn0002l504wcrw49pp","type":"income","amount":12000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Ivan","date":"2026-07-14"},{"id":"cmrkyvn0k0001l504jevxm0l3","type":"expense","amount":32000,"category":"Belanja","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Telur","date":"2026-07-14"},{"id":"cmrkyux540000l504k0tgg0dz","type":"expense","amount":3500,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Risol","date":"2026-07-14"},{"id":"cmrk70vdx0000jv0435qzbq4t","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Batagor","date":"2026-07-14"},{"id":"cmrjz40ff0000js04lts949jn","type":"expense","amount":32000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Domar 2 + Susu Green Feild","date":"2026-07-14"},{"id":"cmrjazy1a0001le04hgxayfq7","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-07-13"},{"id":"cmrjazmu90000le047au92fu3","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Krepes","date":"2026-07-13"},{"id":"cmrihtktb0000l104mxs7z3a1","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Point cuy","date":"2026-07-13"},{"id":"cmriht6gw0000l7042c7tn800","type":"income","amount":70000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Rembes adek","date":"2026-07-12"},{"id":"cmrhj48l10000l404lkovx70c","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi tomoro with adek","date":"2026-07-12"},{"id":"cmrgka1ik0001l4049otmdkk7","type":"expense","amount":20000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan malam","date":"2026-07-11"},{"id":"cmrgk7maq0000l504c42pujmq","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken with adek","date":"2026-07-11"},{"id":"cmrgk6qd40000l404v2nsooms","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan klontong","date":"2026-07-11"},{"id":"cmrg7g7zq0001ld044dvj2fm3","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir Tomoro","date":"2026-07-11"},{"id":"cmrg7fufb0000ld04v31537uo","type":"expense","amount":20000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jambu Kristal Rujak","date":"2026-07-11"},{"id":"cmrg56kgj0000l704hhb337ob","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Tomoro","date":"2026-07-11"},{"id":"cmrfv1t5d0000l704cqfi435k","type":"expense","amount":21500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kak rose","date":"2026-07-11"},{"id":"cmreupqwo0000js04a9qxgr81","type":"income","amount":100000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Appresiasi Bu dhik","date":"2026-07-10"},{"id":"cmregv5c30000lh049v6do4hn","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Siang Padang","date":"2026-07-10"},{"id":"cmregupw70000l504lkr0e9db","type":"expense","amount":30000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin Motor","date":"2026-07-10"},{"id":"cmre9n7w50000jx04o6supr08","type":"expense","amount":11000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan Bapak Gorengan dan Tahu Pedes","date":"2026-07-10"},{"id":"cmre7h4vz0000ju041hfjigtm","type":"expense","amount":20000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar dan susu Adek","date":"2026-07-10"},{"id":"cmrdq168s0000k204k3lcrgm7","type":"expense","amount":30000,"category":"Badminton","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Badmin MBA","date":"2026-07-09"},{"id":"cmrdmpkpw0002jp042vjr1alx","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan Bakmi with Adek","date":"2026-07-09"},{"id":"cmrdmnjka0000l204j85v5mpf","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir MBA","date":"2026-07-09"},{"id":"cmrdmn3710001l804noxo7b8l","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kabul","date":"2026-07-09"},{"id":"cmrd3dg9s0000l404u4s45lrs","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cathering","date":"2026-07-09"},{"id":"cmrcs7yz70004js044ndf160f","type":"expense","amount":24000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar brow","date":"2026-07-09"},{"id":"cmrca08dq0000kz049zmxccrs","type":"expense","amount":8000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-08"},{"id":"cmrc4gbxr0000jo04xien5arp","type":"expense","amount":42000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kopi malam","date":"2026-07-08"},{"id":"cmrbybqj90000jx045st56da1","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-08"},{"id":"cmrbrxxj80001l404yt5kx423","type":"income","amount":12000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi mas ivan","date":"2026-07-08"},{"id":"cmrbrr7c20000ju0442zqjlm0","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Crepes","date":"2026-07-08"},{"id":"cmrbrnnmk0000k104x6lt1hue","type":"expense","amount":24000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Domar","date":"2026-07-08"}],"weeklyBudgets":[{"category":"Hutang","month":"2026-09","amount":161820},{"category":"Dating","month":"2026-09","amount":68125},{"category":"Kopi","month":"2026-09","amount":50875}],"dailyLogs":[{"date":"2026-07-08","mood":4,"energy":3,"sleep":7},{"date":"2026-07-05","mood":5,"energy":5,"sleep":6},{"date":"2026-07-06","mood":3,"energy":3,"sleep":6.5},{"date":"2026-07-09","mood":3,"energy":3,"sleep":5.5},{"date":"2026-07-10","mood":5,"energy":4,"sleep":8},{"date":"2026-07-11","mood":3,"energy":3,"sleep":6},{"date":"2026-07-12","mood":4,"energy":4,"sleep":7.5},{"date":"2026-07-13","mood":2,"energy":2,"sleep":2},{"date":"2026-07-15","mood":4,"energy":4,"sleep":7},{"date":"2026-07-18","mood":4,"energy":4,"sleep":8},{"date":"2026-07-20","mood":4,"energy":4,"sleep":7},{"date":"2026-09-08","mood":4,"energy":3,"sleep":5},{"date":"2026-09-09","mood":4,"energy":4,"sleep":7},{"date":"2026-09-10","mood":3,"energy":3,"sleep":4.5},{"date":"2026-09-17","mood":3,"energy":3,"sleep":8}]}}</script>
 <script>
 'use strict';
@@ -3355,14 +2657,14 @@ function renderIdentity(){
   const pertama=nama.split(' ')[0];
   $('#greetTitle').textContent=`${sapa}, ${pertama}`;
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
-  $('#greetSub').textContent=`${tglLengkap} · ${HABITS.length} kebiasaan · ${SOURCES.length} dompet`;
+  $('#greetSub').textContent=`${tglLengkap} · ${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
   $('#tbDate').innerHTML=`Hari ini: <b>${tglLengkap}</b>`;
   $('#tbStreak').textContent=activeDaysAll();
   $('#tbStreakUnit').textContent='hari aktif';
   const inisial=(nama.match(/\p{L}/u)||['R'])[0].toUpperCase();
   $$('.avatar').forEach(a=>a.textContent=inisial);
   $('#sideName').textContent=nama;
-  $('#sideSub').textContent=`${HABITS.length} kebiasaan · ${SOURCES.length} dompet · ${TXS.length} transaksi`;
+  $('#sideSub').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
   $('#footSrc').textContent=LIVE?'data langsung · Turso':'snapshot database';
   $('#finSub').textContent=`Arus kas ${monthLabel('ALL')} · ${TXS.length} transaksi`;
 }
@@ -3370,7 +2672,7 @@ function renderIdentity(){
 /* ---------- ring & agenda hari ini ---------- */
 function renderAgenda(){
   let html='',lastGrp='__';
-  if(!HABITS.length){$('#agendaList').innerHTML=`<div class="empty-state" style="padding:22px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Agenda kosong</b><p>Semua kebiasaan terhapus dari sesi — tambahkan yang baru untuk mengisi hari.</p></div>`;return}
+  if(!HABITS.length){$('#agendaList').innerHTML=`<div class="empty-state" style="padding:22px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Agenda kosong</b><p>Semua kebiasaan terhapus dari sesi ini. Tambahkan yang baru untuk mengisi hari.</p></div>`;return}
   HABITS.forEach(h=>{
     const g=h.grp,gk=g?g.id:'_none';
     if(gk!==lastGrp){lastGrp=gk;
@@ -3402,9 +2704,9 @@ function renderRing(){
   if(rw)rw.classList.toggle('zero',n>0&&done===0);
   syncBell(n-done);
   const sisa=Math.max(0,n-done);
-  $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan — tambahkan satu untuk memulai.'
+  $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan. Tambahkan satu untuk memulai.'
     :sisa===0?'Semua kebiasaan hari ini sudah tercatat.'
-    :sisa===n?`${sisa} kebiasaan menunggu — mulai dari yang termudah.`
+    :sisa===n?`${sisa} kebiasaan menunggu. Mulai dari yang termudah.`
     :`${sisa} kebiasaan belum dicatat hari ini.`;
   const ch=champion();
   $('#heroCopy').textContent=ch?`Paling sering dicatat: ${ch.name} · ${ch.total} catatan.`:'';
@@ -3464,12 +2766,12 @@ function renderStats(){
   const totD=sumBy(SOURCES,s=>w[s.id]);
   countUp($('#statSisa'),totD);
   $('#statSisa').style.color=totD<0?'var(--rose-deep)':'';
-  $('#statSisaSub').textContent=`${SOURCES.length} dompet · ${TXS.length} transaksi tercatat`;
+  $('#statSisaSub').textContent=`${SOURCES.length} sumber dana · ${TXS.length} transaksi`;
   animateBars($('#statSpendBar').closest('.stat'));
 }
 function renderBanner(){
   const ch=champion();if(!ch)return;
-  $('#sbT').textContent=`${ch.name} — paling sering dicatat`;
+  $('#sbT').textContent=`${ch.name}: paling sering dicatat`;
   $('#sbS').textContent=ch.first?`${ch.total} catatan sejak ${tglPendek(ch.first)} · terbaik ${ch.best} hari beruntun.`:'Belum ada catatan sama sekali.';
   const pct=Math.min(100,Math.round(ch.best/14*100));
   $('#sbBar').dataset.w=pct+'%';
@@ -3531,7 +2833,7 @@ function renderMiniBudgets(){
     const u=used[b.category]||0;
     return{...b,used:u,pct:Math.min(100,Math.round(u/b.amount*100))};
   }).sort((a,b)=>b.pct-a.pct).slice(0,3);
-  if(!rows.length){$('#miniBudgets').innerHTML='<div class="t-sub" style="grid-column:1/-1;font-size:12.5px;padding:6px 2px">Belum ada anggaran untuk bulan terakhir yang aktif.</div>';return}
+  if(!rows.length){$('#miniBudgets').innerHTML='<div class="t-sub" style="grid-column:1/-1;font-size:12.5px;padding:6px 2px">Belum ada anggaran tercatat.</div>';return}
   $('#miniBudgets').innerHTML=rows.map(r=>{
     const st=finStyle(r.category);
     const warna=r.pct<70?'var(--sage)':r.pct<90?'var(--honey)':'var(--rose)';
@@ -3549,12 +2851,12 @@ function renderMiniBudgets(){
 function renderTip(){
   const m=expByCat('ALL');delete m['Penyesuaian Saldo'];
   const entries=Object.entries(m).sort((a,b)=>b[1]-a[1]);
-  if(!entries.length){$('#tipTitle').textContent='Belum ada data belanja';$('#tipBody').textContent='Catat transaksi pertamamu untuk mulai melihat pola.';return}
+  if(!entries.length){$('#tipTitle').textContent='Belum ada data pengeluaran';$('#tipBody').textContent='Catat transaksi pertamamu untuk mulai melihat pola.';return}
   const top=entries[0];
   const total=sumBy(entries,x=>x[1]);
   const pct=Math.round(top[1]/total*100);
   $('#tipTitle').textContent=`${top[0]} jadi pos terbesar`;
-  $('#tipBody').textContent=`${rupiah(top[1])} — ${pct}% dari total belanja riil (${monthLabel('ALL')}). Pasang batas mingguan agar porsinya terjaga.`;
+  $('#tipBody').textContent=`${rupiah(top[1])} · ${pct}% dari total pengeluaran (${monthLabel('ALL')}). Pasang batas mingguan supaya porsinya terjaga.`;
 }
 
 /* ---------- halaman kebiasaan ---------- */
@@ -3642,11 +2944,11 @@ function renderHeatmap(){
   const ch=champion();
   $('#hmSide').innerHTML=`
     <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
-      <div><b>Hari terproduktif: ${HARI[(best+WS)%7]}</b><small>${dowSum[best]||0} catatan — terbanyak di antara semua hari.</small></div></div>
+      <div><b>Hari terproduktif: ${HARI[(best+WS)%7]}</b><small>${dowSum[best]||0} catatan, terbanyak dari semua hari.</small></div></div>
     ${busiest?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
       <div><b>Hari terpadat: ${tglPendek(busiest[0])}</b><small>${busiest[1].length} kebiasaan dalam sehari.</small></div></div>`:''}
     ${ch?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><b>${esc(ch.name)} — paling sering dicatat</b><small>${ch.total} catatan · terbaik ${ch.best} hari beruntun.</small></div></div>`:''}`;
+      <div><b>${esc(ch.name)}: paling sering dicatat</b><small>${ch.total} catatan · terbaik ${ch.best} hari beruntun.</small></div></div>`:''}`;
 }
 
 /* ---------- halaman keuangan ---------- */
@@ -3661,7 +2963,7 @@ function renderSceneStats(){
   const totD=sumBy(SOURCES,s=>w[s.id]);
   countUp($('#statSaldo'),totD);
   $('#statSaldo').style.color=totD<0?'var(--rose-deep)':'';
-  $('#statSaldoSub').textContent=`${SOURCES.length} dompet aktif`;
+  $('#statSaldoSub').textContent=`${SOURCES.length} sumber dana`;
   countUp($('#statIn'),masuk);
   $('#statInSub').textContent=`${nIn} transaksi · ${monthLabel(mk)}`;
   countUp($('#statOut'),keluar);
@@ -3716,7 +3018,7 @@ function renderBudgets(){
       <div class="b-head">
         <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
         <b>${esc(r.category)}${mk==='ALL'?` <span style="color:var(--ink-3);font-weight:600;font-size:10.5px">· ${monthShort(r.month)}</span>`:''}</b>
-        <small class="${over?'warn':''}">${over?'Melebihi batas!':`sisa ${rupiah(r.amount-r.used)}`}</small>
+        <small class="${over?'warn':''}">${over?'Melebihi batas':`sisa ${rupiah(r.amount-r.used)}`}</small>
       </div>
       <div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div>
       <div class="t-sub t-num" style="font-size:11px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
@@ -3749,16 +3051,16 @@ function renderJatah(){
   if(!body)return;
   $('#jatahMonth').textContent=monthLabel(mk);
   if(mk==='ALL'||!BUDGETS.some(b=>b.month===mk)){
-    $('#jatahTitle').textContent='Kuota belanja per hari';
-    body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada anggaran bulan ini</b><p>Pilih bulan yang punya batas kategori tercatat untuk melihat jatah harianmu.</p></div>`;
+    $('#jatahTitle').textContent='Sisa belanja per hari';
+    body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada anggaran bulan ini</b><p>Pilih bulan yang punya batas kategori untuk melihat jatah harianmu.</p></div>`;
     return;
   }
   const j=jatahInfo(mk),over=j.sisa<0;
-  $('#jatahTitle').textContent=j.cur?'Kuota belanja per hari':`Hasil anggaran · ${monthShort(mk)}`;
+  $('#jatahTitle').textContent=j.cur?'Sisa belanja per hari':`Hasil anggaran · ${monthShort(mk)}`;
   const main=j.cur
     ?(over
-      ?`<div class="jatah-main over"><div class="num t-num">Rp 0<small>/hari</small></div><div class="lbl">Jatah habis</div><div class="sub">Melebihi anggaran ${rupiah(-j.sisa)}. Waktunya jeda belanja.</div></div>`
-      :`<div class="jatah-main"><div class="num t-num">${rupiah(Math.round(j.jatah))}<small>/hari</small></div><div class="lbl">Jatah hari ini</div><div class="sub">Sisa ${rupiah(j.sisa)} untuk ${j.daysLeft} hari lagi · sampai tgl ${j.dim}.</div></div>`)
+      ?`<div class="jatah-main over"><div class="num t-num">Rp 0<small>/hari</small></div><div class="lbl">Jatah habis</div><div class="sub">Melebihi anggaran ${rupiah(-j.sisa)} bulan ini.</div></div>`
+      :`<div class="jatah-main"><div class="num t-num">${rupiah(Math.round(j.jatah))}<small>/hari</small></div><div class="lbl">Jatah hari ini</div><div class="sub">Sisa ${rupiah(j.sisa)} untuk ${j.daysLeft} hari · hingga akhir bulan.</div></div>`)
     :`<div class="jatah-main${over?' over':''}"><div class="num t-num">${rupiah(j.used)}</div><div class="lbl">Terpakai</div><div class="sub">Dari anggaran ${rupiah(j.totB)} · bulan sudah berakhir.</div></div>`;
   const status=j.proj<=j.totB?'<span style="color:var(--sage-deep)">aman</span>':j.proj<=j.totB*1.1?'<span style="color:var(--honey-deep)">waspada</span>':'<span style="color:var(--rose-deep)">lewati batas</span>';
   const warna=j.pct<70?'var(--sage)':j.pct<90?'var(--honey)':'var(--rose)';
@@ -3771,8 +3073,8 @@ function renderJatah(){
     ${j.cur?`<div class="pace">
       <div class="pace-head"><span>Laju belanja vs anggaran</span><span class="t-num">${j.pct}%</span></div>
       <div class="pace-wrap"><div class="bar"><i data-w="${Math.min(100,j.pct)}%" style="background:${warna}"></i></div>
-        <span class="pace-tick" style="left:${Math.round(j.d/j.dim*100)}%" title="Laju ideal — hari ke-${j.d} dari ${j.dim}"></span></div>
-      <div class="pace-note">Garis amber = posisi ideal hari ini (ke-${j.d} dari ${j.dim}). Di kirinya berarti hemat, di kanannya berarti cepat.</div>
+        <span class="pace-tick" style="left:${Math.round(j.d/j.dim*100)}%" title="Laju ideal: hari ke-${j.d} dari ${j.dim}"></span></div>
+      <div class="pace-note">Garis amber = posisi ideal hari ini (hari ke-${j.d} dari ${j.dim}). Di kirinya berarti hemat, di kanannya berarti belanja lebih cepat.</div>
     </div>`:''}`;
   body.innerHTML=main+`<div>${side}</div>`;
   animateBars(body);
@@ -3784,7 +3086,7 @@ function renderSpendHeat(){
   if(!body)return;
   if(mk==='ALL'){
     $('#heatTitle').textContent='Intensitas belanja harian';
-    body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Pilih bulan dulu</b><p>Peta panas tampil per bulan — pilih salah satu chip bulan di atas.</p></div>`;
+    body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Pilih bulan dulu</b><p>Peta panas tampil per bulan. Pilih salah satu chip bulan di atas.</p></div>`;
     return;
   }
   const y=+mk.slice(0,4),m=+mk.slice(5,7);
@@ -3823,7 +3125,7 @@ function renderSpendHeat(){
     <div class="sh-dow" aria-hidden="true">${DOWS.map(d=>`<span>${d}</span>`).join('')}</div>
     <div class="sh-grid">${cells}</div>
     <div class="sh-insight">
-      <span class="t-sub" style="font-size:12px"><b style="color:var(--honey-deep)">Hari terberat:</b> ${tglPendek(heaviest[0])} — ${rupiah(heaviest[1])}</span>
+      <span class="t-sub" style="font-size:12px"><b style="color:var(--honey-deep)">Hari terberat:</b> ${tglPendek(heaviest[0])} · ${rupiah(heaviest[1])}</span>
       <span class="t-sub" style="font-size:12px"><b style="color:var(--terra-deep)">${noSpend} hari tanpa belanja</b> dari ${dimSoFar}</span>
       <span class="t-sub" style="font-size:12px"><b>Rata-rata:</b> ${rupiah(Math.round(total/dimSoFar))}/hari</span>
     </div>`;
@@ -3855,7 +3157,7 @@ function renderTx(){
     $('#txList').innerHTML=`<div class="empty-state">
       <svg class="ill" aria-hidden="true"><use href="#ill-kosong"/></svg>
       <b>${kosongBulan?(mk===cur?'Belum ada transaksi bulan ini':'Tidak ada transaksi di '+monthLabel(mk)):'Tidak ada transaksi'}</b>
-      <p>${kosongBulan?'Coba pilih rentang “Semua bulan” atau bulan lain di filter.':'Coba ubah kata kunci atau filter yang kamu pilih.'}</p></div>`;
+      <p>${kosongBulan?'Pilih “Semua bulan” atau bulan lain di filter.':'Ubah kata kunci atau filternya.'}</p></div>`;
     return;
   }
   let html='',lastKey='';
@@ -3926,12 +3228,12 @@ function askDelete(kind,key){
   if(kind==='habit'){
     const h=habitById(key);if(!h)return;
     name=h.name;
-    desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini — semuanya ikut keluar dari statistik sesi (ring, streak, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
+    desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini. Semuanya ikut keluar dari statistik sesi (progres, streak, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
     $('#delEyebrow').textContent='Hapus kebiasaan';
   }else{
     name=key;
     const n=catUsage(key);
-    desc=n?`Ada <b>${n} transaksi</b> memakai kategori ini — transaksinya tetap tampil, hanya pilihannya yang hilang dari formulir catat.`:'Belum ada transaksi memakai kategori ini.';
+    desc=n?`Ada <b>${n} transaksi</b> memakai kategori ini. Transaksinya tetap tampil; hanya pilihannya yang hilang dari formulir catat.`:'Belum ada transaksi memakai kategori ini.';
     $('#delEyebrow').textContent='Hapus kategori';
   }
   delTarget={kind,key,name};
@@ -3949,11 +3251,11 @@ function doDelete(){
     syncToday();
     renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
     if(inited.wawasan)renderConsChart();
-    toast('Kebiasaan dihapus (sesi konsep)',`${name} keluar dari tampilan — database asli tak berubah.`,'i-trash','rose');
+    toast('Kebiasaan dihapus',`${name} keluar dari tampilan. Database asli tak tersentuh.`,'i-trash','rose');
   }else{
     FINCATS=FINCATS.filter(c=>c.name!==key);
     fillTxType(txType);
-    toast('Kategori dihapus (sesi konsep)',`${name} tak lagi muncul di formulir transaksi.`,'i-trash','rose');
+    toast('Kategori dihapus',`${name} tak lagi muncul di formulir transaksi.`,'i-trash','rose');
   }
   delTarget=null;closeModals();renderSettings();
 }
@@ -3974,7 +3276,7 @@ function renderCal(){
     const on=Math.min(7,cnt);
     const gemuk=!future&&cnt>=5;
     let ticks='';if(!future)for(let j=0;j<7;j++)ticks+=`<i class="${j<on?'on':''}"></i>`;
-    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" data-cal="${k}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} — ${cnt} kebiasaan selesai">
+    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" data-cal="${k}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} · ${cnt} kebiasaan selesai">
       <span class="d">${i}</span>${future?'':`<span class="ticks">${ticks}</span>`}
       ${gemuk?'<svg class="perf-star" aria-hidden="true"><use href="#i-sparkle"/></svg>':''}
     </button>`;
@@ -4008,7 +3310,7 @@ function renderDayDetail(d){
   const keluar=sumBy(tx.filter(t=>t.type==='expense'),t=>t.amount);
   const sempurna=!future&&total>0&&cnt>=total;
   const gemuk=!future&&cnt>=5;
-  const judul=sempurna?'Semua selesai!':gemuk?'Hari terpadat':cnt>0?'Setengah jalan':'Belum ada catatan';
+  const judul=sempurna?'Semua selesai':gemuk?'Hari terpadat':cnt>0?'Setengah jalan':'Belum ada catatan';
   const spotIll=sempurna?'ill-pagi':gemuk?'ill-sprout':cnt>0?'ill-jalan':'ill-kosong';
   const doneIds=future?[]:(logsByDate[k]||[]);
   const habitRows=HABITS.map(h=>{
@@ -4022,7 +3324,7 @@ function renderDayDetail(d){
   $('#dayDetail').innerHTML=`
     <div class="dd-head"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
       <div><b>${HARI[d.getDay()]}</b><small>${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}${isToday?' · hari ini':''}</small></div></div>
-    ${future?`<p class="t-sub" style="font-size:13px">Belum terjadi — kalender ini mengikuti catatan sungguhanmu.</p>`
+    ${future?`<p class="t-sub" style="font-size:13px">Belum terjadi. Kalender hanya mengisi hari yang sudah dicatat.</p>`
     :`<div class="dd-stats">
       <span class="pill"><svg class="ic" style="width:14px;height:14px;color:var(--terra-deep)" aria-hidden="true"><use href="#i-checklist"/></svg>${cnt}/${total} kebiasaan · ${judul}</span>
       ${masuk?`<span class="pill" style="color:var(--sage-deep)">+${rupiah(masuk)}</span>`:''}
@@ -4050,6 +3352,7 @@ function renderConsChart(){
     weeks.push({s,c});ws=addDays(ws,7);
   }
   const vals=weeks.map(w=>w.c);
+  const ct=$('#consTitle');if(ct)ct.textContent=`Konsistensi ${vals.length} minggu terakhir`;
   const avg=Math.round(sumBy(vals,v=>v)/vals.length);
   const maxV=Math.max(...vals,1);
   const W=560,H=240,L=44,R=14,T=18,B=34;
@@ -4109,20 +3412,20 @@ function renderFindings(){
   const lastKey=allKeys.sort()[allKeys.length-1];
   const gap=lastKey?Math.round((TODAY-new Date(lastKey+'T00:00:00'))/864e5):null;
   const items=[];
-  if(ch)items.push({ill:'ill-api',b:`${ch.name} — paling sering dicatat`,s:`${ch.total} catatan sejak ${ch.first?tglPendek(ch.first):'—'} · terbaik ${ch.best} hari beruntun.`});
-  if(dowSum[best])items.push({ill:'ill-pagi',b:`Hari terproduktif: ${HARI[(best+WS)%7]}`,s:`${dowSum[best]} catatan — terbanyak di antara semua hari.`});
+  if(ch)items.push({ill:'ill-api',b:`${ch.name}: paling sering dicatat`,s:`${ch.total} catatan sejak ${ch.first?tglPendek(ch.first):'—'} · terbaik ${ch.best} hari beruntun.`});
+  if(dowSum[best])items.push({ill:'ill-pagi',b:`Hari terproduktif: ${HARI[(best+WS)%7]}`,s:`${dowSum[best]} catatan, terbanyak dari semua hari.`});
   if(entries[0])items.push({ill:'ill-keranjang',b:`Pos terbesar: ${entries[0][0]}`,s:`${rupiah(entries[0][1])} · ${Math.round(entries[0][1]/total*100)}% dari total belanja.`});
-  if(topSrc)items.push({ill:'ill-dompet',b:`${srcName(topSrc[0])} — dompet teraktif`,s:`${topSrc[1]} dari ${TXS.length} transaksi lewat dompet ini.`});
+  if(topSrc)items.push({ill:'ill-dompet',b:`${srcName(topSrc[0])}: sumber teraktif`,s:`${topSrc[1]} dari ${TXS.length} transaksi lewat sumber ini.`});
   if(gap!==null&&gap>=5)items.push({ill:'ill-bulan',b:`Terakhir aktif ${tglPendek(lastKey)}`,s:`${gap} hari tanpa catatan. Mulai lagi kapan saja.`});
   $('#findList').innerHTML=items.slice(0,5).map(it=>`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${it.ill}"/></svg></span><div><b>${esc(it.b)}</b><small>${esc(it.s)}</small></div></div>`).join('');
 }
 function renderReko(){
   const m=expByCat('ALL');delete m['Penyesuaian Saldo'];
   const top=Object.entries(m).sort((a,b)=>b[1]-a[1])[0];
-  const first=top?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span><div><b>Batas mingguan untuk ${esc(top[0])}</b><small>Pos terbesar: ${rupiah(top[1])}. Bagi jadi batas per pekan agar terkendali.</small></div></div>`:'';
+  const first=top?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span><div><b>Batas mingguan untuk ${esc(top[0])}</b><small>Pos terbesar: ${rupiah(top[1])}. Bagi jadi batas per pekan supaya terkendali.</small></div></div>`:'';
   $('#rekoList').innerHTML=first+`
     <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span><div><b>Catat sebelum tidur</b><small>Luangkan tiga menit menutup hari dengan catatan singkat.</small></div></div>
-    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-ranjang"/></svg></span><div><b>Mulai dari 5 menit</b><small>Tak sanggup mulai besar? Mulai lima menit — pelan tapi konsisten.</small></div></div>`;
+    <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-ranjang"/></svg></span><div><b>Mulai dari 5 menit</b><small>Tak sanggup mulai besar? Mulai lima menit, pelan tapi konsisten.</small></div></div>`;
 }
 function renderBadges(){
   const ch=champion();
@@ -4135,7 +3438,7 @@ function renderBadges(){
     {ill:'ill-api',t:'Api Pertama',s:'Satu kebiasaan beruntun 7 hari',ok:maxRun>=7,tag:`Terbaik ${maxRun} hari`},
     {ill:'ill-piala',t:'Hari Terpadat',s:'5+ kebiasaan dalam sehari',ok:!!(busiest&&busiest[1].length>=5),tag:busiest?`Puncak ${busiest[1].length} catatan · ${tglPendek(busiest[0])}`:'—'},
     {ill:'ill-medali',t:'Trio 30',s:'3 kebiasaan dengan 30+ catatan',ok:trio>=3,tag:`${trio}/3 kebiasaan`},
-    {ill:'ill-roket',t:'Penjaga Andalan',s:'Jangkar dengan 30+ catatan total',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
+    {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan andalan dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
     {ill:'ill-lari',t:'Jalan 10×',s:'Kebiasaan Jalan tercatat 10 kali',ok:!!(jalan&&jalan.total>=10),tag:`${jalan?jalan.total:0}/10 catatan`},
   ];
   $('#badgeGrid').innerHTML=list.map(b=>`
@@ -4177,9 +3480,9 @@ function toggleCheck(id,src){
   syncToday();
   if(doneToday[id]){
     if(src){const r=src.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2)}
-    if(doneTodayCount()>=HABITS.length&&HABITS.length>0){confetti();toast('Semua kebiasaan selesai!',`Semua ${HABITS.length} kebiasaan hari ini tercatat.`,'i-sparkle','honey')}
-    else if(isAmount(h))toast('Target tercapai',`${h.name} — ${amtLabel(h)} · tersimpan di sesi konsep.`,'i-check','sage');
-    else toast('Kebiasaan selesai',`${h.name} — tersimpan di sesi konsep.`,'i-check','sage');
+    if(doneTodayCount()>=HABITS.length&&HABITS.length>0){confetti();toast('Semua kebiasaan selesai',`${HABITS.length} kebiasaan hari ini tercatat.`,'i-sparkle','honey')}
+    else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)} · sesi ini saja.`,'i-check','sage');
+    else toast('Kebiasaan selesai',`${h.name} tercatat · sesi ini saja.`,'i-check','sage');
   }
   refreshToday();
 }
@@ -4205,7 +3508,7 @@ document.addEventListener('click',e=>{
   if(hc){const k=hc.dataset.heat;
     const t=TXS.filter(x=>x.date===k&&x.type==='expense');
     const tot=sumBy(t,x=>x.amount);
-    toast(`${+k.slice(8)} ${BULAN[+k.slice(5,7)-1]}`,tot?`${rupiah(tot)} keluar · ${t.length} transaksi`:'Hari tanpa belanja — dompet beristirahat.',tot?'i-wallet':'i-leaf',tot?'honey':'sage');
+    toast(`${+k.slice(8)} ${BULAN[+k.slice(5,7)-1]}`,tot?`${rupiah(tot)} keluar · ${t.length} transaksi`:'Tidak ada pengeluaran hari ini.',tot?'i-wallet':'i-leaf',tot?'honey':'sage');
     return}
   const fm=e.target.closest('[data-fin-month]');
   if(fm){state.finMonth=fm.dataset.finMonth;refinance();return}
@@ -4238,7 +3541,7 @@ function fillTxType(t){
   $('#txCat').innerHTML=FINCATS.filter(c=>c.type===jenis).map(c=>`<option value="${esc(c.name)}">${c.emoji} ${esc(c.name)}</option>`).join('');
 }
 function fillTxSources(){
-  $('#txSource').innerHTML=`<option value="">— tanpa sumber —</option>`+SOURCES.map(s=>`<option value="${esc(s.id)}">${s.emoji} ${esc(s.name)}</option>`).join('');
+  $('#txSource').innerHTML=`<option value="">Tanpa sumber</option>`+SOURCES.map(s=>`<option value="${esc(s.id)}">${s.emoji} ${esc(s.name)}</option>`).join('');
 }
 $('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
 $('#txAmount').addEventListener('input',e=>{
@@ -4253,7 +3556,7 @@ $('#formTx').addEventListener('submit',e=>{
   if(!cat){toast('Pilih kategori dulu','','i-x','rose');return}
   const dv=$('#txDate').value;
   if(!dv){toast('Tanggal belum dipilih','','i-x','rose');return}
-  if(dv>dayKey(TODAY)){toast('Tanggal di masa depan','Konsep ini hanya menerima hari ini atau sebelumnya.','i-x','rose');return}
+  if(dv>dayKey(TODAY)){toast('Tanggal di masa depan','Hanya bisa mencatat hari ini atau sebelumnya.','i-x','rose');return}
   const src=$('#txSource').value||null;
   const note=$('#txNote').value.trim();
   TXS.unshift({id:'local-'+Date.now(),type:txType==='masuk'?'income':'expense',amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
@@ -4263,7 +3566,7 @@ $('#formTx').addEventListener('submit',e=>{
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   refinance();fillTxMonths();
   if(inited.cal)renderDayDetail(state.calSel);
-  toast('Transaksi tercatat (konsep)',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${cat}${src?' · '+srcName(src):''}`,'i-check','sage');
+  toast('Transaksi tercatat',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${cat}${src?' · '+srcName(src):''} · sesi ini saja`,'i-check','sage');
 });
 
 /* modal kebiasaan */
@@ -4297,7 +3600,7 @@ $('#formHabit').addEventListener('submit',e=>{
     dates:[],total:0,best:0,first:null,last:null,emoji:''});
   closeModals();e.target.reset();renderIconPicker();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();
-  toast('Kebiasaan baru ditambahkan (konsep)',`${nama} siap dicatat.`,'i-sparkle','honey');
+  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · sesi ini saja.`,'i-sparkle','honey');
 });
 
 /* kalender nav & pencarian */
@@ -4309,8 +3612,8 @@ $('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderT
 $('#btnDelConfirm').addEventListener('click',doDelete);
 $('#btnBell').addEventListener('click',()=>{
   const sisa=HABITS.length-doneTodayCount();
-  if(sisa>0)toast(`${sisa} kebiasaan menunggu`,sisa===HABITS.length?'Hari masih segar — mulai dari yang paling ringan.':`Sisa ${sisa} catatan — hampir sempurna!`,'i-flame');
-  else toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Menampilkan snapshot database — Turso tak terjangkau.','i-bell');
+  if(sisa>0)toast(`${sisa} kebiasaan menunggu`,sisa===HABITS.length?'Hari masih segar. Mulai dari yang termudah.':`Tinggal ${sisa} catatan lagi hari ini.`,'i-flame');
+  else toast('Tidak ada notifikasi baru',LIVE?'Data dibaca langsung dari database-mu.':'Database tak terjangkau · menampilkan snapshot terakhir.','i-bell');
 });
 
 /* ---------- animasi masuk "Tunas Pagi" ----------
