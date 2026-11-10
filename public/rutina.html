@@ -755,6 +755,39 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @keyframes bpOut{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(1.15)}}
 @keyframes fall{to{transform:translate(var(--dx,0),106vh) rotate(var(--rot,540deg));opacity:.9}}
 
+/* ---------- v2.19 · partikel botani bernasib baik (reinforcement positif) ----------
+   Daun & koin SVG kecil melayang dari titik aksi — bukan kotak polos:
+   bentuk taman yang sama dengan tema, sehingga perayaan terasa "milik
+   Rutina". Semua hormat prefers-reduced-motion (guard di JS). */
+.bt{position:fixed;z-index:128;pointer-events:none;width:var(--sz,14px);height:var(--sz,14px);opacity:0;animation:btUp .95s cubic-bezier(.18,.6,.32,1) forwards}
+.bt svg{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 3px rgba(15,23,42,.12))}
+@keyframes btUp{
+  0%{opacity:0;transform:translate(-50%,-30%) scale(.4) rotate(var(--r0,0deg))}
+  22%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(1) rotate(var(--r1,80deg))}
+}
+/* hujan lembut dari atas viewport — dipakai saat hari sempurna */
+.bt-rain{position:fixed;top:-24px;z-index:128;pointer-events:none;width:var(--sz,16px);height:var(--sz,16px);opacity:0;animation:btRain 2.3s cubic-bezier(.3,.5,.6,1) forwards}
+@keyframes btRain{
+  0%{opacity:0;transform:translate(0,0) rotate(0deg)}
+  12%{opacity:1}
+  86%{opacity:1}
+  100%{opacity:0;transform:translate(var(--dx,0),104vh) rotate(var(--rot,520deg))}
+}
+/* badge perayaan kecil di sekitar tombol yang baru diaktifkan */
+.bt-glow{animation:btGlow .9s cubic-bezier(.2,.8,.3,1)}
+@keyframes btGlow{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}70%{box-shadow:0 0 0 14px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+
+/* ---------- v2.19 · sapaan emosional ----------
+   .is-bloom: subjudul hari sempurna memakai terra pekat + lonjakan lembut
+   (rayakan, jangan berteriak); .streak-guard: pengingat runtun berisiko —
+   loss aversion lembut tanpa warna bahaya, memakai honey seperti mentari. */
+.t-sub.is-bloom{color:var(--terra-strong);font-weight:650;animation:bloomIn .6s cubic-bezier(.2,.8,.3,1)}
+@keyframes bloomIn{0%{transform:translateY(4px);opacity:.2}100%{transform:none;opacity:1}}
+.streak-guard{display:inline-flex;align-items:baseline;gap:6px;margin-top:8px;padding:6px 12px;border-radius:999px;background:var(--honey-soft);border:1px solid rgba(251,191,36,.45);color:var(--honey-deep);font-size:12px;font-weight:650;max-width:100%}
+.streak-guard .ic{width:13px;height:13px;flex:none;transform:translateY(2px)}
+.streak-guard span{min-width:0;flex:1} /* v2.19 · boleh wrap 2 baris di layar sempit — nama kebiasaan tak terpotong elipsis */
+
 /* ---------- ilustrasi identitas halaman & kartu baru ---------- */
 .ph-id{display:flex;align-items:center;gap:14px;min-width:0}
 .ph-art{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
@@ -2098,6 +2131,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="eyebrow">Ritme tanam</div>
       <h2 class="h-serif" id="habHeroTitle">Kebiasaan hari ini</h2>
       <p class="t-sub" id="habHeroSub">Memuat progres hari ini…</p>
+      <div class="streak-guard" id="habStreakGuard" hidden><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span id="habStreakTxt"></span></div>
       <div class="ph-progress">
         <div class="bar"><i id="habHeroBar" data-w="0%"></i></div>
         <span class="pill" id="habHeroPill">—</span>
@@ -3243,6 +3277,57 @@ function burst(x,y){
     document.body.appendChild(p);setTimeout(()=>p.remove(),720);
   }
 }
+/* ---------- v2.19 · partikel botani bernasib baik ----------
+   Efek psikologis: reinforcement positif BERBENTUK TEMA (daun=konsistensi
+   hidup, koin=uang tercatat, kelopak=hari sempurna) — perayaan kecil yang
+   membuat "mencatat" terasa menyenangkan, bukan kewajiban. */
+const BT_SHAPES={
+  leaf:`<svg viewBox="0 0 24 24"><path d="M12 21C7 16.6 3 13.4 3 9.3 3 5.8 5.7 3 9.2 3c1.7 0 2.8.7 2.8.7S13.1 3 14.8 3C18.3 3 21 5.8 21 9.3c0 4.1-4 7.3-9 11.7z" fill="#10B981"/></svg>`,
+  leafLight:`<svg viewBox="0 0 24 24"><path d="M12 21C7 16.6 3 13.4 3 9.3 3 5.8 5.7 3 9.2 3c1.7 0 2.8.7 2.8.7S13.1 3 14.8 3C18.3 3 21 5.8 21 9.3c0 4.1-4 7.3-9 11.7z" fill="#A7F3D0"/></svg>`,
+  petal:`<svg viewBox="0 0 24 24"><path d="M12 2c1 3.2 3.4 5.2 6.5 5.9-.5 4.4-3.1 8-6.5 10.1-3.4-2.1-6-5.7-6.5-10.1C8.6 7.2 11 5.2 12 2z" fill="#FBBF24"/><circle cx="12" cy="13.5" r="2.6" fill="#F472B6"/></svg>`,
+  coin:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="#FBBF24"/><circle cx="12" cy="12" r="6.8" fill="#FCD34D"/><path d="M12 8.6v6.8M9.6 10.4c0-1 .9-1.8 2.4-1.8s2.4.8 2.4 1.8-.9 1.6-2.4 1.6-2.4.6-2.4 1.6.9 1.8 2.4 1.8 2.4-.8 2.4-1.8" stroke="#B45309" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  sparkle:`<svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z" fill="#38BDF8"/></svg>`
+};
+/* ledakan kecil di titik aksi (x,y = koordinat viewport) */
+function botaniBurst(x,y,{kinds=['leaf','leafLight'],n=8,rad=34}={}){
+  if(reduced)return;
+  for(let i=0;i<n;i++){
+    const p=document.createElement('i');p.className='bt';
+    const ang=Math.PI*2*(i/n)-(Math.PI/2)+(Math.random()-.5)*.6;
+    const r=rad*(.6+Math.random()*.7);
+    p.style.left=x+'px';p.style.top=y+'px';
+    p.style.setProperty('--bx',(Math.cos(ang)*r).toFixed(1)+'px');
+    p.style.setProperty('--by',(Math.sin(ang)*r-14).toFixed(1)+'px'); /* naik dulu, seperti tumbuh */
+    p.style.setProperty('--r0',(Math.random()*-30-20).toFixed(0)+'deg');
+    p.style.setProperty('--r1',(Math.random()*160-40).toFixed(0)+'deg');
+    p.style.setProperty('--sz',(10+Math.random()*7).toFixed(1)+'px');
+    p.innerHTML=BT_SHAPES[kinds[i%kinds.length]];
+    p.style.animationDelay=(i%3)*60+'ms';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),1300);
+  }
+}
+/* hujan lembut memenuhi layar — momen besar (hari sempurna / pencapaian) */
+function botaniRain({kinds=['petal','leaf','sparkle'],n=22}={}){
+  if(reduced)return;
+  for(let i=0;i<n;i++){
+    const p=document.createElement('i');p.className='bt-rain';
+    p.style.left=(Math.random()*100)+'vw';
+    p.style.setProperty('--dx',(Math.random()*120-60).toFixed(0)+'px');
+    p.style.setProperty('--rot',(360+Math.random()*540).toFixed(0)+'deg');
+    p.style.setProperty('--sz',(12+Math.random()*9).toFixed(1)+'px');
+    p.innerHTML=BT_SHAPES[kinds[i%kinds.length]];
+    p.style.animationDelay=(Math.random()*.8).toFixed(2)+'s';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),3400);
+  }
+}
+/* kilau cincin di sekitar elemen aksi — tanda "ini berhasil" tanpa suara */
+function glowPulse(el){
+  if(reduced||!el)return;
+  el.classList.remove('bt-glow');void el.offsetWidth;el.classList.add('bt-glow');
+  setTimeout(()=>el.classList.remove('bt-glow'),1000);
+}
 function countUp(el,to,{dur=850,fmt=rupiah}={}){
   if(reduced||!el){if(el)el.textContent=fmt(to);return}
   /* v2.13: menggelinding dari nilai sebelumnya — re-render terasa hidup,
@@ -3362,14 +3447,43 @@ function smoothPath(pts){
 }
 
 /* ---------- identitas & sapaan ---------- */
+/* v2.19 · sapaan emosional — psikologi "betah": subjudul tidak lagi
+   kering (tanggal + jumlah transaksi, keduanya sudah ada di topbar),
+   melainkan cerita keadaan pengguna hari ini: momentum goal-gradient,
+   selamat-datang-kembali tanpa menuduh, atau rayakan hari sempurna. */
 function renderIdentity(){
   const now=new Date();
   const nama=SETTINGS.userName||'Sahabat Rutina';
   $('#greetTitle').textContent='Ringkasan hari ini';
+  /* baris subjudul = cerita emosional hari ini (tanggal diserahkan topbar) */
+  const n=HABITS.length,done=doneTodayCount();
+  const sisa=n-done;
+  const terakhirLog=Object.keys(logsByDate).sort().pop();
+  const hariTanpaCatatan=terakhirLog?(Math.round((startOfDay(TODAY)-new Date(terakhirLog+'T00:00:00'))/864e5)):null;
+  let cerita;
+  if(n>0&&done>=n){
+    cerita=`Hari sempurna, ${nama.split(' ')[0]} — ${n} kebiasaan tuntas, tamanmu berbunga 🌸`;
+    $('#greetSub').classList.add('is-bloom');
+  }else if(n>0&&sisa===1){
+    /* goal-gradient: satu langkah lagi terasa paling ringan untuk diambil */
+    cerita=`Satu contangan lagi menuju hari sempurna — hampir sampai 🌿`;
+    $('#greetSub').classList.remove('is-bloom');
+  }else if(n>0&&done>0){
+    cerita=`Momentum hidup: ${done}/${n} tuntas — ${sisa} lagi menuju hari sempurna`;
+    $('#greetSub').classList.remove('is-bloom');
+  }else if(hariTanpaCatatan>=2){
+    /* fresh-start tanpa menuduh: senang kembali, bukan "kamu bolos" */
+    cerita=`Senang kamu kembali — ${hariTanpaCatatan} hari sejak catatan terakhir. Satu catatan hari ini cukup untuk mulai lagi`;
+    $('#greetSub').classList.remove('is-bloom');
+  }else if(n>0){
+    cerita=`${n} kebiasaan menunggu contongan hari ini — satu klik menumbuhkan tunas baru`;
+    $('#greetSub').classList.remove('is-bloom');
+  }else{
+    cerita=`Hari baru mencatat — tambahkan kebiasaan pertama untuk menumbuhkan tamanmu`;
+    $('#greetSub').classList.remove('is-bloom');
+  }
+  $('#greetSub').textContent=cerita;
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
-  /* v2.17 · tanggal cukup satu sumber per zona; "hari aktif" diserahkan ke
-     hero pohon agar subjudul & hero tak mengulang data yang sama */
-  $('#greetSub').textContent=`${tglLengkap} · ${TXS.length} transaksi`;
   $('#tbDate').innerHTML=`<b>${tglLengkap}</b>`;
   $('#tbStreak').textContent=activeDaysAll();
   $('#tbStreakUnit').textContent='hari aktif total';
@@ -3475,9 +3589,24 @@ function renderHabitsHero(){
   const n=HABITS.length,done=doneTodayCount();
   const pct=n?Math.round(done/n*100):0;
   $('#habHeroTitle').textContent=n?`${done} dari ${n} kebiasaan selesai`:'Ritme tanam menunggu';
+  /* v2.19 · copy goal-gradient: makin dekat sempurna, makin ringan melangkah */
   $('#habHeroSub').textContent=!n?'Tambahkan kebiasaan pertama untuk mulai menumbuhkan ritme.'
-    :done>=n?'Semua kebiasaan hari ini tuntas — istirahat yang layak.'
-    :`${n-done} kebiasaan menunggu centangan hari ini.`;
+    :done>=n?'Semua kebiasaan hari ini tuntas — istirahat yang layak. Tamanmu berbunga 🌸'
+    :n-done===1?'Hampir sempurna — satu contangan lagi hari ini.'
+    :done>0?`${done} tuntas · ${n-done} lagi menuju hari sempurna — kamu sedang melangkah.`
+    :`${n} kebiasaan menunggu — mulai dari yang paling ringan.`;
+  /* v2.19 · streak-guard: loss aversion lembut — runtun panjang yang belum
+     dicatat hari ini diberi pengingat hangat (bukan ancaman merah) */
+  const guard=$('#habStreakGuard');
+  if(guard){
+    const tk=dayKey(TODAY);
+    const berisiko=HABITS.filter(h=>h.best>=3&&!(doneToday[h.id]));
+    const top=berisiko.sort((a,b)=>b.best-a.best)[0];
+    if(top&&berisiko.length){
+      $('#habStreakTxt').textContent=`Jaga runtun ${top.best} hari milik ${top.name} — satu catatan agar tak putus`;
+      guard.hidden=false;
+    }else guard.hidden=true;
+  }
   $('#habHeroBar').dataset.w=pct+'%';
   const best=Math.max(0,...HABITS.map(h=>h.best||0));
   $('#habHeroPill').textContent=`Rekor runtun ${best} hari`;
@@ -4590,14 +4719,25 @@ function toggleCheck(id,src){
   else if(!doneToday[id]&&di>=0){h.dates.splice(di,1);h.total--}
   h.best=bestRun(h.dates);h.first=h.dates[0]||null;h.last=h.dates[h.dates.length-1]||null;
   if(doneToday[id]){
-    if(src){const r=src.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2)}
-    if(doneTodayCount()>=HABITS.length&&HABITS.length>0){confetti();toast('Semua kebiasaan selesai',`${HABITS.length} kebiasaan hari ini tercatat.`,'i-sparkle','honey')}
-    else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)} · sesi ini saja.`,'i-check','sage');
-    else toast('Kebiasaan selesai',`${h.name} tercatat · sesi ini saja.`,'i-check','sage');
+    /* v2.19 · reinforcement positif: daun botani menyerbuk dari titik
+       centang + kilau cincin — "mencatat terasa hidup", bukan sekadar
+       angka berubah */
+    if(src){const r=src.getBoundingClientRect();botaniBurst(r.left+r.width/2,r.top+r.height/2,{kinds:['leaf','leafLight','sparkle'],n:9,rad:40});glowPulse(src)}
+    haptic(12);
+    if(doneTodayCount()>=HABITS.length&&HABITS.length>0){
+      /* hari sempurna: hujan kelopak & daun + ucapan yang menyentuh */
+      botaniRain({kinds:['petal','leaf','sparkle','coin'],n:26});
+      toast('Hari sempurna! 🌸',`Semua ${HABITS.length} kebiasaan tuntas hari ini. Terima kasih sudah merawat tamanmu — besok tunas baru menunggu.`,'i-sparkle','honey');
+    }
+    else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)} — ritme kebiasaanmu hidup. 🌱`,'i-check','sage');
+    else toast('Kebiasaan selesai',`${h.name} tercatat — tunas hari ini ikut tumbuh. 🌿`,'i-check','sage');
   }
   refreshToday();
 }
 function refreshToday(){
+  /* v2.19 · sapaan emosional ikut menyegarkan — momentum/hari sempurna di
+     halaman depan berubah begitu kebiasaan terakhir dicentang */
+  renderIdentity();
   renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
   renderHabitsHero();renderWawasanHero();
   if(inited.heatmap)renderHeatmap();
@@ -4772,7 +4912,11 @@ $('#formTx').addEventListener('submit',e=>{
   $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
   refinance();fillTxMonths();
   if(inited.cal)renderDayDetail(state.calSel);
-  toast(mengubah?'Transaksi diperbarui':'Transaksi tercatat',`${tgt?(tgt.type==='income'?'+':tgt.type==='expense'?'−':'⇄ '):(txType==='masuk'?'+':'−')}${rupiah(nominal)} · ${tgt?tgt.category:cat}${src?' · '+srcName(src):''} · sesi ini saja`,mengubah?'i-edit':'i-check','sage');
+  /* v2.19 · reinforcement untuk mencatat uang: hujan koin kecil dari atas —
+     kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
+  botaniRain({kinds:['coin'],n:12});
+  haptic(14);
+  toast(mengubah?'Transaksi diperbarui':'Transaksi tercatat',`${tgt?(tgt.type==='income'?'+':tgt.type==='expense'?'−':'⇄ '):(txType==='masuk'?'+':'−')}${rupiah(nominal)} · ${tgt?tgt.category:cat}${src?' · '+srcName(src):''} · arus kas semakin jelas 🌿`,mengubah?'i-edit':'i-check','sage');
 });
 
 /* modal kebiasaan */
