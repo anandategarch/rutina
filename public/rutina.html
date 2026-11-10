@@ -1852,7 +1852,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="bar"><i id="sbBar" data-w="0%"></i></div>
       <small class="t-sub t-num" style="font-size:12px" id="sbCount">—</small>
     </div>
-    <button class="btn btn-ghost btn-sm" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+    <button class="btn btn-ghost btn-sm" data-go="keuangan" data-gofin="analisa">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   </div>
 
   <!-- RITME PEKAN + ARUS KAS (v2.8) — kartu agenda kebiasaan diganti ritme
@@ -1927,7 +1927,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span class="pill" id="miniJatah" hidden></span>
-        <button class="link-btn" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+        <button class="link-btn" data-go="keuangan" data-gofin="analisa">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
       </div>
     </div>
     <div class="grid grid3" id="miniBudgets"></div>
@@ -2001,19 +2001,35 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <div class="habit-grid" id="habitGrid"></div>
 </section>
 
-<!-- ================= HALAMAN: KEUANGAN ================= -->
+<!-- ========= HALAMAN: KEUANGAN (v2.11 · anak tab: Analisa / Mutasi Transaksi / Saldo Bank) ========= -->
 <section class="page" data-page="keuangan" aria-label="Keuangan">
   <div class="page-head">
     <div class="ph-id">
       <span class="ph-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
       <div>
         <h1 class="h-serif">Keuangan</h1>
-        <p class="t-sub" id="finSub">Ringkasan arus kas bulanan.</p>
+        <p class="t-sub" id="finSub">Analisa arus kas, anggaran & pola belanja.</p>
       </div>
     </div>
     <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
   </div>
 
+  <!-- ANAK TAB (v2.11) · kontrol segmen ala .seg setinggi tombol halaman;
+       label panjang diringkas di layar sempit lewat .ft-full/.ft-short -->
+  <div class="fin-tabs" id="finTabs" role="tablist" aria-label="Bagian keuangan">
+    <button type="button" class="fin-tab active" data-fin-section="analisa" role="tab" aria-selected="true">
+      <svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span>Analisa</span>
+    </button>
+    <button type="button" class="fin-tab" data-fin-section="mutasi" role="tab" aria-selected="false">
+      <svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg><span class="ft-full">Mutasi Transaksi</span><span class="ft-short">Mutasi</span>
+    </button>
+    <button type="button" class="fin-tab" data-fin-section="saldo" role="tab" aria-selected="false">
+      <svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><span class="ft-full">Saldo Bank</span><span class="ft-short">Saldo</span>
+    </button>
+  </div>
+
+  <!-- PANE · ANALISA -->
+  <div data-fin-pane="analisa" role="tabpanel" aria-label="Analisa keuangan">
   <!-- HERO · ARUS KAS (v2.9) — scene perbukitan hijau & koin keemasan;
        aset ini memang dirancang untuk kartu hijau tua -->
   <div class="page-hero page-hero--dark" id="financeHero">
@@ -2133,24 +2149,15 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
     <div id="heatBody"><div class="t-sub">memuat…</div></div>
   </div>
+  </div><!-- /pane analisa -->
 
-  <!-- DOMPET & SUMBER DANA (dari tabel FundSource) -->
-  <div class="card card-pad">
-    <div class="card-head">
-      <div class="ch-title">
-        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
-        <div>
-          <div class="eyebrow">Dompet</div>
-          <h3 class="h-serif">Sumber dana & saldo</h3>
-        </div>
-      </div>
-      <div class="head-act">
-        <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
-        <button class="btn btn-ghost btn-sm" data-open-modal="modalSource"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Dompet</button>
-      </div>
-    </div>
-    <div class="dompet-grid" id="dompetGrid"></div>
-    <p class="t-sub" style="font-size:12px;margin-top:12px">Saldo = saldo awal tercatat + mutasi transaksi (transfer antar-dompet netral).</p>
+  <!-- PANE · MUTASI TRANSAKSI (v2.11) -->
+  <div data-fin-pane="mutasi" hidden role="tabpanel" aria-label="Mutasi transaksi">
+  <!-- STRIP RINGKASAN MUTASI — posisi rekening-koran untuk bulan terpilih -->
+  <div class="mut-sum" id="mutSum" aria-label="Ringkasan mutasi bulan terpilih">
+    <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="mutIn">Rp 0</b><span id="mutInSub">—</span></div>
+    <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--honey-deep)" id="mutOut">Rp 0</b><span id="mutOutSub">—</span></div>
+    <div class="mut-cell"><small>Net</small><b class="t-num" id="mutNet">Rp 0</b><span id="mutNetSub">—</span></div>
   </div>
 
   <div class="card card-pad">
@@ -2183,6 +2190,67 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
     <div class="tx-scroll" id="txList"></div>
   </div>
+  </div><!-- /pane mutasi -->
+
+  <!-- PANE · SALDO BANK (v2.11) -->
+  <div data-fin-pane="saldo" hidden role="tabpanel" aria-label="Saldo bank & sumber dana">
+  <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
+  <div class="card card-pad" id="saldoCard">
+    <div class="saldo-top">
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
+        <div>
+          <div class="eyebrow">Saldo total · semua dompet</div>
+          <div class="saldo-big t-num" id="saldoTotal">Rp 0</div>
+          <p class="t-sub" id="saldoSub">—</p>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="saldoMonth">bulan ini</span>
+    </div>
+    <div class="mut-sum in" id="saldoSum" aria-label="Arus kas bulan berjalan">
+      <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="saldoIn">Rp 0</b><span id="saldoInSub">—</span></div>
+      <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--honey-deep)" id="saldoOut">Rp 0</b><span id="saldoOutSub">—</span></div>
+      <div class="mut-cell"><small>Net</small><b class="t-num" id="saldoNet">Rp 0</b><span id="saldoNetSub">—</span></div>
+    </div>
+  </div>
+
+  <!-- DOMPET & SUMBER DANA (dari tabel FundSource) -->
+  <div class="card card-pad">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
+        <div>
+          <div class="eyebrow">Dompet</div>
+          <h3 class="h-serif">Sumber dana & saldo</h3>
+        </div>
+      </div>
+      <div class="head-act">
+        <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
+        <button class="btn btn-ghost btn-sm" data-open-modal="modalSource"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Dompet</button>
+      </div>
+    </div>
+    <div class="dompet-grid" id="dompetGrid"></div>
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Saldo = saldo awal tercatat + mutasi transaksi (transfer antar-dompet netral).</p>
+  </div>
+
+  <!-- ARUS DANA TIAP DOMPET (v2.11) — mutasi masuk/keluar bulan berjalan -->
+  <div class="card card-pad">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg></span>
+        <div>
+          <div class="eyebrow">Arus dana</div>
+          <h3 class="h-serif" id="saldoFlowTitle">Mutasi tiap dompet · bulan ini</h3>
+        </div>
+      </div>
+      <div class="hm-legend" style="gap:12px;flex-wrap:wrap;justify-content:flex-end">
+        <span><i style="background:var(--sage)"></i>masuk</span>
+        <span><i style="background:var(--honey)"></i>keluar</span>
+      </div>
+    </div>
+    <div class="sf-list" id="saldoFlow"><div class="t-sub">memuat…</div></div>
+  </div>
+  </div><!-- /pane saldo -->
 </section>
 
 <!-- ================= HALAMAN: KALENDER ================= -->
@@ -2656,6 +2724,57 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .dd-well{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:900px){.dompet-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.dompet-grid{grid-template-columns:1fr}}
+/* ---------- v2.11 · anak tab keuangan (Analisa · Mutasi Transaksi · Saldo Bank) ---------- */
+.fin-tabs{display:flex;gap:5px;padding:5px;background:var(--bg-deep);border:1px solid var(--line-soft);border-radius:14px;margin-bottom:22px}
+.fin-tab{flex:1;min-width:0;min-height:46px;border-radius:10px;font-size:13px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 10px;white-space:nowrap;transition:background-color .18s,color .18s,box-shadow .18s}
+.fin-tab .ic{width:18px;height:18px;flex:none}
+.fin-tab:hover{color:var(--terra-deep)}
+.fin-tab.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
+.ft-short{display:none}
+[data-fin-pane]{display:flex;flex-direction:column}
+[data-fin-pane][hidden]{display:none}
+[data-fin-pane]>.card{margin-bottom:20px}
+.fin-pane-in{animation:finPaneIn .4s cubic-bezier(.2,.7,.3,1)}
+@keyframes finPaneIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* strip ringkasan mutasi — pola set-grid, jadi baris penuh di ponsel */
+.mut-sum{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:20px}
+.mut-sum.in{background:var(--surface-2);border-color:var(--line-soft);border-radius:12px;box-shadow:none;margin:14px 0 0}
+.mut-cell{padding:13px 16px;border-left:1px solid var(--line-soft);min-width:0}
+.mut-cell:first-child{border-left:none}
+.mut-cell small{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.mut-cell b{font-family:var(--font-display);font-size:17px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mut-cell span{display:block;font-size:12px;font-weight:600;color:var(--ink-3);margin-top:3px}
+/* ringkasan saldo total */
+.saldo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.saldo-top .ch-title{align-items:flex-start}
+.saldo-big{font-family:var(--font-display);font-size:clamp(24px,3vw,30px);font-weight:650;line-height:1.15;margin-top:4px}
+.saldo-top .t-sub{margin-top:5px}
+/* arus dana per dompet */
+.sf-list{display:flex;flex-direction:column}
+.sf-row{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
+.sf-row:hover{background:var(--surface-2)}
+.sf-row .src-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none}
+.sf-row .src-ic .ic{width:20px;height:20px}
+.sf-info{min-width:0}
+.sf-info b{font-size:13.5px;display:block;line-height:1.25}
+.sf-info small{font-size:12px;color:var(--ink-3);font-weight:600;display:block;margin-top:4px}
+.sf-bars{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.sf-bars i{display:block;height:5px;border-radius:99px;min-width:2px}
+.sf-net{font-family:var(--font-display);font-size:15px;font-weight:600;flex:none}
+.sf-net.in{color:var(--sage-deep)}
+.sf-net.out{color:var(--rose-deep)}
+@media(max-width:640px){
+  .fin-tabs{margin-bottom:16px}
+  .fin-tab{gap:6px;font-size:12.5px;min-height:44px}
+  .ft-full{display:none}
+  .ft-short{display:inline}
+  .mut-sum{grid-template-columns:1fr}
+  .mut-cell{display:flex;align-items:baseline;gap:10px;border-left:none;border-top:1px solid var(--line-soft);padding:11px 14px}
+  .mut-cell:first-child{border-top:none}
+  .mut-cell small{margin:0;flex:none}
+  .mut-cell b{font-size:15.5px;flex:none}
+  .mut-cell span{margin:0 0 0 auto;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
 /* ---------- halaman pengaturan ---------- */
 .g-set{grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
 @media(max-width:640px){.g-set{grid-template-columns:1fr}}
@@ -2789,7 +2908,7 @@ const SRC_STYLE={cash:{i:'k-kas',c:'#059669'},bank:{i:'k-bank',c:'#0EA5E9'},ewal
 const srcStyle=t=>SRC_STYLE[t]||{i:'k-bank',c:'#64748B'};
 
 /* ---------- state ---------- */
-const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',txMonth:dayKey(TODAY).slice(0,7),finMonth:'ALL',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
+const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',txMonth:dayKey(TODAY).slice(0,7),finMonth:'ALL',finSection:'analisa',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
 const inited={heatmap:false,cal:false,wawasan:false,set:false};
 const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Analisis',pengaturan:'Pengaturan'};
 let HABITS=[],GROUPS=[],HCAT={},FINCATS=[],SOURCES=[],TXS=[],BUDGETS=[],DAILY={},SETTINGS=null;
@@ -2831,6 +2950,10 @@ function prepData(){
   BUDGETS=DB.weeklyBudgets||[];DAILY={};(DB.dailyLogs||[]).forEach(d=>DAILY[d.date]=d);
   months=[...new Set(TXS.map(t=>t.date.slice(0,7)))].sort();
   state.finMonth=months[months.length-1]||'ALL';
+  /* v2.11 · default bulan riwayat: bulan berjalan bila ada mutasi, selain itu
+     bulan data terakhir — supaya pane Mutasi Transaksi langsung berisi */
+  const cur0=dayKey(TODAY).slice(0,7);
+  if(state.txMonth===cur0&&!TXS.some(t=>t.date.slice(0,7)===cur0)&&months.length)state.txMonth=months[months.length-1];
 }
 function syncToday(){
   const tk=dayKey(TODAY);
@@ -2959,7 +3082,8 @@ function renderIdentity(){
   $$('.avatar').forEach(a=>a.textContent=inisial);
   $('#sideName').textContent=nama;
   $('#sideSub').textContent=`${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
-  $('#finSub').textContent=`Arus kas ${monthLabel('ALL')} · ${TXS.length} transaksi`;
+  /* v2.11 · subjudul mengikuti anak tab aktif (renderIdentity hanya sekali di init) */
+  $('#finSub').textContent=FIN_SUBS[state.finSection]||FIN_SUBS.analisa;
 }
 
 /* ---------- v2.8 · hero pohon konsistensi ----------
@@ -3582,6 +3706,97 @@ function renderWallets(){
   }).join('');
   $('#dompetSum').textContent=`Total ${rupiah(sumBy(SOURCES,s=>w[s.id]))}`;
 }
+
+/* ---------- v2.11 · anak tab keuangan: Analisa · Mutasi Transaksi · Saldo Bank ---------- */
+const FIN_SUBS={
+  analisa:'Analisa arus kas, anggaran & pola belanja.',
+  mutasi:'Riwayat mutasi transaksi — siap disunting.',
+  saldo:'Saldo bank, tunai & dompet digital.'
+};
+function goFinSection(sec){
+  if(!FIN_SUBS[sec])sec='analisa';
+  state.finSection=sec;
+  $$('#finTabs .fin-tab').forEach(b=>{const on=b.dataset.finSection===sec;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false')});
+  $$('[data-fin-pane]').forEach(p=>{
+    if(p.dataset.finPane!==sec){p.hidden=true;return}
+    if(p.hidden){
+      p.hidden=false;
+      if(!reduced){p.classList.remove('fin-pane-in');void p.offsetWidth;p.classList.add('fin-pane-in')}
+    }
+  });
+  const sub=$('#finSub');if(sub)sub.textContent=FIN_SUBS[sec];
+  window.scrollTo(0,0);
+}
+/* posisi rekening-koran untuk rentang bulan yang dipilih di pane mutasi */
+function renderMutasiSum(){
+  const el=$('#mutIn');if(!el)return;
+  const mk=state.txMonth,all=mk==='ALL';
+  let masuk=0,keluar=0,nIn=0,nOut=0,nTf=0;
+  TXS.forEach(t=>{
+    if(!all&&t.date.slice(0,7)!==mk)return;
+    if(t.type==='income'){masuk+=t.amount;nIn++}
+    else if(t.type==='expense'){keluar+=t.amount;nOut++}
+    else nTf++;
+  });
+  const net=masuk-keluar;
+  countUp(el,masuk);
+  countUp($('#mutOut'),keluar);
+  const netEl=$('#mutNet');countUp(netEl,net);
+  netEl.style.color=net<0?'var(--rose-deep)':'var(--sage-deep)';
+  $('#mutInSub').textContent=`${nIn} transaksi`;
+  $('#mutOutSub').textContent=`${nOut} transaksi`;
+  $('#mutNetSub').textContent=(nTf?`${nTf} transfer antar-dompet · `:'')+(all?'semua waktu':monthShort(mk));
+}
+/* pane saldo bank: total saldo + arus bulan berjalan + mutasi tiap dompet */
+function renderSaldoBank(){
+  const el=$('#saldoTotal');if(!el)return;
+  const w=walletBalances();
+  const tot=sumBy(SOURCES,s=>w[s.id]);
+  countUp(el,tot);
+  el.style.color=tot<0?'var(--rose-deep)':'';
+  $('#saldoSub').textContent=`${SOURCES.length} sumber dana · ${TXS.length} transaksi tercatat`;
+  /* bulan acuan: bulan berjalan bila ada mutasi, kalau kosong pakai bulan data terakhir */
+  const mkCur=dayKey(TODAY).slice(0,7);
+  const hasCur=TXS.some(t=>t.date.slice(0,7)===mkCur);
+  const mk=hasCur?mkCur:months[months.length-1]||mkCur;
+  $('#saldoMonth').textContent=hasCur?monthLabel(mk):`Data terakhir · ${monthShort(mk)}`;
+  $('#saldoFlowTitle').textContent=`Mutasi tiap dompet · ${hasCur?'bulan ini':monthShort(mk)}`;
+  const {masuk,keluar,nIn,nOut}=finTotals(mk);
+  const net=masuk-keluar;
+  countUp($('#saldoIn'),masuk);
+  countUp($('#saldoOut'),keluar);
+  const netEl=$('#saldoNet');countUp(netEl,net);
+  netEl.style.color=net<0?'var(--rose-deep)':'var(--sage-deep)';
+  $('#saldoInSub').textContent=`${nIn} transaksi`;
+  $('#saldoOutSub').textContent=`${nOut} transaksi`;
+  $('#saldoNetSub').textContent=`posisi ${monthShort(mk)}`;
+  /* arus dana tiap dompet — bulan berjalan; transfer dihitung sbg masuk/keluar dompet */
+  const rows=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]).map(s=>{
+    let ins=0,outs=0;
+    TXS.forEach(t=>{
+      if(t.sourceId!==s.id||t.date.slice(0,7)!==mk)return;
+      if(t.type==='income')ins+=t.amount;
+      else if(t.type==='expense')outs+=t.amount;
+      else if(String(t.category).includes('Masuk'))ins+=t.amount;
+      else outs+=t.amount;
+    });
+    return{s,ins,outs,net:ins-outs};
+  });
+  const mx=Math.max(1,...rows.map(r=>Math.max(r.ins,r.outs)));
+  $('#saldoFlow').innerHTML=rows.length?rows.map(r=>{
+    const st=srcStyle(r.s.type);
+    return `<div class="sf-row">
+      <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+      <div class="sf-info"><b>${esc(r.s.name)}</b>
+        <div class="sf-bars"><i style="width:${(r.ins/mx*100).toFixed(1)}%;background:var(--sage)"></i><i style="width:${(r.outs/mx*100).toFixed(1)}%;background:var(--honey)"></i></div>
+        <small>+${rupiah(r.ins)} masuk · −${rupiah(r.outs)} keluar</small>
+      </div>
+      <span class="sf-net t-num ${r.net>=0?'in':'out'}">${r.net>=0?'+':'−'}${rupiah(Math.abs(r.net))}</span>
+    </div>`;
+  }).join('')
+  :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada dompet</b><p>Tambahkan rekening bank, tunai, atau dompet digital lewat tombol “Dompet”.</p></div>`;
+}
+
 function renderTx(){
   const f=state.txFilter,q=state.txQuery.trim().toLowerCase(),mk=state.txMonth,cur=dayKey(TODAY).slice(0,7);
   let list=TXS.filter(t=>(mk==='ALL'||t.date.slice(0,7)===mk)&&(f==='semua'||(f==='masuk'?t.type==='income':f==='keluar'?t.type==='expense':t.type==='transfer')));
@@ -3987,6 +4202,7 @@ function refreshToday(){
 }
 function refinance(){
   renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderMiniBudgets();renderWallets();renderTx();renderTip();
+  renderMutasiSum();renderSaldoBank();
   renderFinanceHero();
   if(inited.cal)renderCalStrip();
 }
@@ -3994,7 +4210,7 @@ document.addEventListener('click',e=>{
   const nav=e.target.closest('[data-nav]');
   if(nav){go(nav.dataset.nav);return}
   const goBtn=e.target.closest('[data-go]');
-  if(goBtn){go(goBtn.dataset.go);return}
+  if(goBtn){go(goBtn.dataset.go);if(goBtn.dataset.gofin)goFinSection(goBtn.dataset.gofin);return}
   const chk=e.target.closest('[data-check]');
   if(chk){toggleCheck(chk.dataset.check,chk);return}
   const cell=e.target.closest('[data-cal]');
@@ -4005,6 +4221,8 @@ document.addEventListener('click',e=>{
     const tot=sumBy(t,x=>x.amount);
     toast(`${+k.slice(8)} ${BULAN[+k.slice(5,7)-1]}`,tot?`${rupiah(tot)} keluar · ${t.length} transaksi`:'Tidak ada pengeluaran hari ini.',tot?'i-wallet':'i-leaf',tot?'honey':'sage');
     return}
+  const fsec=e.target.closest('[data-fin-section]');
+  if(fsec){goFinSection(fsec.dataset.finSection);return}
   const fm=e.target.closest('[data-fin-month]');
   if(fm){state.finMonth=fm.dataset.finMonth;refinance();return}
   const delH=e.target.closest('[data-del-habit]');
@@ -4305,7 +4523,7 @@ $('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMon
 $('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal()});
 $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal();renderDayDetail(state.calSel)});
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
-$('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderTx()});
+$('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderMutasiSum();renderTx()});
 $('#btnDelConfirm').addEventListener('click',doDelete);
 $('#btnBell').addEventListener('click',()=>{
   const sisa=HABITS.length-doneTodayCount();
@@ -4735,7 +4953,7 @@ function tunasWake(){
   prepData();syncToday();
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
-  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();fillTxMonths();
+  renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
   renderHabitChips();renderHabitCards();
   renderFindings();renderReko();renderBadges();
   renderHabitsHero();renderFinanceHero();renderCalendarHero();renderWawasanHero();renderSettingsHero();
