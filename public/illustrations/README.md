@@ -200,6 +200,29 @@ Tahap pertumbuhan pohon konsistensi (`../tree/`: `benih` → `tunas` →
 ilustrasi utama hero Ringkasan, dipilih otomatis dari jumlah hari aktif
 (ambang 0 / 1 / 7 / 30 / 90 hari).
 
+## Scene hero tiap tab (v2.9 — rutina.html)
+
+Pola v2.8 diperluas ke seluruh tab `public/rutina.html`: tiap halaman kini
+membuka dengan satu kartu `page-hero` ringkas (angka utama + scene botani,
+data diperbarui lewat `renderHabitsHero`/`renderFinanceHero`/
+`renderCalendarHero`/`renderWawasanHero`/`renderSettingsHero`). Varian
+`page-hero--dark` memakai latar hijau `#4B7D61→#3E6B52` (pola
+`finance-balance`) agar scene perbukitan terbaca; `page-hero--sky`
+memakai nuansa `#F0F9FF→#E0F2FE`; `page-hero--art` dua kolom ala hero
+Ringkasan.
+
+| Berkas | Konteks pakai baru (v2.9) |
+|---|---|
+| `hero-bg-habits.svg` | `#habitsHero` — scene dasar kartu, teks progres kebiasaan hari ini di kiri |
+| `hero-bg-finance.svg` | `#financeHero` — `page-hero--dark`, judul surplus/defisit putih |
+| `hero-bg-calendar.svg` | `#calendarHero` — `page-hero--sky`, busur bulan ditempel kanan-atas |
+| `hero-bg-insights.svg` | `#wawasanHero` — latar lembut (opacity .55) di bawah ilustrasi utama |
+| `scene-taman.svg` | `#wawasanHero` `.hero-ill` — ilustrasi utama dua kolom; satu kolom di ≤900px |
+| `hero-bg-settings.svg` | `#settingsHero` — roda gigi di ujung kanan kartu |
+| `scene-juara.svg` | `.badge-art` — pembuka kartu "Koleksi lencana" (maks 390px) |
+
+`scene-pagi.svg` tetap dicadangkan untuk hero onboarding (belum dipakai).
+
 Prinsip keterbacaan: bentuk berisi warna terang (mint/honey-soft) hanya di pita
 luar sudut ± 60px; interior kartu tetap putih polos untuk zona teks. Aset SVG
 garis (stroke) menjaga ketajaman di semua DPI dan total < 6KB.

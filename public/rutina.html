@@ -265,6 +265,67 @@ b,strong{font-weight:600}
   .pekan-art{max-height:84px}
 }
 
+/* ---------- v2.9 · SCENE LATAR HERO TIAP TAB ----------
+   Pola v2.8 (hero Ringkasan) diperluas ke seluruh tab: satu kartu hero
+   ringkas pembuka tiap halaman dengan scene botani dari
+   public/illustrations/hero-bg-*.svg menempel di tepi kanan/bawah —
+   zona teks kiri tetap bersih, tepi berlebih dipangkas overflow kartu. */
+.page-hero{position:relative;overflow:hidden;display:flex;align-items:center;min-height:148px;padding:22px 26px;margin-bottom:22px;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.2);background:linear-gradient(130deg,#F0FDF4 0%,#ECFDF5 58%,#D1FAE5 100%);box-shadow:var(--shadow-md)}
+.page-hero::after{content:"";position:absolute;left:-60px;bottom:-80px;width:210px;height:210px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.1),transparent);pointer-events:none}
+.page-hero .hero-body{gap:8px;max-width:min(60%,560px);padding-right:10px}
+.page-hero .hero-body h2{font-size:clamp(19px,2.2vw,21.5px);max-width:none}
+.page-hero .hero-body .t-sub{max-width:52ch}
+.page-hero .ph-scene{position:absolute;right:-14px;bottom:-16px;z-index:0;width:clamp(192px,27vw,312px);height:auto;pointer-events:none;user-select:none;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07))}
+.page-hero>*:not(.ph-scene){position:relative;z-index:1}
+.ph-progress{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;max-width:430px}
+.ph-progress .bar{flex:1;min-width:140px;height:9px}
+.ph-progress .pill{background:rgba(255,255,255,.86);border:1px solid rgba(167,243,208,.9);color:var(--terra-deep);font-size:12px;padding:6px 12px}
+/* Keuangan — kartu hijau sedang (pola finance-balance React: #4b7d61):
+   scene perbukitan & koin memang dirancang untuk latar hijau */
+.page-hero--dark{border-color:rgba(28,78,56,.4);background:linear-gradient(130deg,#4B7D61 0%,#5B8E6D 55%,#3E6B52 100%)}
+.page-hero--dark::after{background:radial-gradient(closest-side,rgba(220,252,231,.16),transparent)}
+.page-hero--dark .h-serif{color:#fff}
+.page-hero--dark .eyebrow{color:#D1FAE5}
+.page-hero--dark .t-sub{color:rgba(236,253,245,.92)}
+.page-hero--dark .ph-progress .pill{background:rgba(255,255,255,.16);border-color:rgba(220,252,231,.45);color:#ECFDF5}
+.page-hero--dark .ph-progress .bar{background:rgba(0,0,0,.26)}
+.page-hero--dark .ph-scene{width:clamp(214px,30vw,342px);opacity:1;filter:none}
+/* Kalender — nuansa sky lembut; komposisi busur bulan ditempelkan
+   kanan-atas agar teks kiri-bawah tetap lapang */
+.page-hero--sky{border-color:rgba(14,165,233,.24);background:linear-gradient(130deg,#F0F9FF 0%,#E0F2FE 58%,#D1FAE5 100%)}
+.page-hero--sky .eyebrow{color:var(--sky)}
+.page-hero--sky .ph-scene{top:-16px;right:-14px;bottom:auto;width:clamp(148px,19vw,216px)}
+/* Wawasan — hero dua kolom ala Ringkasan: taman tenang sebagai ilustrasi
+   utama, rimbun daun bertunas jadi latar lembut di dasarnya */
+.page-hero--art{display:grid;grid-template-columns:1.04fr .96fr;gap:10px;padding:20px 24px}
+.page-hero--art .hero-body{max-width:none;padding-right:0}
+.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:440px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 26px 40px rgba(15,23,42,.06))}
+.page-hero--art .hero-ill img{display:block;width:100%;height:auto}
+.page-hero--art .ph-scene{opacity:.55;right:1%;bottom:-20px}
+/* Lencana (Wawasan) — podium juara sebagai pembuka koleksi */
+.badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 14px;border-radius:16px}
+@media(max-width:900px){
+  .page-hero{min-height:0;padding:18px 20px}
+  .page-hero--art{grid-template-columns:1fr}
+  .page-hero--art .hero-ill{max-width:300px;justify-self:center;order:2;margin-top:6px}
+  .page-hero--art .ph-scene{opacity:.4}
+}
+@media(max-width:640px){
+  .page-hero{padding:16px 17px;margin-bottom:16px}
+  .page-hero .hero-body{max-width:100%;padding-right:56px}
+  .page-hero .ph-scene{width:150px;opacity:.62;right:-10px;bottom:-12px}
+  .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
+  .page-hero--dark .ph-scene{width:172px;opacity:.85}
+  .page-hero--dark .hero-body{padding-right:64px}
+  .page-hero--art .hero-ill{max-width:236px}
+  .page-hero--art .hero-body{padding-right:0}
+  .ph-progress .bar{min-width:110px}
+  .badge-art{max-width:280px;margin:0 auto 12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .page-hero .ph-scene{filter:none}
+}
+
 /* ---------- kartu statistik ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
 .stat{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;padding:14px 16px;border:none;border-radius:0}
@@ -1884,6 +1945,21 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <button class="btn btn-primary" data-open-modal="modalHabit"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Kebiasaan baru</button>
   </div>
 
+  <!-- HERO · RITME TANAM (v2.9) — scene botani per tab: barisan pot tunas
+       di dasar kartu (pola scene v2.8 diperluas ke seluruh tab) -->
+  <div class="page-hero" id="habitsHero">
+    <img class="ph-scene" src="/illustrations/hero-bg-habits.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <div class="hero-body">
+      <div class="eyebrow">Ritme tanam</div>
+      <h2 class="h-serif" id="habHeroTitle">Kebiasaan hari ini</h2>
+      <p class="t-sub" id="habHeroSub">Memuat progres hari ini…</p>
+      <div class="ph-progress">
+        <div class="bar"><i id="habHeroBar" data-w="0%"></i></div>
+        <span class="pill" id="habHeroPill">—</span>
+      </div>
+    </div>
+  </div>
+
   <div class="mini-stats">
     <div class="card mini-stat">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
@@ -1935,8 +2011,23 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
     <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
   </div>
-  <div class="chips fin-months" id="finMonths" role="group" aria-label="Pilih bulan"></div>
 
+  <!-- HERO · ARUS KAS (v2.9) — scene perbukitan hijau & koin keemasan;
+       aset ini memang dirancang untuk kartu hijau tua -->
+  <div class="page-hero page-hero--dark" id="financeHero">
+    <img class="ph-scene" src="/illustrations/hero-bg-finance.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <div class="hero-body">
+      <div class="eyebrow">Arus kas · <span id="finHeroMonth">bulan ini</span></div>
+      <h2 class="h-serif" id="finHeroTitle">Memuat arus kas…</h2>
+      <p class="t-sub" id="finHeroSub">—</p>
+      <div class="ph-progress">
+        <div class="bar"><i id="finHeroBar" data-w="0%"></i></div>
+        <span class="pill" id="finHeroPill">—</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chips fin-months" id="finMonths" role="group" aria-label="Pilih bulan"></div>
   <div class="grid g-fin">
     <div class="card scene-stat">
       <svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg>
@@ -2104,6 +2195,17 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
   </div>
 
+  <!-- HERO · BULAN BERJALAN (v2.9) — scene busur fase bulan, karangan daun
+       & mentari; ringkas bulan yang sedang ditampilkan -->
+  <div class="page-hero page-hero--sky" id="calendarHero">
+    <img class="ph-scene" src="/illustrations/hero-bg-calendar.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <div class="hero-body">
+      <div class="eyebrow">Bulan berjalan</div>
+      <h2 class="h-serif" id="calHeroTitle">—</h2>
+      <p class="t-sub" id="calHeroSub">Pilih tanggal untuk melihat catatan kebiasaan dan arus kas harianmu.</p>
+    </div>
+  </div>
+
   <div class="grid g-cal">
     <div class="card card-pad">
       <div class="cal-head-row" id="calDows"></div>
@@ -2141,6 +2243,24 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <h1 class="h-serif">Analisis</h1>
         <p class="t-sub">Ringkasan dari catatanmu.</p>
       </div>
+    </div>
+  </div>
+
+  <!-- HERO · TAMAN CATATAN (v2.9) — scene taman tenang sebagai ilustrasi
+       utama + rimbun daun bertunas dari dasar kartu -->
+  <div class="page-hero page-hero--art" id="wawasanHero">
+    <img class="ph-scene" src="/illustrations/hero-bg-insights.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <div class="hero-body">
+      <div class="eyebrow">Pola &amp; tren</div>
+      <h2 class="h-serif" id="wawHeroTitle">Memuat ritme catatan…</h2>
+      <p class="t-sub" id="wawHeroSub">—</p>
+      <div class="ph-progress">
+        <div class="bar"><i id="wawHeroBar" data-w="0%"></i></div>
+        <span class="pill" id="wawHeroPill">—</span>
+      </div>
+    </div>
+    <div class="hero-ill">
+      <img src="/illustrations/scene-taman.svg" alt="Ilustrasi taman tenang dengan pohon dan bangku batu" width="480" height="320" loading="lazy"/>
     </div>
   </div>
 
@@ -2212,6 +2332,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       </div>
       <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)" id="badgeCount">—</span>
     </div>
+    <img class="badge-art" src="/illustrations/scene-juara.svg" alt="" aria-hidden="true" loading="lazy"/>
     <div class="badge-grid" id="badgeGrid"></div>
   </div>
 </section>
@@ -2225,6 +2346,17 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <h1 class="h-serif">Pengaturan</h1>
         <p class="t-sub">Hapus yang tak terpakai, kenali sumber datamu.</p>
       </div>
+    </div>
+  </div>
+
+  <!-- HERO · RUANG KENDALI (v2.9) — scene roda gigi sage dengan daun
+       merambat di ujung kartu -->
+  <div class="page-hero" id="settingsHero">
+    <img class="ph-scene" src="/illustrations/hero-bg-settings.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <div class="hero-body">
+      <div class="eyebrow">Ruang kendali</div>
+      <h2 class="h-serif" id="setHeroTitle">Semua kendali di satu ruang</h2>
+      <p class="t-sub" id="setHeroSub">Memuat ringkasan data…</p>
     </div>
   </div>
 
@@ -2788,6 +2920,84 @@ function renderWeekRhythm(){
     :'Setara dengan pekan lalu.';
 }
 
+
+/* ---------- v2.9 · hero scene tiap tab ----------
+   Pembuka cerita tiap halaman selain Ringkasan: angka utama + scene
+   botani. Diperbarui dari sumber data yang sama dengan kartu di bawahnya
+   (hero = judul cerita, kartu = rincian). */
+function renderHabitsHero(){
+  const n=HABITS.length,done=doneTodayCount();
+  const pct=n?Math.round(done/n*100):0;
+  $('#habHeroTitle').textContent=n?`${done} dari ${n} kebiasaan selesai`:'Ritme tanam menunggu';
+  $('#habHeroSub').textContent=!n?'Tambahkan kebiasaan pertama untuk mulai menumbuhkan ritme.'
+    :done>=n?'Semua kebiasaan hari ini tuntas — istirahat yang layak.'
+    :`${n-done} kebiasaan menunggu centangan hari ini.`;
+  $('#habHeroBar').dataset.w=pct+'%';
+  const best=Math.max(0,...HABITS.map(h=>h.best||0));
+  $('#habHeroPill').textContent=`Rekor runtun ${best} hari`;
+  animateBars($('#habitsHero'));
+}
+function renderFinanceHero(){
+  const mk=state.finMonth;
+  const {masuk,keluar,nIn,nOut}=finTotals(mk);
+  const net=masuk-keluar;
+  $('#finHeroMonth').textContent=monthLabel(mk);
+  $('#finHeroTitle').textContent=(masuk||keluar)?`${net>=0?'Surplus':'Defisit'} ${rupiah(Math.abs(net))}`:'Belum ada transaksi';
+  $('#finHeroSub').textContent=(masuk||keluar)?`Masuk ${rupiah(masuk)} · Keluar ${rupiah(keluar)}`
+    :'Catat transaksi pertama untuk melihat arus kas.';
+  const ratio=masuk>0?Math.min(100,Math.round(keluar/masuk*100)):keluar?100:0;
+  $('#finHeroBar').dataset.w=ratio+'%';
+  $('#finHeroPill').textContent=`${nIn+nOut} transaksi`;
+  animateBars($('#financeHero'));
+}
+function renderCalendarHero(){
+  const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
+  const mk=`${y}-${String(m+1).padStart(2,'0')}`;
+  let total=0,aktif=0;
+  Object.keys(logsByDate).forEach(k=>{
+    if(k.slice(0,7)!==mk)return;
+    total+=logsByDate[k].length;aktif++;
+  });
+  const {keluar}=finTotals(mk);
+  $('#calHeroTitle').textContent=`${BULAN[m]} ${y}`;
+  $('#calHeroSub').textContent=(aktif||total)
+    ?`${aktif} hari aktif · ${total} catatan kebiasaan · belanja ${ringkas(keluar)||'0'}`
+    :'Pilih tanggal untuk melihat catatan kebiasaan dan arus kas harian.';
+}
+function renderWawasanHero(){
+  const allKeys=Object.keys(logsByDate).sort();
+  if(!allKeys.length){
+    $('#wawHeroTitle').textContent='Taman catatan menunggu';
+    $('#wawHeroSub').textContent='Satu catatan hari ini cukup untuk memulai pola.';
+    $('#wawHeroBar').dataset.w='0%';
+    $('#wawHeroPill').textContent='0 minggu tercatat';
+    animateBars($('#wawasanHero'));
+    return;
+  }
+  /* agregat mingguan — logika yang sama dengan renderConsChart */
+  let ws=weekStartOf(new Date(allKeys[0]+'T00:00:00'));
+  const weeks=[];
+  while(ws<=TODAY){
+    const s=dayKey(ws),e=dayKey(addDays(ws,6));
+    let c=0;allKeys.forEach(k=>{if(k>=s&&k<=e)c+=logsByDate[k].length});
+    weeks.push({s,c});ws=addDays(ws,7);
+  }
+  const vals=weeks.map(w=>w.c);
+  const avg=Math.round(sumBy(vals,v=>v)/vals.length);
+  const last=vals[vals.length-1]||0;
+  const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
+  const pk=new Date(peak.s+'T00:00:00');
+  $('#wawHeroTitle').textContent=`Pekan ini: ${last} catatan`;
+  $('#wawHeroSub').textContent=`Rata-rata ${avg} catatan/minggu · puncak ${peak.c} pada ${pk.getDate()} ${BULAN_S[pk.getMonth()]}.`;
+  $('#wawHeroBar').dataset.w=(peak.c?Math.min(100,Math.round(last/peak.c*100)):0)+'%';
+  $('#wawHeroPill').textContent=`${vals.length} minggu tercatat`;
+  animateBars($('#wawasanHero'));
+}
+function renderSettingsHero(){
+  const nama=(SETTINGS&&SETTINGS.userName)||'Sahabat Rutina';
+  $('#setHeroTitle').textContent=`Semua kendali di satu ruang`;
+  $('#setHeroSub').textContent=`${nama} · ${HABITS.length} kebiasaan · ${TXS.length} transaksi · sumber data ${LIVE?'langsung':'snapshot'}.`;
+}
 
 /* ---------- ring kebiasaan (v2.8: hanya untuk tab kebiasaan & lonceng) ---------- */
 function renderRing(){
@@ -3392,6 +3602,7 @@ function renderCalStrip(){
   $('#csStreak').innerHTML=`${aktif} <small>hari</small>`;
   $('#csSpend').textContent=ringkas(keluar);
   $('#csSpendLbl').textContent=`Pengeluaran ${BULAN[m]} ${y}`;
+  renderCalendarHero();
 }
 function renderDayDetail(d){
   const k=dayKey(d),future=d>TODAY;
@@ -3582,11 +3793,13 @@ function toggleCheck(id,src){
 }
 function refreshToday(){
   renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
+  renderHabitsHero();renderWawasanHero();
   if(inited.heatmap)renderHeatmap();
   if(inited.cal){renderCal();renderDayDetail(state.calSel)}
 }
 function refinance(){
   renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderMiniBudgets();renderWallets();renderTx();renderTip();
+  renderFinanceHero();
   if(inited.cal)renderCalStrip();
 }
 document.addEventListener('click',e=>{
@@ -4135,6 +4348,7 @@ function tunasWake(){
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();fillTxMonths();
   renderHabitChips();renderHabitCards();
   renderFindings();renderReko();renderBadges();
+  renderHabitsHero();renderFinanceHero();renderCalendarHero();renderWawasanHero();renderSettingsHero();
   fillTxType('keluar');fillTxSources();fillHabitSelects();
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
