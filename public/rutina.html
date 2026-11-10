@@ -2008,7 +2008,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <span class="ph-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
       <div>
         <h1 class="h-serif">Keuangan</h1>
-        <p class="t-sub" id="finSub">Analisa arus kas, anggaran & pola belanja.</p>
+        <p class="t-sub" id="finSub" aria-live="polite">Analisa arus kas, anggaran & pola belanja.</p>
       </div>
     </div>
     <button class="btn btn-primary" data-open-modal="modalTx"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat transaksi</button>
@@ -2017,19 +2017,19 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <!-- ANAK TAB (v2.11) · kontrol segmen ala .seg setinggi tombol halaman;
        label panjang diringkas di layar sempit lewat .ft-full/.ft-short -->
   <div class="fin-tabs" id="finTabs" role="tablist" aria-label="Bagian keuangan">
-    <button type="button" class="fin-tab active" data-fin-section="analisa" role="tab" aria-selected="true">
+    <button type="button" id="fin-tab-analisa" class="fin-tab active" data-fin-section="analisa" role="tab" aria-selected="true" aria-controls="fin-pane-analisa">
       <svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span>Analisa</span>
     </button>
-    <button type="button" class="fin-tab" data-fin-section="mutasi" role="tab" aria-selected="false">
+    <button type="button" id="fin-tab-mutasi" class="fin-tab" data-fin-section="mutasi" role="tab" aria-selected="false" aria-controls="fin-pane-mutasi" tabindex="-1">
       <svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg><span class="ft-full">Mutasi Transaksi</span><span class="ft-short">Mutasi</span>
     </button>
-    <button type="button" class="fin-tab" data-fin-section="saldo" role="tab" aria-selected="false">
+    <button type="button" id="fin-tab-saldo" class="fin-tab" data-fin-section="saldo" role="tab" aria-selected="false" aria-controls="fin-pane-saldo" tabindex="-1">
       <svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><span class="ft-full">Saldo Bank</span><span class="ft-short">Saldo</span>
     </button>
   </div>
 
   <!-- PANE · ANALISA -->
-  <div data-fin-pane="analisa" role="tabpanel" aria-label="Analisa keuangan">
+  <div data-fin-pane="analisa" id="fin-pane-analisa" role="tabpanel" aria-labelledby="fin-tab-analisa" aria-label="Analisa keuangan">
   <!-- HERO · ARUS KAS (v2.9) — scene perbukitan hijau & koin keemasan;
        aset ini memang dirancang untuk kartu hijau tua -->
   <div class="page-hero page-hero--dark" id="financeHero">
@@ -2152,7 +2152,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   </div><!-- /pane analisa -->
 
   <!-- PANE · MUTASI TRANSAKSI (v2.11) -->
-  <div data-fin-pane="mutasi" hidden role="tabpanel" aria-label="Mutasi transaksi">
+  <div data-fin-pane="mutasi" id="fin-pane-mutasi" hidden role="tabpanel" aria-labelledby="fin-tab-mutasi" aria-label="Mutasi transaksi">
   <!-- STRIP RINGKASAN MUTASI — posisi rekening-koran untuk bulan terpilih -->
   <div class="mut-sum" id="mutSum" aria-label="Ringkasan mutasi bulan terpilih">
     <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="mutIn">Rp 0</b><span id="mutInSub">—</span></div>
@@ -2193,7 +2193,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   </div><!-- /pane mutasi -->
 
   <!-- PANE · SALDO BANK (v2.11) -->
-  <div data-fin-pane="saldo" hidden role="tabpanel" aria-label="Saldo bank & sumber dana">
+  <div data-fin-pane="saldo" id="fin-pane-saldo" hidden role="tabpanel" aria-labelledby="fin-tab-saldo" aria-label="Saldo bank & sumber dana">
   <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
   <div class="card card-pad" id="saldoCard">
     <div class="saldo-top">
@@ -3710,13 +3710,13 @@ function renderWallets(){
 /* ---------- v2.11 · anak tab keuangan: Analisa · Mutasi Transaksi · Saldo Bank ---------- */
 const FIN_SUBS={
   analisa:'Analisa arus kas, anggaran & pola belanja.',
-  mutasi:'Riwayat mutasi transaksi — siap disunting.',
+  mutasi:'Telusuri, sunting, atau hapus riwayat transaksimu.',
   saldo:'Saldo bank, tunai & dompet digital.'
 };
 function goFinSection(sec){
   if(!FIN_SUBS[sec])sec='analisa';
   state.finSection=sec;
-  $$('#finTabs .fin-tab').forEach(b=>{const on=b.dataset.finSection===sec;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false')});
+  $$('#finTabs .fin-tab').forEach(b=>{const on=b.dataset.finSection===sec;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
   $$('[data-fin-pane]').forEach(p=>{
     if(p.dataset.finPane!==sec){p.hidden=true;return}
     if(p.hidden){
@@ -3727,6 +3727,14 @@ function goFinSection(sec){
   const sub=$('#finSub');if(sub)sub.textContent=FIN_SUBS[sec];
   window.scrollTo(0,0);
 }
+/* navigasi panah kiri/kanan antar anak tab (pola WAI-ARIA) */
+$('#finTabs').addEventListener('keydown',e=>{
+  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+  const tabs=$$('#finTabs .fin-tab');if(tabs.length<2)return;
+  const i=tabs.findIndex(b=>b.dataset.finSection===state.finSection);if(i<0)return;
+  const next=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];
+  next.focus();next.click();e.preventDefault();
+});
 /* posisi rekening-koran untuk rentang bulan yang dipilih di pane mutasi */
 function renderMutasiSum(){
   const el=$('#mutIn');if(!el)return;
@@ -3933,7 +3941,7 @@ function doDelete(){
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);
     TXS=TXS.filter(x=>x.id!==key);
-    months=[...new Set(TXS.map(x=>x.date.slice(0,7)))].sort();
+    months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     if(state.txMonth!=='ALL'&&!months.includes(state.txMonth)&&state.txMonth!==dayKey(TODAY).slice(0,7))state.txMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
@@ -3946,8 +3954,10 @@ function doDelete(){
     const i=key.indexOf('|');
     const cat=i>=0?key.slice(0,i):key,mk=i>=0?key.slice(i+1):'';
     BUDGETS=BUDGETS.filter(b=>!(b.category===cat&&b.month===mk));
+    months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
+    if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
-    refinance();
+    refinance();fillTxMonths();
     toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang · sesi ini saja.`,'i-trash','rose');
     return;
   }else if(kind==='source'){
@@ -4343,7 +4353,7 @@ $('#formTx').addEventListener('submit',e=>{
     if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
     else TXS.unshift({id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
   }
-  if(!months.includes(dv.slice(0,7))){months.push(dv.slice(0,7));months.sort()}
+  months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   /* langsung arahkan riwayat & statistik ke bulan transaksi supaya perubahannya terlihat */
   state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
   editTxId=null;
@@ -4444,7 +4454,7 @@ $('#formBudget').addEventListener('submit',e=>{
     if(b)Object.assign(b,{category:cat,month:mk,amount:nominal});
   }else BUDGETS.push({category:cat,month:mk,amount:nominal});
   editBudKey=null;
-  if(!months.includes(mk)){months.push(mk);months.sort()}
+  months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
   refinance();fillTxMonths();
