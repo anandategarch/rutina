@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" fill="none" role="img" aria-label="Daun besar dengan lingkar fokus dan kunang-kunang">
+  <defs>
+    <linearGradient id="hgF-leaf" x1="300" y1="40" x2="390" y2="180" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+    <linearGradient id="hgF-leaf2" x1="150" y1="120" x2="210" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#5C895E"/></linearGradient>
+    <radialGradient id="hgF-glow" cx=".5" cy=".5" r=".5"><stop stop-color="#F2C6A7" stop-opacity=".8"/><stop offset="1" stop-color="#F2C6A7" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="240" cy="226" rx="185" ry="9" fill="#456C4D" opacity=".11"/>
+  <!-- lingkar fokus -->
+  <circle cx="330" cy="110" r="86" fill="url(#hgF-glow)" opacity=".55"/>
+  <circle cx="330" cy="110" r="86" stroke="#8EAE78" stroke-width="2.5" stroke-dasharray="4 9" opacity=".7"/>
+  <circle cx="330" cy="110" r="58" stroke="#8EAE78" stroke-width="2" stroke-dasharray="3 7" opacity=".55"/>
+  <!-- daun besar fokus -->
+  <g>
+    <path d="M330 196V84" stroke="#477B56" stroke-width="5" stroke-linecap="round"/>
+    <path d="M330 158c-34-3-45-26-27-44 27 4 40 26 27 44Z" fill="url(#hgF-leaf)"/>
+    <path d="M333 122c5-24 25-33 42-20-3 22-21 33-42 20Z" fill="#A8C58B"/>
+    <path d="M330 84c-14-16-11-33 5-39 11 12 10 28-5 39Z" fill="#8FB476"/>
+  </g>
+  <!-- daun kecil kiri -->
+  <g>
+    <path d="M180 208v-40" stroke="#5C895E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M180 190c18-2 24-14 14-24-14 3-19 12-14 24Z" fill="url(#hgF-leaf2)"/>
+    <path d="M178 178c-3-12 5-18 15-13-2 10-8 15-15 13Z" fill="#A8C58B"/>
+  </g>
+  <!-- kunang-kunang -->
+  <g>
+    <circle cx="240" cy="60" r="5.5" fill="#EDC77F"/>
+    <circle cx="240" cy="60" r="11" fill="#EDC77F" opacity=".25"/>
+    <circle cx="132" cy="94" r="4" fill="#EDC77F" opacity=".9"/>
+    <circle cx="132" cy="94" r="8.5" fill="#EDC77F" opacity=".2"/>
+    <circle cx="416" cy="52" r="3.6" fill="#E9AD91"/>
+  </g>
+  <!-- jejak konsentrasi -->
+  <path d="M64 150c10-8 22-8 32 0" stroke="#8EAE78" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+  <path d="M58 170c16-12 34-12 50 0" stroke="#8EAE78" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+  <path d="M420 190l2.2 7 7 2.2-7 2.2-2.2 7-2.2-7-7-2.2 7-2.2Z" fill="#EDC77F"/>
+  <circle cx="86" cy="52" r="4" fill="#E9AD91" opacity=".8"/>
+</svg>

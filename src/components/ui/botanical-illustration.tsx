@@ -379,6 +379,12 @@ const heroSceneAssets: Partial<Record<BotanicalIllustrationVariant, { src: strin
   goals: { src: "/illustrations/hero-bg-goals.svg", w: 340, h: 240 },
   tree: { src: "/illustrations/hero-bg-tree.svg", w: 480, h: 280 },
   settings: { src: "/illustrations/hero-bg-settings.svg", w: 240, h: 160 },
+  // v0.30 — varian momen yang semula jatuh ke watermark, kini punya scene sendiri
+  focus: { src: "/illustrations/hero-bg-focus.svg", w: 480, h: 240 },
+  checkin: { src: "/illustrations/hero-bg-checkin.svg", w: 300, h: 260 },
+  work: { src: "/illustrations/hero-bg-work.svg", w: 420, h: 220 },
+  wellness: { src: "/illustrations/hero-bg-wellness.svg", w: 340, h: 260 },
+  training: { src: "/illustrations/hero-bg-training.svg", w: 460, h: 220 },
 };
 
 /**

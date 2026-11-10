@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" fill="none" role="img" aria-label="Teratai dengan uap menenangkan dan daun hati">
+  <defs>
+    <linearGradient id="hgWl-lotus" x1="120" y1="120" x2="230" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#F2C6A7"/><stop offset="1" stop-color="#E9AD91"/></linearGradient>
+    <linearGradient id="hgWl-lotus2" x1="100" y1="140" x2="200" y2="210" gradientUnits="userSpaceOnUse"><stop stop-color="#E9AD91"/><stop offset="1" stop-color="#D28D67"/></linearGradient>
+    <linearGradient id="hgWl-leaf" x1="56" y1="130" x2="110" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+    <linearGradient id="hgWl-steam" x1="150" y1="30" x2="190" y2="90" gradientUnits="userSpaceOnUse"><stop stop-color="#8EAE78" stop-opacity=".0"/><stop offset=".5" stop-color="#8EAE78" stop-opacity=".65"/><stop offset="1" stop-color="#8EAE78" stop-opacity=".0"/></linearGradient>
+  </defs>
+  <ellipse cx="170" cy="244" rx="128" ry="8" fill="#456C4D" opacity=".12"/>
+  <!-- lingkaran meditasi -->
+  <circle cx="170" cy="180" r="76" stroke="#8EAE78" stroke-width="2.5" stroke-dasharray="3 8" opacity=".6"/>
+  <!-- teratai -->
+  <g>
+    <path d="M170 118c16 14 24 34 24 52 0 14-10 24-24 24s-24-10-24-24c0-18 8-38 24-52Z" fill="url(#hgWl-lotus)"/>
+    <path d="M128 148c10 4 16 16 14 30-2 12-10 18-20 16-6-14-2-36 6-46Z" fill="url(#hgWl-lotus2)"/>
+    <path d="M212 148c-10 4-16 16-14 30 2 12 10 18 20 16 6-14 2-36-6-46Z" fill="url(#hgWl-lotus2)"/>
+    <path d="M170 128v58" stroke="#D28D67" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+  </g>
+  <!-- uap menenangkan -->
+  <path d="M150 34c-8 10 8 16 0 26" stroke="url(#hgWl-steam)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M176 26c-8 12 10 18 0 30" stroke="url(#hgWl-steam)" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>
+  <path d="M198 40c-6 8 6 13 0 21" stroke="url(#hgWl-steam)" stroke-width="4" stroke-linecap="round" fill="none" opacity=".6"/>
+  <!-- daun hati -->
+  <g>
+    <path d="M84 216v-38" stroke="#477B56" stroke-width="4" stroke-linecap="round"/>
+    <path d="M84 196c-16-12-16-30-2-36 4 12 8 24 2 36Z" fill="url(#hgWl-leaf)"/>
+    <path d="M84 196c16-12 16-30 2-36-4 12-8 24-2 36Z" fill="#A8C58B"/>
+  </g>
+  <!-- kilau -->
+  <path d="M262 84l2 6.4 6.4 2-6.4 2-2 6.4-2-6.4-6.4-2 6.4-2Z" fill="#EDC77F"/>
+  <circle cx="276" cy="150" r="4" fill="#E9AD91" opacity=".85"/>
+  <circle cx="52" cy="80" r="3.6" fill="#EDC77F" opacity=".8"/>
+  <path d="M282 216c10-8 22-8 30 0" stroke="#8EAE78" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+</svg>

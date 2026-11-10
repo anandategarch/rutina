@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" fill="none" role="img" aria-label="Perbukitan mint, mentari senja, dan daun melayang untuk latar pohon konsistensi">
+  <defs>
+    <linearGradient id="hgG-sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ECFDF5"/><stop offset="1" stop-color="#D1FAE5" stop-opacity=".4"/></linearGradient>
+    <linearGradient id="hgG-hillA" x1="80" y1="240" x2="420" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#6EE7B7"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+    <linearGradient id="hgG-hillB" x1="520" y1="250" x2="900" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="hgG-leafA" x1="770" y1="70" x2="850" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#6EE7B7"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <linearGradient id="hgG-leafB" x1="880" y1="120" x2="930" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+    <radialGradient id="hgG-sun" cx=".5" cy=".5" r=".5"><stop stop-color="#FDE68A"/><stop offset="1" stop-color="#FCD34D"/></radialGradient>
+  </defs>
+  <!-- langit lembut -->
+  <path d="M0 0h960v340H0z" fill="url(#hgG-sky)" opacity=".55"/>
+  <!-- mentari senja kanan-atas -->
+  <circle cx="842" cy="64" r="42" fill="url(#hgG-sun)" opacity=".9"/>
+  <circle cx="842" cy="64" r="58" fill="#FDE68A" opacity=".28"/>
+  <circle cx="842" cy="64" r="74" fill="#FDE68A" opacity=".14"/>
+  <!-- perbukitan -->
+  <path d="M0 288c120-34 210-52 318-40 86 10 128 34 202 44v48H0Z" fill="url(#hgG-hillA)"/>
+  <path d="M470 262c96-26 158-18 234 6 74 24 156 30 256 10v62H470Z" fill="url(#hgG-hillB)"/>
+  <path d="M0 316c150-18 300-14 460 4 160 18 340 16 500-6v26H0Z" fill="#059669" opacity=".22"/>
+  <!-- jalan setapak berliku menuju bukit -->
+  <path d="M60 340c40-44 96-30 130-58 30-26 78-16 96-44" stroke="#ECFDF5" stroke-width="10" stroke-linecap="round" opacity=".75" stroke-dasharray="2 20"/>
+  <!-- daun besar kanan (dewasa) -->
+  <g>
+    <path d="M812 214V128" stroke="#047857" stroke-width="6" stroke-linecap="round"/>
+    <path d="M812 176c-40-3-54-30-33-52 32 4 48 30 33 52Z" fill="url(#hgG-leafA)"/>
+    <path d="M815 144c6-30 30-42 50-25-3 26-25 39-50 25Z" fill="#A7F3D0"/>
+    <path d="M812 128c-18-20-13-40 6-47 13 15 11 35-6 47Z" fill="#6EE7B7"/>
+  </g>
+  <!-- daun muda kecil -->
+  <g>
+    <path d="M922 236v-44" stroke="#047857" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M922 214c20-2 27-15 16-26-15 3-21 14-16 26Z" fill="url(#hgG-leafB)"/>
+    <path d="M920 200c-3-13 7-19 18-14-2 11-9 17-18 14Z" fill="#A7F3D0"/>
+  </g>
+  <!-- tunas kecil di bukit -->
+  <g>
+    <path d="M560 262v-26" stroke="#047857" stroke-width="4" stroke-linecap="round"/>
+    <path d="M560 248c-14-1-19-11-11-18 11 1 17 10 11 18Z" fill="#34D399"/>
+    <path d="M562 240c2-10 10-14 17-9-1 9-8 13-17 9Z" fill="#6EE7B7"/>
+  </g>
+  <!-- daun melayang -->
+  <path d="M700 92c-9-9-7-21 3-24 7 7 7 17-3 24Z" fill="#34D399" opacity=".85"/>
+  <path d="M748 132c9-8 20-6 23 4-7 7-17 6-23-4Z" fill="#6EE7B7" opacity=".8"/>
+  <path d="M660 58c7-7 16-5 18 3-5 6-13 5-18-3Z" fill="#A7F3D0" opacity=".9"/>
+  <!-- kilau -->
+  <path d="M586 96l2.6 8.2 8.2 2.6-8.2 2.6-2.6 8.2-2.6-8.2-8.2-2.6 8.2-2.6Z" fill="#FCD34D"/>
+  <path d="M640 210l2 6.4 6.4 2-6.4 2-2 6.4-2-6.4-6.4-2 6.4-2Z" fill="#FDE68A" opacity=".9"/>
+  <circle cx="540" cy="66" r="4.5" fill="#FCD34D" opacity=".8"/>
+  <circle cx="770" cy="170" r="4" fill="#FDBA74" opacity=".75"/>
+  <circle cx="614" cy="150" r="3.5" fill="#A7F3D0"/>
+</svg>

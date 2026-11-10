@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" fill="none" role="img" aria-label="Busur pekan dari mentari ke bulan dengan tujuh titik hari">
+  <defs>
+    <linearGradient id="spArc" x1="30" y1="20" x2="330" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#FCD34D"/><stop offset=".5" stop-color="#6EE7B7"/><stop offset="1" stop-color="#38BDF8"/></linearGradient>
+    <radialGradient id="spSun" cx=".5" cy=".5" r=".5"><stop stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/></radialGradient>
+  </defs>
+  <!-- busur hari -->
+  <path d="M28 62A152 152 0 0 1 332 62" stroke="url(#spArc)" stroke-width="4" stroke-linecap="round" opacity=".55" stroke-dasharray="1 9"/>
+  <!-- mentari -->
+  <circle cx="28" cy="62" r="17" fill="url(#spSun)"/>
+  <g stroke="#F59E0B" stroke-width="3.4" stroke-linecap="round" opacity=".8">
+    <path d="M28 36v-7M28 95v7M6 62H-1M50 62h7M12 46l-5-5M44 46l5-5M12 78l-5 5M44 78l5 5" transform="translate(3 0)"/>
+  </g>
+  <!-- bulan sabit -->
+  <path d="M344 48a17 17 0 1 0 8 27 14 14 0 0 1-8-27Z" fill="#7DD3FC"/>
+  <circle cx="352" cy="58" r="2.6" fill="#E0F2FE"/>
+  <circle cx="344" cy="70" r="1.9" fill="#E0F2FE"/>
+  <!-- tujuh tunas hari -->
+  <g>
+    <g transform="translate(66 62)"><path d="M0 22V6" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 14c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#6EE7B7"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(105 62)"><path d="M0 22V4" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 12c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#34D399"/><path d="M2 8c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#6EE7B7"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(144 62)"><path d="M0 22V2" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 10c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#10B981"/><path d="M2 6c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#34D399"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(183 62)"><path d="M0 22V0" stroke="#047857" stroke-width="3.4" stroke-linecap="round"/><path d="M0 8c-9-1-12-7-7-11 7 1 11 6 7 11Z" fill="#059669"/><path d="M2 4c2-8 9-10 13-5-1 6-7 9-13 5Z" fill="#10B981"/><circle cy="26" r="3.5" fill="#6EE7B7"/><circle cx="14" cy="-2" r="3" fill="#FCD34D"/></g>
+    <g transform="translate(222 62)"><path d="M0 22V2" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 10c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#10B981"/><path d="M2 6c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#34D399"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(261 62)"><path d="M0 22V4" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 12c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#34D399"/><path d="M2 8c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#6EE7B7"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(300 62)"><path d="M0 22V6" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 14c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#6EE7B7"/><circle cy="26" r="3" fill="#A7F3D0"/></g>
+  </g>
+  <!-- tanah -->
+  <path d="M20 96c56-9 108-9 160 0 54 10 116 8 160-4" stroke="#10B981" stroke-width="3.5" stroke-linecap="round" opacity=".5"/>
+  <path d="M96 92l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" fill="#FCD34D" opacity=".85"/>
+  <circle cx="252" cy="90" r="3" fill="#FDBA74" opacity=".8"/>
+</svg>

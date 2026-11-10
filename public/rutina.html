@@ -204,6 +204,67 @@ b,strong{font-weight:600}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
 @media(max-width:640px){.hero-ill{opacity:.88}}
 
+/* ---------- v2.8 · hero pohon konsistensi ---------- */
+.hero-tree .hero-bg{background:#D1FAE5 url("/illustrations/hero-bg-growth.svg") right center/cover no-repeat}
+.hero-tree .hero-body{gap:9px}
+.hero-tree .hero-ill{display:grid;place-items:center}
+.hero-tree .hero-ill img{width:min(100%,340px);height:auto;aspect-ratio:1;filter:drop-shadow(0 12px 18px rgba(5,150,105,.16)) drop-shadow(0 30px 42px rgba(15,23,42,.08))}
+.tree-progress{display:flex;flex-direction:column;gap:8px;padding:13px 15px;border-radius:15px;background:rgba(255,255,255,.84);border:1px solid rgba(167,243,208,.85);max-width:360px;backdrop-filter:blur(3px)}
+.tree-stage{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tree-stage-chip{display:inline-flex;align-items:center;gap:6px;background:var(--terra);color:#fff;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px}
+.tree-stage-chip .ic{width:13px;height:13px}
+.tree-days{font-size:12px;font-weight:600;color:var(--terra-deep)}
+.tree-bar{height:9px}
+.tree-bar i{background:linear-gradient(90deg,#34D399,#059669)}
+.hero-meta .pill{background:rgba(255,255,255,.85);border:1px solid rgba(167,243,208,.9);color:var(--terra-deep);font-weight:600;font-size:12px;padding:6px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+/* ---------- v2.8 · banner jatah harian ---------- */
+.jatah-banner .jb-art{width:92px;flex:none;display:grid;place-items:center;position:relative;z-index:1}
+.jatah-banner .jb-art img{width:100%;height:auto}
+.jatah-banner.over .sb-body b{color:var(--rose-deep)}
+.jatah-banner.over .bar i{background:var(--rose)}
+/* ---------- v2.8 · ritme pekan ---------- */
+.pekan-art{display:block;width:100%;height:auto;margin:0 0 14px}
+.week-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.wk-cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px 9px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.wk-cell.today{background:var(--terra-softer);border-color:#A7F3D0}
+.wk-cell.future{opacity:.45;border-style:dashed;background:transparent}
+.wk-day{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.wk-cell.today .wk-day{color:var(--terra-deep)}
+.wk-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;border:2px solid var(--line);background:var(--surface);color:transparent;transition:transform .2s var(--ease-tunas)}
+.wk-dot .ic{width:14px;height:14px}
+.wk-cell:not(.future):hover .wk-dot{transform:scale(1.12)}
+.wk-dot.lv1{background:#D1FAE5;border-color:#A7F3D0;color:#059669;width:22px;height:22px}
+.wk-dot.lv2{background:#6EE7B7;border-color:#34D399;color:#fff}
+.wk-dot.lv3{background:#059669;border-color:#047857;color:#fff;box-shadow:0 0 0 4px rgba(5,150,105,.14)}
+.wk-dot.on-today{border-color:var(--honey);box-shadow:0 0 0 3px rgba(245,158,11,.22)}
+.wk-n{font-size:11.5px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.wk-cell.today .wk-n{color:var(--terra-deep);font-weight:700}
+@media(max-width:900px){
+  /* pohon tumbuh dari pojok kanan-bawah hero (di atas perbukitan latar),
+     tidak lagi menabrak zona teks sapaan di atas */
+  .hero-tree .hero-ill{top:auto;right:-12px;bottom:-14px;width:138px;max-width:138px;opacity:.96;z-index:1;transform:none}
+  .hero-tree .hero-ill img{width:100%;height:auto;aspect-ratio:1}
+  .hero.hero-tree .h-serif{padding-right:12px}
+  .hero-tree .hero-body{gap:9px}
+  .hero-tree .hero-body>.btn{margin-right:128px}
+  .pekan-art{max-height:96px;object-fit:cover;object-position:center 70%;border-radius:12px}
+  .wk-dot{width:22px;height:22px}
+  .wk-dot.lv1{width:19px;height:19px}
+  .wk-dot.lv2{width:22px;height:22px}
+}
+@media(max-width:640px){
+  .jatah-banner .jb-art{width:58px}
+  /* tombol turun ke baris sendiri supaya kolom teks dapat ruas penuh
+     (min-width:0 warisan banner lama membuat teks terremuk bila sebaris) */
+  .jatah-banner>.btn{flex-basis:100%;justify-content:flex-start}
+  .tree-progress{padding:11px 13px;gap:7px}
+  .week-strip{gap:5px}
+  .wk-cell{padding:8px 3px 7px;border-radius:11px}
+  .wk-day{font-size:10px}
+  .wk-n{font-size:10.5px}
+  .pekan-art{max-height:84px}
+}
+
 /* ---------- kartu statistik ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
 .stat{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;padding:14px 16px;border:none;border-radius:0}
@@ -1652,45 +1713,44 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
+  <!-- HERO · POHON KONSISTENSI (v2.8) — kebiasaan tak lagi ditampilkan di
+       sini (punya tab sendiri); ringkasan membuka cerita pertumbuhan pohon
+       yang tumbuh dari hari-hari aktif mencatat. -->
+  <div class="hero hero-tree">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-body">
-      <h2 class="h-serif">Kebiasaan hari ini</h2>
-      <div class="hero-ring">
-          <div class="ring-col">
-            <div class="ring-wrap" id="ringWrap" role="img" aria-label="Kebiasaan hari ini">
-              <svg viewBox="0 0 150 150">
-                <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
-                <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
-                <line id="ringTarget" x1="75" y1="7" x2="75" y2="19" stroke="#D97706" stroke-width="3.2" stroke-linecap="round" style="opacity:0"/>
-                <text x="75" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-size="34" font-weight="650" fill="#047857" id="ringText">4/7</text>
-                <text x="75" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="600" fill="#64748B" letter-spacing=".1em">SELESAI</text>
-              </svg>
-            </div>
-            <div class="ring-target" id="ringTargetCap" aria-live="polite"></div>
-          </div>
-        <div class="ring-info">
-          <div class="big"><span id="heroSisa">3</span> kebiasaan lagi</div>
-          <button class="btn btn-primary btn-sm" data-go="kebiasaan">Lihat agenda <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <div class="eyebrow">Pohon rutina</div>
+      <h2 class="h-serif" id="treeGreet">Selamat datang, Sahabat Rutina</h2>
+      <p class="t-sub" id="treeDate">—</p>
+      <div class="tree-progress">
+        <div class="tree-stage">
+          <span class="tree-stage-chip"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><b id="treeStage">—</b></span>
+          <span class="tree-days t-num" id="treeDays">0 hari aktif</span>
         </div>
+        <div class="bar tree-bar"><i id="treeBar" data-w="0%"></i></div>
+        <div class="t-sub" id="treeNext" style="font-size:12px">—</div>
       </div>
+      <div class="hero-meta">
+        <span class="pill" id="treeLogs">—</span>
+      </div>
+      <button class="btn btn-primary btn-sm" data-go="wawasan">Lihat analisis <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
     <div class="hero-ill">
-      <svg class="ill" role="img" aria-label="Ilustrasi seseorang menyiram tanaman kebiasaan yang tumbuh"><use href="#ill-hero"/></svg>
+      <img id="treeArt" src="/tree/tunas.svg" alt="Ilustrasi pohon konsistensi tahap tunas" width="480" height="480" loading="eager"/>
       <div class="hero-quote"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Satu hari, satu catatan.</div>
     </div>
   </div>
 
-  <!-- STATISTIK -->
+  <!-- STATISTIK · v2.8: kartu rekor streak diganti pengeluaran hari ini
+       (statistik kebiasaan tinggal di tabnya; ringkasan kini lintas domain) -->
   <div class="stats">
     <div class="card stat">
       <div class="stat-top">
-        <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span>
-        <svg class="spark" id="sparkStreak" aria-hidden="true"></svg>
+        <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></span>
+        <svg class="spark" id="sparkDay" aria-hidden="true"></svg>
       </div>
-      <div><div class="num t-num" id="statStreak">—</div><div class="lbl" id="statStreakLbl">Rekor streak terbaik</div></div>
-      <div class="sub" id="statStreakSub">memuat…</div>
+      <div><div class="num t-num" id="statDay">Rp 0</div><div class="lbl" id="statDayLbl">Pengeluaran hari ini</div></div>
+      <div class="sub" id="statDaySub">memuat…</div>
     </div>
     <div class="card stat">
       <div class="stat-top">
@@ -1719,36 +1779,40 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
   </div>
 
-  <!-- BANNER STREAK -->
-  <div class="card streak-banner">
-    <span class="ph-art em"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
+  <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
+       kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
+  <div class="card streak-banner jatah-banner" id="jatahBanner">
+    <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy"/></span>
     <div class="sb-body">
       <b id="sbT">Memuat…</b>
       <p class="t-sub" id="sbS">Menghitung dari catatan database.</p>
       <div class="bar"><i id="sbBar" data-w="0%"></i></div>
       <small class="t-sub t-num" style="font-size:12px" id="sbCount">—</small>
     </div>
-    <button class="btn btn-ghost btn-sm" data-go="kebiasaan">Lihat semua <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+    <button class="btn btn-ghost btn-sm" data-go="keuangan">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   </div>
 
-  <!-- AGENDA + ARUS KAS -->
+  <!-- RITME PEKAN + ARUS KAS (v2.8) — kartu agenda kebiasaan diganti ritme
+       aktivitas pekan berjalan: strip 7 hari + tren vs pekan lalu -->
   <div class="grid g-main" id="rowAgenda">
     <div class="card card-pad">
       <div class="card-head">
         <div class="ch-title">
-          <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+          <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-kal"/></svg></span>
           <div>
-            <div class="eyebrow">Agenda</div>
-            <h3 class="h-serif">Hari ini</h3>
+            <div class="eyebrow">Pekan ini</div>
+            <h3 class="h-serif" id="weekTitle">Ritme aktivitas</h3>
           </div>
         </div>
-        <span class="pill pill-streak" id="agendaCount">4 dari 7 aktivitas selesai</span>
+        <span class="pill pill-streak" id="weekCount">—/7 hari aktif</span>
       </div>
-      <div class="agenda-list" id="agendaList"></div>
-      <div class="agenda-note" id="agendaNote">
-        <svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>
-        <span id="agendaNoteText">Memuat agenda…</span>
+      <img class="pekan-art" src="/illustrations/scene-pekan.svg" alt="" aria-hidden="true" loading="lazy"/>
+      <div class="week-strip" id="weekStrip" role="img" aria-label="Ritme aktivitas pekan ini"></div>
+      <div class="agenda-note">
+        <svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>
+        <span id="weekNoteText">Memuat ritme pekan…</span>
       </div>
+      <button class="link-btn" data-go="kalender" style="margin-top:12px">Buka kalender <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
     <div class="row" style="gap:18px">
       <div class="card card-pad">
@@ -2631,79 +2695,123 @@ function renderIdentity(){
   const nama=SETTINGS.userName||'Sahabat Rutina';
   $('#greetTitle').textContent='Ringkasan hari ini';
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
-  $('#greetSub').textContent=`${tglLengkap} · ${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
+  $('#greetSub').textContent=`${tglLengkap} · ${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
   $('#tbDate').innerHTML=`<b>${tglLengkap}</b>`;
   $('#tbStreak').textContent=activeDaysAll();
   $('#tbStreakUnit').textContent='hari aktif total';
   const inisial=(nama.match(/\p{L}/u)||['R'])[0].toUpperCase();
   $$('.avatar').forEach(a=>a.textContent=inisial);
   $('#sideName').textContent=nama;
-  $('#sideSub').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
+  $('#sideSub').textContent=`${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
   $('#finSub').textContent=`Arus kas ${monthLabel('ALL')} · ${TXS.length} transaksi`;
 }
 
-/* ---------- ring & agenda hari ini ---------- */
-function renderAgenda(){
-  let html='',lastGrp='__';
-  if(!HABITS.length){$('#agendaList').innerHTML=`<div class="empty-state" style="padding:22px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Agenda kosong</b><p>Semua kebiasaan terhapus dari sesi ini. Tambahkan yang baru untuk mengisi hari.</p></div>`;return}
-  HABITS.forEach(h=>{
-    const g=h.grp,gk=g?g.id:'_none';
-    if(gk!==lastGrp){lastGrp=gk;
-      const n=HABITS.filter(x=>(x.grp?x.grp.id:'_none')===gk).length;
-      html+=`<div class="agenda-cap">${g?`<i style="background:${esc(g.color)}"></i>${esc(g.name.toUpperCase())}`:'Tanpa grup'} · ${n} kebiasaan</div>`;
-    }
-    const done=!!doneToday[h.id],amt=isAmount(h);
-    html+=`<div class="agenda-row ${done?'done':''}">
-      <span class="time-chip">${h.reminder?esc(h.reminder):'—'}</span>
-      <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
-      <div><div class="agenda-name">${esc(h.name)}</div>
-        <div class="agenda-meta"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}${h.grp?` · <span style="color:${esc(h.grp.color)};font-weight:600">${esc(h.grp.name)}</span>`:''}</div>
-        ${amt?`<div class="amt-row" title="Progres hari ini"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}</div>
-      <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
-      <button class="btn-check ${done?'done':''}" data-check="${esc(h.id)}" aria-pressed="${done}" aria-label="Tandai ${esc(h.name)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
-    </div>`;
-  });
-  $('#agendaList').innerHTML=html;
-  animateBars($('#agendaList'));
+/* ---------- v2.8 · hero pohon konsistensi ----------
+   Pohon tumbuh dari HARI AKTIF (bukan daftar kebiasaan): tiap hari yang
+   punya catatan menumbuhkan tahap berikutnya. Ambang: benih 0, tunas 1,
+   pohon muda 7, pohon dewasa 30, berbunga 90 hari aktif. */
+const TREE_STAGES=[
+  {min:0,file:'benih',name:'Benih'},
+  {min:1,file:'tunas',name:'Tunas'},
+  {min:7,file:'pohon-muda',name:'Pohon Muda'},
+  {min:30,file:'pohon-dewasa',name:'Pohon Dewasa'},
+  {min:90,file:'berbunga',name:'Berbunga'}
+];
+function renderTreeHero(){
+  const now=new Date();
+  const jam=now.getHours();
+  const sapa=jam<11?'Selamat pagi':jam<15?'Selamat siang':jam<19?'Selamat sore':'Selamat malam';
+  const nama=SETTINGS&&SETTINGS.userName?SETTINGS.userName:'Sahabat Rutina';
+  $('#treeGreet').textContent=`${sapa}, ${nama}`;
+  $('#treeDate').textContent=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
+  const a=activeDaysAll();
+  /* cari tahap tertinggi yang terpenuhi */
+  let i=0;TREE_STAGES.forEach((s,idx)=>{if(a>=s.min)i=idx});
+  const st=TREE_STAGES[i],next=TREE_STAGES[i+1]||null;
+  $('#treeStage').textContent=st.name;
+  $('#treeDays').textContent=`${a} hari aktif`;
+  const totalLogs=sumBy(HABITS,h=>h.total);
+  $('#treeLogs').textContent=`Total ${totalLogs} catatan`;
+  const art=$('#treeArt');
+  if(art){
+    art.src=`/tree/${st.file}.svg`;
+    art.alt=`Ilustrasi pohon konsistensi tahap ${st.name.toLowerCase()}`;
+  }
+  const bar=$('#treeBar');
+  if(bar){
+    const pct=next?Math.min(100,Math.round((a-st.min)/(next.min-st.min)*100)):100;
+    bar.dataset.w=pct+'%';
+    animateBars(bar.closest('.tree-progress'));
+  }
+  $('#treeNext').textContent=!next?'Tahap tertinggi — pohonmu berbunga terus.'
+    :a===0?`Catat satu aktivitas hari ini untuk menumbuhkannya.`
+    :`${next.min-a} hari aktif lagi menuju ${next.name}.`;
+  /* kartu sisi (desktop): cerita pertumbuhan yang sama */
+  $('#sideCardT').textContent=`${st.name} · ${a} hari aktif`;
+  $('#sideCardS').textContent=next?`${next.min-a} hari lagi menuju ${next.name}.`:'Tahap tertinggi pohon konsistensimu.';
+  const scb=$('#sideCardBar');
+  if(scb){
+    scb.dataset.w=(next?Math.min(100,Math.round((a-st.min)/(next.min-st.min)*100)):100)+'%';
+    animateBars(scb.closest('.side-card'));
+  }
 }
+
+/* ---------- v2.8 · ritme pekan ini ---------- */
+function renderWeekRhythm(){
+  const ws=weekStartOf(TODAY);
+  const tk=dayKey(TODAY);
+  const counts=[];
+  for(let j=0;j<7;j++){
+    const d=addDays(ws,j);
+    const k=dayKey(d);
+    counts.push({d,k,n:(logsByDate[k]||[]).length,future:d>TODAY&&k!==tk,today:k===tk});
+  }
+  const aktif=counts.filter(c=>c.n>0&&(!c.future||c.today)).length;
+  $('#weekCount').textContent=`${aktif}/7 hari aktif`;
+  $('#weekTitle').textContent=`Ritme ${counts[0].d.getDate()}–${counts[6].d.getDate()} ${BULAN[counts[6].d.getMonth()]}`;
+  $('#weekStrip').innerHTML=counts.map(c=>{
+    const lv=c.n===0?0:c.n<=2?1:c.n<=5?2:3;
+    const dot=c.n>0?`<span class="wk-dot lv${lv} ${c.today?'on-today':''}">${c.n>=1?'<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>':''}</span>`:`<span class="wk-dot ${c.today?'on-today':''}"></span>`;
+    return `<div class="wk-cell ${c.today?'today':''} ${c.future?'future':''}" title="${HARI[c.d.getDay()]}, ${c.d.getDate()} ${BULAN[c.d.getMonth()]}${c.n?` · ${c.n} catatan`:''}">
+      <span class="wk-day">${DOWS[(c.d.getDay()-WS+7)%7]}</span>
+      ${dot}
+      <span class="wk-n">${c.d.getDate()}</span>
+    </div>`;
+  }).join('');
+  /* tren vs pekan lalu */
+  const wc=weekLogCounts(2);
+  const cur=wc[1]?wc[1].c:0,prev=wc[0]?wc[0].c:0,delta=cur-prev;
+  $('#weekNoteText').textContent=aktif===0&&counts[6].future
+    ?'Pekan masih sepi — satu catatan hari ini cukup untuk memulai.'
+    :delta>0?`Lebih ramai dari pekan lalu — ${delta} catatan lebih banyak.`
+    :delta<0?`Pekan lalu lebih ramai ${-delta} catatan. Tidak apa-apa, mulai dari hari ini.`
+    :'Setara dengan pekan lalu.';
+}
+
+
+/* ---------- ring kebiasaan (v2.8: hanya untuk tab kebiasaan & lonceng) ---------- */
 function renderRing(){
-  const n=HABITS.length,done=doneTodayCount(),C=389.6;
-  $('#ringFg').style.strokeDashoffset=(C*(1-(n?Math.min(1,done/n):0))).toFixed(1);
-  $('#ringText').textContent=`${done}/${n}`;
-  $('#heroSisa').textContent=Math.max(0,n-done);
-  $('#agendaCount').textContent=`${done} dari ${n} aktivitas selesai`;
+  const n=HABITS.length,done=doneTodayCount();
   $('#msHariIni').textContent=`${done}/${n}`;
   syncBell(n-done);
-  const sisa=Math.max(0,n-done);
-  $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan. Tambahkan satu untuk memulai.'
-    :sisa===0?'Semua kebiasaan hari ini sudah tercatat.'
-    :sisa===n?`${sisa} kebiasaan menunggu. Mulai dari yang termudah.`
-    :`${sisa} kebiasaan belum dicatat hari ini.`;
-
-  /* garis target harian — AppSettings.targetCompletion (persen catatan) */
-  const TARGET=Math.min(100,Math.max(0,Math.round(+SETTINGS.targetCompletion||80)));
-  const tick=$('#ringTarget'),cap=$('#ringTargetCap');
-  if(tick){
-    tick.setAttribute('transform',`rotate(${(360*TARGET/100).toFixed(1)} 75 75)`);
-    tick.style.opacity=TARGET>0&&n>0?'1':'0';
-  }
-  if(cap){
-    const need=n?Math.ceil(n*TARGET/100):0;
-    cap.innerHTML=!n||TARGET<=0?'':(done>=need
-      ?`<i></i><span class="ok">Target tercapai</span>`
-      :`<i></i><span>Target ${TARGET}%</span>`);
-  }
 }
 
 /* ---------- statistik ringkasan ---------- */
 function renderStats(){
-  const weeks8=weekLogCounts(8);
-  spark($('#sparkStreak'),weeks8.map(w=>w.c),'#059669');
-  const maxRun=Math.max(0,...HABITS.map(h=>h.best));
-  const logs7=logsInLast(7);
-  $('#statStreak').innerHTML=`${maxRun}<small> hari</small>`;
-  $('#statStreakLbl').textContent='Rekor streak terbaik';
-  $('#statStreakSub').textContent=logs7>0?`+${logs7} catatan dalam 7 hari terakhir`:'Belum ada catatan 7 hari terakhir';
+  /* v2.8: kartu pertama kini pengeluaran HARI INI (spark 7 hari terakhir) */
+  const tk=dayKey(TODAY);
+  const dayOut=[];
+  for(let j=6;j>=0;j--){
+    const k=dayKey(addDays(TODAY,-j));
+    dayOut.push(sumBy(TXS.filter(t=>t.date===k&&t.type==='expense'),t=>t.amount));
+  }
+  spark($('#sparkDay'),dayOut,'#F59E0B');
+  const todayTx=TXS.filter(t=>t.date===tk);
+  const keluarToday=sumBy(todayTx.filter(t=>t.type==='expense'),t=>t.amount);
+  countUp($('#statDay'),keluarToday);
+  $('#statDayLbl').textContent='Pengeluaran hari ini';
+  const nOut=todayTx.filter(t=>t.type==='expense').length;
+  $('#statDaySub').textContent=nOut?`${nOut} transaksi tercatat hari ini`:'Belum ada pengeluaran hari ini';
   spark($('#sparkKons'),[activeDaysInLast(7),activeDaysInLast(14),activeDaysInLast(21),activeDaysInLast(30),activeDaysAll()],'#0EA5E9');
   $('#statKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
   const a7=activeDaysInLast(7),d7=a7-(activeDaysInLast(14)-a7);
@@ -2735,18 +2843,38 @@ function renderStats(){
   $('#statSisaSub').textContent=`${SOURCES.length} sumber dana · ${TXS.length} transaksi`;
   animateBars($('#statSpendBar').closest('.stat'));
 }
+/* ---------- v2.8 · banner jatah harian ---------- */
 function renderBanner(){
-  const ch=champion();if(!ch)return;
-  $('#sbT').textContent=`${ch.name}: paling sering dicatat`;
-  $('#sbS').textContent=ch.first?`${ch.total} kali dicatat sejak ${tglBulan(ch.first)} · rekor ${ch.best} hari berturut-turut.`:'Belum ada catatan sama sekali.';
-  const pct=Math.min(100,Math.round(ch.best/14*100));
-  $('#sbBar').dataset.w=pct+'%';
-  $('#sbCount').textContent='Target streak: 14 hari';
+  const banner=$('#jatahBanner');
+  if(!banner)return;
+  const mk=dayKey(TODAY).slice(0,7);
+  const cj=jatahInfo(mk);
+  banner.classList.toggle('over',cj.rows.length>0&&cj.sisa<0);
+  if(!cj.rows.length){
+    $('#sbT').textContent='Belum ada anggaran bulan ini';
+    $('#sbS').textContent='Pasang batas kategori agar jatah harianmu terhitung otomatis.';
+    $('#sbBar').dataset.w='0%';
+    $('#sbCount').textContent=monthLabel(mk);
+  }
+  else if(cj.sisa<0){
+    $('#sbT').textContent='Anggaran bulan ini terlampaui';
+    $('#sbS').textContent=`Melebihi batas ${rupiah(-cj.sisa)} · berjalan ${cj.d} dari ${cj.dim} hari.`;
+    $('#sbBar').dataset.w='100%';
+    $('#sbCount').textContent=`Terpakai ${cj.pct}% dari ${rupiah(cj.totB)}`;
+  }
+  else if(cj.daysLeft<=0){
+    $('#sbT').textContent='Bulan berganti besok';
+    $('#sbS').textContent=`Terpakai ${cj.pct}% dari anggaran ${monthLabel(mk)} bulan ini.`;
+    $('#sbBar').dataset.w=Math.min(100,cj.pct)+'%';
+    $('#sbCount').textContent=rupiah(cj.sisa)+' tersisa';
+  }
+  else{
+    $('#sbT').textContent=`${rupiah(Math.round(cj.jatah))} jatah harianmu`;
+    $('#sbS').textContent=`Sisa anggaran ${rupiah(cj.sisa)} · ${cj.daysLeft} hari lagi di ${monthLabel(mk)}.`;
+    $('#sbBar').dataset.w=Math.min(100,cj.pct)+'%';
+    $('#sbCount').textContent=`Terpakai ${cj.pct}% dari ${rupiah(cj.totB)}`;
+  }
   animateBars($('#sbBar').closest('.streak-banner'));
-  $('#sideCardT').textContent=`${ch.name} memimpin`;
-  $('#sideCardS').textContent=ch.first?`${ch.total} kali dicatat sejak ${tglBulan(ch.first)}.`:'';
-  $('#sideCardBar').dataset.w=pct+'%';
-  animateBars($('#sideCardBar').closest('.side-card'));
 }
 function renderCashflow(){
   const N=10,weeks=[];
@@ -3453,7 +3581,7 @@ function toggleCheck(id,src){
   refreshToday();
 }
 function refreshToday(){
-  renderAgenda();renderRing();renderHabitCards();renderStats();
+  renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
   if(inited.heatmap)renderHeatmap();
   if(inited.cal){renderCal();renderDayDetail(state.calSel)}
 }
@@ -3620,12 +3748,12 @@ function tunasReveal(){
   seq.forEach((el,i)=>{el.style.transitionDelay=(i*GAP)+'ms';el.classList.add('tunas-on')});
   const hero=page.querySelector('.hero');
   const heroDelay=hero&&hero.style.transitionDelay?(parseInt(hero.style.transitionDelay)||0):0;
-  /* ring progres digambar ulang tepat saat hero mulai terlihat */
-  const ring=$('#ringFg');
-  if(ring){
-    ring.style.transition='none';
-    ring.style.strokeDashoffset='389.6';
-    setTimeout(()=>{ring.style.transition='';renderRing()},heroDelay+140);
+  /* v2.8: bar progres pohon digambar ulang tepat saat hero mulai terlihat */
+  const treeBar=$('#treeBar');
+  if(treeBar){
+    const w=treeBar.dataset.w;
+    treeBar.dataset.w='0%';
+    setTimeout(()=>{treeBar.dataset.w=w||'0%';animateBars(treeBar.closest('.tree-progress'))},heroDelay+140);
   }
   /* sparkline ikut merambat setelah kartu statistik muncul */
   setTimeout(()=>{
@@ -4002,7 +4130,7 @@ function tunasWake(){
   await loadData();
   if(!DB){$('#greetTitle').textContent='Rutina';tunasReveal();return}
   prepData();syncToday();
-  renderIdentity();renderAgenda();renderRing();renderBanner();
+  renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();fillTxMonths();
   renderHabitChips();renderHabitCards();

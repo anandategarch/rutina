@@ -177,6 +177,28 @@ kartu dijaga bersih — elemen menempel di tepi kanan/bawah dan dipangkas
 | `hero-bg-goals.svg` | bukit sage + bendera tujuan + jalan berliku berpiksel | `.goal-list-panel` (Tujuan) |
 | `hero-bg-tree.svg` | taburan daun & blob lembut (diredam, pohon utama tetap pusat) | `.tree-journey-hero` (Pohon) |
 | `hero-bg-settings.svg` | roda gigi sage dengan daun merambat | `.settings-profile-card` (Pengaturan) |
+| `hero-bg-focus.svg` | daun besar dalam lingkar fokus berputar + kunang-kunang | varian `focus` (watermark → scene, v0.30) |
+| `hero-bg-checkin.svg` | jurnal dengan pita daun & tunas centang ganda | varian `checkin` (jurnal check-in, v0.30) |
+| `hero-bg-work.svg` | tumpukan kertas daun + pena + pesawat kertas | varian `work` (Meja Kerja, v0.30) |
+| `hero-bg-wellness.svg` | teratai dengan uap menenangkan & daun hati | varian `wellness` (v0.30) |
+| `hero-bg-training.svg` | barbel daun di lintasan lari + percik energi | varian `training` (Latihan, v0.30) |
+
+## Scene Evergreen v2.8 — Ringkasan tanpa duplikasi tab (rutina.html)
+
+Aset untuk konsep v2 yang tampil di halaman Ringkasan: pohon konsistensi,
+jatah harian, dan ritme pekan (menggantikan konten kebiasaan yang kini
+hanya hidup di tab Kebiasaan).
+
+| Berkas | Konsep | Konteks pakai |
+|---|---|---|
+| `hero-bg-growth.svg` | perbukitan mint berlapis + mentari senja + jalan setapak berliku + daun melayang (960×340, dekorasi kanan, zona teks kiri tetap tenang) | `.hero-tree .hero-bg` (hero Ringkasan v2.8) |
+| `scene-pekan.svg` | busur pekan mentari → bulan dengan 7 tunas hari bertumbuh (360×110) | strip ilustrasi kartu "Ritme pekan ini" |
+| `scene-jatah.svg` | ember penyiraman meneteskan koin ke pot tunas (150×130) | art banner "Jatah harian" |
+
+Tahap pertumbuhan pohon konsistensi (`../tree/`: `benih` → `tunas` →
+`pohon-muda` → `pohon-dewasa` → `berbunga`, 480²) kini ditampilkan sebagai
+ilustrasi utama hero Ringkasan, dipilih otomatis dari jumlah hari aktif
+(ambang 0 / 1 / 7 / 30 / 90 hari).
 
 Prinsip keterbacaan: bentuk berisi warna terang (mint/honey-soft) hanya di pita
 luar sudut ± 60px; interior kartu tetap putih polos untuk zona teks. Aset SVG
