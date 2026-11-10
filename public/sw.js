@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v19"; // v2.17 — skala angka semantik, aksi senyap, proporsi wawasan
+const STATIC_CACHE = "rutina-static-v20"; // v2.18 — target sentuh mobile 44px, ticks kalender terlihat, waktu 24 jam
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
