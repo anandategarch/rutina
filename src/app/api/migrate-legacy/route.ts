@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 import { isLegacyBackup, applyLegacyMigration } from "@/lib/migrate-legacy";
+import { isTursoConfigured } from "@/lib/server/turso";
 import { todayISO } from "@/lib/format";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const MAX_BODY_BYTES = 20 * 1024 * 1024;
+
 export async function POST(request: Request) {
+  if (!isTursoConfigured()) {
+    return NextResponse.json({ error: "Migrasi membutuhkan koneksi Turso." }, { status: 503 });
+  }
+  const size = Number(request.headers.get("content-length") ?? 0);
+  if (size > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "File backup legacy terlalu besar untuk dimigrasi." }, { status: 413 });
+  }
   let body: unknown;
   try { body = await request.json(); } catch {
     return NextResponse.json({ error: "File backup bukan JSON yang valid." }, { status: 400 });
@@ -21,8 +31,9 @@ export async function POST(request: Request) {
     return NextResponse.json(result, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Rutina legacy migration failed:", error);
-    const message = error instanceof Error ? error.message : "Gagal memigrasi backup legacy. Data yang sudah ada tidak dihapus.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Detail kegagalan (nama env, URL koneksi) hanya ke log server —
+    // respons API memakai pesan tetap.
+    return NextResponse.json({ error: "Gagal memigrasi backup legacy. Data yang sudah ada tidak dihapus." }, { status: 500 });
   }
 }
 

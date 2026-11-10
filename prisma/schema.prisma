@@ -96,3 +96,19 @@ model WorkspaceModule {
 
   @@map("workspace_modules")
 }
+
+// Tabel ini dibuat lazy oleh ensureSchema() (src/lib/server/schema.ts);
+// model Prisma-nya didokumentasikan di sini agar tooling schema sejalan.
+model FinanceCategory {
+  id        String @id
+  name      String @unique
+  emoji     String @default("")
+  color     String @default("#78716c")
+  type      String @default("expense")
+  sortOrder Int    @default(0) @map("sort_order")
+  createdAt String @default(dbgenerated("CURRENT_TIMESTAMP")) @map("created_at")
+  updatedAt String @default(dbgenerated("CURRENT_TIMESTAMP")) @map("updated_at")
+
+  @@index([sortOrder, name])
+  @@map("finance_categories")
+}

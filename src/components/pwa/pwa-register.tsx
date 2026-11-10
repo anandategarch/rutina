@@ -12,6 +12,8 @@ import { RefreshCw, X } from "lucide-react";
  * Di sini kita dengarkan "updatefound" → worker baru "installed" → tampilkan
  * banner dismissible dengan tombol "Muat ulang".
  */
+const noop = () => {};
+
 export function PwaRegister() {
   const [updateReady, setUpdateReady] = useState(false);
 
@@ -20,6 +22,9 @@ export function PwaRegister() {
 
     let registration: ServiceWorkerRegistration | undefined;
     let cancelled = false;
+    // Pengunjung BARU (belum ada controller) tidak perlu dimuat ulang saat
+    // worker pertama melakukan clients.claim() — itu bukan pembaruan.
+    const hadController = Boolean(navigator.serviceWorker.controller);
 
     const onNewWorkerState = (worker: ServiceWorker) => {
       if (cancelled) return;
@@ -46,16 +51,17 @@ export function PwaRegister() {
         // PWA installation remains optional when service workers are unavailable.
       });
 
-    // Reload otomatis saat controller berganti (setelah skipWaiting).
+    // Reload otomatis saat controller berganti (setelah skipWaiting) — hanya
+    // bila sebelumnya sudah ada worker lain yang mengendalikan halaman.
     const onControllerChange = () => {
-      if (!cancelled) window.location.reload();
+      if (!cancelled && hadController) window.location.reload();
     };
     navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
 
     return () => {
       cancelled = true;
       navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
-      registration?.removeEventListener?.("updatefound", () => {});
+      registration?.removeEventListener?.("updatefound", noop);
     };
   }, []);
 

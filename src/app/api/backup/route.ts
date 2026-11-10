@@ -35,7 +35,7 @@ function validateWorkspace(value: unknown): value is { habits: Habit[]; transact
     typeof item.title === "string" && typeof item.category === "string" &&
     (item.type === "income" || item.type === "expense") &&
     typeof item.amount === "number" && Number.isFinite(item.amount) && item.amount > 0 &&
-    typeof item.date === "string" && /^\d{4}-\d{2}-\d{2}/.test(item.date));
+    typeof item.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.date));
   const budgetsOk = value.budgets.every((item) => isRecord(item) &&
     typeof item.category === "string" &&
     typeof item.limit === "number" && Number.isFinite(item.limit) && item.limit >= 0);
@@ -75,6 +75,13 @@ async function readModules(): Promise<WorkspaceModules> {
   return normalizeModules(value);
 }
 
+const MAX_BODY_BYTES = 20 * 1024 * 1024;
+
+function bodyTooLarge(request: Request): boolean {
+  const size = Number(request.headers.get("content-length") ?? 0);
+  return size > MAX_BODY_BYTES;
+}
+
 export async function GET() {
   if (!isTursoConfigured()) return NextResponse.json({ error: "Backup membutuhkan koneksi Turso." }, { status: 503 });
   try {
@@ -100,6 +107,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   if (!isTursoConfigured()) return NextResponse.json({ error: "Pemulihan backup membutuhkan koneksi Turso." }, { status: 503 });
+  if (bodyTooLarge(request)) {
+    return NextResponse.json({ error: "File backup terlalu besar untuk dipulihkan." }, { status: 413 });
+  }
   let body: unknown;
   try { body = await request.json(); } catch {
     return NextResponse.json({ error: "File backup bukan JSON yang valid." }, { status: 400 });
@@ -125,6 +135,20 @@ export async function POST(request: Request) {
     };
     const mergedModules = mergeModules(currentModules, incomingModules);
 
+    // Hasil penggabungan dibatasi seperti validasi PUT /api/workspace —
+    // import yang melebihi batas itu akan selamanya membuat workspace tak
+    // bisa disimpan kembali oleh aplikasi.
+    if (
+      mergedWorkspace.habits.length > 500 ||
+      mergedWorkspace.transactions.length > 10000 ||
+      mergedWorkspace.budgets.length > 100
+    ) {
+      return NextResponse.json(
+        { error: "Hasil penggabungan backup melebihi kapasitas workspace (500 kebiasaan / 10.000 transaksi / 100 anggaran). Hapus sebagian data lama dulu." },
+        { status: 413 },
+      );
+    }
+
     await writeWorkspace(mergedWorkspace, todayISO());
     const client = getTursoClient();
     const transaction = await client.transaction("write");
@@ -139,7 +163,7 @@ export async function POST(request: Request) {
       }
       await transaction.commit();
     } catch (error) {
-      await transaction.rollback();
+      await transaction.rollback().catch(() => undefined);
       throw error;
     }
 

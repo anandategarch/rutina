@@ -192,6 +192,37 @@ export async function writeWorkspace(input: WorkspaceInput, today: string): Prom
       });
     }
 
+    // Kebiasaan & transaksi disinkronkan penuh — payload client adalah sumber
+    // kebenaran (kelakuan yang sama dengan budgets di bawah). Tanpa ini, item
+    // yang dihapus di client akan "hidup kembali" pada pembacaan berikutnya.
+    // json_each() menghindari batas jumlah parameter SQLite untuk payload besar.
+    const habitIds = JSON.stringify(input.habits.map((habit) => habit.id));
+    const transactionIds = JSON.stringify(input.transactions.map((item) => item.id));
+    await transaction.execute({
+      sql: `DELETE FROM habits WHERE id NOT IN (SELECT value FROM json_each(?))`,
+      args: [habitIds],
+    });
+    await transaction.execute({
+      sql: `DELETE FROM habit_metadata WHERE habit_id NOT IN (SELECT value FROM json_each(?))`,
+      args: [habitIds],
+    });
+    await transaction.execute({
+      sql: `DELETE FROM habit_daily_progress WHERE habit_id NOT IN (SELECT value FROM json_each(?))`,
+      args: [habitIds],
+    });
+    await transaction.execute({
+      sql: `DELETE FROM habit_checkins WHERE habit_id NOT IN (SELECT value FROM json_each(?))`,
+      args: [habitIds],
+    });
+    await transaction.execute({
+      sql: `DELETE FROM transactions WHERE id NOT IN (SELECT value FROM json_each(?))`,
+      args: [transactionIds],
+    });
+    await transaction.execute({
+      sql: `DELETE FROM transaction_metadata WHERE transaction_id NOT IN (SELECT value FROM json_each(?))`,
+      args: [transactionIds],
+    });
+
     // Anggaran disinkronkan penuh: payload client adalah sumber kebenaran.
     // Baris budget yang tidak ada di payload DIHAPUS. Tanpa ini, snapshot lama
     // (mis. kategori kasar hasil migrasi V1) yang di-PUT client akan meninggalkan
@@ -214,9 +245,14 @@ export async function writeWorkspace(input: WorkspaceInput, today: string): Prom
       });
     }
 
+    // Check-in hari ini hanya dihapus untuk kebiasaan yang ADA di payload —
+    // perangkat lain yang kebetulan menyimpan check-in kebiasaan berbeda
+    // pada hari yang sama tidak boleh ikut terhapus.
     await transaction.execute({
-      sql: "DELETE FROM habit_checkins WHERE completed_on = ?",
-      args: [today],
+      sql: input.habits.length > 0
+        ? "DELETE FROM habit_checkins WHERE completed_on = ? AND habit_id IN (SELECT value FROM json_each(?))"
+        : "DELETE FROM habit_checkins WHERE completed_on = ?",
+      args: input.habits.length > 0 ? [today, habitIds] : [today],
     });
 
     for (const habit of sanitizedHabits) {
@@ -257,7 +293,9 @@ export async function writeWorkspace(input: WorkspaceInput, today: string): Prom
 
     await transaction.commit();
   } catch (error) {
-    await transaction.rollback();
+    // Rollback yang gagal (koneksi mati) tidak boleh menenggelamkan
+    // kesalahan asli yang menjadi penyebabnya.
+    await transaction.rollback().catch(() => undefined);
     throw error;
   }
 }

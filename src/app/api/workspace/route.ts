@@ -10,8 +10,19 @@ function isValidDate(value: string): boolean {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
+function isValidTime(value: string): boolean {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
+}
+
+const MAX_BODY_BYTES = 5 * 1024 * 1024;
+
+function bodyTooLarge(request: Request): boolean {
+  const size = Number(request.headers.get("content-length") ?? 0);
+  return size > MAX_BODY_BYTES;
 }
 
 function isHabit(value: unknown): value is Habit {
@@ -20,7 +31,7 @@ function isHabit(value: unknown): value is Habit {
     typeof value.id === "string" && value.id.length > 0 && value.id.length <= 100 &&
     typeof value.title === "string" && value.title.trim().length > 0 && value.title.length <= 100 &&
     (value.category === "Mindfulness" || value.category === "Health" || value.category === "Learning" || value.category === "Personal") &&
-    typeof value.time === "string" && /^\d{2}:\d{2}$/.test(value.time) &&
+    typeof value.time === "string" && isValidTime(value.time) &&
     typeof value.duration === "number" && Number.isInteger(value.duration) && value.duration > 0 &&
     typeof value.completed === "boolean" &&
     (value.icon === "book" || value.icon === "water" || value.icon === "movement" || value.icon === "mind" || value.icon === "write") &&
@@ -95,6 +106,10 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const denied = authorizeDatabase();
   if (denied) return denied;
+
+  if (bodyTooLarge(request)) {
+    return NextResponse.json({ error: "Payload workspace terlalu besar." }, { status: 413 });
+  }
 
   let body: unknown;
   try {
