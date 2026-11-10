@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v21"; // v2.19 — partikel botani bernasib baik, sapaan emosional, streak-guard
+const STATIC_CACHE = "rutina-static-v22"; // v2.20 — dock tak tenggelam saat pull-to-refresh + lencana versi aplikasi
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
