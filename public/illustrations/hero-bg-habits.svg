@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none" role="img" aria-label="Barisan tunas dalam pot dengan rambatan dan kupu-kupu">
+  <defs>
+    <linearGradient id="hgH-pot" x1="300" y1="128" x2="408" y2="186" gradientUnits="userSpaceOnUse"><stop stop-color="#E09963"/><stop offset="1" stop-color="#B96D45"/></linearGradient>
+    <linearGradient id="hgH-pot2" x1="96" y1="132" x2="184" y2="184" gradientUnits="userSpaceOnUse"><stop stop-color="#D58C58"/><stop offset="1" stop-color="#A85F43"/></linearGradient>
+    <linearGradient id="hgH-leafA" x1="240" y1="34" x2="320" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+    <linearGradient id="hgH-leafB" x1="380" y1="52" x2="428" y2="122" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#5C895E"/></linearGradient>
+    <linearGradient id="hgH-leafC" x1="80" y1="66" x2="130" y2="128" gradientUnits="userSpaceOnUse"><stop stop-color="#8FB476"/><stop offset="1" stop-color="#3F704B"/></linearGradient>
+    <linearGradient id="hgH-wing" x1="392" y1="18" x2="440" y2="66" gradientUnits="userSpaceOnUse"><stop stop-color="#F2C6A7"/><stop offset="1" stop-color="#E9AD91"/></linearGradient>
+  </defs>
+  <ellipse cx="240" cy="188" rx="205" ry="9" fill="#456C4D" opacity=".12"/>
+  <!-- rambatan tipis melintang -->
+  <path d="M18 150c46-26 96-24 138-4" stroke="#8EAE78" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
+  <path d="M18 150c-8-16 2-30 17-31 3 13-5 28-17 31Z" fill="#9DBF7B"/>
+  <path d="M96 142c2-14 12-22 24-20 1 13-9 22-24 20Z" fill="#A8C58B"/>
+  <!-- kupu-kupu -->
+  <g>
+    <path d="M394 26c-14-10-30-6-32 8-1 9 7 15 16 14 8-1 13-6 16-12Z" fill="url(#hgH-wing)"/>
+    <path d="M398 40c-2 8 3 17 13 17 9 0 14-9 10-17-3-6-10-8-16-4Z" fill="url(#hgH-wing)" opacity=".88"/>
+    <path d="M396 22v34" stroke="#A85F43" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="392" cy="20" r="2.6" fill="#A85F43"/><circle cx="400" cy="20" r="2.6" fill="#A85F43"/>
+  </g>
+  <!-- pot tengah + tunas -->
+  <g>
+    <path d="M300 128h108l-11 54c-1 6-5 9-11 9h-64c-6 0-10-3-11-9Z" fill="url(#hgH-pot)"/>
+    <rect x="292" y="118" width="124" height="16" rx="8" fill="#C97E4F"/>
+    <path d="M354 118V64" stroke="#477B56" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M354 92c-26-2-34-20-22-34 20 3 30 19 22 34Z" fill="url(#hgH-leafA)"/>
+    <path d="M356 76c4-20 20-28 33-17-2 17-16 26-33 17Z" fill="#A8C58B"/>
+    <circle cx="322" cy="52" r="5" fill="#EDC77F"/>
+  </g>
+  <!-- pot kiri + tunas kecil -->
+  <g>
+    <path d="M96 132h88l-9 44c-1 5-4 8-9 8h-52c-5 0-8-3-9-8Z" fill="url(#hgH-pot2)"/>
+    <rect x="90" y="124" width="100" height="13" rx="6.5" fill="#C97E4F"/>
+    <path d="M140 124V86" stroke="#5C895E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M140 106c-18-1-25-14-16-24 15 2 22 13 16 24Z" fill="url(#hgH-leafC)"/>
+    <path d="M142 94c3-13 14-19 23-12-1 12-11 19-23 12Z" fill="#9DBF7B"/>
+    <circle cx="118" cy="76" r="4" fill="#E9AD91" opacity=".9"/>
+  </g>
+  <!-- kecambah tunggal kanan -->
+  <g>
+    <path d="M428 148c-2-16 8-27 21-28 3 15-7 26-21 28Z" fill="url(#hgH-leafB)"/>
+    <path d="M440 120V92" stroke="#5C895E" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M440 100c8-12 20-14 27-6-5 11-16 14-27 6Z" fill="#A8C58B"/>
+    <path d="M436 96l-3-8" stroke="#8EAE78" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <path d="M268 44l2.4 7.6 7.6 2.4-7.6 2.4L268 64l-2.4-7.6-7.6-2.4 7.6-2.4Z" fill="#EDC77F"/>
+  <circle cx="196" cy="42" r="4" fill="#E9AD91" opacity=".8"/>
+</svg>

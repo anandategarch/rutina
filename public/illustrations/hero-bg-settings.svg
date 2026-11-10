@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" role="img" aria-label="Roda gigi sage dengan daun merambat">
+  <defs>
+    <linearGradient id="hgSt-gear" x1="120" y1="30" x2="120" y2="130" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#6D956C"/></linearGradient>
+    <linearGradient id="hgSt-leaf" x1="150" y1="70" x2="200" y2="140" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+  </defs>
+  <circle cx="120" cy="80" r="62" fill="#DCE8C9" opacity=".6"/>
+  <circle cx="196" cy="34" r="18" fill="#FFD8B4" opacity=".5"/>
+  <!-- gigi -->
+  <g>
+    <path d="M120 22l7 2.6 6.4-4.4 8.8 7-1.8 7.2 4.4 6.2 8 1.8v11.2l-7.2 3.6-2.6 8 7 8.8-7 8.8-8-1.8-6.2 4.4-1.8 8h-11.2l-3.6-7.2-8-2.6-8.8 7-8.8-7 1.8-8-4.4-6.2-8-1.8V45.4l7.2-3.6 2.6-8-7-8.8 7-8.8 8 1.8 6.2-4.4 1.8-8H114Z" fill="url(#hgSt-gear)" stroke="#5C895E" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="120" cy="80" r="18" fill="#FFFAF1" stroke="#5C895E" stroke-width="2.5"/>
+    <circle cx="120" cy="80" r="6.5" fill="#A8C58B"/>
+  </g>
+  <!-- daun merambat lewat gigi -->
+  <g>
+    <path d="M168 138c-8-24 2-44 24-50 6 22-6 42-24 50Z" fill="url(#hgSt-leaf)"/>
+    <path d="M170 134c4-16 12-27 24-34" stroke="#477B56" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <path d="M36 44l2 6.4 6.4 2-6.4 2-2 6.4-2-6.4-6.4-2 6.4-2Z" fill="#EDC77F"/>
+  <circle cx="58" cy="118" r="4.5" fill="#E9AD91" opacity=".8"/>
+</svg>

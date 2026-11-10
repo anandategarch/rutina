@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none" role="img" aria-label="Rimbun daun bertunas dari dasar kartu dengan kilau">
+  <defs>
+    <linearGradient id="hgI-leafA" x1="180" y1="60" x2="230" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+    <linearGradient id="hgI-leafB" x1="110" y1="80" x2="150" y2="196" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#5C895E"/></linearGradient>
+    <linearGradient id="hgI-leafC" x1="256" y1="76" x2="300" y2="188" gradientUnits="userSpaceOnUse"><stop stop-color="#8FB476"/><stop offset="1" stop-color="#3F704B"/></linearGradient>
+    <linearGradient id="hgI-bar" x1="28" y1="120" x2="80" y2="212" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#6D956C"/></linearGradient>
+  </defs>
+  <ellipse cx="196" cy="222" rx="150" ry="9" fill="#456C4D" opacity=".12"/>
+  <!-- batang induk -->
+  <path d="M196 216V104" stroke="#477B56" stroke-width="5" stroke-linecap="round"/>
+  <path d="M196 216c-20-42-14-84 12-108" stroke="#5C895E" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
+  <path d="M196 216c22-40 30-78 18-104" stroke="#5C895E" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
+  <!-- daun kipas -->
+  <path d="M196 158c-34-3-46-27-28-45 26 4 39 27 28 45Z" fill="url(#hgI-leafA)"/>
+  <path d="M198 132c5-25 26-35 43-21-2 21-22 32-43 21Z" fill="#A8C58B"/>
+  <path d="M118 196c-26-2-36-20-22-34 20 3 29 20 22 34Z" fill="url(#hgI-leafB)"/>
+  <path d="M270 190c24-2 34-18 22-32-19 3-28 17-22 32Z" fill="url(#hgI-leafC)"/>
+  <path d="M144 214c-18-1-25-13-16-22 14 2 21 13 16 22Z" fill="#8FB476"/>
+  <path d="M252 214c18-1 25-13 16-22-14 2-21 13-16 22Z" fill="#8FB476"/>
+  <!-- grafik batang sebagai tanaman -->
+  <g>
+    <rect x="30" y="168" width="16" height="44" rx="8" fill="url(#hgI-bar)"/>
+    <rect x="54" y="142" width="16" height="70" rx="8" fill="#A8C58B"/>
+    <rect x="78" y="118" width="16" height="94" rx="8" fill="#8FB476"/>
+    <path d="M40 142c26-22 44-26 62-14" stroke="#E9AD91" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 9"/>
+    <circle cx="106" cy="118" r="5.5" fill="#EDC77F"/>
+  </g>
+  <path d="M320 60l2.4 7.6 7.6 2.4-7.6 2.4L320 80l-2.4-7.6-7.6-2.4 7.6-2.4Z" fill="#EDC77F"/>
+  <circle cx="52" cy="58" r="4.5" fill="#E9AD91" opacity=".8"/>
+  <circle cx="236" cy="38" r="4" fill="#EDC77F" opacity=".75"/>
+</svg>

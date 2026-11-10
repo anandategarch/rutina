@@ -363,6 +363,25 @@ export function BotanicalIllustration({ variant = "sprout", className = "" }: {
 
 
 /**
+ * Aset scene latar hero per varian (v0.29) — ilustrasi penuh warna bergaya
+ * "Playful Botanical" yang berbeda untuk tiap kartu hero. Berkas mandiri di
+ * `public/illustrations/` dimuat sebagai background-image CSS (pola yang sama
+ * dengan botanical-gardener.svg). Varian tanpa aset scene jatuh kembali ke
+ * watermark SVG lama.
+ */
+const heroSceneAssets: Partial<Record<BotanicalIllustrationVariant, { src: string; w: number; h: number }>> = {
+  home: { src: "/illustrations/hero-bg-home.svg", w: 300, h: 160 },
+  habit: { src: "/illustrations/hero-bg-habits.svg", w: 480, h: 200 },
+  sprout: { src: "/illustrations/hero-bg-sprout.svg", w: 260, h: 260 },
+  finance: { src: "/illustrations/hero-bg-finance.svg", w: 460, h: 240 },
+  calendar: { src: "/illustrations/hero-bg-calendar.svg", w: 300, h: 280 },
+  insights: { src: "/illustrations/hero-bg-insights.svg", w: 360, h: 240 },
+  goals: { src: "/illustrations/hero-bg-goals.svg", w: 340, h: 240 },
+  tree: { src: "/illustrations/hero-bg-tree.svg", w: 480, h: 280 },
+  settings: { src: "/illustrations/hero-bg-settings.svg", w: 240, h: 160 },
+};
+
+/**
  * Large, low-contrast artwork layer for hero and summary cards.
  * Keep this decorative layer separate from the foreground PageIntro artwork.
  */
@@ -370,6 +389,19 @@ export function BotanicalIllustrationBackdrop({ variant, className = "" }: {
   variant: BotanicalIllustrationVariant;
   className?: string;
 }) {
+  const scene = heroSceneAssets[variant];
+  if (scene) {
+    return (
+      <span
+        className={`botanical-card-art botanical-card-art--scene botanical-card-art--${variant} ${className}`}
+        style={{
+          backgroundImage: `url("${scene.src}")`,
+          aspectRatio: `${scene.w} / ${scene.h}`,
+        }}
+        aria-hidden="true"
+      />
+    );
+  }
   const palette = palettes[variant];
   return (
     <span

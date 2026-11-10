@@ -6466,6 +6466,136 @@ html[data-theme="dark"] .finance-balance .botanical-card-art--finance {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   v0.29 · SCENE LATAR HERO — ilustrasi botani penuh, beda tiap kartu
+   Menggantikan watermark samar v0.27 pada kartu hero: setiap tab kini
+   membawa satu scene "Playful Botanical" warna penuh (aset mandiri
+   `public/illustrations/hero-bg-*.svg`, digambar mengikuti palet
+   botanical-gardener). Prinsip keterbacaan: scene menempel di tepi
+   kanan/bawah kartu, zona teks di kiri/atas tetap bersih, dan tepi
+   berlebih dipangkas overflow kartu.
+   ═══════════════════════════════════════════════════════════════════ */
+.botanical-card-art--scene {
+  right: 0;
+  bottom: -8px;
+  width: clamp(190px, 30vw, 330px);
+  opacity: .96;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 100% 100%;
+}
+
+/* Beranda — daun melayang & mentari kecil di zona udara atas,
+   di kiri scene gardener (gardener tetap jadi subjek utama). */
+.botanical-hero .botanical-card-art--scene {
+  top: 6px;
+  bottom: auto;
+  right: 42%;
+  width: clamp(110px, 15vw, 178px);
+  opacity: .92;
+  background-position: center top;
+}
+
+/* Kebiasaan — barisan pot tunas di dasar kartu, di bawah ring progres. */
+.habit-progress-card .botanical-card-art--scene {
+  right: -10px;
+  bottom: -14px;
+  width: clamp(170px, 24vw, 230px);
+  opacity: .95;
+}
+
+/* Rekor konsistensi — tunas keemasan bersyarat laurel di sisi kanan. */
+.habit-streak-summary .botanical-card-art--scene {
+  right: -14px;
+  bottom: -16px;
+  width: clamp(148px, 22vw, 212px);
+  opacity: .96;
+}
+
+/* Keuangan — perbukitan & koin emas yang dirancang untuk kartu hijau
+   tua; filter watermark putih v0.27 tidak lagi dipakai. */
+.finance-balance .botanical-card-art--scene {
+  right: -10px;
+  bottom: -14px;
+  width: clamp(180px, 28vw, 300px);
+  opacity: 1;
+  filter: none;
+}
+
+/* Kalender — busur fase bulan & karangan daun di sudut kanan-atas. */
+.calendar-summary .botanical-card-art--scene {
+  top: -4px;
+  bottom: auto;
+  right: -10px;
+  width: clamp(128px, 19vw, 184px);
+  opacity: .95;
+  background-position: right top;
+}
+
+/* Insight — rimbun daun bertunas dari dasar kartu dengan kilau. */
+.insight-highlight .botanical-card-art--scene {
+  right: -12px;
+  bottom: -14px;
+  width: clamp(160px, 24vw, 238px);
+  opacity: .96;
+}
+
+/* Tujuan — bukit & bendera di tepi kanan, jalan berliku menuju puncak. */
+.goal-list-panel .botanical-card-art--scene {
+  top: -4px;
+  bottom: auto;
+  right: -6px;
+  width: clamp(140px, 20vw, 190px);
+  opacity: .9;
+  background-position: right top;
+}
+
+/* Pohon — taburan daun & blob lembut sebagai latar perjalanan,
+   diredam agar ilustrasi pohon utama tetap jadi pusat. */
+.tree-journey-hero .botanical-card-art--scene {
+  right: 0;
+  bottom: -10px;
+  width: clamp(220px, 34vw, 420px);
+  opacity: .45;
+}
+
+/* Pengaturan — roda gigi sage dengan daun merambat di ujung kartu. */
+.settings-profile-card .botanical-card-art--scene {
+  right: -8px;
+  bottom: -14px;
+  width: clamp(96px, 13vw, 148px);
+  opacity: .9;
+}
+
+/* Dark mode — scene menjadi lapisan halus di permukaan gelap;
+   kartu Keuangan tetap penuh karena memang berlatar hijau tua. */
+html[data-theme="dark"] .botanical-card-art--scene {
+  opacity: .38;
+  filter: saturate(.72) brightness(.97);
+}
+html[data-theme="dark"] .finance-balance .botanical-card-art--scene {
+  opacity: .95;
+  filter: saturate(.95);
+}
+
+/* Mobile — scene diperkecil dan diredam agar angka/teks tetap
+   dominan di layar sempit (360px+). */
+@media (max-width: 760px) {
+  .botanical-card-art--scene { width: 150px; opacity: .78; }
+  .botanical-hero .botanical-card-art--scene { top: 2px; right: 40%; width: 104px; opacity: .62; }
+  .habit-progress-card .botanical-card-art--scene { width: 148px; opacity: .72; }
+  .habit-streak-summary .botanical-card-art--scene { width: 126px; opacity: .78; }
+  .finance-balance .botanical-card-art--scene { width: 168px; opacity: .95; }
+  .calendar-summary .botanical-card-art--scene { width: 116px; top: -2px; opacity: .68; }
+  .insight-highlight .botanical-card-art--scene { width: 138px; opacity: .72; }
+  .goal-list-panel .botanical-card-art--scene { width: 118px; top: -2px; opacity: .58; }
+  .tree-journey-hero .botanical-card-art--scene { width: 208px; opacity: .34; }
+  .settings-profile-card .botanical-card-art--scene { width: 90px; opacity: .62; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .botanical-card-art--scene { animation: none !important; transition: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    v0.12 · STORYTELLING UI — banner cerita keuangan, kalimat hero,
    takeaway kategori, narasi pertumbuhan. Palet botanical:
    hijau #417a57 · amber #f5d9a8/#d9a28a · koral #f2a48c/#c97e5e.

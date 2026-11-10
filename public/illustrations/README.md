@@ -157,6 +157,31 @@ Dua gradien baru terdaftar selaras kategori §2.5: `g-rose`
 |---|---|---|
 | `hero-bg.webp` | latar botani 8KB (1024², dekorasi hanya di tepi kanan & bawah-kanan; zona teks mint polos `#DEF8D5`) | layer `.hero-bg` kartu hero `public/rutina.html`; `background: center/cover`, gradient mint sebagai fallback |
 
+## Scene latar hero per tab (v0.29 — aplikasi v1, gaya Playful Botanical)
+
+Sembilan scene penuh warna mengikuti palet `botanical-gardener.svg` (sage
+`#8FB476–#477C51`, terracotta `#D58C58–#A85F43`, peach `#F2BFA4`, gold
+`#EDC77F`); tiap kartu hero membawa scene yang berbeda lewat komponen
+`BotanicalIllustrationBackdrop` (`botanical-card-art--scene`). Zona teks
+kartu dijaga bersih — elemen menempel di tepi kanan/bawah dan dipangkas
+`overflow` kartu.
+
+| Berkas | Konsep | Kartu hero |
+|---|---|---|
+| `hero-bg-home.svg` | daun melayang, mentari kecil & kuntum bunga (zona udara atas kartu) | `.botanical-hero` (Beranda; gardener tetap subjek utama) |
+| `hero-bg-habits.svg` | barisan pot tunas + rambatan + kupu-kupu di dasar kartu | `.habit-progress-card` (Kebiasaan) |
+| `hero-bg-sprout.svg` | tunas keemasan bersyarat daun laurel | `.habit-streak-summary` (rekor konsistensi) |
+| `hero-bg-finance.svg` | perbukitan hijau berlapis + koin keemasan bertunas — dirancang untuk kartu hijau tua | `.finance-balance` (Keuangan) |
+| `hero-bg-calendar.svg` | busur fase bulan + karangan daun + mentari | `.calendar-summary` (Kalender) |
+| `hero-bg-insights.svg` | rimbun daun bertunas dari dasar kartu + batang grafik tanaman | `.insight-highlight` (Insight) |
+| `hero-bg-goals.svg` | bukit sage + bendera tujuan + jalan berliku berpiksel | `.goal-list-panel` (Tujuan) |
+| `hero-bg-tree.svg` | taburan daun & blob lembut (diredam, pohon utama tetap pusat) | `.tree-journey-hero` (Pohon) |
+| `hero-bg-settings.svg` | roda gigi sage dengan daun merambat | `.settings-profile-card` (Pengaturan) |
+
+Prinsip keterbacaan: bentuk berisi warna terang (mint/honey-soft) hanya di pita
+luar sudut ± 60px; interior kartu tetap putih polos untuk zona teks. Aset SVG
+garis (stroke) menjaga ketajaman di semua DPI dan total < 6KB.
+
 ## Untaian sudut kartu (v2.5 — semua kartu, semua halaman)
 
 | Berkas | Konsep | Konteks pakai |

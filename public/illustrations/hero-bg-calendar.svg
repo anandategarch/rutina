@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 280" fill="none" role="img" aria-label="Busur fase bulan dengan karangan daun dan mentari">
+  <defs>
+    <linearGradient id="hgC-moon" x1="150" y1="36" x2="150" y2="92" gradientUnits="userSpaceOnUse"><stop stop-color="#F0CF87"/><stop offset="1" stop-color="#D9A644"/></linearGradient>
+    <linearGradient id="hgC-leaf" x1="150" y1="150" x2="210" y2="236" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#477C51"/></linearGradient>
+    <linearGradient id="hgC-leaf2" x1="96" y1="160" x2="150" y2="244" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#5C895E"/></linearGradient>
+  </defs>
+  <circle cx="150" cy="64" r="70" fill="#DCE8C9" opacity=".55"/>
+  <!-- busur fase bulan -->
+  <g>
+    <circle cx="88" cy="64" r="13" fill="#E9C377" opacity=".45"/>
+    <path d="M104 64c0-6 5-11 11-11s11 5 11 11-5 11-11 11-11-5-11-11Z" fill="#E9C377" opacity=".75"/>
+    <circle cx="150" cy="64" r="28" fill="url(#hgC-moon)" stroke="#B9853B" stroke-width="2.5"/>
+    <path d="M150 40c-4 4-6 10-6 24s2 20 6 24" stroke="#B9853B" stroke-width="2" opacity=".45" fill="none"/>
+    <path d="M196 64c0-6 5-11 11-11s11 5 11 11-5 11-11 11-11-5-11-11Z" fill="#E9C377" opacity=".75"/>
+    <circle cx="236" cy="64" r="8" fill="#E9C377" opacity=".5"/>
+    <circle cx="256" cy="64" r="4.5" fill="#E9C377" opacity=".4"/>
+  </g>
+  <!-- karangan daun bawah -->
+  <g stroke="#5C895E" stroke-width="3" stroke-linecap="round">
+    <path d="M150 236c-30-8-48-30-46-58"/>
+    <path d="M150 236c30-8 48-30 46-58"/>
+  </g>
+  <path d="M112 210c-17 1-27-10-24-22 13-3 23 6 24 22Z" fill="url(#hgC-leaf2)"/>
+  <path d="M104 178c-15-3-21-15-14-24 12 1 18 12 14 24Z" fill="#A8C58B"/>
+  <path d="M188 210c17 1 27-10 24-22-13-3-23 6-24 22Z" fill="url(#hgC-leaf)"/>
+  <path d="M196 178c15-3 21-15 14-24-12 1-18 12-14 24Z" fill="#A8C58B"/>
+  <!-- tunas tengah -->
+  <path d="M150 232v-40" stroke="#477B56" stroke-width="4" stroke-linecap="round"/>
+  <path d="M150 210c-13-1-18-10-11-17 10 1 15 9 11 17Z" fill="url(#hgC-leaf)"/>
+  <path d="M151 198c2-10 10-14 17-8-1 9-8 13-17 8Z" fill="#A8C58B"/>
+  <ellipse cx="150" cy="246" rx="58" ry="7" fill="#456C4D" opacity=".12"/>
+  <path d="M236 130l2.2 6.8 6.8 2.2-6.8 2.2-2.2 6.8-2.2-6.8-6.8-2.2 6.8-2.2Z" fill="#EDC77F"/>
+  <circle cx="64" cy="150" r="4.5" fill="#E9AD91" opacity=".8"/>
+</svg>
