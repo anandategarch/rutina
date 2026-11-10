@@ -532,8 +532,9 @@ b,strong{font-weight:600}
 .search-box input::placeholder{color:var(--ink-3)}
 .tx-group{margin-bottom:6px}
 .tx-date{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
-.tx-row{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
-.tx-row:hover{background:var(--surface-2)}
+.tx-row{position:relative;overflow:hidden;border-radius:14px;touch-action:pan-y}
+.tx-inner{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:10px 12px;background:var(--surface);position:relative;transition:transform .3s var(--ease-tunas),background .15s}
+.tx-row:not(.swiping):hover .tx-inner{background:var(--surface-2)}
 .tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
 .tx-ic .ic{width:24px;height:24px}
 .tx-row b{font-size:14px;display:block;line-height:1.25}
@@ -1001,10 +1002,60 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .badge.unlocked:nth-child(3n+2)::after{animation-delay:1.6s}
 .badge.unlocked:nth-child(3n)::after{animation-delay:3.1s}
 
+/* ============================================================
+   v2.14 · LAPISAN INTERAKSI PENUH — riak tekan "sentuhan daun",
+   tekan lama, geser baris transaksi, pill arah geser, donat
+   interaktif, tombol kembali ke atas & panel pintasan ketik.
+   ============================================================ */
+/* riak tekan: semburat radial hijau dari titik sentuh */
+.rip{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;background:radial-gradient(circle at var(--rx,50%) var(--ry,50%),rgba(16,185,129,.22),rgba(16,185,129,.08) 44%,transparent 70%);animation:ripFade .55s ease-out forwards}
+@keyframes ripFade{from{opacity:1}to{opacity:0}}
+.rip-static{position:relative}
+/* tekan lama: elemen "tumbuh turun" sesaat sebelum aksi */
+.tx-row.lp{transform:scale(.972);transition:transform .18s var(--ease-tunas)}
+.habit-card.lp{transform:scale(.972)}
+/* lapisan aksi geser baris transaksi (kanan = ubah, kiri = hapus) */
+.tx-swipe{position:absolute;inset:0;display:flex;align-items:center;gap:7px;padding:0 20px;font-size:12px;font-weight:700;letter-spacing:.02em;opacity:0;pointer-events:none}
+.tx-swipe .ic{width:19px;height:19px}
+.sw-del{justify-content:flex-end;color:var(--rose-deep);background:linear-gradient(90deg,transparent,rgba(239,68,68,.12) 30%,rgba(239,68,68,.2))}
+.sw-edit{justify-content:flex-start;color:var(--terra-deep);background:linear-gradient(270deg,transparent,rgba(16,185,129,.12) 30%,rgba(16,185,129,.2))}
+/* pill arah geser antar tab / bulan kalender */
+.swipe-hint{position:fixed;left:50%;top:86px;transform:translate(-50%,-10px);z-index:80;display:flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;background:rgba(15,23,42,.88);color:#F8FAFC;font-size:12.5px;font-weight:600;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.swipe-hint.show{opacity:1;transform:translate(-50%,0)}
+.swipe-hint .ic{width:14px;height:14px;color:#6EE7B7}
+/* donat interaktif: irisan mengembang saat disentuh, lainnya meredup */
+.donut-slice{cursor:pointer;transition:stroke-width .22s var(--ease-tunas),opacity .22s}
+#donutSvg g.focus .donut-slice{opacity:.32}
+#donutSvg g.focus .donut-slice.hot{opacity:1;stroke-width:31}
+/* tombol melayang: kembali ke atas & pintasan (desktop) */
+.totop{position:fixed;right:18px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:70;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);box-shadow:var(--shadow-md);opacity:0;transform:translateY(12px) scale(.92);pointer-events:none;transition:opacity .22s,transform .22s,color .18s,border-color .18s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{color:var(--terra-deep);border-color:var(--terra)}
+.scbtn{position:fixed;right:18px;bottom:calc(144px + env(safe-area-inset-bottom,0px));z-index:70;width:46px;height:46px;border-radius:15px;display:none;place-items:center;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);box-shadow:var(--shadow-md);transition:color .18s,border-color .18s,transform .18s}
+.scbtn:hover{color:var(--terra-deep);border-color:var(--terra);transform:translateY(-1px)}
+@media(hover:hover) and (pointer:fine){.scbtn{display:grid}}
+@media(min-width:1024px){.totop{bottom:26px}.scbtn{bottom:84px}}
+/* panel pintasan papan ketik */
+.sc-help{position:fixed;inset:0;z-index:95;display:none;align-items:flex-end;justify-content:center}
+.sc-help.open{display:flex}
+@media(min-width:640px){.sc-help.open{align-items:center;padding:24px}}
+.sc-scrim{position:absolute;inset:0;background:rgba(15,23,42,.4);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:fadeIn .25s}
+.sc-sheet{position:relative;width:100%;max-width:470px;background:var(--surface);border-radius:26px 26px 0 0;box-shadow:var(--shadow-lg);padding:20px 22px 24px;animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
+@media(min-width:640px){.sc-sheet{border-radius:26px}}
+.sc-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 2px;border-bottom:1px solid var(--line-soft)}
+.sc-row:last-of-type{border-bottom:none}
+.sc-row>small{font-size:13px;color:var(--ink-2);font-weight:600}
+.sc-keys{display:flex;gap:4px;align-items:center;flex:none;color:var(--ink-3);font-size:11px;font-weight:600}
+kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:center;background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2.5px;border-radius:8px;font-family:var(--font-display);font-size:12px;font-weight:600;color:var(--ink-2)}
+.sc-note{display:block;margin-top:14px;font-size:11.5px;line-height:1.5;color:var(--ink-3)}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
   .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill,.amb-leaf{animation:none !important}
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
+  .rip{display:none !important}
+  .swipe-hint{transition:none}
+  .tx-row.lp,.habit-card.lp{transform:none}
 }
 </style>
 </head>
@@ -1549,6 +1600,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-kbd" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.5"/><path d="M7 10h.01M11 10h.01M15 10h.01M17.5 13.5h.01M7 14h10"/></g></symbol>
 <symbol id="i-arr-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-arr-dr" viewBox="0 0 24 24"><path d="M7 7l10 10M17 9v8H9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
@@ -2596,6 +2649,30 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 </nav>
 
 <!-- ================= TOAST ================= -->
+<!-- v2.14 · lapisan interaksi: pill arah geser, tombol melayang, panel pintasan -->
+<div class="swipe-hint" id="swipeHint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg><span id="swipeHintTx"></span></div>
+<button type="button" class="scbtn" id="scBtn" aria-label="Pintasan papan ketik" title="Pintasan papan ketik ( ? )"><svg class="ic" aria-hidden="true"><use href="#i-kbd"/></svg></button>
+<button type="button" class="totop" id="toTop" aria-label="Kembali ke atas" title="Kembali ke atas"><svg class="ic" aria-hidden="true"><use href="#i-chev-u"/></svg></button>
+<div class="sc-help" id="scHelp" role="dialog" aria-modal="true" aria-labelledby="scHelpTitle">
+  <div class="sc-scrim" data-scclose></div>
+  <div class="sc-sheet">
+    <div class="dp-head">
+      <div class="dp-title" id="scHelpTitle">Pintasan papan ketik</div>
+      <button type="button" class="dp-nav" data-scclose aria-label="Tutup panel pintasan"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sc-grid">
+      <div class="sc-row"><small>Pindah antar tab</small><span class="sc-keys"><kbd>1</kbd>–<kbd>6</kbd></span></div>
+      <div class="sc-row"><small>Transaksi baru</small><span class="sc-keys"><kbd>N</kbd></span></div>
+      <div class="sc-row"><small>Kebiasaan baru</small><span class="sc-keys"><kbd>H</kbd></span></div>
+      <div class="sc-row"><small>Anggaran baru</small><span class="sc-keys"><kbd>B</kbd></span></div>
+      <div class="sc-row"><small>Kalender · hari ini</small><span class="sc-keys"><kbd>T</kbd></span></div>
+      <div class="sc-row"><small>Kalender · ganti bulan</small><span class="sc-keys"><kbd>←</kbd><kbd>→</kbd></span></div>
+      <div class="sc-row"><small>Panel pintasan ini</small><span class="sc-keys"><kbd>?</kbd></span></div>
+      <div class="sc-row"><small>Tutup modal / panel</small><span class="sc-keys"><kbd>Esc</kbd></span></div>
+    </div>
+    <small class="sc-note">Pintasan hanya aktif saat tidak sedang mengetik. Di layar sentuh: geser baris transaksi ke kiri untuk menghapus, ke kanan untuk mengubah; geser layar untuk pindah tab; tahan lama kartu kebiasaan untuk menghapus.</small>
+  </div>
+</div>
 <div class="toast-root" id="toastRoot" aria-live="polite"></div>
 
 <!-- ================= MODAL: TRANSAKSI ================= -->
@@ -3188,6 +3265,8 @@ function toast(title,sub='',ikon='i-check',tone=''){
   $('#toastRoot').appendChild(el);
   setTimeout(()=>{el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true})},3400);
 }
+/* v2.14 · umpan balik haptik ringan (bila perangkat mendukung) */
+function haptic(ms=10){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(_){}}
 function confetti(){
   if(reduced)return;
   const warna=['#10B981','#3B82F6','#F59E0B','#0EA5E9','#22C55E','#F97316'];
@@ -3698,7 +3777,7 @@ function renderDonut(){
   cats.forEach(([name,v])=>{
     const st=finStyle(name);
     const frac=v/total,len=Math.max(frac*C-3,.01);
-    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${st.c}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" data-fin="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`;
+    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${st.c}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" data-fin="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" data-cat="${esc(name)}" data-val="${Math.round(v)}" data-n="${cnt[name]||0}"/>`;
     off+=frac*C;
   });
   $('#donutSvg').innerHTML=`<g transform="rotate(-90 105 105)">${slices}</g>`;
@@ -3712,6 +3791,7 @@ function renderDonut(){
     }));
   }
   countUp($('#donutTotal'),total);
+  $('#donutTotal').dataset.full=total;
   $('#donutLegend').innerHTML=cats.map(([name,v])=>{
     const st=finStyle(name);
     return `<div class="dl-row">
@@ -4013,14 +4093,18 @@ function renderTx(){
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
     const cls=t.type==='income'?'masuk':t.type==='expense'?'keluar':'tf';
     const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
-    html+=`<div class="tx-row">
-      <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-      <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}</small></div>
-      <div class="tx-act">
-        <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
-        <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+    html+=`<div class="tx-row" data-txid="${esc(t.id)}">
+      <span class="tx-swipe sw-edit" aria-hidden="true"><svg class="ic"><use href="#i-edit"/></svg>Ubah</span>
+      <span class="tx-swipe sw-del" aria-hidden="true"><svg class="ic"><use href="#i-trash"/></svg>Hapus</span>
+      <div class="tx-inner">
+        <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+        <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}</small></div>
+        <div class="tx-act">
+          <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+          <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+        </div>
+        <div class="tx-amt ${cls}">${sign}${rupiah(t.amount)}<small>${tglPendek(t.date)}</small></div>
       </div>
-      <div class="tx-amt ${cls}">${sign}${rupiah(t.amount)}<small>${tglPendek(t.date)}</small></div>
     </div>`;
   });
   $('#txList').innerHTML=html;
@@ -4112,6 +4196,7 @@ function askDelete(kind,key){
 }
 function doDelete(){
   if(!delTarget)return;
+  haptic(16);
   const {kind,key,name}=delTarget;
   if(kind==='habit'){
     HABITS=HABITS.filter(h=>h.id!==key);
@@ -4386,6 +4471,7 @@ function syncBell(sisa){
 }
 function toggleCheck(id,src){
   const h=habitById(id);if(!h)return;
+  haptic(12);
   if(isAmount(h)){
     /* mode konsep: satu ketuk melompat ke target penuh / mengosongkan */
     valueToday[id]=doneToday[id]?0:h.target;
@@ -5151,6 +5237,281 @@ function tunasWake(){
     [...CLOSERS].forEach(c=>{if(c())closed=true});
     if(closed){e.stopImmediatePropagation();e.stopPropagation()}
   },true);
+})();
+
+/* ============================================================
+   v2.14 · LAPISAN INTERAKSI PENUH
+   Riak tekan "sentuhan daun" · tekan lama (baris transaksi →
+   sunting, kartu kebiasaan → hapus) · geser baris transaksi
+   (kanan = ubah, kiri = hapus) · geser layar antar tab · geser
+   kisi kalender untuk ganti bulan · pintasan papan ketik +
+   panel bantuan · donat interaktif · tombol kembali ke atas ·
+   toast bisa ditutup sekali ketuk. Semua hormat
+   prefers-reduced-motion dan tak mengganggu navigasi tetikus.
+   ============================================================ */
+(function(){
+  const ORDER=['ringkasan','kebiasaan','keuangan','kalender','wawasan','pengaturan'];
+  const COARSE=matchMedia('(pointer:coarse)').matches;
+  const hint=$('#swipeHint'),hintTx=$('#swipeHintTx'),hintUse=hint?hint.querySelector('use'):null;
+
+  /* ---------- riak tekan: semburat hijau dari titik sentuh ---------- */
+  const RIP_SEL='.btn,.chip,.icon-btn,.nav-item,.bn-item,.fin-tab,.btn-check,.tx-btn,.btn-edit,.btn-del,.dp-nav,.link-btn,.cal-cell,.seg button,.tp-item,.tp-quick .chip';
+  if(!reduced)document.addEventListener('pointerdown',e=>{
+    if(e.button!==0||!e.target.closest)return;
+    const el=e.target.closest(RIP_SEL);
+    if(!el||el.disabled)return;
+    const r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    const ink=document.createElement('span');
+    ink.className='rip';
+    ink.style.setProperty('--rx',((e.clientX-r.left)/Math.max(1,r.width)*100).toFixed(1)+'%');
+    ink.style.setProperty('--ry',((e.clientY-r.top)/Math.max(1,r.height)*100).toFixed(1)+'%');
+    if(getComputedStyle(el).position==='static')el.classList.add('rip-static');
+    el.appendChild(ink);
+    ink.addEventListener('animationend',()=>ink.remove(),{once:true});
+    setTimeout(()=>ink.remove(),700);
+  },{passive:true});
+
+  /* ---------- tekan lama (480 ms) ---------- */
+  let lpT=0,lpX=0,lpY=0,lpGuard=0;
+  document.addEventListener('pointerdown',e=>{
+    clearTimeout(lpT);lpGuard=0;
+    if(e.button!==0||!e.target.closest)return;
+    if(e.target.closest('button,a,input,select,textarea,label,.tp-col'))return;
+    const row=e.target.closest('#txList .tx-row,.habit-card');
+    if(!row)return;
+    lpX=e.clientX;lpY=e.clientY;
+    lpT=setTimeout(()=>{
+      lpT=0;lpGuard=performance.now();
+      haptic(18);
+      row.classList.add('lp');
+      setTimeout(()=>row.classList.remove('lp'),620);
+      if(row.classList.contains('tx-row')){
+        const id=row.dataset.txid;
+        if(id)setTimeout(()=>openTxEdit(id),150);
+      }else{
+        const chk=row.querySelector('[data-check]');
+        if(chk)setTimeout(()=>askDelete('habit',chk.dataset.check),150);
+      }
+    },480);
+  });
+  document.addEventListener('pointermove',e=>{
+    if(!lpT)return;
+    if(Math.abs(e.clientX-lpX)>10||Math.abs(e.clientY-lpY)>10){clearTimeout(lpT);lpT=0}
+  },{passive:true});
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>document.addEventListener(ev,()=>{clearTimeout(lpT);lpT=0}));
+  /* klik tepat setelah tekan lama dibatalkan agar aksi ganda tidak terpicu */
+  document.addEventListener('click',e=>{
+    if(lpGuard&&performance.now()-lpGuard<700){e.stopImmediatePropagation();e.preventDefault()}
+  },true);
+
+  /* ---------- geser baris transaksi: kanan = ubah, kiri = hapus ---------- */
+  let sw=null;
+  function resetSw(){
+    if(!sw)return;
+    const{row,inner}=sw;sw=null;
+    if(inner){inner.style.transition='';inner.style.transform=''}
+    if(row)row.classList.remove('swiping');
+  }
+  document.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1||!e.target.closest)return;
+    const row=e.target.closest('#txList .tx-row');
+    if(!row)return;
+    sw={row,inner:row.querySelector('.tx-inner'),x:e.touches[0].clientX,y:e.touches[0].clientY,dx:0,on:false,id:row.dataset.txid||''};
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(!sw)return;
+    if(e.touches.length>1){resetSw();return}
+    const t=e.touches[0];
+    sw.dx=t.clientX-sw.x;
+    const dy=t.clientY-sw.y;
+    if(!sw.on){
+      if(Math.abs(dy)>12&&Math.abs(dy)>Math.abs(sw.dx)){sw=null;return}
+      if(Math.abs(sw.dx)<12)return;
+      sw.on=true;
+      if(sw.inner)sw.inner.style.transition='none';
+      sw.row.classList.add('swiping');
+      haptic(6);
+    }
+    e.preventDefault();
+    let d=sw.dx;
+    const lim=84;
+    if(d>lim)d=lim+(d-lim)*.22;
+    if(d<-lim)d=-lim+(d+lim)*.22;
+    if(sw.inner)sw.inner.style.transform=`translateX(${d.toFixed(1)}px)`;
+  },{passive:false});
+  ['touchend','touchcancel'].forEach(ev=>document.addEventListener(ev,()=>{
+    if(!sw)return;
+    if(ev==='touchcancel'){resetSw();return}
+    const{row,inner,dx,id}=sw;sw=null;
+    if(!inner){if(row)row.classList.remove('swiping');return}
+    inner.style.transition='';
+    row.classList.remove('swiping');
+    if(dx<-64){
+      inner.style.transform='translateX(-80px)';
+      haptic(14);
+      setTimeout(()=>{inner.style.transition='';inner.style.transform=''},280);
+      if(id)setTimeout(()=>askDelete('tx',id),220);
+    }else if(dx>64){
+      inner.style.transform='translateX(80px)';
+      haptic(14);
+      setTimeout(()=>{inner.style.transition='';inner.style.transform=''},280);
+      if(id)setTimeout(()=>openTxEdit(id),220);
+    }else{
+      inner.style.transform='';
+    }
+  }));
+
+  /* ---------- geser layar antar tab & kisi kalender untuk ganti bulan ---------- */
+  let pg=null;
+  function showHint(label,leftDir){
+    if(!hint)return;
+    hintTx.textContent=label;
+    if(hintUse)hintUse.setAttribute('href',leftDir?'#i-chev-l':'#i-chev-r');
+    hint.classList.add('show');
+  }
+  function hideHint(){if(hint)hint.classList.remove('show')}
+  document.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1||!e.target.closest)return;
+    if(document.querySelector('.modal.open,.sc-help.open,.pop-scrim'))return;
+    const t=e.target;
+    if(t.closest('input,textarea,select,.tx-row,.tp-col,.pop-scrim,.modal'))return;
+    const cal=!!t.closest('.cal-grid');
+    pg={x:e.touches[0].clientX,y:e.touches[0].clientY,dx:0,on:false,cal,page:$('.page.active')};
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(!pg)return;
+    if(e.touches.length>1){pg=null;hideHint();return}
+    const t=e.touches[0];
+    pg.dx=t.clientX-pg.x;
+    const dy=t.clientY-pg.y;
+    if(!pg.on){
+      if(Math.abs(dy)>14&&Math.abs(dy)>Math.abs(pg.dx)){pg=null;return}
+      if(Math.abs(pg.dx)<14)return;
+      pg.on=true;
+      if(!pg.cal&&!reduced&&pg.page)pg.page.style.transition='none';
+    }
+    e.preventDefault();
+    if(pg.cal){
+      showHint(pg.dx<0?'Bulan berikutnya':'Bulan sebelumnya',pg.dx>0);
+    }else{
+      const i=ORDER.indexOf(state.page);
+      const tgt=pg.dx<0?ORDER[i+1]:ORDER[i-1];
+      showHint(tgt?TITLES[tgt]:(pg.dx<0?'Sudah tab terakhir':'Sudah tab pertama'),pg.dx>0);
+    }
+    if(!pg.cal&&!reduced&&pg.page){
+      const d=Math.max(-24,Math.min(24,pg.dx*.12));
+      pg.page.style.transform=`translateX(${d.toFixed(1)}px)`;
+    }
+  },{passive:false});
+  ['touchend','touchcancel'].forEach(ev=>document.addEventListener(ev,()=>{
+    if(!pg)return;
+    const{dx,on,cal,page}=pg;pg=null;
+    hideHint();
+    if(page){page.style.transition='';page.style.transform=''}
+    if(!on)return;
+    if(cal){
+      if(dx<-56){haptic(10);state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal(true)}
+      else if(dx>56){haptic(10);state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal(true)}
+    }else if(Math.abs(dx)>=72){
+      const i=ORDER.indexOf(state.page);
+      const tgt=dx<0?ORDER[i+1]:ORDER[i-1];
+      if(tgt){haptic(10);go(tgt)}
+    }
+  }));
+
+  /* ---------- pintasan papan ketik + panel bantuan ---------- */
+  const help=$('#scHelp');
+  function toggleHelp(){
+    if(!help)return;
+    const open=help.classList.toggle('open');
+    if(open){haptic(8);const c=help.querySelector('.dp-nav');setTimeout(()=>c&&c.focus(),90)}
+  }
+  if($('#scBtn'))$('#scBtn').addEventListener('click',toggleHelp);
+  if(help)help.addEventListener('click',e=>{if(e.target.closest('[data-scclose]'))help.classList.remove('open')});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&help&&help.classList.contains('open')){help.classList.remove('open');return}
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    if(e.target&&e.target.closest&&e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
+    if(e.key==='?'){e.preventDefault();toggleHelp();return}
+    if(!help||help.classList.contains('open'))return;
+    if(document.querySelector('.modal.open,.pop-scrim'))return;
+    if(e.key>='1'&&e.key<='6'){go(ORDER[+e.key-1]);return}
+    const k=e.key.toLowerCase();
+    if(k==='n'){resetTxModal();openModal('modalTx');return}
+    if(k==='h'){openModal('modalHabit');return}
+    if(k==='b'){resetBudgetModal();openModal('modalBudget');return}
+    if(k==='t'){
+      state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
+      state.calSel=new Date(TODAY);
+      if(state.page!=='kalender')go('kalender');
+      renderCal(true);renderDayDetail(state.calSel);
+      return;
+    }
+    if(state.page==='kalender'&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){
+      const dir=e.key==='ArrowRight'?1:-1;
+      state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+dir,1);
+      renderCal(true);
+    }
+  });
+
+  /* ---------- donat interaktif: sentuh irisan → pusat menampilkan kategori ---------- */
+  const dsvg=$('#donutSvg');
+  if(dsvg){
+    const cS=dsvg.parentElement.querySelector('.donut-center small');
+    const cB=$('#donutTotal');
+    const resetDonut=()=>{
+      const g=dsvg.querySelector('g');
+      if(g)g.classList.remove('focus');
+      dsvg.querySelectorAll('.donut-slice.hot').forEach(s=>s.classList.remove('hot'));
+      if(cS)cS.textContent='Total keluar';
+      if(cB&&cB.dataset.full)countUp(cB,+cB.dataset.full);
+    };
+    dsvg.addEventListener('pointerover',e=>{
+      const s=e.target.closest&&e.target.closest('.donut-slice');
+      if(!s)return;
+      dsvg.querySelectorAll('.donut-slice.hot').forEach(x=>x.classList.remove('hot'));
+      s.classList.add('hot');
+      const g=dsvg.querySelector('g');
+      if(g)g.classList.add('focus');
+      if(cS)cS.textContent=s.dataset.cat||'';
+      if(cB)cB.textContent=rupiah(+(s.dataset.val||0));
+    });
+    dsvg.addEventListener('pointerout',e=>{
+      const s=e.target.closest&&e.target.closest('.donut-slice');
+      if(s&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.donut-slice')))resetDonut();
+    });
+    dsvg.addEventListener('click',e=>{
+      const s=e.target.closest&&e.target.closest('.donut-slice');
+      if(!s)return;
+      const cat=s.dataset.cat||'Kategori';
+      toast(cat,`${rupiah(+(s.dataset.val||0))} · ${s.dataset.n||0} transaksi`,finStyle(cat).i,'honey');
+    });
+  }
+
+  /* ---------- tombol kembali ke atas ---------- */
+  const toTop=$('#toTop');
+  if(toTop){
+    toTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});haptic(8)});
+    window.addEventListener('scroll',()=>toTop.classList.toggle('show',scrollY>560),{passive:true});
+  }
+
+  /* ---------- toast: ketuk untuk menutup ---------- */
+  const tr=$('#toastRoot');
+  if(tr)tr.addEventListener('click',e=>{
+    const t=e.target.closest&&e.target.closest('.toast');
+    if(!t||t.classList.contains('out'))return;
+    t.classList.add('out');
+    setTimeout(()=>t.remove(),420);
+  });
+
+  /* ---------- petunjuk interaksi (sekali per perangkat) ---------- */
+  let tipSeen=false;
+  try{tipSeen=localStorage.getItem('rutina.tip.v14')==='1';localStorage.setItem('rutina.tip.v14','1')}catch(_){}
+  if(!tipSeen)setTimeout(()=>{
+    if(COARSE)toast('Geser untuk beraksi','Baris transaksi: geser kanan untuk ubah, kiri untuk hapus. Geser layar untuk pindah tab.','i-checklist');
+    else toast('Pintasan papan ketik','Tekan tombol ? kapan saja untuk melihat daftar pintasan.','i-chart');
+  },1700);
 })();
 
 /* ---------- init ---------- */
