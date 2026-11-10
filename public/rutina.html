@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#F8FAFC">
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2310B981'/%3E%3Cpath d='M32 47V27M32 30c-2-8-8-12-14-12 0 8 5 13 14 11zM32 36c2-8 8-12 14-12 0 8-5 13-14 11z' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2310B981'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
@@ -32,8 +32,8 @@
   --shadow-md:0px 0px 0px 1px rgba(0,0,0,.06),0px 1px 1px -.5px rgba(0,0,0,.06),0px 3px 3px -1.5px rgba(0,0,0,.06),0px 6px 6px -3px rgba(0,0,0,.06),0px 12px 12px -6px rgba(0,0,0,.06),0px 24px 24px -12px rgba(0,0,0,.06);
   --shadow-lg:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12);
   --r-sm:10px; --r-md:12px; --r-lg:16px; --r-xl:20px;
-  --font-display:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
-  --font-body:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-display:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-body:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
   --sidebar-w:268px;
   --ease-tunas:cubic-bezier(.22,1,.36,1);
   /* v2.6 · dekorasi latar kartu dihapus — botani tetap hidup di hero, empty state & ilustrasi konten */
@@ -54,10 +54,13 @@ input,select,textarea{font:inherit;color:inherit}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
 
 /* ---------- utilitas tipografi ---------- */
-.h-serif{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.18;text-wrap:balance}
-.eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep)}
-.t-sub{font-size:13px;color:var(--ink-3);font-weight:500}
+.h-serif{font-family:var(--font-display);font-weight:600;letter-spacing:-.015em;line-height:1.18;text-wrap:balance}
+h1.h-serif{font-weight:650}
+b,strong{font-weight:600}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep)}
+.t-sub{font-size:13px;color:var(--ink-3);font-weight:400}
 .t-num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat .num,.mini-stat .num,.scene-stat .num,.jatah-main .num,.tx-amt,.dl-amt,.mb-amt,.donut-center b,.cal-strip .num,.dompet-card .bal{font-variant-numeric:tabular-nums}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- kerangka aplikasi ---------- */
@@ -77,19 +80,18 @@ input,select,textarea{font:inherit;color:inherit}
 .tunas-ill{opacity:0;transform:translateY(12px) scale(.95)}
 .tunas-ill.tunas-on{opacity:1;transform:none;transition:opacity .75s cubic-bezier(.3,1.3,.45,1),transform .75s cubic-bezier(.3,1.3,.45,1)}
 .page-head{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
-.page-head h1{font-size:clamp(24px,3vw,28px)}
+.page-head h1{font-size:26px}
 .page-head .t-sub{margin-top:4px}
-.appfooter{margin-top:auto;padding:16px 24px 24px;text-align:center;font-size:12px;color:var(--ink-3);font-weight:500}
 
 /* ---------- sidebar ---------- */
 .sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);z-index:50;display:none;flex-direction:column;gap:6px;padding:24px 18px 20px;background:var(--surface);border-right:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px;padding:0 8px 18px}
 .brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(140deg,#34D399,#059669);display:grid;place-items:center;color:#FFFFFF;box-shadow:var(--shadow-sm)}
 .brand-mark .ic{width:22px;height:22px}
-.brand-name{font-size:21px}
-.brand-sub{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:1px}
+.brand-name{font-size:28px;font-weight:700}
+.brand-sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:1px}
 .nav{display:flex;flex-direction:column;gap:4px}
-.nav-label{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
+.nav-label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
 .nav-item{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;color:var(--ink-2);transition:background .18s,color .18s;min-height:46px;text-align:left}
 .nav-item:hover{background:var(--surface-2);color:var(--ink)}
 .nav-item.active{background:var(--terra-soft);color:var(--terra-deep)}
@@ -98,53 +100,53 @@ input,select,textarea{font:inherit;color:inherit}
 .side-spacer{flex:1}
 .side-card{position:relative;background:linear-gradient(150deg,#ECFDF5,#D1FAE5);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;overflow:hidden;margin:8px 0}
 .side-card .ill{width:78px;position:absolute;right:-3px;top:-5px;opacity:.95}
-.side-card-t{font-family:var(--font-display);font-size:16.5px;font-weight:700;color:var(--terra-deep)}
-.side-card-s{font-size:11.5px;color:var(--ink-2);margin:3px 0 10px;line-height:1.45;max-width:150px}
+.side-card-t{font-family:var(--font-display);font-size:16.5px;font-weight:600;color:var(--terra-deep);max-width:145px;position:relative;z-index:1}
+.side-card-s{font-size:12px;color:var(--ink-2);margin:3px 0 10px;line-height:1.45;max-width:145px;position:relative;z-index:1}
 .side-card .bar{height:8px}
 .side-profile{display:flex;align-items:center;gap:11px;padding:12px 10px 2px;border-top:1px solid var(--line-soft);margin-top:8px}
-.avatar{width:40px;height:40px;border-radius:50%;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:17px;flex:none;border:1.5px solid #A7F3D0}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:17px;flex:none;border:1.5px solid #A7F3D0}
 
 /* ---------- topbar ---------- */
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px;padding:0 24px;background:color-mix(in srgb,var(--bg) 82%,#fff);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
 .tb-left{display:flex;align-items:center;gap:14px;min-width:0}
-.tb-brand{display:none;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:700}
+.tb-brand{display:none;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:600}
 .tb-brand .brand-mark{width:34px;height:34px;border-radius:11px}
 .tb-brand .brand-mark .ic{width:18px;height:18px}
 .tb-date{font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-date b{color:var(--terra-deep)}
 .tb-right{display:flex;align-items:center;gap:10px}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:600;white-space:nowrap}
 .pill .ic{width:15px;height:15px}
 .pill-streak{background:var(--terra-soft);color:var(--terra-deep)}
 .icon-btn{position:relative;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);transition:color .18s,border-color .18s,transform .18s,box-shadow .18s}
 .icon-btn:hover{color:var(--terra-deep);border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:1.5px solid var(--surface)}
 /* lencana penghitung — pola Linear: angka yang bisa ditindak, bukan sekadar titik */
-.icon-btn .dot-cnt{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--rose);color:#FFFFFF;font-size:10.5px;font-weight:800;display:grid;place-items:center;border:2px solid var(--surface);line-height:1}
+.icon-btn .dot-cnt{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--rose);color:#FFFFFF;font-size:12px;font-weight:600;display:grid;place-items:center;border:2px solid var(--surface);line-height:1}
 .icon-btn .dot-cnt[hidden]{display:none}
 
 /* ---------- bottom nav (mobile) — floating island dock ---------- */
-.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-lg)}
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md)}
 .bn-item{flex:1;min-width:0;min-height:50px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink-3);overflow:hidden;transition:background .28s,color .28s,box-shadow .28s,flex-grow .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item .ic{width:21px;height:21px;flex:none;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
-.bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:800;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
+.bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:600;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item:active .ic{transform:scale(.86)}
 .bn-item.active{flex-grow:1.8;background:linear-gradient(135deg,var(--terra),var(--terra-deep));color:#FFFFFF;box-shadow:var(--shadow-sm)}
 .bn-item.active .lb{max-width:86px;opacity:1;margin-left:8px}
 .bn-item.active .ic{transform:translateY(-1px)}
 @media(max-width:400px){
   .bn-item.active{flex-grow:2.7}
-  .bn-item.active .lb{max-width:118px;font-size:11.5px}
+  .bn-item.active .lb{max-width:118px;font-size:12px}
 }
 
 /* ---------- kartu & grid ---------- */
-/* v2.6 · kartu bersih: datar (border + radius), tanpa shadow diam & tanpa dekorasi latar.
-   Ilustrasi botani hidup di hero, empty state, dan ilustrasi konten (spot/scene);
-   elevasi hanya untuk momen utama & overlay — lihat §6 design-foundation. */
-.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface)}
+/* v2.7 · beautiful shadows (quiet elevation): sm = kartu resting & kontrol,
+   md = popover/toast/dock + hover kartu, lg = hanya hero & modal sheet.
+   Ilustrasi botani tetap hidup di hero, empty state, dan ilustrasi konten. */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);box-shadow:var(--shadow-sm)}
 .card-pad{padding:16px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
-.card-head h3{font-size:17px}
+.card-head h3{font-size:18px}
 .ch-title{display:flex;align-items:center;gap:12px;min-width:0}
 .head-art{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
 .head-art .ill{width:36px}
@@ -156,15 +158,15 @@ input,select,textarea{font:inherit;color:inherit}
 .card-head .t-sub{font-size:12px;margin-top:2px}
 .grid{display:grid;gap:16px}
 .row{display:flex;flex-direction:column;gap:16px}
-.link-btn{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--terra-deep);padding:6px 4px;border-radius:8px;transition:gap .18s}
+.link-btn{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--terra-deep);padding:6px 4px;border-radius:8px;transition:gap .18s}
 .link-btn:hover{gap:8px}
 .link-btn .ic{width:15px;height:15px}
 
 /* ---------- tombol ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:700;font-size:14px;transition:background-color .18s,border-color .18s,color .18s,transform .18s,box-shadow .18s;min-height:46px;padding:0 22px;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:600;font-size:14px;transition:background-color .18s,border-color .18s,color .18s,transform .18s,box-shadow .18s;min-height:46px;padding:0 22px;white-space:nowrap}
 .btn .ic{width:18px;height:18px}
 .btn-primary{background:var(--terra);color:#FFFFFF}
-.btn-primary:hover{background:var(--terra-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-md)}
+.btn-primary:hover{background:var(--terra-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-sm)}
 .btn-primary:active{transform:none}
 .btn-ghost{background:var(--surface);border:1.5px solid var(--line);color:var(--ink-2)}
 .btn-ghost:hover{border-color:var(--terra);color:var(--terra-deep)}
@@ -172,11 +174,11 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- chip & segmented ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:8px 15px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--ink-2);transition:border-color .18s,color .18s,transform .18s;min-height:37px;display:inline-flex;align-items:center;gap:6px}
+.chip{padding:8px 15px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink-2);transition:border-color .18s,color .18s,transform .18s;min-height:37px;display:inline-flex;align-items:center;gap:6px}
 .chip:hover{border-color:var(--terra);color:var(--terra-deep)}
 .chip.active{background:var(--terra);border-color:var(--terra);color:#FFFFFF}
 .seg{display:flex;background:var(--bg-deep);border-radius:12px;padding:4px;gap:4px}
-.seg button{flex:1;min-height:40px;border-radius:8px;font-size:13px;font-weight:700;color:var(--ink-2);padding:0 16px;transition:background-color .18s,color .18s,box-shadow .18s}
+.seg button{flex:1;min-height:40px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink-2);padding:0 16px;transition:background-color .18s,color .18s,box-shadow .18s}
 .seg button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
 
 /* ---------- hero ringkasan ---------- */
@@ -184,30 +186,27 @@ input,select,textarea{font:inherit;color:inherit}
 .hero-bg{position:absolute;inset:0;z-index:0;background:#D1FAE5 url("/illustrations/hero-bg.webp") center/cover no-repeat}
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
-.hero h2{font-size:clamp(21px,2.6vw,26px);max-width:340px}
+.hero h2{font-size:clamp(20px,2.4vw,22px);max-width:340px}
 .hero-ring{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .ring-wrap{position:relative;width:138px;height:138px;flex:none}
 .ring-wrap svg{width:100%;height:100%;display:block}
 .ring-fg{transition:stroke-dashoffset .9s cubic-bezier(.3,.8,.3,1)}
 .ring-col{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none}
-.ring-target{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--ink-2);white-space:nowrap}
+.ring-target{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap}
 .ring-target i{width:12px;height:3.5px;border-radius:99px;background:var(--honey-deep);flex:none}
 .ring-target .ok{color:var(--terra-deep)}
-/* keadaan nol — cincin "bernapas" mengajak aksi (zero-state hidup, pola Duolingo) */
-.ring-wrap.zero::before{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px dashed rgba(5,150,105,.38);animation:ringPulse 2.8s ease-in-out infinite}
-@keyframes ringPulse{0%,100%{transform:scale(.95);opacity:.35}50%{transform:scale(1.06);opacity:.85}}
 .ring-info{display:flex;flex-direction:column;gap:8px;min-width:0;align-items:flex-start}
-.ring-info .big{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--terra-deep);line-height:1.05}
+.ring-info .big{font-family:var(--font-display);font-size:34px;font-weight:650;color:var(--terra-deep);line-height:1.05}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px}
 .hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))}
 .hero-ill .ill{aspect-ratio:480/320}
-.hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:11.5px;font-weight:700;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
+.hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:12px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
 @media(max-width:640px){.hero-ill{opacity:.88}}
 
 /* ---------- kartu statistik ---------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
-.stat{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;padding:14px 16px;border:none;border-radius:0;box-shadow:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+.stat{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;padding:14px 16px;border:none;border-radius:0}
 .stat + .stat{border-left:1px solid var(--line-soft)}
 .stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .stat-ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:none}
@@ -215,10 +214,10 @@ input,select,textarea{font:inherit;color:inherit}
 .stat-ic.terra{background:var(--terra-soft);color:var(--terra-deep)}
 .stat-ic.sage{background:var(--blue-soft);color:var(--blue-deep)}
 .stat-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
-.stat .num{font-family:var(--font-display);font-size:25px;font-weight:700;line-height:1.1}
+.stat .num{font-family:var(--font-display);font-size:28px;font-weight:600;line-height:1.1}
 .stat .num small{font-size:14px;font-weight:600;color:var(--ink-2);font-family:var(--font-body)}
-.stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
-.stat .sub{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:5px;font-weight:600}
+.stat .lbl{font-size:12px;font-weight:600;color:var(--ink-2)}
+.stat .sub{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:5px;font-weight:600}
 .stat .sub .ic{width:13px;height:13px}
 .up{color:var(--sage-deep)}.down{color:var(--rose-deep)}
 .spark{width:100%;height:30px;display:block;margin-top:2px}
@@ -228,41 +227,41 @@ input,select,textarea{font:inherit;color:inherit}
 .agenda-row{display:grid;grid-template-columns:54px 52px 1fr auto auto;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;border:1px solid var(--line-soft);background:var(--surface-2);transition:border-color .2s,background-color .2s}
 .agenda-row:hover{border-color:#A7F3D0;background:#F0FDF4}
 .agenda-row.done{background:linear-gradient(90deg,var(--terra-softer),transparent 70%);border-color:#BBF7D0}
-.time-chip{min-width:54px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.02em;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 6px;border-radius:10px}
+.time-chip{min-width:54px;text-align:center;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 6px;border-radius:10px}
 .spot{width:52px;height:52px;border-radius:50%;background:var(--cream);border:1px solid var(--line-soft);display:grid;place-items:center;flex:none;overflow:hidden}
 .spot .ill{width:44px}
-.agenda-name{font-size:14.5px;font-weight:700;line-height:1.25}
+.agenda-name{font-size:14.5px;font-weight:600;line-height:1.25}
 .agenda-row.done .agenda-name{color:var(--ink-2)}
-.agenda-meta{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-3);font-weight:600;margin-top:2px;flex-wrap:wrap}
+.agenda-meta{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--ink-3);font-weight:600;margin-top:2px;flex-wrap:wrap}
 /* habit kuantitatif (amount): bar progres unit hari ini */
 .amt-row{display:flex;align-items:center;gap:8px;margin-top:7px}
 .amt-row .bar{flex:1;height:7px}
-.amt-row small{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);flex:none}
-.amt-row .t-num{font-size:11px;font-weight:800;color:var(--ink-2);flex:none;white-space:nowrap}
+.amt-row small{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);flex:none}
+.amt-row .t-num{font-size:12px;font-weight:600;color:var(--ink-2);flex:none;white-space:nowrap}
 /* ---------- jatah harian & proyeksi anggaran ---------- */
 .jatah-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:20px;align-items:center}
 .jatah-main{display:flex;flex-direction:column;gap:2px;padding:16px 18px;background:var(--terra-softer);border:1px solid #A7F3D0;border-radius:var(--r-lg)}
-.jatah-main .num{font-family:var(--font-display);font-size:clamp(23px,6.6vw,30px);font-weight:700;color:var(--terra-deep);line-height:1.1}
-.jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:700;color:var(--ink-3)}
-.jatah-main .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
+.jatah-main .num{font-family:var(--font-display);font-size:clamp(28px,7.5vw,34px);font-weight:650;color:var(--terra-deep);line-height:1.1}
+.jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:600;color:var(--ink-3)}
+.jatah-main .lbl{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
 .jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
 .jatah-main.over{background:#FEE2E2;border-color:#FECACA}
 .jatah-main.over .num,.jatah-main.over .lbl{color:var(--rose-deep)}
 .jatah-rows{display:flex;flex-direction:column;gap:9px}
 .jatah-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px}
 .jatah-row small{color:var(--ink-3);font-weight:600}
-.jatah-row b{font-weight:800}
+.jatah-row b{font-weight:600}
 .pace{margin-top:13px}
-.pace-head{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);font-weight:700;margin-bottom:6px}
+.pace-head{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);font-weight:600;margin-bottom:6px}
 .pace-wrap{position:relative}
 .pace-tick{position:absolute;top:-3px;bottom:-3px;width:3px;border-radius:99px;background:var(--honey-deep);transform:translateX(-50%);z-index:1}
-.pace-note{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:7px}
+.pace-note{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px}
 @media(max-width:640px){.jatah-body{grid-template-columns:1fr}}
 /* ---------- heatmap pengeluaran ---------- */
 .sh-dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-bottom:7px}
-.sh-dow span{font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;text-align:center}
+.sh-dow span{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;text-align:center}
 .sh-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
-.sh-cell{position:relative;aspect-ratio:1;border-radius:9px;background:var(--bg-deep);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ink-3);transition:transform .15s ease;min-height:34px}
+.sh-cell{position:relative;aspect-ratio:1;border-radius:9px;background:var(--bg-deep);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--ink-3);transition:transform .15s ease;min-height:34px}
 .sh-cell.l1{background:#FDE68A;color:#92400E}
 .sh-cell.l2{background:#F59E0B;color:#FFFFFF}
 .sh-cell.l3{background:#D97706;color:#FFFFFF}
@@ -271,7 +270,7 @@ input,select,textarea{font:inherit;color:inherit}
 .sh-cell:not(.future):not(:disabled):hover{transform:scale(1.08)}
 .sh-insight{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:15px}
 .cat-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.streak-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--terra-deep);background:var(--terra-soft);padding:4px 9px;border-radius:999px}
+.streak-pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--terra-deep);background:var(--terra-soft);padding:4px 9px;border-radius:999px}
 .streak-pill .ic{width:12px;height:12px}
 .btn-check{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center;color:transparent;transition:border-color .2s,background-color .2s,color .2s,transform .2s;position:relative;flex:none}
 .btn-check:hover{border-color:var(--terra);transform:scale(1.06)}
@@ -288,7 +287,7 @@ input,select,textarea{font:inherit;color:inherit}
 .counter button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink-2);transition:border-color .15s,color .15s}
 .counter button:hover{border-color:var(--terra);color:var(--terra-deep)}
 .counter button .ic{width:13px;height:13px}
-.counter b{font-size:12.5px;font-weight:800;min-width:34px;text-align:center;color:#0284C7}
+.counter b{font-size:12.5px;font-weight:600;min-width:34px;text-align:center;color:#0284C7}
 .agenda-note{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 15px;border-radius:var(--r-md);background:var(--terra-softer);border:1px dashed #6EE7B7;font-size:12.5px;font-weight:600;color:var(--terra-deep)}
 .agenda-note .ic{width:17px;height:17px;flex:none}
 
@@ -299,14 +298,14 @@ input,select,textarea{font:inherit;color:inherit}
 .bar.warna-honey i{background:var(--honey)}
 
 /* ---------- arus kas ---------- */
-.legend{display:flex;gap:14px;font-size:11.5px;font-weight:700;color:var(--ink-2)}
+.legend{display:flex;gap:14px;font-size:12px;font-weight:600;color:var(--ink-2)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .legend i{width:10px;height:10px;border-radius:3.5px;display:inline-block}
 .cf-total{display:flex;gap:10px;margin-top:14px}
 .cf-total>div{flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line-soft)}
 .cf-total .ic{width:19px;height:19px}
 .cf-total b{font-size:13.5px;display:block}
-.cf-total small{font-size:11px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.cf-total small{font-size:12px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 
 /* ---------- mini anggaran ---------- */
 .mini-budget{display:flex;flex-direction:column;gap:13px}
@@ -316,7 +315,7 @@ input,select,textarea{font:inherit;color:inherit}
 .mb-row .bar{height:8px;margin-top:5px}
 .mb-info{min-width:0}
 .mb-info b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mb-amt{font-size:11px;color:var(--ink-3);font-weight:700;white-space:nowrap}
+.mb-amt{font-size:12px;color:var(--ink-3);font-weight:600;white-space:nowrap}
 
 /* ---------- tip kartu ---------- */
 .tip-card{position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;padding:20px}
@@ -325,13 +324,13 @@ input,select,textarea{font:inherit;color:inherit}
 .tip-card p{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 
 /* ---------- halaman kebiasaan ---------- */
-.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
 .mini-stat{display:flex;align-items:center;gap:12px;padding:12px 14px;border:none;border-radius:0;box-shadow:none}
 .mini-stat + .mini-stat{border-left:1px solid var(--line-soft)}
 .mini-stat .spot{width:46px;height:46px}
 .mini-stat .spot .ill{width:38px}
-.mini-stat .num{font-family:var(--font-display);font-size:21px;font-weight:700;line-height:1}
-.mini-stat .lbl{font-size:11px;color:var(--ink-3);font-weight:700;margin-top:3px}
+.mini-stat .num{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1}
+.mini-stat .lbl{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:3px}
 .heatmap-wrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
 .hm-flex{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
 .hm-side{flex:0 0 250px;display:flex;flex-direction:column;gap:4px}
@@ -342,8 +341,8 @@ input,select,textarea{font:inherit;color:inherit}
 .hm-cell.l1{background:#A7F3D0}.hm-cell.l2{background:#6EE7B7}.hm-cell.l3{background:#10B981}
 .hm-cell.today{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--terra)}
 .hm-months{display:grid;grid-auto-flow:column;gap:3.5px;width:max-content;margin-bottom:6px}
-.hm-months span{font-size:10.5px;font-weight:800;color:var(--ink-3);width:13px;overflow:visible;white-space:nowrap}
-.hm-legend{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-3);font-weight:700}
+.hm-months span{font-size:12px;font-weight:600;color:var(--ink-3);width:13px;overflow:visible;white-space:nowrap}
+.hm-legend{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-3);font-weight:600}
 .hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .habit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .habit-card{display:flex;gap:14px;padding:16px;transition:border-color .2s,box-shadow .2s,transform .2s}
@@ -352,17 +351,17 @@ input,select,textarea{font:inherit;color:inherit}
 .hc-top{display:flex;gap:12px;align-items:flex-start}
 .hc-top .spot{width:56px;height:56px}
 .hc-top .spot .ill{width:48px}
-.hc-name{font-size:15.5px;font-weight:800;line-height:1.2}
+.hc-name{font-size:15.5px;font-weight:600;line-height:1.2}
 .hc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
-.tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--ink-2)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--ink-2)}
 .tag .ic{width:11px;height:11px}
 .wd-row{display:flex;gap:5px}
-.wd{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-size:10.5px;font-weight:800;color:var(--ink-2);background:var(--surface-2)}
+.wd{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--surface-2)}
 .wd.on{background:var(--terra-soft);color:var(--terra-deep)}
 .wd.today{box-shadow:inset 0 0 0 2px var(--terra)}
 .hc-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
 .hc-consist{flex:1;min-width:90px}
-.hc-consist small{font-size:11px;font-weight:700;color:var(--ink-3)}
+.hc-consist small{font-size:12px;font-weight:600;color:var(--ink-3)}
 .hc-consist .bar{height:7px;margin-top:4px}
 .empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:36px 20px}
 .empty-state .ill{width:180px;aspect-ratio:4/3;max-width:70%}
@@ -373,9 +372,9 @@ input,select,textarea{font:inherit;color:inherit}
 .scene-stat{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:16px;border:none;border-radius:0;box-shadow:none}
 .scene-stat .ill{width:96px;aspect-ratio:160/130;flex:none;position:relative;z-index:1}
 .scene-stat + .scene-stat{border-left:1px solid var(--line-soft)}
-.scene-stat .num{font-family:var(--font-display);font-size:clamp(19px,5.2vw,23px);font-weight:700;line-height:1.1}
-.scene-stat .lbl{font-size:12px;font-weight:700;color:var(--ink-2);margin:3px 0 2px}
-.scene-stat .sub{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px}
+.scene-stat .num{font-family:var(--font-display);font-size:clamp(22px,5.2vw,28px);font-weight:600;line-height:1.1}
+.scene-stat .lbl{font-size:12px;font-weight:600;color:var(--ink-2);margin:3px 0 2px}
+.scene-stat .sub{font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
 .scene-stat .sub .ic{width:14px;height:14px}
 .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 .donut-wrap{position:relative;width:210px;height:210px;flex:none;margin:auto}
@@ -384,24 +383,24 @@ input,select,textarea{font:inherit;color:inherit}
 .donut-wrap:hover .donut-slice{opacity:.45}
 .donut-wrap .donut-slice:hover{opacity:1}
 .donut-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
-.donut-center small{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
-.donut-center b{font-family:var(--font-display);font-size:16px;font-weight:700;margin-top:2px;letter-spacing:-.02em}
+.donut-center small{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.donut-center b{font-family:var(--font-display);font-size:16px;font-weight:600;margin-top:2px;letter-spacing:-.02em}
 .donut-legend{flex:1;min-width:230px;display:flex;flex-direction:column;gap:3px}
 .dl-row{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:7px 9px;border-radius:12px;transition:background .15s}
 .dl-row:hover{background:var(--surface-2)}
 .dl-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center}
 .dl-ic .ic{width:19px;height:19px}
 .dl-row b{font-size:13px;display:block}
-.dl-row small{font-size:11px;color:var(--ink-3);font-weight:700}
+.dl-row small{font-size:12px;color:var(--ink-3);font-weight:600}
 .dl-amt{text-align:right}
 .dl-amt b{font-size:13px}
-.dl-amt small{font-size:11px;color:var(--ink-3);font-weight:700}
+.dl-amt small{font-size:12px;color:var(--ink-3);font-weight:600}
 .budget-list{display:flex;flex-direction:column;gap:16px}
 .b-row{display:flex;flex-direction:column;gap:7px}
 .b-head{display:flex;align-items:center;gap:10px}
 .b-head .dl-ic{width:36px;height:36px}
 .b-head b{font-size:13.5px}
-.b-head small{font-size:11px;color:var(--ink-3);font-weight:700;margin-left:auto;white-space:nowrap}
+.b-head small{font-size:12px;color:var(--ink-3);font-weight:600;margin-left:auto;white-space:nowrap}
 .b-head .warn{color:var(--rose-deep)}
 .tx-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 .search-box{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 15px;min-height:42px;flex:1;min-width:200px;max-width:320px;transition:border .18s}
@@ -410,15 +409,15 @@ input,select,textarea{font:inherit;color:inherit}
 .search-box input{border:none;background:none;outline:none;width:100%;font-size:13.5px;font-weight:500}
 .search-box input::placeholder{color:var(--ink-3)}
 .tx-group{margin-bottom:6px}
-.tx-date{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
+.tx-date{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
 .tx-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
 .tx-row:hover{background:var(--surface-2)}
 .tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
 .tx-ic .ic{width:24px;height:24px}
 .tx-row b{font-size:14px;display:block;line-height:1.25}
-.tx-row small{font-size:11.5px;color:var(--ink-3);font-weight:600}
-.tx-amt{font-size:14.5px;font-weight:800;text-align:right;white-space:nowrap}
-.tx-amt small{display:block;font-size:11px;font-weight:700;color:var(--ink-3)}
+.tx-row small{font-size:12px;color:var(--ink-3);font-weight:600}
+.tx-amt{font-size:14.5px;font-weight:600;text-align:right;white-space:nowrap}
+.tx-amt small{display:block;font-size:12px;font-weight:600;color:var(--ink-3)}
 .tx-amt.masuk{color:var(--sage-deep)}
 .tx-amt.keluar{color:var(--rose-deep)}
 .tx-amt.tf{color:var(--ink-3)}
@@ -428,11 +427,11 @@ input,select,textarea{font:inherit;color:inherit}
 .cal-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .cal-month{min-width:150px}
 .cal-head-row{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:8px}
-.cal-head-row span{text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
+.cal-head-row span{text-align:center;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .cal-cell{position:relative;aspect-ratio:1/.92;border-radius:14px;border:1.5px solid var(--line-soft);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color .15s,background-color .15s,transform .15s;min-height:44px}
 .cal-cell:hover{border-color:var(--terra);transform:translateY(-1px)}
-.cal-cell .d{font-size:13.5px;font-weight:700;font-family:var(--font-display)}
+.cal-cell .d{font-size:13.5px;font-weight:600;font-family:var(--font-display)}
 .cal-cell.blank{border:none;background:none;pointer-events:none}
 .cal-cell.future{opacity:.45;border-style:dashed;background:transparent}
 .cal-cell.today{border-color:var(--terra);background:var(--terra-softer)}
@@ -465,7 +464,7 @@ input,select,textarea{font:inherit;color:inherit}
 .dd-tx-row span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cal-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
 .cal-strip .mini-stat{padding:13px 15px}
-.cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:700}
+.cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:600}
 
 /* ---------- halaman wawasan ---------- */
 .find-list{display:flex;flex-direction:column;gap:6px}
@@ -473,11 +472,11 @@ input,select,textarea{font:inherit;color:inherit}
 .find-item .spot{width:50px;height:50px}
 .find-item .spot .ill{width:42px}
 .find-item b{font-size:13.5px;display:block;line-height:1.3}
-.find-item small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.4;display:block;margin-top:1px}
+.find-item small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.4;display:block;margin-top:1px}
 .pola-list{display:flex;flex-direction:column;gap:14px}
 .pola-row{display:flex;flex-direction:column;gap:6px}
 .pola-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.pola-head .lbl{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700}
+.pola-head .lbl{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600}
 .pola-head .dl-ic{width:28px;height:28px;border-radius:9px}
 .pola-head .dl-ic .ic{width:16px;height:16px}
 .pola-head b{font-size:12.5px;white-space:nowrap}
@@ -487,9 +486,9 @@ input,select,textarea{font:inherit;color:inherit}
 .badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 15px}
 .badge .ill{width:74px;height:74px}
 .badge b{font-size:12.5px;line-height:1.25}
-.badge small{font-size:11px;color:var(--ink-3);font-weight:600;line-height:1.35}
+.badge small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.35}
 .badge.locked{filter:grayscale(1);opacity:.55}
-.badge .lock-tag{display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);filter:none}
+.badge .lock-tag{display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);filter:none}
 .badge .lock-tag .ic{width:11px;height:11px}
 .badge.unlocked .lock-tag{color:var(--sage-deep)}
 .cons-note{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px 14px;border-radius:var(--r-md);background:var(--sage-soft);border:1px solid #BBF7D0;font-size:12.5px;font-weight:600;color:var(--sage-deep)}
@@ -505,9 +504,9 @@ input,select,textarea{font:inherit;color:inherit}
 @keyframes sheetIn{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}}
 .sheet-head{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 26px 6px}
-.sheet-head h3{font-size:21px}
+.sheet-head h3{font-size:18px}
 .sheet-body{padding:16px 26px 26px;display:flex;flex-direction:column;gap:16px}
-.field label{display:block;font-size:12px;font-weight:800;color:var(--ink-2);margin-bottom:7px;letter-spacing:.02em}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:7px;letter-spacing:.02em}
 .field input[type=text],.field input[type=date],.field input[type=time],.field select{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;transition:border .18s;outline:none;appearance:none}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647568' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
 .field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-softer)}
@@ -529,14 +528,14 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .cs-trigger .cs-lab{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cs-trigger .cs-chev{width:16px;height:16px;color:var(--ink-3);flex:none;transition:transform .25s var(--ease-tunas)}
 .cs-trigger .cs-ic{width:17px;height:17px;color:var(--ink-3);flex:none}
-.cs-trigger .cs-tag{font-size:10.5px;font-weight:800;color:var(--terra-deep);background:var(--terra-softer);padding:3px 9px;border-radius:999px;flex:none;white-space:nowrap}
+.cs-trigger .cs-tag{font-size:12px;font-weight:600;color:var(--terra-deep);background:var(--terra-softer);padding:3px 9px;border-radius:999px;flex:none;white-space:nowrap}
 .cs-trigger .cs-lab.ph{color:var(--ink-3);font-weight:500}
 .cs-trigger .cs-emoji{font-size:18px;line-height:1;flex:none}
 .cs.open>.cs-trigger{border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-softer)}
 .cs.open>.cs-trigger .cs-chev{transform:rotate(180deg)}
 .cs-trigger:focus-visible{outline:none;border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-softer)}
 /* --- menu dropdown --- */
-.cs-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:6px;max-height:266px;overflow-y:auto;overscroll-behavior:contain;display:none;transform-origin:top center}
+.cs-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-md);padding:6px;max-height:266px;overflow-y:auto;overscroll-behavior:contain;display:none;transform-origin:top center}
 .cs-menu.up{top:auto;bottom:calc(100% + 8px);transform-origin:bottom center}
 .cs.open>.cs-menu{display:block;animation:menuIn .3s cubic-bezier(.25,1.1,.4,1)}
 @keyframes menuIn{from{opacity:0;transform:translateY(-7px) scale(.975)}to{opacity:1;transform:none}}
@@ -552,7 +551,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .cs-menu::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
 /* --- varian pill (pemilih bulan di kartu riwayat) --- */
 .month-sel .cs{flex:0 1 auto;min-width:0}
-.month-sel .cs-trigger{width:auto;min-height:auto;padding:0;border:none;background:none;font-size:13px;font-weight:700;border-radius:8px;gap:0}
+.month-sel .cs-trigger{width:auto;min-height:auto;padding:0;border:none;background:none;font-size:13px;font-weight:600;border-radius:8px;gap:0}
 .month-sel .cs-trigger .cs-chev{display:none}
 .month-sel .cs-menu{left:auto;right:0;min-width:216px}
 .month-sel .chev{transition:transform .25s var(--ease-tunas)}
@@ -564,48 +563,48 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .pop-scrim{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .2s;display:flex;align-items:center;justify-content:center;padding:20px}
 .pop-scrim.closing{animation:fadeOut .18s forwards}
 @keyframes fadeOut{to{opacity:0}}
-.dp{width:322px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-lg);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
+.dp{width:322px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-md);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
 @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
 .dp-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
-.dp-title{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.dp-title{font-size:15.5px;font-weight:600;letter-spacing:-.01em}
 .dp-nav{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line);background:var(--surface-2);transition:border-color .15s,color .15s,background-color .15s;flex:none}
 .dp-nav:hover{border-color:var(--terra);color:var(--terra-deep);background:var(--surface)}
 .dp-nav .ic{width:17px;height:17px}
 .dp-dows{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px}
-.dp-dow{text-align:center;font-size:10.5px;font-weight:800;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.dp-dow{text-align:center;font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
 .dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
 .dp-grid.swap{animation:menuIn .22s ease}
-.dp-d{aspect-ratio:1;min-height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;transition:background .12s,transform .12s;border:1.5px solid transparent;font-variant-numeric:tabular-nums}
+.dp-d{aspect-ratio:1;min-height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .12s,transform .12s;border:1.5px solid transparent;font-variant-numeric:tabular-nums}
 .dp-d:hover{background:var(--surface-2)}
 .dp-d:hover:not(.sel){transform:translateY(-1px)}
 .dp-d.out{color:var(--ink-3);font-weight:600;opacity:.55}
 .dp-d.today{border-color:var(--terra);background:var(--terra-softer)}
 .dp-d.sel{background:var(--terra);color:#fff;box-shadow:var(--shadow-sm)}
 .dp-foot{display:flex;justify-content:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft)}
-.dp-today-btn{font-size:12.5px;font-weight:800;color:var(--terra-deep);padding:8px 16px;border-radius:999px;background:var(--terra-softer);transition:background-color .15s;min-height:36px}
+.dp-today-btn{font-size:12.5px;font-weight:600;color:var(--terra-deep);padding:8px 16px;border-radius:999px;background:var(--terra-softer);transition:background-color .15s;min-height:36px}
 .dp-today-btn:hover{background:var(--terra-soft)}
 /* --- roda jam (gaya iOS) --- */
-.tp{width:296px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-lg);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
+.tp{width:296px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-md);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
 .tp-wheels{position:relative;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface-2)}
 .tp-band{position:absolute;left:12px;right:12px;top:50%;height:46px;transform:translateY(-50%);background:var(--terra-softer);border:1.5px solid var(--terra);border-radius:12px;pointer-events:none;z-index:1}
 .tp-col{height:276px;overflow-y:auto;scroll-snap-type:y mandatory;padding:115px 0;position:relative;z-index:2;text-align:center;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent);mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent)}
 .tp-col::-webkit-scrollbar{display:none}
 .tp-col+.tp-col{border-left:1px dashed var(--line)}
-.tp-sep{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;font-size:20px;font-weight:800;color:var(--terra-deep);pointer-events:none}
-.tp-item{height:46px;width:100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:17px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums;cursor:pointer;transition:color .15s,font-size .15s}
+.tp-sep{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;font-size:20px;font-weight:600;color:var(--terra-deep);pointer-events:none}
+.tp-item{height:46px;width:100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:17px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;cursor:pointer;transition:color .15s,font-size .15s}
 .tp-item.on{color:var(--terra-deep);font-size:18.5px}
-.tp-lab{position:absolute;top:10px;width:50%;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);z-index:3;pointer-events:none}
+.tp-lab{position:absolute;top:10px;width:50%;text-align:center;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);z-index:3;pointer-events:none}
 .tp-lab.l{left:0}.tp-lab.r{right:0}
 .tp-quick{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center}
-.tp-quick .chip{min-height:34px;padding:5px 12px;font-size:11.5px}
+.tp-quick .chip{min-height:34px;padding:5px 12px;font-size:12px}
 .tp-done{margin-top:12px;width:100%}
-.money span{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--terra-deep);font-size:15px}
-.money input{padding-left:44px !important;font-size:19px !important;font-weight:800;letter-spacing:-.01em}
+.money span{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--terra-deep);font-size:15px}
+.money input{padding-left:44px !important;font-size:19px !important;font-weight:600;letter-spacing:-.01em}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .icon-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .ip-opt{position:relative;border:2px solid var(--line);border-radius:16px;background:var(--surface-2);padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:border-color .15s,background-color .15s}
 .ip-opt .ill{width:44px;aspect-ratio:1}
-.ip-opt small{font-size:10.5px;font-weight:800;color:var(--ink-3)}
+.ip-opt small{font-size:12px;font-weight:600;color:var(--ink-3)}
 .ip-opt:hover{border-color:var(--terra)}
 .ip-opt.sel{border-color:var(--terra);background:var(--terra-softer)}
 .ip-opt.sel small{color:var(--terra-deep)}
@@ -617,7 +616,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 /* ---------- toast ---------- */
 .toast-root{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
 @media(min-width:1024px){.toast-root{left:auto;right:26px;bottom:26px;transform:none;align-items:flex-end}}
-.toast{display:flex;gap:12px;align-items:center;padding:13px 18px 13px 13px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);max-width:min(92vw,380px);animation:toastIn .45s cubic-bezier(.25,1.2,.4,1)}
+.toast{display:flex;gap:12px;align-items:center;padding:13px 18px 13px 13px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);max-width:min(92vw,380px);animation:toastIn .45s cubic-bezier(.25,1.2,.4,1)}
 .toast.out{animation:toastOut .35s forwards}
 .toast-ic{width:38px;height:38px;border-radius:13px;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;flex:none}
 .toast-ic .ic{width:18px;height:18px}
@@ -625,7 +624,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .toast-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
 .toast-ic.rose{background:#FEE2E2;color:var(--rose-deep)}
 .toast b{font-size:13px;display:block;line-height:1.3}
-.toast small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.35;display:block}
+.toast small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.35;display:block}
 @keyframes toastIn{from{opacity:0;transform:translateY(24px) scale(.92)}}
 @keyframes toastOut{to{opacity:0;transform:translateY(14px) scale(.94)}}
 
@@ -648,7 +647,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 /* ---------- banner streak ---------- */
 .streak-banner{display:flex;align-items:center;gap:16px;padding:16px 18px;margin-bottom:24px;flex-wrap:wrap;position:relative;overflow:hidden}
 .streak-banner .sb-body{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px;position:relative;z-index:1}
-.streak-banner b{font-family:var(--font-display);font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.streak-banner b{font-family:var(--font-display);font-size:16.5px;font-weight:600;letter-spacing:-.01em}
 .streak-banner .bar{height:9px;max-width:360px}
 
 /* ---------- kartu tabungan ---------- */
@@ -667,7 +666,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @media(max-width:640px){.save-card{flex-direction:column;align-items:stretch;gap:14px}.save-actions{align-items:flex-start}}
 
 /* ---------- grafik svg umum ---------- */
-.chart-label{font-size:11px;font-weight:700;fill:var(--ink-2)}
+.chart-label{font-size:12px;font-weight:600;fill:var(--ink-2)}
 .chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
 .line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
 .chart-last{transform-box:fill-box;transform-origin:center;animation:chartPulse 2.4s ease-in-out infinite}
@@ -691,7 +690,6 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .tb-date{display:none}
   .view{padding:18px 14px 104px}
   .topbar{padding:0 18px}
-  .appfooter{padding:14px 18px 108px}
 }
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;padding:18px 16px;gap:4px;margin-bottom:18px}
@@ -726,7 +724,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .stats{grid-template-columns:1fr 1fr;margin-bottom:16px}
   .stat{padding:12px 14px;gap:5px}
   .stat .num{font-size:19px}
-  .stat .lbl{font-size:11px}
+  .stat .lbl{font-size:12px}
   .stats .stat > .sub{display:none}
   .stat-ic{width:32px;height:32px;border-radius:10px}
   .stat-ic .ic{width:17px;height:17px}
@@ -735,16 +733,16 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .mini-stat{flex-direction:column;align-items:flex-start;gap:3px;padding:12px 12px}
   .mini-stat .spot{display:none}
   .mini-stat .num{font-size:19px}
-  .mini-stat .lbl{font-size:10.5px;line-height:1.3}
+  .mini-stat .lbl{font-size:12px;line-height:1.3}
   .cal-strip .mini-stat{flex-direction:column;align-items:flex-start;gap:3px;padding:12px 14px}
   .cal-strip .mini-stat .spot{display:none}
   .cal-strip .num{font-size:18px}
-  .cal-strip .lbl{font-size:10.5px;line-height:1.3}
+  .cal-strip .lbl{font-size:12px;line-height:1.3}
   .scene-stat{padding:11px 14px;gap:12px}
   .scene-stat .ill{width:44px}
   .scene-stat .num{font-size:18px}
-  .scene-stat .lbl{font-size:11px;margin:1px 0}
-  .scene-stat .sub{font-size:10.5px}
+  .scene-stat .lbl{font-size:12px;margin:1px 0}
+  .scene-stat .sub{font-size:12px}
   .hero{padding:16px 15px 14px}
   .hero .h-serif{font-size:19px}
   .hero-ring{gap:14px;flex-wrap:nowrap}
@@ -752,7 +750,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .ring-target{white-space:normal;justify-content:center;text-align:center;line-height:1.3}
   .ring-wrap{width:104px;height:104px}
   .ring-info .big{font-size:21px}
-  .ring-info .t-sub{font-size:11.5px}
+  .ring-info .t-sub{font-size:12px}
   .streak-banner{padding:12px 14px;gap:10px;margin-bottom:16px}
   .streak-banner .ph-art{display:none}
   .streak-banner .sb-body{min-width:0;gap:5px}
@@ -1256,7 +1254,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <ellipse cx="44" cy="39" rx="20" ry="7" fill="url(#g-amb)"/>
   <path d="M30 37.5c4-2.5 24-2.5 28 0" stroke="#FFFFFF" stroke-width="2" opacity=".45" fill="none" stroke-linecap="round"/>
   <circle cx="70" cy="22" r="13" fill="url(#g-amb)" stroke="#B45309" stroke-width="2"/>
-  <text x="70" y="26.5" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="800" fill="#FFFFFF">Rp</text>
+  <text x="70" y="26.5" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="600" fill="#FFFFFF">Rp</text>
   <path d="M24 26l1.4 3.8 3.8 1.4-3.8 1.4L24 36.4l-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#F59E0B"/>
   <path d="M20 52l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="#FBBF24"/>
 </symbol>
@@ -1595,7 +1593,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
     <div>
       <div class="brand-name h-serif">Rutina</div>
-      <div class="brand-sub">Ritme harian &amp; keuangan</div>
+      <div class="brand-sub">Kebiasaan &amp; keuangan</div>
     </div>
   </div>
   <nav class="nav" aria-label="Navigasi utama">
@@ -1604,7 +1602,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <button class="nav-item" data-nav="kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg>Kebiasaan</button>
     <button class="nav-item" data-nav="keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Keuangan</button>
     <button class="nav-item" data-nav="kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Kalender</button>
-    <button class="nav-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Wawasan</button>
+    <button class="nav-item" data-nav="wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Analisis</button>
     <div class="nav-label" style="margin-top:16px">Lainnya</div>
     <button class="nav-item" data-nav="pengaturan"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Pengaturan</button>
   </nav>
@@ -1618,8 +1616,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <div class="side-profile">
     <span class="avatar" aria-hidden="true">A</span>
     <div>
-      <div style="font-size:13.5px;font-weight:700" id="sideName">Memuat…</div>
-      <div style="font-size:11px;color:var(--ink-3);font-weight:600" id="sideSub">memuat data…</div>
+      <div style="font-size:13.5px;font-weight:600" id="sideName">Memuat…</div>
+      <div style="font-size:12px;color:var(--ink-3);font-weight:600" id="sideSub">memuat data…</div>
     </div>
   </div>
 </aside>
@@ -1635,7 +1633,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     <div class="tb-date" id="tbDate">Memuat tanggal…</div>
   </div>
   <div class="tb-right">
-    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">—</b><span id="tbStreakUnit">hari aktif</span></span>
+    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">—</b><span id="tbStreakUnit">hari aktif total</span></span>
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
       <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-cnt" id="bellCnt" aria-hidden="true" hidden></span>
     </button>
@@ -1649,7 +1647,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 <section class="page active" data-page="ringkasan" aria-label="Ringkasan">
   <div class="page-head">
     <div>
-      <h1 class="h-serif" id="greetTitle">Selamat pagi, Arunika</h1>
+      <h1 class="h-serif" id="greetTitle">Ringkasan hari ini</h1>
       <p class="t-sub" id="greetSub">Memuat ringkasan…</p>
     </div>
   </div>
@@ -1658,30 +1656,24 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <div class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-body">
-      <span class="eyebrow">Fokus hari ini</span>
-      <h2 class="h-serif">Progres kebiasaan hari ini</h2>
+      <h2 class="h-serif">Kebiasaan hari ini</h2>
       <div class="hero-ring">
           <div class="ring-col">
-            <div class="ring-wrap" id="ringWrap" role="img" aria-label="Progres kebiasaan hari ini">
+            <div class="ring-wrap" id="ringWrap" role="img" aria-label="Kebiasaan hari ini">
               <svg viewBox="0 0 150 150">
                 <circle cx="75" cy="75" r="62" fill="none" stroke="#D1FAE5" stroke-width="12"/>
                 <circle id="ringFg" class="ring-fg" cx="75" cy="75" r="62" fill="none" stroke="#059669" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/>
                 <line id="ringTarget" x1="75" y1="7" x2="75" y2="19" stroke="#D97706" stroke-width="3.2" stroke-linecap="round" style="opacity:0"/>
-                <text x="75" y="72" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="32" font-weight="800" fill="#047857" id="ringText">4/7</text>
-                <text x="75" y="92" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="800" fill="#64748B" letter-spacing=".1em">SELESAI</text>
+                <text x="75" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-size="34" font-weight="650" fill="#047857" id="ringText">4/7</text>
+                <text x="75" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="600" fill="#64748B" letter-spacing=".1em">SELESAI</text>
               </svg>
             </div>
             <div class="ring-target" id="ringTargetCap" aria-live="polite"></div>
           </div>
         <div class="ring-info">
           <div class="big"><span id="heroSisa">3</span> kebiasaan lagi</div>
-          <p class="t-sub" style="font-size:12.5px;max-width:230px" id="heroCopy">memuat data…</p>
           <button class="btn btn-primary btn-sm" data-go="kebiasaan">Lihat agenda <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
         </div>
-      </div>
-      <div class="hero-meta">
-        <span class="pill" style="background:var(--surface);border:1px solid var(--line)"><svg class="ic" style="color:var(--terra-deep)" aria-hidden="true"><use href="#i-flame"/></svg><span id="heroPill1">—</span></span>
-        <span class="pill" style="background:var(--surface);border:1px solid var(--line)"><svg class="ic" style="color:var(--sage-deep)" aria-hidden="true"><use href="#i-target"/></svg><span id="heroPill2">—</span></span>
       </div>
     </div>
     <div class="hero-ill">
@@ -1697,7 +1689,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span>
         <svg class="spark" id="sparkStreak" aria-hidden="true"></svg>
       </div>
-      <div><div class="num t-num" id="statStreak">—</div><div class="lbl" id="statStreakLbl">Streak terbaik</div></div>
+      <div><div class="num t-num" id="statStreak">—</div><div class="lbl" id="statStreakLbl">Rekor streak terbaik</div></div>
       <div class="sub" id="statStreakSub">memuat…</div>
     </div>
     <div class="card stat">
@@ -1705,7 +1697,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
         <svg class="spark" id="sparkKons" aria-hidden="true"></svg>
       </div>
-      <div><div class="num t-num" id="statKons">—</div><div class="lbl" id="statKonsLbl">Hari aktif · 30 hari</div></div>
+      <div><div class="num t-num" id="statKons">—</div><div class="lbl" id="statKonsLbl">Hari aktif dalam 30 hari</div></div>
       <div class="sub" id="statKonsSub">memuat…</div>
     </div>
     <div class="card stat">
@@ -1715,14 +1707,14 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div><div class="num t-num" id="statSpend">Rp 0</div><div class="lbl" id="statSpendLbl">Pengeluaran</div></div>
       <div style="display:flex;align-items:center;gap:10px">
         <div class="bar slate" style="flex:1;height:7px"><i id="statSpendBar" data-w="0%"></i></div>
-        <span class="sub" id="statSpendPct" style="flex:none">0%</span>
+        <span class="sub" id="statSpendPct" style="flex:none">0% dari anggaran</span>
       </div>
     </div>
     <div class="card stat">
       <div class="stat-top">
         <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span>
       </div>
-      <div><div class="num t-num" id="statSisa">Rp 0</div><div class="lbl" id="statSisaLbl">Total dana</div></div>
+      <div><div class="num t-num" id="statSisa">Rp 0</div><div class="lbl" id="statSisaLbl">Total saldo</div></div>
       <div class="sub" id="statSisaSub">memuat…</div>
     </div>
   </div>
@@ -1734,7 +1726,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <b id="sbT">Memuat…</b>
       <p class="t-sub" id="sbS">Menghitung dari catatan database.</p>
       <div class="bar"><i id="sbBar" data-w="0%"></i></div>
-      <small class="t-sub t-num" style="font-size:11px" id="sbCount">—</small>
+      <small class="t-sub t-num" style="font-size:12px" id="sbCount">—</small>
     </div>
     <button class="btn btn-ghost btn-sm" data-go="kebiasaan">Lihat semua <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   </div>
@@ -1750,7 +1742,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
             <h3 class="h-serif">Hari ini</h3>
           </div>
         </div>
-        <span class="pill pill-streak" id="agendaCount">4/7 selesai</span>
+        <span class="pill pill-streak" id="agendaCount">4 dari 7 aktivitas selesai</span>
       </div>
       <div class="agenda-list" id="agendaList"></div>
       <div class="agenda-note" id="agendaNote">
@@ -1765,7 +1757,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
             <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
             <div>
               <div class="eyebrow">Arus kas</div>
-              <h3 class="h-serif" id="cfTitle">Minggu-minggu terakhir</h3>
+              <h3 class="h-serif" id="cfTitle">Aktivitas mingguan</h3>
             </div>
           </div>
           <div class="legend">
@@ -1788,9 +1780,9 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="card card-pad tip-card">
         <svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg>
         <div>
-          <b id="tipTitle">Wawasan cepat</b>
+          <b id="tipTitle">Analisis cepat</b>
           <p id="tipBody">Menghitung pola dari data asli…</p>
-          <button class="link-btn" data-go="wawasan" style="margin-top:6px">Wawasan lain <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+          <button class="link-btn" data-go="wawasan" style="margin-top:6px">Analisis lain <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
         </div>
       </div>
     </div>
@@ -1802,8 +1794,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="ch-title">
         <span class="head-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-target"/></svg></span>
         <div>
-          <div class="eyebrow">Anggaran</div>
-          <h3 class="h-serif" id="miniBudgetTitle">Anggaran</h3>
+          <div class="eyebrow">Bulanan</div>
+          <h3 class="h-serif" id="miniBudgetTitle">Anggaran per kategori</h3>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1835,7 +1827,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
     </div>
     <div class="card mini-stat">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><div class="num t-num" id="msKons">—</div><div class="lbl" id="msKonsLbl">Hari aktif · 30 hari</div></div>
+      <div><div class="num t-num" id="msKons">—</div><div class="lbl" id="msKonsLbl">Hari aktif dalam 30 hari</div></div>
     </div>
     <div class="card mini-stat">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
@@ -1886,7 +1878,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg>
       <div>
         <div class="num t-num" id="statSaldo">Rp 0</div>
-        <div class="lbl" id="statSaldoLbl">Total dana</div>
+        <div class="lbl" id="statSaldoLbl">Total saldo</div>
         <div class="sub" id="statSaldoSub">memuat…</div>
       </div>
     </div>
@@ -1915,7 +1907,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jatah"/></svg></span>
         <div>
           <div class="eyebrow">Jatah harian</div>
-          <h3 class="h-serif" id="jatahTitle">Sisa belanja per hari</h3>
+          <h3 class="h-serif" id="jatahTitle">Batas belanja harian</h3>
         </div>
       </div>
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="jatahMonth">—</span>
@@ -1947,8 +1939,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <div class="ch-title">
           <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-perisai"/></svg></span>
           <div>
-            <div class="eyebrow">Anggaran bulanan</div>
-            <h3 class="h-serif" id="budgetTitle">Sisa batas per kategori</h3>
+            <div class="eyebrow">Bulanan</div>
+            <h3 class="h-serif" id="budgetTitle">Anggaran per kategori</h3>
           </div>
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
@@ -1995,7 +1987,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
     </div>
     <div class="dompet-grid" id="dompetGrid"></div>
-    <p class="t-sub" style="font-size:11px;margin-top:12px">Saldo = saldo awal tercatat + mutasi transaksi (transfer antar-dompet netral).</p>
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Saldo = saldo awal tercatat + mutasi transaksi (transfer antar-dompet netral).</p>
   </div>
 
   <div class="card card-pad">
@@ -2003,8 +1995,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
         <div>
-          <div class="eyebrow">Riwayat</div>
-          <h3 class="h-serif" id="txHistTitle">Riwayat bulan ini</h3>
+          <div class="eyebrow">Arus kas</div>
+          <h3 class="h-serif" id="txHistTitle">Transaksi bulan ini</h3>
         </div>
       </div>
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="txCount">—</span>
@@ -2077,12 +2069,12 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 </section>
 
 <!-- ================= HALAMAN: WAWASAN ================= -->
-<section class="page" data-page="wawasan" aria-label="Wawasan">
+<section class="page" data-page="wawasan" aria-label="Analisis">
   <div class="page-head">
     <div class="ph-id">
       <span class="ph-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-target"/></svg></span>
       <div>
-        <h1 class="h-serif">Wawasan</h1>
+        <h1 class="h-serif">Analisis</h1>
         <p class="t-sub">Ringkasan dari catatanmu.</p>
       </div>
     </div>
@@ -2111,8 +2103,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <div class="ch-title">
           <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-roket"/></svg></span>
           <div>
-            <div class="eyebrow">Temuan</div>
-            <h3 class="h-serif">Sorotan</h3>
+            <div class="eyebrow">Pola data</div>
+            <h3 class="h-serif">Temuan utama</h3>
           </div>
         </div>
       </div>
@@ -2130,7 +2122,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
             <h3 class="h-serif">Pengeluaran per kategori</h3>
           </div>
         </div>
-        <span class="t-sub" style="font-size:11.5px" id="polaSub">—</span>
+        <span class="t-sub" style="font-size:12px" id="polaSub">—</span>
       </div>
       <div class="pola-list" id="polaList"></div>
     </div>
@@ -2139,8 +2131,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <div class="ch-title">
           <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-bulb"/></svg></span>
           <div>
-            <div class="eyebrow">Rekomendasi</div>
-            <h3 class="h-serif">Saran untukmu</h3>
+            <div class="eyebrow">Tindakan</div>
+            <h3 class="h-serif">Rekomendasi</h3>
           </div>
         </div>
       </div>
@@ -2190,7 +2182,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
       <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
     </div>
-    <p class="t-sub" style="font-size:11px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: penghapusan hanya berlaku di sesi ini; database asli tak tersentuh.</p>
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: penghapusan hanya berlaku di sesi ini; database asli tak tersentuh.</p>
   </div>
 
   <div class="grid g-set">
@@ -2227,7 +2219,6 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 </section>
 
 </main>
-<footer class="appfooter">Rutina · Mode konsep · <span id="footSrc">memuat…</span></footer>
 </div><!-- /.main -->
 </div><!-- /.app -->
 
@@ -2237,7 +2228,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <button class="bn-item" data-nav="kebiasaan" aria-label="Kebiasaan"><svg class="ic" aria-hidden="true"><use href="#i-checklist"/></svg><span class="lb">Kebiasaan</span></button>
   <button class="bn-item" data-nav="keuangan" aria-label="Keuangan"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><span class="lb">Keuangan</span></button>
   <button class="bn-item" data-nav="kalender" aria-label="Kalender"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span class="lb">Kalender</span></button>
-  <button class="bn-item" data-nav="wawasan" aria-label="Wawasan"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span class="lb">Wawasan</span></button>
+  <button class="bn-item" data-nav="wawasan" aria-label="Analisis"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span class="lb">Analisis</span></button>
 </nav>
 
 <!-- ================= TOAST ================= -->
@@ -2357,7 +2348,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @media(max-width:900px){.g-fin{grid-template-columns:1fr 1fr}.g-fin .scene-stat:first-child{grid-column:1/-1;border-bottom:1px solid var(--line-soft)}.g-fin .scene-stat:nth-child(2){border-left:none}}
 @media(max-width:640px){.g-main,.g-donut,.g-cal,.g-waw,.grid3{grid-template-columns:1fr}.g-fin{grid-template-columns:1fr}.g-fin .scene-stat:first-child{border-bottom:none}.g-fin .scene-stat+.scene-stat{border-left:none;border-top:1px solid var(--line-soft)}}
 /* ---------- komponen data-asli (dompet, grup agenda, catatan konsep) ---------- */
-.agenda-cap{display:flex;align-items:center;gap:8px;margin:14px 4px 8px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.agenda-cap{display:flex;align-items:center;gap:8px;margin:14px 4px 8px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 .agenda-cap::after{content:"";flex:1;height:1px;background:var(--line-soft)}
 .agenda-cap i{width:8px;height:8px;border-radius:3px;display:inline-block;flex:none}
 .fin-months{margin:-4px 0 18px;overflow-x:auto;padding-bottom:2px}
@@ -2366,9 +2357,9 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .dompet-card .src-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none}
 .dompet-card .src-ic .ic{width:20px;height:20px}
 .dompet-card b{font-size:13px;display:block;line-height:1.25}
-.dompet-card .bal{font-family:var(--font-display);font-size:15.5px;font-weight:700;margin-top:1px}
-.dompet-card small{font-size:11px;color:var(--ink-3);font-weight:700;display:block;margin-top:2px}
-.konsep-note{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;font-size:11px;font-weight:600;color:var(--ink-3)}
+.dompet-card .bal{font-family:var(--font-display);font-size:15.5px;font-weight:600;margin-top:1px}
+.dompet-card small{font-size:12px;color:var(--ink-3);font-weight:600;display:block;margin-top:2px}
+.konsep-note{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;font-size:12px;font-weight:600;color:var(--ink-3)}
 .konsep-note .ic{width:14px;height:14px;flex:none}
 .dd-well{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:900px){.dompet-grid{grid-template-columns:1fr 1fr}}
@@ -2379,8 +2370,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .set-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface-2);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden}
 .set-cell{padding:13px 16px;border-left:1px solid var(--line-soft);min-width:0}
 .set-cell:first-child{border-left:none}
-.set-cell small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
-.set-cell b{font-size:14.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.set-cell small{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.set-cell b{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 @media(max-width:640px){.set-grid{grid-template-columns:1fr 1fr}.set-cell:nth-child(3){border-left:none}.set-cell:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}}
 .manage-list{display:flex;flex-direction:column;gap:2px;max-height:400px;overflow-y:auto;padding-right:4px}
 @media(max-width:640px){.manage-list{max-height:320px}}
@@ -2392,13 +2383,13 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .mg-row .dl-ic .ic{width:22px;height:22px}
 .mg-row>div{min-width:0}
 .mg-row b{font-size:13.5px;display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mg-row small{font-size:11px;color:var(--ink-3);font-weight:700;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg-row small{font-size:12px;color:var(--ink-3);font-weight:600;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .btn-del{width:40px;height:40px;border-radius:13px;border:1.5px solid #FECDD3;background:#FFF1F2;color:var(--rose-deep);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
 .btn-del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
 .btn-del .ic{width:18px;height:18px}
 @media(max-width:640px){.btn-del{width:44px;height:44px;border-radius:14px}}
 .btn-danger{background:var(--rose);color:#FFFFFF}
-.btn-danger:hover{background:var(--rose-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-md)}
+.btn-danger:hover{background:var(--rose-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-sm)}
 .del-desc{font-size:13.5px;font-weight:600;color:var(--ink-2);line-height:1.55;padding:4px 2px 0}
 button.avatar{cursor:pointer;padding:0;transition:border-color .18s,transform .18s,box-shadow .18s}
 button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
@@ -2406,7 +2397,7 @@ button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-sha
 .month-sel{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 15px;min-height:42px;transition:border .18s;flex:none}
 .month-sel:focus-within{border-color:var(--terra)}
 .month-sel .ic{width:16px;height:16px;color:var(--ink-3);flex:none}
-.month-sel select{appearance:none;-webkit-appearance:none;border:none;background:none;outline:none;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;padding:0;min-width:112px}
+.month-sel select{appearance:none;-webkit-appearance:none;border:none;background:none;outline:none;font:inherit;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;min-width:112px}
 .month-sel .chev{width:14px;height:14px;color:var(--ink-3);flex:none}
 </style>
 <script type="application/json" id="dbSnapshot">{"ok":true,"source":"snapshot","fetchedAt":"2026-11-09T03:29:00.400Z","data":{"settings":{"userName":"Ananda Tegar C.S","weekStart":1,"targetCompletion":80},"habitGroups":[{"id":"cmrn1xkd40000l104fayio2ct","name":"Pagi","color":"#22c55e"},{"id":"cmu8mks570001jn0402fn9czw","name":"Gym","color":"#1589ff"}],"habitCategories":[{"name":"General","color":"#64748b"},{"name":"Health","color":"#10b981"},{"name":"Fitness","color":"#f97316"},{"name":"Learning","color":"#3b82f6"},{"name":"Mindfulness","color":"#8b5cf6"},{"name":"Productivity","color":"#f59e0b"},{"name":"Social","color":"#ec4899"},{"name":"Creative","color":"#d946ef"},{"name":"Olahraga","color":"#f49b25"}],"habits":[{"id":"cmrbqo6qi0001l6042qs6qcxb","name":"Bangun Pagi","emoji":"💤","category":"Productivity","priority":"Medium","difficulty":"Hard","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmrn1xkd40000l104fayio2ct"},{"id":"cmrbqploi0003l604qe8m4uax","name":"Membaca","emoji":"📚","category":"Learning","priority":"High","difficulty":"Expert","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrbqq4g40004l604cy3nik3x","name":"Jalan","emoji":"🏃","category":"Fitness","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrbqr2l50005l604rowc59wm","name":"Memasak","emoji":"🍳","category":"General","priority":"Medium","difficulty":"Hard","habitType":"normal","target":8,"unit":null,"reminder":"05.00 AM","groupId":null},{"id":"cmrcbau5w0000ju04az32ysmu","name":"Badminton","emoji":"🏸","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrcbz5s20000l2046ts46wq6","name":"Daily Learning","emoji":"📚","category":"Learning","priority":"High","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrfzlo8h0002jp04un25l6qc","name":"Bersih-Bersih Rumah","emoji":"🚮","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmrh75gc90000l704uict3dbo","name":"Beresin Tempat Tidur","emoji":"🛏","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmrn1xkd40000l104fayio2ct"},{"id":"cmrh76j5l0001l704m2wd9shc","name":"Cuci Sepatu","emoji":"👞","category":"General","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmtrienea0001l604dvdi7b7w","name":"Sikat Gigi Malam","emoji":"💪","category":"Health","priority":"Medium","difficulty":"Medium","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":null},{"id":"cmu8mksek0003jn04ykgtt1ps","name":"Latihan Dada","emoji":"💪","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkso40005jn045h42x2af","name":"Latihan Punggung","emoji":"🏋️","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mksxh0007jn04ga24fqg7","name":"Latihan Bahu","emoji":"🤸","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkt7h0009jn04hfycdkq9","name":"Latihan Lengan","emoji":"🦾","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkthv000bjn04jhwl4i6t","name":"Latihan Perut","emoji":"🧘","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mkts3000djn04g25mpdyy","name":"Latihan Kaki","emoji":"🦵","category":"Olahraga","priority":"Sedang","difficulty":"Sedang","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"},{"id":"cmu8mku24000fjn04jo783au7","name":"Latihan Full Body","emoji":"🏃","category":"Olahraga","priority":"Sedang","difficulty":"Sulit","habitType":"normal","target":1,"unit":null,"reminder":null,"groupId":"cmu8mks570001jn0402fn9czw"}],"habitLogs":[{"habitId":"cmrbqq4g40004l604cy3nik3x","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-07-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-06","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-07","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-08","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-07-08","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-09","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-07-09","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-10","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-12","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-13","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-14","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-14","completed":false,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-14","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-15","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-16","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-17","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-07-18","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-19","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-20","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-20","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-22","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-24","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-25","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-26","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-27","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-07-27","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-07-27","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-28","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-07-28","completed":false,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-07-28","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-29","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-07-30","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-07-30","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-01","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-02","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-05","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-08-06","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-08-06","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrh76j5l0001l704m2wd9shc","date":"2026-08-08","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-03","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-09-04","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-04","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-05","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-07","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-09","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-10","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-10","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-11","completed":true,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-09-13","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrh75gc90000l704uict3dbo","date":"2026-09-14","completed":true,"value":1},{"habitId":"cmrcbz5s20000l2046ts46wq6","date":"2026-09-14","completed":true,"value":1},{"habitId":"cmrbqploi0003l604qe8m4uax","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqq4g40004l604cy3nik3x","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqr2l50005l604rowc59wm","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrfzlo8h0002jp04un25l6qc","date":"2026-09-14","completed":false,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-09-17","completed":true,"value":1},{"habitId":"cmrcbau5w0000ju04az32ysmu","date":"2026-09-18","completed":true,"value":1},{"habitId":"cmtrienea0001l604dvdi7b7w","date":"2026-09-19","completed":true,"value":1},{"habitId":"cmu8mksek0003jn04ykgtt1ps","date":"2026-09-20","completed":true,"value":1},{"habitId":"cmu8mkt7h0009jn04hfycdkq9","date":"2026-09-20","completed":true,"value":1},{"habitId":"cmrbqo6qi0001l6042qs6qcxb","date":"2026-11-02","completed":true,"value":1}],"financeCategories":[{"name":"Makanan Berat","emoji":"🍽️","color":"#ef4444","type":"expense"},{"name":"Bensin","emoji":"🚗","color":"#f97316","type":"expense"},{"name":"Belanja","emoji":"🛍️","color":"#eab308","type":"expense"},{"name":"Hiburan","emoji":"🎮","color":"#a855f7","type":"expense"},{"name":"Kesehatan","emoji":"🏥","color":"#ec4899","type":"expense"},{"name":"Pendidikan","emoji":"📚","color":"#3b82f6","type":"expense"},{"name":"Tagihan & Utilitas","emoji":"📋","color":"#6366f1","type":"expense"},{"name":"Lainnya","emoji":"📦","color":"#78716c","type":"expense"},{"name":"Gaji","emoji":"💵","color":"#e1ff4d","type":"income"},{"name":"Investasi","emoji":"📈","color":"#f59e0b","type":"income"},{"name":"Lainnya (Pemasukan)","emoji":"💸","color":"#78716c","type":"income"},{"name":"Kopi","emoji":"☕️","color":"#78716c","type":"expense"},{"name":"Jajan","emoji":"🍱","color":"#c2290a","type":"expense"},{"name":"Servis Motor","emoji":"🛠️ ","color":"#41951d","type":"expense"},{"name":"Dating","emoji":"💕","color":"#ec1349","type":"expense"},{"name":"Parkir","emoji":"🏍","color":"#00ffff","type":"expense"},{"name":"Badminton","emoji":"🏸","color":"#78716c","type":"expense"},{"name":"Loundry","emoji":"🧺","color":"#1b71b5","type":"expense"},{"name":"Skin Care","emoji":"💀","color":"#78716c","type":"expense"},{"name":"Potong Rambut","emoji":"💇‍♂","color":"#2273c3","type":"expense"},{"name":"Tak Terduga","emoji":"🏳","color":"#00ff00","type":"expense"},{"name":"Pajak Motor","emoji":"🧾","color":"#78716c","type":"expense"},{"name":"Hutang","emoji":"💳","color":"#78716c","type":"expense"},{"name":"Tagihan Listrik","emoji":"💡","color":"#ffd679","type":"expense"},{"name":"Tagihan Air","emoji":"💧","color":"#00bcf2","type":"expense"},{"name":"Pulsa & Paket Data","emoji":"🌍","color":"#16c60c","type":"expense"},{"name":"Iuran Kas","emoji":"💰","color":"#cc8800","type":"expense"}],"fundSources":[{"id":"cmrbvll5h0000jv04oi4ssvqj","name":"Kas","type":"cash","emoji":"💵","initialBalance":1916100},{"id":"cmrbvllaf0001jv04got0yaol","name":"Bank CIMB","type":"bank","emoji":"🏦","initialBalance":285187},{"id":"cmrbvllfh0002jv046a4c235f","name":"Bank BRI","type":"bank","emoji":"🏧","initialBalance":1081896},{"id":"cmrbvllkc0003jv04wvhd7mdi","name":"Bank Superbank","type":"bank","emoji":"🏦","initialBalance":1405630},{"id":"cmrbvlm450007jv04d6m4tarb","name":"GoPay","type":"ewallet","emoji":"💚","initialBalance":615},{"id":"cmrbvlm920008jv04voq83zj7","name":"OVO","type":"ewallet","emoji":"💜","initialBalance":10435},{"id":"cmrbvlmdx0009jv045ujdtwoe","name":"DANA","type":"ewallet","emoji":"💙","initialBalance":27612}],"transactions":[{"id":"cmundn9i00001jn04t7gjmbah","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-30"},{"id":"cmuddfn050001jv04pfekd50v","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-23"},{"id":"cmuddg8iq0001jz049l87zxqh","type":"expense","amount":10000,"category":"Loundry","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Loundry","date":"2026-09-22"},{"id":"cmuddgxb90001lc04146rpiwl","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Dikichi","date":"2026-09-22"},{"id":"cmucsc2470003if04o4aj47q5","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bolen","date":"2026-09-22"},{"id":"cmucsbhht0001if04z7n9pvdq","type":"expense","amount":20000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-22"},{"id":"cmuby9bfb0001l004g50kdsag","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-22"},{"id":"cmub4ax7s0001jk04nldxgq89","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mangcuk","date":"2026-09-21"},{"id":"cmub4bupa0001jv04qbrhpp50","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-21"},{"id":"cmub4ch5v0001l904gxjlrbqx","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-09-21"},{"id":"cmuby8vfw0001jp04pqsi50p3","type":"expense","amount":25000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan Malam","date":"2026-09-21"},{"id":"cmuby6bo90001id04fziscwzq","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"AIR mineral","date":"2026-09-21"},{"id":"cmuaih0130001l904hb0105y4","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-21"},{"id":"cmu9wk9ih0001jx04vf9v6ycn","type":"expense","amount":39000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakso UB","date":"2026-09-20"},{"id":"cmu9wleb80001l804pt46aivz","type":"expense","amount":56000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tomoro","date":"2026-09-20"},{"id":"cmu9fx4310001l804hhzkemv4","type":"expense","amount":26000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kak rose","date":"2026-09-20"},{"id":"cmu8k3n2b0003ii04r19a3yyy","type":"expense","amount":59400,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Calf","date":"2026-09-19"},{"id":"cmu8k30ex0003jm04ft3yewde","type":"expense","amount":16000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Es Pisang Ijo","date":"2026-09-19"},{"id":"cmu8k27jx0001jm0441u6feq9","type":"expense","amount":19000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-09-18"},{"id":"cmu8k0ymd0001i904hwp4p4c2","type":"expense","amount":11000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan MBA","date":"2026-09-18"},{"id":"cmu8k1pbk0001ii04bbnq17mb","type":"expense","amount":40000,"category":"Badminton","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Badmin MBA","date":"2026-09-18"},{"id":"cmu6tuj2i0001l804q8nux4pi","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-09-18"},{"id":"cmu6gmg9f0001l804h2esp3pg","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-18"},{"id":"cmu68nvhv0003jq04bqy6o7xs","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Point","date":"2026-09-18"},{"id":"cmu6gldg70003k00402pbhwnk","type":"expense","amount":14000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sosis","date":"2026-09-17"},{"id":"cmu6gkt100001k0042xdk75hi","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-17"},{"id":"cmu68nhvi0001jq04i655uv12","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-09-17"},{"id":"cmu59lts40001jq048y3g4wfd","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-17"},{"id":"cmu4sovgn0001jp04n9hucne9","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar","date":"2026-09-17"},{"id":"cmu4a6zlw0001l9045yisq5tt","type":"expense","amount":12000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Susu","date":"2026-09-16"},{"id":"cmu4a4zs00001lh044wk98kgk","type":"expense","amount":37000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"4 liter","date":"2026-09-16"},{"id":"cmu4a61420001l8046n5iovya","type":"expense","amount":42000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Nasgor","date":"2026-09-16"},{"id":"cmu42gvgn0001jm042fvfxuyz","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kabul","date":"2026-09-16"},{"id":"cmu3p4fu20003l204hqr590yc","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-16"},{"id":"cmu3p3hfm0001l204bsa4c9sx","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Es krim","date":"2026-09-16"},{"id":"cmu3dqmy10001jr04j1w1p3tz","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Point","date":"2026-09-16"},{"id":"cmu3dqawo0001jp04fndn8mla","type":"expense","amount":35000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tomoro Shopee","date":"2026-09-15"},{"id":"cmu2j4toe0001lc045eaxt0d2","type":"expense","amount":14000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Mangcuk","date":"2026-09-15"},{"id":"cmu2igh220001ld04z410bfgg","type":"expense","amount":150000,"category":"Pulsa & Paket Data","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pulsa Dan Paket","date":"2026-09-15"},{"id":"cmu2e5phu0003l904gujy5fot","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Puyam","date":"2026-09-15"},{"id":"cmu2e4aqs0001jn04ja9zzqnk","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-15"},{"id":"cmu2e56bg0001l904s045w919","type":"expense","amount":7500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan","date":"2026-09-15"},{"id":"cmu1xs47b0001ig0465dp022m","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-15"},{"id":"cmu2if0rz0001l804ohcg9431","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"1 Liter","date":"2026-09-15"},{"id":"cmu1e0hhw0001jk04vir4mitm","type":"expense","amount":18000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopken","date":"2026-09-14"},{"id":"cmu1876kv0001k204ozqx2crb","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-09-14"},{"id":"cmu11gz7r0001l0041l2ir369","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-14"},{"id":"cmu0ncnpa0001i904a1och32f","type":"expense","amount":3000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-09-14"},{"id":"cmu0im7n40001l5044d72mhhq","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-14"},{"id":"cmtzsdv1p0001jk045oq1pir7","type":"expense","amount":20000,"category":"Loundry","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Pengering","date":"2026-09-13"},{"id":"cmtzqvrq00001jt043lphrtif","type":"expense","amount":10000,"category":"Loundry","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Loundry","date":"2026-09-13"},{"id":"cmtzmxun10001ia04gsd4z6bi","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Parkir Tomoro","date":"2026-09-13"},{"id":"cmtzful9s0001l504o4xfthe9","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Tomoro","date":"2026-09-13"},{"id":"cmtzeny260001l204ep3zinsp","type":"expense","amount":26500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kak rose","date":"2026-09-13"},{"id":"cmtzc6z0a0003jx04nh9l8pu5","type":"expense","amount":45700,"category":"Tagihan Air","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Air September 26","date":"2026-09-13"},{"id":"cmtzc5g690001jx04hccsqil1","type":"expense","amount":56539,"category":"Tagihan Listrik","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Listrik Agustus 26","date":"2026-09-13"},{"id":"cmtykwf080001l8048g2cm3ah","type":"expense","amount":34000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Soto","date":"2026-09-12"},{"id":"cmtydhmjn0001jt0431wqaoic","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir Fore","date":"2026-09-12"},{"id":"cmty1g3020001jj04yvdaaf6f","type":"expense","amount":30600,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Fore","date":"2026-09-12"},{"id":"cmty5dpe00001jg048alnrqdx","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir","date":"2026-09-12"},{"id":"cmty1extv0001jj04jva8n30o","type":"expense","amount":38500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Rawon Kiroman","date":"2026-09-12"},{"id":"cmtxtrib90001lb04uhihqm3x","type":"expense","amount":20000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cenil","date":"2026-09-12"},{"id":"cmtx4x55v0001jm04c6ftp70o","type":"expense","amount":21000,"category":"Dating","sourceId":null,"description":"bakmi","date":"2026-09-11"},{"id":"cmtxtqz0j0001l804l432fdxr","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"mie gacoan","date":"2026-09-11"},{"id":"cmtwsx16o0001l304kpwdqu6r","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-11"},{"id":"cmtw98ygz0001jp0406fxqqqb","type":"expense","amount":3000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan","date":"2026-09-11"},{"id":"cmtw8dns90001jj04neolqiww","type":"expense","amount":14000,"category":"Kopi","sourceId":null,"description":"Domar","date":"2026-09-11"},{"id":"cmtvfgshe0001k104wpizhv35","type":"expense","amount":17000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Nasgor","date":"2026-09-10"},{"id":"cmtvfg5zp0001ia047ndpwor8","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Pentol Kabul","date":"2026-09-10"},{"id":"cmtv8i1as0001l6040qfdqr45","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Cathering","date":"2026-09-10"},{"id":"cmtuyoisq0001l5041df3a21t","type":"expense","amount":16000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kinton","date":"2026-09-10"},{"id":"cmttzsake0001ju04dpmih3i1","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin Eceran 1 Liter","date":"2026-09-09"},{"id":"cmttxtj400001jl04zexunz3q","type":"expense","amount":44000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Mam Siang Lalapan Dewandaru","date":"2026-09-09"},{"id":"cmtuvkas10001l704p1n2xdt6","type":"expense","amount":38000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Tahu Telur","date":"2026-09-09"},{"id":"cmtv8japy0001i1048xuyhmjk","type":"expense","amount":36000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Malam Tahu Lontong","date":"2026-09-09"},{"id":"cmtsmdcbx0000l2040qmrbk2s","type":"expense","amount":20000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pentol","date":"2026-09-08"},{"id":"cmtsme1lv0003l704qyj7ov2w","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Ayam Almaz","date":"2026-09-08"},{"id":"cmtscgv730003kz040od2bmh6","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"crepes","date":"2026-09-08"},{"id":"cmtscg6qy0003l604kav3mwbw","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-08"},{"id":"cmtrxzcr10000l804u7foftl6","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-09-08"},{"id":"cmtr4nkrv0000jp04msw59ptg","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-09-07"},{"id":"cmtqvygbg0000l904dp1hvcxj","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-07"},{"id":"cmtqjmrl00000js04o61waqe9","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point kopi","date":"2026-09-07"},{"id":"cmtpv4ahk0000jr04bwwtivcv","type":"expense","amount":27000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-09-06"},{"id":"cmtpulbtp0000k304kby24a3n","type":"expense","amount":26000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-09-06"},{"id":"cmtpu3jlo0009jr040adcl2od","type":"expense","amount":6000,"category":"Servis Motor","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tambah angin","date":"2026-09-06"},{"id":"cmtps2xvs0003l804nquueycm","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir","date":"2026-09-06"},{"id":"cmtpdvh5o0000l804g8yitosf","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopi Tomoro","date":"2026-09-06"},{"id":"cmtpdqyfq0003i50406797wc8","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kak Rose","date":"2026-09-06"},{"id":"cmtpuah7p0007l5047i623t3i","type":"expense","amount":19000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopken","date":"2026-09-05"},{"id":"cmtmu1uuc0003l604z156oqvq","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-09-04"},{"id":"cmtmpwce50006l10411q68hec","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-04"},{"id":"cmtmpvrlh0006kt04os84ueko","type":"expense","amount":28000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-09-04"},{"id":"cmtpu7kl30000ld05k1775tk2","type":"expense","amount":37500,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cemilan","date":"2026-09-03"},{"id":"cmtpu71pj0000l204dsbg6vgd","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cahtering","date":"2026-09-03"},{"id":"cmtpu675h0003ky04zdh56nks","type":"expense","amount":29500,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Dolar dan Kintoun","date":"2026-09-03"},{"id":"cmtom6nsr0000jj04t7dk68xv","type":"expense","amount":19000,"category":"Kopi","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Kopken","date":"2026-09-02"},{"id":"cmtpd7mql0009l0044jywqy5r","type":"expense","amount":39000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"kopken","date":"2026-09-02"},{"id":"cmtpd5y260000ju04050tsv2i","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-09-02"},{"id":"cmtpd52n20006ie049tsf4htv","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Jajan sempol","date":"2026-09-02"},{"id":"cmtpd3ol20003i80448hpy8ry","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakmie Jogja","date":"2026-09-01"},{"id":"cmtpupdly0000jp045a1axk9x","type":"expense","amount":519208,"category":"Hutang","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Spay Later","date":"2026-09-01"},{"id":"cmtpd18l40000le04dbnht4dx","type":"expense","amount":200000,"category":"Lainnya","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Arisan","date":"2026-09-01"},{"id":"cmtpu9dld0003l5044g81j22m","type":"expense","amount":128071,"category":"Hutang","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Hutang Superbank","date":"2026-09-01"},{"id":"cmsn2otgn0000jp047j09ptn3","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"test from bug-scan-2","date":"2026-08-10"},{"id":"cmsmi3sp90006lb042qi4uvo6","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-10"},{"id":"cmsmi0fk00003ju0410gvukcd","type":"expense","amount":252000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Token AI","date":"2026-08-09"},{"id":"cmslxpo1l0003kz042dmvfjsq","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Sejawat","date":"2026-08-09"},{"id":"cmslxp7vh0000i604p5a4c272","type":"expense","amount":15000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Jus Alpukat","date":"2026-08-09"},{"id":"cmsmi3gsp0000l4045p7ezku9","type":"income","amount":20000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sisa Uang Galon","date":"2026-08-09"},{"id":"cmsk9gqzn0000ia04ax1qly3q","type":"income","amount":23000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Rembes adek","date":"2026-08-08"},{"id":"cmsk9g8cy0000jl04528qqksy","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"mangcuk","date":"2026-08-08"},{"id":"cmsk7849l0000kz048yg6mjqf","type":"expense","amount":57000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Ston","date":"2026-08-08"},{"id":"cmsj1truv0004l504qdx20m0v","type":"expense","amount":10000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"15 ri, 5 ribu adek","date":"2026-08-07"},{"id":"cmsj1szhw0000l50411rcftia","type":"expense","amount":44000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tahu Campur","date":"2026-08-07"},{"id":"cmsj1s7eu0000jx04t26k3c3b","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-07"},{"id":"cmsi8yzz30003jl04ftu8hu4a","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-07"},{"id":"cmsi7yvqh0000js042ymlguxq","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point Coffe","date":"2026-08-07"},{"id":"cmshqptur0008jp04zxkluwtz","type":"expense","amount":22000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan Indomaret","date":"2026-08-06"},{"id":"cmsj1vqrq0008l504knghqice","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mie dan Sosis","date":"2026-08-06"},{"id":"cmshqqwos0007jx04hyb7io9q","type":"expense","amount":3000,"category":"Loundry","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sabun Loundry","date":"2026-08-06"},{"id":"cmshqq7sr0003jx04p6jph4kn","type":"expense","amount":30000,"category":"Loundry","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Loundry","date":"2026-08-06"},{"id":"cmshn711b0003la04nqfb8ppm","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Malam Prek jon","date":"2026-08-06"},{"id":"cmsh5o2ik0000i804k1y90fkx","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-06"},{"id":"cmsj1y3le0000ju04132lkiou","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cilok","date":"2026-08-06"},{"id":"cmsgu9p710000ic04xmmuagjy","type":"expense","amount":9000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-06"},{"id":"cmsgs0u2k0003l104mfi10wds","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-08-06"},{"id":"cmsgq0wr00000ld04z1x4tmow","type":"expense","amount":18000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-08-05"},{"id":"cmsgq06rm0003i804asiv5i8l","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tahu telur","date":"2026-08-05"},{"id":"cmsfx0yac0003l2044xk3n412","type":"expense","amount":45700,"category":"Tagihan Air","sourceId":"cmrbvllfh0002jv046a4c235f","description":"PDAM Juli 26","date":"2026-08-05"},{"id":"cmsfwzpe20001l504vzvmlfza","type":"transfer","amount":100000,"category":"Transfer Masuk","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Bayar Tagihan","date":"2026-08-05"},{"id":"cmsfwzp9g0000l504liskhi90","type":"transfer","amount":100000,"category":"Transfer Keluar","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bayar Tagihan","date":"2026-08-05"},{"id":"cmsfx06110002l504zenl8agc","type":"expense","amount":56539,"category":"Tagihan Listrik","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Listrik Juli 26","date":"2026-08-05"},{"id":"cmsfvrhmd0001l204vs7i61in","type":"transfer","amount":50000,"category":"Transfer Masuk","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Transfer Kas → Bank CIMB","date":"2026-08-05"},{"id":"cmsfvrhhz0000l2041srdyqod","type":"transfer","amount":50000,"category":"Transfer Keluar","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Transfer Kas → Bank CIMB","date":"2026-08-05"},{"id":"cmsfv6awh0001lb04h3jmonx9","type":"transfer","amount":50000,"category":"Transfer Masuk","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tes","date":"2026-08-05"},{"id":"cmsfv6arw0000lb0471yibl2y","type":"transfer","amount":50000,"category":"Transfer Keluar","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tes","date":"2026-08-05"},{"id":"cmsftkk5x0000jo04f2ttn1cd","type":"expense","amount":200800,"category":"Penyesuaian Saldo","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Adjustment saldo Kas","date":"2026-08-05"},{"id":"cmsft21vn0001jo04u47hzy02","type":"expense","amount":615270,"category":"Penyesuaian Saldo","sourceId":"cmrbvllkc0003jv04wvhd7mdi","description":"Adjustment saldo Bank Superbank","date":"2026-08-05"},{"id":"cmsft0zzn0000kz04rmqfv3vv","type":"expense","amount":181358,"category":"Penyesuaian Saldo","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Adjustment saldo Bank BRI","date":"2026-08-05"},{"id":"cmsft0dnl0000jo04e046j4yc","type":"income","amount":3469783,"category":"Penyesuaian Saldo","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Adjustment saldo Bank CIMB","date":"2026-08-05"},{"id":"cmsfml6wi0000jm0437ogesc9","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-05"},{"id":"cmsfikpwf0008l104ai8mfvfg","type":"expense","amount":30000,"category":"Iuran Kas","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kas Juni Juli","date":"2026-08-05"},{"id":"cmsfi754p0000jo04u11k69xd","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-08-05"},{"id":"cmsfd15190000il04lkm1qznn","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-05"},{"id":"cmsfbuirq0004l804n9mx34xs","type":"expense","amount":27000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mie Bangka","date":"2026-08-04"},{"id":"cmsec5csh0000l404cslul4po","type":"expense","amount":90000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mam siang di Pakuwon","date":"2026-08-04"},{"id":"cmse3ix720004l804af2yxl08","type":"expense","amount":31000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan Indomaret Sidoarjo","date":"2026-08-04"},{"id":"cmse3gzsl0000jl04jy9g01lx","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Point Sidoarjo","date":"2026-08-04"},{"id":"cmsd573js0000ky04tf44cjeg","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-08-03"},{"id":"cmsd1tpho000djr04w4bmjodc","type":"expense","amount":101500,"category":"Pulsa & Paket Data","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Pulsa 100k","date":"2026-08-03"},{"id":"cmscw5nzr0000jt04pdteozb0","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-08-03"},{"id":"cmscqsyf40000l404vrs4th2o","type":"expense","amount":30000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Subsidi Adek Yoga","date":"2026-08-03"},{"id":"cmsckk1cx0000jv0411uz4pha","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar","date":"2026-08-03"},{"id":"cmsbtre860000l8046hkkt9j2","type":"expense","amount":47600,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Calf","date":"2026-08-02"},{"id":"cmsbfp7fj0000l2041ix150y2","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Geprek","date":"2026-08-02"},{"id":"cmsallw9y0000l5046rbilq5a","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Ecer","date":"2026-08-01"},{"id":"cmsafjaj10000jp048hm4wnnh","type":"expense","amount":50000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Tomoro","date":"2026-08-01"},{"id":"cmsafis4k0000kw04ip7u64sz","type":"expense","amount":50000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-08-01"},{"id":"cmsaagci40004l3043ar1pq2w","type":"expense","amount":551026,"category":"Hutang","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Spay Later","date":"2026-08-01"},{"id":"cmsagqrz90000l704mjipkz95","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pentol","date":"2026-08-01"},{"id":"cms9yf3qq0004l404k4ah912e","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Pop Iced","date":"2026-08-01"},{"id":"cms9xqx4v0000i304gbencfep","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan siang di kantor","date":"2026-08-01"},{"id":"cmsa7f2rd0000kw0401npl8s0","type":"expense","amount":24000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bendera","date":"2026-08-01"},{"id":"cms9ye99w0000gt047o2agwlg","type":"expense","amount":2000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Gorengan mas bagas","date":"2026-08-01"},{"id":"cms9r71g40004jo04c807w68u","type":"expense","amount":100000,"category":"Tak Terduga","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bensin Pakde karna bayar pajak 5 Tahun","date":"2026-08-01"},{"id":"cms9r6cqj0004if04pwobu361","type":"expense","amount":550000,"category":"Pajak Motor","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pajak 5 Tahun + Gesek","date":"2026-08-01"},{"id":"cms9n6gfl0000jv04bkkumv3i","type":"expense","amount":12500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Say Bread","date":"2026-08-01"},{"id":"cms9n5mo90000gl04gfpkzvps","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-08-01"},{"id":"cms8zum160000ie04690ldxx9","type":"expense","amount":57000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Nowhere","date":"2026-07-31"},{"id":"cms8teqx40004jo04cjfp1va9","type":"expense","amount":2000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sosis","date":"2026-07-31"},{"id":"cms8ted4p0000jx04lp66ldzy","type":"expense","amount":12000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"1 Liter","date":"2026-07-31"},{"id":"cms8gunja0004jx04elthq1ch","type":"expense","amount":10000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopsu","date":"2026-07-31"},{"id":"cms8gucu30004l704ecb8sekt","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Maksi Soto","date":"2026-07-31"},{"id":"cms8a5r750000i604fjn05dum","type":"expense","amount":5500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-31"},{"id":"cms87q8xk0000ju04hu9e56qz","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-31"},{"id":"cms7kp6hr0009jy04d35jpk1c","type":"expense","amount":23000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Buah","date":"2026-07-30"},{"id":"cms7kore50004jy047mce59ja","type":"expense","amount":33000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bakso Brow","date":"2026-07-30"},{"id":"cms7koa4k0004la049zz169e4","type":"expense","amount":10000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jasuke","date":"2026-07-30"},{"id":"cms75ioz80000l204nklzqags","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Cathering","date":"2026-07-30"},{"id":"cms6uh3890000kv04g29x1iqh","type":"expense","amount":6500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-30"},{"id":"cms6s7jgv0000l204f4s4l3nl","type":"expense","amount":7800,"category":"Belanja","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tisu basah","date":"2026-07-30"},{"id":"cms6s78x70004l8047f5e5n54","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Donar","date":"2026-07-30"},{"id":"cms6cmxt50000ih04veb4tf8h","type":"expense","amount":98000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bioskop","date":"2026-07-29"},{"id":"cms5zcxw50000ic04sa3r6t9t","type":"expense","amount":36000,"category":"Belanja","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Migor, Odol, Mie","date":"2026-07-29"},{"id":"cms5l1nng0004kt04vztsuob0","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan berat","date":"2026-07-29"},{"id":"cms5ijccs0004jr04ozcbwe95","type":"expense","amount":9500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan jajan basah","date":"2026-07-29"},{"id":"cms4z7ceq0004kz04tkpnilyy","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-28"},{"id":"cms4o3w120004l8044cstz5fw","type":"expense","amount":21000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopken","date":"2026-07-28"},{"id":"cms45lzr10000jm04ahbi1z06","type":"expense","amount":17000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Makan siang depan Kantor","date":"2026-07-28"},{"id":"cms3ybeac0008l504nrzgwqbl","type":"expense","amount":26000,"category":"Tak Terduga","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Transport Grab","date":"2026-07-28"},{"id":"cms41xmhp0004l204drbacmtt","type":"expense","amount":4500,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-28"},{"id":"cms3yaoh10000l6047pf8hedk","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-28"},{"id":"cms3bsb1i0004ld04wg7tp2ea","type":"expense","amount":7000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Susu","date":"2026-07-27"},{"id":"cms33kltj0000jt04x2joxnuq","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mangcuk","date":"2026-07-27"},{"id":"cms2rpzsq0000ju04qybr44at","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-27"},{"id":"cms2rba2l0004jv04t4le6m85","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pentol Korea","date":"2026-07-27"},{"id":"cms2hvnye0000l504e33zn4ym","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar","date":"2026-07-27"},{"id":"cms0d9dyw0000l604cdxsrgo7","type":"expense","amount":44000,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Makan malam di kereta","date":"2026-07-25"},{"id":"cms02vpfh0000l5044riuidnk","type":"expense","amount":26000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kopi Tomoro","date":"2026-07-25"},{"id":"cms02plbg0000ky04usckgjou","type":"expense","amount":26500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan indomaret","date":"2026-07-25"},{"id":"cmrzzt84m0001i604f91z6otc","type":"expense","amount":15000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Roti O","date":"2026-07-25"},{"id":"cmrzzsynq0000i6042hiz1kuc","type":"expense","amount":104000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Oleh oleh adek","date":"2026-07-25"},{"id":"cmrzybgch0000l80456m5z07l","type":"expense","amount":9000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Minum","date":"2026-07-25"},{"id":"cmrzyb4op0000jj04u3l2enn2","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Siomay Bandung","date":"2026-07-25"},{"id":"cmrzyh86x0000ic048pe543nq","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Siang","date":"2026-07-24"},{"id":"cmrzygwbp0001jj04hv99zwhc","type":"expense","amount":28500,"category":"Makanan Berat","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Mie Gacoan","date":"2026-07-24"},{"id":"cmrzw70oi0000l104s4svfb3p","type":"expense","amount":14000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Transport ke Stasiun","date":"2026-07-23"},{"id":"cmrzw4wl10000js049lh1rxy3","type":"expense","amount":80000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Bus ke Slt","date":"2026-07-23"},{"id":"cmrzw494m0000lc046qj62gjl","type":"expense","amount":294000,"category":"Tak Terduga","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kereta Ke Solo","date":"2026-07-23"},{"id":"cmry9ai8u0000ky04dp4tircs","type":"expense","amount":27000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-23"},{"id":"cmry8ndyj0000l2042nluzyqt","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Gorengan","date":"2026-07-23"},{"id":"cmry8mhcx0002kz04fxlod1ai","type":"expense","amount":28000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan","date":"2026-07-23"},{"id":"cmrxdjrzl0000l304h81b5aco","type":"expense","amount":30000,"category":"Loundry","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-23"},{"id":"cmrycp7320000ju04w35jmni1","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-07-22"},{"id":"cmrw2yr9l0001jx04esgx2gz3","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-07-22"},{"id":"cmrw2ygpi0000jx04cdp6fihc","type":"expense","amount":6000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-22"},{"id":"cmruwicg60000jx04lna5bgin","type":"expense","amount":12000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-22"},{"id":"cmrvctji80000l704cf40h4hr","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-21"},{"id":"cmruwjvmy0004jx04xr2qljt4","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cathering","date":"2026-07-21"},{"id":"cmruwjfq10003jx0465sxiyo2","type":"expense","amount":62000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Maitri","date":"2026-07-21"},{"id":"cmruwj3g50002jx04n6bbivk4","type":"expense","amount":60000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-21"},{"id":"cmruwisvu0001jx04qpbdyuw4","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Crepes","date":"2026-07-21"},{"id":"cmrtethga0001l704oq8lfcac","type":"expense","amount":28000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mangcuk","date":"2026-07-20"},{"id":"cmrtet0490000l7048lxaanjt","type":"expense","amount":68000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Lalapan Cak ri","date":"2026-07-20"},{"id":"cmrt394jd0001l904rn6p5jqz","type":"expense","amount":11000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Chatering","date":"2026-07-20"},{"id":"cmrt38nt00000jv04ts00b71g","type":"expense","amount":18000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin","date":"2026-07-20"},{"id":"cmrt388t70000l904qzni2ry5","type":"expense","amount":6000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-20"},{"id":"cmrs11w0e0004i5045cxrurtt","type":"expense","amount":20000,"category":"Potong Rambut","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-19"},{"id":"cmrs10cy90002i504rz5jsrml","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-19"},{"id":"cmrs0zwda0001i5043e9t2zgt","type":"expense","amount":42000,"category":"Skin Care","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Mouis","date":"2026-07-19"},{"id":"cmrrrope10000ih0479z0yq0n","type":"expense","amount":40000,"category":"Dating","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan","date":"2026-07-19"},{"id":"cmrrri2jm0000jx04qa7h1mf4","type":"expense","amount":40000,"category":"Servis Motor","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Ban Dalam","date":"2026-07-19"},{"id":"cmrrdsy3a0000l4040np0u6m4","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Tomoro","date":"2026-07-19"},{"id":"cmrqgyj1h0001l704ozlqyo47","type":"expense","amount":4000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"","date":"2026-07-18"},{"id":"cmrqgybsq0001jv042aohmzcu","type":"expense","amount":15000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Pempek Alun alun","date":"2026-07-18"},{"id":"cmrqgxypv0000l704n3us1xy2","type":"expense","amount":33000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Es krim momoyo","date":"2026-07-18"},{"id":"cmrqgxn480000jv048yf5l5uj","type":"expense","amount":30000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Bakso","date":"2026-07-18"},{"id":"cmrq78lg90001jp04gyy5yqci","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken","date":"2026-07-18"},{"id":"cmrq7838s0000jp04hepujlqm","type":"expense","amount":15000,"category":"Servis Motor","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Tambal Ban","date":"2026-07-18"},{"id":"cmrpu07500000k104mu524hnc","type":"expense","amount":33000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"stmj","date":"2026-07-17"},{"id":"cmrofwpbn0000l204yxoq6xwd","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-17"},{"id":"cmro9pqk60001jr04tf9246t3","type":"expense","amount":7000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-17"},{"id":"cmro9pbuk0000jr04jp6ir6x3","type":"expense","amount":13000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bean","date":"2026-07-17"},{"id":"cmrn69py30000l704k5p5mthk","type":"expense","amount":10000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-16"},{"id":"cmrn3vzqq0000jo04n6krvjo7","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cahtering Makan Siang","date":"2026-07-16"},{"id":"cmrms1hmx0000l4044kx0b4qm","type":"expense","amount":14000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar","date":"2026-07-16"},{"id":"cmrm4vga90000l4042rwuazms","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-07-15"},{"id":"cmrlou9vy0006ky0488jo3rrv","type":"expense","amount":13000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"prek jon","date":"2026-07-15"},{"id":"cmrlcq1fs0000js04mj9f2hbn","type":"expense","amount":12000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Domar for better day","date":"2026-07-15"},{"id":"cmrlcpkap0000l404wt7p0298","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-14"},{"id":"cmrkywakn0002l504wcrw49pp","type":"income","amount":12000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi Ivan","date":"2026-07-14"},{"id":"cmrkyvn0k0001l504jevxm0l3","type":"expense","amount":32000,"category":"Belanja","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Telur","date":"2026-07-14"},{"id":"cmrkyux540000l504k0tgg0dz","type":"expense","amount":3500,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Risol","date":"2026-07-14"},{"id":"cmrk70vdx0000jv0435qzbq4t","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Batagor","date":"2026-07-14"},{"id":"cmrjz40ff0000js04lts949jn","type":"expense","amount":32000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Domar 2 + Susu Green Feild","date":"2026-07-14"},{"id":"cmrjazy1a0001le04hgxayfq7","type":"expense","amount":21000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Mangcuk","date":"2026-07-13"},{"id":"cmrjazmu90000le047au92fu3","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Krepes","date":"2026-07-13"},{"id":"cmrihtktb0000l104mxs7z3a1","type":"expense","amount":25000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Point cuy","date":"2026-07-13"},{"id":"cmriht6gw0000l7042c7tn800","type":"income","amount":70000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Rembes adek","date":"2026-07-12"},{"id":"cmrhj48l10000l404lkovx70c","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopi tomoro with adek","date":"2026-07-12"},{"id":"cmrgka1ik0001l4049otmdkk7","type":"expense","amount":20000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan malam","date":"2026-07-11"},{"id":"cmrgk7maq0000l504c42pujmq","type":"expense","amount":40000,"category":"Kopi","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Kopken with adek","date":"2026-07-11"},{"id":"cmrgk6qd40000l404v2nsooms","type":"expense","amount":12000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jajan klontong","date":"2026-07-11"},{"id":"cmrg7g7zq0001ld044dvj2fm3","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir Tomoro","date":"2026-07-11"},{"id":"cmrg7fufb0000ld04v31537uo","type":"expense","amount":20000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Jambu Kristal Rujak","date":"2026-07-11"},{"id":"cmrg56kgj0000l704hhb337ob","type":"expense","amount":30000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Tomoro","date":"2026-07-11"},{"id":"cmrfv1t5d0000l704cqfi435k","type":"expense","amount":21500,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kak rose","date":"2026-07-11"},{"id":"cmreupqwo0000js04a9qxgr81","type":"income","amount":100000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Appresiasi Bu dhik","date":"2026-07-10"},{"id":"cmregv5c30000lh049v6do4hn","type":"expense","amount":12000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Makan Siang Padang","date":"2026-07-10"},{"id":"cmregupw70000l504lkr0e9db","type":"expense","amount":30000,"category":"Bensin","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Bensin Motor","date":"2026-07-10"},{"id":"cmre9n7w50000jx04o6supr08","type":"expense","amount":11000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan Bapak Gorengan dan Tahu Pedes","date":"2026-07-10"},{"id":"cmre7h4vz0000ju041hfjigtm","type":"expense","amount":20000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Domar dan susu Adek","date":"2026-07-10"},{"id":"cmrdq168s0000k204k3lcrgm7","type":"expense","amount":30000,"category":"Badminton","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Badmin MBA","date":"2026-07-09"},{"id":"cmrdmpkpw0002jp042vjr1alx","type":"expense","amount":82000,"category":"Dating","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Makan Bakmi with Adek","date":"2026-07-09"},{"id":"cmrdmnjka0000l204j85v5mpf","type":"expense","amount":2000,"category":"Parkir","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Parkir MBA","date":"2026-07-09"},{"id":"cmrdmn3710001l804noxo7b8l","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kabul","date":"2026-07-09"},{"id":"cmrd3dg9s0000l404u4s45lrs","type":"expense","amount":15000,"category":"Makanan Berat","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Cathering","date":"2026-07-09"},{"id":"cmrcs7yz70004js044ndf160f","type":"expense","amount":24000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Domar brow","date":"2026-07-09"},{"id":"cmrca08dq0000kz049zmxccrs","type":"expense","amount":8000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Sarapan","date":"2026-07-08"},{"id":"cmrc4gbxr0000jo04xien5arp","type":"expense","amount":42000,"category":"Kopi","sourceId":"cmrbvllfh0002jv046a4c235f","description":"Kopi malam","date":"2026-07-08"},{"id":"cmrbybqj90000jx045st56da1","type":"expense","amount":14000,"category":"Makanan Berat","sourceId":"cmrbvllaf0001jv04got0yaol","description":"Cathering","date":"2026-07-08"},{"id":"cmrbrxxj80001l404yt5kx423","type":"income","amount":12000,"category":"Lainnya (Pemasukan)","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi mas ivan","date":"2026-07-08"},{"id":"cmrbrr7c20000ju0442zqjlm0","type":"expense","amount":5000,"category":"Jajan","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Crepes","date":"2026-07-08"},{"id":"cmrbrnnmk0000k104x6lt1hue","type":"expense","amount":24000,"category":"Kopi","sourceId":"cmrbvll5h0000jv04oi4ssvqj","description":"Kopi Domar","date":"2026-07-08"}],"weeklyBudgets":[{"category":"Hutang","month":"2026-09","amount":161820},{"category":"Dating","month":"2026-09","amount":68125},{"category":"Kopi","month":"2026-09","amount":50875}],"dailyLogs":[{"date":"2026-07-08","mood":4,"energy":3,"sleep":7},{"date":"2026-07-05","mood":5,"energy":5,"sleep":6},{"date":"2026-07-06","mood":3,"energy":3,"sleep":6.5},{"date":"2026-07-09","mood":3,"energy":3,"sleep":5.5},{"date":"2026-07-10","mood":5,"energy":4,"sleep":8},{"date":"2026-07-11","mood":3,"energy":3,"sleep":6},{"date":"2026-07-12","mood":4,"energy":4,"sleep":7.5},{"date":"2026-07-13","mood":2,"energy":2,"sleep":2},{"date":"2026-07-15","mood":4,"energy":4,"sleep":7},{"date":"2026-07-18","mood":4,"energy":4,"sleep":8},{"date":"2026-07-20","mood":4,"energy":4,"sleep":7},{"date":"2026-09-08","mood":4,"energy":3,"sleep":5},{"date":"2026-09-09","mood":4,"energy":4,"sleep":7},{"date":"2026-09-10","mood":3,"energy":3,"sleep":4.5},{"date":"2026-09-17","mood":3,"energy":3,"sleep":8}]}}</script>
@@ -2430,6 +2421,7 @@ const addDays=(b,n)=>{const d=new Date(b);d.setDate(d.getDate()+n);return d};
 const dayKey=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const sumBy=(arr,f)=>arr.reduce((a,x)=>a+f(x),0);
 const tglPendek=k=>{const d=new Date(k+'T00:00:00');return d.getDate()+' '+BULAN_S[d.getMonth()]};
+const tglBulan=k=>{const d=new Date(k+'T00:00:00');return d.getDate()+' '+BULAN[d.getMonth()]};
 
 /* ---------- sumber data: API live, fallback snapshot ---------- */
 const snapEl=document.getElementById('dbSnapshot');
@@ -2479,7 +2471,7 @@ const srcStyle=t=>SRC_STYLE[t]||{i:'k-bank',c:'#64748B'};
 /* ---------- state ---------- */
 const state={page:'ringkasan',habitFilter:'semua',txFilter:'semua',txQuery:'',txMonth:dayKey(TODAY).slice(0,7),finMonth:'ALL',calSel:new Date(TODAY),calMonth:new Date(TODAY.getFullYear(),TODAY.getMonth(),1)};
 const inited={heatmap:false,cal:false,wawasan:false,set:false};
-const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Wawasan',pengaturan:'Pengaturan'};
+const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Analisis',pengaturan:'Pengaturan'};
 let HABITS=[],GROUPS=[],HCAT={},FINCATS=[],SOURCES=[],TXS=[],BUDGETS=[],DAILY={},SETTINGS=null;
 let logsByDate={},doneToday={},valueToday={},months=[],WS=1;
 let DOWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
@@ -2635,21 +2627,18 @@ function smoothPath(pts){
 
 /* ---------- identitas & sapaan ---------- */
 function renderIdentity(){
-  const now=new Date(),jam=now.getHours();
-  const sapa=jam<11?'Selamat pagi':jam<15?'Selamat siang':jam<19?'Selamat sore':'Selamat malam';
+  const now=new Date();
   const nama=SETTINGS.userName||'Sahabat Rutina';
-  const pertama=nama.split(' ')[0];
-  $('#greetTitle').textContent=`${sapa}, ${pertama}`;
+  $('#greetTitle').textContent='Ringkasan hari ini';
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
   $('#greetSub').textContent=`${tglLengkap} · ${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
-  $('#tbDate').innerHTML=`Hari ini: <b>${tglLengkap}</b>`;
+  $('#tbDate').innerHTML=`<b>${tglLengkap}</b>`;
   $('#tbStreak').textContent=activeDaysAll();
-  $('#tbStreakUnit').textContent='hari aktif';
+  $('#tbStreakUnit').textContent='hari aktif total';
   const inisial=(nama.match(/\p{L}/u)||['R'])[0].toUpperCase();
   $$('.avatar').forEach(a=>a.textContent=inisial);
   $('#sideName').textContent=nama;
   $('#sideSub').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
-  $('#footSrc').textContent=LIVE?'data langsung · Turso':'snapshot database';
   $('#finSub').textContent=`Arus kas ${monthLabel('ALL')} · ${TXS.length} transaksi`;
 }
 
@@ -2668,7 +2657,7 @@ function renderAgenda(){
       <span class="time-chip">${h.reminder?esc(h.reminder):'—'}</span>
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
       <div><div class="agenda-name">${esc(h.name)}</div>
-        <div class="agenda-meta"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}${h.grp?` · <span style="color:${esc(h.grp.color)};font-weight:800">${esc(h.grp.name)}</span>`:''}</div>
+        <div class="agenda-meta"><span class="cat-dot" style="background:${h.warna}"></span>${esc(h.category)}${h.grp?` · <span style="color:${esc(h.grp.color)};font-weight:600">${esc(h.grp.name)}</span>`:''}</div>
         ${amt?`<div class="amt-row" title="Progres hari ini"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}</div>
       <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
       <button class="btn-check ${done?'done':''}" data-check="${esc(h.id)}" aria-pressed="${done}" aria-label="Tandai ${esc(h.name)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
@@ -2682,21 +2671,14 @@ function renderRing(){
   $('#ringFg').style.strokeDashoffset=(C*(1-(n?Math.min(1,done/n):0))).toFixed(1);
   $('#ringText').textContent=`${done}/${n}`;
   $('#heroSisa').textContent=Math.max(0,n-done);
-  $('#agendaCount').textContent=`${done}/${n} selesai`;
+  $('#agendaCount').textContent=`${done} dari ${n} aktivitas selesai`;
   $('#msHariIni').textContent=`${done}/${n}`;
-  const rw=$('#ringWrap');
-  if(rw)rw.classList.toggle('zero',n>0&&done===0);
   syncBell(n-done);
   const sisa=Math.max(0,n-done);
   $('#agendaNoteText').textContent=n===0?'Belum ada kebiasaan. Tambahkan satu untuk memulai.'
     :sisa===0?'Semua kebiasaan hari ini sudah tercatat.'
     :sisa===n?`${sisa} kebiasaan menunggu. Mulai dari yang termudah.`
     :`${sisa} kebiasaan belum dicatat hari ini.`;
-  const ch=champion();
-  $('#heroCopy').textContent=ch?`Paling sering dicatat: ${ch.name} · ${ch.total} catatan.`:'';
-  const maxRun=Math.max(0,...HABITS.map(h=>h.best));
-  $('#heroPill1').textContent=`Streak terbaik ${maxRun} hari`;
-  $('#heroPill2').textContent=`${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
 
   /* garis target harian — AppSettings.targetCompletion (persen catatan) */
   const TARGET=Math.min(100,Math.max(0,Math.round(+SETTINGS.targetCompletion||80)));
@@ -2708,8 +2690,8 @@ function renderRing(){
   if(cap){
     const need=n?Math.ceil(n*TARGET/100):0;
     cap.innerHTML=!n||TARGET<=0?'':(done>=need
-      ?`<i></i><span class="ok">Target ${TARGET}% tercapai</span>`
-      :`<i></i><span>Target ${TARGET}% · ${need-done} kebiasaan lagi</span>`);
+      ?`<i></i><span class="ok">Target tercapai</span>`
+      :`<i></i><span>Target ${TARGET}%</span>`);
   }
 }
 
@@ -2720,20 +2702,20 @@ function renderStats(){
   const maxRun=Math.max(0,...HABITS.map(h=>h.best));
   const logs7=logsInLast(7);
   $('#statStreak').innerHTML=`${maxRun}<small> hari</small>`;
-  $('#statStreakLbl').textContent='Streak terbaik';
+  $('#statStreakLbl').textContent='Rekor streak terbaik';
   $('#statStreakSub').textContent=logs7>0?`+${logs7} catatan dalam 7 hari terakhir`:'Belum ada catatan 7 hari terakhir';
   spark($('#sparkKons'),[activeDaysInLast(7),activeDaysInLast(14),activeDaysInLast(21),activeDaysInLast(30),activeDaysAll()],'#0EA5E9');
   $('#statKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
   const a7=activeDaysInLast(7),d7=a7-(activeDaysInLast(14)-a7);
-  $('#statKonsSub').innerHTML=d7>0?`<b class="up">↑ ${d7} hari</b> vs minggu lalu · ${activeDaysAll()} total`:d7<0?`<b class="down">↓ ${-d7} hari</b> vs minggu lalu · ${activeDaysAll()} total`:`${activeDaysAll()} hari aktif · setara minggu lalu`;
+  $('#statKonsSub').innerHTML=d7>0?`<b class="up">Naik ${d7} hari</b> dari minggu lalu`:d7<0?`<b class="down">Turun ${-d7} hari</b> dari minggu lalu`:'Setara minggu lalu';
   $('#msKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
-  $('#msKonsLbl').textContent='Hari aktif · 30 hari';
+  $('#msKonsLbl').textContent='Hari aktif dalam 30 hari';
   $('#msTotal').innerHTML=`${sumBy(HABITS,h=>h.total)}<small> catatan</small>`;
   $('#msTotalLbl').textContent='Total catatan';
   const mk=months[months.length-1];
   if(mk){
     const {keluar}=finTotals(mk);
-    $('#statSpendLbl').textContent=`Pengeluaran · ${monthShort(mk)}`;
+    $('#statSpendLbl').textContent=`Pengeluaran ${monthLabel(mk)}`;
     countUp($('#statSpend'),keluar);
     const rows=BUDGETS.filter(b=>b.month===mk);
     if(rows.length){
@@ -2741,7 +2723,7 @@ function renderStats(){
       const totB=rows.reduce((s,b)=>s+b.amount,0);
       const ratio=used/totB;
       const pct=Math.round(ratio*100);
-      $('#statSpendPct').textContent=pct>=1000?ratio.toFixed(1).replace('.',',')+'× batas':pct+'%';
+      $('#statSpendPct').textContent=pct>=1000?ratio.toFixed(1).replace('.',',')+'× batas':pct+'% dari anggaran';
       $('#statSpendBar').dataset.w=Math.min(100,pct)+'%';
     }
     else{$('#statSpendPct').textContent='—';$('#statSpendBar').dataset.w='0%'}
@@ -2756,13 +2738,13 @@ function renderStats(){
 function renderBanner(){
   const ch=champion();if(!ch)return;
   $('#sbT').textContent=`${ch.name}: paling sering dicatat`;
-  $('#sbS').textContent=ch.first?`${ch.total} catatan sejak ${tglPendek(ch.first)} · terbaik ${ch.best} hari beruntun.`:'Belum ada catatan sama sekali.';
+  $('#sbS').textContent=ch.first?`${ch.total} kali dicatat sejak ${tglBulan(ch.first)} · rekor ${ch.best} hari berturut-turut.`:'Belum ada catatan sama sekali.';
   const pct=Math.min(100,Math.round(ch.best/14*100));
   $('#sbBar').dataset.w=pct+'%';
-  $('#sbCount').textContent=`${ch.best} dari target 14 hari beruntun`;
+  $('#sbCount').textContent='Target streak: 14 hari';
   animateBars($('#sbBar').closest('.streak-banner'));
   $('#sideCardT').textContent=`${ch.name} memimpin`;
-  $('#sideCardS').textContent=ch.first?`${ch.total} catatan sejak ${tglPendek(ch.first)}.`:'';
+  $('#sideCardS').textContent=ch.first?`${ch.total} kali dicatat sejak ${tglBulan(ch.first)}.`:'';
   $('#sideCardBar').dataset.w=pct+'%';
   animateBars($('#sideCardBar').closest('.side-card'));
 }
@@ -2791,18 +2773,18 @@ function renderCashflow(){
     const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
     s+=`<rect x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
     s+=`<rect x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="800" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="800" fill="#B45309">${ringkas(keluar[i])}</text>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="600" fill="#15803D">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="600" fill="#B45309">${ringkas(keluar[i])}</text>`;
     s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
-  $('#cfTitle').textContent=`${N} minggu terakhir`;
+  $('#cfTitle').textContent='Aktivitas mingguan';
   countUp($('#cfIn'),sumBy(masuk,v=>v));
   countUp($('#cfOut'),sumBy(keluar,v=>v));
 }
 function renderMiniBudgets(){
   const mk=months[months.length-1];
-  $('#miniBudgetTitle').textContent=mk?`Anggaran · ${monthShort(mk)}`:'Anggaran';
+  $('#miniBudgetTitle').textContent=mk?`Anggaran per kategori · ${monthLabel(mk)}`:'Anggaran per kategori';
   /* pill jatah harian bulan berjalan (mengarah ke kartu Jatah di Keuangan) */
   const cj=jatahInfo(dayKey(TODAY).slice(0,7)),mini=$('#miniJatah');
   if(mini){
@@ -2825,9 +2807,9 @@ function renderMiniBudgets(){
       <div class="mb-row">
         <span class="mb-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
         <div class="mb-info"><b>${esc(r.category)}</b><div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div></div>
-        <span class="mb-amt">${r.pct}%</span>
+        <span class="mb-amt">${r.pct}% dari batas</span>
       </div>
-      <div class="t-sub" style="font-size:11px;margin-top:5px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
+      <div class="t-sub" style="font-size:12px;margin-top:5px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
     </div>`;
   }).join('');
   animateBars($('#miniBudgets'));
@@ -2892,7 +2874,7 @@ function renderHabitCards(){
         ${isAmount(h)?`<div class="amt-row"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}
         <div class="wd-row">${weeklyDots(h)}</div>
         <div class="hc-bottom">
-          <div class="hc-consist"><small>${h.total} catatan · terbaik ${h.best} hari beruntun</small><div class="bar"><i data-w="${pct}%"></i></div></div>
+          <div class="hc-consist"><small>${h.total} catatan · rekor ${h.best} hari berturut-turut</small><div class="bar"><i data-w="${pct}%"></i></div></div>
           <button class="btn-check ${done?'done':''}" data-check="${esc(h.id)}" aria-pressed="${done}" aria-label="Tandai ${esc(h.name)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
         </div>
       </div>
@@ -2932,7 +2914,7 @@ function renderHeatmap(){
     ${busiest?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
       <div><b>Hari terpadat: ${tglPendek(busiest[0])}</b><small>${busiest[1].length} kebiasaan dalam sehari.</small></div></div>`:''}
     ${ch?`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><b>${esc(ch.name)}: paling sering dicatat</b><small>${ch.total} catatan · terbaik ${ch.best} hari beruntun.</small></div></div>`:''}`;
+      <div><b>${esc(ch.name)}: paling sering dicatat</b><small>${ch.total} catatan · rekor ${ch.best} hari berturut-turut.</small></div></div>`:''}`;
 }
 
 /* ---------- halaman keuangan ---------- */
@@ -2985,7 +2967,7 @@ function renderDonut(){
 }
 function renderBudgets(){
   const mk=state.finMonth;
-  $('#budgetTitle').textContent=mk==='ALL'?'Seluruh anggaran tercatat':`Anggaran · ${monthLabel(mk)}`;
+  $('#budgetTitle').textContent=mk==='ALL'?'Anggaran per kategori':`Anggaran per kategori · ${monthLabel(mk)}`;
   const rows=BUDGETS.filter(b=>mk==='ALL'||b.month===mk).map(b=>{
     const used=expByCat(b.month)[b.category]||0;
     return{...b,used,pct:Math.min(100,Math.round(used/b.amount*100))};
@@ -3001,11 +2983,11 @@ function renderBudgets(){
     return `<div class="b-row">
       <div class="b-head">
         <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-        <b>${esc(r.category)}${mk==='ALL'?` <span style="color:var(--ink-3);font-weight:600;font-size:10.5px">· ${monthShort(r.month)}</span>`:''}</b>
+        <b>${esc(r.category)}${mk==='ALL'?` <span style="color:var(--ink-3);font-weight:600;font-size:12px">· ${monthShort(r.month)}</span>`:''}</b>
         <small class="${over?'warn':''}">${over?'Melebihi batas':`sisa ${rupiah(r.amount-r.used)}`}</small>
       </div>
       <div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div>
-      <div class="t-sub t-num" style="font-size:11px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
+      <div class="t-sub t-num" style="font-size:12px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
     </div>`;
   }).join('');
   const totB=sumBy(rows,r=>r.amount),totU=sumBy(rows,r=>r.used);
@@ -3035,12 +3017,12 @@ function renderJatah(){
   if(!body)return;
   $('#jatahMonth').textContent=monthLabel(mk);
   if(mk==='ALL'||!BUDGETS.some(b=>b.month===mk)){
-    $('#jatahTitle').textContent='Sisa belanja per hari';
+    $('#jatahTitle').textContent='Batas belanja harian';
     body.innerHTML=`<div class="empty-state" style="padding:18px 8px"><svg class="ill" style="width:120px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada anggaran bulan ini</b><p>Pilih bulan yang punya batas kategori untuk melihat jatah harianmu.</p></div>`;
     return;
   }
   const j=jatahInfo(mk),over=j.sisa<0;
-  $('#jatahTitle').textContent=j.cur?'Sisa belanja per hari':`Hasil anggaran · ${monthShort(mk)}`;
+  $('#jatahTitle').textContent=j.cur?'Batas belanja harian':`Hasil anggaran · ${monthLabel(mk)}`;
   const main=j.cur
     ?(over
       ?`<div class="jatah-main over"><div class="num t-num">Rp 0<small>/hari</small></div><div class="lbl">Jatah habis</div><div class="sub">Melebihi anggaran ${rupiah(-j.sisa)} bulan ini.</div></div>`
@@ -3050,7 +3032,7 @@ function renderJatah(){
   const warna=j.pct<70?'var(--sage)':j.pct<90?'var(--honey)':'var(--rose)';
   const side=`<div class="jatah-rows">
       <div class="jatah-row"><small>Anggaran bulan · ${j.rows.length} kategori</small><b class="t-num">${rupiah(j.totB)}</b></div>
-      <div class="jatah-row"><small>Terpakai</small><b class="t-num">${rupiah(j.used)} · ${j.pct}%</b></div>
+      <div class="jatah-row"><small>Terpakai</small><b class="t-num">${rupiah(j.used)} · ${j.pct}% dari anggaran</b></div>
       ${j.cur?`<div class="jatah-row"><small>Rata-rata harian</small><b class="t-num">${rupiah(Math.round(j.avg))}</b></div>
       <div class="jatah-row"><small>Proyeksi akhir bulan</small><b class="t-num">${rupiah(Math.round(j.proj))} · ${status}</b></div>`:''}
     </div>
@@ -3133,7 +3115,7 @@ function renderTx(){
   let list=TXS.filter(t=>(mk==='ALL'||t.date.slice(0,7)===mk)&&(f==='semua'||(f==='masuk'?t.type==='income':f==='keluar'?t.type==='expense':t.type==='transfer')));
   if(q)list=list.filter(t=>(t.description+' '+t.category+' '+srcName(t.sourceId)).toLowerCase().includes(q));
   list=[...list].sort((a,b)=>b.date.localeCompare(a.date));
-  const judul=mk==='ALL'?'Semua transaksi':mk===cur?'Riwayat bulan ini':`Riwayat · ${monthLabel(mk)}`;
+  const judul=mk==='ALL'?'Semua transaksi':mk===cur?'Transaksi bulan ini':`Transaksi · ${monthLabel(mk)}`;
   const tEl=$('#txHistTitle');if(tEl)tEl.textContent=judul;
   const cEl=$('#txCount');if(cEl)cEl.textContent=`${list.length} transaksi`;
   if(!list.length){
@@ -3281,7 +3263,7 @@ function renderCalStrip(){
   $('#csDone').textContent=total;
   $('#csStreak').innerHTML=`${aktif} <small>hari</small>`;
   $('#csSpend').textContent=ringkas(keluar);
-  $('#csSpendLbl').textContent=`Pengeluaran · ${BULAN[m]} ${y}`;
+  $('#csSpendLbl').textContent=`Pengeluaran ${BULAN[m]} ${y}`;
 }
 function renderDayDetail(d){
   const k=dayKey(d),future=d>TODAY;
@@ -3299,12 +3281,12 @@ function renderDayDetail(d){
   const doneIds=future?[]:(logsByDate[k]||[]);
   const habitRows=HABITS.map(h=>{
     const on=doneIds.includes(h.id);
-    return `<div class="dd-habit ${on?'y':'n'}"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:10.5px;color:var(--ink-3)">${on?'selesai':'—'}</span></div>`;
+    return `<div class="dd-habit ${on?'y':'n'}"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:12px;color:var(--ink-3)">${on?'selesai':'—'}</span></div>`;
   }).join('');
   const txRows=tx.length?tx.slice(0,4).map(t=>{
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
     return `<div class="dd-tx-row"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)}</b></div>`;
-  }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:11px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:''):`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
+  }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:12px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:''):`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
   $('#dayDetail').innerHTML=`
     <div class="dd-head"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
       <div><b>${HARI[d.getDay()]}</b><small>${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}${isToday?' · hari ini':''}</small></div></div>
@@ -3351,11 +3333,11 @@ function renderConsChart(){
     s+=`<text x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end" class="chart-label">${v}</text>`;
   });
   s+=`<line x1="${L}" x2="${W-R}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
-  s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" font-weight="800" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
+  s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" font-weight="600" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
   pts.forEach((p,i)=>{
     const akhir=i===vals.length-1;
     s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''}/>`;
-    if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" font-weight="800" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
+    if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" font-weight="600" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
     const d=new Date(weeks[i].s+'T00:00:00');
     const step=vals.length>15?4:vals.length>9?3:2;
     if(i%step===0||i===vals.length-1){const akhirLbl=i===vals.length-1;s+=`<text x="${(akhirLbl?W-2:p[0]).toFixed(1)}" y="${H-12}" text-anchor="${akhirLbl?'end':'middle'}" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`}
@@ -3396,7 +3378,7 @@ function renderFindings(){
   const lastKey=allKeys.sort()[allKeys.length-1];
   const gap=lastKey?Math.round((TODAY-new Date(lastKey+'T00:00:00'))/864e5):null;
   const items=[];
-  if(ch)items.push({ill:'ill-api',b:`${ch.name}: paling sering dicatat`,s:`${ch.total} catatan sejak ${ch.first?tglPendek(ch.first):'—'} · terbaik ${ch.best} hari beruntun.`});
+  if(ch)items.push({ill:'ill-api',b:`${ch.name}: paling sering dicatat`,s:`${ch.total} kali dicatat sejak ${ch.first?tglBulan(ch.first):'—'} · rekor ${ch.best} hari berturut-turut.`});
   if(dowSum[best])items.push({ill:'ill-pagi',b:`Hari terproduktif: ${HARI[(best+WS)%7]}`,s:`${dowSum[best]} catatan, terbanyak dari semua hari.`});
   if(entries[0])items.push({ill:'ill-keranjang',b:`Pos terbesar: ${entries[0][0]}`,s:`${rupiah(entries[0][1])} · ${Math.round(entries[0][1]/total*100)}% dari total belanja.`});
   if(topSrc)items.push({ill:'ill-dompet',b:`${srcName(topSrc[0])}: sumber teraktif`,s:`${topSrc[1]} dari ${TXS.length} transaksi lewat sumber ini.`});
@@ -3422,7 +3404,7 @@ function renderBadges(){
     {ill:'ill-api',t:'Api Pertama',s:'Satu kebiasaan beruntun 7 hari',ok:maxRun>=7,tag:`Terbaik ${maxRun} hari`},
     {ill:'ill-piala',t:'Hari Terpadat',s:'5+ kebiasaan dalam sehari',ok:!!(busiest&&busiest[1].length>=5),tag:busiest?`Puncak ${busiest[1].length} catatan · ${tglPendek(busiest[0])}`:'—'},
     {ill:'ill-medali',t:'Trio 30',s:'3 kebiasaan dengan 30+ catatan',ok:trio>=3,tag:`${trio}/3 kebiasaan`},
-    {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan andalan dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
+    {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan paling konsisten dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
     {ill:'ill-lari',t:'Jalan 10×',s:'Kebiasaan Jalan tercatat 10 kali',ok:!!(jalan&&jalan.total>=10),tag:`${jalan?jalan.total:0}/10 catatan`},
   ];
   $('#badgeGrid').innerHTML=list.map(b=>`
@@ -4018,7 +4000,7 @@ function tunasWake(){
 (async function init(){
   const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
   await loadData();
-  if(!DB){$('#greetTitle').textContent='Rutina';$('#footSrc').textContent='sumber data tidak tersedia';tunasReveal();return}
+  if(!DB){$('#greetTitle').textContent='Rutina';tunasReveal();return}
   prepData();syncToday();
   renderIdentity();renderAgenda();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
