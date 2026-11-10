@@ -532,7 +532,7 @@ b,strong{font-weight:600}
 .search-box input::placeholder{color:var(--ink-3)}
 .tx-group{margin-bottom:6px}
 .tx-date{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
-.tx-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
+.tx-row{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;transition:background .15s}
 .tx-row:hover{background:var(--surface-2)}
 .tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
 .tx-ic .ic{width:24px;height:24px}
@@ -833,6 +833,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   /* kepala kartu: pill turun ke baris sendiri agar judul tak terperangkap */
   .card-head{flex-wrap:wrap;row-gap:8px}
   .card-head>.pill{margin-left:auto}
+  .card-head>.head-act{margin-left:auto}
   /* toolbar kalender: padat satu baris, muat di 360px */
   .cal-tools{gap:6px;justify-content:space-between;flex-wrap:nowrap}
   .cal-tools .cal-month{min-width:0;flex:1;text-align:center}
@@ -1467,6 +1468,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></g></symbol>
 <symbol id="i-settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g></symbol>
 <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></g></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></g></symbol>
 
 <!-- ==================== GLYPH KATEGORI ==================== -->
 <symbol id="c-makanan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5h16c0 4-3.5 6.5-8 6.5s-8-2.5-8-6.5z"/><path d="M9 10c-.8-1 .8-2 0-3M13.5 10c-.8-1 .8-2 0-3"/></g></symbol>
@@ -2098,7 +2100,10 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
             <h3 class="h-serif" id="budgetTitle">Anggaran per kategori</h3>
           </div>
         </div>
-        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
+        <div class="head-act">
+          <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="budgetLeft">Rp 0 tersisa</span>
+          <button class="btn btn-ghost btn-sm" data-open-modal="modalBudget"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Anggaran</button>
+        </div>
       </div>
       <div class="hm-legend" style="gap:14px;margin:-8px 0 16px">
         <span><i style="background:var(--sage)"></i>aman</span>
@@ -2139,7 +2144,10 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
           <h3 class="h-serif">Sumber dana & saldo</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
+      <div class="head-act">
+        <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
+        <button class="btn btn-ghost btn-sm" data-open-modal="modalSource"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Dompet</button>
+      </div>
     </div>
     <div class="dompet-grid" id="dompetGrid"></div>
     <p class="t-sub" style="font-size:12px;margin-top:12px">Saldo = saldo awal tercatat + mutasi transaksi (transfer antar-dompet netral).</p>
@@ -2435,7 +2443,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   <div class="modal-backdrop" data-close></div>
   <div class="sheet">
     <div class="sheet-head">
-      <div><div class="eyebrow">Catat</div><h3 class="h-serif" id="txTitle">Transaksi baru</h3></div>
+      <div><div class="eyebrow" id="txEyebrow">Catat</div><h3 class="h-serif" id="txTitle">Transaksi baru</h3></div>
       <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <form class="sheet-body" id="formTx" novalidate>
@@ -2467,7 +2475,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
       </div>
       <div class="sheet-actions">
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
-        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
+        <button type="submit" class="btn btn-primary" id="txSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
       </div>
       <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; input tersimpan di sesi ini.</p>
     </form>
@@ -2510,6 +2518,94 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
       </div>
       <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; kebiasaan baru tersimpan di sesi ini.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: ANGGARAN (v2.10) ================= -->
+<div class="modal" id="modalBudget" role="dialog" aria-modal="true" aria-labelledby="budTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet" style="max-width:460px">
+    <div class="sheet-head">
+      <div><div class="eyebrow" id="budEyebrow">Anggaran</div><h3 class="h-serif" id="budTitle">Anggaran baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formBudget" novalidate>
+      <div class="field">
+        <label for="budCat">Kategori pengeluaran</label>
+        <select id="budCat" required></select>
+      </div>
+      <div class="field">
+        <label for="budMonth">Bulan anggaran</label>
+        <select id="budMonth" required></select>
+      </div>
+      <div class="field">
+        <label for="budAmount">Batas bulanan</label>
+        <div class="money"><span>Rp</span><input type="text" id="budAmount" inputmode="numeric" autocomplete="off" placeholder="0" required></div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary" id="budSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan anggaran</button>
+      </div>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; anggaran tersimpan di sesi ini.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: DOMPET (v2.10) ================= -->
+<div class="modal" id="modalSource" role="dialog" aria-modal="true" aria-labelledby="domTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet" style="max-width:460px">
+    <div class="sheet-head">
+      <div><div class="eyebrow" id="domEyebrow">Dompet</div><h3 class="h-serif" id="domTitle">Dompet baru</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formSource" novalidate>
+      <div class="field">
+        <label for="domName">Nama dompet</label>
+        <input type="text" id="domName" placeholder="cth: BCA · dompet utama" required>
+      </div>
+      <div class="field">
+        <label for="domType">Jenis dompet</label>
+        <select id="domType">
+          <option value="cash">Tunai</option>
+          <option value="bank">Rekening bank</option>
+          <option value="ewallet">Dompet digital</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="domInit">Saldo awal tercatat</label>
+        <div class="money"><span>Rp</span><input type="text" id="domInit" inputmode="numeric" autocomplete="off" placeholder="0"></div>
+        <p class="t-sub" style="font-size:12px;margin-top:6px">Saldo berjalan = saldo awal + mutasi transaksi dari dompet ini.</p>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary" id="domSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan dompet</button>
+      </div>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; dompet tersimpan di sesi ini.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: GANTI NAMA KATEGORI (v2.10) ================= -->
+<div class="modal" id="modalCat" role="dialog" aria-modal="true" aria-labelledby="catTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet" style="max-width:440px">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Sunting kategori</div><h3 class="h-serif" id="catTitle">Ganti nama kategori</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <form class="sheet-body" id="formCat" novalidate>
+      <p class="del-desc" style="padding:0">Nama sekarang: <b id="catOldName">—</b>. Nama baru otomatis dipakai ulang oleh semua transaksi dan anggaran yang memakainya.</p>
+      <div class="field">
+        <label for="catNew">Nama baru</label>
+        <input type="text" id="catNew" placeholder="cth: Jajan sore" required>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary" id="catSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan nama</button>
+      </div>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: perubahan hanya berlaku di sesi ini.</p>
     </form>
   </div>
 </div>
@@ -2584,6 +2680,34 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .btn-del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
 .btn-del .ic{width:18px;height:18px}
 @media(max-width:640px){.btn-del{width:44px;height:44px;border-radius:14px}}
+/* v2.10 · tombol sunting (pencil, sepasang dengan btn-del di daftar kelola) */
+.btn-edit{width:40px;height:40px;border-radius:13px;border:1.5px solid #A7F3D0;background:#ECFDF5;color:var(--sage-deep);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
+.btn-edit:hover{background:var(--sage);border-color:var(--sage);color:#FFFFFF;transform:translateY(-1px)}
+.btn-edit .ic{width:18px;height:18px}
+@media(max-width:640px){.btn-edit{width:44px;height:44px;border-radius:14px}}
+.row-act{display:flex;gap:8px;flex:none}
+/* v2.10 · tombol aksi rapat untuk baris transaksi, anggaran & dompet */
+.tx-btn{width:36px;height:36px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-3);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
+.tx-btn .ic{width:16px;height:16px}
+.tx-btn.edit{border-color:#A7F3D0;background:#ECFDF5;color:var(--sage-deep)}
+.tx-btn.del{border-color:#FECDD3;background:#FFF1F2;color:var(--rose-deep)}
+.tx-btn.edit:hover{background:var(--sage);border-color:var(--sage);color:#FFFFFF;transform:translateY(-1px)}
+.tx-btn.del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
+@media(max-width:640px){.tx-btn{width:44px;height:44px;border-radius:13px}}
+.tx-act{display:flex;gap:8px;flex:none}
+/* v2.10 · baris transaksi di layar sempit: nominal ikut baris teks, tombol aksi turun
+   ke baris kedua rata kanan supaya angka tak terdorong keluar layar */
+@media(max-width:640px){
+  .tx-row{grid-template-columns:44px 1fr auto;grid-template-areas:'icon info amt' 'icon act act';row-gap:8px}
+  .tx-row .tx-ic{grid-area:icon}
+  .tx-row .tx-info{grid-area:info;min-width:0}
+  .tx-row .tx-act{grid-area:act;justify-content:flex-end}
+  .tx-row .tx-amt{grid-area:amt}
+}
+.b-act{display:flex;gap:8px;flex:none;margin-left:auto}
+.dompet-act{display:flex;gap:8px;margin-left:auto;flex:none}
+.head-act{display:flex;align-items:center;gap:10px;flex:none}
+.seg.locked{opacity:.55;pointer-events:none}
 .btn-danger{background:var(--rose);color:#FFFFFF}
 .btn-danger:hover{background:var(--rose-deep);transform:translateY(-1.5px);box-shadow:var(--shadow-sm)}
 .del-desc{font-size:13.5px;font-weight:600;color:var(--ink-2);line-height:1.55;padding:4px 2px 0}
@@ -3318,11 +3442,16 @@ function renderBudgets(){
     const st=finStyle(r.category);
     const warna=r.pct<70?'var(--sage)':r.pct<90?'var(--honey)':'var(--rose)';
     const over=r.used>r.amount;
+    const bkey=esc(r.category)+'|'+r.month;
     return `<div class="b-row">
       <div class="b-head">
         <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
         <b>${esc(r.category)}${mk==='ALL'?` <span style="color:var(--ink-3);font-weight:600;font-size:12px">· ${monthShort(r.month)}</span>`:''}</b>
         <small class="${over?'warn':''}">${over?'Melebihi batas':`sisa ${rupiah(r.amount-r.used)}`}</small>
+        <span class="b-act">
+          <button type="button" class="tx-btn edit" data-edit-budget="${bkey}" aria-label="Ubah anggaran ${esc(r.category)} ${monthShort(r.month)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+          <button type="button" class="tx-btn del" data-del-budget="${bkey}" aria-label="Hapus anggaran ${esc(r.category)} ${monthShort(r.month)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+        </span>
       </div>
       <div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div>
       <div class="t-sub t-num" style="font-size:12px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}</div>
@@ -3434,6 +3563,7 @@ function renderSpendHeat(){
       <span class="t-sub" style="font-size:12px"><b>Rata-rata:</b> ${rupiah(Math.round(total/dimSoFar))}/hari</span>
     </div>`;
 }
+const SRC_LABEL={cash:'Tunai',bank:'Rekening bank',ewallet:'Dompet digital'};
 function renderWallets(){
   const w=walletBalances();
   const usage={};TXS.forEach(t=>{if(t.sourceId)usage[t.sourceId]=(usage[t.sourceId]||0)+1});
@@ -3443,7 +3573,11 @@ function renderWallets(){
     return `<div class="dompet-card">
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div><b>${esc(s.name)}</b><span class="bal t-num" style="color:${w[s.id]<0?'var(--rose-deep)':'inherit'}">${rupiah(w[s.id])}</span>
-      <small>${usage[s.id]||0} transaksi · ${esc(s.type)}</small></div>
+      <small>${usage[s.id]||0} transaksi · ${esc(SRC_LABEL[s.type]||s.type)}</small></div>
+      <span class="dompet-act">
+        <button type="button" class="tx-btn edit" data-edit-source="${esc(s.id)}" aria-label="Ubah dompet ${esc(s.name)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+        <button type="button" class="tx-btn del" data-del-source="${esc(s.id)}" aria-label="Hapus dompet ${esc(s.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+      </span>
     </div>`;
   }).join('');
   $('#dompetSum').textContent=`Total ${rupiah(sumBy(SOURCES,s=>w[s.id]))}`;
@@ -3477,7 +3611,11 @@ function renderTx(){
     const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
     html+=`<div class="tx-row">
       <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-      <div><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}</small></div>
+      <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}</small></div>
+      <div class="tx-act">
+        <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+        <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+      </div>
       <div class="tx-amt ${cls}">${sign}${rupiah(t.amount)}<small>${tglPendek(t.date)}</small></div>
     </div>`;
   });
@@ -3518,7 +3656,10 @@ function renderSettings(){
     return `<div class="mg-row">
       <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div><b>${esc(c.name)}</b><small>${c.type==='income'?'Pemasukan':'Pengeluaran'} · ${n} transaksi</small></div>
-      <button class="btn-del" data-del-cat="${esc(c.name)}" aria-label="Hapus kategori ${esc(c.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+      <div class="row-act">
+        <button type="button" class="btn-edit" data-rename-cat="${esc(c.name)}" aria-label="Ganti nama kategori ${esc(c.name)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+        <button type="button" class="btn-del" data-del-cat="${esc(c.name)}" aria-label="Hapus kategori ${esc(c.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+      </div>
     </div>`};
   $('#setCatList').innerHTML=!FINCATS.length
     ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus dari sesi ini.</p></div>`
@@ -3534,6 +3675,24 @@ function askDelete(kind,key){
     name=h.name;
     desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini. Semuanya ikut keluar dari statistik sesi (progres, streak, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
     $('#delEyebrow').textContent='Hapus kebiasaan';
+  }else if(kind==='tx'){
+    const t=TXS.find(x=>x.id===key);if(!t)return;
+    name=t.description||t.category;
+    desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Statistik arus kas, donat kategori, anggaran, jatah harian, dan saldo dompet dihitung ulang tanpa transaksi ini.`;
+    $('#delEyebrow').textContent='Hapus transaksi';
+  }else if(kind==='budget'){
+    const i=key.indexOf('|');if(i<0)return;
+    const cat=key.slice(0,i),mk=key.slice(i+1);
+    const b=BUDGETS.find(x=>x.category===cat&&x.month===mk);if(!b)return;
+    name=`${cat} · ${monthShort(mk)}`;
+    desc=`Batas <b>${rupiah(b.amount)}</b> untuk ${monthLabel(mk)}. Jatah harian dan proyeksi bulan itu dihitung ulang.`;
+    $('#delEyebrow').textContent='Hapus anggaran';
+  }else if(kind==='source'){
+    const s=SOURCES.find(x=>x.id===key);if(!s)return;
+    const n=TXS.filter(t=>t.sourceId===key).length;
+    name=s.name;
+    desc=n?`Ada <b>${n} transaksi</b> tercatat dari dompet ini. Setelah dihapus, transaksi itu tampil sebagai <b>tanpa sumber</b> dan tidak lagi menggerakkan saldo dompet mana pun.`:'Dompet ini belum dipakai transaksi apa pun.';
+    $('#delEyebrow').textContent='Hapus dompet';
   }else{
     name=key;
     const n=catUsage(key);
@@ -3556,6 +3715,35 @@ function doDelete(){
     renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
     if(inited.wawasan)renderConsChart();
     toast('Kebiasaan dihapus',`${name} keluar dari tampilan. Database asli tak tersentuh.`,'i-trash','rose');
+  }else if(kind==='tx'){
+    const t=TXS.find(x=>x.id===key);
+    TXS=TXS.filter(x=>x.id!==key);
+    months=[...new Set(TXS.map(x=>x.date.slice(0,7)))].sort();
+    if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
+    if(state.txMonth!=='ALL'&&!months.includes(state.txMonth)&&state.txMonth!==dayKey(TODAY).slice(0,7))state.txMonth=months[months.length-1]||'ALL';
+    delTarget=null;closeModals();
+    refinance();fillTxMonths();
+    if(inited.cal)renderDayDetail(state.calSel);
+    renderSettings();
+    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)} · sesi ini saja.`:'Transaksi keluar dari sesi ini.','i-trash','rose');
+    return;
+  }else if(kind==='budget'){
+    const i=key.indexOf('|');
+    const cat=i>=0?key.slice(0,i):key,mk=i>=0?key.slice(i+1):'';
+    BUDGETS=BUDGETS.filter(b=>!(b.category===cat&&b.month===mk));
+    delTarget=null;closeModals();
+    refinance();
+    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang · sesi ini saja.`,'i-trash','rose');
+    return;
+  }else if(kind==='source'){
+    const n=TXS.filter(t=>t.sourceId===key).length;
+    TXS.forEach(t=>{if(t.sourceId===key)t.sourceId=null});
+    SOURCES=SOURCES.filter(s=>s.id!==key);
+    delTarget=null;closeModals();
+    refinance();
+    renderSettings();
+    toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber · sesi ini saja.`:`${name} dihapus dari sesi ini.`,'i-trash','rose');
+    return;
   }else{
     FINCATS=FINCATS.filter(c=>c.name!==key);
     fillTxType(txType);
@@ -3823,12 +4011,31 @@ document.addEventListener('click',e=>{
   if(delH){askDelete('habit',delH.dataset.delHabit);return}
   const delC=e.target.closest('[data-del-cat]');
   if(delC){askDelete('cat',delC.dataset.delCat);return}
+  const editTx=e.target.closest('[data-edit-tx]');
+  if(editTx){openTxEdit(editTx.dataset.editTx);return}
+  const delTx=e.target.closest('[data-del-tx]');
+  if(delTx){askDelete('tx',delTx.dataset.delTx);return}
+  const editBud=e.target.closest('[data-edit-budget]');
+  if(editBud){openBudgetEdit(editBud.dataset.editBudget);return}
+  const delBud=e.target.closest('[data-del-budget]');
+  if(delBud){askDelete('budget',delBud.dataset.delBudget);return}
+  const editSrc=e.target.closest('[data-edit-source]');
+  if(editSrc){openSourceEdit(editSrc.dataset.editSource);return}
+  const delSrc=e.target.closest('[data-del-source]');
+  if(delSrc){askDelete('source',delSrc.dataset.delSource);return}
+  const renCat=e.target.closest('[data-rename-cat]');
+  if(renCat){openCatRename(renCat.dataset.renameCat);return}
   const chip=e.target.closest('[data-habit-filter]');
   if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
   const txChip=e.target.closest('[data-tx-filter]');
   if(txChip){state.txFilter=txChip.dataset.txFilter;$$('#txChips .chip').forEach(c=>c.classList.toggle('active',c===txChip));renderTx();return}
   const opener=e.target.closest('[data-open-modal]');
-  if(opener){openModal(opener.dataset.openModal);return}
+  if(opener){
+    const mid=opener.dataset.openModal;
+    if(mid==='modalTx')resetTxModal();
+    else if(mid==='modalBudget')resetBudgetModal();
+    else if(mid==='modalSource')resetSourceModal();
+    openModal(mid);return}
   if(e.target.closest('[data-close]')){closeModals();return}
 });
 function openModal(id){
@@ -3850,6 +4057,48 @@ function fillTxType(t){
 function fillTxSources(){
   $('#txSource').innerHTML=`<option value="">Tanpa sumber</option>`+SOURCES.map(s=>`<option value="${esc(s.id)}">${s.emoji} ${esc(s.name)}</option>`).join('');
 }
+/* v2.10 · modal transaksi dua mode: catat baru & sunting yang sudah ada */
+let editTxId=null;
+function resetTxModal(){
+  editTxId=null;
+  $('#txEyebrow').textContent='Catat';
+  $('#txTitle').textContent='Transaksi baru';
+  $('#txSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi';
+  $('#modalTx .seg').classList.remove('locked');
+  $('#txCat').disabled=false;
+  $('#formTx').reset();
+  fillTxType(txType);fillTxSources();
+  $('#txDate').value=dayKey(TODAY);
+}
+function openTxEdit(id){
+  const t=TXS.find(x=>x.id===id);if(!t)return;
+  editTxId=id;
+  $('#txEyebrow').textContent='Sunting';
+  $('#txTitle').textContent='Ubah transaksi';
+  $('#txSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan perubahan';
+  const seg=$('#modalTx .seg');
+  if(t.type==='transfer'){
+    /* transfer antar-dompet: jenis & kategori terkunci — hanya nominal,
+       sumber, tanggal, dan catatan yang boleh diubah */
+    seg.classList.add('locked');
+    $$('#modalTx .seg button').forEach(b=>b.classList.remove('active'));
+    $('#txCat').disabled=true;
+    $('#txCat').innerHTML=`<option value="${esc(t.category)}">${esc(t.category)}</option>`;
+    $('#txCat').value=t.category;
+  }else{
+    seg.classList.remove('locked');
+    $('#txCat').disabled=false;
+    fillTxType(t.type==='income'?'masuk':'keluar');
+    if(![...$('#txCat').options].some(o=>o.value===t.category))$('#txCat').insertAdjacentHTML('beforeend',`<option value="${esc(t.category)}">${esc(t.category)} · lama</option>`);
+    $('#txCat').value=t.category;
+  }
+  fillTxSources();
+  $('#txSource').value=t.sourceId||'';
+  $('#txAmount').value=t.amount.toLocaleString('id-ID');
+  $('#txDate').value=t.date;
+  $('#txNote').value=(t.description&&t.description!==t.category)?t.description:'';
+  openModal('modalTx');
+}
 $('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
 $('#txAmount').addEventListener('input',e=>{
   const digits=e.target.value.replace(/[^\d]/g,'');
@@ -3866,14 +4115,25 @@ $('#formTx').addEventListener('submit',e=>{
   if(dv>dayKey(TODAY)){toast('Tanggal di masa depan','Hanya bisa mencatat hari ini atau sebelumnya.','i-x','rose');return}
   const src=$('#txSource').value||null;
   const note=$('#txNote').value.trim();
-  TXS.unshift({id:'local-'+Date.now(),type:txType==='masuk'?'income':'expense',amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
+  const mengubah=!!editTxId;
+  const tgt=mengubah?TXS.find(x=>x.id===editTxId):null;
+  if(mengubah&&!tgt){editTxId=null;closeModals();return}
+  if(tgt&&tgt.type==='transfer'){
+    Object.assign(tgt,{amount:nominal,sourceId:src,date:dv,description:note||tgt.category});
+  }else{
+    const type=txType==='masuk'?'income':'expense';
+    if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
+    else TXS.unshift({id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
+  }
   if(!months.includes(dv.slice(0,7))){months.push(dv.slice(0,7));months.sort()}
-  /* langsung arahkan riwayat & statistik ke bulan transaksi baru supaya terlihat */
+  /* langsung arahkan riwayat & statistik ke bulan transaksi supaya perubahannya terlihat */
   state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
+  editTxId=null;
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
+  $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
   refinance();fillTxMonths();
   if(inited.cal)renderDayDetail(state.calSel);
-  toast('Transaksi tercatat',`${txType==='masuk'?'+':'−'}${rupiah(nominal)} · ${cat}${src?' · '+srcName(src):''} · sesi ini saja`,'i-check','sage');
+  toast(mengubah?'Transaksi diperbarui':'Transaksi tercatat',`${tgt?(tgt.type==='income'?'+':tgt.type==='expense'?'−':'⇄ '):(txType==='masuk'?'+':'−')}${rupiah(nominal)} · ${tgt?tgt.category:cat}${src?' · '+srcName(src):''} · sesi ini saja`,mengubah?'i-edit':'i-check','sage');
 });
 
 /* modal kebiasaan */
@@ -3908,6 +4168,136 @@ $('#formHabit').addEventListener('submit',e=>{
   closeModals();e.target.reset();renderIconPicker();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();
   toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · sesi ini saja.`,'i-sparkle','honey');
+});
+
+/* ---------- modal anggaran (v2.10) ---------- */
+let editBudKey=null;
+function fillBudCats(val){
+  const opts=FINCATS.filter(c=>c.type==='expense').map(c=>`<option value="${esc(c.name)}">${c.emoji} ${esc(c.name)}</option>`).join('');
+  $('#budCat').innerHTML=opts||'<option value="">Tidak ada kategori pengeluaran</option>';
+  if(val)$('#budCat').value=val;
+}
+function fillBudMonths(val){
+  const cur=dayKey(TODAY).slice(0,7);
+  const opts=[...new Set([...months,cur])].sort();
+  $('#budMonth').innerHTML=opts.map(m=>`<option value="${m}">${monthLabel(m)}</option>`).join('');
+  $('#budMonth').value=val||cur;
+}
+function resetBudgetModal(){
+  editBudKey=null;
+  $('#budEyebrow').textContent='Anggaran';
+  $('#budTitle').textContent='Anggaran baru';
+  $('#budSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan anggaran';
+  $('#formBudget').reset();
+  fillBudCats('');fillBudMonths();
+  $('#budAmount').value='';
+}
+function openBudgetEdit(key){
+  const i=key.indexOf('|');if(i<0)return;
+  const cat=key.slice(0,i),mk=key.slice(i+1);
+  const b=BUDGETS.find(x=>x.category===cat&&x.month===mk);if(!b)return;
+  editBudKey=key;
+  $('#budEyebrow').textContent='Sunting';
+  $('#budTitle').textContent='Ubah anggaran';
+  $('#budSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan perubahan';
+  fillBudCats(b.category);fillBudMonths(b.month);
+  if(![...$('#budCat').options].some(o=>o.value===b.category))$('#budCat').insertAdjacentHTML('beforeend',`<option value="${esc(b.category)}">${esc(b.category)} · lama</option>`);
+  $('#budCat').value=b.category;
+  $('#budAmount').value=b.amount.toLocaleString('id-ID');
+  openModal('modalBudget');
+}
+$('#budAmount').addEventListener('input',e=>{
+  const digits=e.target.value.replace(/[^\d]/g,'');
+  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
+});
+$('#formBudget').addEventListener('submit',e=>{
+  e.preventDefault();
+  const cat=$('#budCat').value,mk=$('#budMonth').value;
+  if(!cat){toast('Pilih kategori dulu','Anggaran dipasang per kategori pengeluaran.','i-x','rose');return}
+  if(!mk){toast('Pilih bulan dulu','','i-x','rose');return}
+  const nominal=+($('#budAmount').value||'0').replace(/\./g,'');
+  if(!nominal){toast('Nominal belum terisi','Masukkan batas bulanan lebih besar dari nol.','i-x','rose');return}
+  const dupe=BUDGETS.find(b=>b.category===cat&&b.month===mk&&!(editBudKey===cat+'|'+mk));
+  if(dupe){toast('Anggaran sudah ada',`${cat} di ${monthLabel(mk)} sudah dibatasi ${rupiah(dupe.amount)}.`,'i-x','rose');return}
+  const mengubah=!!editBudKey;
+  if(mengubah){
+    const i=editBudKey.indexOf('|');
+    const b=BUDGETS.find(x=>x.category===editBudKey.slice(0,i)&&x.month===editBudKey.slice(i+1));
+    if(b)Object.assign(b,{category:cat,month:mk,amount:nominal});
+  }else BUDGETS.push({category:cat,month:mk,amount:nominal});
+  editBudKey=null;
+  if(!months.includes(mk)){months.push(mk);months.sort()}
+  state.finMonth=mk;
+  closeModals();
+  refinance();fillTxMonths();
+  toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · sesi ini saja`,'i-edit','sage');
+});
+
+/* ---------- modal dompet (v2.10) ---------- */
+let editSrcId=null;
+function resetSourceModal(){
+  editSrcId=null;
+  $('#domEyebrow').textContent='Dompet';
+  $('#domTitle').textContent='Dompet baru';
+  $('#domSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan dompet';
+  $('#formSource').reset();
+  $('#domInit').value='';
+}
+function openSourceEdit(id){
+  const s=SOURCES.find(x=>x.id===id);if(!s)return;
+  editSrcId=id;
+  $('#domEyebrow').textContent='Sunting';
+  $('#domTitle').textContent='Ubah dompet';
+  $('#domSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan perubahan';
+  $('#domName').value=s.name;
+  $('#domType').value=SRC_STYLE[s.type]?s.type:'bank';
+  $('#domInit').value=(s.initialBalance||0).toLocaleString('id-ID');
+  openModal('modalSource');
+}
+$('#domInit').addEventListener('input',e=>{
+  const digits=e.target.value.replace(/[^\d]/g,'');
+  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
+});
+$('#formSource').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nama=$('#domName').value.trim();
+  if(!nama){toast('Nama dompet belum diisi','Beri nama yang mudah dikenali.','i-x','rose');return}
+  const tipe=$('#domType').value;
+  const saldo=+($('#domInit').value||'0').replace(/\./g,'')||0;
+  const mengubah=!!editSrcId;
+  if(mengubah){
+    const s=SOURCES.find(x=>x.id===editSrcId);
+    if(s)Object.assign(s,{name:nama,type:tipe,initialBalance:saldo});
+  }else SOURCES.push({id:'local-'+Date.now(),name:nama,type:tipe,emoji:'',initialBalance:saldo});
+  editSrcId=null;
+  closeModals();
+  refinance();
+  if(inited.set)renderSettings();
+  toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · sesi ini saja`,'i-edit','sage');
+});
+
+/* ---------- ganti nama kategori (v2.10) ---------- */
+let renameCatFrom=null;
+function openCatRename(name){
+  renameCatFrom=name;
+  $('#catOldName').textContent=name;
+  $('#catNew').value=name;
+  openModal('modalCat');
+}
+$('#formCat').addEventListener('submit',e=>{
+  e.preventDefault();
+  const baru=$('#catNew').value.trim();
+  if(!baru){toast('Nama baru belum diisi','','i-x','rose');return}
+  if(baru===renameCatFrom){renameCatFrom=null;closeModals();return}
+  if(FINCATS.some(c=>c.name===baru)){toast('Nama sudah dipakai','Kategori lain sudah memakai nama ini.','i-x','rose');return}
+  let nTx=0,nBud=0;
+  TXS.forEach(t=>{if(t.category===renameCatFrom){t.category=baru;nTx++}});
+  BUDGETS.forEach(b=>{if(b.category===renameCatFrom){b.category=baru;nBud++}});
+  const c=FINCATS.find(x=>x.name===renameCatFrom);if(c)c.name=baru;
+  const lama=renameCatFrom;
+  renameCatFrom=null;closeModals();
+  refinance();renderSettings();fillTxType(txType);
+  toast('Kategori diganti nama',`${lama} → ${baru} · ${nTx} transaksi & ${nBud} anggaran ikut diperbarui.`,'i-edit','sage');
 });
 
 /* kalender nav & pencarian */
