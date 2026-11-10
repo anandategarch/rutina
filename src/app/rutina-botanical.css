@@ -5674,7 +5674,7 @@ button:disabled:active {
 .story-card-copy strong{color:#304c39;font-size:.875rem;font-weight:850}
 .story-card-copy p{margin:0;color:#778273;font-size:.6875rem;line-height:1.5}
 .story-card-badge{position:absolute;top:-7px;right:14px;padding:3px 9px;border-radius:99px;color:#fff;background:#417a57;font-size:.5625rem;font-weight:900;letter-spacing: .12222em;text-transform:uppercase;box-shadow:0 4px 10px rgba(65,122,87,.3)}
-.story-card-open{display:inline-flex;flex:none;align-items:center;gap:3px;min-height:38px;padding:8px 13px;margin-left:auto;border:0;border-radius:13px;color:#fff;background:#417a57;font:800 11px "Nunito Variable",sans-serif;cursor:pointer;transition:transform .18s var(--ease-spring),box-shadow .18s ease}
+.story-card-open{display:inline-flex;flex:none;align-items:center;gap:3px;min-height:38px;padding:8px 13px;margin-left:auto;border:0;border-radius:13px;color:#fff;background:#417a57;font:800 11px "Geist","Segoe UI",system-ui,sans-serif;cursor:pointer;transition:transform .18s var(--ease-spring),box-shadow .18s ease}
 .story-card-open:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(65,122,87,.26)}
 .story-card-open:focus-visible{outline:3px solid #a3c585;outline-offset:2px}
 @media (max-width:520px){

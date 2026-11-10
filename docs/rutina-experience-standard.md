@@ -44,7 +44,7 @@ Keyframes tetap boleh untuk sequence satu kali seperti splash screen, skeleton s
 
 ## Visual system
 
-- Pertahankan Playful Botanical, token warna, Nunito, kepadatan, dan komponen yang ada.
+- Pertahankan Playful Botanical, token warna, Geist, kepadatan, dan komponen yang ada.
 - Border dipakai untuk struktur, separator, selected state, dan batas input. Shadow dipakai untuk elevasi.
 - Pada surface bertumpuk dengan inset seragam: radius luar = radius dalam + padding inset + border. Bila padding >24px atau sengaja asimetris, perlakukan sebagai dua surface berbeda.
 - Ikon memakai satu library per surface, currentColor untuk state, dan stroke yang seimbang dengan bobot teks.

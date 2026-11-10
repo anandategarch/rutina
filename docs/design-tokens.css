@@ -47,8 +47,8 @@
   --ill-shadow: rgba(15, 23, 42, .07); /* ellipse bayangan tanah */
 
   /* ---------- Tipografi ---------- */
-  --font-display: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-body: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
   --fs-h1: clamp(24px, 3vw, 28px);
   --fs-h2: clamp(21px, 2.6vw, 26px);
   --fs-h3: 17px;

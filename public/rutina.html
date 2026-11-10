@@ -61,6 +61,11 @@ b,strong{font-weight:600}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep)}
 .t-sub{font-size:13px;color:var(--ink-3);font-weight:400}
 .t-num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+/* v2.17 · skala angka semantik — bobot angka mengikuti KEPENTINGAN, bukan
+   posisi layout: hero arus kas/saldo total > jatah & trio ringkasan > baris.
+   Nilai kosong ditandai .num-zero agar tak bersaing dengan angka riil. */
+.num-zero{color:var(--ink-3)}
+.stat .num.num-zero,.scene-stat .num.num-zero,.mut-cell b.num-zero{font-size:.82em;font-weight:600}
 .stat .num,.mini-stat .num,.scene-stat .num,.jatah-main .num,.tx-amt,.dl-amt,.mb-amt,.donut-center b,.cal-strip .num,.dompet-card .bal{font-variant-numeric:tabular-nums}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -282,6 +287,9 @@ b,strong{font-weight:600}
 .page-hero--fin.is-surplus .h-serif{color:var(--terra-strong)}
 .page-hero--fin.is-defisit .h-serif{color:var(--rose-deep)}
 .page-hero--fin.is-defisit .ph-progress .bar i{background:var(--rose)}
+/* v2.17 · judul hero keuangan & wawasan adalah ANGKA UTAMA halaman —
+   skala tipografinya memimpin di atas semua angka lain di tab yang sama */
+.page-hero--fin .hero-body h2,.page-hero--art .hero-body h2{font-size:clamp(24px,2.9vw,31px);letter-spacing:-.018em}
 /* Kalender — nuansa sky lembut; komposisi busur bulan ditempelkan
    kanan-atas agar teks kiri-bawah tetap lapang */
 .page-hero--sky{border-color:rgba(14,165,233,.24);background:linear-gradient(130deg,#F0F9FF 0%,#E0F2FE 58%,#D1FAE5 100%)}
@@ -289,17 +297,17 @@ b,strong{font-weight:600}
 .page-hero--sky .ph-scene{top:-16px;right:-14px;bottom:auto;width:clamp(148px,19vw,216px)}
 /* Wawasan — hero dua kolom ala Ringkasan: taman tenang sebagai ilustrasi
    utama, rimbun daun bertunas jadi latar lembut di dasarnya */
-.page-hero--art{display:grid;grid-template-columns:1.04fr .96fr;gap:10px;padding:20px 24px}
+.page-hero--art{display:grid;grid-template-columns:1.3fr .7fr;gap:10px;padding:20px 24px}
 .page-hero--art .hero-body{max-width:none;padding-right:0}
-.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:440px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 26px 40px rgba(15,23,42,.06))}
+.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:330px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 26px 40px rgba(15,23,42,.06))}
 .page-hero--art .hero-ill img{display:block;width:100%;height:auto}
-.page-hero--art .ph-scene{opacity:.55;right:1%;bottom:-20px}
+.page-hero--art .ph-scene{opacity:.45;right:1%;bottom:-20px}
 /* Lencana (Wawasan) — podium juara sebagai pembuka koleksi */
 .badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 14px;border-radius:16px}
 @media(max-width:900px){
   .page-hero{min-height:0;padding:18px 20px}
   .page-hero--art{grid-template-columns:1fr}
-  .page-hero--art .hero-ill{max-width:300px;justify-self:center;order:2;margin-top:6px}
+  .page-hero--art .hero-ill{max-width:210px;justify-self:center;order:2;margin-top:6px}
   .page-hero--art .ph-scene{opacity:.4}
 }
 @media(max-width:640px){
@@ -309,7 +317,7 @@ b,strong{font-weight:600}
   .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
   .page-hero--fin .ph-scene{width:170px;opacity:.95}
   .page-hero--fin .hero-body{padding-right:64px}
-  .page-hero--art .hero-ill{max-width:236px}
+  .page-hero--art .hero-ill{max-width:150px}
   .page-hero--art .hero-body{padding-right:0}
   .ph-progress .bar{min-width:110px}
   .badge-art{max-width:280px;margin:0 auto 12px}
@@ -355,7 +363,7 @@ b,strong{font-weight:600}
 /* ---------- jatah harian & proyeksi anggaran ---------- */
 .jatah-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:20px;align-items:center}
 .jatah-main{display:flex;flex-direction:column;gap:2px;padding:16px 18px;background:var(--terra-softer);border:1px solid #A7F3D0;border-radius:var(--r-lg)}
-.jatah-main .num{font-family:var(--font-display);font-size:clamp(28px,7.5vw,34px);font-weight:650;color:var(--terra-deep);line-height:1.1}
+.jatah-main .num{font-family:var(--font-display);font-size:clamp(24px,5.5vw,28px);font-weight:650;color:var(--terra-deep);line-height:1.1}
 .jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:600;color:var(--ink-3)}
 .jatah-main .lbl{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
 .jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
@@ -484,7 +492,7 @@ b,strong{font-weight:600}
 .scene-stat{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:16px;border:none;border-radius:0;box-shadow:none}
 .scene-stat .ill{width:96px;aspect-ratio:160/130;flex:none;position:relative;z-index:1}
 .scene-stat + .scene-stat{border-left:1px solid var(--line-soft)}
-.scene-stat .num{font-family:var(--font-display);font-size:clamp(22px,5.2vw,28px);font-weight:600;line-height:1.1}
+.scene-stat .num{font-family:var(--font-display);font-size:clamp(20px,4.4vw,24px);font-weight:600;line-height:1.1}
 .scene-stat .lbl{font-size:12px;font-weight:600;color:var(--ink-2);margin:3px 0 2px}
 .scene-stat .sub{font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
 .scene-stat .sub .ic{width:14px;height:14px}
@@ -551,9 +559,9 @@ b,strong{font-weight:600}
 .cal-cell.sel .d{color:#FFFFFF}
 .cal-cell.sel .ticks i{background:rgba(255,255,255,.5)}
 .cal-cell.sel .ticks i.on{background:#FFFFFF}
-.ticks{display:flex;gap:2px}
-.ticks i{width:3.5px;height:7px;border-radius:2px;background:var(--line)}
-.ticks i.on{background:var(--terra)}
+.ticks{display:flex;gap:3px}
+.ticks i{width:4.5px;height:9px;border-radius:2.5px;background:var(--line)}
+.ticks i.on{background:var(--terra-deep)}
 .cal-cell.today .ticks i.on{background:var(--terra-deep)}
 .perf-star{position:absolute;top:6px;right:7px;width:11px;height:11px;color:var(--honey)}
 .day-detail{display:flex;flex-direction:column;gap:16px}
@@ -765,6 +773,14 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 /* ---------- grafik svg umum ---------- */
 .chart-label{font-size:12px;font-weight:600;fill:var(--ink-2)}
 .chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
+/* v2.17 · grafik konsistensi pada layar sempit: sumbu-X digeser horizontal
+   (label tetap terbaca) alih-alih menyusut sampai tak terbaca */
+#consChart{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#consChart::-webkit-scrollbar{display:none}
+/* afordansi geser: hanya tampil di layar sempit bersama grafik yang dapat digeser */
+.chart-swipe-hint{display:none;align-items:center;justify-content:center;gap:5px;margin-top:7px;font-size:11px;font-weight:600;color:var(--ink-3)}
+.chart-swipe-hint .ic{width:13px;height:13px}
+@media(max-width:640px){#consChart svg{min-width:460px}.chart-swipe-hint{display:flex}}
 .line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
 .chart-last{transform-box:fill-box;transform-origin:center;animation:chartPulse 2.4s ease-in-out infinite}
 @keyframes chartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
@@ -785,7 +801,10 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @media(max-width:1023px){
   .tb-brand{display:flex}
   .tb-date{display:none}
-  .view{padding:18px 14px 104px}
+  /* v2.17 · konten terakhir tak lagi tersangkut di bawah dock navigasi:
+     padding aman + scroll-padding untuk lompatan anchor */
+  html{scroll-padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+  .view{padding:18px 14px calc(112px + env(safe-area-inset-bottom,0px))}
   .topbar{padding:0 18px}
 }
 @media(max-width:900px){
@@ -804,6 +823,10 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 }
 @media(max-width:640px){
   .habit-grid{grid-template-columns:1fr}
+  /* v2.17 · pohon jadi latar lembut pojok bawah hero; kartu progres pohon
+     tetap kontras & terbaca penuh di atasnya (bukan tertimpa ilustrasi) */
+  .hero-tree .hero-ill{width:116px;max-width:116px;opacity:.5;z-index:0}
+  .tree-progress{position:relative;z-index:1;max-width:100%;background:rgba(255,255,255,.92)}
   .sheet{padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
   /* kepala kartu: pill turun ke baris sendiri agar judul tak terperangkap */
   .card-head{flex-wrap:wrap;row-gap:8px}
@@ -1945,8 +1968,8 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="stat-ic honey"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span>
       </div>
       <div><div class="num t-num" id="statSpend">Rp 0</div><div class="lbl" id="statSpendLbl">Pengeluaran</div></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="bar slate" style="flex:1;height:7px"><i id="statSpendBar" data-w="0%"></i></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:6px">
+        <div class="bar slate" style="flex:1;min-width:56px;height:7px"><i id="statSpendBar" data-w="0%"></i></div>
         <span class="sub" id="statSpendPct" style="flex:none">0% dari anggaran</span>
       </div>
     </div>
@@ -2185,7 +2208,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="card scene-stat">
       <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
       <div>
-        <div class="num t-num" style="color:var(--honey-deep)" id="statOut">Rp 0</div>
+        <div class="num t-num" style="color:var(--rose-deep)" id="statOut">Rp 0</div>
         <div class="lbl">Pengeluaran</div>
         <div class="sub" id="statOutSub">memuat…</div>
       </div>
@@ -2275,7 +2298,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- STRIP RINGKASAN MUTASI — posisi rekening-koran untuk bulan terpilih -->
   <div class="mut-sum" id="mutSum" role="group" aria-label="Ringkasan mutasi bulan terpilih">
     <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="mutIn">Rp 0</b><span id="mutInSub">—</span></div>
-    <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--honey-deep)" id="mutOut">Rp 0</b><span id="mutOutSub">—</span></div>
+    <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="mutOut">Rp 0</b><span id="mutOutSub">—</span></div>
     <div class="mut-cell"><small>Net</small><b class="t-num" id="mutNet">Rp 0</b><span id="mutNetSub">—</span></div>
   </div>
 
@@ -2328,7 +2351,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
     <div class="mut-sum in" id="saldoSum" role="group" aria-label="Arus kas bulan berjalan">
       <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="saldoIn">Rp 0</b><span id="saldoInSub">—</span></div>
-      <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--honey-deep)" id="saldoOut">Rp 0</b><span id="saldoOutSub">—</span></div>
+      <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="saldoOut">Rp 0</b><span id="saldoOutSub">—</span></div>
       <div class="mut-cell"><small>Net</small><b class="t-num" id="saldoNet">Rp 0</b><span id="saldoNetSub">—</span></div>
     </div>
   </div>
@@ -2364,7 +2387,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="hm-legend" style="gap:12px;flex-wrap:wrap;justify-content:flex-end">
         <span><i style="background:var(--sage)"></i>masuk</span>
-        <span><i style="background:var(--honey)"></i>keluar</span>
+        <span><i style="background:var(--rose)"></i>keluar</span>
       </div>
     </div>
     <div class="sf-list" id="saldoFlow"><div class="t-sub">memuat…</div></div>
@@ -2472,6 +2495,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
       </div>
       <div id="consChart"></div>
+      <small class="chart-swipe-hint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg>Geser grafik untuk rentang penuh<svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></small>
       <div class="cons-note">
         <svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>
         <span id="consNote">Menghitung tren dari catatan asli…</span>
@@ -2862,6 +2886,10 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .dompet-card b{font-size:13px;display:block;line-height:1.25}
 .dompet-card .bal{font-family:var(--font-display);font-size:15.5px;font-weight:600;margin-top:1px}
 .dompet-card small{font-size:12px;color:var(--ink-3);font-weight:600;display:block;margin-top:2px}
+/* v2.17 · saldo minus diberi tanda eksplisit (badge + tepi rose), bukan
+   sekadar warna angka — masalahnya terlihat, bukan tersembunyi di grid */
+.dompet-card.neg{border-color:var(--rose-line)}
+.neg-badge{display:inline-flex;align-items:center;margin-left:7px;padding:2px 8px;border-radius:999px;background:var(--rose-soft);color:var(--rose-deep);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;vertical-align:2px}
 .konsep-note{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;font-size:12px;font-weight:600;color:var(--ink-3)}
 .konsep-note .ic{width:14px;height:14px;flex:none}
 .dd-well{display:flex;gap:8px;flex-wrap:wrap}
@@ -2890,7 +2918,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 /* ringkasan saldo total */
 .saldo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .saldo-top .ch-title{align-items:flex-start}
-.saldo-big{font-family:var(--font-display);font-size:clamp(24px,3vw,30px);font-weight:650;line-height:1.15;margin-top:4px}
+.saldo-big{font-family:var(--font-display);font-size:clamp(28px,3.8vw,38px);font-weight:650;line-height:1.15;margin-top:4px;letter-spacing:-.02em}
 .saldo-top .t-sub{margin-top:5px}
 /* arus dana per dompet */
 .sf-list{display:flex;flex-direction:column}
@@ -2938,25 +2966,37 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .mg-row>div{min-width:0}
 .mg-row b{font-size:13.5px;display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mg-row small{font-size:12px;color:var(--ink-3);font-weight:600;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.btn-del{width:40px;height:40px;border-radius:13px;border:1.5px solid var(--rose-line);background:var(--rose-softer);color:var(--rose-deep);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
-.btn-del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
+/* v2.17 · aksi destruktif jadi SENYAP (pola Linear): ikon netral saat istirahat,
+   warna rose hanya saat disentuh — data, bukan tombol, yang jadi bintang baris */
+.btn-del{width:40px;height:40px;border-radius:13px;border:1.5px solid transparent;background:transparent;color:var(--ink-3);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s;flex:none}
+.btn-del:hover{background:var(--rose-softer);border-color:var(--rose-line);color:var(--rose-deep)}
 .btn-del .ic{width:18px;height:18px}
 @media(max-width:640px){.btn-del{width:44px;height:44px;border-radius:14px}}
-/* v2.10 · tombol sunting (pencil, sepasang dengan btn-del di daftar kelola) */
-.btn-edit{width:40px;height:40px;border-radius:13px;border:1.5px solid #A7F3D0;background:#ECFDF5;color:var(--sage-deep);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
-.btn-edit:hover{background:var(--sage);border-color:var(--sage);color:#FFFFFF;transform:translateY(-1px)}
+/* v2.10 · tombol sunting (pencil, sepasang dengan btn-del di daftar kelola)
+   v2.17 · rehat senyap: sepasang gaya btn-del agar baris kelola tenang */
+.btn-edit{width:40px;height:40px;border-radius:13px;border:1.5px solid transparent;background:transparent;color:var(--ink-3);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s;flex:none}
+.btn-edit:hover{background:#ECFDF5;border-color:#A7F3D0;color:var(--sage-deep)}
 .btn-edit .ic{width:18px;height:18px}
 @media(max-width:640px){.btn-edit{width:44px;height:44px;border-radius:14px}}
 .row-act{display:flex;gap:8px;flex:none}
-/* v2.10 · tombol aksi rapat untuk baris transaksi, anggaran & dompet */
-.tx-btn{width:36px;height:36px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-3);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,transform .15s;flex:none}
-.tx-btn .ic{width:16px;height:16px}
-.tx-btn.edit{border-color:#A7F3D0;background:#ECFDF5;color:var(--sage-deep)}
-.tx-btn.del{border-color:var(--rose-line);background:var(--rose-softer);color:var(--rose-deep)}
-.tx-btn.edit:hover{background:var(--sage);border-color:var(--sage);color:#FFFFFF;transform:translateY(-1px)}
-.tx-btn.del:hover{background:var(--rose);border-color:var(--rose);color:#FFFFFF;transform:translateY(-1px)}
+/* v2.10 · tombol aksi rapat untuk baris transaksi, anggaran & dompet
+   v2.17 · rehat senyap: tanpa blok warna; makna muncul saat hover/fokus */
+.tx-btn{width:40px;height:40px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--ink-3);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s;flex:none}
+.tx-btn .ic{width:17px;height:17px}
+.tx-btn:hover{background:var(--surface-2);border-color:var(--line);color:var(--ink-2)}
+.tx-btn.edit:hover{background:#ECFDF5;border-color:#A7F3D0;color:var(--sage-deep)}
+.tx-btn.del:hover{background:var(--rose-softer);border-color:var(--rose-line);color:var(--rose-deep)}
 @media(max-width:640px){.tx-btn{width:44px;height:44px;border-radius:13px}}
 .tx-act{display:flex;gap:8px;flex:none}
+/* v2.17 · baris transaksi: aksi menyapa saat baris di-hover/fokus; di layar
+   sentuh aksi memakai gestur geser (swipe) yang sudah tersedia sejak v2.11 */
+@media(hover:hover){
+  .tx-row .tx-act{opacity:0;transition:opacity .18s ease}
+  .tx-row:hover .tx-act,.tx-row:focus-within .tx-act{opacity:1}
+}
+@media(hover:none){
+  .tx-row .tx-act{display:none}
+}
 /* v2.10 · baris transaksi di layar sempit: nominal ikut baris teks, tombol aksi turun
    ke baris kedua rata kanan supaya angka tak terdorong keluar layar */
 @media(max-width:640px){
@@ -3321,7 +3361,9 @@ function renderIdentity(){
   const nama=SETTINGS.userName||'Sahabat Rutina';
   $('#greetTitle').textContent='Ringkasan hari ini';
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
-  $('#greetSub').textContent=`${tglLengkap} · ${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
+  /* v2.17 · tanggal cukup satu sumber per zona; "hari aktif" diserahkan ke
+     hero pohon agar subjudul & hero tak mengulang data yang sama */
+  $('#greetSub').textContent=`${tglLengkap} · ${TXS.length} transaksi`;
   $('#tbDate').innerHTML=`<b>${tglLengkap}</b>`;
   $('#tbStreak').textContent=activeDaysAll();
   $('#tbStreakUnit').textContent='hari aktif total';
@@ -3350,7 +3392,10 @@ function renderTreeHero(){
   const sapa=jam<11?'Selamat pagi':jam<15?'Selamat siang':jam<19?'Selamat sore':'Selamat malam';
   const nama=SETTINGS&&SETTINGS.userName?SETTINGS.userName:'Sahabat Rutina';
   $('#treeGreet').textContent=`${sapa}, ${nama}`;
-  $('#treeDate').textContent=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
+  /* v2.17 · baris tanggal hero diganti cerita pertumbuhan — tanggal sudah
+     dibawa topbar & subjudul halaman */
+  const fk=Object.keys(logsByDate).sort()[0];
+  $('#treeDate').textContent=fk?`Mencatat sejak ${tglBulan(fk)}`:'Catatan pertamamu menumbuhkan pohon ini';
   const a=activeDaysAll();
   /* cari tahap tertinggi yang terpenuhi */
   let i=0;TREE_STAGES.forEach((s,idx)=>{if(a>=s.min)i=idx});
@@ -3471,6 +3516,7 @@ function renderWawasanHero(){
     $('#wawHeroSub').textContent='Satu catatan hari ini cukup untuk memulai pola.';
     $('#wawHeroBar').dataset.w='0%';
     $('#wawHeroPill').textContent='0 minggu tercatat';
+    const pp0=$('#wawHeroBar').closest('.ph-progress');if(pp0)pp0.hidden=true;
     animateBars($('#wawasanHero'));
     return;
   }
@@ -3487,6 +3533,7 @@ function renderWawasanHero(){
     $('#wawHeroSub').textContent='Semua catatan masih di masa depan — belum ada pekan tercatat.';
     $('#wawHeroBar').dataset.w='0%';
     $('#wawHeroPill').textContent='0 minggu tercatat';
+    const pp0=$('#wawHeroBar').closest('.ph-progress');if(pp0)pp0.hidden=true;
     animateBars($('#wawasanHero'));
     return;
   }
@@ -3499,6 +3546,9 @@ function renderWawasanHero(){
   $('#wawHeroSub').textContent=`Rata-rata ${avg} catatan/minggu · puncak ${peak.c} pada ${pk.getDate()} ${BULAN_S[pk.getMonth()]}.`;
   $('#wawHeroBar').dataset.w=(peak.c?Math.min(100,Math.round(last/peak.c*100)):0)+'%';
   $('#wawHeroPill').textContent=`${vals.length} minggu tercatat`;
+  /* v2.17 · pekan kosong: bar 0% disembunyikan — pesan eksplisit menggantikan
+     elemen progres yang tampak seperti rusak/kosong */
+  const pp=$('#wawHeroBar').closest('.ph-progress');if(pp)pp.hidden=!last;
   animateBars($('#wawasanHero'));
 }
 function renderSettingsHero(){
@@ -3531,6 +3581,7 @@ function renderStats(){
   const todayTx=TXS.filter(t=>t.date===tk);
   const keluarToday=sumBy(todayTx.filter(t=>t.type==='expense'),t=>t.amount);
   countUp($('#statDay'),keluarToday);
+  $('#statDay').classList.toggle('num-zero',!keluarToday);
   $('#statDayLbl').textContent='Pengeluaran hari ini';
   const nOut=todayTx.filter(t=>t.type==='expense').length;
   $('#statDaySub').textContent=nOut?`${nOut} transaksi tercatat hari ini`:'Belum ada pengeluaran hari ini';
@@ -3547,6 +3598,7 @@ function renderStats(){
     const {keluar}=finTotals(mk);
     $('#statSpendLbl').textContent=`Pengeluaran ${monthLabel(mk)}`;
     countUp($('#statSpend'),keluar);
+    $('#statSpend').classList.toggle('num-zero',!keluar);
     const rows=BUDGETS.filter(b=>b.month===mk);
     if(rows.length){
       const used=rows.reduce((s,b)=>s+((expByCat(mk)[b.category])||0),0);
@@ -3562,6 +3614,7 @@ function renderStats(){
   const totD=sumBy(SOURCES,s=>w[s.id]);
   countUp($('#statSisa'),totD);
   $('#statSisa').style.color=totD<0?'var(--rose-deep)':'';
+  $('#statSisa').classList.toggle('num-zero',!totD);
   $('#statSisaSub').textContent=`${SOURCES.length} sumber dana · ${TXS.length} transaksi`;
   animateBars($('#statSpendBar').closest('.stat'));
 }
@@ -3784,11 +3837,15 @@ function renderSceneStats(){
   const totD=sumBy(SOURCES,s=>w[s.id]);
   countUp($('#statSaldo'),totD);
   $('#statSaldo').style.color=totD<0?'var(--rose-deep)':'';
+  $('#statSaldo').classList.toggle('num-zero',!totD);
   $('#statSaldoSub').textContent=`${SOURCES.length} sumber dana`;
   countUp($('#statIn'),masuk);
-  $('#statInSub').textContent=`${nIn} transaksi · ${monthLabel(mk)}`;
+  /* v2.17 · nilai kosong jujur: angka meredup + sub-teks eksplisit, bukan "Rp 0" tegap */
+  const inEl=$('#statIn');inEl.style.color=masuk?'var(--sage-deep)':'';inEl.classList.toggle('num-zero',!masuk);
+  $('#statInSub').textContent=nIn?`${nIn} transaksi · ${monthLabel(mk)}`:'Belum ada pemasukan tercatat';
   countUp($('#statOut'),keluar);
-  $('#statOutSub').textContent=`${nOut} transaksi · ${monthLabel(mk)}`;
+  const outEl=$('#statOut');outEl.style.color=keluar?'var(--rose-deep)':'';outEl.classList.toggle('num-zero',!keluar);
+  $('#statOutSub').textContent=nOut?`${nOut} transaksi · ${monthLabel(mk)}`:'Belum ada pengeluaran tercatat';
   $('#donutTitle').textContent=`Pengeluaran per kategori · ${monthLabel(mk)}`;
 }
 function renderDonut(){
@@ -3974,9 +4031,11 @@ function renderWallets(){
   const sorted=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]);
   $('#dompetGrid').innerHTML=sorted.map(s=>{
     const st=srcStyle(s.type);
-    return `<div class="dompet-card">
+    /* v2.17 · dompet saldo minus: kelas .neg (tepi rose) + badge teks eksplisit */
+    const neg=w[s.id]<0;
+    return `<div class="dompet-card${neg?' neg':''}">
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-      <div><b>${esc(s.name)}</b><span class="bal t-num" style="color:${w[s.id]<0?'var(--rose-deep)':'inherit'}">${rupiah(w[s.id])}</span>
+      <div><b>${esc(s.name)}</b><span class="bal t-num" style="color:${neg?'var(--rose-deep)':'inherit'}">${rupiah(w[s.id])}</span>${neg?'<span class="neg-badge">minus</span>':''}
       <small>${usage[s.id]||0} transaksi · ${esc(SRC_LABEL[s.type]||s.type)}</small></div>
       <span class="dompet-act">
         <button type="button" class="tx-btn edit" data-edit-source="${esc(s.id)}" aria-label="Ubah dompet ${esc(s.name)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
@@ -3985,7 +4044,11 @@ function renderWallets(){
     </div>`;
   }).join('');
   staggerList($('#dompetGrid'));
-  $('#dompetSum').textContent=`Total ${rupiah(sumBy(SOURCES,s=>w[s.id]))}`;
+  /* v2.17 · pill total dompet ikut keadaan saldo: minus = rose, bukan terra */
+  const tot=sumBy(SOURCES,s=>w[s.id]);
+  const ds=$('#dompetSum');ds.textContent=`Total ${rupiah(tot)}`;
+  ds.style.background=tot<0?'var(--rose-soft)':'var(--terra-soft)';
+  ds.style.color=tot<0?'var(--rose-deep)':'var(--terra-deep)';
 }
 
 /* ---------- v2.11 · anak tab keuangan: Analisa · Mutasi Transaksi · Saldo Bank ---------- */
@@ -4034,11 +4097,14 @@ function renderMutasiSum(){
   });
   const net=masuk-keluar;
   countUp(el,masuk);
+  /* v2.17 · nol diberi catatan, bukan angka tegap tanpa konteks */
+  el.style.color=masuk?'var(--sage-deep)':'';el.classList.toggle('num-zero',!masuk);
   countUp($('#mutOut'),keluar);
+  const oEl=$('#mutOut');oEl.style.color=keluar?'var(--rose-deep)':'';oEl.classList.toggle('num-zero',!keluar);
   const netEl=$('#mutNet');countUp(netEl,net);
   netEl.style.color=net<0?'var(--rose-deep)':'var(--sage-deep)';
-  $('#mutInSub').textContent=`${nIn} transaksi`;
-  $('#mutOutSub').textContent=`${nOut} transaksi`;
+  $('#mutInSub').textContent=nIn?`${nIn} transaksi`:'Belum ada pemasukan tercatat';
+  $('#mutOutSub').textContent=nOut?`${nOut} transaksi`:'Belum ada pengeluaran tercatat';
   $('#mutNetSub').textContent=(nTf?`${nTf} transfer antar-dompet · `:'')+(all?'semua waktu':monthShort(mk));
 }
 /* pane saldo bank: total saldo + arus bulan berjalan + mutasi tiap dompet */
@@ -4058,11 +4124,13 @@ function renderSaldoBank(){
   const {masuk,keluar,nIn,nOut}=finTotals(mk);
   const net=masuk-keluar;
   countUp($('#saldoIn'),masuk);
+  const sIn=$('#saldoIn');sIn.style.color=masuk?'var(--sage-deep)':'';sIn.classList.toggle('num-zero',!masuk);
   countUp($('#saldoOut'),keluar);
+  const sOut=$('#saldoOut');sOut.style.color=keluar?'var(--rose-deep)':'';sOut.classList.toggle('num-zero',!keluar);
   const netEl=$('#saldoNet');countUp(netEl,net);
   netEl.style.color=net<0?'var(--rose-deep)':'var(--sage-deep)';
-  $('#saldoInSub').textContent=`${nIn} transaksi`;
-  $('#saldoOutSub').textContent=`${nOut} transaksi`;
+  $('#saldoInSub').textContent=nIn?`${nIn} transaksi`:'Belum ada pemasukan tercatat';
+  $('#saldoOutSub').textContent=nOut?`${nOut} transaksi`:'Belum ada pengeluaran tercatat';
   $('#saldoNetSub').textContent=`posisi ${monthShort(mk)}`;
   /* arus dana tiap dompet — bulan berjalan; transfer dihitung sbg masuk/keluar dompet */
   const rows=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]).map(s=>{
@@ -4082,7 +4150,7 @@ function renderSaldoBank(){
     return `<div class="sf-row">
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div class="sf-info"><b>${esc(r.s.name)}</b>
-        <div class="sf-bars"><i data-w="${(r.ins/mx*100).toFixed(1)}%" style="background:var(--sage)"></i><i data-w="${(r.outs/mx*100).toFixed(1)}%" style="background:var(--honey)"></i></div>
+        <div class="sf-bars"><i data-w="${(r.ins/mx*100).toFixed(1)}%" style="background:var(--sage)"></i><i data-w="${(r.outs/mx*100).toFixed(1)}%" style="background:var(--rose)"></i></div>
         <small>+${rupiah(r.ins)} masuk · −${rupiah(r.outs)} keluar</small>
       </div>
       <span class="sf-net t-num ${r.net>=0?'in':'out'}">${r.net>=0?'+':'−'}${rupiah(Math.abs(r.net))}</span>

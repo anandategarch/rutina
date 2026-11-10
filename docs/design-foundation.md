@@ -106,7 +106,7 @@ Kategori baru tanpa entri memakai fallback: hash nama →
 
 ## 3. Tipografi
 
-Sistem font tunggal: **Plus Jakarta Sans** (display + body, 400–800) — karya Tokotype
+Sistem font tunggal: **Geist** (display + body, 400–800)
 (Indonesia) yang juga dipakai ekosistem Gojek/GoPay. Satu keluarga font = satu "suara"
 tipografi, pola yang sama dengan aplikasi fintech Indonesia modern (GoPay, Livin',
 SeaBank). Variable font via Google Fonts dengan `display=swap`; x-height tinggi dan
@@ -117,16 +117,16 @@ memakai **ExtraBold 800** untuk mempertahankan bobot display.
 
 | Peran | Font | Ukuran | Berat | Lain-lain |
 |---|---|---|---|---|
-| H1 halaman | Plus Jakarta Sans | `clamp(24px, 3vw, 28px)` | 800 | `ls -.02em; lh 1.18; text-wrap: balance` |
-| H2 hero | Plus Jakarta Sans | `clamp(21px, 2.6vw, 26px)` | 800 | maks lebar ±340px |
-| H3 kartu | Plus Jakarta Sans | 17px | 800 | — |
-| Angka besar (stat) | Plus Jakarta Sans | 25px (mobile 20px) | 700 | `t-num` (tabular), unit `<small>` body 600 |
-| Angka hero | Plus Jakarta Sans | 30px | 700–800 | warna `--terra-deep` |
-| Eyebrow | Plus Jakarta Sans | 11px | 800 | `uppercase; ls .14em; color --terra-deep` |
-| Body | Plus Jakarta Sans | 14–16px | 400–500 | `lh 1.55` |
-| Sub / meta | Plus Jakarta Sans | 13px | 500–600 | `--ink-3` |
-| Caption/tag | Plus Jakarta Sans | 10.5–12px | 600–800 | tag: 10.5/800 |
-| Nominal transaksi | Plus Jakarta Sans | 14.5px | 800 | `t-num`, rata kanan |
+| H1 halaman | Geist | `clamp(24px, 3vw, 28px)` | 800 | `ls -.02em; lh 1.18; text-wrap: balance` |
+| H2 hero | Geist | `clamp(21px, 2.6vw, 26px)` | 800 | maks lebar ±340px |
+| H3 kartu | Geist | 17px | 800 | — |
+| Angka besar (stat) | Geist | 25px (mobile 20px) | 700 | `t-num` (tabular), unit `<small>` body 600 |
+| Angka hero | Geist | 30px | 700–800 | warna `--terra-deep` |
+| Eyebrow | Geist | 11px | 800 | `uppercase; ls .14em; color --terra-deep` |
+| Body | Geist | 14–16px | 400–500 | `lh 1.55` |
+| Sub / meta | Geist | 13px | 500–600 | `--ink-3` |
+| Caption/tag | Geist | 10.5–12px | 600–800 | tag: 10.5/800 |
+| Nominal transaksi | Geist | 14.5px | 800 | `t-num`, rata kanan |
 
 **Lantai ukuran (v2.6):** tidak ada teks di bawah **10.5px**. Micro-label uppercase
 (eyebrow, DOW kalender, tag) boleh 10.5px; label konten nyata (nominal transaksi,
@@ -322,14 +322,14 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | `pill` | pad 7 13 · 12.5/700 · radius 999 |
 | `icon-btn` | 44×44 · radius 14 · dot notifikasi 7px `--terra` |
 | `btn-check` | 44 lingkaran · border 2 · `pop` .4s saat selesai |
-| `avatar` | 40 · inisial Plus Jakarta Sans 700 · border `#A7F3D0` |
+| `avatar` | 40 · inisial Geist 700 · border `#A7F3D0` |
 | `brand-mark` | 42 (tb 34) · radius 12 · gradasi `#34D399→#059669` |
 | `card` | `--surface` · border `--line` · radius 16 · **datar** (tanpa shadow diam & tanpa dekorasi latar, v2.6) |
 | `agenda-row` | grid `54 52 1fr auto auto` (mobile `44 1fr 44`) · radius 16 · `done`: wash hijau |
 | `habit-card` | spot 56 · `wd` 27/hari · bar konsistensi + `btn-check` |
 | `streak-pill` | `--terra-soft` + `--terra-deep` · 11/800 |
 | `tx-row` | `tx-ic` 44 r14 · nominal 14.5/800 kanan · sub `kategori · dompet` |
-| `dompet-card` | pad 13 15 · r16 · datar (border saja) · `src-ic` 42 r13 · saldo 15.5 Plus Jakarta Sans |
+| `dompet-card` | pad 13 15 · r16 · datar (border saja) · `src-ic` 42 r13 · saldo 15.5 Geist |
 | Dock | r24 · blur 18 · `rgba(255,255,255,.92)` · item min-h 50 r16 · aktif `flex-grow 1.8` + label max-w 86 |
 | Sidebar | 268 · nav-item 46 r14 · aktif `--terra-soft` + bar kiri 4×24 |
 | Sheet modal | maks 520 · r28 · maks-h 92dvh · field 48 r14 · icon-picker grid 4 |
@@ -337,7 +337,7 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | Heatmap | sel 13 gap 3.5 · 18 minggu · level: kosong `#F1F5F9`, l1 `#A7F3D0`, l2 `#6EE7B7`, l3 `#10B981` · hari ini ring 2+4px |
 | Heatmap pengeluaran | grid 7 kolom gap 5 · sel aspek-rasio r9 · level honey: kosong `#F1F5F9`, l1 `#FDE68A`, l2 `#F59E0B`, l3 `#D97706` · hari ini ring 2+4px `--honey` · masa depan dashed .45 · klik sel → toast hari |
 | Kalender | 7 kolom `minmax(0,1fr)` gap 6 (mobile 4) · sel r14 min 44 (mobile 40 r11) · ticks 3.5×7 · `today` border `--terra` + `--terra-softer` · `sel` solid `--terra` putih · `future` dashed .45 · bintang ≥5 catatan |
-| Donat | R76 stroke 27 · pusat: caps 10.5 + total Plus Jakarta Sans 16 |
+| Donat | R76 stroke 27 · pusat: caps 10.5 + total Geist 16 |
 | Grafik batang | batang 17 r5 · masuk `#22C55E` · keluar `#F97316` · sumbu `ringkas()` |
 
 ---
@@ -424,8 +424,8 @@ Semua angka berasal dari database asli (atau snapshot identik saat offline) —
 | 2.6 | 2026-11 | **Kartu bersih & hierarki elevasi** (arah 70% antarmuka bersih + 20% botani + 10% micro-interaction, mengikuti audit over-design): dekorasi latar kartu (garlanda sprig v2.5) dihapus seluruhnya — token `--ill-*` dihapus; ilustrasi botani kini eksklusif di hero, empty state, side-card sidebar, dan ilustrasi konten (spot/scene/head-art). Kartu diam jadi datar (border + radius, tanpa shadow): `.card`, container strip statistik (`.stats/.mini-stats/.cal-strip/.g-fin`), `dompet-card`, `ph-art`, tombol primer saat diam; shadow tetap untuk hero, overlay (sheet/dp/tp/cs-menu/toast), dock, dan hover interaktif. Tipografi: lantai 10.5px (9.5/10px dinaikkan), label konten nyata 10.5→11px. Layout tablet: konten 2 kolom mulai 641px (`habit-grid`, `g-main/g-donut/g-cal/g-waw`, `g-set`, `hm-side`) — runtuh 1 kolom hanya ≤640px; g-fin tetap pola 2-kolom+span ≤900px. `transition: all` (14 instance) diganti properti spesifik. `ill-deco` celengan & kelas `stat-deco`/`card-plain-bl` dihapus. |
 | 2.5 | 2026-11 | Ilustrasi latar untuk SEMUA kartu di semua halaman & tab: aset SVG `public/illustrations/card-sprig.svg` (untaian botani sudut kanan-atas, daun mint/sage + 2 koin amber + percik) dan `card-sprig-bl.svg` (tunas garis tipis kiri-bawah) ditempel via satu aturan CSS `.card` (token `--ill-corner/--ill-mini/--ill-size-c/--ill-size-m/--ill-seg`) — kartu hasil render JS (habit-card, empty-state) ikut otomatis. Segmen strip statistik (.stat/.mini-stat/.scene-stat) bergarlanda kecil seragam; scene-stat mobile & stat bergambar-deco (.stat-deco) dikecualikan demi keterbacaan angka; tunas kiri-bawah dimatikan pada kartu grid data (.card-plain-bl: 2 heatmap, kalender). Celengan `.ill-deco` diperkecil 84→70px, opacity .85→.68. Glow `::after` streak-banner digantikan garlanda. Audit: overflow 0px di 6 halaman (360px & 1280px), golden path habit 0/17→1/17 + toast + ring utuh, VLM keterbacaan LAYAK (mobile 7–8.5/10, desktop 6.5–8.5/10). |
 | 2.4 | 2026-11 | Ilustrasi latar hero: aset statis `public/illustrations/hero-bg.webp` (8KB, dekorasi botani hanya di tepi kanan, zona teks mint polos) sebagai layer `.hero-bg` di bawah konten hero; gradient mint tetap jadi fallback. Zona teks diverifikasi polos via profil deviasi piksel + uji keterbacaan VLM. Ornamen sudut `.hero-ill` mobile diredam ke opacity .8. |
-| 2.3 | 2026-11 | Tipografi: sistem font tunggal **Plus Jakarta Sans** (karya Tokotype/Indonesia, dipakai Gojek) menggantikan pasangan Source Serif 4 + Inter — sejajar dengan bahasa visual fintech Indonesia (GoPay/Livin'). Heading `.h-serif` naik ke ExtraBold 800; tabular-nums terverifikasi bekerja (`tnum`). |
-| 2.2 | 2026-11 | Tipografi: pasangan font diganti ke **Source Serif 4 + Inter** (variable font, kontras serif/sans profesional — menggantikan Poppins/Plus Jakarta Sans yang terlalu mirip). Tabular-nums dipertahankan di semua angka; font smoothing penuh (webkit + moz) di root. |
+| 2.3 | 2026-11 | Tipografi: sistem font tunggal **Geist** menggantikan pasangan Source Serif 4 + Inter — sejajar dengan bahasa visual fintech Indonesia (GoPay/Livin'). Heading `.h-serif` naik ke ExtraBold 800; tabular-nums terverifikasi bekerja (`tnum`). |
+| 2.2 | 2026-11 | Tipografi: pasangan font diganti ke **Source Serif 4 + Inter** (variable font, kontras serif/sans profesional — menggantikan Poppins/Geist yang terlalu mirip). Tabular-nums dipertahankan di semua angka; font smoothing penuh (webkit + moz) di root. |
 | 2.1 | 2026-11 | Fitur baca-saja dari aplikasi v1: garis target harian (tick honey pada ring), habit kuantitatif (amount) dengan bar progres unit, kartu Jatah Harian & proyeksi (bar laju + penanda ideal), dan Heatmap Pengeluaran (§9, skala honey). Simbol spot baru: `ill-jatah` & `ill-panas`. |
-| 2.0 | 2026-11 | “Evergreen”: emerald `#10B981` + netral slate; Poppins/Plus Jakarta Sans; radius 16; **Beautiful shadows** sm/md/lg (netral berlapis); ilustrasi flat-3D + 17 ilustrasi kebiasaan & 24 ikon kategori dari data asli; data jujur dari Turso (baca-saja). |
-| 1.x | — | “Playful Botanical” (lavender/ivory, Nunito) — **diarsipkan** ke `docs/design-system.md`; hanya untuk aplikasi lama `src/`. |
+| 2.0 | 2026-11 | “Evergreen”: emerald `#10B981` + netral slate; Geist; radius 16; **Beautiful shadows** sm/md/lg (netral berlapis); ilustrasi flat-3D + 17 ilustrasi kebiasaan & 24 ikon kategori dari data asli; data jujur dari Turso (baca-saja). |
+| 1.x | — | “Playful Botanical” (lavender/ivory, font lama) — **diarsipkan** ke `docs/design-system.md`; hanya untuk aplikasi lama `src/`. |

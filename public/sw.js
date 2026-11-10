@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v18"; // v2.16 — hero keuangan terang + aset ilustrasi baru
+const STATIC_CACHE = "rutina-static-v19"; // v2.17 — skala angka semantik, aksi senyap, proporsi wawasan
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
