@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v22"; // v2.20 — dock tak tenggelam saat pull-to-refresh + lencana versi aplikasi
+const STATIC_CACHE = "rutina-static-v23"; // v2.21 — simpan lokal: catatan tak lagi hilang saat dibuka ulang
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;

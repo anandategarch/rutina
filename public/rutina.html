@@ -2642,7 +2642,11 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
       <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
     </div>
-    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: penghapusan hanya berlaku di sesi ini; database asli tak tersentuh.</p>
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: database asli hanya dibaca; catatanmu tersimpan di perangkat ini.</p>
+    <div id="setLocalRow" style="display:none;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+      <small class="t-sub" style="font-size:12px" id="setLocalCount">—</small>
+      <button type="button" class="btn btn-ghost" id="btnResetLocal" style="margin-left:auto;min-height:38px;padding:6px 14px;font-size:13px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Kembalikan data asli</button>
+    </div>
   </div>
 
   <div class="grid g-set">
@@ -2757,7 +2761,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="txSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; input tersimpan di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; catatanmu tersimpan aman di perangkat ini.</p>
     </form>
   </div>
 </div>
@@ -2797,7 +2801,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; kebiasaan baru tersimpan di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; kebiasaan baru tersimpan di perangkat ini.</p>
     </form>
   </div>
 </div>
@@ -2827,7 +2831,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="budSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan anggaran</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; anggaran tersimpan di sesi ini.</p>
     </form>
   </div>
 </div>
@@ -2862,7 +2865,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="domSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan dompet</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: database hanya dibaca; dompet tersimpan di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; dompet tersimpan di perangkat ini.</p>
     </form>
   </div>
 </div>
@@ -2885,7 +2888,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="catSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan nama</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: perubahan hanya berlaku di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; perubahan tersimpan di perangkat ini.</p>
     </form>
   </div>
 </div>
@@ -2904,7 +2907,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="button" class="btn btn-danger" id="btnDelConfirm"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Ya, hapus</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Mode konsep: perubahan hanya berlaku di sesi ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; penghapusan tersimpan di perangkat ini.</p>
     </div>
   </div>
 </div>
@@ -3088,7 +3091,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.20';
+const APP_VERSION='v2.21';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3121,6 +3124,101 @@ async function loadData(){
     if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;return}}
   }catch(err){}
   if(snapshot&&snapshot.ok){DB=snapshot.data;DBAT=snapshot.fetchedAt||''}
+}
+
+/* ---------- v2.21 · SIMPAN LOKAL — catatan pengguna tak lagi hilang ----------
+   Mode konsep tetap dijaga: database asli hanya dibaca. Bedanya, setiap
+   transaksi/centang/anggaran/dompet/perubahan kategori kini disimpan sebagai
+   LAPISAN LOKAL di perangkat (localStorage) lalu diterapkan DI ATAS data
+   server tiap kali Rutina dibuka — membuka ulang aplikasi tak lagi
+   menghapus catatan. Server tetap jadi dasar data bersih yang bisa
+   dipulihkan kapan saja lewat Pengaturan. */
+const LS_KEY='rutina.local.v1';
+let OV=null;
+const isLocalId=id=>String(id||'').startsWith('local-');
+const budKey=(c,m)=>c+'|'+m;
+const logKey=(h,d)=>h+'|'+d;
+function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[]}}
+function ovLoad(){
+  let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
+  return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
+}
+function ovPersist(){try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){/* penyimpanan penuh/diblokir — sesi ini saja */}}
+function ovCount(){if(!OV)return 0;
+  return OV.txAdd.length+Object.keys(OV.txEdit).length+OV.txDel.length
+    +OV.budAdd.length+Object.keys(OV.budEdit).length+OV.budDel.length
+    +OV.habitAdd.length+OV.habitDel.length
+    +Object.keys(OV.logAdd).length+Object.keys(OV.logDel).length
+    +OV.srcAdd.length+Object.keys(OV.srcEdit).length+OV.srcDel.length
+    +Object.keys(OV.catRename).length+OV.catDel.length}
+/* terapkan lapisan lokal di atas data yang baru dimuat */
+function ovApply(){
+  OV=ovLoad()||ovBlank();
+  if(!DB)return;
+  /* kebiasaan: sembunyikan yang dihapus, tambahkan milik pengguna */
+  const delH=new Set(OV.habitDel);
+  DB.habits=[...(DB.habits||[]).filter(h=>!delH.has(h.id)&&!isLocalId(h.id)),
+             ...OV.habitAdd.map(h=>({...h}))];
+  const hid=new Set(DB.habits.map(h=>h.id));
+  /* log kebiasaan: kunci yang tersentuh dibangun ulang supaya deterministik
+     (tepat satu log per kebiasaan+tanggal) & yatim dari kebiasaan terhapus dibuang */
+  const touched=new Set([...Object.keys(OV.logAdd),...Object.keys(OV.logDel)]);
+  DB.habitLogs=(DB.habitLogs||[]).filter(l=>hid.has(l.habitId)&&!touched.has(logKey(l.habitId,l.date)));
+  Object.entries(OV.logAdd).forEach(([k,v])=>{
+    const p=k.split('|');
+    if(hid.has(p[0]))DB.habitLogs.push({habitId:p[0],date:p[1],completed:true,value:+v||0});
+  });
+  /* kategori keuangan: ganti nama lalu sembunyikan yang dihapus */
+  const catMap=OV.catRename||{},catDel=new Set(OV.catDel);
+  DB.financeCategories=(DB.financeCategories||[])
+    .map(c=>({...c,name:catMap[c.name]||c.name}))
+    .filter(c=>!catDel.has(c.name)&&!catDel.has(catMap[c.name]||c.name));
+  /* transaksi: hapus → tambal → tambah */
+  const delT=new Set(OV.txDel);
+  DB.transactions=(DB.transactions||[]).filter(t=>!delT.has(t.id)&&!isLocalId(t.id));
+  Object.entries(OV.txEdit).forEach(([id,patch])=>{
+    const t=DB.transactions.find(x=>x.id===id);
+    if(t)Object.assign(t,patch);
+  });
+  OV.txAdd.forEach(t=>{const n={...t};if(catMap[n.category])n.category=catMap[n.category];DB.transactions.push(n)});
+  /* anggaran — identitas: kategori|bulan (cek kunci pra & pasca ganti nama) */
+  const delB=new Set(OV.budDel),edB=new Set(Object.keys(OV.budEdit));
+  DB.weeklyBudgets=(DB.weeklyBudgets||[])
+    .map(b=>({...b,category:catMap[b.category]||b.category}))
+    .filter(b=>{
+      const pre=budKey(b.category,b.month),post=budKey(catMap[b.category]||b.category,b.month);
+      return !delB.has(pre)&&!delB.has(post)&&!edB.has(pre)&&!edB.has(post);
+    });
+  const pushB=b=>{if(b&&b.category&&b.month&&!delB.has(budKey(b.category,b.month)))DB.weeklyBudgets.push({...b})};
+  Object.values(OV.budEdit).forEach(pushB);
+  OV.budAdd.forEach(b=>pushB(catMap[b.category]?{...b,category:catMap[b.category]}:b));
+  /* dompet */
+  const delS=new Set(OV.srcDel);
+  DB.fundSources=(DB.fundSources||[]).filter(s=>!delS.has(s.id)&&!isLocalId(s.id));
+  Object.entries(OV.srcEdit).forEach(([id,patch])=>{const s=DB.fundSources.find(x=>x.id===id);if(s)Object.assign(s,patch)});
+  OV.srcAdd.forEach(s=>DB.fundSources.push({...s}));
+}
+/* ---------- bantu sinkronisasi lapisan lokal saat mutasi sesi ---------- */
+function ovTxEdit(t){
+  if(!OV||!t)return;
+  if(isLocalId(t.id)){
+    const i=OV.txAdd.findIndex(x=>x.id===t.id);
+    if(i>=0)OV.txAdd[i]={...t};
+  }else OV.txEdit[t.id]={...t};
+}
+function ovSrcEdit(s){
+  if(!OV||!s)return;
+  if(isLocalId(s.id)){
+    const i=OV.srcAdd.findIndex(x=>x.id===s.id);
+    if(i>=0)OV.srcAdd[i]={...s};
+  }else OV.srcEdit[s.id]={...s};
+}
+function ovBudEdit(oC,oM,cat,mk,amount){
+  if(!OV)return;
+  const ok=budKey(oC,oM);
+  const ai=OV.budAdd.findIndex(b=>budKey(b.category,b.month)===ok);
+  if(ai>=0)OV.budAdd[ai]={category:cat,month:mk,amount};
+  else OV.budEdit[ok]={category:cat,month:mk,amount};
 }
 
 /* ---------- lapisan desain: ikon & warna per data ---------- */
@@ -4384,7 +4482,7 @@ function renderSettings(){
       <div><b>${esc(h.name)}</b><small>${esc(h.category)}${h.grp?` · ${esc(h.grp.name)}`:''} · ${h.total} catatan</small></div>
       <button class="btn-del" data-del-habit="${esc(h.id)}" aria-label="Hapus kebiasaan ${esc(h.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
     </div>`).join('')
-    :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kebiasaan</b><p>Semua kebiasaan sudah dihapus dari sesi ini.</p></div>`;
+    :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kebiasaan</b><p>Semua kebiasaan sudah dihapus di perangkat ini.</p></div>`;
   const outC=FINCATS.filter(c=>c.type==='expense'),inC=FINCATS.filter(c=>c.type==='income');
   const row=c=>{const st=finStyle(c.name),n=catUsage(c.name);
     return `<div class="mg-row">
@@ -4396,10 +4494,18 @@ function renderSettings(){
       </div>
     </div>`};
   $('#setCatList').innerHTML=!FINCATS.length
-    ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus dari sesi ini.</p></div>`
+    ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus di perangkat ini.</p></div>`
     :`<div class="agenda-cap">Pengeluaran · ${outC.length}</div>`+outC.map(row).join('')
      +(inC.length?`<div class="agenda-cap">Pemasukan · ${inC.length}</div>`+inC.map(row).join(''):'');
   $('#setCatCount').textContent=`${FINCATS.length} kategori`;
+  /* v2.21 · jumlah catatan lokal + jalur pulihkan data asli */
+  const nLoc=ovCount();
+  const lr=$('#setLocalRow');
+  if(lr){
+    lr.style.display=nLoc===0?'none':'flex'; /* v2.21 · toggle langsung — atribut hidden tertimpa inline style */
+    const sc=$('#setLocalCount');
+    if(sc)sc.textContent=`${nLoc} catatanmu tersimpan aman di perangkat ini`;
+  }
 }
 let delTarget=null;
 function askDelete(kind,key,extra){
@@ -4407,7 +4513,7 @@ function askDelete(kind,key,extra){
   if(kind==='habit'){
     const h=habitById(key);if(!h)return;
     name=h.name;
-    desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini. Semuanya ikut keluar dari statistik sesi (progres, streak, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
+    desc=h.total?`Ada <b>${h.total} catatan</b> milik kebiasaan ini. Semuanya ikut keluar dari statistik (progres, runtun, kalender).`:'Kebiasaan ini belum punya catatan apa pun.';
     $('#delEyebrow').textContent='Hapus kebiasaan';
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);if(!t)return;
@@ -4427,6 +4533,10 @@ function askDelete(kind,key,extra){
     name=s.name;
     desc=n?`Ada <b>${n} transaksi</b> tercatat dari dompet ini. Setelah dihapus, transaksi itu tampil sebagai <b>tanpa sumber</b> dan tidak lagi menggerakkan saldo dompet mana pun.`:'Dompet ini belum dipakai transaksi apa pun.';
     $('#delEyebrow').textContent='Hapus dompet';
+  }else if(kind==='local'){
+    name='Catatan lokal perangkat';
+    desc=`Ada <b>${ovCount()}</b> catatan tersimpan di perangkat ini — transaksi, centang kebiasaan, anggaran, dompet & nama kategori. Semuanya dikembalikan ke data asli dari database.`;
+    $('#delEyebrow').textContent='Kembalikan data asli';
   }else{
     name=key;
     const n=catUsage(key);
@@ -4447,12 +4557,22 @@ function doDelete(){
     delete doneToday[key];delete valueToday[key];
     Object.keys(logsByDate).forEach(k=>{const a=logsByDate[k].filter(x=>x!==key);if(a.length)logsByDate[k]=a;else delete logsByDate[k]});
     syncToday();
+    /* v2.21 · penghapusan tersimpan di perangkat ini */
+    if(isLocalId(key))OV.habitAdd=OV.habitAdd.filter(h=>h.id!==key);
+    else if(!OV.habitDel.includes(key))OV.habitDel.push(key);
+    Object.keys(OV.logAdd).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logAdd[k2]});
+    Object.keys(OV.logDel).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logDel[k2]});
+    ovPersist();
     renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
     if(inited.wawasan)renderConsChart();
-    toast('Kebiasaan dihapus',`${name} keluar dari tampilan. Database asli tak tersentuh.`,'i-trash','rose');
+    toast('Kebiasaan dihapus',`${name} keluar dari daftar di perangkat ini. Database asli tak tersentuh.`,'i-trash','rose');
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);
     TXS=TXS.filter(x=>x.id!==key);
+    /* v2.21 · penghapusan tersimpan di perangkat ini */
+    if(isLocalId(key))OV.txAdd=OV.txAdd.filter(x=>x.id!==key);
+    else{delete OV.txEdit[key];if(!OV.txDel.includes(key))OV.txDel.push(key)}
+    ovPersist();
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     if(state.txMonth!=='ALL'&&!months.includes(state.txMonth)&&state.txMonth!==dayKey(TODAY).slice(0,7))state.txMonth=months[months.length-1]||'ALL';
@@ -4460,29 +4580,52 @@ function doDelete(){
     refinance();fillTxMonths();
     if(inited.cal)renderDayDetail(state.calSel);
     renderSettings();
-    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)} · sesi ini saja.`:'Transaksi keluar dari sesi ini.','i-trash','rose');
+    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus dari perangkat ini.','i-trash','rose');
     return;
   }else if(kind==='budget'){
     const {cat,mk}=delTarget;
     if(!cat||!mk){delTarget=null;closeModals();return}
     BUDGETS=BUDGETS.filter(b=>!(b.category===cat&&b.month===mk));
+    /* v2.21 · penghapusan anggaran tersimpan di perangkat ini */
+    const bk=budKey(cat,mk);
+    OV.budAdd=OV.budAdd.filter(b=>budKey(b.category,b.month)!==bk);
+    Object.keys(OV.budEdit).forEach(ok=>{
+      const r=OV.budEdit[ok];
+      if(ok===bk||budKey(r.category,r.month)===bk){delete OV.budEdit[ok];if(!OV.budDel.includes(ok))OV.budDel.push(ok)}
+    });
+    if(!OV.budDel.includes(bk))OV.budDel.push(bk);
+    ovPersist();
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
     refinance();fillTxMonths();
-    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang · sesi ini saja.`,'i-trash','rose');
+    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang di perangkat ini.`,'i-trash','rose');
     return;
   }else if(kind==='source'){
     const n=TXS.filter(t=>t.sourceId===key).length;
-    TXS.forEach(t=>{if(t.sourceId===key)t.sourceId=null});
+    TXS.forEach(t=>{if(t.sourceId===key){t.sourceId=null;ovTxEdit(t)}});
     SOURCES=SOURCES.filter(s=>s.id!==key);
+    /* v2.21 · penghapusan dompet + transaksi tanpa sumber tersimpan di perangkat ini */
+    if(isLocalId(key))OV.srcAdd=OV.srcAdd.filter(s=>s.id!==key);
+    else{delete OV.srcEdit[key];if(!OV.srcDel.includes(key))OV.srcDel.push(key)}
+    ovPersist();
     delTarget=null;closeModals();
     refinance();
     renderSettings();
-    toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber · sesi ini saja.`:`${name} dihapus dari sesi ini.`,'i-trash','rose');
+    toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber.`:`${name} dihapus dari perangkat ini.`,'i-trash','rose');
+    return;
+  }else if(kind==='local'){
+    /* v2.21 · pulihkan data asli: hapus seluruh lapisan lokal lalu muat ulang */
+    try{localStorage.removeItem(LS_KEY)}catch(_){}
+    OV=ovBlank();
+    delTarget=null;closeModals();
+    toast('Kembali ke data asli','Catatan lokal dihapus — memuat ulang Rutina…','i-leaf','sage');
+    setTimeout(()=>location.reload(),700);
     return;
   }else{
     FINCATS=FINCATS.filter(c=>c.name!==key);
+    if(!OV.catDel.includes(key))OV.catDel.push(key); /* v2.21 · tersimpan di perangkat ini */
+    ovPersist();
     fillTxType(txType);
     toast('Kategori dihapus',`${name} tak lagi muncul di formulir transaksi.`,'i-trash','rose');
   }
@@ -4705,7 +4848,7 @@ function go(page){
   if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap(true);inited.heatmap=true}
   if(page==='kalender'&&!inited.cal){renderCal(true);renderDayDetail(state.calSel);inited.cal=true}
   if(page==='wawasan'&&!inited.wawasan){renderConsChart();renderFindings();renderReko();renderBadges();inited.wawasan=true}
-  if(page==='pengaturan'&&!inited.set){renderSettings();inited.set=true}
+  if(page==='pengaturan')renderSettings(); /* v2.21 · selalu segar — baris jumlah catatan lokal ikut mutasi terbaru */
 }
 function syncBell(sisa){
   const bc=$('#bellCnt');if(!bc)return;
@@ -4745,6 +4888,11 @@ function toggleCheck(id,src){
     else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)} — ritme kebiasaanmu hidup. 🌱`,'i-check','sage');
     else toast('Kebiasaan selesai',`${h.name} tercatat — tunas hari ini ikut tumbuh. 🌿`,'i-check','sage');
   }
+  /* v2.21 · centang tersimpan di perangkat — buka ulang aplikasi tak lagi hilang */
+  const lk=logKey(id,k);
+  if(doneToday[id]){OV.logAdd[lk]=isAmount(h)?(valueToday[id]||0):true;delete OV.logDel[lk]}
+  else{delete OV.logAdd[lk];OV.logDel[lk]=true}
+  ovPersist();
   refreshToday();
 }
 function refreshToday(){
@@ -4915,8 +5063,11 @@ $('#formTx').addEventListener('submit',e=>{
   }else{
     const type=txType==='masuk'?'income':'expense';
     if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
-    else TXS.unshift({id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
+    else{const baru={id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv};TXS.unshift(baru);OV.txAdd.unshift({...baru})}
   }
+  /* v2.21 · catatan tersimpan di perangkat ini */
+  if(tgt)ovTxEdit(tgt);
+  ovPersist();
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   /* langsung arahkan riwayat & statistik ke bulan transaksi supaya perubahannya terlihat */
   state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
@@ -4958,12 +5109,15 @@ $('#formHabit').addEventListener('submit',e=>{
   if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','rose');return}
   const cat=$('#habitCat').value||'General';
   const grpId=$('#habitGroup').value||null;
-  HABITS.push({id:'local-'+Date.now(),name:nama,category:cat,reminder:$('#habitTime').value||null,groupId:grpId,
+  const hidBaru={id:'local-'+Date.now(),name:nama,category:cat,reminder:$('#habitTime').value||null,groupId:grpId,
+    habitType:'normal',target:1,unit:null,priority:'Medium',difficulty:'Easy',emoji:''};
+  HABITS.push({...hidBaru,
     grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,ikon:pickedIcon,warna:HCAT[cat]||'#059669',
-    dates:[],total:0,best:0,first:null,last:null,emoji:''});
+    dates:[],total:0,best:0,first:null,last:null});
+  OV.habitAdd.push(hidBaru);ovPersist(); /* v2.21 · kebiasaan baru tersimpan di perangkat ini */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();
-  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · sesi ini saja.`,'i-sparkle','honey');
+  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · tersimpan di perangkat ini.`,'i-sparkle','honey');
 });
 
 /* ---------- modal anggaran (v2.10) ---------- */
@@ -5018,13 +5172,15 @@ $('#formBudget').addEventListener('submit',e=>{
   if(mengubah){
     const b=BUDGETS.find(x=>x.category===editBud.cat&&x.month===editBud.mk);
     if(b)Object.assign(b,{category:cat,month:mk,amount:nominal});
-  }else BUDGETS.push({category:cat,month:mk,amount:nominal});
+    ovBudEdit(editBud.cat,editBud.mk,cat,mk,nominal); /* v2.21 · lapisan lokal ikut berubah */
+  }else{BUDGETS.push({category:cat,month:mk,amount:nominal});OV.budAdd.push({category:cat,month:mk,amount:nominal})}
+  ovPersist();
   editBud={cat:'',mk:''};
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
   refinance();fillTxMonths();
-  toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · sesi ini saja`,'i-edit','sage');
+  toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan di perangkat ini`,'i-edit','sage');
 });
 
 /* ---------- modal dompet (v2.10) ---------- */
@@ -5062,12 +5218,14 @@ $('#formSource').addEventListener('submit',e=>{
   if(mengubah){
     const s=SOURCES.find(x=>x.id===editSrcId);
     if(s)Object.assign(s,{name:nama,type:tipe,initialBalance:saldo});
-  }else SOURCES.push({id:'local-'+Date.now(),name:nama,type:tipe,emoji:'',initialBalance:saldo});
+    if(s)ovSrcEdit(s);
+  }else{const baru={id:'local-'+Date.now(),name:nama,type:tipe,emoji:'',initialBalance:saldo};SOURCES.push(baru);OV.srcAdd.push({...baru})}
+  ovPersist(); /* v2.21 · dompet tersimpan di perangkat ini */
   editSrcId=null;
   closeModals();
   refinance();
   if(inited.set)renderSettings();
-  toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · sesi ini saja`,'i-edit','sage');
+  toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · tersimpan di perangkat ini`,'i-edit','sage');
 });
 
 /* ---------- ganti nama kategori (v2.10) ---------- */
@@ -5090,6 +5248,16 @@ $('#formCat').addEventListener('submit',e=>{
   const c=FINCATS.find(x=>x.name===renameCatFrom);if(c)c.name=baru;
   const lama=renameCatFrom;
   renameCatFrom=null;closeModals();
+  /* v2.21 · lapisan lokal ikut berganti nama supaya konsisten saat dibuka ulang */
+  OV.txAdd.forEach(t=>{if(t.category===lama)t.category=baru});
+  Object.values(OV.txEdit).forEach(p=>{if(p.category===lama)p.category=baru});
+  OV.budAdd.forEach(b=>{if(b.category===lama)b.category=baru});
+  Object.entries(OV.budEdit).forEach(([ok,r])=>{
+    if(r.category===lama){const nk=budKey(baru,r.month);r.category=baru;OV.budEdit[nk]=r;if(nk!==ok)delete OV.budEdit[ok]}
+  });
+  OV.budDel=OV.budDel.map(k2=>k2.startsWith(lama+'|')?budKey(baru,k2.split('|')[1]):k2);
+  OV.catRename[lama]=baru;
+  ovPersist();
   refinance();renderSettings();fillTxType(txType);
   toast('Kategori diganti nama',`${lama} → ${baru} · ${nTx} transaksi & ${nBud} anggaran ikut diperbarui.`,'i-edit','sage');
 });
@@ -5101,6 +5269,7 @@ $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFu
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
 $('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderMutasiSum();renderTx()});
 $('#btnDelConfirm').addEventListener('click',doDelete);
+$('#btnResetLocal').addEventListener('click',()=>askDelete('local')); /* v2.21 · pulihkan data asli */
 $('#btnBell').addEventListener('click',()=>{
   const sisa=HABITS.length-doneTodayCount();
   if(sisa>0)toast(`${sisa} kebiasaan menunggu`,sisa===HABITS.length?'Hari masih segar. Mulai dari yang termudah.':`Tinggal ${sisa} catatan lagi hari ini.`,'i-flame');
@@ -5807,6 +5976,7 @@ function tunasWake(){
 (async function init(){
   const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
   await loadData();
+  ovApply(); /* v2.21 · lapisan lokal pengguna diterapkan di atas data server */
   if(!DB){$('#greetTitle').textContent='Rutina';tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
   prepData();syncToday();
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
