@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v23"; // v2.21 — simpan lokal: catatan tak lagi hilang saat dibuka ulang
+const STATIC_CACHE = "rutina-static-v24"; // v2.22 — simpan permanen ke database (write-through) + drill-down semua tab
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;

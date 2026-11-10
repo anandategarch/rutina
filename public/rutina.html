@@ -591,6 +591,41 @@ b,strong{font-weight:600}
 .dd-tx-row .tx-ic{width:34px;height:34px;border-radius:11px}
 .dd-tx-row .tx-ic .ic{width:18px;height:18px}
 .dd-tx-row span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ---------- v2.22 · DRILL-DOWN — bedah lapisan data di semua tab ----------
+   Ketuk kartu statistik / kategori / anggaran / dompet / transaksi /
+   kebiasaan / hari / pekan / lencana → sheet detail meluncur dari bawah. */
+.drillable{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s ease,background .15s ease}
+.drillable:hover{transform:translateY(-1px)}
+.drillable:active{transform:scale(.985)}
+.dl-row.drillable:hover,.pola-row.drillable:hover,.dd-tx-row.drillable:hover,.dd-habit.drillable:hover{background:var(--surface-2)}
+.drill-hint{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.drill-hint .ic{width:11px;height:11px}
+.sheet--drill .drill-body{max-height:min(60dvh,520px);overflow-y:auto;overscroll-behavior:contain;padding-top:4px}
+.drill-id{display:flex;align-items:center;gap:12px;min-width:0;padding-right:8px}
+.drill-art{width:46px;height:46px;border-radius:15px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex:none}
+.drill-art .ill{width:32px;height:32px}
+.drill-art .ic{width:22px;height:22px}
+.drill-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin:2px 0 4px}
+.drill-stat>div{background:var(--surface-2);border-radius:14px;padding:10px 12px;min-width:0}
+.drill-stat .num{font-size:16px;font-weight:800;line-height:1.3}
+.drill-stat .lbl{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.drill-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:13px;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.drill-row:hover{background:var(--surface-2)}
+.drill-row+.drill-row{margin-top:2px}
+.drill-row .tx-ic{width:34px;height:34px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.drill-row .tx-ic .ic{width:17px;height:17px}
+.drill-row .drill-main{flex:1;min-width:0}
+.drill-row .drill-main b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drill-row .drill-main small{color:var(--ink-3);font-size:11.5px;font-weight:600}
+.drill-row .drill-amt{flex:none}
+.drill-sec{margin-top:14px}
+.drill-empty{padding:20px 10px;text-align:center;color:var(--ink-3);font-size:13px}
+.drill-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.drill-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.drill-dots i{width:11px;height:11px;border-radius:4px;background:var(--surface-2);display:inline-block}
+.drill-dots i.on{background:var(--sage)}
+#donutSvg .donut-slice{cursor:pointer}
+#consChart circle{cursor:pointer}
 .cal-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
 .cal-strip .mini-stat{padding:13px 15px}
 .cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:600}
@@ -1991,7 +2026,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- STATISTIK · v2.8: kartu rekor streak diganti pengeluaran hari ini
        (statistik kebiasaan tinggal di tabnya; ringkasan kini lintas domain) -->
   <div class="stats">
-    <div class="card stat">
+    <div class="card stat drillable" data-drill="stat-day" role="button" tabindex="0" title="Ketuk: bedah pengeluaran hari ini">
       <div class="stat-top">
         <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></span>
         <svg class="spark" id="sparkDay" aria-hidden="true"></svg>
@@ -1999,7 +2034,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div><div class="num t-num" id="statDay">Rp 0</div><div class="lbl" id="statDayLbl">Pengeluaran hari ini</div></div>
       <div class="sub" id="statDaySub">memuat…</div>
     </div>
-    <div class="card stat">
+    <div class="card stat drillable" data-drill="stat-kons" role="button" tabindex="0" title="Ketuk: bedah hari aktif 30 hari">
       <div class="stat-top">
         <span class="stat-ic blue"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
         <svg class="spark" id="sparkKons" aria-hidden="true"></svg>
@@ -2007,7 +2042,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div><div class="num t-num" id="statKons">—</div><div class="lbl" id="statKonsLbl">Hari aktif dalam 30 hari</div></div>
       <div class="sub" id="statKonsSub">memuat…</div>
     </div>
-    <div class="card stat">
+    <div class="card stat drillable" data-drill="stat-spend" role="button" tabindex="0" title="Ketuk: bedah pengeluaran bulan">
       <div class="stat-top">
         <span class="stat-ic honey"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span>
       </div>
@@ -2017,7 +2052,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="sub" id="statSpendPct" style="flex:none">0% dari anggaran</span>
       </div>
     </div>
-    <div class="card stat">
+    <div class="card stat drillable" data-drill="stat-sisa" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
       <div class="stat-top">
         <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span>
       </div>
@@ -2028,7 +2063,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
        kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
-  <div class="card streak-banner jatah-banner" id="jatahBanner">
+  <div class="card streak-banner jatah-banner drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
     <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy"/></span>
     <div class="sb-body">
       <b id="sbT">Memuat…</b>
@@ -2234,7 +2269,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <div class="chips fin-months" id="finMonths" role="group" aria-label="Pilih bulan"></div>
   <div class="grid g-fin">
-    <div class="card scene-stat">
+    <div class="card scene-stat drillable" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
       <svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg>
       <div>
         <div class="num t-num" id="statSaldo">Rp 0</div>
@@ -2242,7 +2277,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div class="sub" id="statSaldoSub">memuat…</div>
       </div>
     </div>
-    <div class="card scene-stat">
+    <div class="card scene-stat drillable" data-drill="fin-in" role="button" tabindex="0" title="Ketuk: bedah pemasukan">
       <svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg>
       <div>
         <div class="num t-num" style="color:var(--sage-deep)" id="statIn">Rp 0</div>
@@ -2250,7 +2285,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div class="sub" id="statInSub">memuat…</div>
       </div>
     </div>
-    <div class="card scene-stat">
+    <div class="card scene-stat drillable" data-drill="fin-out" role="button" tabindex="0" title="Ketuk: bedah pengeluaran">
       <svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg>
       <div>
         <div class="num t-num" style="color:var(--rose-deep)" id="statOut">Rp 0</div>
@@ -2382,7 +2417,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- PANE · SALDO BANK (v2.11) -->
   <div data-fin-pane="saldo" id="fin-pane-saldo" hidden role="tabpanel" aria-labelledby="fin-tab-saldo" aria-label="Saldo bank & sumber dana">
   <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
-  <div class="card card-pad" id="saldoCard">
+  <div class="card card-pad drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
     <div class="saldo-top">
       <div class="ch-title">
         <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
@@ -2642,10 +2677,13 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
       <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
     </div>
-    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Mode konsep: database asli hanya dibaca; catatanmu tersimpan di perangkat ini.</p>
-    <div id="setLocalRow" style="display:none;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Setiap catatan tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan saat tersambung.</p>
+    <div id="setSyncRow" style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap">
+      <small class="t-sub" style="font-size:12px" id="setSyncNote">—</small>
+    </div>
+    <div id="setLocalRow" style="display:none;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap">
       <small class="t-sub" style="font-size:12px" id="setLocalCount">—</small>
-      <button type="button" class="btn btn-ghost" id="btnResetLocal" style="margin-left:auto;min-height:38px;padding:6px 14px;font-size:13px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Kembalikan data asli</button>
+      <button type="button" class="btn btn-ghost" id="btnResetLocal" style="margin-left:auto;min-height:38px;padding:6px 14px;font-size:13px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Buang catatan lokal</button>
     </div>
   </div>
 
@@ -2761,7 +2799,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="txSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; catatanmu tersimpan aman di perangkat ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </form>
   </div>
 </div>
@@ -2801,7 +2839,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; kebiasaan baru tersimpan di perangkat ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </form>
   </div>
 </div>
@@ -2865,7 +2903,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="domSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan dompet</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; dompet tersimpan di perangkat ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </form>
   </div>
 </div>
@@ -2888,7 +2926,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="catSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan nama</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; perubahan tersimpan di perangkat ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </form>
   </div>
 </div>
@@ -2907,8 +2945,29 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="button" class="btn btn-danger" id="btnDelConfirm"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Ya, hapus</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mode konsep: database asli hanya dibaca; penghapusan tersimpan di perangkat ini.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </div>
+  </div>
+</div>
+
+<!-- v2.22 · SHEET DRILL-DOWN — satu pintu detail untuk semua tab: ketuk
+     kartu statistik, kategori, anggaran, dompet, transaksi, kebiasaan, hari,
+     pekan, atau lencana; lapisan datanya meluncur dari bawah -->
+<div class="modal" id="modalDrill" role="dialog" aria-modal="true" aria-labelledby="drillTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet sheet--drill" style="max-width:480px">
+    <div class="sheet-head">
+      <div class="drill-id">
+        <span class="drill-art" id="drillArt"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
+        <div style="min-width:0">
+          <div class="eyebrow" id="drillEyebrow">Detail</div>
+          <h3 class="h-serif" id="drillTitle">Detail</h3>
+        </div>
+      </div>
+      <button class="icon-btn" data-close aria-label="Tutup detail"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sheet-body drill-body" id="drillBody"></div>
+    <div class="sheet-actions" id="drillActions" hidden></div>
   </div>
 </div>
 
@@ -3084,14 +3143,16 @@ button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-sha
 <script>
 'use strict';
 /* ============================================================
-   RUTINA · MESIN DATA ASLI — membaca /api/rutina (Turso, hanya-baca),
-   jatuh ke snapshot tersemat bila tak terjangkau.
+   RUTINA · MESIN DATA — baca & TULIS lewat /api/rutina. Produksi:
+   Turso; pratinjau tanpa env: database server lokal. Server tak
+   terjangkau → jatuh ke snapshot tersemat + jurnal perangkat yang
+   otomatis terdorong begitu koneksi kembali (idempoten).
    ============================================================ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.21';
+const APP_VERSION='v2.22';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3115,24 +3176,25 @@ const tglBulan=k=>{const d=new Date(k+'T00:00:00');return d.getDate()+' '+BULAN[
 const snapEl=document.getElementById('dbSnapshot');
 let snapshot=null;
 try{snapshot=snapEl?JSON.parse(snapEl.textContent):null}catch(_){}
-let DB=null, LIVE=false, DBAT='';
+let DB=null, LIVE=false, DBAT='', DBSRC='';
 async function loadData(){
   try{
     const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),4500);
     const r=await fetch('/api/rutina',{cache:'no-store',signal:ctl.signal});
     clearTimeout(t);
-    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;return}}
+    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';return}}
   }catch(err){}
   if(snapshot&&snapshot.ok){DB=snapshot.data;DBAT=snapshot.fetchedAt||''}
 }
 
-/* ---------- v2.21 · SIMPAN LOKAL — catatan pengguna tak lagi hilang ----------
-   Mode konsep tetap dijaga: database asli hanya dibaca. Bedanya, setiap
-   transaksi/centang/anggaran/dompet/perubahan kategori kini disimpan sebagai
-   LAPISAN LOKAL di perangkat (localStorage) lalu diterapkan DI ATAS data
-   server tiap kali Rutina dibuka — membuka ulang aplikasi tak lagi
-   menghapus catatan. Server tetap jadi dasar data bersih yang bisa
-   dipulihkan kapan saja lewat Pengaturan. */
+/* ---------- v2.22 · SIMPAN PERMANEN — perangkat + database ----------
+   Setiap transaksi/centang/anggaran/dompet/perubahan kategori masuk jurnal
+   LAPISAN LOKAL di perangkat (localStorage) lalu DIDORONG ke /api/rutina
+   (write-through). Server menerapkan jurnal secara idempoten ke database
+   — Turso di produksi, database server pratinjau saat env belum diisi.
+   Server tak terjangkau? Jurnal menunggu di perangkat dan otomatis
+   terdorong saat koneksi kembali. Jurnal yang sukses tersinkron
+   dikosongkan — data kini hidup permanen di database. */
 const LS_KEY='rutina.local.v1';
 let OV=null;
 const isLocalId=id=>String(id||'').startsWith('local-');
@@ -3143,7 +3205,10 @@ function ovLoad(){
   let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
 }
-function ovPersist(){try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){/* penyimpanan penuh/diblokir — sesi ini saja */}}
+function ovPersist(){
+  try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){/* penyimpanan penuh/diblokir — sesi ini saja */}
+  OVREV++;scheduleSync(); /* v2.22 · jurnal berubah → antre dorong ke database */
+}
 function ovCount(){if(!OV)return 0;
   return OV.txAdd.length+Object.keys(OV.txEdit).length+OV.txDel.length
     +OV.budAdd.length+Object.keys(OV.budEdit).length+OV.budDel.length
@@ -3151,14 +3216,19 @@ function ovCount(){if(!OV)return 0;
     +Object.keys(OV.logAdd).length+Object.keys(OV.logDel).length
     +OV.srcAdd.length+Object.keys(OV.srcEdit).length+OV.srcDel.length
     +Object.keys(OV.catRename).length+OV.catDel.length}
-/* terapkan lapisan lokal di atas data yang baru dimuat */
+/* terapkan lapisan lokal di atas data yang baru dimuat — gabung BY-ID supaya
+   baris yang sudah tersinkron ke server (termasuk baris ber-id "local-")
+   tetap hidup saat jurnal dikosongkan setelah sync sukses */
 function ovApply(){
   OV=ovLoad()||ovBlank();
   if(!DB)return;
-  /* kebiasaan: sembunyikan yang dihapus, tambahkan milik pengguna */
+  const catMap=OV.catRename||{},catDel=new Set(OV.catDel);
+  /* kebiasaan: gabung by-id, sembunyikan yang dihapus */
   const delH=new Set(OV.habitDel);
-  DB.habits=[...(DB.habits||[]).filter(h=>!delH.has(h.id)&&!isLocalId(h.id)),
-             ...OV.habitAdd.map(h=>({...h}))];
+  const hMap=new Map();
+  (DB.habits||[]).forEach(h=>hMap.set(h.id,h));
+  OV.habitAdd.forEach(h=>hMap.set(h.id,{...h})); /* versi jurnal selalu termutakhir */
+  DB.habits=[...hMap.values()].filter(h=>!delH.has(h.id));
   const hid=new Set(DB.habits.map(h=>h.id));
   /* log kebiasaan: kunci yang tersentuh dibangun ulang supaya deterministik
      (tepat satu log per kebiasaan+tanggal) & yatim dari kebiasaan terhapus dibuang */
@@ -3169,18 +3239,21 @@ function ovApply(){
     if(hid.has(p[0]))DB.habitLogs.push({habitId:p[0],date:p[1],completed:true,value:+v||0});
   });
   /* kategori keuangan: ganti nama lalu sembunyikan yang dihapus */
-  const catMap=OV.catRename||{},catDel=new Set(OV.catDel);
   DB.financeCategories=(DB.financeCategories||[])
     .map(c=>({...c,name:catMap[c.name]||c.name}))
     .filter(c=>!catDel.has(c.name)&&!catDel.has(catMap[c.name]||c.name));
-  /* transaksi: hapus → tambal → tambah */
-  const delT=new Set(OV.txDel);
-  DB.transactions=(DB.transactions||[]).filter(t=>!delT.has(t.id)&&!isLocalId(t.id));
+  /* transaksi: gabung by-id (lapisan lokal menimpa baris server) —
+     penghapusan dulu, tambalan kedua, tambahan terakhir; nama kategori
+     hasil ganti-nama ikut diterapkan ke baris server */
+  const tMap=new Map();
+  (DB.transactions||[]).forEach(t=>{if(catMap[t.category])t.category=catMap[t.category];tMap.set(t.id,t)});
+  OV.txDel.forEach(id=>tMap.delete(id));
   Object.entries(OV.txEdit).forEach(([id,patch])=>{
-    const t=DB.transactions.find(x=>x.id===id);
+    const t=tMap.get(id);
     if(t)Object.assign(t,patch);
   });
-  OV.txAdd.forEach(t=>{const n={...t};if(catMap[n.category])n.category=catMap[n.category];DB.transactions.push(n)});
+  OV.txAdd.forEach(t=>tMap.set(t.id,{...t,category:catMap[t.category]||t.category}));
+  DB.transactions=[...tMap.values()];
   /* anggaran — identitas: kategori|bulan (cek kunci pra & pasca ganti nama) */
   const delB=new Set(OV.budDel),edB=new Set(Object.keys(OV.budEdit));
   DB.weeklyBudgets=(DB.weeklyBudgets||[])
@@ -3192,11 +3265,16 @@ function ovApply(){
   const pushB=b=>{if(b&&b.category&&b.month&&!delB.has(budKey(b.category,b.month)))DB.weeklyBudgets.push({...b})};
   Object.values(OV.budEdit).forEach(pushB);
   OV.budAdd.forEach(b=>pushB(catMap[b.category]?{...b,category:catMap[b.category]}:b));
-  /* dompet */
-  const delS=new Set(OV.srcDel);
-  DB.fundSources=(DB.fundSources||[]).filter(s=>!delS.has(s.id)&&!isLocalId(s.id));
-  Object.entries(OV.srcEdit).forEach(([id,patch])=>{const s=DB.fundSources.find(x=>x.id===id);if(s)Object.assign(s,patch)});
-  OV.srcAdd.forEach(s=>DB.fundSources.push({...s}));
+  /* dompet: gabung by-id */
+  const sMap=new Map();
+  (DB.fundSources||[]).forEach(s=>sMap.set(s.id,s));
+  OV.srcDel.forEach(id=>sMap.delete(id));
+  Object.entries(OV.srcEdit).forEach(([id,patch])=>{
+    const s=sMap.get(id);
+    if(s)Object.assign(s,patch);
+  });
+  OV.srcAdd.forEach(s=>sMap.set(s.id,{...s}));
+  DB.fundSources=[...sMap.values()];
 }
 /* ---------- bantu sinkronisasi lapisan lokal saat mutasi sesi ---------- */
 function ovTxEdit(t){
@@ -3220,6 +3298,407 @@ function ovBudEdit(oC,oM,cat,mk,amount){
   if(ai>=0)OV.budAdd[ai]={category:cat,month:mk,amount};
   else OV.budEdit[ok]={category:cat,month:mk,amount};
 }
+
+/* ---------- v2.22 · SYNC WRITE-THROUGH — jurnal perangkat → database ----------
+   Setiap ovPersist() mengantrekan dorongan (debounce 700 ms). POST berisi
+   jurnal + daftar final anggaran & kategori; server menerapkannya secara
+   idempoten. Sukses penuh → jurnal dikosongkan (data hidup di database).
+   Gagal/offline → jurnal tetap di perangkat & dicoba lagi. Nomor revisi
+   (OVREV) mencegah mutasi baru hilang saat pengiriman sedang berlangsung. */
+let OVREV=0, syncTimer=null, syncInflight=false, syncToastAt=0;
+function persistRaw(){try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){}}
+function scheduleSync(){
+  if(!LIVE)return; /* server tak terjangkau — jurnal aman di perangkat */
+  if(syncTimer)clearTimeout(syncTimer);
+  syncTimer=setTimeout(syncFlush,700);
+}
+function armSyncToast(){syncToastAt=Date.now()}
+async function syncFlush(){
+  if(syncTimer){clearTimeout(syncTimer);syncTimer=null}
+  if(!LIVE||!OV||ovCount()===0){paintSyncRow();return}
+  if(syncInflight){scheduleSync();return}
+  const rev=OVREV;
+  const payload={overlay:OV,budgets:BUDGETS,finCats:FINCATS};
+  syncInflight=true;
+  try{
+    const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),9000);
+    const r=await fetch('/api/rutina',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctl.signal});
+    clearTimeout(t);
+    const j=await r.json();
+    if(j&&j.ok){
+      if(j.source)DBSRC=j.source;
+      if(!j.failed||!j.failed.length){
+        if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
+        else scheduleSync(); /* ada edit selama pengiriman — antre ulang (idempoten) */
+        paintSyncRow();
+        if(syncToastAt&&Date.now()-syncToastAt<4500){
+          syncToastAt=0;
+          toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database')+' ✓','Catatanmu kini permanen di database — aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
+        }
+      }else paintSyncRow();
+    }else paintSyncRow();
+  }catch(_){paintSyncRow()} /* offline: jurnal tetap di perangkat, dicoba lagi nanti */
+  finally{syncInflight=false}
+}
+function paintSyncRow(){
+  const el=$('#setSyncNote');if(!el||!DB)return;
+  const n=ovCount();
+  if(!LIVE){el.innerHTML='<b style="color:var(--honey-deep)">Offline</b> · '+(n?n+' catatan aman di perangkat, ':'')+'menunggu server tersambung untuk disinkronkan.';return}
+  const tujuan=DBSRC==='turso'?'Turso':'database server';
+  el.innerHTML=n
+    ?`Mengirim ke <b>${tujuan}</b>… <b style="color:var(--honey-deep)">${n} catatan</b> menunggu terkirim.`
+    :`Sinkron penuh dengan <b>${tujuan}</b> ✓ — semua catatan tersimpan permanen di database.`;
+}
+/* kembali online di tengah sesi: dorong jurnal yang menumpuk */
+window.addEventListener('online',()=>{if(LIVE)scheduleSync()});
+
+/* ---------- v2.22 · MESIN DRILL-DOWN — bedah lapisan data di semua tab ----------
+   Ketuk kartu statistik (Ringkasan), kategori/anggaran/dompet/transaksi
+   (Keuangan), kartu kebiasaan (Kebiasaan), sel hari (Kalender & peta panas),
+   titik pekan/pola kategori/lencana (Analisis) → sheet detail meluncur dari
+   bawah. Baris dalam sheet bisa juga drillable (transaksi → kategori →
+   dompet) — menelusuri data bertingkat dari satu pintu. */
+let drillCtx=null;
+function openDrill(cfg){
+  if(!cfg)return;
+  drillCtx=cfg;
+  $('#drillEyebrow').textContent=cfg.eyebrow||'Detail';
+  $('#drillTitle').textContent=cfg.title||'Detail';
+  const art=$('#drillArt');
+  art.innerHTML=cfg.icon?`<svg class="ic" aria-hidden="true"><use href="#${cfg.icon}"/></svg>`:`<svg class="ill" aria-hidden="true"><use href="#${cfg.ill||'ill-sprout'}"/></svg>`;
+  art.style.background=cfg.tint?cfg.tint+'1F':'';
+  art.style.color=cfg.tint||'';
+  $('#drillBody').innerHTML=cfg.body||'';
+  const acts=$('#drillActions');
+  if(cfg.actions&&cfg.actions.length){
+    acts.hidden=false;
+    acts.innerHTML=cfg.actions.map(a=>`<button type="button" class="btn ${a.cls||'btn-ghost'}" data-drill-act="${a.id}">${a.icon?`<svg class="ic" aria-hidden="true"><use href="#${a.icon}"/></svg>`:''}${a.label}</button>`).join('');
+  }else{acts.hidden=true;acts.innerHTML=''}
+  haptic(10);
+  openModal('modalDrill');
+}
+function drillStat(items){
+  return `<div class="drill-stat">${items.map(i=>`<div><div class="num t-num ${i.zero?'num-zero':''}" style="${i.color?'color:'+i.color:''}">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('')}</div>`;
+}
+function drillCap(t){return `<div class="agenda-cap">${t}</div>`}
+function drillEmpty(msg){return `<div class="drill-empty">${msg}</div>`}
+function txRowHTML(t){
+  const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
+  const warna=t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)';
+  const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
+  return `<div class="drill-row" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0">
+    <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+    <span class="drill-main"><b>${esc(t.description||t.category)}</b><small>${esc(t.category)} · ${tglPendek(t.date)}${t.sourceId?' · '+esc(srcName(t.sourceId)):''}</small></span>
+    <b class="t-num nw drill-amt" style="color:${warna}">${sign}${rupiah(t.amount)}</b>
+  </div>`;
+}
+function txListHTML(txs,limit){
+  if(!txs.length)return drillEmpty('Belum ada catatan di sini.');
+  const shown=limit?txs.slice(0,limit):txs;
+  return shown.map(t=>txRowHTML(t)).join('')
+    +(limit&&txs.length>limit?`<div class="t-sub" style="text-align:center;font-size:12px;padding:8px 0 2px">+${txs.length-limit} transaksi lainnya</div>`:'');
+}
+function dayRowHTML(k){
+  const d=new Date(k+'T00:00:00');
+  const n=(logsByDate[k]||[]).length;
+  const tx=TXS.filter(t=>t.date===k);
+  const keluar=sumBy(tx.filter(t=>t.type==='expense'),t=>t.amount);
+  return `<div class="drill-row" data-drill="day" data-date="${k}" role="button" tabindex="0">
+    <span class="tx-ic" style="background:var(--surface-2);color:var(--ink-2)"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+    <span class="drill-main"><b>${HARI[d.getDay()]}, ${tglBulan(k)}</b><small>${n} kebiasaan selesai</small></span>
+    ${keluar?`<b class="t-num nw drill-amt" style="color:var(--rose-deep);font-size:12.5px">−${rupiah(keluar)}</b>`:''}
+  </div>`;
+}
+function drillTx(id){
+  const t=TXS.find(x=>x.id===id);if(!t)return null;
+  const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
+  const jenis=t.type==='income'?'Pemasukan':t.type==='expense'?'Pengeluaran':'Transfer';
+  const warna=t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)';
+  const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
+  const mk=t.date.slice(0,7);
+  const bud=t.type==='expense'?BUDGETS.find(b=>b.category===t.category&&b.month===mk):null;
+  const used=bud?expByCat(mk)[t.category]||0:0;
+  const sameDay=TXS.filter(x=>x.date===t.date&&x.id!==t.id);
+  return {eyebrow:'Transaksi',title:t.description||t.category,icon:st.i,tint:st.c,
+    body:drillStat([
+      {v:sign+rupiah(t.amount),l:jenis,color:warna},
+      {v:tglBulan(t.date),l:'Tanggal'},
+      {v:srcName(t.sourceId)||'Tanpa sumber',l:'Dompet'},
+    ])+(bud?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Anggaran ${monthShort(mk)}: ${rupiah(bud.amount)}</span><span class="pill" style="background:var(--surface-2);color:${used>bud.amount?'var(--rose-deep)':'var(--ink-2)'}">Terpakai ${rupiah(used)} (${Math.min(999,Math.round(used/bud.amount*100))}%)</span></div>`:'')
+    +`<div class="drill-sec">${drillCap('Hari yang sama · '+(sameDay.length+1)+' catatan')}${txListHTML(sameDay,6)}</div>`,
+    actions:[
+      {id:'edit',label:'Ubah',icon:'i-edit'},
+      {id:'del',label:'Hapus',icon:'i-trash',cls:'btn-danger'},
+    ],
+    onAct(act){
+      if(act==='edit'){closeModals();openTxEdit(id)}
+      else if(act==='del'){closeModals();askDelete('tx',id)}
+    }};
+}
+function drillStatDay(){
+  const k=dayKey(TODAY);
+  const tx=TXS.filter(t=>t.date===k);
+  const keluar=sumBy(tx.filter(t=>t.type==='expense'),t=>t.amount);
+  const masuk=sumBy(tx.filter(t=>t.type==='income'),t=>t.amount);
+  const nH=(logsByDate[k]||[]).length;
+  return {eyebrow:'Ringkasan',title:'Pengeluaran hari ini',ill:'ill-keranjang',
+    body:drillStat([
+      {v:rupiah(keluar),l:'Keluar hari ini',color:keluar?'var(--rose-deep)':'',zero:!keluar},
+      {v:rupiah(masuk),l:'Masuk hari ini',color:masuk?'var(--sage-deep)':'',zero:!masuk},
+      {v:''+tx.length,l:'Transaksi'},
+      {v:`${nH}/${HABITS.length||0}`,l:'Kebiasaan'},
+    ])+`<div class="drill-sec">${drillCap('Catatan hari ini · '+tx.length+' transaksi')}${txListHTML(tx)}</div>`};
+}
+function drillStatKons(){
+  const days=[];
+  for(let j=29;j>=0;j--){const k=dayKey(addDays(TODAY,-j));const n=(logsByDate[k]||[]).length;if(n)days.push({k,n})}
+  const aktif=days.length,total=sumBy(days,d=>d.n),gemuk=days.filter(d=>d.n>=5).length;
+  const list=[...days].sort((a,b)=>b.k.localeCompare(a.k)).slice(0,15);
+  return {eyebrow:'Ringkasan',title:'Hari aktif dalam 30 hari',ill:'ill-pagi',
+    body:drillStat([
+      {v:''+aktif,l:'Hari aktif'},
+      {v:''+total,l:'Total catatan'},
+      {v:''+gemuk,l:'Hari padat (5+)'},
+      {v:''+(HABITS.length||0),l:'Kebiasaan aktif'},
+    ])+`<div class="drill-sec">${drillCap('Hari teraktif terbaru')}${list.length?list.map(d=>dayRowHTML(d.k)).join(''):drillEmpty('Belum ada catatan dalam 30 hari terakhir.')}</div>`};
+}
+function drillStatSpend(){
+  const mk=months[months.length-1]||dayKey(TODAY).slice(0,7);
+  const {masuk,keluar}=finTotals(mk);
+  const j=jatahInfo(mk);
+  const cats=Object.entries(expByCat(mk)).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  return {eyebrow:'Ringkasan',title:'Pengeluaran '+monthLabel(mk),ill:'ill-jatah',
+    body:drillStat([
+      {v:rupiah(keluar),l:'Pengeluaran',color:keluar?'var(--rose-deep)':''},
+      {v:rupiah(masuk),l:'Pemasukan',color:masuk?'var(--sage-deep)':''},
+      {v:j.totB?rupiah(j.sisa):'—',l:j.totB?'Sisa anggaran':'Tanpa anggaran',color:j.totB&&j.sisa<0?'var(--rose-deep)':''},
+    ])+(j.rows.length?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">${j.rows.length} kategori beranggaran · ${j.pct}% terpakai</span></div>`:'')
+    +`<div class="drill-sec">${drillCap('Pos terbesar '+monthLabel(mk))}${cats.length?cats.map(([name,v])=>{
+      const st=finStyle(name);
+      return `<div class="drill-row" data-drill="cat" data-cat="${esc(name)}" data-month="${mk}" role="button" tabindex="0">
+        <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+        <span class="drill-main"><b>${esc(name)}</b><small>${rupiah(v)}</small></span>
+        <b class="t-num nw drill-amt" style="font-size:12px;color:var(--ink-3)">${keluar?Math.round(v/keluar*100):0}%</b>
+      </div>`;
+    }).join(''):drillEmpty('Belum ada pengeluaran bulan ini.')}</div>`};
+}
+function drillStatSisa(){
+  const w=walletBalances();
+  const sorted=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]);
+  const tot=sumBy(SOURCES,s=>w[s.id]);
+  return {eyebrow:'Ringkasan',title:'Total saldo',ill:'ill-dompet',
+    body:drillStat([
+      {v:rupiah(tot),l:'Saldo semua dompet',color:tot<0?'var(--rose-deep)':''},
+      {v:''+SOURCES.length,l:'Sumber dana'},
+      {v:''+TXS.length,l:'Transaksi tercatat'},
+    ])+`<div class="drill-sec">${drillCap('Saldo tiap dompet')}${sorted.length?sorted.map(s=>{
+      const st=srcStyle(s.type);
+      const neg=w[s.id]<0;
+      return `<div class="drill-row" data-drill="wallet" data-id="${esc(s.id)}" role="button" tabindex="0">
+        <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
+        <span class="drill-main"><b>${esc(s.name)}</b><small>${esc(SRC_LABEL[s.type]||s.type)}</small></span>
+        <b class="t-num nw drill-amt" style="color:${neg?'var(--rose-deep)':'inherit'}">${rupiah(w[s.id])}</b>
+      </div>`;
+    }).join(''):drillEmpty('Belum ada dompet terdaftar.')}</div>`};
+}
+function drillFinFlow(jenis){
+  const mk=state.finMonth;
+  const tx=TXS.filter(t=>(mk==='ALL'||t.date.slice(0,7)===mk)&&t.type===jenis);
+  const tot=sumBy(tx,t=>t.amount);
+  return {eyebrow:'Keuangan',title:(jenis==='income'?'Pemasukan':'Pengeluaran')+' · '+monthLabel(mk),ill:jenis==='income'?'ill-naik':'ill-keranjang',
+    body:drillStat([
+      {v:rupiah(tot),l:'Total '+monthLabel(mk),color:jenis==='income'?'var(--sage-deep)':'var(--rose-deep)'},
+      {v:''+tx.length,l:'Transaksi'},
+      {v:tx.length?rupiah(Math.round(tot/tx.length)):'—',l:'Rata-rata'},
+    ])+`<div class="drill-sec">${drillCap('Daftar transaksi · '+tx.length)}${txListHTML(tx)}</div>`};
+}
+function drillCategory(cat,mk){
+  mk=(mk&&mk!=='ALL')?mk:state.finMonth;
+  const tx=TXS.filter(t=>t.category===cat&&(mk==='ALL'||t.date.slice(0,7)===mk));
+  const tot=sumBy(tx.filter(t=>t.type==='expense'),t=>t.amount);
+  const {keluar}=finTotals(mk);
+  const bud=BUDGETS.find(b=>b.category===cat&&b.month===mk);
+  const st=finStyle(cat);
+  return {eyebrow:'Kategori',title:cat,icon:st.i,tint:st.c,
+    body:drillStat([
+      {v:rupiah(tot),l:'Pengeluaran '+monthLabel(mk),color:tot?'var(--rose-deep)':''},
+      {v:''+tx.length,l:'Transaksi'},
+      {v:keluar?Math.round(tot/(keluar||1)*100)+'%':'—',l:'Porsi dari keluar'},
+    ])+(bud?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Anggaran ${monthShort(mk)}: ${rupiah(bud.amount)}</span><span class="pill" style="background:var(--surface-2);color:${tot>bud.amount?'var(--rose-deep)':'var(--ink-2)'}">Sisa ${rupiah(bud.amount-tot)}</span></div>`:'')
+    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx)}</div>`};
+}
+function drillBudget(cat,mk){
+  const b=BUDGETS.find(x=>x.category===cat&&x.month===mk);if(!b)return null;
+  const used=expByCat(mk)[cat]||0;
+  const pct=Math.min(100,Math.round(used/b.amount*100));
+  const j=jatahInfo(mk);
+  const st=finStyle(cat);
+  const warna=pct<70?'var(--sage)':pct<90?'var(--honey)':'var(--rose)';
+  const tx=TXS.filter(t=>t.category===cat&&t.date.slice(0,7)===mk);
+  return {eyebrow:'Anggaran',title:cat+' · '+monthLabel(mk),icon:st.i,tint:st.c,
+    body:drillStat([
+      {v:rupiah(b.amount),l:'Batas bulanan'},
+      {v:rupiah(used),l:'Terpakai',color:'var(--rose-deep)'},
+      {v:rupiah(b.amount-used),l:'Sisa',color:b.amount-used<0?'var(--rose-deep)':'var(--sage-deep)'},
+      {v:pct+'%',l:'Terpakai'},
+    ])+`<div class="bar" style="margin:4px 2px 10px"><i data-w="${pct}%" style="background:${warna}"></i></div>`
+    +(j.cur&&j.daysLeft>0?`<div class="drill-chips"><span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)">Jatah sisa ± ${rupiah(Math.round(Math.max(0,j.sisa)/j.daysLeft))}/hari · ${j.daysLeft} hari lagi</span></div>`:'')
+    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx)}</div>`,
+    actions:[
+      {id:'edit',label:'Ubah anggaran',icon:'i-edit'},
+    ],
+    onAct(act){if(act==='edit'){closeModals();openBudgetEdit(cat,mk)}}};
+}
+function drillWallet(id){
+  const s=SOURCES.find(x=>x.id===id);if(!s)return null;
+  const w=walletBalances();
+  const st=srcStyle(s.type);
+  const mk=dayKey(TODAY).slice(0,7);
+  const tx=TXS.filter(t=>t.sourceId===id);
+  const thisM=tx.filter(t=>t.date.slice(0,7)===mk);
+  const masuk=sumBy(thisM.filter(t=>t.type==='income'),t=>t.amount);
+  const keluar=sumBy(thisM.filter(t=>t.type==='expense'),t=>t.amount);
+  return {eyebrow:'Dompet',title:s.name,icon:st.i,tint:st.c,
+    body:drillStat([
+      {v:rupiah(w[id]),l:'Saldo sekarang',color:w[id]<0?'var(--rose-deep)':''},
+      {v:rupiah(s.initialBalance),l:'Saldo awal'},
+      {v:''+tx.length,l:'Transaksi total'},
+    ])+`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--sage-deep)">Bulan ini +${rupiah(masuk)}</span><span class="pill" style="background:var(--surface-2);color:var(--rose-deep)">Bulan ini −${rupiah(keluar)}</span></div>`
+    +`<div class="drill-sec">${drillCap('Mutasi dompet ini · '+tx.length+' transaksi')}${txListHTML(tx,25)}</div>`,
+    actions:[
+      {id:'edit',label:'Ubah',icon:'i-edit'},
+      {id:'del',label:'Hapus',icon:'i-trash',cls:'btn-danger'},
+    ],
+    onAct(act){
+      if(act==='edit'){closeModals();openSourceEdit(id)}
+      else if(act==='del'){closeModals();askDelete('source',id)}
+    }};
+}
+function drillHabit(id){
+  const h=HABITS.find(x=>x.id===id);if(!h)return null;
+  /* runtun aktif: hitung mundur dari hari ini (atau catatan terakhir) */
+  let run=0;const today=dayKey(TODAY);
+  let cur=h.dates.includes(today)?today:(h.last&&h.last<today?h.last:null);
+  if(cur){while(cur&&h.dates.includes(cur)){run++;cur=dayKey(addDays(new Date(cur+'T00:00:00'),-1))}}
+  const dots=[];for(let j=29;j>=0;j--){const k=dayKey(addDays(TODAY,-j));dots.push(`<i class="${h.dates.includes(k)?'on':''}" title="${tglPendek(k)}"></i>`)}
+  const done=!!doneToday[h.id];
+  const recent=[...h.dates].slice(-14).reverse();
+  return {eyebrow:'Kebiasaan',title:h.name,ill:h.ikon,
+    body:drillStat([
+      {v:''+h.total,l:'Total catatan'},
+      {v:''+run,l:'Runtun aktif',color:run>=3?'var(--terra-deep)':''},
+      {v:''+h.best,l:'Rekor runtun'},
+      {v:h.first?tglPendek(h.first):'—',l:'Catatan pertama'},
+    ])+`<div class="drill-chips">
+      <span class="pill" style="background:${h.warna}1A;color:${h.warna}">${esc(h.category)}</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">${esc(h.priority||'Medium')} · ${esc(h.difficulty||'Medium')}</span>
+      ${h.grp?`<span class="pill" style="background:${esc(h.grp.color)}1A;color:${esc(h.grp.color)}">${esc(h.grp.name)}</span>`:''}
+      ${h.reminder?`<span class="pill" style="background:var(--surface-2);color:var(--ink-2)"><svg class="ic" style="width:12px;height:12px" aria-hidden="true"><use href="#i-clock"/></svg> ${esc(fmtJam(h.reminder))}</span>`:''}
+    </div>
+    ${drillCap('30 hari terakhir')}<div class="drill-dots" role="img" aria-label="Catatan 30 hari terakhir">${dots.join('')}</div>
+    <div class="drill-sec">${drillCap('Catatan terakhir')}${recent.length?recent.map(k=>dayRowHTML(k)).join(''):drillEmpty('Belum ada catatan sama sekali — mulai hari ini!')}</div>`,
+    actions:[
+      {id:'check',label:done?'Batalkan hari ini':'Catat hari ini',icon:'i-check',cls:'btn-primary'},
+      {id:'del',label:'Hapus',icon:'i-trash',cls:'btn-danger'},
+    ],
+    onAct(act){
+      if(act==='check'){closeModals();toggleCheck(id)}
+      else if(act==='del'){closeModals();askDelete('habit',id)}
+    }};
+}
+function drillDay(k){
+  const d=new Date(k+'T00:00:00');
+  const future=d>TODAY;
+  const doneIds=future?[]:(logsByDate[k]||[]);
+  const tx=TXS.filter(t=>t.date===k);
+  const masuk=sumBy(tx.filter(t=>t.type==='income'),t=>t.amount);
+  const keluar=sumBy(tx.filter(t=>t.type==='expense'),t=>t.amount);
+  const dl=DAILY[k];
+  const habitRows=HABITS.map(h=>{
+    const on=doneIds.includes(h.id);
+    return `<div class="drill-row" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0">
+      <span class="tx-ic" style="background:${h.warna}1F;color:${h.warna}"><svg class="ic" aria-hidden="true"><use href="#i-${on?'check':'x'}"/></svg></span>
+      <span class="drill-main"><b>${esc(h.name)}</b><small>${esc(h.category)}</small></span>
+      <b class="drill-amt" style="font-size:11px;color:${on?'var(--sage-deep)':'var(--ink-3)'}">${on?'selesai':'—'}</b>
+    </div>`;
+  }).join('');
+  return {eyebrow:'Kalender',title:HARI[d.getDay()]+', '+tglBulan(k),ill:'ill-kal',
+    body:future?drillEmpty('Belum terjadi — kalender mengisi hari yang sudah dicatat.')
+    :drillStat([
+      {v:`${doneIds.length}/${HABITS.length||0}`,l:'Kebiasaan selesai'},
+      {v:rupiah(masuk),l:'Masuk',color:masuk?'var(--sage-deep)':'',zero:!masuk},
+      {v:rupiah(keluar),l:'Keluar',color:keluar?'var(--rose-deep)':'',zero:!keluar},
+    ])+(dl?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Mood ${dl.mood}/5</span><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Energi ${dl.energy}/5</span><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Tidur ${dl.sleep} jam</span></div>`:'')
+    +`<div class="drill-sec">${drillCap('Kebiasaan hari itu')}${habitRows||drillEmpty('Belum ada kebiasaan.')}</div>
+    <div class="drill-sec">${drillCap('Transaksi hari itu · '+tx.length)}${txListHTML(tx)}</div>`};
+}
+function drillWeek(startK){
+  const s=new Date(startK+'T00:00:00');
+  const days=[];
+  for(let i=0;i<7;i++){const k=dayKey(addDays(s,i));if(k<=dayKey(TODAY))days.push(k)}
+  if(!days.length)return null;
+  const total=sumBy(days,k=>(logsByDate[k]||[]).length);
+  const txWeek=TXS.filter(t=>t.date>=days[0]&&t.date<=days[days.length-1]);
+  const keluar=sumBy(txWeek.filter(t=>t.type==='expense'),t=>t.amount);
+  return {eyebrow:'Analisis',title:'Pekan '+tglPendek(days[0])+' – '+tglPendek(days[days.length-1]),ill:'ill-pagi',
+    body:drillStat([
+      {v:''+total,l:'Catatan kebiasaan'},
+      {v:''+days.filter(k=>(logsByDate[k]||[]).length).length,l:'Hari aktif'},
+      {v:rupiah(keluar),l:'Pengeluaran pekan',color:keluar?'var(--rose-deep)':''},
+    ])+`<div class="drill-sec">${drillCap('Hari dalam pekan ini')}${days.map(k=>dayRowHTML(k)).join('')}</div>`};
+}
+let BADGE_LIST=[];
+function drillBadge(idx){
+  const b=BADGE_LIST[idx];if(!b)return null;
+  return {eyebrow:'Lencana',title:b.t,ill:b.ill,
+    body:`<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 0 6px">
+      <svg class="ill" style="width:96px;height:96px;opacity:${b.ok?1:.45}" aria-hidden="true"><use href="#${b.ill}"/></svg>
+      <span class="pill" style="background:${b.ok?'#ECFDF5':'var(--surface-2)'};color:${b.ok?'var(--sage-deep)':'var(--ink-3)'}">${b.ok?'Terbuka ✓':esc(b.tag)}</span>
+    </div>
+    <p class="t-sub" style="text-align:center;font-size:13.5px">${esc(b.s)}</p>
+    ${b.ok?`<p class="t-sub" style="text-align:center;font-size:12px;margin-top:-6px">${esc(b.tag)}</p>`:''}`};
+}
+function buildDrill(kind,d){
+  switch(kind){
+    case 'stat-day':return drillStatDay();
+    case 'stat-kons':return drillStatKons();
+    case 'stat-spend':return drillStatSpend();
+    case 'stat-sisa':return drillStatSisa();
+    case 'fin-in':return drillFinFlow('income');
+    case 'fin-out':return drillFinFlow('expense');
+    case 'fin-saldo':return drillStatSisa();
+    case 'cat':return drillCategory(d.cat,d.month);
+    case 'budget':return drillBudget(d.cat,d.month);
+    case 'wallet':return drillWallet(d.id);
+    case 'habit':return drillHabit(d.id);
+    case 'tx':return drillTx(d.id);
+    case 'day':return drillDay(d.date);
+    case 'week':return drillWeek(d.start);
+    case 'badge':return drillBadge(+d.idx);
+  }
+  return null;
+}
+/* ketuk untuk bedah — tombol aksi di dalam kartu tetap diutamakan */
+document.addEventListener('click',e=>{
+  const act=e.target.closest('[data-drill-act]');
+  if(act&&drillCtx&&drillCtx.onAct){drillCtx.onAct(act.dataset.drillAct);return}
+  const el=e.target.closest('[data-drill]');
+  if(!el||el.disabled)return;
+  const inner=e.target.closest('button,a,input,select,textarea,label,[data-check],.tx-swipe');
+  if(inner&&inner!==el&&el.contains(inner))return;
+  const cfg=buildDrill(el.dataset.drill,el.dataset);
+  if(cfg)openDrill(cfg);
+});
+/* pintasan papan ketik: Enter/Spasi membedah baris yang terfokus */
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const el=e.target&&e.target.closest?e.target.closest('[data-drill]'):null;
+  if(!el||el.disabled)return;
+  if(e.target.closest('button,a,input,select,textarea,label'))return;
+  e.preventDefault();
+  const cfg=buildDrill(el.dataset.drill,el.dataset);
+  if(cfg)openDrill(cfg);
+});
 
 /* ---------- lapisan desain: ikon & warna per data ---------- */
 const HABIT_ICON={
@@ -3952,7 +4431,7 @@ function renderMiniBudgets(){
   $('#miniBudgets').innerHTML=rows.map(r=>{
     const st=finStyle(r.category);
     const warna=r.pct<70?'var(--sage)':r.pct<90?'var(--honey)':'var(--rose)';
-    return `<div>
+    return `<div class="drillable" data-drill="budget" data-cat="${esc(r.category)}" data-month="${r.month}" role="button" tabindex="0" title="Ketuk: detail anggaran">
       <div class="mb-row">
         <span class="mb-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
         <div class="mb-info"><b>${esc(r.category)}</b><div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div></div>
@@ -4005,7 +4484,7 @@ function renderHabitCards(anim){
   $('#habitGrid').innerHTML=list.map(h=>{
     const done=!!doneToday[h.id];
     const pct=Math.min(100,Math.round(h.best/14*100));
-    return `<div class="card habit-card">
+    return `<div class="card habit-card drillable" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail kebiasaan">
       <div class="hc-main">
         <div class="hc-top">
           <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>
@@ -4049,7 +4528,7 @@ function renderHeatmap(anim){
       const k=dayKey(d),cnt=(logsByDate[k]||[]).length;
       const lvl=cnt===0?'':cnt<3?'l1':cnt<5?'l2':'l3';
       const isToday=k===dayKey(TODAY);
-      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''}" style="--hm:${Math.min(idx++,60)}" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${cnt} kebiasaan selesai"></span>`);
+      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''} drillable" style="--hm:${Math.min(idx++,60)}" data-drill="day" data-date="${k}" role="button" tabindex="0" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${cnt} kebiasaan selesai"></span>`);
       d=addDays(d,1);
     }
     monthsEl.insertAdjacentHTML('beforeend',`<span>${mlabel}</span>`);
@@ -4126,7 +4605,7 @@ function renderDonut(){
   $('#donutTotal').dataset.full=total;
   $('#donutLegend').innerHTML=cats.map(([name,v])=>{
     const st=finStyle(name);
-    return `<div class="dl-row">
+    return `<div class="dl-row drillable" data-drill="cat" data-cat="${esc(name)}" data-month="${mk}" role="button" tabindex="0" title="Ketuk: transaksi kategori ini">
       <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div><b>${esc(name)}</b><small>${Math.round(v/total*100)}% dari total</small></div>
       <div class="dl-amt"><b class="t-num">${rupiah(v)}</b><small>${cnt[name]||0} transaksi</small></div>
@@ -4149,7 +4628,7 @@ function renderBudgets(){
     const st=finStyle(r.category);
     const warna=r.pct<70?'var(--sage)':r.pct<90?'var(--honey)':'var(--rose)';
     const over=r.used>r.amount;
-    return `<div class="b-row">
+    return `<div class="b-row drillable" data-drill="budget" data-cat="${esc(r.category)}" data-month="${r.month}" title="Ketuk: detail anggaran">
       <div class="b-head">
         <span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
         <b>${esc(r.category)}${mk==='ALL'?` <span style="color:var(--ink-3);font-weight:600;font-size:12px">· ${monthShort(r.month)}</span>`:''}</b>
@@ -4253,7 +4732,7 @@ function renderSpendHeat(){
     const lvl=v===0?'':v<=max/3?'l1':v<=max*2/3?'l2':'l3';
     const isToday=k===tk,future=k>tk;
     const label=`${d} ${BULAN[m-1]} · ${v?rupiah(v)+' keluar':'tanpa belanja'}`;
-    cells+=`<button type="button" class="sh-cell ${lvl}${isToday?' today':''}${future?' future':''}" data-heat="${k}" title="${label}" aria-label="${label}"${future?' disabled':''}>${d}</button>`;
+    cells+=`<button type="button" class="sh-cell ${lvl}${isToday?' today':''}${future?' future':''}" data-heat="${k}" data-drill="day" data-date="${k}" title="${label}" aria-label="${label}"${future?' disabled':''}>${d}</button>`;
   }
   const curMk=tk.slice(0,7);
   const dimSoFar=curMk===mk?TODAY.getDate():dim;
@@ -4279,7 +4758,7 @@ function renderWallets(){
     const st=srcStyle(s.type);
     /* v2.17 · dompet saldo minus: kelas .neg (tepi rose) + badge teks eksplisit */
     const neg=w[s.id]<0;
-    return `<div class="dompet-card${neg?' neg':''}">
+    return `<div class="dompet-card drillable${neg?' neg':''}" data-drill="wallet" data-id="${esc(s.id)}" title="Ketuk: mutasi dompet ini">
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div><b>${esc(s.name)}</b><span class="bal t-num" style="color:${neg?'var(--rose-deep)':'inherit'}">${rupiah(w[s.id])}</span>${neg?'<span class="neg-badge">minus</span>':''}
       <small>${usage[s.id]||0} transaksi · ${esc(SRC_LABEL[s.type]||s.type)}</small></div>
@@ -4435,7 +4914,7 @@ function renderTx(){
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
     const cls=t.type==='income'?'masuk':t.type==='expense'?'keluar':'tf';
     const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
-    html+=`<div class="tx-row" data-txid="${esc(t.id)}">
+    html+=`<div class="tx-row drillable" data-txid="${esc(t.id)}" data-drill="tx" data-id="${esc(t.id)}" title="Lihat detail transaksi">
       <span class="tx-swipe sw-edit" aria-hidden="true"><svg class="ic"><use href="#i-edit"/></svg>Ubah</span>
       <span class="tx-swipe sw-del" aria-hidden="true"><svg class="ic"><use href="#i-trash"/></svg>Hapus</span>
       <div class="tx-inner">
@@ -4473,8 +4952,8 @@ function renderSettings(){
   $('#setWeek').textContent=WS===0?'Minggu':'Senin';
   $('#setTarget').textContent=Math.round(+SETTINGS.targetCompletion||80)+'% catatan';
   $('#setDataCounts').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
-  $('#setDataSrc').textContent=LIVE?'Data langsung':'Snapshot';
-  $('#setSrcNote').textContent=LIVE?'Turso (langsung)':'snapshot tersemat';
+  $('#setDataSrc').textContent=LIVE?(DBSRC==='turso'?'Turso · langsung':'Server · langsung'):'Snapshot';
+  $('#setSrcNote').textContent=LIVE?(DBSRC==='turso'?'Turso (cloud)':'database server pratinjau'):'snapshot tersemat';
   $('#setHabCount').textContent=`${HABITS.length} aktif`;
   $('#setHabitList').innerHTML=HABITS.length?HABITS.map(h=>`
     <div class="mg-row">
@@ -4494,18 +4973,19 @@ function renderSettings(){
       </div>
     </div>`};
   $('#setCatList').innerHTML=!FINCATS.length
-    ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus di perangkat ini.</p></div>`
+    ?`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Tidak ada kategori</b><p>Semua kategori sudah dihapus.</p></div>`
     :`<div class="agenda-cap">Pengeluaran · ${outC.length}</div>`+outC.map(row).join('')
      +(inC.length?`<div class="agenda-cap">Pemasukan · ${inC.length}</div>`+inC.map(row).join(''):'');
   $('#setCatCount').textContent=`${FINCATS.length} kategori`;
-  /* v2.21 · jumlah catatan lokal + jalur pulihkan data asli */
+  /* v2.21 · jumlah catatan lokal + v2.22 · status sinkron database */
   const nLoc=ovCount();
   const lr=$('#setLocalRow');
   if(lr){
-    lr.style.display=nLoc===0?'none':'flex'; /* v2.21 · toggle langsung — atribut hidden tertimpa inline style */
+    lr.style.display=nLoc===0?'none':'flex'; /* toggle langsung — atribut hidden tertimpa inline style */
     const sc=$('#setLocalCount');
-    if(sc)sc.textContent=`${nLoc} catatanmu tersimpan aman di perangkat ini`;
+    if(sc)sc.textContent=`${nLoc} catatan menunggu sinkron ke database`;
   }
+  paintSyncRow();
 }
 let delTarget=null;
 function askDelete(kind,key,extra){
@@ -4535,8 +5015,8 @@ function askDelete(kind,key,extra){
     $('#delEyebrow').textContent='Hapus dompet';
   }else if(kind==='local'){
     name='Catatan lokal perangkat';
-    desc=`Ada <b>${ovCount()}</b> catatan tersimpan di perangkat ini — transaksi, centang kebiasaan, anggaran, dompet & nama kategori. Semuanya dikembalikan ke data asli dari database.`;
-    $('#delEyebrow').textContent='Kembalikan data asli';
+    desc=`Ada <b>${ovCount()}</b> catatan yang belum tersinkron ke database — transaksi, centang kebiasaan, anggaran, dompet & nama kategori. Semuanya dibuang dari perangkat ini, lalu Rutina memuat ulang data server.`;
+    $('#delEyebrow').textContent='Buang catatan lokal';
   }else{
     name=key;
     const n=catUsage(key);
@@ -4551,26 +5031,34 @@ function askDelete(kind,key,extra){
 function doDelete(){
   if(!delTarget)return;
   haptic(16);
+  armSyncToast(); /* v2.22 · penghapusan juga tersinkron — konfirmasi cloud menyusul */
   const {kind,key,name}=delTarget;
   if(kind==='habit'){
     HABITS=HABITS.filter(h=>h.id!==key);
     delete doneToday[key];delete valueToday[key];
     Object.keys(logsByDate).forEach(k=>{const a=logsByDate[k].filter(x=>x!==key);if(a.length)logsByDate[k]=a;else delete logsByDate[k]});
     syncToday();
-    /* v2.21 · penghapusan tersimpan di perangkat ini */
-    if(isLocalId(key))OV.habitAdd=OV.habitAdd.filter(h=>h.id!==key);
-    else if(!OV.habitDel.includes(key))OV.habitDel.push(key);
+    /* v2.22 · penghapusan tersinkron ke database (jurnal atau perintah server) */
+    if(isLocalId(key)){
+      const i=OV.habitAdd.findIndex(h=>h.id===key);
+      if(i>=0)OV.habitAdd.splice(i,1);
+      else if(!OV.habitDel.includes(key))OV.habitDel.push(key);
+    }else if(!OV.habitDel.includes(key))OV.habitDel.push(key);
     Object.keys(OV.logAdd).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logAdd[k2]});
     Object.keys(OV.logDel).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logDel[k2]});
     ovPersist();
     renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
     if(inited.wawasan)renderConsChart();
-    toast('Kebiasaan dihapus',`${name} keluar dari daftar di perangkat ini. Database asli tak tersentuh.`,'i-trash','rose');
+    toast('Kebiasaan dihapus',`${name} keluar dari daftar & database.`,'i-trash','rose');
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);
     TXS=TXS.filter(x=>x.id!==key);
-    /* v2.21 · penghapusan tersimpan di perangkat ini */
-    if(isLocalId(key))OV.txAdd=OV.txAdd.filter(x=>x.id!==key);
+    /* v2.22 · penghapusan tersinkron ke database */
+    if(isLocalId(key)){
+      const i=OV.txAdd.findIndex(x=>x.id===key);
+      if(i>=0)OV.txAdd.splice(i,1); /* masih di jurnal → buang */
+      else if(!OV.txDel.includes(key))OV.txDel.push(key); /* sudah tersinkron → perintah hapus ke server */
+    }
     else{delete OV.txEdit[key];if(!OV.txDel.includes(key))OV.txDel.push(key)}
     ovPersist();
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
@@ -4580,7 +5068,7 @@ function doDelete(){
     refinance();fillTxMonths();
     if(inited.cal)renderDayDetail(state.calSel);
     renderSettings();
-    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus dari perangkat ini.','i-trash','rose');
+    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.','i-trash','rose');
     return;
   }else if(kind==='budget'){
     const {cat,mk}=delTarget;
@@ -4599,27 +5087,30 @@ function doDelete(){
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
     refinance();fillTxMonths();
-    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang di perangkat ini.`,'i-trash','rose');
+    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang.`,'i-trash','rose');
     return;
   }else if(kind==='source'){
     const n=TXS.filter(t=>t.sourceId===key).length;
     TXS.forEach(t=>{if(t.sourceId===key){t.sourceId=null;ovTxEdit(t)}});
     SOURCES=SOURCES.filter(s=>s.id!==key);
-    /* v2.21 · penghapusan dompet + transaksi tanpa sumber tersimpan di perangkat ini */
-    if(isLocalId(key))OV.srcAdd=OV.srcAdd.filter(s=>s.id!==key);
-    else{delete OV.srcEdit[key];if(!OV.srcDel.includes(key))OV.srcDel.push(key)}
+    /* v2.22 · penghapusan dompet + transaksi tanpa sumber tersinkron ke database */
+    if(isLocalId(key)){
+      const i=OV.srcAdd.findIndex(s=>s.id===key);
+      if(i>=0)OV.srcAdd.splice(i,1);
+      else if(!OV.srcDel.includes(key))OV.srcDel.push(key);
+    }else{delete OV.srcEdit[key];if(!OV.srcDel.includes(key))OV.srcDel.push(key)}
     ovPersist();
     delTarget=null;closeModals();
     refinance();
     renderSettings();
-    toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber.`:`${name} dihapus dari perangkat ini.`,'i-trash','rose');
+    toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber.`:`${name} dihapus.`,'i-trash','rose');
     return;
   }else if(kind==='local'){
-    /* v2.21 · pulihkan data asli: hapus seluruh lapisan lokal lalu muat ulang */
+    /* v2.22 · buang jurnal lokal yang belum tersinkron lalu muat ulang data server */
     try{localStorage.removeItem(LS_KEY)}catch(_){}
     OV=ovBlank();
     delTarget=null;closeModals();
-    toast('Kembali ke data asli','Catatan lokal dihapus — memuat ulang Rutina…','i-leaf','sage');
+    toast('Catatan lokal dibuang','Yang belum tersinkron dihapus dari perangkat — memuat ulang Rutina…','i-leaf','sage');
     setTimeout(()=>location.reload(),700);
     return;
   }else{
@@ -4692,11 +5183,11 @@ function renderDayDetail(d){
   const doneIds=future?[]:(logsByDate[k]||[]);
   const habitRows=HABITS.map(h=>{
     const on=doneIds.includes(h.id);
-    return `<div class="dd-habit ${on?'y':'n'}"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:12px;color:var(--ink-3)">${on?'selesai':'—'}</span></div>`;
+    return `<div class="dd-habit drillable ${on?'y':'n'}" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0" title="Ketuk: detail kebiasaan"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:12px;color:var(--ink-3)">${on?'selesai':'—'}</span></div>`;
   }).join('');
   const txRows=tx.length?tx.slice(0,4).map(t=>{
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
-    return `<div class="dd-tx-row"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)}</b></div>`;
+    return `<div class="dd-tx-row drillable" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0" title="Ketuk: detail transaksi"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)}</b></div>`;
   }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:12px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:''):`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
   $('#dayDetail').innerHTML=`
     <div class="dd-head"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
@@ -4753,7 +5244,7 @@ function renderConsChart(){
   s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" font-weight="600" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
   pts.forEach((p,i)=>{
     const akhir=i===vals.length-1;
-    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''}/>`;
+    s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''} data-drill="week" data-start="${weeks[i].s}" tabindex="0"/>`;
     if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" font-weight="600" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
     const d=new Date(weeks[i].s+'T00:00:00');
     const step=vals.length>15?4:vals.length>9?3:2;
@@ -4771,7 +5262,7 @@ function renderConsChart(){
   const total=sumBy(cats,c=>c[1]);
   $('#polaList').innerHTML=cats.map(([name,v])=>{
     const st=finStyle(name);
-    return `<div class="pola-row">
+    return `<div class="pola-row drillable" data-drill="cat" data-cat="${esc(name)}" data-month="ALL" role="button" tabindex="0" title="Ketuk: transaksi kategori ini">
       <div class="pola-head">
         <span class="lbl"><span class="dl-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>${esc(name)}</span>
         <b class="t-num">${rupiah(v)} <span style="color:var(--ink-3);font-weight:600">· ${Math.round(v/total*100)}%</span></b>
@@ -4826,8 +5317,9 @@ function renderBadges(){
     {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan paling konsisten dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
     {ill:'ill-lari',t:'Jalan 10×',s:'Kebiasaan Jalan tercatat 10 kali',ok:!!(jalan&&jalan.total>=10),tag:`${jalan?jalan.total:0}/10 catatan`},
   ];
-  $('#badgeGrid').innerHTML=list.map(b=>`
-    <div class="badge ${b.ok?'unlocked':'locked'}">
+  BADGE_LIST=list;
+  $('#badgeGrid').innerHTML=list.map((b,i)=>`
+    <div class="badge drillable ${b.ok?'unlocked':'locked'}" data-drill="badge" data-idx="${i}" role="button" tabindex="0" title="Ketuk: detail lencana">
       <svg class="ill" aria-hidden="true"><use href="#${b.ill}"/></svg>
       <b>${esc(b.t)}</b><small>${esc(b.s)}</small>
       <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#${b.ok?'i-check':'i-lock'}"/></svg>${b.ok?'Terbuka':esc(b.tag)}</span>
@@ -4967,7 +5459,7 @@ document.addEventListener('click',e=>{
 function openModal(id){
   const m=$('#'+id);m.classList.add('open');document.body.style.overflow='hidden';
   m._opener=document.activeElement;
-  const inp=m.querySelector('input:not([type=hidden]),select,textarea')||m.querySelector('#btnDelConfirm');
+  const inp=m.querySelector('input:not([type=hidden]),select,textarea')||m.querySelector('#btnDelConfirm')||m.querySelector('.sheet-head [data-close]');
   setTimeout(()=>inp&&inp.focus(),120);
 }
 function closeModals(){
@@ -5065,9 +5557,9 @@ $('#formTx').addEventListener('submit',e=>{
     if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
     else{const baru={id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv};TXS.unshift(baru);OV.txAdd.unshift({...baru})}
   }
-  /* v2.21 · catatan tersimpan di perangkat ini */
+  /* v2.21 · catatan kini tersimpan permanen — perangkat lalu database */
   if(tgt)ovTxEdit(tgt);
-  ovPersist();
+  ovPersist();armSyncToast();
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   /* langsung arahkan riwayat & statistik ke bulan transaksi supaya perubahannya terlihat */
   state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
@@ -5114,10 +5606,10 @@ $('#formHabit').addEventListener('submit',e=>{
   HABITS.push({...hidBaru,
     grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,ikon:pickedIcon,warna:HCAT[cat]||'#059669',
     dates:[],total:0,best:0,first:null,last:null});
-  OV.habitAdd.push(hidBaru);ovPersist(); /* v2.21 · kebiasaan baru tersimpan di perangkat ini */
+  OV.habitAdd.push(hidBaru);ovPersist();armSyncToast(); /* v2.22 · kebiasaan baru tersimpan ke database */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();
-  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · tersimpan di perangkat ini.`,'i-sparkle','honey');
+  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · tersimpan ke database.`,'i-sparkle','honey');
 });
 
 /* ---------- modal anggaran (v2.10) ---------- */
@@ -5174,13 +5666,13 @@ $('#formBudget').addEventListener('submit',e=>{
     if(b)Object.assign(b,{category:cat,month:mk,amount:nominal});
     ovBudEdit(editBud.cat,editBud.mk,cat,mk,nominal); /* v2.21 · lapisan lokal ikut berubah */
   }else{BUDGETS.push({category:cat,month:mk,amount:nominal});OV.budAdd.push({category:cat,month:mk,amount:nominal})}
-  ovPersist();
+  ovPersist();armSyncToast();
   editBud={cat:'',mk:''};
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
   refinance();fillTxMonths();
-  toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan di perangkat ini`,'i-edit','sage');
+  toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan ke database`,'i-edit','sage');
 });
 
 /* ---------- modal dompet (v2.10) ---------- */
@@ -5220,12 +5712,12 @@ $('#formSource').addEventListener('submit',e=>{
     if(s)Object.assign(s,{name:nama,type:tipe,initialBalance:saldo});
     if(s)ovSrcEdit(s);
   }else{const baru={id:'local-'+Date.now(),name:nama,type:tipe,emoji:'',initialBalance:saldo};SOURCES.push(baru);OV.srcAdd.push({...baru})}
-  ovPersist(); /* v2.21 · dompet tersimpan di perangkat ini */
+  ovPersist();armSyncToast(); /* v2.22 · dompet tersimpan ke database */
   editSrcId=null;
   closeModals();
   refinance();
   if(inited.set)renderSettings();
-  toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · tersimpan di perangkat ini`,'i-edit','sage');
+  toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · tersimpan ke database`,'i-edit','sage');
 });
 
 /* ---------- ganti nama kategori (v2.10) ---------- */
@@ -5257,7 +5749,7 @@ $('#formCat').addEventListener('submit',e=>{
   });
   OV.budDel=OV.budDel.map(k2=>k2.startsWith(lama+'|')?budKey(baru,k2.split('|')[1]):k2);
   OV.catRename[lama]=baru;
-  ovPersist();
+  ovPersist();armSyncToast();
   refinance();renderSettings();fillTxType(txType);
   toast('Kategori diganti nama',`${lama} → ${baru} · ${nTx} transaksi & ${nBud} anggaran ikut diperbarui.`,'i-edit','sage');
 });
@@ -5965,10 +6457,10 @@ function tunasWake(){
 
   /* ---------- petunjuk interaksi (sekali per perangkat) ---------- */
   let tipSeen=false;
-  try{tipSeen=localStorage.getItem('rutina.tip.v14')==='1';localStorage.setItem('rutina.tip.v14','1')}catch(_){}
+  try{tipSeen=localStorage.getItem('rutina.tip.v15')==='1';localStorage.setItem('rutina.tip.v15','1')}catch(_){}
   if(!tipSeen)setTimeout(()=>{
-    if(COARSE)toast('Geser untuk beraksi','Baris transaksi: geser kanan untuk ubah, kiri untuk hapus. Geser layar untuk pindah tab.','i-checklist');
-    else toast('Pintasan papan ketik','Tekan tombol ? kapan saja untuk melihat daftar pintasan.','i-chart');
+    if(COARSE)toast('Ketuk untuk bedah detail','Ketuk kartu statistik, kategori, anggaran, dompet, kebiasaan, hari, atau lencana — isinya terbuka dari bawah. Geser baris transaksi: kanan ubah, kiri hapus.','i-checklist');
+    else toast('Pintasan papan ketik','Tekan tombol ? kapan saja untuk melihat daftar pintasan. Ketuk kartu mana pun untuk membedah isinya.','i-chart');
   },1700);
 })();
 
@@ -5993,6 +6485,8 @@ function tunasWake(){
   ambientLeaves();
   heroParallax();
   if(tunas)tunasWake();
+  /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
+  setTimeout(()=>{syncFlush();paintSyncRow()},1100);
 })();
 
 </script>

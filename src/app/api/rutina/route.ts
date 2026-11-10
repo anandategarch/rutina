@@ -1,32 +1,258 @@
 import { NextResponse } from "next/server";
 import { createClient, type Client } from "@libsql/client";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-let cached: Client | null = null;
+/* ==========================================================================
+   /api/rutina — jembatan data untuk konsep Rutina (public/rutina.html).
 
-function getClient(): Client | null {
-  const url = process.env.RUTINA_TURSO_URL?.trim();
-  const token = process.env.RUTINA_TURSO_TOKEN?.trim();
-  if (!url || !token) return null;
-  if (!cached) cached = createClient({ url, authToken: token });
-  return cached;
-}
+   v2.22 · BACA-TULIS PENUH.
+   - GET  : membaca seluruh isi database (bentuk respons sama seperti
+            versi sebelumnya, klien lama tetap kompatibel).
+   - POST : menerima "lapisan catatan pengguna" (overlay — struktur yang sama
+            dengan jurnal localStorage di perangkat) + daftar final anggaran
+            & kategori, lalu menerapkannya secara IDEMPOTEN: diputar ulang
+            berapa pun kali hasil akhirnya sama. Aman untuk retry saat
+            koneksi goyah, dan aman bila respons sukses hilang di jaringan.
+
+   Sumber database dipilih otomatis:
+   - RUTINA_TURSO_URL + RUTINA_TURSO_TOKEN terisi → Turso (produksi).
+   - Belum terisi (mis. pratinjau lokal) → SQLite file db/rutina-preview.db
+     dengan skema V1 (nama tabel/kolom identik), otomatis dibuat & diisi
+     dari snapshot yang tertanam di public/rutina.html saat pertama kali
+     diakses — jalur baca-tulis tetap hidup penuh tanpa kredensial.
+
+   Semua nilai di-bind lewat prepared statement; nama tabel & kolom selalu
+   hardcoded, tidak pernah berasal dari input klien.
+   ========================================================================== */
+
+const NO_STORE = { "Cache-Control": "no-store" } as const;
+const MAX_BODY_BYTES = 2 * 1024 * 1024;
+const LOCAL_DB = resolve(process.cwd(), "db", "rutina-preview.db");
+const HTML_SNAPSHOT = resolve(process.cwd(), "public", "rutina.html");
+
+/* ---------------------------------------------------------------- utilitas */
 
 const dpart = (v: unknown): string => String(v ?? "").slice(0, 10);
 const num = (v: unknown): number => {
   const n = typeof v === "number" ? v : Number(v ?? 0);
   return Number.isFinite(n) ? n : 0;
 };
+const str = (v: unknown, fallback = ""): string =>
+  v === null || v === undefined ? fallback : String(v);
 
-const NO_STORE = { "Cache-Control": "no-store" } as const;
+/* ------------------------------------------------------- pemilihan klien */
+
+type DbTarget = { client: Client; source: "turso" | "local" };
+
+let cachedTurso: Client | null = null;
+let cachedLocal: { client: Client; ready: Promise<void> } | null = null;
+
+function tursoClient(): Client | null {
+  const url = process.env.RUTINA_TURSO_URL?.trim();
+  const token = process.env.RUTINA_TURSO_TOKEN?.trim();
+  if (!url || !token) return null;
+  if (!cachedTurso) cachedTurso = createClient({ url, authToken: token });
+  return cachedTurso;
+}
+
+async function getTarget(): Promise<DbTarget> {
+  const turso = tursoClient();
+  if (turso) return { client: turso, source: "turso" };
+  if (!cachedLocal) {
+    mkdirSync(dirname(LOCAL_DB), { recursive: true });
+    const client = createClient({ url: `file:${LOCAL_DB}` });
+    const ready = ensureLocalSchema(client).catch((error) => {
+      console.error("[/api/rutina] gagal menyiapkan database lokal:", error);
+      cachedLocal = null;
+      throw error;
+    });
+    cachedLocal = { client, ready };
+  }
+  await cachedLocal.ready;
+  return { client: cachedLocal.client, source: "local" };
+}
+
+/* ----------------------------------------------- skema lokal (pratinjau) */
+
+const DDL: string[] = [
+  `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0)`,
+  `CREATE TABLE IF NOT EXISTS "HabitGroup"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0)`,
+  `CREATE TABLE IF NOT EXISTS "HabitLog"("habitId" TEXT NOT NULL,"date" TEXT NOT NULL,"completed" INTEGER DEFAULT 1,"value" REAL DEFAULT 1,PRIMARY KEY("habitId","date"))`,
+  `CREATE TABLE IF NOT EXISTS "HabitOption"("type" TEXT NOT NULL,"label" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0,PRIMARY KEY("type","label"))`,
+  `CREATE TABLE IF NOT EXISTS "FinanceCategory"("id" TEXT PRIMARY KEY,"name" TEXT UNIQUE NOT NULL,"emoji" TEXT,"color" TEXT,"type" TEXT DEFAULT 'expense',"sortOrder" INTEGER DEFAULT 0)`,
+  `CREATE TABLE IF NOT EXISTS "Transaction"("id" TEXT PRIMARY KEY,"type" TEXT NOT NULL,"amount" INTEGER,"category" TEXT,"sourceId" TEXT,"description" TEXT,"date" TEXT)`,
+  `CREATE TABLE IF NOT EXISTS "WeeklyBudget"("category" TEXT NOT NULL,"month" TEXT NOT NULL,"amount" INTEGER,PRIMARY KEY("category","month"))`,
+  `CREATE TABLE IF NOT EXISTS "FundSource"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"type" TEXT,"emoji" TEXT,"initialBalance" INTEGER DEFAULT 0,"sortOrder" INTEGER DEFAULT 0,"isArchived" INTEGER DEFAULT 0)`,
+  `CREATE TABLE IF NOT EXISTS "DailyLog"("date" TEXT PRIMARY KEY,"mood" INTEGER,"energy" INTEGER,"sleep" INTEGER)`,
+  `CREATE TABLE IF NOT EXISTS "AppSettings"("userName" TEXT,"weekStart" INTEGER DEFAULT 1,"targetCompletion" INTEGER DEFAULT 80)`,
+];
+
+async function ensureLocalSchema(client: Client): Promise<void> {
+  for (const sql of DDL) await client.execute(sql);
+  const res = await client.execute(`SELECT COUNT(*) AS n FROM "Habit"`);
+  const n = Number((res.rows[0] as { n?: unknown } | undefined)?.n ?? 0);
+  if (n === 0) await seedFromSnapshot(client);
+}
+
+/* snapshot awal diambil dari blok <script id="dbSnapshot"> dalam rutina.html
+   (sumber kebenaran tunggal — pratinjau selalu mulai dari data yang sama
+   dengan yang dilihat klien saat server tak terjangkau) */
+let snapshotCache: Record<string, unknown> | null | undefined;
+function loadSnapshot(): Record<string, unknown> | null {
+  if (snapshotCache !== undefined) return snapshotCache;
+  snapshotCache = null;
+  try {
+    if (!existsSync(HTML_SNAPSHOT)) return snapshotCache;
+    const html = readFileSync(HTML_SNAPSHOT, "utf8");
+    const m = html.match(/<script[^>]*id="dbSnapshot"[^>]*>([\s\S]*?)<\/script>/);
+    if (!m) return snapshotCache;
+    const parsed = JSON.parse(m[1]) as { ok?: boolean; data?: Record<string, unknown> };
+    if (parsed?.ok && parsed?.data) snapshotCache = parsed.data;
+  } catch {
+    snapshotCache = null;
+  }
+  return snapshotCache;
+}
+
+function catRowId(name: string): string {
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "cat";
+  return `fc-${slug}`;
+}
+
+async function seedFromSnapshot(client: Client): Promise<void> {
+  const data = loadSnapshot();
+  if (!data) return;
+  const rows = (key: string): Record<string, unknown>[] =>
+    Array.isArray(data[key]) ? (data[key] as Record<string, unknown>[]) : [];
+
+  const settings = (data.settings ?? {}) as Record<string, unknown>;
+  await client.execute({
+    sql: `INSERT INTO "AppSettings"("userName","weekStart","targetCompletion") VALUES (?,?,?)`,
+    args: [str(settings.userName, "Sahabat Rutina"), num(settings.weekStart) || 1, num(settings.targetCompletion) || 80],
+  });
+  const groups = rows("habitGroups");
+  for (let i = 0; i < groups.length; i++) {
+    await client.execute({
+      sql: `INSERT INTO "HabitGroup"("id","name","color","sortOrder") VALUES (?,?,?,?)`,
+      args: [str(groups[i].id), str(groups[i].name), str(groups[i].color, "#10B981"), i],
+    });
+  }
+  const cats = rows("habitCategories");
+  for (let i = 0; i < cats.length; i++) {
+    await client.execute({
+      sql: `INSERT INTO "HabitOption"("type","label","color","sortOrder") VALUES ('category',?,?,?)`,
+      args: [str(cats[i].name), str(cats[i].color, "#64748B"), i],
+    });
+  }
+  const habits = rows("habits");
+  for (const h of habits) {
+    await client.execute({
+      sql: `INSERT INTO "Habit"("id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","isActive","isArchived") VALUES (?,?,?,?,?,?,?,?,?,?,?,1,0)`,
+      args: [
+        str(h.id), str(h.name), str(h.emoji), str(h.category, "General"),
+        str(h.priority, "Medium"), str(h.difficulty, "Medium"), str(h.habitType, "normal"),
+        Math.round(num(h.target)) || 1, h.unit ? str(h.unit) : null, h.reminder ? str(h.reminder) : null,
+        h.groupId ? str(h.groupId) : null,
+      ],
+    });
+  }
+  for (const l of rows("habitLogs")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "HabitLog"("habitId","date","completed","value") VALUES (?,?,?,?)`,
+      args: [str(l.habitId), dpart(l.date), num(l.completed) === 1 ? 1 : 0, num(l.value) || 1],
+    });
+  }
+  for (const c of rows("financeCategories")) {
+    await client.execute({
+      sql: `INSERT INTO "FinanceCategory"("id","name","emoji","color","type","sortOrder") VALUES (?,?,?,?,?,?)`,
+      args: [catRowId(str(c.name)), str(c.name), str(c.emoji), str(c.color, "#64748B"), str(c.type) === "income" ? "income" : "expense", 0],
+    });
+  }
+  for (const s of rows("fundSources")) {
+    await client.execute({
+      sql: `INSERT INTO "FundSource"("id","name","type","emoji","initialBalance","sortOrder","isArchived") VALUES (?,?,?,?,?,0,0)`,
+      args: [str(s.id), str(s.name), str(s.type, "bank"), str(s.emoji), Math.round(num(s.initialBalance))],
+    });
+  }
+  for (const t of rows("transactions")) {
+    await client.execute({
+      sql: `INSERT INTO "Transaction"("id","type","amount","category","sourceId","description","date") VALUES (?,?,?,?,?,?,?)`,
+      args: [
+        str(t.id), str(t.type) === "income" ? "income" : str(t.type) === "transfer" ? "transfer" : "expense",
+        Math.round(num(t.amount)), str(t.category, "Lainnya"),
+        t.sourceId ? str(t.sourceId) : null, str(t.description), dpart(t.date),
+      ],
+    });
+  }
+  for (const b of rows("weeklyBudgets")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "WeeklyBudget"("category","month","amount") VALUES (?,?,?)`,
+      args: [str(b.category), str(b.month), Math.round(num(b.amount))],
+    });
+  }
+  for (const d of rows("dailyLogs")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "DailyLog"("date","mood","energy","sleep") VALUES (?,?,?,?)`,
+      args: [dpart(d.date), Math.round(num(d.mood)), Math.round(num(d.energy)), num(d.sleep)],
+    });
+  }
+}
+
+/* -------------------------------------------- introspeksi kolom (aman) */
+
+const FALLBACK_COLS: Record<string, string[]> = {
+  Habit: ["id", "name", "emoji", "category", "priority", "difficulty", "habitType", "target", "unit", "reminder", "groupId", "isActive", "isArchived"],
+  HabitLog: ["habitId", "date", "completed", "value"],
+  Transaction: ["id", "type", "amount", "category", "sourceId", "description", "date"],
+  WeeklyBudget: ["category", "month", "amount"],
+  FundSource: ["id", "name", "type", "emoji", "initialBalance"],
+  FinanceCategory: ["id", "name", "emoji", "color", "type", "sortOrder"],
+};
+const colCache = new Map<string, Set<string>>();
+
+async function columnsOf(client: Client, table: string): Promise<Set<string>> {
+  const hit = colCache.get(table);
+  if (hit) return hit;
+  let cols: Set<string>;
+  try {
+    const res = await client.execute(`PRAGMA table_info("${table}")`);
+    cols = new Set(res.rows.map((r) => str((r as { name?: unknown }).name)));
+    if (cols.size === 0) cols = new Set(FALLBACK_COLS[table] ?? []);
+  } catch {
+    cols = new Set(FALLBACK_COLS[table] ?? []);
+  }
+  colCache.set(table, cols);
+  return cols;
+}
+
+/* INSERT yang hanya memakai kolom yang benar-benar ada di tabel target —
+   mencocokkan diri dengan skema asli apa pun bentuknya (mis. kolom waktu
+   opsional createdAt/updatedAt di Turso legacy ikut terisi bila tersedia). */
+async function insertRow(client: Client, table: string, row: Record<string, unknown>): Promise<void> {
+  const cols = await columnsOf(client, table);
+  const names = Object.keys(row).filter((c) => cols.has(c));
+  if (cols.has("createdAt") && !names.includes("createdAt")) names.push("createdAt");
+  if (cols.has("updatedAt") && !names.includes("updatedAt")) names.push("updatedAt");
+  if (!names.length) return;
+  const now = new Date().toISOString();
+  const args = names.map((n) => (n in row ? (row[n] ?? null) : now));
+  const sql = `INSERT INTO "${table}" (${names.map((n) => `"${n}"`).join(", ")}) VALUES (${names.map(() => "?").join(", ")})`;
+  await client.execute({ sql, args });
+}
+
+/* -------------------------------------------------------------- pembacaan */
 
 export async function GET() {
-  const client = getClient();
-  if (!client) {
+  let target: DbTarget;
+  try {
+    target = await getTarget();
+  } catch {
     return NextResponse.json(
-      { ok: false, error: "RUTINA_TURSO_URL / RUTINA_TURSO_TOKEN belum diisi." },
+      { ok: false, error: "Sumber data belum siap. Muat ulang sebentar lagi." },
       { status: 503, headers: NO_STORE },
     );
   }
@@ -34,24 +260,24 @@ export async function GET() {
   try {
     const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings] =
       await Promise.all([
-        client.execute(
+        target.client.execute(
           `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
         ),
-        client.execute(`SELECT "id","name","color" FROM "HabitGroup" ORDER BY "sortOrder"`),
-        client.execute(`SELECT "habitId","date","completed","value" FROM "HabitLog"`),
-        client.execute(
+        target.client.execute(`SELECT "id","name","color" FROM "HabitGroup" ORDER BY "sortOrder"`),
+        target.client.execute(`SELECT "habitId","date","completed","value" FROM "HabitLog"`),
+        target.client.execute(
           `SELECT "type","label","color" FROM "HabitOption" WHERE "type"='category' ORDER BY "sortOrder"`,
         ),
-        client.execute(`SELECT "name","emoji","color","type" FROM "FinanceCategory"`),
-        client.execute(
+        target.client.execute(`SELECT "name","emoji","color","type" FROM "FinanceCategory"`),
+        target.client.execute(
           `SELECT "id","type","amount","category","sourceId","description","date" FROM "Transaction" ORDER BY "date" DESC`,
         ),
-        client.execute(`SELECT "category","month","amount" FROM "WeeklyBudget"`),
-        client.execute(
+        target.client.execute(`SELECT "category","month","amount" FROM "WeeklyBudget"`),
+        target.client.execute(
           `SELECT "id","name","type","emoji","initialBalance" FROM "FundSource" WHERE "isArchived"=0 ORDER BY "sortOrder"`,
         ),
-        client.execute(`SELECT "date","mood","energy","sleep" FROM "DailyLog"`),
-        client.execute(`SELECT "userName","weekStart","targetCompletion" FROM "AppSettings" LIMIT 1`),
+        target.client.execute(`SELECT "date","mood","energy","sleep" FROM "DailyLog"`),
+        target.client.execute(`SELECT "userName","weekStart","targetCompletion" FROM "AppSettings" LIMIT 1`),
       ]);
 
     const data = {
@@ -124,14 +350,309 @@ export async function GET() {
     };
 
     return NextResponse.json(
-      { ok: true, source: "turso", fetchedAt: new Date().toISOString(), data },
+      { ok: true, source: target.source, fetchedAt: new Date().toISOString(), data },
       { headers: NO_STORE },
     );
   } catch (error) {
     console.error("[/api/rutina] gagal membaca database:", error);
     return NextResponse.json(
-      { ok: false, error: "Gagal membaca database Turso." },
+      { ok: false, error: "Gagal membaca database." },
       { status: 502, headers: NO_STORE },
     );
   }
+}
+
+/* ------------------------------------------------------------- penulisan */
+
+interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string }
+interface BudRow { category: string; month: string; amount: number }
+interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null }
+interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
+interface Overlay {
+  txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
+  budAdd: BudRow[]; budEdit: Record<string, BudRow>; budDel: string[];
+  habitAdd: HabitRow[]; habitDel: string[];
+  logAdd: Record<string, number | true>; logDel: Record<string, true>;
+  srcAdd: SrcRow[]; srcEdit: Record<string, SrcRow>; srcDel: string[];
+  catRename: Record<string, string>; catDel: string[];
+}
+
+function asRecord(v: unknown): Record<string, unknown> {
+  return v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : {};
+}
+function sanitizeTx(v: unknown): TxRow {
+  const o = asRecord(v);
+  const type = str(o.type) === "income" ? "income" : str(o.type) === "transfer" ? "transfer" : "expense";
+  return {
+    id: str(o.id),
+    type,
+    amount: Math.round(num(o.amount)),
+    category: str(o.category, "Lainnya"),
+    sourceId: o.sourceId ? str(o.sourceId) : null,
+    description: str(o.description),
+    date: str(o.date).slice(0, 10),
+  };
+}
+function sanitizeBud(v: unknown): BudRow {
+  const o = asRecord(v);
+  return { category: str(o.category), month: str(o.month).slice(0, 7), amount: Math.round(num(o.amount)) };
+}
+function sanitizeHabit(v: unknown): HabitRow {
+  const o = asRecord(v);
+  return {
+    id: str(o.id),
+    name: str(o.name).slice(0, 80),
+    emoji: str(o.emoji).slice(0, 16),
+    category: str(o.category, "General").slice(0, 40),
+    priority: str(o.priority, "Medium").slice(0, 16),
+    difficulty: str(o.difficulty, "Medium").slice(0, 16),
+    habitType: str(o.habitType, "normal").slice(0, 16),
+    target: Math.round(num(o.target)) || 1,
+    unit: o.unit ? str(o.unit).slice(0, 16) : null,
+    reminder: o.reminder ? str(o.reminder).slice(0, 16) : null,
+    groupId: o.groupId ? str(o.groupId) : null,
+  };
+}
+function sanitizeSrc(v: unknown): SrcRow {
+  const o = asRecord(v);
+  return {
+    id: str(o.id),
+    name: str(o.name).slice(0, 60),
+    type: str(o.type, "bank").slice(0, 16),
+    emoji: str(o.emoji).slice(0, 16),
+    initialBalance: Math.round(num(o.initialBalance)),
+  };
+}
+function strList(v: unknown): string[] {
+  return Array.isArray(v) ? v.map((x) => str(x)).filter(Boolean) : [];
+}
+
+function sanitizeOverlay(input: unknown): Overlay | null {
+  const o = asRecord(input);
+  if (typeof o.v !== "number") return null;
+  const txList = (v: unknown): TxRow[] => (Array.isArray(v) ? v.map(sanitizeTx).filter((t) => t.id && t.date) : []);
+  const budList = (v: unknown): BudRow[] => (Array.isArray(v) ? v.map(sanitizeBud).filter((b) => b.category && b.month) : []);
+  const habitList = (v: unknown): HabitRow[] => (Array.isArray(v) ? v.map(sanitizeHabit).filter((h) => h.id && h.name) : []);
+  const srcList = (v: unknown): SrcRow[] => (Array.isArray(v) ? v.map(sanitizeSrc).filter((s) => s.id && s.name) : []);
+  const txMap: Record<string, TxRow> = {};
+  for (const [k, v] of Object.entries(asRecord(o.txEdit))) {
+    const t = sanitizeTx(v);
+    if (k && t.date) txMap[k] = t;
+  }
+  const budMap: Record<string, BudRow> = {};
+  for (const [k, v] of Object.entries(asRecord(o.budEdit))) {
+    const b = sanitizeBud(v);
+    if (k && b.category && b.month) budMap[k] = b;
+  }
+  const habitMap = asRecord(o.logAdd);
+  const logAdd: Record<string, number | true> = {};
+  for (const k of Object.keys(habitMap)) {
+    const v = habitMap[k];
+    logAdd[k] = typeof v === "number" ? num(v) : true;
+  }
+  const logDel: Record<string, true> = {};
+  for (const k of Object.keys(asRecord(o.logDel))) logDel[k] = true;
+  const catRename: Record<string, string> = {};
+  for (const [k, v] of Object.entries(asRecord(o.catRename))) {
+    if (k && str(v) && str(v) !== k) catRename[k] = str(v).slice(0, 40);
+  }
+  return {
+    txAdd: txList(o.txAdd), txEdit: txMap, txDel: strList(o.txDel),
+    budAdd: budList(o.budAdd), budEdit: budMap, budDel: strList(o.budDel),
+    habitAdd: habitList(o.habitAdd), habitDel: strList(o.habitDel),
+    logAdd, logDel,
+    srcAdd: srcList(o.srcAdd), srcEdit: (() => {
+      const m: Record<string, SrcRow> = {};
+      for (const [k, v] of Object.entries(asRecord(o.srcEdit))) {
+        const s = sanitizeSrc(v);
+        if (k && s.name) m[k] = s;
+      }
+      return m;
+    })(), srcDel: strList(o.srcDel),
+    catRename, catDel: strList(o.catDel),
+  };
+}
+
+/* kunci jurnal "habitId|date" dan "kategori|bulan" dipecah pada '|' pertama */
+function splitKey(key: string): [string, string] {
+  const i = key.indexOf("|");
+  return i < 0 ? [key, ""] : [key.slice(0, i), key.slice(i + 1)];
+}
+
+export async function POST(request: Request) {
+  const size = Number(request.headers.get("content-length") ?? 0);
+  if (size > MAX_BODY_BYTES) {
+    return NextResponse.json({ ok: false, error: "Lapisan catatan terlalu besar." }, { status: 413, headers: NO_STORE });
+  }
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "Body bukan JSON yang valid." }, { status: 400, headers: NO_STORE });
+  }
+  const b = asRecord(body);
+  const overlay = sanitizeOverlay(b.overlay);
+  if (!overlay) {
+    return NextResponse.json({ ok: false, error: "Struktur lapisan catatan tidak dikenal." }, { status: 400, headers: NO_STORE });
+  }
+
+  let target: DbTarget;
+  try {
+    target = await getTarget();
+  } catch {
+    return NextResponse.json({ ok: false, error: "Sumber data belum siap." }, { status: 503, headers: NO_STORE });
+  }
+
+  try {
+    const result = await applyOverlay(
+      target.client,
+      overlay,
+      Array.isArray(b.budgets) ? (b.budgets as unknown[]) : null,
+      Array.isArray(b.finCats) ? (b.finCats as unknown[]) : null,
+    );
+    return NextResponse.json({ ok: true, source: target.source, ...result }, { headers: NO_STORE });
+  } catch (error) {
+    console.error("[/api/rutina] gagal menerapkan catatan:", error);
+    return NextResponse.json({ ok: false, error: "Gagal menyimpan ke database." }, { status: 502, headers: NO_STORE });
+  }
+}
+
+async function applyOverlay(
+  client: Client,
+  ov: Overlay,
+  budgets: unknown[] | null,
+  finCats: unknown[] | null,
+): Promise<{ applied: Record<string, number>; failed: { op: string; error: string }[] }> {
+  const applied: Record<string, number> = {};
+  const failed: { op: string; error: string }[] = [];
+  const run = async (op: string, fn: () => Promise<unknown>) => {
+    try {
+      await fn();
+      applied[op] = (applied[op] ?? 0) + 1;
+    } catch (error) {
+      failed.push({ op, error: String((error as Error)?.message ?? error).slice(0, 160) });
+    }
+  };
+  const mapCat = (c: string): string => ov.catRename[c] || c;
+
+  /* 1 · ganti nama kategori pada transaksi. (Daftar kategori & anggaran
+        diganti penuh dari daftar final klien di bawah — tak perlu di-update.) */
+  for (const [oldName, newName] of Object.entries(ov.catRename)) {
+    await run("catRename", () => client.execute({
+      sql: `UPDATE "Transaction" SET "category"=? WHERE "category"=?`,
+      args: [newName, oldName],
+    }));
+  }
+
+  /* 2 · transaksi: hapus → tambal → tambah */
+  for (const id of ov.txDel) {
+    await run("txDel", () => client.execute({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [id] }));
+  }
+  for (const [id, t] of Object.entries(ov.txEdit)) {
+    if (!id || !t.date) continue;
+    await run("txEdit", () => client.execute({
+      sql: `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=? WHERE "id"=?`,
+      args: [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, id],
+    }));
+  }
+  for (const t of ov.txAdd) {
+    await run("txAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [t.id] });
+      await insertRow(client, "Transaction", {
+        id: t.id, type: t.type, amount: t.amount, category: mapCat(t.category),
+        sourceId: t.sourceId, description: t.description, date: t.date,
+      });
+    });
+  }
+
+  /* 3 · anggaran — daftar final dari klien menggantikan seluruh baris;
+        menetralkan jerat kunci ganti-nama kategori (bulan tetap dipertahankan
+        klien yang mengelola) */
+  if (budgets) {
+    await run("budgets", async () => {
+      await client.execute(`DELETE FROM "WeeklyBudget"`);
+      for (const raw of budgets) {
+        const bb = sanitizeBud(raw);
+        if (!bb.category || !bb.month) continue;
+        await insertRow(client, "WeeklyBudget", { category: mapCat(bb.category), month: bb.month, amount: bb.amount });
+      }
+    });
+  }
+
+  /* 4 · kategori keuangan — daftar final, id deterministik dari nama */
+  if (finCats) {
+    await run("finCats", async () => {
+      await client.execute(`DELETE FROM "FinanceCategory"`);
+      let i = 0;
+      for (const raw of finCats) {
+        const o = asRecord(raw);
+        const name = str(o.name).slice(0, 40);
+        if (!name) continue;
+        await insertRow(client, "FinanceCategory", {
+          id: catRowId(name), name,
+          emoji: str(o.emoji).slice(0, 16), color: str(o.color, "#64748B").slice(0, 16),
+          type: str(o.type) === "income" ? "income" : "expense", sortOrder: i++,
+        });
+      }
+    });
+  }
+
+  /* 5 · kebiasaan: hapus (arsipkan + bersihkan log) → tambah */
+  for (const id of ov.habitDel) {
+    await run("habitDel", async () => {
+      await client.execute({ sql: `UPDATE "Habit" SET "isArchived"=1 WHERE "id"=?`, args: [id] });
+      await client.execute({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=?`, args: [id] });
+    });
+  }
+  for (const h of ov.habitAdd) {
+    await run("habitAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "Habit" WHERE "id"=?`, args: [h.id] });
+      await insertRow(client, "Habit", {
+        id: h.id, name: h.name, emoji: h.emoji, category: h.category, priority: h.priority,
+        difficulty: h.difficulty, habitType: h.habitType, target: h.target, unit: h.unit,
+        reminder: h.reminder, groupId: h.groupId, isActive: 1, isArchived: 0,
+      });
+    });
+  }
+
+  /* 6 · centang kebiasaan (kunci habitId|date) */
+  for (const key of Object.keys(ov.logDel)) {
+    const [habitId, date] = splitKey(key);
+    if (!habitId || !date) continue;
+    await run("logDel", () => client.execute({
+      sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`,
+      args: [habitId, date],
+    }));
+  }
+  for (const [key, v] of Object.entries(ov.logAdd)) {
+    const [habitId, date] = splitKey(key);
+    if (!habitId || !date) continue;
+    await run("logAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`, args: [habitId, date] });
+      await insertRow(client, "HabitLog", { habitId, date, completed: 1, value: typeof v === "number" ? v : 1 });
+    });
+  }
+
+  /* 7 · dompet: arsipkan → tambal → tambah */
+  for (const id of ov.srcDel) {
+    await run("srcDel", () => client.execute({ sql: `UPDATE "FundSource" SET "isArchived"=1 WHERE "id"=?`, args: [id] }));
+  }
+  for (const [id, s] of Object.entries(ov.srcEdit)) {
+    if (!id || !s.name) continue;
+    await run("srcEdit", () => client.execute({
+      sql: `UPDATE "FundSource" SET "name"=?,"type"=?,"emoji"=?,"initialBalance"=? WHERE "id"=?`,
+      args: [s.name, s.type, s.emoji, s.initialBalance, id],
+    }));
+  }
+  for (const s of ov.srcAdd) {
+    await run("srcAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "FundSource" WHERE "id"=?`, args: [s.id] });
+      await insertRow(client, "FundSource", {
+        id: s.id, name: s.name, type: s.type, emoji: s.emoji,
+        initialBalance: s.initialBalance, isArchived: 0,
+      });
+    });
+  }
+
+  return { applied, failed };
 }
