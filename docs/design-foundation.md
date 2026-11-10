@@ -98,7 +98,7 @@ Kategori baru tanpa entri memakai fallback: hash nama →
 3. Satu elemen = satu keluarga warna; status (honey/rose) tidak dicampur dengan aksen.
 4. Latar ikon berwarna memakai pola `${warna}1F` (12% alpha) + ikon `color: ${warna}`.
 5. Nilai negatif uang → `--rose-deep` (teks dan/atau angka), positif masuk → `--sage-deep`.
-6. Gradasi hanya untuk brand-mark, nav aktif, dan objek ilustrasi — bukan kartu.
+6. Gradasi hanya untuk brand-mark, nav aktif, hero ringkasan (pengecualian resmi v2.4), dan objek ilustrasi — bukan kartu.
 7. Semua warna baru harus lewat token; **jangan** hex baru di komponen.
 8. Jangan mewarnai border dengan warna status pada kartu netral (cukup bar + label).
 
@@ -127,6 +127,10 @@ memakai **ExtraBold 800** untuk mempertahankan bobot display.
 | Sub / meta | Plus Jakarta Sans | 13px | 500–600 | `--ink-3` |
 | Caption/tag | Plus Jakarta Sans | 10.5–12px | 600–800 | tag: 10.5/800 |
 | Nominal transaksi | Plus Jakarta Sans | 14.5px | 800 | `t-num`, rata kanan |
+
+**Lantai ukuran (v2.6):** tidak ada teks di bawah **10.5px**. Micro-label uppercase
+(eyebrow, DOW kalender, tag) boleh 10.5px; label konten nyata (nominal transaksi,
+legend donat, label dompet, nama lencana) minimal 11px.
 
 ### 3.2 Aturan angka
 
@@ -200,17 +204,18 @@ Tiga tingkat, **netral**, berlapis. Nilai eksak (jangan diubah sesuka hati):
 
 | Tier | Makna | Komponen |
 |---|---|---|
-| **sm** | kontrol ringkas, permukaan sunyi | brand-mark, `btn-primary` saat diam, pill dock aktif, `ph-art`, seg aktif, dompet-card, hover icon-btn |
-| **md** | permukaan terangkat default | **semua** `.card`, hero-quote, elevasi saat hover (btn-primary hover, habit-card hover) |
-| **lg** | lift terkuat, momen penting | hero ringkasan, dock mengambang, sheet modal, toast |
+| **sm** | kontrol aktif/terpilih, hover kecil | brand-mark, pill dock aktif, seg aktif, `dp-d.sel`, hover icon-btn & avatar |
+| **md** | elevasi interaktif (hover) | btn-primary/danger hover, habit-card hover, hero-quote (bagian momen hero) |
+| **lg** | lift terkuat, momen penting | hero ringkasan, dock mengambang, sheet modal, datepicker/timepicker, dropdown, toast |
 
 Aturan:
 1. Satu kekuatan per status; elevasi berubah hanya bila status berubah (diam→hover boleh naik satu tier).
 2. **Netral selalu** — dilarang shadow berwarna/glow (`rgba(hijau,…)` dilarang).
 3. Daftar padat (baris transaksi, agenda, sel kalender) **tanpa** shadow.
 4. Jangan menumpuk dua utilitas shadow pada satu elemen.
-5. Ring status (`.hm-cell.today`, `.wd.today`) adalah **penanda status**, bukan elevasi — biarkan.
-6. `Beautiful lg` tidak untuk kontrol kecil / list.
+5. **Kartu diam = datar** (border + radius, tanpa shadow) — sejak v2.6; hierarki lewat tipografi, warna, dan spasi, bukan tumpukan kartu mengambang. Tombol primer berwarna juga datar saat diam, naik ke md hanya saat hover.
+6. Ring status (`.hm-cell.today`, `.wd.today`) adalah **penanda status**, bukan elevasi — biarkan.
+7. `Beautiful lg` tidak untuk kontrol kecil / list.
 
 ---
 
@@ -319,12 +324,12 @@ Kulit: `#FCD9B8` (utama) / `#F5C09A` (bayang); rambut & garis: `#1E293B`.
 | `btn-check` | 44 lingkaran · border 2 · `pop` .4s saat selesai |
 | `avatar` | 40 · inisial Plus Jakarta Sans 700 · border `#A7F3D0` |
 | `brand-mark` | 42 (tb 34) · radius 12 · gradasi `#34D399→#059669` |
-| `card` | `--surface` · border `--line` · radius 16 · shadow **md** |
+| `card` | `--surface` · border `--line` · radius 16 · **datar** (tanpa shadow diam & tanpa dekorasi latar, v2.6) |
 | `agenda-row` | grid `54 52 1fr auto auto` (mobile `44 1fr 44`) · radius 16 · `done`: wash hijau |
 | `habit-card` | spot 56 · `wd` 27/hari · bar konsistensi + `btn-check` |
 | `streak-pill` | `--terra-soft` + `--terra-deep` · 11/800 |
 | `tx-row` | `tx-ic` 44 r14 · nominal 14.5/800 kanan · sub `kategori · dompet` |
-| `dompet-card` | pad 13 15 · r16 · shadow **sm** · `src-ic` 42 r13 · saldo 15.5 Plus Jakarta Sans |
+| `dompet-card` | pad 13 15 · r16 · datar (border saja) · `src-ic` 42 r13 · saldo 15.5 Plus Jakarta Sans |
 | Dock | r24 · blur 18 · `rgba(255,255,255,.92)` · item min-h 50 r16 · aktif `flex-grow 1.8` + label max-w 86 |
 | Sidebar | 268 · nav-item 46 r14 · aktif `--terra-soft` + bar kiri 4×24 |
 | Sheet modal | maks 520 · r28 · maks-h 92dvh · field 48 r14 · icon-picker grid 4 |
@@ -416,6 +421,7 @@ Semua angka berasal dari database asli (atau snapshot identik saat offline) —
 
 | Versi | Tanggal | Perubahan |
 |---|---|---|
+| 2.6 | 2026-11 | **Kartu bersih & hierarki elevasi** (arah 70% antarmuka bersih + 20% botani + 10% micro-interaction, mengikuti audit over-design): dekorasi latar kartu (garlanda sprig v2.5) dihapus seluruhnya — token `--ill-*` dihapus; ilustrasi botani kini eksklusif di hero, empty state, side-card sidebar, dan ilustrasi konten (spot/scene/head-art). Kartu diam jadi datar (border + radius, tanpa shadow): `.card`, container strip statistik (`.stats/.mini-stats/.cal-strip/.g-fin`), `dompet-card`, `ph-art`, tombol primer saat diam; shadow tetap untuk hero, overlay (sheet/dp/tp/cs-menu/toast), dock, dan hover interaktif. Tipografi: lantai 10.5px (9.5/10px dinaikkan), label konten nyata 10.5→11px. Layout tablet: konten 2 kolom mulai 641px (`habit-grid`, `g-main/g-donut/g-cal/g-waw`, `g-set`, `hm-side`) — runtuh 1 kolom hanya ≤640px; g-fin tetap pola 2-kolom+span ≤900px. `transition: all` (14 instance) diganti properti spesifik. `ill-deco` celengan & kelas `stat-deco`/`card-plain-bl` dihapus. |
 | 2.5 | 2026-11 | Ilustrasi latar untuk SEMUA kartu di semua halaman & tab: aset SVG `public/illustrations/card-sprig.svg` (untaian botani sudut kanan-atas, daun mint/sage + 2 koin amber + percik) dan `card-sprig-bl.svg` (tunas garis tipis kiri-bawah) ditempel via satu aturan CSS `.card` (token `--ill-corner/--ill-mini/--ill-size-c/--ill-size-m/--ill-seg`) — kartu hasil render JS (habit-card, empty-state) ikut otomatis. Segmen strip statistik (.stat/.mini-stat/.scene-stat) bergarlanda kecil seragam; scene-stat mobile & stat bergambar-deco (.stat-deco) dikecualikan demi keterbacaan angka; tunas kiri-bawah dimatikan pada kartu grid data (.card-plain-bl: 2 heatmap, kalender). Celengan `.ill-deco` diperkecil 84→70px, opacity .85→.68. Glow `::after` streak-banner digantikan garlanda. Audit: overflow 0px di 6 halaman (360px & 1280px), golden path habit 0/17→1/17 + toast + ring utuh, VLM keterbacaan LAYAK (mobile 7–8.5/10, desktop 6.5–8.5/10). |
 | 2.4 | 2026-11 | Ilustrasi latar hero: aset statis `public/illustrations/hero-bg.webp` (8KB, dekorasi botani hanya di tepi kanan, zona teks mint polos) sebagai layer `.hero-bg` di bawah konten hero; gradient mint tetap jadi fallback. Zona teks diverifikasi polos via profil deviasi piksel + uji keterbacaan VLM. Ornamen sudut `.hero-ill` mobile diredam ke opacity .8. |
 | 2.3 | 2026-11 | Tipografi: sistem font tunggal **Plus Jakarta Sans** (karya Tokotype/Indonesia, dipakai Gojek) menggantikan pasangan Source Serif 4 + Inter — sejajar dengan bahasa visual fintech Indonesia (GoPay/Livin'). Heading `.h-serif` naik ke ExtraBold 800; tabular-nums terverifikasi bekerja (`tnum`). |
