@@ -373,7 +373,7 @@ const heroSceneAssets: Partial<Record<BotanicalIllustrationVariant, { src: strin
   home: { src: "/illustrations/hero-bg-home.svg", w: 300, h: 160 },
   habit: { src: "/illustrations/hero-bg-habits.svg", w: 480, h: 200 },
   sprout: { src: "/illustrations/hero-bg-sprout.svg", w: 260, h: 260 },
-  finance: { src: "/illustrations/hero-bg-finance.svg", w: 460, h: 240 },
+  finance: { src: "/illustrations/hero-fg-finance.svg", w: 420, h: 260 },
   calendar: { src: "/illustrations/hero-bg-calendar.svg", w: 300, h: 280 },
   insights: { src: "/illustrations/hero-bg-insights.svg", w: 360, h: 240 },
   goals: { src: "/illustrations/hero-bg-goals.svg", w: 340, h: 240 },

@@ -266,20 +266,22 @@ b,strong{font-weight:600}
 .page-hero .hero-body h2{font-size:clamp(19px,2.2vw,21.5px);max-width:none}
 .page-hero .hero-body .t-sub{max-width:52ch}
 .page-hero .ph-scene{position:absolute;right:-14px;bottom:-16px;z-index:0;width:clamp(192px,27vw,312px);height:auto;pointer-events:none;user-select:none;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07))}
-.page-hero>*:not(.ph-scene){position:relative;z-index:1}
+.page-hero>*:not(.ph-scene):not(.ph-bg){position:relative;z-index:1}
 .ph-progress{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;max-width:430px}
 .ph-progress .bar{flex:1;min-width:140px;height:9px}
 .ph-progress .pill{background:rgba(255,255,255,.86);border:1px solid rgba(167,243,208,.9);color:var(--terra-deep);font-size:12px;padding:6px 12px}
-/* Keuangan — kartu hijau sedang (pola finance-balance React: #4b7d61):
-   scene perbukitan & koin memang dirancang untuk latar hijau */
-.page-hero--dark{border-color:rgba(28,78,56,.4);background:linear-gradient(130deg,#4B7D61 0%,#5B8E6D 55%,#3E6B52 100%)}
-.page-hero--dark::after{background:radial-gradient(closest-side,rgba(220,252,231,.16),transparent)}
-.page-hero--dark .h-serif{color:#fff}
-.page-hero--dark .eyebrow{color:#D1FAE5}
-.page-hero--dark .t-sub{color:rgba(236,253,245,.92)}
-.page-hero--dark .ph-progress .pill{background:rgba(255,255,255,.16);border-color:rgba(220,252,231,.45);color:#ECFDF5}
-.page-hero--dark .ph-progress .bar{background:rgba(0,0,0,.26)}
-.page-hero--dark .ph-scene{width:clamp(214px,30vw,342px);opacity:1;filter:none}
+/* Keuangan (v2.16) — kartu TERANG botani agar satu bahasa dengan tema: krem
+   sage lembut + latar ilustrasi penuh (ph-bg, lembah sage & koin), lapisan
+   depan koin bertunas (ph-scene) tetap berayun & bergeser parallax.
+   State arus kas mewarnai judul: surplus terra, defisit rose (konvensi tema). */
+.page-hero--fin{border-color:rgba(5,150,105,.18);background:linear-gradient(130deg,#FFFEF8 0%,#F2FDF5 46%,#E4F8EC 100%)}
+.page-hero--fin::after{background:radial-gradient(closest-side,rgba(253,230,138,.18),transparent)}
+.page-hero--fin .ph-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;z-index:0;pointer-events:none;user-select:none}
+.page-hero--fin .ph-scene{width:clamp(196px,26vw,318px);filter:drop-shadow(0 10px 16px rgba(15,23,42,.08))}
+.page-hero--fin .t-sub{color:var(--ink-2)}/* sub-teks di atas ilustrasi: tinta lebih pekat agar tetap AA */
+.page-hero--fin.is-surplus .h-serif{color:var(--terra-strong)}
+.page-hero--fin.is-defisit .h-serif{color:var(--rose-deep)}
+.page-hero--fin.is-defisit .ph-progress .bar i{background:var(--rose)}
 /* Kalender — nuansa sky lembut; komposisi busur bulan ditempelkan
    kanan-atas agar teks kiri-bawah tetap lapang */
 .page-hero--sky{border-color:rgba(14,165,233,.24);background:linear-gradient(130deg,#F0F9FF 0%,#E0F2FE 58%,#D1FAE5 100%)}
@@ -305,8 +307,8 @@ b,strong{font-weight:600}
   .page-hero .hero-body{max-width:100%;padding-right:56px}
   .page-hero .ph-scene{width:150px;opacity:.62;right:-10px;bottom:-12px}
   .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
-  .page-hero--dark .ph-scene{width:172px;opacity:.85}
-  .page-hero--dark .hero-body{padding-right:64px}
+  .page-hero--fin .ph-scene{width:170px;opacity:.95}
+  .page-hero--fin .hero-body{padding-right:64px}
   .page-hero--art .hero-ill{max-width:236px}
   .page-hero--art .hero-body{padding-right:0}
   .ph-progress .bar{min-width:110px}
@@ -2145,10 +2147,12 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- PANE · ANALISA -->
   <div data-fin-pane="analisa" id="fin-pane-analisa" role="tabpanel" aria-labelledby="fin-tab-analisa" aria-label="Analisa keuangan">
-  <!-- HERO · ARUS KAS (v2.9) — scene perbukitan hijau & koin keemasan;
-       aset ini memang dirancang untuk kartu hijau tua -->
-  <div class="page-hero page-hero--dark" id="financeHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-finance.svg" alt="" aria-hidden="true" loading="lazy"/>
+  <!-- HERO · ARUS KAS (v2.16) — kartu terang botani: ilustrasi lembah sage &
+       koin menjadi LATAR PENUH (ph-bg), koin bertunas mengapung di depan
+       (ph-scene) sehingga napas taman & parallax tetap hidup -->
+  <div class="page-hero page-hero--fin" id="financeHero">
+    <img class="ph-bg" src="/illustrations/hero-bg-finance-light.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-fg-finance.svg" alt="" aria-hidden="true" loading="lazy"/>
     <div class="hero-body">
       <div class="eyebrow">Arus kas · <span id="finHeroMonth">bulan ini</span></div>
       <h2 class="h-serif" id="finHeroTitle">Memuat arus kas…</h2>
@@ -3432,8 +3436,13 @@ function renderFinanceHero(){
   const mk=state.finMonth;
   const {masuk,keluar,nIn,nOut}=finTotals(mk);
   const net=masuk-keluar;
+  const ada=(masuk||keluar);
+  // v2.16 · state arus kas di kartu hero — surplus mewarnai judul terra,
+  // defisit rose; bar rasio ikut rose saat pengeluaran melampaui pemasukan.
+  $('#financeHero').classList.toggle('is-surplus',ada&&net>0);
+  $('#financeHero').classList.toggle('is-defisit',ada&&net<0);
   $('#finHeroMonth').textContent=monthLabel(mk);
-  $('#finHeroTitle').textContent=(masuk||keluar)?`${net>=0?'Surplus':'Defisit'} ${rupiah(Math.abs(net))}`:'Belum ada transaksi';
+  $('#finHeroTitle').textContent=ada?`${net>=0?'Surplus':'Defisit'} ${rupiah(Math.abs(net))}`:'Belum ada transaksi';
   $('#finHeroSub').textContent=(masuk||keluar)?`Masuk ${rupiah(masuk)} · Keluar ${rupiah(keluar)}`
     :'Catat transaksi pertama untuk melihat arus kas.';
   const ratio=masuk>0?Math.min(100,Math.round(keluar/masuk*100)):keluar?100:0;

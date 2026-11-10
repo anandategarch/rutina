@@ -6511,8 +6511,9 @@ html[data-theme="dark"] .finance-balance .botanical-card-art--finance {
   opacity: .96;
 }
 
-/* Keuangan — perbukitan & koin emas yang dirancang untuk kartu hijau
-   tua; filter watermark putih v0.27 tidak lagi dipakai. */
+/* Keuangan (v2.16) — koin bertunas mengapung di sudut; aksen emas dengan
+   garis tegas terbaca baik di kartu kertas terang maupun hijau gelap
+   (mode gelap). Aset lama perbukitan gelap dipensiunkan untuk kartu ini. */
 .finance-balance .botanical-card-art--scene {
   right: -10px;
   bottom: -14px;

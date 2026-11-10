@@ -171,7 +171,9 @@ kartu dijaga bersih — elemen menempel di tepi kanan/bawah dan dipangkas
 | `hero-bg-home.svg` | daun melayang, mentari kecil & kuntum bunga (zona udara atas kartu) | `.botanical-hero` (Beranda; gardener tetap subjek utama) |
 | `hero-bg-habits.svg` | barisan pot tunas + rambatan + kupu-kupu di dasar kartu | `.habit-progress-card` (Kebiasaan) |
 | `hero-bg-sprout.svg` | tunas keemasan bersyarat daun laurel | `.habit-streak-summary` (rekor konsistensi) |
-| `hero-bg-finance.svg` | perbukitan hijau berlapis + koin keemasan bertunas — dirancang untuk kartu hijau tua | `.finance-balance` (Keuangan) |
+| `hero-bg-finance.svg` | perbukitan hijau berlapis + koin keemasan bertunas — dipensiunkan dari kartu terang (v2.16), kini hanya arsip | — (digantikan `hero-fg-finance.svg`) |
+| `hero-bg-finance-light.svg` | latar PENUH hero Keuangan PWA: lembah sage berlapis, sinar madu, koin tersebar — dirancang untuk kartu terang (object-fit:cover) | `#financeHero` `.ph-bg` (rutina.html) |
+| `hero-fg-finance.svg` | koin bertunas mengapung + kunang emas — lapisan depan hero PWA & kartu saldo React; garis tegas terbaca di latar terang | `#financeHero` `.ph-scene`; `.finance-balance` (React) |
 | `hero-bg-calendar.svg` | busur fase bulan + karangan daun + mentari | `.calendar-summary` (Kalender) |
 | `hero-bg-insights.svg` | rimbun daun bertunas dari dasar kartu + batang grafik tanaman | `.insight-highlight` (Insight) |
 | `hero-bg-goals.svg` | bukit sage + bendera tujuan + jalan berliku berpiksel | `.goal-list-panel` (Tujuan) |
@@ -206,15 +208,18 @@ Pola v2.8 diperluas ke seluruh tab `public/rutina.html`: tiap halaman kini
 membuka dengan satu kartu `page-hero` ringkas (angka utama + scene botani,
 data diperbarui lewat `renderHabitsHero`/`renderFinanceHero`/
 `renderCalendarHero`/`renderWawasanHero`/`renderSettingsHero`). Varian
-`page-hero--dark` memakai latar hijau `#4B7D61→#3E6B52` (pola
-`finance-balance`) agar scene perbukitan terbaca; `page-hero--sky`
-memakai nuansa `#F0F9FF→#E0F2FE`; `page-hero--art` dua kolom ala hero
-Ringkasan.
+`page-hero--fin` (v2.16, menggantikan `--dark`) memakai gradasi krem-sage
+terarang `#FFFEF8→#E4F8EC` dengan ilustrasi lembah koin sebagai LATAR PENUH
+(`.ph-bg`) + lapisan koin mengapung (`.ph-scene`); judul surplus terra /
+defisit rose. `page-hero--sky` memakai nuansa `#F0F9FF→#E0F2FE`;
+`page-hero--art` dua kolom ala hero Ringkasan.
 
 | Berkas | Konteks pakai baru (v2.9) |
 |---|---|
 | `hero-bg-habits.svg` | `#habitsHero` — scene dasar kartu, teks progres kebiasaan hari ini di kiri |
-| `hero-bg-finance.svg` | `#financeHero` — `page-hero--dark`, judul surplus/defisit putih |
+| `hero-bg-finance-light.svg` | `#financeHero` — `page-hero--fin`, LATAR PENUH kartu terang, teks tinta di kiri |
+| `hero-fg-finance.svg` | `#financeHero` — lapisan depan `.ph-scene`, berayun (sceneBob) + parallax |
+| `hero-bg-finance.svg` | arsip — scene gelap era `page-hero--dark` (v2.9–v2.15), tak lagi dipakai |
 | `hero-bg-calendar.svg` | `#calendarHero` — `page-hero--sky`, busur bulan ditempel kanan-atas |
 | `hero-bg-insights.svg` | `#wawasanHero` — latar lembut (opacity .55) di bawah ilustrasi utama |
 | `scene-taman.svg` | `#wawasanHero` `.hero-ill` — ilustrasi utama dua kolom; satu kolom di ≤900px |
