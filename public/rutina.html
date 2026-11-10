@@ -68,7 +68,7 @@ b,strong{font-weight:600}
 .main{min-height:100dvh;display:flex;flex-direction:column}
 .view{flex:1;width:100%;max-width:1180px;margin:0 auto;padding:24px 24px 44px}
 .page{display:none}
-.page.active{display:block;animation:pageIn .45s cubic-bezier(.2,.7,.3,1)}
+.page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 /* ---------- animasi masuk "Tunas Pagi" (Ringkasan, sekali per muat) ----------
    Section "tumbuh" berurutan dari atas ke bawah; sapaan menajam dari kabur;
@@ -911,8 +911,100 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .pill-streak{padding:7px 11px}
   .chip{padding:7px 12px}
 }
+/* ============================================================
+   v2.13 · LAPISAN ANIMASI PENUH — semua tab hidup
+   1) Transisi tab diperkaya (naik + fokus dari kabur)
+   2) Stagger kartu per pindah tab (go() → --stg)
+   3) Stagger item daftar (staggerList() → --li)
+   4) Ambien botani: scene berayun, daun melayang, parallax pointer
+   5) Grafik: bar arus kas tumbuh, donut menyapu, sparkline merambat
+   6) Mikro-interaksi: hover kartu, pop nav & chip, kilau lencana
+   Semua hormat prefers-reduced-motion (guard JS `reduced` + blok
+   reduce di bawah).
+   ============================================================ */
+/* 1 · transisi tab — kontainer fokus dari kabur; kartu di dalamnya
+   yang menyediakan gerak naik (stagger), agar tidak berganda */
+.page.active{animation:pageIn2 .55s cubic-bezier(.2,.7,.3,1)}
+@keyframes pageIn2{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:none}}
+/* 2 · stagger kartu saat pindah tab */
+.pg-in{animation:pgIn .5s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:calc(var(--stg,0)*65ms)}
+@keyframes pgIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* 3 · stagger item daftar */
+.li-in{animation:liIn .42s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:calc(var(--li,0)*38ms)}
+@keyframes liIn{from{opacity:0;transform:translateY(9px) scale(.985)}to{opacity:1;transform:none}}
+/* 6 · kartu hidup: angkat halus saat disentuh */
+.card,.dompet-card{transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .22s cubic-bezier(.2,.7,.3,1)}
+@media(hover:hover){
+  .card:hover,.dompet-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .badge.unlocked:hover{transform:translateY(-3px) scale(1.02)}
+  /* kartu statis dalam wadah terpotong (overflow:hidden) tak perlu diangkat */
+  .stats .card:hover{transform:none}
+}
+.badge{transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.fin-tab:active,.nav-item:active,.link-btn:active{transform:scale(.97)}
+/* pop chip aktif (filter bulan/kategori terpilih) */
+.chip.active{animation:chipPop .38s cubic-bezier(.3,1.6,.5,1)}
+@keyframes chipPop{0%{transform:scale(.88)}60%{transform:scale(1.05)}100%{transform:none}}
+/* pop ikon nav bawah & samping saat menjadi aktif */
+.bn-item.active .ic{animation:bnPop .5s cubic-bezier(.3,1.6,.5,1)}
+.nav-item.active .ic{animation:bnPop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bnPop{0%{transform:scale(.55)}55%{transform:scale(1.22)}100%{transform:scale(1)}}
+.nav-item.active::before{animation:barIn .4s cubic-bezier(.2,.7,.3,1);transform-origin:left center}
+@keyframes barIn{from{transform:translateY(-50%) scaleY(0)}to{transform:translateY(-50%) scaleY(1)}}
+/* angka ring kebiasaan melonjak saat berubah */
+.pop-num{display:inline-block;animation:popNum .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes popNum{0%{transform:scale(.82)}60%{transform:scale(1.1)}100%{transform:none}}
+
+/* 4 · ambien botani — scene hero berayun pelan (napas taman) */
+.ph-scene{animation:sceneBob 7.5s ease-in-out infinite;translate:calc(var(--px,0)*9px) calc(var(--py,0)*7px);transition:translate .5s cubic-bezier(.2,.7,.3,1)}
+@keyframes sceneBob{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-7px) rotate(.4deg)}}
+.hero-ill{translate:calc(var(--px,0)*-7px) calc(var(--py,0)*-5px);transition:translate .5s cubic-bezier(.2,.7,.3,1)}
+.hero-ill img{animation:treeSway 8.5s ease-in-out infinite;transform-origin:50% 94%}
+@keyframes treeSway{0%,100%{transform:rotate(-.5deg) translateY(0)}50%{transform:rotate(.8deg) translateY(-4px)}}
+.hero-quote{animation:quoteFloat 6s ease-in-out infinite}
+@keyframes quoteFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.empty-state .ill{animation:sceneBob 6.5s ease-in-out infinite}
+/* daun melayang di hero — dipasang ambientLeaves() */
+.amb-leaf{position:absolute;top:-14px;left:var(--x,50%);width:var(--s,9px);height:var(--s,9px);background:linear-gradient(140deg,#6EE7B7,#34D399);border-radius:0 100% 0 100%;opacity:0;pointer-events:none;z-index:0;animation:leafDrift var(--d,11s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes leafDrift{
+  0%{transform:translate(0,-12px) rotate(15deg);opacity:0}
+  10%{opacity:.55}
+  85%{opacity:.4}
+  100%{transform:translate(var(--dx,36px),230px) rotate(320deg);opacity:0}
+}
+
+/* 5 · grafik */
+/* bar arus kas tumbuh dari dasar, label menyusul */
+.cf-bar{transform-box:fill-box;transform-origin:center bottom;animation:cfGrow .65s cubic-bezier(.25,.8,.3,1) backwards;animation-delay:calc(var(--i,0)*45ms)}
+@keyframes cfGrow{from{transform:scaleY(.02)}to{transform:scaleY(1)}}
+.cf-lbl{animation:liIn .5s ease backwards;animation-delay:calc(var(--i,0)*45ms + 200ms)}
+/* donut menyapu masuk — dasharray digerakkan dari renderDonut() */
+.donut-slice{transition:opacity .2s,stroke-dasharray .85s cubic-bezier(.25,.8,.3,1)}
+/* sparkline merambat tiap render */
+.spark-draw{stroke-dasharray:300;stroke-dashoffset:300;animation:draw .85s cubic-bezier(.4,.6,.3,1) forwards}
+.spark circle{transform-box:fill-box;transform-origin:center;animation:sparkDot .3s ease .6s backwards}
+@keyframes sparkDot{from{opacity:0;transform:scale(0)}}
+/* sel heatmap beriak masuk — hanya saat .anim dipasang renderHeatmap() */
+.hm-grid.anim .hm-cell{animation:hmIn .4s ease backwards;animation-delay:calc(var(--hm,0)*6ms)}
+@keyframes hmIn{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
+/* sel kalender muncul bergelombang — hanya saat .anim dipasang renderCal() */
+.cal-grid.anim .cal-cell{animation:liIn .4s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:calc(var(--li,0)*14ms)}
+/* panel detail hari meluncur saat tanggal berganti */
+.dd-in{animation:ddIn .38s cubic-bezier(.2,.7,.3,1)}
+@keyframes ddIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+/* bar mutasi dompet tumbuh */
+.sf-bars i{transition:width .8s cubic-bezier(.25,.8,.3,1)}
+/* kilau lembut pada lencana terbuka */
+.badge.unlocked{position:relative;overflow:hidden}
+.badge.unlocked::after{content:"";position:absolute;top:-25%;bottom:-25%;left:-70%;width:45%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);transform:rotate(12deg);animation:badgeShine 4.6s ease-in-out infinite}
+@keyframes badgeShine{0%,58%{left:-70%}100%{left:135%}}
+.badge.unlocked:nth-child(3n+2)::after{animation-delay:1.6s}
+.badge.unlocked:nth-child(3n)::after{animation-delay:3.1s}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill,.amb-leaf{animation:none !important}
+  .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
 }
 </style>
 </head>
@@ -3019,14 +3111,76 @@ function burst(x,y){
 }
 function countUp(el,to,{dur=850,fmt=rupiah}={}){
   if(reduced||!el){if(el)el.textContent=fmt(to);return}
+  /* v2.13: menggelinding dari nilai sebelumnya — re-render terasa hidup,
+     bukan mengulang dari nol setiap kali data berubah */
+  const from=Number(el._cv)||0;el._cv=to;
+  if(from===to){el.textContent=fmt(to);return}
   const t0=performance.now();
-  const step=t=>{const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=fmt(to*e);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(to)};
+  const step=t=>{const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=fmt(from+(to-from)*e);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(to)};
   requestAnimationFrame(step);
 }
 function animateBars(root=document){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w]').forEach(b=>b.style.width=b.dataset.w);
+    root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w],.sf-bars i[data-w]').forEach(b=>b.style.width=b.dataset.w);
   }));
+}
+/* ============================================================
+   v2.13 · KOREOGRAFI ANIMASI PENUH
+   staggerList — item daftar muncul berurutan (transaksi, dompet,
+   anggaran, temuan, lencana…). staggerPage — kartu level atas naik
+   berurutan tiap pindah tab. ambientLeaves — daun botani melayang
+   di hero. heroParallax — scene & ilustrasi mengikuti pointer pelan.
+   ============================================================ */
+function staggerList(root,sel=':scope > *',{cap=14}={}){
+  if(reduced||!root)return;
+  [...root.querySelectorAll(sel)].forEach((el,i)=>{
+    el.classList.remove('li-in');void el.offsetWidth;
+    el.style.setProperty('--li',Math.min(i,cap));
+    el.classList.add('li-in');
+  });
+}
+function staggerPage(p){
+  if(reduced||!p)return;
+  const tunasPending=tunasState===1; /* muat pertama Ringkasan: tunas yang mengatur */
+  [...p.children].forEach((el,i)=>{
+    if(tunasPending&&(el.classList.contains('tunas')||el.classList.contains('tunas-ill')))return;
+    el.classList.remove('pg-in');void el.offsetWidth;
+    el.style.setProperty('--stg',Math.min(i,9));
+    el.classList.add('pg-in');
+  });
+}
+function ambientLeaves(){
+  if(reduced)return;
+  const COLS=[['#6EE7B7','#34D399'],['#A7F3D0','#6EE7B7'],['#FDE68A','#F59E0B'],['#BBF7D0','#34D399']];
+  $$('.hero-bg,.page-hero').forEach((h,hi)=>{
+    for(let i=0;i<3;i++){
+      const s=document.createElement('span');
+      s.className='amb-leaf';s.setAttribute('aria-hidden','true');
+      const c=COLS[(hi+i)%COLS.length];
+      s.style.background=`linear-gradient(140deg,${c[0]},${c[1]})`;
+      s.style.setProperty('--x',(8+Math.random()*84).toFixed(1)+'%');
+      s.style.setProperty('--dx',Math.round(Math.random()*70-35)+'px');
+      s.style.setProperty('--d',(9+Math.random()*7).toFixed(1)+'s');
+      s.style.setProperty('--dl',(-Math.random()*12).toFixed(1)+'s');
+      s.style.setProperty('--s',(7+Math.random()*6).toFixed(1)+'px');
+      h.appendChild(s);
+    }
+  });
+}
+function heroParallax(){
+  if(reduced||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  let raf=0;
+  document.addEventListener('pointermove',e=>{
+    if(raf)return;
+    raf=requestAnimationFrame(()=>{
+      raf=0;
+      const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+      $$('.page-hero,.hero').forEach(h=>{
+        h.style.setProperty('--px',x.toFixed(3));
+        h.style.setProperty('--py',y.toFixed(3));
+      });
+    });
+  },{passive:true});
 }
 function toast(title,sub='',ikon='i-check',tone=''){
   const el=document.createElement('div');el.className='toast';
@@ -3057,7 +3211,7 @@ function spark(el,vals,color){
   const d='M'+pts.map(pt=>pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' L');
   const last=pts[pts.length-1];
   el.setAttribute('viewBox',`0 0 ${w} ${hh}`);
-  el.innerHTML=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
+  el.innerHTML=`<path class="spark-draw" d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
 }
 function smoothPath(pts){
   let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
@@ -3109,7 +3263,7 @@ function renderTreeHero(){
   let i=0;TREE_STAGES.forEach((s,idx)=>{if(a>=s.min)i=idx});
   const st=TREE_STAGES[i],next=TREE_STAGES[i+1]||null;
   $('#treeStage').textContent=st.name;
-  $('#treeDays').textContent=`${a} hari aktif`;
+  countUp($('#treeDays'),a,{fmt:v=>Math.round(v)+' hari aktif'});
   const totalLogs=sumBy(HABITS,h=>h.total);
   $('#treeLogs').textContent=`Total ${totalLogs} catatan`;
   const art=$('#treeArt');
@@ -3250,7 +3404,11 @@ function renderSettingsHero(){
 /* ---------- ring kebiasaan (v2.8: hanya untuk tab kebiasaan & lonceng) ---------- */
 function renderRing(){
   const n=HABITS.length,done=doneTodayCount();
-  $('#msHariIni').textContent=`${done}/${n}`;
+  const el=$('#msHariIni');
+  const prev=el.textContent;
+  el.textContent=`${done}/${n}`;
+  /* v2.13 · angka ring melonjak tiap kemajuan */
+  if(!reduced&&prev!==el.textContent){el.classList.remove('pop-num');void el.offsetWidth;el.classList.add('pop-num')}
   syncBell(n-done);
 }
 
@@ -3357,11 +3515,11 @@ function renderCashflow(){
     const cx=L+gw*i+gw/2;
     const bw=17;
     const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
-    s+=`<rect x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
-    s+=`<rect x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="600" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label" font-weight="600" fill="#B45309">${ringkas(keluar[i])}</text>`;
-    s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
+    s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
+    s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}" font-weight="600" fill="#15803D">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}" font-weight="600" fill="#B45309">${ringkas(keluar[i])}</text>`;
+    s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
   $('#cfTitle').textContent='Aktivitas mingguan';
@@ -3430,7 +3588,7 @@ function weeklyDots(h){
   }
   return out;
 }
-function renderHabitCards(){
+function renderHabitCards(anim){
   const f=state.habitFilter;
   const list=HABITS.filter(h=>f==='semua'||h.category===f);
   if(!list.length){
@@ -3466,11 +3624,14 @@ function renderHabitCards(){
       </div>
     </div>`;
   }).join('');
+  if(anim)staggerList($('#habitGrid'),':scope > *',{cap:12});
   animateBars($('#habitGrid'));
 }
-function renderHeatmap(){
+function renderHeatmap(anim){
   const cells=$('#hmGrid'),monthsEl=$('#hmMonths');
   cells.innerHTML='';monthsEl.innerHTML='';
+  cells.classList.toggle('anim',!!anim&&!reduced);
+  let idx=0;
   const N=119+((TODAY.getDay()-WS+7)%7);
   let d=addDays(TODAY,-N),lastM=-1,cols=0;
   while(cols<18){
@@ -3478,11 +3639,11 @@ function renderHeatmap(){
     if(d.getMonth()!==lastM&&d<=TODAY){mlabel=BULAN_S[d.getMonth()];lastM=d.getMonth()}
     monthsEl.insertAdjacentHTML('beforeend',`<span>${mlabel}</span>`);
     for(let r=0;r<7;r++){
-      if(d>TODAY){cells.insertAdjacentHTML('beforeend','<span class="hm-cell" style="visibility:hidden"></span>');d=addDays(d,1);continue}
+      if(d>TODAY){cells.insertAdjacentHTML('beforeend',`<span class="hm-cell" style="visibility:hidden;--hm:${Math.min(idx++,60)}"></span>`);d=addDays(d,1);continue}
       const k=dayKey(d),cnt=(logsByDate[k]||[]).length;
       const lvl=cnt===0?'':cnt<3?'l1':cnt<5?'l2':'l3';
       const isToday=k===dayKey(TODAY);
-      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''}" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${cnt} kebiasaan selesai"></span>`);
+      cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''}" style="--hm:${Math.min(idx++,60)}" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${cnt} kebiasaan selesai"></span>`);
       d=addDays(d,1);
     }
     cols++;
@@ -3537,11 +3698,20 @@ function renderDonut(){
   cats.forEach(([name,v])=>{
     const st=finStyle(name);
     const frac=v/total,len=Math.max(frac*C-3,.01);
-    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${st.c}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`;
+    slices+=`<circle class="donut-slice" cx="105" cy="105" r="${R}" fill="none" stroke="${st.c}" stroke-width="27" stroke-dasharray="${len.toFixed(1)} ${(C-len).toFixed(1)}" data-fin="${len.toFixed(1)} ${(C-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`;
     off+=frac*C;
   });
   $('#donutSvg').innerHTML=`<g transform="rotate(-90 105 105)">${slices}</g>`;
-  $('#donutTotal').textContent=rupiah(total);
+  /* v2.13 · donut menyapu masuk: dasharray berangkat dari kosong lalu
+     bertransisi ke porsi final (transisi di kelas .donut-slice) */
+  if(!reduced){
+    const sls=$$('#donutSvg .donut-slice');
+    sls.forEach(sl=>sl.setAttribute('stroke-dasharray',`0 ${C.toFixed(1)}`));
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      sls.forEach(sl=>sl.setAttribute('stroke-dasharray',sl.dataset.fin));
+    }));
+  }
+  countUp($('#donutTotal'),total);
   $('#donutLegend').innerHTML=cats.map(([name,v])=>{
     const st=finStyle(name);
     return `<div class="dl-row">
@@ -3550,6 +3720,7 @@ function renderDonut(){
       <div class="dl-amt"><b class="t-num">${rupiah(v)}</b><small>${cnt[name]||0} transaksi</small></div>
     </div>`;
   }).join('');
+  staggerList($('#donutLegend'));
 }
 function renderBudgets(){
   const mk=state.finMonth;
@@ -3583,6 +3754,7 @@ function renderBudgets(){
   }).join('');
   const totB=sumBy(rows,r=>r.amount),totU=sumBy(rows,r=>r.used);
   $('#budgetLeft').textContent=rupiah(Math.max(0,totB-totU))+' tersisa';
+  staggerList($('#budgetList'),'.b-row',{cap:10});
   animateBars($('#budgetList'));
 }
 
@@ -3704,6 +3876,7 @@ function renderWallets(){
       </span>
     </div>`;
   }).join('');
+  staggerList($('#dompetGrid'));
   $('#dompetSum').textContent=`Total ${rupiah(sumBy(SOURCES,s=>w[s.id]))}`;
 }
 
@@ -3721,7 +3894,12 @@ function goFinSection(sec){
     if(p.dataset.finPane!==sec){p.hidden=true;return}
     if(p.hidden){
       p.hidden=false;
-      if(!reduced){p.classList.remove('fin-pane-in');void p.offsetWidth;p.classList.add('fin-pane-in')}
+      p.classList.remove('pg-in'); /* hindari duet animasi dengan fin-pane-in */
+      if(!reduced){
+        p.classList.remove('fin-pane-in');void p.offsetWidth;p.classList.add('fin-pane-in');
+        /* v2.13 · kartu dalam anak tab ikut naik berurutan */
+        staggerList(p,'.card',{cap:8});
+      }
     }
   });
   const sub=$('#finSub');if(sub)sub.textContent=FIN_SUBS[sec];
@@ -3796,13 +3974,16 @@ function renderSaldoBank(){
     return `<div class="sf-row">
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div class="sf-info"><b>${esc(r.s.name)}</b>
-        <div class="sf-bars"><i style="width:${(r.ins/mx*100).toFixed(1)}%;background:var(--sage)"></i><i style="width:${(r.outs/mx*100).toFixed(1)}%;background:var(--honey)"></i></div>
+        <div class="sf-bars"><i data-w="${(r.ins/mx*100).toFixed(1)}%" style="background:var(--sage)"></i><i data-w="${(r.outs/mx*100).toFixed(1)}%" style="background:var(--honey)"></i></div>
         <small>+${rupiah(r.ins)} masuk · −${rupiah(r.outs)} keluar</small>
       </div>
       <span class="sf-net t-num ${r.net>=0?'in':'out'}">${r.net>=0?'+':'−'}${rupiah(Math.abs(r.net))}</span>
     </div>`;
   }).join('')
   :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada dompet</b><p>Tambahkan rekening bank, tunai, atau dompet digital lewat tombol “Dompet”.</p></div>`;
+  /* v2.13 · bar mutasi dompet tumbuh + baris naik berurutan */
+  animateBars($('#saldoFlow'));
+  staggerList($('#saldoFlow'),'.sf-row',{cap:10});
 }
 
 function renderTx(){
@@ -3843,6 +4024,8 @@ function renderTx(){
     </div>`;
   });
   $('#txList').innerHTML=html;
+  /* v2.13 · riwayat transaksi muncul bergelombang */
+  staggerList($('#txList'),':scope > *',{cap:16});
 }
 
 /* ---------- rentang bulan riwayat ---------- */
@@ -3978,14 +4161,14 @@ function doDelete(){
 }
 
 /* ---------- kalender ---------- */
-function renderCal(){
+function renderCal(anim){
   const y=state.calMonth.getFullYear(),m=state.calMonth.getMonth();
   $('#calTitle').textContent=`${BULAN[m]} ${y}`;
   $('#calDows').innerHTML=DOWS.map(d=>`<span>${d}</span>`).join('');
   const first=new Date(y,m,1),lead=(first.getDay()-WS+7)%7;
   const dim=new Date(y,m+1,0).getDate();
-  let html='';
-  for(let i=0;i<lead;i++)html+='<span class="cal-cell blank"></span>';
+  let html='',ci=0;
+  for(let i=0;i<lead;i++)html+=`<span class="cal-cell blank" style="--li:${Math.min(ci++,28)}"></span>`;
   for(let i=1;i<=dim;i++){
     const d=new Date(y,m,i);
     const k=dayKey(d),future=d>TODAY,isToday=k===dayKey(TODAY),isSel=k===dayKey(state.calSel);
@@ -3993,12 +4176,13 @@ function renderCal(){
     const on=Math.min(7,cnt);
     const gemuk=!future&&cnt>=5;
     let ticks='';if(!future)for(let j=0;j<7;j++)ticks+=`<i class="${j<on?'on':''}"></i>`;
-    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" data-cal="${k}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} · ${cnt} kebiasaan selesai">
+    html+=`<button class="cal-cell ${isToday?'today':''} ${isSel?'sel':''} ${future?'future':''}" style="--li:${Math.min(ci++,28)}" data-cal="${k}" aria-label="${HARI[d.getDay()]}, ${i} ${BULAN[m]} · ${cnt} kebiasaan selesai">
       <span class="d">${i}</span>${future?'':`<span class="ticks">${ticks}</span>`}
       ${gemuk?'<svg class="perf-star" aria-hidden="true"><use href="#i-sparkle"/></svg>':''}
     </button>`;
   }
   $('#calGrid').innerHTML=html;
+  $('#calGrid').classList.toggle('anim',!!anim&&!reduced);
   renderCalStrip();
 }
 function renderCalStrip(){
@@ -4017,8 +4201,11 @@ function renderCalStrip(){
   $('#csSpendLbl').textContent=`Pengeluaran ${BULAN[m]} ${y}`;
   renderCalendarHero();
 }
+/* ---------- v2.13 · panel detail hari meluncur saat tanggal berganti ---------- */
+let ddLastKey='';
 function renderDayDetail(d){
   const k=dayKey(d),future=d>TODAY;
+  const changed=k!==ddLastKey;ddLastKey=k;
   const isToday=k===dayKey(TODAY);
   const cnt=future?0:(logsByDate[k]||[]).length;
   const total=HABITS.length;
@@ -4055,6 +4242,12 @@ function renderDayDetail(d){
     </div>`:''}
     <div><div class="eyebrow" style="margin-bottom:8px">Kebiasaan</div><div class="dd-habits">${habitRows}</div></div>
     <div><div class="eyebrow" style="margin-bottom:8px">Transaksi</div><div class="dd-tx">${txRows}</div></div>`}`;
+  /* v2.13 · panel meluncur saat tanggal berganti — bukan tiap re-render */
+  if(changed&&!reduced){
+    const dd=$('#dayDetail');
+    dd.classList.remove('dd-in');void dd.offsetWidth;dd.classList.add('dd-in');
+    staggerList(dd,'.dd-habit',{cap:8});
+  }
 }
 
 /* ---------- wawasan ---------- */
@@ -4136,6 +4329,7 @@ function renderFindings(){
   if(topSrc)items.push({ill:'ill-dompet',b:`${srcName(topSrc[0])}: sumber teraktif`,s:`${topSrc[1]} dari ${TXS.length} transaksi lewat sumber ini.`});
   if(gap!==null&&gap>=5)items.push({ill:'ill-bulan',b:`Terakhir aktif ${tglPendek(lastKey)}`,s:`${gap} hari tanpa catatan. Mulai lagi kapan saja.`});
   $('#findList').innerHTML=items.slice(0,5).map(it=>`<div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${it.ill}"/></svg></span><div><b>${esc(it.b)}</b><small>${esc(it.s)}</small></div></div>`).join('');
+  staggerList($('#findList'));
 }
 function renderReko(){
   const m=expByCat('ALL');delete m['Penyesuaian Saldo'];
@@ -4144,6 +4338,7 @@ function renderReko(){
   $('#rekoList').innerHTML=first+`
     <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span><div><b>Catat sebelum tidur</b><small>Luangkan tiga menit menutup hari dengan catatan singkat.</small></div></div>
     <div class="find-item"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-ranjang"/></svg></span><div><b>Mulai dari 5 menit</b><small>Tak sanggup mulai besar? Mulai lima menit, pelan tapi konsisten.</small></div></div>`;
+  staggerList($('#rekoList'));
 }
 function renderBadges(){
   const ch=champion();
@@ -4166,6 +4361,7 @@ function renderBadges(){
       <span class="lock-tag"><svg class="ic" aria-hidden="true"><use href="#${b.ok?'i-check':'i-lock'}"/></svg>${b.ok?'Terbuka':esc(b.tag)}</span>
     </div>`).join('');
   $('#badgeCount').textContent=`${list.filter(b=>b.ok).length} dari ${list.length} terbuka`;
+  staggerList($('#badgeGrid'),'.badge',{cap:11});
 }
 
 /* ---------- interaksi ---------- */
@@ -4173,10 +4369,12 @@ function go(page){
   state.page=page;
   $$('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
   $$('.page').forEach(p=>p.classList.toggle('active',p.dataset.page===page));
+  /* v2.13 · kartu level atas naik berurutan di tab yang dibuka */
+  staggerPage($(`.page[data-page="${page}"]`));
   window.scrollTo(0,0);
   document.title=TITLES[page]+' · Rutina';
-  if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap();inited.heatmap=true}
-  if(page==='kalender'&&!inited.cal){renderCal();renderDayDetail(state.calSel);inited.cal=true}
+  if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap(true);inited.heatmap=true}
+  if(page==='kalender'&&!inited.cal){renderCal(true);renderDayDetail(state.calSel);inited.cal=true}
   if(page==='wawasan'&&!inited.wawasan){renderConsChart();inited.wawasan=true}
   if(page==='pengaturan'&&!inited.set){renderSettings();inited.set=true}
 }
@@ -4254,7 +4452,7 @@ document.addEventListener('click',e=>{
   const renCat=e.target.closest('[data-rename-cat]');
   if(renCat){openCatRename(renCat.dataset.renameCat);return}
   const chip=e.target.closest('[data-habit-filter]');
-  if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards();return}
+  if(chip){state.habitFilter=chip.dataset.habitFilter;renderHabitChips();renderHabitCards(true);return}
   const txChip=e.target.closest('[data-tx-filter]');
   if(txChip){state.txFilter=txChip.dataset.txFilter;$$('#txChips .chip').forEach(c=>c.classList.toggle('active',c===txChip));renderTx();return}
   const opener=e.target.closest('[data-open-modal]');
@@ -4529,9 +4727,9 @@ $('#formCat').addEventListener('submit',e=>{
 });
 
 /* kalender nav & pencarian */
-$('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal()});
-$('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal()});
-$('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal();renderDayDetail(state.calSel)});
+$('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal(true)});
+$('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal(true)});
+$('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal(true);renderDayDetail(state.calSel)});
 $('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
 $('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderMutasiSum();renderTx()});
 $('#btnDelConfirm').addEventListener('click',doDelete);
@@ -4964,13 +5162,16 @@ function tunasWake(){
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
-  renderHabitChips();renderHabitCards();
+  renderHabitChips();renderHabitCards(true);
   renderFindings();renderReko();renderBadges();
   renderHabitsHero();renderFinanceHero();renderCalendarHero();renderWawasanHero();renderSettingsHero();
   fillTxType('keluar');fillTxSources();fillHabitSelects();
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
+  /* v2.13 · hidup ambien: daun melayang di hero + parallax pointer */
+  ambientLeaves();
+  heroParallax();
   if(tunas)tunasWake();
 })();
 
