@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.32** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.33** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -13,7 +13,7 @@ public/
   manifest.json    Manifest PWA
   icons/           Ikon PWA (SVG + 192/512 + maskable + apple-touch)
   illustrations/   12 ilustrasi hero & scene yang dipakai shell
-  tree/tunas.svg   Ilustrasi splash "Tunas Pagi"
+  tree/            5 tahap pohon konsistensi (benih→tunas→muda→dewasa→berbunga)
   fonts/           Geist (2 file woff2)
   robots.txt
 src/app/
@@ -30,7 +30,7 @@ src/app/
 
 ## Fitur utama
 
-- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi".
+- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi", dan kartu **Semangat Hari Ini**: kutipan motivasi kebiasaan yang berganti per hari, menempel pada progres asli, dan membawa ajakan bertindak ke tab kebiasaan.
 - **Kebiasaan** — pelacakan harian, target kuantitatif, riwayat mingguan.
 - **Keuangan** — transaksi + transfer antar-dompet, dompet, anggaran per kategori, peta panas pengeluaran; tiga anak tab (Analisa / Mutasi / Saldo Bank).
 - **Kalender** — catatan hari & ritme pekan.

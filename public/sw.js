@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v34"; // v2.32 — repo dirapikan: aset & scaffold tak terpakai dibuang
+const STATIC_CACHE = "rutina-static-v35"; // v2.33 — kartu semangat hari ini + pulihkan SVG tahap pohon
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

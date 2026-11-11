@@ -7,6 +7,13 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.33 · SEMANGAT HARI INI — kartu motivasi kebiasaan di Ringkasan:
+     kutipan berganti deterministik per hari (terasa "dipilih untuk
+     hari ini", bukan acak tiap muat), menempel pada progres ASLI
+     (goal-gradient & identitas: "aku orang yang rajin"), bisa digulir
+     manual, dan membawa CTA kontekstual ke tab kebiasaan. Juga memu-
+     lihkan 4 SVG tahap pohon (benih/pohon-muda/pohon-dewasa/berbunga)
+     yang tak sengaja terhapus saat pembersihan repo v2.32. -->
 <!-- v2.32 · REPO DIRAPIKAN agar sesuai kondisi terkini: cangkang Next.js
      disusutkan jadi pembungkus minimal (iframe + /api/rutina); scaffold
      lama (src/features, components, prisma, docs, artefak audit, skills
@@ -527,6 +534,33 @@ b,strong{font-weight:600}
 .tip-card .ill{width:104px;aspect-ratio:1;flex:none}
 .tip-card b{font-family:var(--font-display);font-size:15.5px;display:block;margin-bottom:4px}
 .tip-card p{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- v2.33 · kartu semangat hari ini (Ringkasan) ----------
+   Mengikuti pedoman: kartu surface + garis lembut + radius lg; aksen
+   terra lewat sudut basah cahaya (radial di kanan-atas) + tanda kutip
+   dekoratif; tipografi display utk kutipan, body utk konteks. */
+.motiv-card{position:relative;display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin-bottom:24px;overflow:hidden}
+.motiv-card::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 95% at 100% 0%,var(--terra-softer) 0%,transparent 62%);pointer-events:none}
+.motiv-art{position:relative;z-index:1;animation:sceneBob 6.5s ease-in-out infinite}
+.motiv-art .ill{width:30px;height:30px}
+.motiv-body{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.motiv-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.motiv-next{width:38px;height:38px;border-radius:12px;flex:none}
+.motiv-quote{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.012em;line-height:1.42;color:var(--ink);text-wrap:balance;padding-left:24px;position:relative}
+.motiv-quote::before{content:"\201C";position:absolute;left:-1px;top:-5px;font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--terra);opacity:.5}
+.motiv-attr{font-size:12px;font-weight:600;color:var(--terra-strong);margin-top:-3px}
+.motiv-ctx{font-size:12.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:9px}
+.motiv-cta{align-self:flex-start;margin-top:1px}
+.motiv-next:active{transform:scale(.92)}
+/* pergantian kutipan — naik halus dari bawah (hanya body, kartu diam) */
+.motiv-swap{animation:motivSwap .42s cubic-bezier(.2,.7,.3,1)}
+@keyframes motivSwap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:640px){
+  .motiv-card{padding:15px 15px;gap:13px}
+  .motiv-quote{font-size:15.5px;padding-left:21px}
+  .motiv-quote::before{font-size:26px;top:-4px}
+  .motiv-next{width:36px;height:36px}
+}
 
 /* ---------- halaman kebiasaan ---------- */
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
@@ -1293,6 +1327,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:-1ms !important;transition-duration:.01ms !important}
   .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill{animation:none !important} /* v2.26: atmosfer hero dikendalikan JS — reduced → statis */
+  .motiv-art,.motiv-swap{animation:none !important} /* v2.33: semangat hari ini tampil statis tanpa gerak */
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
   .rip{display:none !important}
   .swipe-hint{transition:none}
@@ -2190,6 +2225,22 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="hero-ill">
       <img id="treeArt" src="/tree/tunas.svg" alt="Ilustrasi pohon konsistensi tahap tunas" width="480" height="480" loading="eager"/>
       <div class="hero-quote"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Satu hari, satu catatan.</div>
+    </div>
+  </div>
+
+  <!-- SEMANGAT HARI INI (v2.33) — kata-kata motivasi kebiasaan: kutipan
+       harian deterministik + baris konteks dari progres asli + CTA. -->
+  <div class="card motiv-card" id="motivCard">
+    <span class="head-art sage motiv-art" aria-hidden="true"><svg class="ill"><use href="#ill-sprout"/></svg></span>
+    <div class="motiv-body" id="motivBody">
+      <div class="motiv-head">
+        <div class="eyebrow">Semangat hari ini</div>
+        <button class="icon-btn motiv-next" id="motivNext" title="Ganti kata semangat" aria-label="Ganti kata semangat hari ini"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      </div>
+      <p class="motiv-quote" id="motivQuote">Memuat semangat…</p>
+      <p class="motiv-attr" id="motivAttr" hidden></p>
+      <p class="t-sub motiv-ctx" id="motivCtx"></p>
+      <button class="link-btn motiv-cta" id="motivCta" data-go="kebiasaan"><span id="motivCtaTxt">Mulai sekarang</span> <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
   </div>
 
@@ -3327,7 +3378,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.32';
+const APP_VERSION='v2.33';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4510,7 +4561,101 @@ function renderIdentity(){
   $('#sideSub').textContent=`${activeDaysAll()} hari aktif · ${TXS.length} transaksi`;
   /* v2.11 · subjudul mengikuti anak tab aktif (renderIdentity hanya sekali di init) */
   $('#finSub').textContent=FIN_SUBS[state.finSection]||FIN_SUBS.analisa;
+  /* v2.33 · semangat hari ini ikut dirender bersama identitas — konteks
+     kutipan selalu sinkron dgn progres terbaru (toggle kebiasaan, dsb.) */
+  renderMotiv();
 }
+
+/* ---------- v2.33 · SEMANGAT HARI INI (kartu Ringkasan) ----------
+   Kata-kata motivasi kebiasaan yang dirancang membangkitkan "rasa rajin",
+   bukan sekadar hiasan:
+   (1) Deterministik per hari — kutipan sama seharian penuh (terasa
+       "untuk hari ini"), berganti sendiri besok; bukan acak tiap muat.
+   (2) Menempel pada data asli — baris konteks & CTA memakai progres
+       hari ini (goal-gradient: makin dekat target, makin ringan melangkah)
+       sehingga motivasi mengarah ke TINDAKAN, bukan affirmation kosong.
+   (3) Bisa digulir manual (tombol kilau) — jalan keluar saat satu kutipan
+       tak beresonansi; tidak mengubah pilihan hari berikutnya. */
+const MOTIV_QUOTES=[
+  {q:'Kita adalah apa yang kita lakukan berulang kali. Keunggulan, karenanya, bukanlah tindakan — melainkan kebiasaan.',by:'Aristoteles'},
+  {q:'Setiap tindakan yang kamu ambil adalah suara untuk pribadi yang ingin kamu jadi.',by:'James Clear'},
+  {q:'Kamu tidak akan naik ke level targetmu — kamu jatuh ke level sistemmu.',by:'James Clear'},
+  {q:'Kamu tidak akan mengubah hidupmu sampai kamu mengubah sesuatu yang kamu lakukan setiap hari. Rahasianya ada di rutinitasmu.',by:'John C. Maxwell'},
+  {q:'Perjalanan seribu li dimulai dari satu langkah.',by:'Lao Tzu'},
+  {q:'Jatuh tujuh kali, bangkit delapan kali.',by:'Peribahasa Jepang'},
+  {q:'Taburkan pikiran, panen tindakan; taburkan tindakan, panen kebiasaan; taburkan kebiasaan, panen karakter; taburkan karakter, panen takdir.',by:'Ralph W. Emerson'},
+  {q:'Sempurna adalah musuh dari baik — hari yang baik hari ini lebih berharga daripada hari sempurna yang tak pernah datang.',by:'Voltaire'},
+  {q:'Kamu boleh menunda, tetapi waktu tidak.',by:'Benjamin Franklin'},
+  {q:'Orang yang memindahkan gunung mulai dengan memungut batu kecil.',by:'Konfusius'},
+  {q:'Jangan putuskan rantainya — cukup jangan bolos dua hari berturut-turut.',by:'Jerry Seinfeld'},
+  {q:'Cara kita menghabiskan hari-hari kita, tentu saja, adalah cara kita menghabiskan hidup kita.',by:'Annie Dillard'},
+  {q:'Tumbuh itu pelan dulu, kuat kemudian — akar selalu lebih dulu daripada daun.',by:'Taman Rutina'},
+  {q:'Tunas tidak menyalahkan malam yang panjang; ia hanya terus menunggu pagi.',by:'Taman Rutina'},
+  {q:'Satu catatan hari ini mengalahkan seribu rencana indah untuk besok.',by:'Taman Rutina'},
+  {q:'Rajin bukan bakat — ia kebiasaan yang setia kamu siram.',by:'Taman Rutina'},
+  {q:'Pohon tertinggi di hutan pun pernah sekecil benih di telapak tanganmu.',by:'Taman Rutina'},
+  {q:'Konsistensi adalah pupuk yang tak terlihat — diam-diam ia menumbuhkan segalanya.',by:'Taman Rutina'},
+  {q:'Jangan hitung hari yang berat; tanam hari yang ringan, berulang-ulang.',by:'Taman Rutina'},
+  {q:'Bunga tidak mekar karena dipacu — ia mekar karena dirawat rutin.',by:'Taman Rutina'},
+  {q:'Mulai kecil, tapi mulai hari ini — besar itu urusan waktu.',by:'Taman Rutina'},
+  {q:'Setiap centang hari ini adalah setetes air untuk tamanmu.',by:'Taman Rutina'},
+  {q:'Hujan sekalipun tidak menunda akar menyebar — begitu pula kamu.',by:'Taman Rutina'},
+  {q:'Rekor lamanya bukan untuk dibanggakan — ia untuk dilampaui satu hari lagi.',by:'Taman Rutina'}
+];
+let motivShift=0; /* offset manual dari pilihan harian (sesi ini saja) */
+const motivDayIdx=()=>{const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)};
+function motivPick(){
+  const len=MOTIV_QUOTES.length;
+  const pos=((motivDayIdx()%len)+motivShift)%len;
+  return MOTIV_QUOTES[(pos+len)%len];
+}
+function renderMotiv(animate){
+  const body=$('#motivBody');if(!body)return;
+  const m=motivPick();
+  $('#motivQuote').textContent=m.q;
+  const attr=$('#motivAttr');
+  if(m.by){attr.hidden=false;attr.textContent='— '+m.by}
+  else attr.hidden=true;
+  /* baris konteks dari progres ASLI hari ini — selaras dgn renderIdentity()
+     tapi berbidik tindakan (mendorong ke tab kebiasaan), bukan sekadar cerita */
+  const n=HABITS.length,done=doneTodayCount(),sisa=n-done;
+  const terakhirLog=Object.keys(logsByDate).sort().pop();
+  const gap=terakhirLog?Math.round((startOfDay(TODAY)-new Date(terakhirLog+'T00:00:00'))/864e5):null;
+  let ctx,cta,go='kebiasaan';
+  if(n>0&&done>=n){
+    ctx=`Hari sempurna — ${n} kebiasaan tuntas, tamanmu berbunga. Besok tanam lagi, benih baru menunggu.`;
+    cta='Lihat analismu';go='wawasan';
+  }else if(n>0&&sisa===1){
+    ctx=`Tinggal satu kebiasaan lagi — langkah terakhir selalu yang paling manis untuk diambil.`;
+    cta='Tuntaskan sekarang';
+  }else if(n>0&&done>0){
+    ctx=`${done} dari ${n} kebiasaan tuntas hari ini. Momentum itu seperti air — makin deras bila terus dialirkan.`;
+    cta='Lanjutkan momentum';
+  }else if(gap!=null&&gap>=2){
+    ctx=`${gap} hari sejak catatan terakhirmu. Kembali pun berarti tumbuh — satu catatan hari ini cukup untuk menyiram ulang tamanmu.`;
+    cta='Mulai lagi';
+  }else if(n>0){
+    ctx=`${n} kebiasaan menunggu contongan pertama. Mulai dari yang paling ringan — biarkan sisanya mengalir.`;
+    cta='Mulai sekarang';
+  }else{
+    ctx=`Tamanmu masih kosong. Tanam kebiasaan pertamamu, dan biarkan Rutina merawatnya bersamamu setiap hari.`;
+    cta='Tanam benih pertama';
+  }
+  $('#motivCtx').textContent=ctx;
+  $('#motivCtaTxt').textContent=cta;
+  $('#motivCta').dataset.go=go;
+  if(animate&&!reduced){ /* pergantian kutipan — gerak hanya di body */
+    body.classList.remove('motiv-swap');void body.offsetWidth;body.classList.add('motiv-swap');
+  }
+}
+/* tombol kilau: gulir ke kutipan berikutnya (offset sesi; pilihan hari
+   berikutnya tidak tersentuh — besok kembali ke putaran tanggal) */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('#motivNext');
+  if(!btn)return;
+  motivShift++;
+  renderMotiv(true);
+});
 
 /* ---------- v2.8 · hero pohon konsistensi ----------
    Pohon tumbuh dari HARI AKTIF (bukan daftar kebiasaan): tiap hari yang
@@ -6415,6 +6560,7 @@ function tunasPrep(){
   const steps=[
     page.querySelector('.page-head'),
     page.querySelector('.hero'),
+    page.querySelector('.motiv-card'), /* v2.33 · kartu semangat ikut kaskade pagi */
     ...page.querySelectorAll('.stats > .card'),
     page.querySelector('.streak-banner'),
     page.querySelector('#rowAgenda > .card'),
@@ -7102,7 +7248,7 @@ function tunasWake(){
   const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
   await loadData();
   ovApply(); /* v2.21 · lapisan lokal pengguna diterapkan di atas data server */
-  if(!DB){$('#greetTitle').textContent='Rutina';tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
+  if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
   prepData();syncToday();
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
