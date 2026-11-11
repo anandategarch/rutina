@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.37** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.38** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -30,10 +30,11 @@ src/app/
 4. **v2.35**: kolom `Habit.mini` / `Habit.afterId` / `AppSettings.identityText` ditambahkan lewat migrasi `ALTER` idempoten di API — database lama (Turso maupun lokal) tak perlu dibuat ulang.
 5. **v2.36**: audit dalam — agregat "hari ini" (`syncToday`) kini akurat saat untoggle: suara identitas, statistik & heatmap tak lagi menghitung hari yang dibatalkan sampai reload; semantik log amount parsial (v2.15) tetap terjaga.
 6. **v2.37**: kolom `Transaction.recurrence` (mingguan/bulanan) + jurnal `habitMeta` diperluas (nama/emoji/kategori/jam/grup) — keduanya lewat migrasi `ALTER` idempoten, database lama aman.
+7. **v2.38**: desain ulang komposer **Pengeluaran kilat** — nominal & dompet dibungkus `.field` (bahasa form aplikasi: 48px, radius 14, tepi 1.5px, fokus cincin terra) menggantikan kontrol mentah; art kepala kartu memakai varian `.head-art.honey` yang sah.
 
 ## Fitur utama
 
-- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi", kartu **Semangat Hari Ini** (kutipan harian yang menempel pada progres asli), dan kartu **Suara Identitas** (Atomic Habits): tulis "aku yang ingin jadi…" sekali — tersinkron ke database — lalu tiap centang kebiasaan dihitung sebagai satu suara (pekan ini & total). Kartu **Catat Cepat** (v2.37): chip kebiasaan sekali-tap + komposer pengeluaran kilat (nominal → kategori teratas → dompet).
+- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi", kartu **Semangat Hari Ini** (kutipan harian yang menempel pada progres asli), dan kartu **Suara Identitas** (Atomic Habits): tulis "aku yang ingin jadi…" sekali — tersinkron ke database — lalu tiap centang kebiasaan dihitung sebagai satu suara (pekan ini & total). Kartu **Catat Cepat** (v2.37): chip kebiasaan sekali-tap + komposer pengeluaran kilat (nominal → kategori teratas → dompet), didesain ulang v2.38 mengikuti bahasa form aplikasi.
 - **Kebiasaan** — pelacakan harian, target kuantitatif, riwayat mingguan, plus mekanik Atomic Habits: nudge **Jangan Bolong Dua Kali** (kartu yang kemarin terlewat), **Versi 2 Menit** + **Susun Kebiasaan** (jangkar "setelah X, aku akan Y"; kolom `Habit.mini`/`Habit.afterId`), dan nudge **Goldilocks** (pekan sempurna → "naik kelas?"; pekan <50% → "perkecil takarannya?"). Hero pohon tahap benih/tunas membawa microcopy **Fase Akar** (Plato Potensi Tersembunyi). **Sunting kebiasaan** (v2.37): aksi drill mengubah nama/kategori/grup/jam/versi mini/jangkar/ilustrasi tanpa kehilangan riwayat (jurnal `habitMeta`; ikon tersimpan di kolom `emoji` sebagai id `ill-…`). **Taman kebiasaan** (v2.37): tiap kebiasaan tampil sebagai tanaman (benih → tunas → pohon muda → pohon dewasa → berbunga, dari total catatan) di strip yang menggulir.
 - **Keuangan** — transaksi + transfer antar-dompet, dompet, anggaran per kategori, peta panas pengeluaran; tiga anak tab (Analisa / Mutasi / Saldo Bank). **Transaksi berulang** (v2.37): pilih "Setiap bulan/minggu" saat mencatat — occurrence jatuh tempo dilahirkan otomatis dengan id deterministik (`rec-…`), hapus instance diingat per perangkat.
 - **Kalender** — catatan hari & ritme pekan; **pembanding pekan** (v2.37: hari aktif · catatan · pengeluaran vs pekan lalu) di kartu Ritme Ringkasan, dan **laporan bulanan** (v2.37) yang mengikuti bulan yang dibuka: konsistensi, top-3 kategori, anggaran, refleksi suara identitas.

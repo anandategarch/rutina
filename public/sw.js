@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v39"; // v2.37 — enam fitur taman: sunting kebiasaan, catat cepat, transaksi berulang, pembanding pekan, laporan bulanan, taman kebiasaan
+const STATIC_CACHE = "rutina-static-v40"; // v2.38 — desain ulang komposer pengeluaran kilat (form .field penuh + art honey); v39 memuat enam fitur taman
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

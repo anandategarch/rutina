@@ -7,6 +7,16 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.38 · DESAIN ULANG PENGELUARAN KILAT — komposer catat cepat kini
+     berbahasa form aplikasi penuh: input nominal & select dompet dibungkus
+     .field (48px, radius 14, tepi 1.5px, latar surface-2, fokus cincin
+     terra) persis form transaksi lengkap; sebelumnya keduanya dirender
+     sebagai kontrol mentah (gaya .field tak pernah sampai karena tak
+     berada di bawah .field) dan tombol tak se-tinggi baris input. Art
+     kepala kartu memakai varian .head-art.honey yang sah (dulu .terra —
+     kelas tak terdefinisi, ubin tanpa latar); ill-koin honey = ranah uang,
+     sepupu kartu Arus kas. Di ponsel nominal memenuhi baris sendiri lalu
+     dompet+tombol berbagi baris — tetap 3-ketuk, kini terlihat dirancang. -->
 <!-- v2.37 · ENAM FITUR TAMAN — (1) Sunting kebiasaan: aksi drill + mode
      edit di form (jurnal habitMeta diperluas: nama/emoji ilustrasi/kategori/
      jam/grup; ikon kini persisten lewat kolom emoji). (2) Catat cepat:
@@ -631,10 +641,19 @@ b,strong{font-weight:600}
   .id-form .btn{width:100%}
 }
 
-/* ---------- v2.37 · kartu catat cepat (Ringkasan) ----------
+/* ---------- v2.38 · kartu catat cepat (Ringkasan) ----------
    Dua pintu satu kartu: chip kebiasaan sekali-tap (catat selesai dalam
-   satu ketukan) + komposer transaksi 3-ketuk. Art terra; chip memakai
-   konvensi .chip agar terasa satu keluarga. */
+   satu ketukan) + komposer transaksi 3-ketuk. DESAIN ULANG v2.38: dulu
+   input nominal & dompet dirender sebagai kontrol mentah — gaya .field
+   (48px, radius 14, tepi 1.5px, fokus cincin terra) hanya berlaku pada
+   turunan .field, sedangkan .money/.qa-tx tidak membungkusnya; dompet
+   tampil sebagai <select> bawaan browser, dan art kepala memakai kelas
+   .head-art.terra yang tak pernah terdefinisi (varian sah: em/honey/
+   sage/sky/blue) → ubin tanpa latar. Kini komposer berbahasa form
+   aplikasi penuh: .field bertepi & se-tinggi 48px, tombol Catat
+   melurus stretch pada satu baris input; art honey menegaskan ranah
+   uang (sepupu kartu Arus kas ber-ill-koin sama); chip tetap konvensi
+   .chip agar terasa satu keluarga. */
 .qa-card{padding:18px 20px;margin-bottom:24px}
 .qa-sec+.qa-sec{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line)}
 .qa-habs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin}
@@ -644,14 +663,18 @@ b,strong{font-weight:600}
 .qa-hab:hover{border-color:var(--terra);color:var(--terra-deep)}
 .qa-hab.done{background:var(--terra-strong);border-color:var(--terra-strong);color:#fff}
 .qa-hab.done .ic{color:#fff}
-.qa-tx{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.qa-tx .money{flex:1;min-width:138px;max-width:230px;margin:0}
-.qa-tx select{width:auto;flex:none;max-width:170px}
-.qa-cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
-.qa-hint{font-size:11.5px;color:var(--ink-3);margin-top:9px}
+.qa-tx{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.qa-tx .field{margin:0;min-width:0}
+.qa-tx .qa-amt{flex:1;max-width:300px}
+.qa-tx .qa-src{flex:none;width:178px;display:flex} /* select mengisi tinggi baris stretch — se-tinggi nominal & tombol */
+.qa-tx .qa-go{min-height:48px}
+.qa-cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.qa-hint{font-size:11.5px;color:var(--ink-3);margin-top:10px}
 @media(max-width:640px){
   .qa-card{padding:15px 15px}
-  .qa-tx select{max-width:46%}
+  .qa-tx .qa-amt{max-width:none;flex-basis:100%} /* nominal memenuhi baris sendiri (basis 100% memaksa wrap), bukan berjejalan 3-1-baris */
+  .qa-tx .qa-src{flex:none;width:calc(50% - 5px)} /* dompet & tombol berbagi baris tepat 50/50 (deterministik) */
+  .qa-tx .qa-go{flex:none;width:calc(50% - 5px)}
 }
 /* ---------- v2.37 · pembanding pekan (kartu Ritme aktivitas) ---------- */
 .week-cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
@@ -2439,11 +2462,14 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- CATAT CEPAT (v2.37) — pintu tercepat mencatat: chip kebiasaan
-       sekali-tap + komposer pengeluaran 3-ketuk, tanpa pindah tab -->
+       sekali-tap + komposer pengeluaran 3-ketuk, tanpa pindah tab.
+       v2.38 · desain ulang komposer: nominal & dompet dibungkus .field
+       (bahasa form aplikasi — bertepi, 48px, radius 14, fokus terra)
+       dan art kepala memakai varian honey yang sah (ranah uang). -->
   <div class="card qa-card" id="quickCard">
     <div class="card-head" style="margin-bottom:10px">
       <div class="ch-title">
-        <span class="head-art terra"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
         <div>
           <div class="eyebrow">Catat cepat</div>
           <h3 class="h-serif">Satu ketukan, satu catatan</h3>
@@ -2457,9 +2483,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="qa-sec">
       <div class="eyebrow" style="margin-bottom:8px">Pengeluaran kilat</div>
       <form class="qa-tx" id="qaTxForm">
-        <div class="money"><span>Rp</span><input type="text" id="qaAmount" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Nominal pengeluaran cepat"></div>
-        <select id="qaSrc" aria-label="Dompet sumber"></select>
-        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Catat</button>
+        <div class="field qa-amt"><div class="money"><span>Rp</span><input type="text" id="qaAmount" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Nominal pengeluaran cepat"></div></div>
+        <div class="field qa-src"><select id="qaSrc" aria-label="Dompet sumber pengeluaran"></select></div>
+        <button type="submit" class="btn btn-primary qa-go"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Catat</button>
       </form>
       <div class="qa-cats" id="qaCats" role="group" aria-label="Kategori pengeluaran cepat"></div>
       <p class="qa-hint">Butuh pemasukan, transfer, atau catatan panjang? <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">Buka form lengkap</button></p>
@@ -3605,7 +3631,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.37';
+const APP_VERSION='v2.38';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4983,11 +5009,13 @@ document.addEventListener('click',e=>{
   else if(act==='cancel'){idEditing=false;renderIdentityCard()}
 });
 
-/* ---------- v2.37 · CATAT CEPAT (kartu Ringkasan) ----------
+/* ---------- v2.38 · CATAT CEPAT (kartu Ringkasan) ----------
    Chip kebiasaan sekali-tap memanggil toggleCheck yang sama dengan kartu
    kebiasaan (jurnal, animasi, suara identitas — semua konsisten). Komposer
    pengeluaran: nominal → kategori (chip teratas pemakaian bulan ini) →
-   dompet → Catat; masuk lewat jalur txAdd biasa. */
+   dompet → Catat; masuk lewat jalur txAdd biasa. v2.38: markup komposer
+   kini membungkus nominal/dompet dalam .field sehingga kontrol tampil
+   dengan bahasa form aplikasi (lihat komentar CSS .qa-tx di atas). */
 let qaCat='';
 function renderQuickCard(){
   const habs=$('#qaHabs'),cats=$('#qaCats'),src=$('#qaSrc');
