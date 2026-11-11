@@ -7,6 +7,17 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.35 · UPDATE ATOMIC HABITS — lima mekanik perilaku dari buku
+     James Clear ditanam ke taman: (1) Suara Identitas — kartu Ringkasan
+     tempat pengguna menulis "aku yang ingin jadi…" lalu tiap centang
+     kebiasaan dihitung sebagai satu suara (AppSettings.identityText,
+     tersinkron ke database); (2) Jangan Bolong Dua Kali — kartu kebiasaan
+     yang kemarin terlewat diberi nudge honey lembut; (3) Versi 2 Menit +
+     Susun Kebiasaan — field baru di form kebiasaan (kolom Habit.mini/
+     afterId, jangkar "setelah X, aku akan Y"); (4) microcopy Fase Akar di
+     hero pohon tahap benih/tunas (Plato Potensi Tersembunyi); (5) Nudge
+     Goldilocks — pekan sempurna → "naik kelas?", pekan <50% → "perkecil
+     takarannya dulu?" -->
 <!-- v2.34 · PERBAIKAN PASCA-RAPIKAN-REPO (eadd51a): route "/" yang
      tadinya membungkus shell dalam iframe bergaya kelas Tailwind
      menjadi mati saat Tailwind dipangkas — iframe jatuh ke ukuran
@@ -569,6 +580,40 @@ b,strong{font-weight:600}
   .motiv-next{width:36px;height:36px}
 }
 
+/* ---------- v2.35 · kartu suara identitas (Ringkasan) ----------
+   Pasangan cermin kartu semangat: semangat memakai art sage + basah terra;
+   identitas memakai art terra (em) + basah sage lembut di kanan-atas.
+   Pernyataan identitas tampil dalam tipografi display dengan tanda
+   kutip sage; penghitung suara memakai angka display terra. */
+.identity-card{position:relative;display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin-bottom:24px;overflow:hidden}
+.identity-card::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 95% at 100% 0%,var(--sage-soft) 0%,transparent 62%);pointer-events:none}
+.id-art{position:relative;z-index:1;animation:sceneBob 6.5s ease-in-out infinite}
+.id-art .ill{width:30px;height:30px}
+.id-body{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.id-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.id-edit{width:38px;height:38px;border-radius:12px;flex:none}
+.id-edit:active{transform:scale(.92)}
+.id-stmt{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.012em;line-height:1.42;color:var(--ink);text-wrap:balance;padding-left:24px;position:relative}
+.id-stmt::before{content:"\201C";position:absolute;left:-1px;top:-5px;font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--sage-deep);opacity:.45}
+.id-votes{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
+.id-votes b{font-family:var(--font-display);font-size:15px;color:var(--terra-deep)}
+.id-votes .sep{color:var(--ink-3)}
+.id-ctx{font-size:12.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:9px}
+.id-cta{align-self:flex-start;margin-top:1px}
+.id-empty-note{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.id-form{display:flex;gap:8px;align-items:stretch}
+.id-form .field{flex:1;margin:0}
+.id-form input{width:100%}
+.id-form .btn{flex:none}
+@media(max-width:640px){
+  .identity-card{padding:15px 15px;gap:13px}
+  .id-stmt{font-size:15.5px;padding-left:21px}
+  .id-stmt::before{font-size:26px;top:-4px}
+  .id-edit{width:36px;height:36px}
+  .id-form{flex-direction:column}
+  .id-form .btn{width:100%}
+}
+
 /* ---------- halaman kebiasaan ---------- */
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
 .mini-stat{display:flex;align-items:center;gap:12px;padding:12px 14px;border:none;border-radius:0;box-shadow:none}
@@ -613,6 +658,17 @@ b,strong{font-weight:600}
 .hc-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
 .hc-consist{flex:1;min-width:90px}
 .hc-consist small{font-size:12px;font-weight:600;color:var(--ink-3)}
+/* v2.35 · nudge satu-baris (Atomic Habits) di kartu kebiasaan — honey utk
+   peringatan lembut "jangan bolong dua kali"/Goldilocks perkecil; sage utk
+   apresiasi "pekan sempurna — naik kelas?" */
+.hc-nudge{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;line-height:1.45;border-radius:10px;padding:7px 11px}
+.hc-nudge .ic{width:13px;height:13px;flex:none}
+.hc-nudge.honey{background:var(--honey-soft);color:var(--honey-deep)}
+.hc-nudge.sage{background:var(--sage-soft);color:var(--sage-deep)}
+/* label "opsional" kecil di label form kebiasaan + catatan bantu form */
+.opt-tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);background:var(--surface-2);border:1px solid var(--line-soft);border-radius:999px;padding:2px 7px;margin-left:6px;white-space:nowrap}
+.field-note{display:flex;gap:6px;align-items:center;font-size:11.5px;font-weight:600;color:var(--ink-3);margin:8px 2px 0}
+.field-note .ic{width:13px;height:13px;flex:none}
 .hc-consist .bar{height:7px;margin-top:4px}
 .empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:36px 20px}
 .empty-state .ill{width:180px;aspect-ratio:4/3;max-width:70%}
@@ -1335,6 +1391,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:-1ms !important;transition-duration:.01ms !important}
   .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill{animation:none !important} /* v2.26: atmosfer hero dikendalikan JS — reduced → statis */
   .motiv-art,.motiv-swap{animation:none !important} /* v2.33: semangat hari ini tampil statis tanpa gerak */
+  .id-art{animation:none !important} /* v2.35: kartu identitas tampil statis tanpa gerak */
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
   .rip{display:none !important}
   .swipe-hint{transition:none}
@@ -2251,6 +2308,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
   </div>
 
+  <!-- SUARA IDENTITAS (v2.35) — Atomic Habits: "setiap tindakan adalah
+       suara untuk pribadi yang ingin kamu jadi". Pernyataan identitas
+       ditulis sekali (tersinkron ke database), lalu tiap centang kebiasaan
+       dihitung sebagai satu suara — pekan ini & total — dari data asli. -->
+  <div class="card identity-card" id="identityCard">
+    <span class="head-art em id-art" aria-hidden="true"><svg class="ill"><use href="#ill-sprout"/></svg></span>
+    <div class="id-body" id="idBody"><div class="id-head"><div class="eyebrow">Suara identitas</div></div></div>
+  </div>
+
   <!-- STATISTIK · v2.8: kartu rekor streak diganti pengeluaran hari ini
        (statistik kebiasaan tinggal di tabnya; ringkasan kini lintas domain) -->
   <div class="stats">
@@ -3064,6 +3130,19 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <label for="habitTime">Jam pengingat</label>
         <input type="time" id="habitTime" value="07:00">
       </div>
+      <!-- v2.35 · Atomic Habits: versi 2 menit (mulai kecil, yang penting
+           tampil) + susun kebiasaan (jangkar "setelah X, aku akan Y"). -->
+      <div class="field-row">
+        <div class="field">
+          <label for="habitMini">Versi mini 2 menit<span class="opt-tag">opsional</span></label>
+          <input type="text" id="habitMini" maxlength="80" autocomplete="off" placeholder="cth: baca 1 halaman">
+        </div>
+        <div class="field">
+          <label for="habitAfter">Setelah kebiasaan<span class="opt-tag">jangkar</span></label>
+          <select id="habitAfter"></select>
+        </div>
+      </div>
+      <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Aturan 2 menit: "tampil dulu" lebih penting daripada takaran. Susun kebiasaan: setelah kebiasaan lama, aku akan kebiasaan baru.</p>
       <div class="field">
         <label id="iconPickLabel">Pilih ilustrasi</label>
         <div class="icon-picker" id="iconPicker" role="radiogroup" aria-labelledby="iconPickLabel"></div>
@@ -3385,7 +3464,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.34';
+const APP_VERSION='v2.35';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3433,7 +3512,7 @@ let OV=null;
 const isLocalId=id=>String(id||'').startsWith('local-');
 const budKey=(c,m)=>c+'|'+m;
 const logKey=(h,d)=>h+'|'+d;
-function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[]}}
+function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[],identityText:null,habitMeta:{}}}
 function ovLoad(){
   let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
@@ -3448,7 +3527,9 @@ function ovCount(){if(!OV)return 0;
     +OV.habitAdd.length+OV.habitDel.length
     +Object.keys(OV.logAdd).length+Object.keys(OV.logDel).length
     +OV.srcAdd.length+Object.keys(OV.srcEdit).length+OV.srcDel.length
-    +Object.keys(OV.catRename).length+OV.catDel.length}
+    +Object.keys(OV.catRename).length+OV.catDel.length
+    +(OV.identityText!=null?1:0)+Object.keys(OV.habitMeta||{}).length /* v2.35 */
+}
 /* terapkan lapisan lokal di atas data yang baru dimuat — gabung BY-ID supaya
    baris yang sudah tersinkron ke server (termasuk baris ber-id "local-")
    tetap hidup saat jurnal dikosongkan setelah sync sukses */
@@ -3462,6 +3543,9 @@ function ovApply(){
   (DB.habits||[]).forEach(h=>hMap.set(h.id,h));
   OV.habitAdd.forEach(h=>hMap.set(h.id,{...h})); /* versi jurnal selalu termutakhir */
   DB.habits=[...hMap.values()].filter(h=>!delH.has(h.id));
+  /* v2.35 · meta Atomic Habits (versi mini & jangkar) menimpa kebiasaan gabungan */
+  const hmMeta=OV.habitMeta||{};
+  DB.habits.forEach(h=>{if(hmMeta[h.id])Object.assign(h,{mini:hmMeta[h.id].mini,afterId:hmMeta[h.id].afterId})});
   const hid=new Set(DB.habits.map(h=>h.id));
   /* log kebiasaan: kunci yang tersentuh dibangun ulang supaya deterministik
      (tepat satu log per kebiasaan+tanggal) & yatim dari kebiasaan terhapus dibuang */
@@ -3508,6 +3592,8 @@ function ovApply(){
   });
   OV.srcAdd.forEach(s=>sMap.set(s.id,{...s}));
   DB.fundSources=[...sMap.values()];
+  /* v2.35 · identitas: string (termasuk '') menimpa nilai server; null = belum tersentuh */
+  if(typeof OV.identityText==='string'&&DB.settings)DB.settings={...DB.settings,identityText:OV.identityText};
   /* v2.27 · rapikan spasi ganda pada nama (audit: kategori "🛠️  Servis
      Motor"). Dilakukan SETELAH pemetaan jurnal supaya kunci jurnal lama
      (memakai nama asli) tetap cocok; dimensi berbasis nama (kategori,
@@ -4571,6 +4657,8 @@ function renderIdentity(){
   /* v2.33 · semangat hari ini ikut dirender bersama identitas — konteks
      kutipan selalu sinkron dgn progres terbaru (toggle kebiasaan, dsb.) */
   renderMotiv();
+  /* v2.35 · suara identitas ikut disegarkan — jumlah suara berubah tiap centang */
+  renderIdentityCard();
 }
 
 /* ---------- v2.33 · SEMANGAT HARI INI (kartu Ringkasan) ----------
@@ -4663,6 +4751,74 @@ document.addEventListener('click',e=>{
   motivShift++;
   renderMotiv(true);
 });
+/* ---------- v2.35 · SUARA IDENTITAS (kartu Ringkasan) ----------
+   Atomic Habits: "setiap tindakan adalah suara untuk pribadi yang ingin
+   kamu jadi". Pernyataan identitas ditulis sekali — tersinkron ke database
+   (AppSettings.identityText lewat jurnal OV) — lalu jumlah suara dihitung
+   dari catatan kebiasaan ASLI (pekan ini & total) supaya tiap centang
+   terasa sebagai bukti identitas yang mengakar. */
+let idEditing=false; /* mode sunting pernyataan (sesi saja) */
+const identityText=()=>((SETTINGS&&typeof SETTINGS.identityText==='string'&&SETTINGS.identityText.trim())?SETTINGS.identityText.trim():'');
+function identityVotes(){
+  const ws=weekStartOf(TODAY),tk=dayKey(TODAY);
+  let week=0;
+  for(let j=0;j<7;j++){const k=dayKey(addDays(ws,j));if(k<=tk)week+=(logsByDate[k]||[]).length}
+  return{week,total:sumBy(HABITS,h=>h.total)};
+}
+function renderIdentityCard(readonly){
+  const body=$('#idBody');if(!body)return;
+  if(readonly){body.innerHTML='<div class="id-head"><div class="eyebrow">Suara identitas</div></div><p class="id-empty-note">Identitas siap ditanam begitu data terjangkau.</p>';return}
+  const txt=identityText();
+  if(idEditing){
+    body.innerHTML=`
+      <div class="id-head"><div class="eyebrow">Suara identitas</div></div>
+      <form class="id-form" id="formIdentity">
+        <div class="field"><input type="text" id="idInput" maxlength="120" autocomplete="off" value="${esc(txt)}" aria-label="Pernyataan identitas"></div>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan</button>
+        <button type="button" class="btn btn-ghost" data-id-act="cancel">Batal</button>
+      </form>`;
+  }else if(!txt){
+    body.innerHTML=`
+      <div class="id-head"><div class="eyebrow">Suara identitas</div></div>
+      <p class="id-empty-note">Tulis jenis orang yang kamu mau jadi — tiap centang kebiasaan menjadi satu suara untuk pribadi itu.</p>
+      <form class="id-form" id="formIdentity">
+        <div class="field"><input type="text" id="idInput" maxlength="120" autocomplete="off" placeholder="aku yang lebih rajin &amp; sadar uang" aria-label="Pernyataan identitas"></div>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Tanam identitas</button>
+      </form>`;
+  }else{
+    const v=identityVotes();
+    body.innerHTML=`
+      <div class="id-head">
+        <div class="eyebrow">Suara identitas</div>
+        <button class="icon-btn id-edit" data-id-act="edit" title="Sunting identitas" aria-label="Sunting pernyataan identitas"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+      </div>
+      <p class="id-stmt">${esc(txt)}</p>
+      <div class="id-votes"><span>Minggu ini <b class="t-num">${v.week}</b> suara</span><span class="sep">·</span><span>Total <b class="t-num">${v.total}</b> suara</span></div>
+      <p class="t-sub id-ctx">Setiap centang kebiasaan menambah satu suara — bukti kecil yang mengakar, satu hari demi satu hari.</p>
+      <button class="link-btn id-cta" data-go="kebiasaan">Catat suara hari ini <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>`;
+  }
+}
+function saveIdentity(){
+  const inp=$('#idInput');
+  const v=inp?inp.value.trim().slice(0,120):'';
+  if(!v){toast('Belum tertulis','Tulis dulu jenis orang yang kamu mau jadi.','i-x','rose');if(inp)inp.focus();return}
+  if(!DB){toast('Belum bisa tersimpan','Database belum terjangkau — coba lagi setelah aplikasi siap.','i-x','honey');return}
+  SETTINGS.identityText=v;
+  OV.identityText=v;ovPersist();armSyncToast(); /* v2.35 · identitas ikut jurnal → tersinkron ke database */
+  idEditing=false;renderIdentityCard();
+  if(!reduced)botaniRain({kinds:['leaf','leafLight','sparkle'],n:10});
+  toast('Identitas ditanam',`Setiap centang kebiasaan kini jadi satu suara untuk "${v}" 🌿`,'i-sparkle','sage');
+}
+document.addEventListener('submit',e=>{
+  if(e.target&&e.target.id==='formIdentity'){e.preventDefault();saveIdentity()}
+});
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-id-act]');
+  if(!btn)return;
+  const act=btn.dataset.idAct;
+  if(act==='edit'){idEditing=true;renderIdentityCard();const inp=$('#idInput');if(inp){inp.focus();inp.select()}}
+  else if(act==='cancel'){idEditing=false;renderIdentityCard()}
+});
 
 /* ---------- v2.8 · hero pohon konsistensi ----------
    Pohon tumbuh dari HARI AKTIF (bukan daftar kebiasaan): tiap hari yang
@@ -4705,7 +4861,8 @@ function renderTreeHero(){
     animateBars(bar.closest('.tree-progress'));
   }
   $('#treeNext').textContent=!next?'Tahap tertinggi — pohonmu berbunga terus.'
-    :a===0?`Catat satu aktivitas hari ini untuk menumbuhkannya.`
+    :a===0?'Akar tumbuh dulu di bawah tanah — catat satu aktivitas hari ini untuk menumbuhkannya.'
+    :a<7?`${next.min-a} hari aktif lagi menuju ${next.name} — akar masih bekerja diam-diam di bawah tanah.`
     :`${next.min-a} hari aktif lagi menuju ${next.name}.`;
   /* kartu sisi (desktop): cerita pertumbuhan yang sama */
   $('#sideCardT').textContent=`${st.name} · ${a} hari aktif`;
@@ -5062,6 +5219,27 @@ function weeklyDots(h){
   }
   return out;
 }
+/* ---------- v2.35 · nudge kebiasaan (Atomic Habits) ----------
+   Paling banyak SATU baris bimbingan per kartu, prioritas:
+   (1) Jangan Bolong Dua Kali — kemarin terlewat, hari ini belum;
+   (2) ajakan versi mini saat kembali setelah rehat >=3 hari;
+   (3) Goldilocks "perkecil takaran" bila pekan berjalan <50% (hanya
+       untuk kebiasaan usianya cukup — kebiasaan baru tak dinilai);
+   (4) Goldilocks "naik kelas" setelah pekan sempurna 7/7.
+   Copy lembut, tak pernah menuduh — honey (peringatan) / sage (apresiasi). */
+function habitNudge(h,done){
+  if(!h)return null;
+  const gap=h.last?Math.round((startOfDay(TODAY)-new Date(h.last+'T00:00:00'))/864e5):null;
+  if(!done){
+    if(gap===2)return{txt:`Kemarin bolong — hari ini jangan sampai dua kali.${h.mini?` Versi mini: ${h.mini}.`:''}`,tone:'honey'};
+    if(gap!=null&&gap>=3&&h.mini)return{txt:`Sudah ${gap} hari rehat — mulai dari versi mini: ${h.mini}.`,tone:'honey'};
+  }
+  let done7=0;
+  for(let i=0;i<7;i++){if(h.dates.includes(dayKey(addDays(TODAY,-i))))done7++}
+  if(done7>=7)return{txt:'Pekan sempurna 7/7 — waktunya naik kelas? Tambah takarannya.',tone:'sage'};
+  if(!done&&done7<=3&&h.total>=8&&h.first&&h.first<=dayKey(addDays(TODAY,-6)))return{txt:`Pekan ini ${done7}/7 — perkecil takarannya dulu; versi 2 menit pun sah.`,tone:'honey'};
+  return null;
+}
 function renderHabitCards(anim){
   const f=state.habitFilter;
   const list=HABITS.filter(h=>f==='semua'||h.category===f);
@@ -5074,6 +5252,8 @@ function renderHabitCards(anim){
   $('#habitGrid').innerHTML=list.map(h=>{
     const done=!!doneToday[h.id];
     const pct=Math.min(100,Math.round(h.best/14*100));
+    const nInfo=habitNudge(h,done); /* v2.35 · satu baris bimbingan Atomic Habits */
+    const anchor=h.afterId?habitById(h.afterId):null; /* v2.35 · jangkar susun kebiasaan */
     return `<div class="card habit-card drillable" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail kebiasaan">
       <div class="hc-main">
         <div class="hc-top">
@@ -5085,12 +5265,14 @@ function renderHabitCards(anim){
               ${isAmount(h)?`<span class="tag" style="color:var(--honey-deep)"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>${h.target} ${esc(h.unit||'kali')}/hari</span>`:''}
               ${h.grp?`<span class="tag" style="color:${esc(h.grp.color)}">${esc(h.grp.name)}</span>`:''}
               ${h.reminder?`<span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>${esc(fmtJam(h.reminder))}</span>`:''}
-              <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
+                            ${anchor?`<span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg>Setelah ${esc(anchor.name)}</span>`:''}
+<span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
             </div>
           </div>
         </div>
         ${isAmount(h)?`<div class="amt-row"><small>Hari ini</small><div class="bar"><i data-w="${amtPct(h)}%"></i></div><span class="t-num">${esc(amtLabel(h))}</span></div>`:''}
         <div class="wd-row">${weeklyDots(h)}</div>
+        ${nInfo?`<div class="hc-nudge ${nInfo.tone}"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>${esc(nInfo.txt)}</div>`:''}
         <div class="hc-bottom">
           <div class="hc-consist"><small>${h.total} catatan · rekor ${h.best} hari berturut-turut</small><div class="bar"><i data-w="${pct}%"></i></div></div>
           <button class="btn-check ${done?'done':''}" data-check="${esc(h.id)}" aria-pressed="${done}" aria-label="Tandai ${esc(h.name)} selesai"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
@@ -6379,22 +6561,26 @@ $('#iconPicker').addEventListener('change',e=>{pickedIcon=e.target.value;renderI
 function fillHabitSelects(){
   $('#habitCat').innerHTML=Object.keys(HCAT).map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
   $('#habitGroup').innerHTML=`<option value="">Tanpa grup</option>`+GROUPS.map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');
+  /* v2.35 · jangkar susun kebiasaan: daftar kebiasaan lain sebagai pilihan */
+  $('#habitAfter').innerHTML=`<option value="">— tanpa jangkar —</option>`+HABITS.map(h=>`<option value="${esc(h.id)}">${esc(h.name)}</option>`).join('');
 }
 $('#formHabit').addEventListener('submit',e=>{
   e.preventDefault();
   const nama=$('#habitName').value.trim();
   if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','rose');return}
+  const miniTxt=($('#habitMini').value||'').trim(); /* v2.35 · ditangkap sebelum reset */
   const cat=$('#habitCat').value||'General';
   const grpId=$('#habitGroup').value||null;
   const hidBaru={id:'local-'+Date.now(),name:nama,category:cat,reminder:$('#habitTime').value||null,groupId:grpId,
-    habitType:'normal',target:1,unit:null,priority:'Medium',difficulty:'Easy',emoji:''};
+    habitType:'normal',target:1,unit:null,priority:'Medium',difficulty:'Easy',emoji:'',
+    mini:miniTxt||null,afterId:$('#habitAfter').value||null}; /* v2.35 · versi mini & jangkar */
   HABITS.push({...hidBaru,
     grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,ikon:pickedIcon,warna:HCAT[cat]||'#059669',
     dates:[],total:0,best:0,first:null,last:null});
   OV.habitAdd.push(hidBaru);ovPersist();armSyncToast(); /* v2.22 · kebiasaan baru tersimpan ke database */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();
-  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat · tersimpan ke database.`,'i-sparkle','honey');
+  toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat${miniTxt?' · versi mini menemani':''} · tersimpan ke database.`,'i-sparkle','honey');
 });
 
 /* ---------- modal anggaran (v2.10) ---------- */
@@ -6568,6 +6754,7 @@ function tunasPrep(){
     page.querySelector('.page-head'),
     page.querySelector('.hero'),
     page.querySelector('.motiv-card'), /* v2.33 · kartu semangat ikut kaskade pagi */
+    page.querySelector('.identity-card'), /* v2.35 · kartu suara identitas mengikuti */
     ...page.querySelectorAll('.stats > .card'),
     page.querySelector('.streak-banner'),
     page.querySelector('#rowAgenda > .card'),
@@ -6955,7 +7142,7 @@ function tunasWake(){
   }
 
   /* ---------- pasang & tautkan ---------- */
-  ['txMonth','txCat','txSource','habitCat','habitGroup'].forEach(id=>mountSelect($('#'+id)));
+  ['txMonth','txCat','txSource','habitCat','habitGroup','habitAfter'].forEach(id=>mountSelect($('#'+id)));
   mountDate($('#txDate'));
   mountTime($('#habitTime'));
   [$('#formTx'),$('#formHabit')].forEach(f=>f&&f.addEventListener('reset',()=>setTimeout(()=>SYNCERS.forEach(f=>f()),0)));
@@ -7255,7 +7442,7 @@ function tunasWake(){
   const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
   await loadData();
   ovApply(); /* v2.21 · lapisan lokal pengguna diterapkan di atas data server */
-  if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
+  if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();renderIdentityCard(true);tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
   prepData();syncToday();
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();

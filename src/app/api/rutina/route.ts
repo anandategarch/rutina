@@ -25,6 +25,11 @@ export const dynamic = "force-dynamic";
      dari snapshot yang tertanam di public/rutina.html saat pertama kali
      diakses — jalur baca-tulis tetap hidup penuh tanpa kredensial.
 
+   v2.35 · kolom Atomic Habits: Habit.mini + Habit.afterId (versi 2 menit
+   & jangkar "susun kebiasaan") dan AppSettings.identityText (pernyataan
+   identitas "aku yang ingin jadi…"). Ditambahkan lewat migrasi ALTER
+   idempoten — database lama (lokal maupun Turso) tak perlu dibuat ulang.
+
    Semua nilai di-bind lewat prepared statement; nama tabel & kolom selalu
    hardcoded, tidak pernah berasal dari input klien.
    ========================================================================== */
@@ -60,6 +65,7 @@ const inVal = (v: unknown): InValue => {
 type DbTarget = { client: Client; source: "turso" | "local" };
 
 let cachedTurso: Client | null = null;
+let tursoMigrated = false; /* v2.35 · migrasi kolom Atomic Habits sekali per proses */
 let cachedLocal: { client: Client; ready: Promise<void> } | null = null;
 
 function tursoClient(): Client | null {
@@ -72,7 +78,14 @@ function tursoClient(): Client | null {
 
 async function getTarget(): Promise<DbTarget> {
   const turso = tursoClient();
-  if (turso) return { client: turso, source: "turso" };
+  if (turso) {
+    /* v2.35 · pastikan kolom Atomic Habits hadir di database produksi */
+    if (!tursoMigrated) {
+      await migrateColumns(turso);
+      tursoMigrated = true;
+    }
+    return { client: turso, source: "turso" };
+  }
   if (!cachedLocal) {
     mkdirSync(dirname(LOCAL_DB), { recursive: true });
     const client = createClient({ url: `file:${LOCAL_DB}` });
@@ -90,7 +103,7 @@ async function getTarget(): Promise<DbTarget> {
 /* ----------------------------------------------- skema lokal (pratinjau) */
 
 const DDL: string[] = [
-  `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0)`,
+  `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0,"mini" TEXT,"afterId" TEXT)`,
   `CREATE TABLE IF NOT EXISTS "HabitGroup"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0)`,
   `CREATE TABLE IF NOT EXISTS "HabitLog"("habitId" TEXT NOT NULL,"date" TEXT NOT NULL,"completed" INTEGER DEFAULT 1,"value" REAL DEFAULT 1,PRIMARY KEY("habitId","date"))`,
   `CREATE TABLE IF NOT EXISTS "HabitOption"("type" TEXT NOT NULL,"label" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0,PRIMARY KEY("type","label"))`,
@@ -99,11 +112,27 @@ const DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "WeeklyBudget"("category" TEXT NOT NULL,"month" TEXT NOT NULL,"amount" INTEGER,PRIMARY KEY("category","month"))`,
   `CREATE TABLE IF NOT EXISTS "FundSource"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"type" TEXT,"emoji" TEXT,"initialBalance" INTEGER DEFAULT 0,"sortOrder" INTEGER DEFAULT 0,"isArchived" INTEGER DEFAULT 0)`,
   `CREATE TABLE IF NOT EXISTS "DailyLog"("date" TEXT PRIMARY KEY,"mood" INTEGER,"energy" INTEGER,"sleep" INTEGER)`,
-  `CREATE TABLE IF NOT EXISTS "AppSettings"("userName" TEXT,"weekStart" INTEGER DEFAULT 1,"targetCompletion" INTEGER DEFAULT 80)`,
+  `CREATE TABLE IF NOT EXISTS "AppSettings"("userName" TEXT,"weekStart" INTEGER DEFAULT 1,"targetCompletion" INTEGER DEFAULT 80,"identityText" TEXT)`,
 ];
+
+/* v2.35 · migrasi kolom Atomic Habits — ALTER per kolom; gagal "duplicate
+   column" berarti kolom sudah ada → diabaikan (idempoten, aman diulang). */
+const COLUMN_MIGRATIONS: [string, string][] = [
+  ["Habit", "mini"],
+  ["Habit", "afterId"],
+  ["AppSettings", "identityText"],
+];
+async function migrateColumns(client: Client): Promise<void> {
+  for (const [table, col] of COLUMN_MIGRATIONS) {
+    try {
+      await client.execute(`ALTER TABLE "${table}" ADD COLUMN "${col}" TEXT`);
+    } catch { /* kolom sudah ada — lanjut */ }
+  }
+}
 
 async function ensureLocalSchema(client: Client): Promise<void> {
   for (const sql of DDL) await client.execute(sql);
+  await migrateColumns(client);
   const res = await client.execute(`SELECT COUNT(*) AS n FROM "Habit"`);
   const n = Number((res.rows[0] as { n?: unknown } | undefined)?.n ?? 0);
   if (n === 0) await seedFromSnapshot(client);
@@ -216,7 +245,7 @@ async function seedFromSnapshot(client: Client): Promise<void> {
 /* -------------------------------------------- introspeksi kolom (aman) */
 
 const FALLBACK_COLS: Record<string, string[]> = {
-  Habit: ["id", "name", "emoji", "category", "priority", "difficulty", "habitType", "target", "unit", "reminder", "groupId", "isActive", "isArchived"],
+  Habit: ["id", "name", "emoji", "category", "priority", "difficulty", "habitType", "target", "unit", "reminder", "groupId", "isActive", "isArchived", "mini", "afterId"],
   HabitLog: ["habitId", "date", "completed", "value"],
   Transaction: ["id", "type", "amount", "category", "sourceId", "description", "date"],
   WeeklyBudget: ["category", "month", "amount"],
@@ -272,7 +301,7 @@ export async function GET() {
     const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings] =
       await Promise.all([
         target.client.execute(
-          `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
+          `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","mini","afterId" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
         ),
         target.client.execute(`SELECT "id","name","color" FROM "HabitGroup" ORDER BY "sortOrder"`),
         target.client.execute(`SELECT "habitId","date","completed","value" FROM "HabitLog"`),
@@ -288,7 +317,7 @@ export async function GET() {
           `SELECT "id","name","type","emoji","initialBalance" FROM "FundSource" WHERE "isArchived"=0 ORDER BY "sortOrder"`,
         ),
         target.client.execute(`SELECT "date","mood","energy","sleep" FROM "DailyLog"`),
-        target.client.execute(`SELECT "userName","weekStart","targetCompletion" FROM "AppSettings" LIMIT 1`),
+        target.client.execute(`SELECT "userName","weekStart","targetCompletion","identityText" FROM "AppSettings" LIMIT 1`),
       ]);
 
     const data = {
@@ -296,6 +325,7 @@ export async function GET() {
         userName: String(settings.rows[0]?.userName ?? "Sahabat Rutina"),
         weekStart: Number(settings.rows[0]?.weekStart ?? 1),
         targetCompletion: Number(settings.rows[0]?.targetCompletion ?? 80),
+        identityText: settings.rows[0]?.identityText ? String(settings.rows[0].identityText) : null,
       },
       habitGroups: groups.rows.map((r) => ({
         id: String(r.id),
@@ -318,6 +348,8 @@ export async function GET() {
         unit: r.unit ? String(r.unit) : null,
         reminder: r.reminder ? String(r.reminder) : null,
         groupId: r.groupId ? String(r.groupId) : null,
+        mini: r.mini ? String(r.mini) : null,
+        afterId: r.afterId ? String(r.afterId) : null,
       })),
       habitLogs: logs.rows.map((r) => ({
         habitId: String(r.habitId),
@@ -377,12 +409,14 @@ export async function GET() {
 
 interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string }
 interface BudRow { category: string; month: string; amount: number }
-interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null }
+interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null; mini: string | null; afterId: string | null }
+interface HabitMetaRow { mini: string | null; afterId: string | null }
 interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
 interface Overlay {
   txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
   budAdd: BudRow[]; budEdit: Record<string, BudRow>; budDel: string[];
   habitAdd: HabitRow[]; habitDel: string[];
+  habitMeta: Record<string, HabitMetaRow>; identityText: string | null;
   logAdd: Record<string, number | true>; logDel: Record<string, true>;
   srcAdd: SrcRow[]; srcEdit: Record<string, SrcRow>; srcDel: string[];
   catRename: Record<string, string>; catDel: string[];
@@ -422,6 +456,8 @@ function sanitizeHabit(v: unknown): HabitRow {
     unit: o.unit ? str(o.unit).slice(0, 16) : null,
     reminder: o.reminder ? str(o.reminder).slice(0, 16) : null,
     groupId: o.groupId ? str(o.groupId) : null,
+    mini: o.mini ? str(o.mini).slice(0, 80) : null,
+    afterId: o.afterId ? str(o.afterId).slice(0, 64) : null,
   };
 }
 function sanitizeSrc(v: unknown): SrcRow {
@@ -467,10 +503,22 @@ function sanitizeOverlay(input: unknown): Overlay | null {
   for (const [k, v] of Object.entries(asRecord(o.catRename))) {
     if (k && str(v) && str(v) !== k) catRename[k] = str(v).slice(0, 40);
   }
+  /* v2.35 · meta kebiasaan (versi mini & jangkar) + identitas pengguna */
+  const habitMeta: Record<string, HabitMetaRow> = {};
+  for (const [k, v] of Object.entries(asRecord(o.habitMeta))) {
+    if (!k) continue;
+    const m = asRecord(v);
+    habitMeta[k] = {
+      mini: m.mini ? str(m.mini).slice(0, 80) : null,
+      afterId: m.afterId ? str(m.afterId).slice(0, 64) : null,
+    };
+  }
+  const identityText = typeof o.identityText === "string" ? o.identityText.slice(0, 120) : null;
   return {
     txAdd: txList(o.txAdd), txEdit: txMap, txDel: strList(o.txDel),
     budAdd: budList(o.budAdd), budEdit: budMap, budDel: strList(o.budDel),
     habitAdd: habitList(o.habitAdd), habitDel: strList(o.habitDel),
+    habitMeta, identityText,
     logAdd, logDel,
     srcAdd: srcList(o.srcAdd), srcEdit: (() => {
       const m: Record<string, SrcRow> = {};
@@ -621,7 +669,8 @@ async function applyOverlay(
       await insertRow(client, "Habit", {
         id: h.id, name: h.name, emoji: h.emoji, category: h.category, priority: h.priority,
         difficulty: h.difficulty, habitType: h.habitType, target: h.target, unit: h.unit,
-        reminder: h.reminder, groupId: h.groupId, isActive: 1, isArchived: 0,
+        reminder: h.reminder, groupId: h.groupId, mini: h.mini, afterId: h.afterId,
+        isActive: 1, isArchived: 0,
       });
     });
   }
@@ -662,6 +711,24 @@ async function applyOverlay(
         id: s.id, name: s.name, type: s.type, emoji: s.emoji,
         initialBalance: s.initialBalance, isArchived: 0,
       });
+    });
+  }
+
+  /* 8 · v2.35 · Atomic Habits — meta kebiasaan (versi mini & jangkar) lalu
+        identitas pengguna (AppSettings satu baris; insert bila belum ada) */
+  for (const [id, meta] of Object.entries(ov.habitMeta)) {
+    if (!id) continue;
+    await run("habitMeta", () => client.execute({
+      sql: `UPDATE "Habit" SET "mini"=?,"afterId"=? WHERE "id"=?`,
+      args: [meta.mini, meta.afterId, id],
+    }));
+  }
+  if (ov.identityText !== null) {
+    await run("identitySet", async () => {
+      const res = await client.execute({ sql: `UPDATE "AppSettings" SET "identityText"=?`, args: [ov.identityText] });
+      if (!Number(res.rowsAffected ?? 0)) {
+        await client.execute({ sql: `INSERT INTO "AppSettings"("identityText") VALUES (?)`, args: [ov.identityText] });
+      }
     });
   }
 

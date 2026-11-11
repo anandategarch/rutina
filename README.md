@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.34** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.35** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -27,11 +27,12 @@ src/app/
 1. Shell memuat snapshot tertanam, lalu `GET /api/rutina` untuk data awan.
 2. Semua suntingan pengguna ditulis dulu ke localStorage (lapisan overlay), lalu didorong via `POST /api/rutina`.
 3. Tanpa `RUTINA_TURSO_URL`, API otomatis memakai SQLite lokal `db/rutina-preview.db` (dibuat & diisi dari snapshot) — mode pratinjau tetap baca-tulis penuh.
+4. **v2.35**: kolom `Habit.mini` / `Habit.afterId` / `AppSettings.identityText` ditambahkan lewat migrasi `ALTER` idempoten di API — database lama (Turso maupun lokal) tak perlu dibuat ulang.
 
 ## Fitur utama
 
-- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi", dan kartu **Semangat Hari Ini**: kutipan motivasi kebiasaan yang berganti per hari, menempel pada progres asli, dan membawa ajakan bertindak ke tab kebiasaan.
-- **Kebiasaan** — pelacakan harian, target kuantitatif, riwayat mingguan.
+- **Ringkasan** — progres harian, tren, animasi pembuka "Tunas Pagi", kartu **Semangat Hari Ini** (kutipan harian yang menempel pada progres asli), dan kartu **Suara Identitas** (Atomic Habits): tulis "aku yang ingin jadi…" sekali — tersinkron ke database — lalu tiap centang kebiasaan dihitung sebagai satu suara (pekan ini & total).
+- **Kebiasaan** — pelacakan harian, target kuantitatif, riwayat mingguan, plus mekanik Atomic Habits: nudge **Jangan Bolong Dua Kali** (kartu yang kemarin terlewat), **Versi 2 Menit** + **Susun Kebiasaan** (jangkar "setelah X, aku akan Y"; kolom `Habit.mini`/`Habit.afterId`), dan nudge **Goldilocks** (pekan sempurna → "naik kelas?"; pekan <50% → "perkecil takarannya?"). Hero pohon tahap benih/tunas membawa microcopy **Fase Akar** (Plato Potensi Tersembunyi).
 - **Keuangan** — transaksi + transfer antar-dompet, dompet, anggaran per kategori, peta panas pengeluaran; tiga anak tab (Analisa / Mutasi / Saldo Bank).
 - **Kalender** — catatan hari & ritme pekan.
 - **Wawasan** — pola, laporan, lencana.
