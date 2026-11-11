@@ -36,6 +36,12 @@ export const dynamic = "force-dynamic";
    dinamis dari kunci yang HADIR di jurnal (jurnal lama tetap kompatibel:
    hanya mini/afterId yang tersentuh).
 
+   v2.39 · jurnal dailyLog: check-in harian mood/energi/tidur — peta
+   tanggal → nilai, UPSERT ke tabel DailyLog (sudah ada sejak skema V1
+   via CREATE TABLE IF NOT EXISTS). Tabel "date" PRIMARY KEY membuatnya
+   idempoten alami: diputar ulang berapa pun kali, baris hari itu tetap
+   satu dengan nilai terakhir.
+
    Semua nilai di-bind lewat prepared statement; nama tabel & kolom selalu
    hardcoded, tidak pernah berasal dari input klien.
    ========================================================================== */
@@ -426,6 +432,7 @@ interface HabitMetaRow {
   mini?: string | null; afterId?: string | null;
 }
 interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
+interface DailyLogRow { date: string; mood: number; energy: number; sleep: number }
 interface Overlay {
   txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
   budAdd: BudRow[]; budEdit: Record<string, BudRow>; budDel: string[];
@@ -434,6 +441,7 @@ interface Overlay {
   logAdd: Record<string, number | true>; logDel: Record<string, true>;
   srcAdd: SrcRow[]; srcEdit: Record<string, SrcRow>; srcDel: string[];
   catRename: Record<string, string>; catDel: string[];
+  dailyLog: Record<string, DailyLogRow>; /* v2.39 · kunci = tanggal */
 }
 
 function asRecord(v: unknown): Record<string, unknown> {
@@ -539,6 +547,21 @@ function sanitizeOverlay(input: unknown): Overlay | null {
     if (Object.keys(e).length) habitMeta[k] = e;
   }
   const identityText = typeof o.identityText === "string" ? o.identityText.slice(0, 120) : null;
+  /* v2.39 · check-in harian: peta tanggal → {mood,energy,sleep}; nilai
+     diklem ke rentang wajar (mood/energi 1–5, tidur 0–16 jam), tanggal
+     dipotong ke bentuk YYYY-MM-DD; tanggal tak valid dibuang. */
+  const dailyLog: Record<string, DailyLogRow> = {};
+  for (const [k, v] of Object.entries(asRecord(o.dailyLog))) {
+    const date = k.slice(0, 10);
+    const m = asRecord(v);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !m) continue;
+    dailyLog[date] = {
+      date,
+      mood: Math.min(5, Math.max(0, Math.round(num(m.mood)))),
+      energy: Math.min(5, Math.max(0, Math.round(num(m.energy)))),
+      sleep: Math.min(16, Math.max(0, num(m.sleep))),
+    };
+  }
   return {
     txAdd: txList(o.txAdd), txEdit: txMap, txDel: strList(o.txDel),
     budAdd: budList(o.budAdd), budEdit: budMap, budDel: strList(o.budDel),
@@ -554,6 +577,7 @@ function sanitizeOverlay(input: unknown): Overlay | null {
       return m;
     })(), srcDel: strList(o.srcDel),
     catRename, catDel: strList(o.catDel),
+    dailyLog,
   };
 }
 
@@ -776,6 +800,16 @@ async function applyOverlay(
         await client.execute({ sql: `INSERT INTO "AppSettings"("identityText") VALUES (?)`, args: [ov.identityText] });
       }
     });
+  }
+
+  /* 9 · v2.39 · check-in harian (mood/energi/tidur) — kunci = tanggal,
+        PRIMARY KEY pada tabel membuat INSERT OR REPLACE menjadi upsert
+        idempoten: nilai terakhir menang, baris hari tetap satu. */
+  for (const d of Object.values(ov.dailyLog)) {
+    await run("dailyLog", () => client.execute({
+      sql: `INSERT OR REPLACE INTO "DailyLog"("date","mood","energy","sleep") VALUES (?,?,?,?)`,
+      args: [d.date, d.mood, d.energy, d.sleep],
+    }));
   }
 
   return { applied, failed };

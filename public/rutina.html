@@ -7,6 +7,16 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.39 · CHECK-IN HARIAN + AUDIT MENYELURUH — audit dalam menemukan
+     fitur #4 yang diminta (mood/energi/tidur) tak pernah terkirim: tabel
+     DailyLog & tampilan pill di detail hari sudah ada sejak lama, tapi
+     TANPA UI input dan TANPA jalur tulis jurnal. Kini lengkap: kartu
+     check-in di Ringkasan (skala 1–5 mood & energi + lama tidur),
+     jurnal OV.dailyLog (kunci tanggal) → server UPSERT idempoten.
+     Perbaikan audit lain: tinggi nama tanaman taman dikunci 2 baris
+     (baseline label tahap kini rata antar kartu), .sc-grid kini
+     terdefinisi eksplisit, simbol sprite i-minus vestigial dibuang,
+     i-moon akhirnya terpakai (label baris tidur). -->
 <!-- v2.38 · DESAIN ULANG PENGELUARAN KILAT — komposer catat cepat kini
      berbahasa form aplikasi penuh: input nominal & select dompet dibungkus
      .field (48px, radius 14, tepi 1.5px, latar surface-2, fokus cincin
@@ -711,9 +721,44 @@ b,strong{font-weight:600}
 .gd-plant:hover{transform:translateY(-3px);border-color:var(--terra)}
 .gd-plant img{width:58px;height:58px;display:block;pointer-events:none}
 .gd-nm{font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.25;text-align:center;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+/* v2.39 · audit: tinggi nama dikunci 2 baris penuh — nama 1-baris tak lagi
+   menggeser baseline label tahap di kartu sebelahnya (strip rata) */
+.gd-plant .gd-nm{min-height:29px}
+/* v2.39 · label tahap satu baris penuh (ellipsis) — tinggi kartu seragam */
+.gd-plant .gd-sub{align-self:stretch;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
 .gd-sub{font-size:10.5px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .gd-done{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:var(--terra-strong);display:grid;place-items:center;color:#fff;box-shadow:0 2px 6px rgba(5,150,105,.35)}
 .gd-done .ic{width:11px;height:11px}
+/* ---------- v2.39 · kartu check-in harian (Ringkasan) ----------
+   Mood · energi · tidur — angka 1–5 lewat titik skala (konvensi chip:
+   aktif = terra pekat), tidur lewat select .field. Menempel pada data
+   asli tabel DailyLog (tersinkron lewat jurnal dailyLog). Setelah
+   tersimpan: ringkasan pill + tombol Ubah — pill yang sama persis
+   dengan detail hari supaya satu bahasa. */
+.ci-card{padding:18px 20px;margin-bottom:24px}
+.ci-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ci-lab{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:96px;flex:none}
+.ci-lab .ic{width:15px;height:15px;color:var(--ink-3);flex:none}
+.ci-scale{display:flex;gap:6px;flex:1;min-width:0}
+.ci-dot{flex:1;min-width:0;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--ink-2);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:border-color .18s,color .18s,background .18s;cursor:pointer;padding:4px 2px}
+.ci-dot span{font-size:16px;line-height:1.1}
+.ci-dot small{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.02em}
+.ci-dot:hover{border-color:var(--terra);color:var(--terra-deep)}
+.ci-dot:active{transform:scale(.95)}
+.ci-dot.active{background:var(--terra-strong);border-color:var(--terra-strong);color:#fff}
+.ci-dot.active small{color:rgba(255,255,255,.75)}
+.ci-sel{margin:0;flex:1;min-width:132px;display:flex}
+.ci-sel select{flex:1}
+.ci-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.ci-actions .ci-save{flex:1;min-width:150px;min-height:46px}
+.ci-sum{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+@media(max-width:640px){
+  .ci-card{padding:15px 15px}
+  .ci-lab{min-width:88px}
+  .ci-row{align-items:flex-start}
+  .ci-scale{gap:5px}
+  .ci-dot{min-height:38px}
+}
 /* ---------- v2.37 · lencana transaksi berulang ---------- */
 .tag-rec{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--sky-deep);background:var(--sky-soft);border-radius:999px;padding:2px 8px;vertical-align:middle}
 .tag-rec .ic{width:10px;height:10px;flex:none}
@@ -1428,6 +1473,7 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @media(min-width:640px){.sc-sheet{border-radius:26px}}
 .sc-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 2px;border-bottom:1px solid var(--line-soft)}
 .sc-row:last-of-type{border-bottom:none}
+.sc-grid{display:flex;flex-direction:column} /* v2.39 · audit: kelas kini terdefinisi eksplisit (dulu hook kosong) */
 .sc-row>small{font-size:13px;color:var(--ink-2);font-weight:600}
 .sc-keys{display:flex;gap:4px;align-items:center;flex:none;color:var(--ink-3);font-size:11px;font-weight:600}
 kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:center;background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2.5px;border-radius:8px;font-family:var(--font-display);font-size:12px;font-weight:600;color:var(--ink-2)}
@@ -2041,7 +2087,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 20v-6M12 20V10M17 20V6"/></g></symbol>
 <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5.5 12h13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
 <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 0 1 12 0c0 4.8 1.8 5.8 1.8 5.8H4.2S6 14.3 6 9.5"/><path d="M10 18.8a2.2 2.2 0 0 0 4 0"/></g></symbol>
@@ -2490,6 +2535,22 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="qa-cats" id="qaCats" role="group" aria-label="Kategori pengeluaran cepat"></div>
       <p class="qa-hint">Butuh pemasukan, transfer, atau catatan panjang? <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">Buka form lengkap</button></p>
     </div>
+  </div>
+
+  <!-- CHECK-IN HARIAN (v2.39) — mood · energi · tidur: satu kartu kecil
+       di Ringkasan, menulis ke tabel DailyLog (jurnal dailyLog — upsert
+       idempoten per tanggal). Ringkasan pill yang sama dengan detail hari. -->
+  <div class="card ci-card" id="checkinCard">
+    <div class="card-head" style="margin-bottom:12px">
+      <div class="ch-title">
+        <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
+        <div>
+          <div class="eyebrow">Check-in harian</div>
+          <h3 class="h-serif" id="ciTitle">Bagaimana kabarmu hari ini?</h3>
+        </div>
+      </div>
+    </div>
+    <div id="ciBody"></div>
   </div>
 
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
@@ -3631,7 +3692,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.38';
+const APP_VERSION='v2.39';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3679,7 +3740,7 @@ let OV=null;
 const isLocalId=id=>String(id||'').startsWith('local-');
 const budKey=(c,m)=>c+'|'+m;
 const logKey=(h,d)=>h+'|'+d;
-function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[],identityText:null,habitMeta:{}}}
+function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[],identityText:null,habitMeta:{},dailyLog:{}}}
 function ovLoad(){
   let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
@@ -3696,6 +3757,7 @@ function ovCount(){if(!OV)return 0;
     +OV.srcAdd.length+Object.keys(OV.srcEdit).length+OV.srcDel.length
     +Object.keys(OV.catRename).length+OV.catDel.length
     +(OV.identityText!=null?1:0)+Object.keys(OV.habitMeta||{}).length /* v2.35 */
+  +Object.keys(OV.dailyLog||{}).length /* v2.39 · check-in harian */
 }
 /* terapkan lapisan lokal di atas data yang baru dimuat — gabung BY-ID supaya
    baris yang sudah tersinkron ke server (termasuk baris ber-id "local-")
@@ -3771,6 +3833,15 @@ function ovApply(){
   DB.fundSources=[...sMap.values()];
   /* v2.35 · identitas: string (termasuk '') menimpa nilai server; null = belum tersentuh */
   if(typeof OV.identityText==='string'&&DB.settings)DB.settings={...DB.settings,identityText:OV.identityText};
+  /* v2.39 · check-in harian: peta tanggal → {mood,energy,sleep} menimpa
+     baris server (upsert) — DAILY dibangun di prepData SETELAH ini, jadi
+     nilai lokal langsung tampil tanpa jeda. */
+  const dlJ=OV.dailyLog||{};
+  if(Object.keys(dlJ).length){
+    const dlMap=new Map((DB.dailyLogs||[]).map(d=>[d.date,d]));
+    Object.entries(dlJ).forEach(([k,v])=>dlMap.set(k,{date:k,mood:v.mood,energy:v.energy,sleep:v.sleep}));
+    DB.dailyLogs=[...dlMap.values()];
+  }
   /* v2.27 · rapikan spasi ganda pada nama (audit: kategori "🛠️  Servis
      Motor"). Dilakukan SETELAH pemetaan jurnal supaya kunci jurnal lama
      (memakai nama asli) tetap cocok; dimensi berbasis nama (kategori,
@@ -5066,6 +5137,74 @@ $('#qaTxForm').addEventListener('submit',e=>{
   if(!reduced)botaniRain({kinds:['coin'],n:8});
   haptic(12);
   toast('Tercatat ⚡',`${qaCat} · ${rupiah(nominal)} keluar hari ini.`,'i-check','honey');
+});
+
+/* ---------- v2.39 · CHECK-IN HARIAN (kartu Ringkasan) ----------
+   Mood · energi · tidur menulis ke tabel DailyLog melalui jurnal OV.dailyLog
+   (kunci = tanggal; server UPSERT idempoten). DRAFT disimpan di memori
+   sesi; nilai awal diambil dari data hari ini (DAILY) bila sudah ada.
+   Ringkasan pasca-simpan memakai pill yang sama dengan detail hari —
+   satu bahasa, dua pintu. */
+let ciEditing=false;
+let ciDraft={mood:0,energy:0,sleep:7};
+const CI_MOOD=[[1,'😞'],[2,'🙁'],[3,'😐'],[4,'🙂'],[5,'😄']];
+const CI_ENERGI=[[1,'🥱'],[2,'😌'],[3,'🙂'],[4,'💪'],[5,'⚡']];
+function renderCheckinCard(){
+  const body=$('#ciBody'),title=$('#ciTitle');
+  if(!body)return;
+  const k=dayKey(TODAY),dl=DAILY[k];
+  if(dl&&!ciEditing){
+    title.textContent='Check-in hari ini tersimpan';
+    body.innerHTML=`<div class="ci-sum">
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Mood ${dl.mood}/5</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Energi ${dl.energy}/5</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Tidur ${dl.sleep} jam</span>
+      <button type="button" class="btn btn-ghost btn-sm" data-ci-act="edit">Ubah</button>
+    </div>
+    <p class="t-sub" style="margin-top:8px">Tersimpan untuk hari ini — terlihat juga di detail hari (tab Kalender) dan ikut ke database.</p>`;
+    return;
+  }
+  title.textContent='Bagaimana kabarmu hari ini?';
+  const dots=(scale,sel,kind)=>scale.map(([v,e])=>`<button type="button" class="ci-dot ${sel===v?'active':''}" data-ci="${kind}" data-v="${v}" aria-pressed="${sel===v}" aria-label="${kind==='mood'?'Mood':'Energi'} ${v} dari 5"><span>${e}</span><small>${v}</small></button>`).join('');
+  const sleepHrs=[...new Set([ciDraft.sleep,4,5,6,7,8,9,10,11,12])].filter(h=>h>=0&&h<=16).sort((a,b)=>a-b);
+  const sleepOpts=sleepHrs.map(h=>`<option value="${h}" ${ciDraft.sleep===h?'selected':''}>${h} jam</option>`).join('');
+  body.innerHTML=`
+    <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mood</span><div class="ci-scale" role="group" aria-label="Skala mood 1 sampai 5">${dots(CI_MOOD,ciDraft.mood,'mood')}</div></div>
+    <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>Energi</span><div class="ci-scale" role="group" aria-label="Skala energi 1 sampai 5">${dots(CI_ENERGI,ciDraft.energy,'energi')}</div></div>
+    <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Tidur</span><div class="field ci-sel"><select id="ciSleep" aria-label="Lama tidur semalam">${sleepOpts}</select></div></div>
+    <div class="ci-actions">
+      ${dl?'<button type="button" class="btn btn-ghost" data-ci-act="cancel">Batal</button>':''}
+      <button type="button" class="btn btn-primary ci-save" data-ci-act="save"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan check-in</button>
+    </div>`;
+}
+function saveCheckin(){
+  if(!ciDraft.mood||!ciDraft.energi){toast('Pilih dulu skalanya','Sentuh satu titik mood dan satu titik energi — keduanya masing-masing lima detik.','i-x','rose');return}
+  const k=dayKey(TODAY);
+  DAILY[k]={date:k,mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
+  OV.dailyLog[k]={mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
+  ovPersist();armSyncToast();
+  ciEditing=false;
+  renderCheckinCard();
+  if(inited.cal)renderDayDetail(state.calSel);
+  if(!reduced)botaniRain({kinds:['petal','sparkle'],n:9});
+  haptic(12);
+  toast('Check-in tersimpan',`Mood ${ciDraft.mood}/5 · energi ${ciDraft.energi}/5 · tidur ${ciDraft.sleep} jam — terlihat juga di detail hari.`,'i-check','sky');
+}
+document.addEventListener('click',e=>{
+  const dot=e.target.closest('[data-ci]');
+  if(dot){ciDraft[dot.dataset.ci]=+dot.dataset.v;renderCheckinCard();return}
+  const act=e.target.closest('[data-ci-act]');
+  if(!act)return;
+  if(act.dataset.ciAct==='save')saveCheckin();
+  else if(act.dataset.ciAct==='edit'){
+    const k=dayKey(TODAY),dl=DAILY[k];
+    if(dl){ciDraft={mood:dl.mood,energy:dl.energy,sleep:dl.sleep}}
+    ciEditing=true;renderCheckinCard();
+  }
+  else if(act.dataset.ciAct==='cancel'){ciEditing=false;renderCheckinCard()}
+});
+document.addEventListener('change',e=>{
+  if(e.target&&e.target.id==='ciSleep')ciDraft.sleep=+e.target.value||7;
 });
 
 /* ---------- v2.37 · TRANSAKSI BERULANG ----------
@@ -7250,6 +7389,7 @@ function tunasPrep(){
     page.querySelector('.motiv-card'), /* v2.33 · kartu semangat ikut kaskade pagi */
     page.querySelector('.identity-card'), /* v2.35 · kartu suara identitas mengikuti */
     page.querySelector('.qa-card'), /* v2.37 · kartu catat cepat mengikuti kaskade */
+    page.querySelector('.ci-card'), /* v2.39 · kartu check-in harian mengikuti kaskade */
     ...page.querySelectorAll('.stats > .card'),
     page.querySelector('.streak-banner'),
     page.querySelector('#rowAgenda > .card'),
@@ -7942,7 +8082,7 @@ function tunasWake(){
   const recN=materializeRecurring(); /* v2.37 · transaksi berulang jatuh tempo dilahirkan */
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
-  renderQuickCard();renderGarden(); /* v2.37 */
+  renderQuickCard();renderGarden();renderCheckinCard(); /* v2.37 · v2.39 */
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
   renderHabitChips();renderHabitCards(true);
   renderFindings();renderReko();renderBadges();
