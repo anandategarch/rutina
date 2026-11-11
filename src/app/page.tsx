@@ -7,7 +7,7 @@ export default function HomePage() {
       <iframe
         id="rutina-frame"
         src="/rutina.html"
-        title="Rutina — konsep dengan data asli dari database"
+        title="Rutina"
         className="h-full w-full border-0"
       />
     </div>

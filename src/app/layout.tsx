@@ -4,15 +4,15 @@ import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rutina · Konsep Redesain",
+  title: "Rutina",
   description:
-    "Konsep Rutina: pelacak kebiasaan & keuangan dengan data asli dari database Turso — kebiasaan, kategori, transaksi, dompet, dan anggaran.",
+    "Rutina — pelacak kebiasaan & keuangan harian: kebiasaan, kategori, transaksi, dompet, dan anggaran dalam satu tampilan.",
   applicationName: "Rutina",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Rutina OS",
+    title: "Rutina",
   },
   icons: {
     icon: [

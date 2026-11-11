@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v30"; // v2.28 — drill-down semua tab: angka tak melipat, pill rata, posisi pas
+const STATIC_CACHE = "rutina-static-v31"; // v2.29 — transfer antar-dompet + glif minus satu-suara + nama aplikasi bersih
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;

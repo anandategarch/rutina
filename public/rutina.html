@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#F8FAFC">
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2310B981'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <style>
 /* ============================================================
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
@@ -2846,18 +2846,24 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="seg" role="group" aria-label="Jenis transaksi">
         <button type="button" class="active" data-tx-type="keluar" aria-pressed="true">Pengeluaran</button>
         <button type="button" data-tx-type="masuk" aria-pressed="false">Pemasukan</button>
+        <button type="button" data-tx-type="transfer" aria-pressed="false">Transfer</button>
       </div>
       <div class="field">
         <label for="txAmount">Nominal</label>
         <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required></div>
       </div>
-      <div class="field">
+      <div class="field" id="txCatWrap">
         <label for="txCat">Kategori</label>
         <select id="txCat" required></select>
       </div>
       <div class="field">
-        <label for="txSource">Sumber dana</label>
+        <label for="txSource" id="txSourceLbl">Sumber dana</label>
         <select id="txSource"></select>
+      </div>
+      <!-- v2.29 · transfer antar-dompet: kategori diganti tujuan transfer -->
+      <div class="field" id="txDestWrap" hidden>
+        <label for="txDest">Ke dompet</label>
+        <select id="txDest"></select>
       </div>
       <div class="field-row">
         <div class="field">
@@ -3226,7 +3232,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.28';
+const APP_VERSION='v2.29';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3485,7 +3491,7 @@ function drillEmpty(msg){return `<div class="drill-empty">${msg}</div>`}
 function txRowHTML(t){
   const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
   const warna=t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)';
-  const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
+  const sign=t.type==='income'?'+':t.type==='expense'?'–':'⇄ ';
   return `<div class="drill-row" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0">
     <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
     <span class="drill-main"><b>${esc(t.description||t.category)}</b><small>${esc(t.category)} · ${tglPendek(t.date)}${t.sourceId?' · '+esc(srcName(t.sourceId)):''}</small></span>
@@ -3506,7 +3512,7 @@ function dayRowHTML(k){
   return `<div class="drill-row" data-drill="day" data-date="${k}" role="button" tabindex="0">
     <span class="tx-ic" style="background:var(--surface-2);color:var(--ink-2)"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>
     <span class="drill-main"><b>${HARI[d.getDay()]}, ${tglBulan(k)}</b><small>${n} kebiasaan selesai</small></span>
-    ${keluar?`<b class="t-num nw drill-amt" style="color:var(--rose-deep);font-size:12.5px">−${rupiah(keluar)}</b>`:''}
+    ${keluar?`<b class="t-num nw drill-amt" style="color:var(--rose-deep);font-size:12.5px">–${rupiah(keluar)}</b>`:''}
   </div>`;
 }
 function drillTx(id){
@@ -3514,7 +3520,7 @@ function drillTx(id){
   const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
   const jenis=t.type==='income'?'Pemasukan':t.type==='expense'?'Pengeluaran':'Transfer';
   const warna=t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)';
-  const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
+  const sign=t.type==='income'?'+':t.type==='expense'?'–':'⇄ ';
   const mk=t.date.slice(0,7);
   const bud=t.type==='expense'?BUDGETS.find(b=>b.category===t.category&&b.month===mk):null;
   const used=bud?expByCat(mk)[t.category]||0:0;
@@ -3663,7 +3669,7 @@ function drillWallet(id){
       {v:rupiah(w[id]),l:'Saldo sekarang',color:w[id]<0?'var(--rose-deep)':''},
       {v:rupiah(s.initialBalance),l:'Saldo awal'},
       {v:''+tx.length,l:'Transaksi total'},
-    ])+`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--sage-deep)">Bulan ini +${rupiah(masuk)}</span><span class="pill" style="background:var(--surface-2);color:var(--rose-deep)">Bulan ini −${rupiah(keluar)}</span></div>`
+    ])+`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--sage-deep)">Bulan ini +${rupiah(masuk)}</span><span class="pill" style="background:var(--surface-2);color:var(--rose-deep)">Bulan ini –${rupiah(keluar)}</span></div>`
     +`<div class="drill-sec">${drillCap('Mutasi dompet ini · '+tx.length+' transaksi')}${txListHTML(tx,25)}</div>`,
     actions:[
       {id:'edit',label:'Ubah',icon:'i-edit'},
@@ -5124,9 +5130,9 @@ function renderSaldoBank(){
       <span class="src-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
       <div class="sf-info"><b>${esc(r.s.name)}</b>
         <div class="sf-bars"><i data-w="${(r.ins/mx*100).toFixed(1)}%" style="background:var(--sage)"></i><i data-w="${(r.outs/mx*100).toFixed(1)}%" style="background:var(--rose)"></i></div>
-        <small><span class="nw">+${rupiah(r.ins)} masuk</span> · <span class="nw">−${rupiah(r.outs)} keluar</span></small>
+        <small><span class="nw">+${rupiah(r.ins)} masuk</span> · <span class="nw">–${rupiah(r.outs)} keluar</span></small>
       </div>
-      <span class="sf-net t-num ${r.net>=0?'in':'out'}">${r.net>=0?'+':'−'}${rupiah(Math.abs(r.net))}</span>
+      <span class="sf-net t-num ${r.net>=0?'in':'out'}">${r.net>=0?'+':'–'}${rupiah(Math.abs(r.net))}</span>
     </div>`;
   }).join('')
   :`<div class="empty-state" style="padding:24px 12px"><svg class="ill" style="width:110px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada dompet</b><p>Tambahkan rekening bank, tunai, atau dompet digital lewat tombol “Dompet”.</p></div>`;
@@ -5161,7 +5167,7 @@ function renderTx(){
     if(lbl!==lastKey){html+=`<div class="tx-date">${lbl}</div>`;lastKey=lbl}
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
     const cls=t.type==='income'?'masuk':t.type==='expense'?'keluar':'tf';
-    const sign=t.type==='income'?'+':t.type==='expense'?'−':'⇄ ';
+    const sign=t.type==='income'?'+':t.type==='expense'?'–':'⇄ ';
     html+=`<div class="tx-row drillable" data-txid="${esc(t.id)}" data-drill="tx" data-id="${esc(t.id)}" title="Lihat detail transaksi">
       <span class="tx-swipe sw-edit" aria-hidden="true"><svg class="ic"><use href="#i-edit"/></svg>Ubah</span>
       <span class="tx-swipe sw-del" aria-hidden="true"><svg class="ic"><use href="#i-trash"/></svg>Hapus</span>
@@ -5316,7 +5322,7 @@ function doDelete(){
     refinance();fillTxMonths();
     if(inited.cal)renderDayDetail(state.calSel);
     renderSettings();
-    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.','i-trash','rose');
+    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.','i-trash','rose');
     return;
   }else if(kind==='budget'){
     const {cat,mk}=delTarget;
@@ -5435,7 +5441,7 @@ function renderDayDetail(d){
   }).join('');
   const txRows=tx.length?tx.slice(0,4).map(t=>{
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
-    return `<div class="dd-tx-row drillable" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0" title="Ketuk: detail transaksi"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'−':'⇄ '}${rupiah(t.amount)}</b></div>`;
+    return `<div class="dd-tx-row drillable" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0" title="Ketuk: detail transaksi"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)}</b></div>`;
   }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:12px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:''):`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
   $('#dayDetail').innerHTML=`
     <div class="dd-head"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
@@ -5444,7 +5450,7 @@ function renderDayDetail(d){
     :`<div class="dd-stats">
       <span class="pill"><svg class="ic" style="width:14px;height:14px;color:var(--terra-deep)" aria-hidden="true"><use href="#i-checklist"/></svg>${cnt}/${total} kebiasaan · ${judul}</span>
       ${masuk?`<span class="pill" style="color:var(--sage-deep)">+${rupiah(masuk)}</span>`:''}
-      ${keluar?`<span class="pill" style="color:var(--terra-deep)">−${rupiah(keluar)}</span>`:''}
+      ${keluar?`<span class="pill" style="color:var(--terra-deep)">–${rupiah(keluar)}</span>`:''}
     </div>
     ${dl?`<div class="dd-well">
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Mood ${dl.mood}/5</span>
@@ -5741,6 +5747,12 @@ function fillTxType(t){
   $$('#modalTx .seg button').forEach(b=>{const on=b.dataset.txType===t;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
   const jenis=t==='masuk'?'income':'expense';
   $('#txCat').innerHTML=FINCATS.filter(c=>c.type===jenis).map(c=>`<option value="${esc(c.name)}">${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
+  /* v2.29 · mode transfer: kategori sembunyi, muncul tujuan dompet */
+  const trf=t==='transfer';
+  $('#txCatWrap').hidden=trf;
+  $('#txDestWrap').hidden=!trf;
+  $('#txSourceLbl').textContent=trf?'Dari dompet':'Sumber dana';
+  if(trf)$('#txDest').innerHTML=SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji)} ${esc(s.name)}</option>`).join('');
 }
 function fillTxSources(){
   $('#txSource').innerHTML=`<option value="">Tanpa sumber</option>`+SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji)} ${esc(s.name)}</option>`).join('');
@@ -5754,6 +5766,9 @@ function resetTxModal(){
   $('#txSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi';
   $('#modalTx .seg').classList.remove('locked');
   $('#txCat').disabled=false;
+  $('#txCatWrap').hidden=false;
+  $('#txDestWrap').hidden=true;
+  $('#txSourceLbl').textContent='Sumber dana';
   $('#formTx').reset();
   fillTxType(txType);fillTxSources();
   $('#txDate').value=dayKey(TODAY);
@@ -5773,6 +5788,9 @@ function openTxEdit(id){
     $('#txCat').disabled=true;
     $('#txCat').innerHTML=`<option value="${esc(t.category)}">${esc(t.category)}</option>`;
     $('#txCat').value=t.category;
+    $('#txCatWrap').hidden=false;
+    $('#txDestWrap').hidden=true;
+    $('#txSourceLbl').textContent='Sumber dana';
   }else{
     seg.classList.remove('locked');
     $('#txCat').disabled=false;
@@ -5808,6 +5826,28 @@ $('#formTx').addEventListener('submit',e=>{
   if(mengubah&&!tgt){editTxId=null;closeModals();return}
   if(tgt&&tgt.type==='transfer'){
     Object.assign(tgt,{amount:nominal,sourceId:src,date:dv,description:note||tgt.category});
+  }else if(txType==='transfer'&&!mengubah){
+    /* v2.29 · transfer antar-dompet: satu peristiwa → dua catatan
+       (keluar dari sumber + masuk ke tujuan) agar saldo kedua dompet
+       terhitung benar oleh walletBalances tanpa ubah skema database */
+    const dari=src,to=$('#txDest').value;
+    if(!dari||!to){toast('Dompet belum lengkap','Pilih dompet asal dan tujuan transfer.','i-x','rose');return}
+    if(dari===to){toast('Dompet sama','Transfer harus ke dompet yang berbeda.','i-x','rose');return}
+    const nmDari=srcName(dari),nmKe=srcName(to);
+    const keluarSide={id:'local-'+Date.now()+'-out',type:'transfer',amount:nominal,category:'Transfer Keluar',sourceId:dari,description:'⇄ ke '+nmKe,date:dv};
+    const masukSide={id:'local-'+Date.now()+'-in',type:'transfer',amount:nominal,category:'Transfer Masuk',sourceId:to,description:'⇄ dari '+nmDari,date:dv};
+    TXS.unshift(masukSide);TXS.unshift(keluarSide);
+    OV.txAdd.unshift({...keluarSide});OV.txAdd.unshift({...masukSide});
+    editTxId=null;
+    months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
+    state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
+    closeModals();$('#formTx').reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
+    refinance();fillTxMonths();
+    if(inited.cal)renderDayDetail(state.calSel);
+    botaniRain({kinds:['coin'],n:12});
+    haptic(14);
+    toast('Transfer tercatat',`⇄ ${rupiah(nominal)} · ${nmDari} → ${nmKe} · saldo kedua dompet langsung pas 🌿`,'i-check','sky');
+    return;
   }else{
     const type=txType==='masuk'?'income':'expense';
     if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
@@ -5828,7 +5868,7 @@ $('#formTx').addEventListener('submit',e=>{
      kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
   botaniRain({kinds:['coin'],n:12});
   haptic(14);
-  toast(mengubah?'Transaksi diperbarui':'Transaksi tercatat',`${tgt?(tgt.type==='income'?'+':tgt.type==='expense'?'−':'⇄ '):(txType==='masuk'?'+':'−')}${rupiah(nominal)} · ${tgt?tgt.category:cat}${src?' · '+srcName(src):''} · arus kas semakin jelas 🌿`,mengubah?'i-edit':'i-check','sage');
+  toast(mengubah?'Transaksi diperbarui':'Transaksi tercatat',`${tgt?(tgt.type==='income'?'+':tgt.type==='expense'?'–':'⇄ '):(txType==='masuk'?'+':'–')}${rupiah(nominal)} · ${tgt?tgt.category:cat}${src?' · '+srcName(src):''} · arus kas semakin jelas 🌿`,mengubah?'i-edit':'i-check','sage');
 });
 
 /* modal kebiasaan */
