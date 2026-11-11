@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v29"; // v2.27 — grafik redraw responsif: sumbu-Y selalu terlihat, tanpa gulir horizontal
+const STATIC_CACHE = "rutina-static-v30"; // v2.28 — drill-down semua tab: angka tak melipat, pill rata, posisi pas
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
