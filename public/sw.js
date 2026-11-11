@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v37"; // v2.35 — update Atomic Habits (suara identitas, nudge, versi mini & jangkar)
+const STATIC_CACHE = "rutina-static-v38"; // v2.36 — audit: agregat "hari ini" akurat saat untoggle (suara identitas/statistik/heatmap)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

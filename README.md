@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.35** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.36** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -28,6 +28,7 @@ src/app/
 2. Semua suntingan pengguna ditulis dulu ke localStorage (lapisan overlay), lalu didorong via `POST /api/rutina`.
 3. Tanpa `RUTINA_TURSO_URL`, API otomatis memakai SQLite lokal `db/rutina-preview.db` (dibuat & diisi dari snapshot) — mode pratinjau tetap baca-tulis penuh.
 4. **v2.35**: kolom `Habit.mini` / `Habit.afterId` / `AppSettings.identityText` ditambahkan lewat migrasi `ALTER` idempoten di API — database lama (Turso maupun lokal) tak perlu dibuat ulang.
+5. **v2.36**: audit dalam — agregat "hari ini" (`syncToday`) kini akurat saat untoggle: suara identitas, statistik & heatmap tak lagi menghitung hari yang dibatalkan sampai reload; semantik log amount parsial (v2.15) tetap terjaga.
 
 ## Fitur utama
 
