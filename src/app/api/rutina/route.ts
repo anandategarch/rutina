@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient, type Client } from "@libsql/client";
+import { createClient, type Client, type InValue } from "@libsql/client";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
@@ -43,6 +43,17 @@ const num = (v: unknown): number => {
 };
 const str = (v: unknown, fallback = ""): string =>
   v === null || v === undefined ? fallback : String(v);
+/* Koersi nilai argumen SQL ke tipe yang diterima libsql. Data lapisan
+   catatan pengguna datang dari JSON (unknown), sementara InValue hanya
+   menerima null|number|bigint|string|Date (dsb.) — tanpa ini tsc gagal
+   saat `next build` di Vercel (TS2769 di insertRow). */
+const inVal = (v: unknown): InValue => {
+  if (v === null || v === undefined) return null;
+  if (typeof v === "number" || typeof v === "bigint" || typeof v === "string") return v;
+  if (typeof v === "boolean") return v ? 1 : 0; /* SQLite tak punya BOOLEAN → 0/1 */
+  if (v instanceof Date) return v;
+  return String(v); /* objek/ragam lain → bentuk string yang aman */
+};
 
 /* ------------------------------------------------------- pemilihan klien */
 
@@ -239,7 +250,7 @@ async function insertRow(client: Client, table: string, row: Record<string, unkn
   if (cols.has("updatedAt") && !names.includes("updatedAt")) names.push("updatedAt");
   if (!names.length) return;
   const now = new Date().toISOString();
-  const args = names.map((n) => (n in row ? (row[n] ?? null) : now));
+  const args: InValue[] = names.map((n) => inVal(n in row ? (row[n] ?? null) : now));
   const sql = `INSERT INTO "${table}" (${names.map((n) => `"${n}"`).join(", ")}) VALUES (${names.map(() => "?").join(", ")})`;
   await client.execute({ sql, args });
 }
