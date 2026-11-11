@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v24"; // v2.22 — simpan permanen ke database (write-through) + drill-down semua tab
+const STATIC_CACHE = "rutina-static-v25"; // v2.23 — pembaruan versi selalu sampai: shell menembus HTTP cache + SW kini terdaftar dari rutina.html
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
@@ -23,6 +23,12 @@ self.addEventListener("activate", (event) => {
     await Promise.all(keys.filter((key) => key.startsWith("rutina-static-") && key !== STATIC_CACHE).map((key) => caches.delete(key)));
     await self.clients.claim();
   })());
+});
+
+/* v2.23 · pintu standar untuk meminta worker menunggu agar langsung aktif
+   (dipakai halaman React maupun rutina.html saat menemukan pembaruan). */
+self.addEventListener("message", (event) => {
+  if (event.data === "SKIP_WAITING") self.skipWaiting();
 });
 
 const OFFLINE_HTML =
@@ -62,7 +68,15 @@ self.addEventListener("fetch", (event) => {
     event.respondWith((async () => {
       const cache = await caches.open(STATIC_CACHE);
       try {
-        const response = await fetch(request);
+        // v2.23 — shell HARUS menembus HTTP cache browser. Sebelumnya fetch
+        // polos bisa dilayani entri HTTP cache lama: "network-first" tak
+        // pernah benar-benar menyentuh jaringan, sehingga pengguna terus
+        // melihat versi sebelumnya meski versi baru sudah ter-deploy.
+        // Permintaan dibangun dari URL (bukan dari objek request navigasi —
+        // constructor Request menolak mode "navigate" dengan init); respons
+        // same-origin tetap bertipe "basic" sehingga tetap tersimpan di Cache API.
+        const netReq = isShell ? new Request(requestUrl.href, { cache: "reload" }) : request;
+        const response = await fetch(netReq);
         if (response.ok && (response.type === "basic" || response.type === "default")) {
           await cache.put(request, response.clone());
         }

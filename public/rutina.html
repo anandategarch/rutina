@@ -3152,7 +3152,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.22';
+const APP_VERSION='v2.23';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -6488,6 +6488,31 @@ function tunasWake(){
   /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
   setTimeout(()=>{syncFlush();paintSyncRow()},1100);
 })();
+
+/* ---------- v2.23 · PEMBARUAN OTOMATIS — selama ini /rutina.html tidak
+   pernah mendaftarkan service worker (hanya halaman React "/"), sehingga
+   pengguna yang masuk langsung ke halaman konsep tidak punya alur
+   pembaruan dan versi lama bisa menempel di cache perangkat. Kini
+   halaman ini mendaftarkan sw.js sendiri; saat worker baru aktif
+   (skipWaiting + clients.claim di sw.js), halaman dimuat ulang SEKALI
+   supaya lencana versi & kode yang berjalan benar-benar terbaru. ---------- */
+if('serviceWorker' in navigator){
+  const swDevLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)&&location.protocol==='http:'; /* dev server lokal — tanpa worker */
+  let swReloaded=false;
+  const swHadController=Boolean(navigator.serviceWorker.controller); /* klaim pertama = instalasi, bukan pembaruan */
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(swReloaded||!swHadController)return; /* cegah muat ulang muter-muter */
+    swReloaded=true;location.reload();
+  });
+  if(!swDevLocal)window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(reg=>{
+      /* worker menunggu dari kunjungan sebelumnya → ingatkan muat ulang */
+      if(reg.waiting&&navigator.serviceWorker.controller)setTimeout(()=>toast('Versi baru Rutina tersedia','Tutup lalu buka ulang aplikasi untuk memakainya.','i-sparkle'),1500);
+      /* cek pembaruan berkala untuk pengguna yang lama membiarkan app terbuka */
+      setInterval(()=>{reg.update().catch(()=>{})},30*60*1000);
+    }).catch(()=>{}); /* PWA tetap opsional — aplikasi tetap jalan normal tanpa worker */
+  });
+}
 
 </script>
 </body>
