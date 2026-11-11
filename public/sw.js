@@ -1,17 +1,22 @@
-const STATIC_CACHE = "rutina-static-v25"; // v2.23 — pembaruan versi selalu sampai: shell menembus HTTP cache + SW kini terdaftar dari rutina.html
+const STATIC_CACHE = "rutina-static-v26"; // v2.24 — font Geist self-host + audit mobile terpotong
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
-const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
+const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
 // Shell aplikasi konsep (rutina.html) — network-first dengan fallback cache
 // supaya pembaruan langsung sampai, tapi PWA tetap terbuka saat offline.
 const APP_SHELL = "/rutina.html";
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
-    // Pra-panaskan shell agar kunjungan offline pertama pun punya konten.
+    // Pra-panaskan shell + font Geist agar kunjungan offline pertama
+    // pun punya konten DAN tipografi yang sama persis (v2.24).
     try {
       const cache = await caches.open(STATIC_CACHE);
-      await cache.add(new Request(APP_SHELL, { cache: "reload" }));
+      await Promise.all([
+        APP_SHELL,
+        "/fonts/geist-latin.woff2",
+        "/fonts/geist-latin-ext.woff2",
+      ].map((url) => cache.add(new Request(url, { cache: "reload" }))));
     } catch { /* offline saat install — abaikan */ }
     await self.skipWaiting();
   })());
