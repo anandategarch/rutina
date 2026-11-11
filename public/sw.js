@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v41"; // v2.39 — check-in harian mood/energi/tidur (jurnal dailyLog) + rapian audit; v40 memuat desain ulang pengeluaran kilat
+const STATIC_CACHE = "rutina-static-v42"; // v2.40 — pulihan audit UI/UX: kontras WCAG AA (token aksen), target sentuh, skip-link, fokus-return modal; v41 memuat check-in harian
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;
