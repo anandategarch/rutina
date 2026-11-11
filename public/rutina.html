@@ -19,8 +19,11 @@
    seperti "BULANAN" paling tampak berubah wajahnya. Dengan berkas
    lokal + font-display:swap, PWA offline pun menampilkan Geist asli
    dan tampilan selalu konsisten/profesional. */
-@font-face{font-family:"Geist";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/geist-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Geist";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/geist-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+/* v2.25 · rentang bobot @font-face 400–700 → 100–900: berkas woff2 memang
+   variable font penuh; deklarasi sempit lama membuat bobot di luar rentang
+   (650/800) ter-clamp atau jatuh ke family cadangan di sebagian mesin. */
+@font-face{font-family:"Geist";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/geist-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/geist-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#F8FAFC; --bg-deep:#F1F5F9;
@@ -62,12 +65,14 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- utilitas tipografi ---------- */
 .h-serif{font-family:var(--font-display);font-weight:600;letter-spacing:-.015em;line-height:1.18;text-wrap:balance}
-h1.h-serif{font-weight:650}
+h1.h-serif{font-weight:600}
 b,strong{font-weight:600}
-/* v2.24 · eyebrow — tracking .14em membuat huruf terlihat renggang seperti
-   "font lain"; dirapatkan ke .1em (pola Linear/Stripe) supaya label
-   terbaca sebagai bagian tipografi yang sama. */
-.eyebrow{font-size:12px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
+/* v2.25 · eyebrow — akar masalah "font hijau terlihat berbeda": BUKAN family
+   (seluruh app satu Geist), melainkan bobot 650 (di luar skala 400/500/600/700)
+   + tracking .1em + hijau emerald terang + tanpa line-height eksplisit.
+   Normalisasi pola label Linear/Stripe & Material 3 (label 12px/600, satu
+   suara tipografi): 600, .08em, line-height 1.35, hijau lebih dalam 5.9:1. */
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;line-height:1.35;text-transform:uppercase;color:var(--terra-strong)}
 .t-sub{font-size:13px;color:var(--ink-3);font-weight:400}
 .t-num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 /* v2.24 · bulan pada judul kartu — sub-baris tanpa pemisah titik. Pola lama
@@ -112,10 +117,10 @@ b,strong{font-weight:600}
 /* v2.20 · lencana versi aplikasi — sumber tunggal kebenaran via JS APP_VERSION.
    Mungil & tenang, tak bersaing dgn fokus utama; selalu tampak di sidebar
    (desktop) & topbar (mobile) supaya pengguna tahu versi yang sedang berjalan. */
-.app-ver{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px 3px;margin-left:8px;border-radius:99px;background:var(--terra-soft);color:var(--terra-deep);vertical-align:middle;line-height:1.3;white-space:nowrap}
-.tb-brand .app-ver{font-size:9.5px;padding:2px 6px;margin-left:6px}
+.app-ver{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:2px 7px 3px;margin-left:8px;border-radius:99px;background:var(--terra-soft);color:var(--terra-deep);vertical-align:middle;line-height:1.3;white-space:nowrap}
+.tb-brand .app-ver{font-size:10px;padding:2px 6px;margin-left:6px}
 .nav{display:flex;flex-direction:column;gap:4px}
-.nav-label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
+.nav-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
 .nav-item{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;color:var(--ink-2);transition:background .18s,color .18s;min-height:46px;text-align:left}
 .nav-item:hover{background:var(--surface-2);color:var(--ink)}
 .nav-item.active{background:var(--terra-soft);color:var(--terra-deep)}
@@ -123,7 +128,7 @@ b,strong{font-weight:600}
 .nav-item .ic{width:21px;height:21px}
 .side-spacer{flex:1}
 .side-card{position:relative;background:linear-gradient(150deg,#ECFDF5,#D1FAE5);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;overflow:hidden;margin:8px 0}
-.side-card .ill{width:78px;position:absolute;right:-3px;top:-5px;opacity:.95}
+.side-card .ill{width:78px;aspect-ratio:1;position:absolute;right:-3px;top:-5px;opacity:.95}
 .side-card-t{font-family:var(--font-display);font-size:16.5px;font-weight:600;color:var(--terra-deep);max-width:145px;position:relative;z-index:1}
 .side-card-s{font-size:12px;color:var(--ink-2);margin:3px 0 10px;line-height:1.45;max-width:145px;position:relative;z-index:1}
 .side-card .bar{height:8px}
@@ -175,7 +180,11 @@ b,strong{font-weight:600}
 .card-head h3{font-size:18px}
 .ch-title{display:flex;align-items:center;gap:12px;min-width:0}
 .head-art{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
-.head-art .ill{width:36px}
+/* v2.25 · .ill diberi rasio eksplisit: <svg> inline tanpa viewBox menghasilkan
+   kotak bayangan setinggi 150px (default replaced element) yang meluber
+   ±50px keluar ubin 44px — memicu metrik overflow palsu & mencuri gesture.
+   Rasio 1:1 mengunci tinggi = lebar yang sudah ditentukan tiap konteks. */
+.head-art .ill{width:36px;aspect-ratio:1}
 .head-art.em{background:var(--terra-softer)}
 .head-art.sky{background:var(--sky-soft)}
 .head-art.honey{background:var(--honey-soft)}
@@ -213,7 +222,11 @@ b,strong{font-weight:600}
 .chip.active{background:var(--terra-strong);border-color:var(--terra-strong);color:#FFFFFF}
 .seg{display:flex;background:var(--bg-deep);border-radius:12px;padding:4px;gap:4px}
 .seg button{flex:1;min-height:40px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink-2);padding:0 16px;transition:background-color .18s,color .18s,box-shadow .18s}
-.seg button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
+/* v2.25 · status terpilih DISATUKAN (pola iOS HIG / Material 3 / AntD):
+   segmen, tab keuangan & chip kini memakai SATU perlakuan — isi hijau tua
+   + teks putih; family, ukuran & bobot font TIDAK berubah antar status
+   (hanya warna & latar yang boleh berubah — itulah konvensi professional). */
+.seg button.active{background:var(--terra-strong);color:#FFFFFF;box-shadow:var(--shadow-sm)}
 
 /* ---------- hero ringkasan ---------- */
 .hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.22);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
@@ -252,7 +265,7 @@ b,strong{font-weight:600}
 .wk-cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px 9px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
 .wk-cell.today{background:var(--terra-softer);border-color:#A7F3D0}
 .wk-cell.future{opacity:.45;border-style:dashed;background:transparent}
-.wk-day{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.wk-day{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .wk-cell.today .wk-day{color:var(--terra-deep)}
 .wk-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;border:2px solid var(--line);background:var(--surface);color:transparent;transition:transform .2s var(--ease-tunas)}
 .wk-dot .ic{width:14px;height:14px}
@@ -380,7 +393,7 @@ b,strong{font-weight:600}
 .agenda-row.done{background:linear-gradient(90deg,var(--terra-softer),transparent 70%);border-color:#BBF7D0}
 .time-chip{min-width:54px;text-align:center;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 6px;border-radius:10px}
 .spot{width:52px;height:52px;border-radius:50%;background:var(--cream);border:1px solid var(--line-soft);display:grid;place-items:center;flex:none;overflow:hidden}
-.spot .ill{width:44px}
+.spot .ill{width:44px;aspect-ratio:1}
 .agenda-name{font-size:14.5px;font-weight:600;line-height:1.25}
 .agenda-row.done .agenda-name{color:var(--ink-2)}
 .agenda-meta{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--ink-3);font-weight:600;margin-top:2px;flex-wrap:wrap}
@@ -392,9 +405,9 @@ b,strong{font-weight:600}
 /* ---------- jatah harian & proyeksi anggaran ---------- */
 .jatah-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:20px;align-items:center}
 .jatah-main{display:flex;flex-direction:column;gap:2px;padding:16px 18px;background:var(--terra-softer);border:1px solid #A7F3D0;border-radius:var(--r-lg)}
-.jatah-main .num{font-family:var(--font-display);font-size:clamp(24px,5.5vw,28px);font-weight:650;color:var(--terra-deep);line-height:1.1}
+.jatah-main .num{font-family:var(--font-display);font-size:clamp(24px,5.5vw,28px);font-weight:600;color:var(--terra-deep);line-height:1.1}
 .jatah-main .num small{font-size:13px;font-family:var(--font-body);font-weight:600;color:var(--ink-3)}
-.jatah-main .lbl{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-deep)}
+.jatah-main .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra-strong)}
 .jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
 .jatah-main.over{background:var(--rose-soft);border-color:var(--rose-line)}
 .jatah-main.over .num,.jatah-main.over .lbl{color:var(--rose-deep)}
@@ -489,8 +502,12 @@ b,strong{font-weight:600}
 .hm-cell{width:13px;height:13px;border-radius:3.5px;background:#F1F5F9}
 .hm-cell.l1{background:#A7F3D0}.hm-cell.l2{background:#6EE7B7}.hm-cell.l3{background:#10B981}
 .hm-cell.today{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--terra)}
-.hm-months{display:grid;grid-auto-flow:column;gap:3.5px;width:max-content;margin-bottom:6px}
-.hm-months span{font-size:12px;font-weight:600;color:var(--ink-3);width:13px;overflow:visible;white-space:nowrap}
+/* v2.25 · label bulan heatmap — dulu tiap label dipaksa selebar 1 sel (13px)
+   padahal teks "Agu/Sep" butuh ±23px → meluber ke sel tetangga. Kini label
+   ditempatkan di kolom minggu tempat bulan mulai lalu DIRENTANG 4 kolom
+   (grid-column span, dari JS) — sejajar grid sel, tak pernah bertabrakan. */
+.hm-months{display:grid;grid-auto-flow:column;grid-auto-columns:13px;gap:3.5px;width:max-content;margin-bottom:6px}
+.hm-months span{font-size:12px;font-weight:600;color:var(--ink-3);white-space:nowrap}
 .hm-legend{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-3);font-weight:600}
 .hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .habit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -532,7 +549,7 @@ b,strong{font-weight:600}
 .donut-wrap:hover .donut-slice{opacity:.45}
 .donut-wrap .donut-slice:hover{opacity:1}
 .donut-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
-.donut-center small{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.donut-center small{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .donut-center b{font-family:var(--font-display);font-size:16px;font-weight:600;margin-top:2px;letter-spacing:-.02em}
 .donut-legend{flex:1;min-width:230px;display:flex;flex-direction:column;gap:3px}
 .dl-row{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:7px 9px;border-radius:12px;transition:background .15s}
@@ -548,8 +565,13 @@ b,strong{font-weight:600}
 .b-row{display:flex;flex-direction:column;gap:7px}
 .b-head{display:flex;align-items:center;gap:10px}
 .b-head .dl-ic{width:36px;height:36px}
-.b-head b{font-size:13.5px}
-.b-head small{font-size:12px;color:var(--ink-3);font-weight:600;margin-left:auto;white-space:nowrap}
+/* v2.25 · kepala baris anggaran — "sisa Rp …" (nowrap, tanpa ellipsis)
+   bisa menonjol keluar kartu saat nama kategori + nominal panjang.
+   Nama & sisa kini sama-sama boleh menyusut + ellipsis → baris tak pernah
+   meluber (aturan anti-terpotong Material/AntD: min-width:0 + 3-property
+   truncation pada semua anak flex). */
+.b-head b{font-size:13.5px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-head small{font-size:12px;color:var(--ink-3);font-weight:600;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
 .b-head .warn{color:var(--rose-deep)}
 .tx-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 .search-box{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 15px;min-height:42px;flex:1;min-width:200px;max-width:320px;transition:border .18s}
@@ -561,6 +583,9 @@ b,strong{font-weight:600}
 .tx-date{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
 .tx-row{position:relative;overflow:hidden;border-radius:14px;touch-action:pan-y}
 .tx-inner{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:10px 12px;background:var(--surface);position:relative;transition:transform .3s var(--ease-tunas),background .15s}
+/* v2.25 · semua anak grid baris transaksi boleh menyusut (juga >640px —
+   sebelumnya hanya mobile) supaya nominal panjang tak mendorong baris */
+.tx-inner>*{min-width:0}
 .tx-row:not(.swiping):hover .tx-inner{background:var(--surface-2)}
 .tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
 .tx-ic .ic{width:24px;height:24px}
@@ -609,9 +634,14 @@ b,strong{font-weight:600}
 .dd-habit.n{color:var(--ink-3)}
 .dd-tx{display:flex;flex-direction:column;gap:7px}
 .dd-tx-row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
-.dd-tx-row .tx-ic{width:34px;height:34px;border-radius:11px}
+.dd-tx-row .tx-ic{width:34px;height:34px;border-radius:11px;flex:none}
 .dd-tx-row .tx-ic .ic{width:18px;height:18px}
-.dd-tx-row span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* v2.25 · catatan transaksi di detail hari: dari elipsis 1 baris (hanya
+   dapat ±119px) menjadi clamp 2 baris — catatan pendek tampil UTUH,
+   yang panjang terpangkas rapi (pola line-clamp Apple/Material).
+   Selector dikecualikan dari .tx-ic — bug lama: flex:1 pada span generik
+   ikut melar ubin ikon dari 34px → 119px. */
+.dd-tx-row>span:not(.tx-ic){flex:1;min-width:0;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-height:1.35}
 /* ---------- v2.22 · DRILL-DOWN — bedah lapisan data di semua tab ----------
    Ketuk kartu statistik / kategori / anggaran / dompet / transaksi /
    kebiasaan / hari / pekan / lencana → sheet detail meluncur dari bawah. */
@@ -619,7 +649,7 @@ b,strong{font-weight:600}
 .drillable:hover{transform:translateY(-1px)}
 .drillable:active{transform:scale(.985)}
 .dl-row.drillable:hover,.pola-row.drillable:hover,.dd-tx-row.drillable:hover,.dd-habit.drillable:hover{background:var(--surface-2)}
-.drill-hint{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.drill-hint{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
 .drill-hint .ic{width:11px;height:11px}
 .sheet--drill .drill-body{max-height:min(60dvh,520px);overflow-y:auto;overscroll-behavior:contain;padding-top:4px}
 .drill-id{display:flex;align-items:center;gap:12px;min-width:0;padding-right:8px}
@@ -628,8 +658,8 @@ b,strong{font-weight:600}
 .drill-art .ic{width:22px;height:22px}
 .drill-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin:2px 0 4px}
 .drill-stat>div{background:var(--surface-2);border-radius:14px;padding:10px 12px;min-width:0}
-.drill-stat .num{font-size:16px;font-weight:800;line-height:1.3}
-.drill-stat .lbl{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.drill-stat .num{font-size:15.5px;font-weight:600;line-height:1.3;font-variant-numeric:tabular-nums}
+.drill-stat .lbl{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
 .drill-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:13px;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
 .drill-row:hover{background:var(--surface-2)}
 .drill-row+.drill-row{margin-top:2px}
@@ -846,16 +876,16 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
    .is-bloom: subjudul hari sempurna memakai terra pekat + lonjakan lembut
    (rayakan, jangan berteriak); .streak-guard: pengingat runtun berisiko —
    loss aversion lembut tanpa warna bahaya, memakai honey seperti mentari. */
-.t-sub.is-bloom{color:var(--terra-strong);font-weight:650;animation:bloomIn .6s cubic-bezier(.2,.8,.3,1)}
+.t-sub.is-bloom{color:var(--terra-strong);font-weight:600;animation:bloomIn .6s cubic-bezier(.2,.8,.3,1)}
 @keyframes bloomIn{0%{transform:translateY(4px);opacity:.2}100%{transform:none;opacity:1}}
-.streak-guard{display:inline-flex;align-items:baseline;gap:6px;margin-top:8px;padding:6px 12px;border-radius:999px;background:var(--honey-soft);border:1px solid rgba(251,191,36,.45);color:var(--honey-deep);font-size:12px;font-weight:650;max-width:100%}
+.streak-guard{display:inline-flex;align-items:baseline;gap:6px;margin-top:8px;padding:6px 12px;border-radius:999px;background:var(--honey-soft);border:1px solid rgba(251,191,36,.45);color:var(--honey-deep);font-size:12px;font-weight:600;max-width:100%}
 .streak-guard .ic{width:13px;height:13px;flex:none;transform:translateY(2px)}
 .streak-guard span{min-width:0;flex:1} /* v2.19 · boleh wrap 2 baris di layar sempit — nama kebiasaan tak terpotong elipsis */
 
 /* ---------- ilustrasi identitas halaman & kartu baru ---------- */
 .ph-id{display:flex;align-items:center;gap:14px;min-width:0}
 .ph-art{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
-.ph-art .ill{width:42px}
+.ph-art .ill{width:42px;aspect-ratio:1}
 .ph-art.em{background:var(--terra-softer)}
 .ph-art.sage{background:var(--sage-soft)}
 .ph-art.sky{background:var(--sky-soft)}
@@ -871,14 +901,20 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 /* ---------- grafik svg umum ---------- */
 .chart-label{font-size:12px;font-weight:600;fill:var(--ink-2)}
 .chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
-/* v2.17 · grafik konsistensi pada layar sempit: sumbu-X digeser horizontal
-   (label tetap terbaca) alih-alih menyusut sampai tak terbaca */
-#consChart{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-#consChart::-webkit-scrollbar{display:none}
+/* v2.25 · grafik layar sempit — tiga perbaikan audit sekaligus:
+   1) label chart membesar di ≤640px (13.5px ≈ 11px efektif setelah skala
+      460/560 — label 12px lama efektifnya cuma 7–10px, tak terbaca);
+   2) #cfChart kini ikut pola #consChart: kanvas min 460px + geser
+      horizontal (bukan menyusut jadi 58%);
+   3) setelah render, kanvas digeser OTOMATIS ke ujung kanan (data TERBARU
+      yang paling penting) — sebelumnya 29% data terkini tersembunyi di
+      luar layar secara default (temuan audit terparah). */
+#consChart,#cfChart{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#consChart::-webkit-scrollbar,#cfChart::-webkit-scrollbar{display:none}
 /* afordansi geser: hanya tampil di layar sempit bersama grafik yang dapat digeser */
 .chart-swipe-hint{display:none;align-items:center;justify-content:center;gap:5px;margin-top:7px;font-size:11px;font-weight:600;color:var(--ink-3)}
 .chart-swipe-hint .ic{width:13px;height:13px}
-@media(max-width:640px){#consChart svg{min-width:460px}.chart-swipe-hint{display:flex}}
+@media(max-width:640px){#consChart svg,#cfChart svg{min-width:460px}.chart-swipe-hint{display:flex}.chart-label{font-size:13.5px}}
 .line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
 .chart-last{transform-box:fill-box;transform-origin:center;animation:chartPulse 2.4s ease-in-out infinite}
 @keyframes chartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
@@ -902,8 +938,9 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   /* v2.17 · konten terakhir tak lagi tersangkut di bawah dock navigasi:
      padding aman + scroll-padding untuk lompatan anchor */
   html{scroll-padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
-  .view{padding:18px 14px calc(112px + env(safe-area-inset-bottom,0px))}
-  .topbar{padding:0 18px}
+  /* v2.25 · safe-area lanskap (notch): tepi kiri/kanan menghormati inset */
+  .view{padding:18px max(14px,env(safe-area-inset-left)) calc(112px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right))}
+  .topbar{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
 }
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;padding:18px 16px;gap:4px;margin-bottom:18px}
@@ -995,7 +1032,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .cal-head-row,.cal-grid{gap:4px}
   .cal-cell{min-height:44px;aspect-ratio:auto;border-radius:11px;gap:4px}
   .cal-cell .d{font-size:12.5px}
-  .ticks i{width:4px;height:8px}
+  .ticks{gap:2px}
+  .ticks i{width:3.5px;height:7px;border-radius:2px}
   .hero-quote{display:none}
   .pill-streak span{display:none}
   .pill-streak{padding:7px 11px}
@@ -2133,6 +2171,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
         <div id="cfChart"></div>
+        <small class="chart-swipe-hint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg>Geser grafik untuk rentang penuh<svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></small>
         <div class="cf-total">
           <div>
             <svg class="ic" style="color:var(--sage-deep)" aria-hidden="true"><use href="#i-arr-dr"/></svg>
@@ -2364,7 +2403,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <button class="btn btn-ghost btn-sm" data-open-modal="modalBudget"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Anggaran</button>
         </div>
       </div>
-      <div class="hm-legend" style="gap:14px;margin:-8px 0 16px">
+      <div class="hm-legend" style="gap:14px;margin:0 0 16px">
         <span><i style="background:var(--sage)"></i>aman</span>
         <span><i style="background:var(--honey)"></i>mulai penuh</span>
         <span><i style="background:#EF4444"></i>hampir habis</span>
@@ -3017,7 +3056,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 /* v2.17 · saldo minus diberi tanda eksplisit (badge + tepi rose), bukan
    sekadar warna angka — masalahnya terlihat, bukan tersembunyi di grid */
 .dompet-card.neg{border-color:var(--rose-line)}
-.neg-badge{display:inline-flex;align-items:center;margin-left:7px;padding:2px 8px;border-radius:999px;background:var(--rose-soft);color:var(--rose-deep);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;vertical-align:2px}
+.neg-badge{display:inline-flex;align-items:center;margin-left:7px;padding:2px 8px;border-radius:999px;background:var(--rose-soft);color:var(--rose-deep);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;vertical-align:2px}
 .konsep-note{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;font-size:12px;font-weight:600;color:var(--ink-3)}
 .konsep-note .ic{width:14px;height:14px;flex:none}
 .dd-well{display:flex;gap:8px;flex-wrap:wrap}
@@ -3028,7 +3067,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .fin-tab{flex:1;min-width:0;min-height:46px;border-radius:10px;font-size:13px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 10px;white-space:nowrap;transition:background-color .18s,color .18s,box-shadow .18s}
 .fin-tab .ic{width:18px;height:18px;flex:none}
 .fin-tab:hover{color:var(--terra-deep)}
-.fin-tab.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
+.fin-tab.active{background:var(--terra-strong);color:#FFFFFF;box-shadow:var(--shadow-sm)}
 .ft-short{display:none}
 [data-fin-pane]{display:flex;flex-direction:column}
 [data-fin-pane][hidden]{display:none}
@@ -3046,7 +3085,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 /* ringkasan saldo total */
 .saldo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .saldo-top .ch-title{align-items:flex-start}
-.saldo-big{font-family:var(--font-display);font-size:clamp(28px,3.8vw,38px);font-weight:650;line-height:1.15;margin-top:4px;letter-spacing:-.02em}
+.saldo-big{font-family:var(--font-display);font-size:clamp(28px,3.8vw,38px);font-weight:600;line-height:1.15;margin-top:4px;letter-spacing:-.02em}
 .saldo-top .t-sub{margin-top:5px}
 /* arus dana per dompet */
 .sf-list{display:flex;flex-direction:column}
@@ -3173,7 +3212,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.24';
+const APP_VERSION='v2.25';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4427,6 +4466,9 @@ function renderCashflow(){
     s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
+  /* v2.25 · di layar sempit, tampilkan pekan TERBARU lebih dulu (auto-geser
+     ke ujung kanan); data lama tetap bisa digeser mundur */
+  const cfc=$('#cfChart');requestAnimationFrame(()=>{if(cfc&&cfc.scrollWidth>cfc.clientWidth+1)cfc.scrollLeft=cfc.scrollWidth});
   $('#cfTitle').textContent='Aktivitas mingguan';
   countUp($('#cfIn'),sumBy(masuk,v=>v));
   countUp($('#cfOut'),sumBy(keluar,v=>v));
@@ -4552,7 +4594,7 @@ function renderHeatmap(anim){
       cells.insertAdjacentHTML('beforeend',`<span class="hm-cell ${lvl} ${isToday?'today':''} drillable" style="--hm:${Math.min(idx++,60)}" data-drill="day" data-date="${k}" role="button" tabindex="0" title="${d.getDate()} ${BULAN_S[d.getMonth()]} · ${cnt} kebiasaan selesai"></span>`);
       d=addDays(d,1);
     }
-    monthsEl.insertAdjacentHTML('beforeend',`<span>${mlabel}</span>`);
+    if(mlabel)monthsEl.insertAdjacentHTML('beforeend',`<span style="grid-row:1;grid-column:${cols+1} / span ${Math.min(4,18-cols)}">${mlabel}</span>`);
     cols++;
   }
   const dowSum=Array(7).fill(0);
@@ -5273,6 +5315,9 @@ function renderConsChart(){
   });
   s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Catatan kebiasaan per minggu">${s}</svg>`;
+  /* v2.25 · auto-geser ke data TERBARU (audit: 29% data terkini dulunya
+     tersembunyi di luar layar secara default) */
+  const csc=$('#consChart');requestAnimationFrame(()=>{if(csc&&csc.scrollWidth>csc.clientWidth+1)csc.scrollLeft=csc.scrollWidth});
   const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
   const pk=new Date(peak.s+'T00:00:00');
   $('#consNote').innerHTML=`Rata-rata <b>${avg} catatan/minggu</b> dalam ${vals.length} minggu · puncak <b>${peak.c}</b> pada ${pk.getDate()} ${BULAN_S[pk.getMonth()]}.`;

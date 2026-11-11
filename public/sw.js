@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v26"; // v2.24 — font Geist self-host + audit mobile terpotong
+const STATIC_CACHE = "rutina-static-v27"; // v2.25 — tipografi satu-suara + audit anti-terpotong mobile
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$)/;
