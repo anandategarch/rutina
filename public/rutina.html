@@ -12,6 +12,14 @@
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
    aksen biru/oranye/sky, soft 3D illustrations
    ============================================================ */
+/* v2.27 · AUDIT MOBILE 390px → PERBAIKAN SUMBU GRAFIK. Audit DOM
+   menemukan #cfChart/#consChart digambar 560px + min-width 460 lalu
+   auto-gulir ke kanan: label skala ("250 rb"…"1 jt") dan batang tertua
+   terpotong permanen di luar layar. Kini grafik digambar pada lebar
+   kontainer asli (skala 1:1) dengan jumlah pekan adaptif — sumbu-Y
+   selalu terlihat, tanpa gulir, tanpa hint "geser grafik". Label tick
+   bobot 500 (nilai tetap 600); nama kebiasaan dirapikan (spasi ganda);
+   agenda-note 600→500 (prosa tak perlu semirip label tombol). */
 /* v2.24 · FONT SELF-HOST — Geist kini dibawa aplikasi sendiri
    (latin 29 KB + latin-ext 16 KB). Selama ini <link> ke Google Fonts
    membuat tipografi bergantung jaringan: saat lambat/offline, font
@@ -193,10 +201,10 @@ b,strong{font-weight:600}
 .card-head .t-sub{font-size:12px;margin-top:2px}
 .grid{display:grid;gap:16px}
 /* v2.24 · anak grid wajib boleh menyusut (min-width:0). Tanpa ini, kartu
-   Analisis yang memuat grafik geser (svg min-width:460px di layar <640px)
-   memaksa kartu melebar 118px di ponsel → seluruh halaman bisa digeser
-   ke samping & konten terpotong. Dengan boleh menyusut, grafik menggeser
-   DI DALAM kartunya (perilaku yang memang disengaja desain v2.17). */
+   berisi grafik/teks panjang bisa memaksa kartu melebar di ponsel →
+   seluruh halaman bisa digeser ke samping & konten terpotong.
+   (v2.27: grafik kini digambar pada lebar kontainer — min-width:0 tetap
+   wajib sebagai jaring pengaman untuk semua konten tak terduga.) */
 .grid>*{min-width:0}
 /* kartu yang jadi anak flex row juga boleh menyusut — temuan audit yang sama */
 .card{min-width:0}
@@ -452,7 +460,7 @@ b,strong{font-weight:600}
 .counter button:hover{border-color:var(--terra);color:var(--terra-deep)}
 .counter button .ic{width:13px;height:13px}
 .counter b{font-size:12.5px;font-weight:600;min-width:34px;text-align:center;color:var(--sky-deep)}
-.agenda-note{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 15px;border-radius:var(--r-md);background:var(--terra-softer);border:1px dashed #6EE7B7;font-size:12.5px;font-weight:600;color:var(--terra-deep)}
+.agenda-note{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 15px;border-radius:var(--r-md);background:var(--terra-softer);border:1px dashed #6EE7B7;font-size:12.5px;font-weight:500;color:var(--terra-deep)}
 .agenda-note .ic{width:17px;height:17px;flex:none}
 
 /* ---------- bar progress ---------- */
@@ -899,22 +907,17 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .streak-banner .bar{height:9px;max-width:360px}
 
 /* ---------- grafik svg umum ---------- */
-.chart-label{font-size:12px;font-weight:600;fill:var(--ink-2)}
 .chart-grid{stroke:var(--line-soft);stroke-dasharray:3 5}
-/* v2.25 · grafik layar sempit — tiga perbaikan audit sekaligus:
-   1) label chart membesar di ≤640px (13.5px ≈ 11px efektif setelah skala
-      460/560 — label 12px lama efektifnya cuma 7–10px, tak terbaca);
-   2) #cfChart kini ikut pola #consChart: kanvas min 460px + geser
-      horizontal (bukan menyusut jadi 58%);
-   3) setelah render, kanvas digeser OTOMATIS ke ujung kanan (data TERBARU
-      yang paling penting) — sebelumnya 29% data terkini tersembunyi di
-      luar layar secara default (temuan audit terparah). */
-#consChart,#cfChart{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-#consChart::-webkit-scrollbar,#cfChart::-webkit-scrollbar{display:none}
-/* afordansi geser: hanya tampil di layar sempit bersama grafik yang dapat digeser */
-.chart-swipe-hint{display:none;align-items:center;justify-content:center;gap:5px;margin-top:7px;font-size:11px;font-weight:600;color:var(--ink-3)}
-.chart-swipe-hint .ic{width:13px;height:13px}
-@media(max-width:640px){#consChart svg,#cfChart svg{min-width:460px}.chart-swipe-hint{display:flex}.chart-label{font-size:13.5px}}
+/* v2.27 · grafik digambar pada LEBAR KONTAINER ASLI (redraw responsif di
+   renderCashflow/renderConsChart) — bukan lagi kanvas 560px dengan
+   min-width 460 + gulir horizontal. Audit 390px v2.26 menemukan: auto-geser
+   ke data terbaru membuat label sumbu-Y ("250 rb"…"1 jt") TERPOTONG di luar
+   layar secara permanen & batang tertua terclips. Kini:
+   1) viewBox = lebar kontainer → skala 1:1, label 13px efektif setara;
+   2) jumlah pekan adaptif — muat penuh tanpa gulir;
+   3) label tick bobot 500 (label nilai tetap 600 via style inline). */
+.chart-label{font-size:12px;font-weight:500;fill:var(--ink-2)}
+@media(max-width:640px){.chart-label{font-size:13px}}
 .line-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.6s cubic-bezier(.4,.6,.3,1) forwards}
 .chart-last{transform-box:fill-box;transform-origin:center;animation:chartPulse 2.4s ease-in-out infinite}
 @keyframes chartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
@@ -2166,7 +2169,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
         <div id="cfChart"></div>
-        <small class="chart-swipe-hint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg>Geser grafik untuk rentang penuh<svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></small>
         <div class="cf-total">
           <div>
             <svg class="ic" style="color:var(--sage-deep)" aria-hidden="true"><use href="#i-arr-dr"/></svg>
@@ -2630,7 +2632,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
       </div>
       <div id="consChart"></div>
-      <small class="chart-swipe-hint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg>Geser grafik untuk rentang penuh<svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></small>
       <div class="cons-note">
         <svg class="ic" aria-hidden="true"><use href="#i-arr-ur"/></svg>
         <span id="consNote">Menghitung tren dari catatan asli…</span>
@@ -3207,7 +3208,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.26';
+const APP_VERSION='v2.27';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3330,6 +3331,16 @@ function ovApply(){
   });
   OV.srcAdd.forEach(s=>sMap.set(s.id,{...s}));
   DB.fundSources=[...sMap.values()];
+  /* v2.27 · rapikan spasi ganda pada nama (audit: kategori "🛠️  Servis
+     Motor"). Dilakukan SETELAH pemetaan jurnal supaya kunci jurnal lama
+     (memakai nama asli) tetap cocok; dimensi berbasis nama (kategori,
+     transaksi, anggaran) dinormalisasi serentak agar tetap saling cocok.
+     Identitas jurnal dompet memakai id — aman ikut dirapikan. */
+  const nmNorm=s=>String(s||'').replace(/\s+/g,' ').trim();
+  (DB.financeCategories||[]).forEach(c=>{c.name=nmNorm(c.name);c.emoji=String(c.emoji||'').trim()});
+  (DB.transactions||[]).forEach(t=>t.category=nmNorm(t.category));
+  (DB.weeklyBudgets||[]).forEach(b=>b.category=nmNorm(b.category));
+  (DB.fundSources||[]).forEach(s=>{s.name=nmNorm(s.name);s.emoji=String(s.emoji||'').trim()});
 }
 /* ---------- bantu sinkronisasi lapisan lokal saat mutasi sesi ---------- */
 function ovTxEdit(t){
@@ -3804,8 +3815,11 @@ function prepData(){
   HCAT={};(DB.habitCategories||[]).forEach(c=>HCAT[c.name]=c.color);
   const order={};GROUPS.forEach((g,i)=>order[g.id]=i);
   HABITS=(DB.habits||[]).map(h=>{
+    /* v2.27 · rapikan spasi ganda pada nama (audit: "🛠️  Servis Motor") —
+       tampilan bersih; kunci jurnal memakai id, bukan nama, jadi aman */
+    const nm=String(h.name||'').replace(/\s+/g,' ').trim();
     const dates=[...new Set((DB.habitLogs||[]).filter(l=>l.habitId===h.id&&l.completed).map(l=>l.date))].sort();
-    return {...h,ikon:HABIT_ICON[h.name]||ICON_BY_CAT[h.category]||'ill-sprout',
+    return {...h,name:nm,emoji:String(h.emoji||'').trim(),ikon:HABIT_ICON[nm]||ICON_BY_CAT[h.category]||'ill-sprout',
       warna:HCAT[h.category]||'#059669',
       grp:h.groupId?GROUPS.find(g=>g.id===h.groupId)||null:null,
       dates,total:dates.length,best:bestRun(dates),first:dates[0]||null,last:dates[dates.length-1]||null};
@@ -3865,6 +3879,14 @@ function rollToday(){
 }
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)rollToday()});
 setInterval(rollToday,60000);
+/* v2.27 · rotasi layar / ubah lebar jendela → grafik halaman AKTIF digambar
+   ulang pada lebar baru (debounce); halaman lain menggambar ulang saat dibuka
+   atau lebar tersimpan di _cw dipakai ulang. */
+let _rzT=0;
+window.addEventListener('resize',()=>{clearTimeout(_rzT);_rzT=setTimeout(()=>{
+  if(state.page==='ringkasan')renderCashflow();
+  if(state.page==='wawasan'&&inited.wawasan)renderConsChart();
+},220)});
 const habitById=id=>HABITS.find(h=>h.id===id);
 const doneTodayCount=()=>HABITS.filter(h=>!!doneToday[h.id]).length;
 const isAmount=h=>h.habitType==='amount'&&h.target>1;
@@ -4561,13 +4583,21 @@ function renderBanner(){
   animateBars($('#sbBar').closest('.streak-banner'));
 }
 function renderCashflow(){
-  const N=10,weeks=[];
+  /* v2.27 · redraw responsif: viewBox = lebar kontainer asli (skala 1:1),
+     jumlah pekan adaptif agar muat tanpa gulir; label sumbu-Y selalu terlihat
+     (temuan audit 390px v2.26: dulu terpotong permanen oleh auto-geser).
+     Kontainer tersembunyi (render dari tab lain) → pakai lebar terakhir. */
+  const cfc0=$('#cfChart');
+  const cw0=Math.round(cfc0.getBoundingClientRect().width);
+  const cw=cw0>0?cw0:(cfc0._cw||328);cfc0._cw=cw;
+  const N=Math.max(5,Math.min(10,Math.floor((cw-64)/42)));
+  const weeks=[];
   let ws=weekStartOf(TODAY);
   for(let i=0;i<N;i++){weeks.unshift(ws);ws=addDays(ws,-7)}
   const win=weeks.map(w0=>({s:dayKey(w0),e:dayKey(addDays(w0,6))}));
   const masuk=win.map(x=>sumBy(TXS.filter(t=>t.type==='income'&&t.date>=x.s&&t.date<=x.e),t=>t.amount));
   const keluar=win.map(x=>sumBy(TXS.filter(t=>t.type==='expense'&&t.date>=x.s&&t.date<=x.e),t=>t.amount));
-  const W=560,H=210,L=50,R=14,T=22,B=30;
+  const W=Math.max(280,cw),H=210,L=50,R=14,T=22,B=30;
   const gw=(W-L-R)/N;
   const maxV=Math.max(...masuk,...keluar,100000);
   const nice=Math.ceil(maxV/250000)*250000;
@@ -4581,19 +4611,16 @@ function renderCashflow(){
   win.forEach((x,i)=>{
     const d=weeks[i];
     const cx=L+gw*i+gw/2;
-    const bw=17;
+    const bw=Math.min(17,Math.max(12,gw-27));
     const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
     s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
     s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}" font-weight="600" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}" font-weight="600" fill="#B45309">${ringkas(keluar[i])}</text>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i};font-weight:600" fill="#15803D">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i};font-weight:600" fill="#B45309">${ringkas(keluar[i])}</text>`;
     s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
-  /* v2.25 · di layar sempit, tampilkan pekan TERBARU lebih dulu (auto-geser
-     ke ujung kanan); data lama tetap bisa digeser mundur */
-  const cfc=$('#cfChart');requestAnimationFrame(()=>{if(cfc&&cfc.scrollWidth>cfc.clientWidth+1)cfc.scrollLeft=cfc.scrollWidth});
-  $('#cfTitle').textContent='Aktivitas mingguan';
+  $('#cfTitle').textContent=`Aktivitas ${N} pekan terakhir`;
   countUp($('#cfIn'),sumBy(masuk,v=>v));
   countUp($('#cfOut'),sumBy(keluar,v=>v));
 }
@@ -5406,17 +5433,25 @@ function renderConsChart(){
   if(!allKeys.length){$('#consChart').innerHTML='';return}
   const first=new Date(allKeys[0]+'T00:00:00');
   let ws=weekStartOf(first);
-  const weeks=[];
+  let weeks=[];
   while(ws<=TODAY){
     const s=dayKey(ws),e=dayKey(addDays(ws,6));
     let c=0;allKeys.forEach(k=>{if(k>=s&&k<=e)c+=logsByDate[k].length});
     weeks.push({s,c});ws=addDays(ws,7);
   }
+  /* v2.27 · redraw responsif: lebar kanvas = kontainer asli (skala 1:1,
+     sumbu-Y selalu terlihat — temuan audit 390px). Riwayat panjang dibatasi
+     ke pekan TERBARU agar densitas tetap sehat di layar sempit. */
+  const csc0=$('#consChart');
+  const cw0=Math.round(csc0.getBoundingClientRect().width);
+  const cw=cw0>0?cw0:(csc0._cw||328);csc0._cw=cw;
+  const cap=cw<420?12:24;
+  if(weeks.length>cap)weeks=weeks.slice(-cap);
   const vals=weeks.map(w=>w.c);
   const ct=$('#consTitle');if(ct)ct.textContent=`Konsistensi ${vals.length} minggu terakhir`;
   const avg=Math.round(sumBy(vals,v=>v)/vals.length);
   const maxV=Math.max(...vals,1);
-  const W=560,H=240,L=44,R=14,T=18,B=34;
+  const W=Math.max(280,cw),H=240,L=44,R=14,T=18,B=34;
   const x=i=>L+(W-L-R)*i/Math.max(1,vals.length-1);
   const y=v=>T+(H-T-B)*(1-v/maxV);
   const pts=vals.map((v,i)=>[x(i),y(v)]);
@@ -5428,20 +5463,17 @@ function renderConsChart(){
     s+=`<text x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end" class="chart-label">${v}</text>`;
   });
   s+=`<line x1="${L}" x2="${W-R}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
-  s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" font-weight="600" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
+  s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" style="font-weight:600" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
   pts.forEach((p,i)=>{
     const akhir=i===vals.length-1;
     s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''} data-drill="week" data-start="${weeks[i].s}" tabindex="0"/>`;
-    if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" font-weight="600" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
+    if(akhir)s+=`<text x="${(p[0]-13).toFixed(1)}" y="${(p[1]+4.5).toFixed(1)}" text-anchor="end" class="chart-label" style="font-weight:600" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${vals[i]}</text>`;
     const d=new Date(weeks[i].s+'T00:00:00');
     const step=vals.length>15?4:vals.length>9?3:2;
     if(i%step===0||i===vals.length-1){const akhirLbl=i===vals.length-1;s+=`<text x="${(akhirLbl?W-2:p[0]).toFixed(1)}" y="${H-12}" text-anchor="${akhirLbl?'end':'middle'}" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`}
   });
   s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Catatan kebiasaan per minggu">${s}</svg>`;
-  /* v2.25 · auto-geser ke data TERBARU (audit: 29% data terkini dulunya
-     tersembunyi di luar layar secara default) */
-  const csc=$('#consChart');requestAnimationFrame(()=>{if(csc&&csc.scrollWidth>csc.clientWidth+1)csc.scrollLeft=csc.scrollWidth});
   const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
   const pk=new Date(peak.s+'T00:00:00');
   $('#consNote').innerHTML=`Rata-rata <b>${avg} catatan/minggu</b> dalam ${vals.length} minggu · puncak <b>${peak.c}</b> pada ${pk.getDate()} ${BULAN_S[pk.getMonth()]}.`;
