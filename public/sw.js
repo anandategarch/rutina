@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v33"; // v2.31 — animasi penuh tahap 2 (exit sheet, reveal gulir, thumb seg, toast bar)
+const STATIC_CACHE = "rutina-static-v34"; // v2.32 — repo dirapikan: aset & scaffold tak terpakai dibuang
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

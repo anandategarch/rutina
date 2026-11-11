@@ -1,23 +1,20 @@
 node_modules/
 .next/
+.vercel/
 out/
 build/
 coverage/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
 .env*
 !.env.example
-*.tsbuildinfo
-.DS_Store
-.vercel/
 
-# Personal workspace exports must never be committed
+# Ekspor workspace pribadi & artefak pengembangan — bukan bagian repo
 rutina-backup*.json
 tool-results/
-
-# Artefak pengembangan — bukan bagian dari repo
 shots/
-.zscripts/dev.log
-.zscripts/dev.pid
-
-# log dev di root
 dev.log
+
+# SQLite lokal (dibuat otomatis /api/rutina saat env Turso kosong)
 db/rutina-preview.db

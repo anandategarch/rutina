@@ -1,27 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { PwaRegister } from "@/components/pwa/pwa-register";
-import "@fontsource-variable/plus-jakarta-sans";
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Rutina",
   description:
-    "Rutina — pelacak kebiasaan & keuangan harian: kebiasaan, kategori, transaksi, dompet, dan anggaran dalam satu tampilan.",
+    "Rutina — pelacak kebiasaan & keuangan harian dalam satu tampilan yang tenang.",
   applicationName: "Rutina",
-  manifest: "/manifest.webmanifest",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Rutina",
-  },
-  icons: {
-    icon: [
-      { url: "/icons/icon.svg?v=2", type: "image/svg+xml" },
-      { url: "/icons/icon-192.png?v=2", sizes: "192x192", type: "image/png" },
-      { url: "/icons/icon-512.png?v=2", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [{ url: "/icons/apple-touch-icon.png?v=2", sizes: "180x180", type: "image/png" }],
-  },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
@@ -31,13 +15,14 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+/* Cangkang minimal: aplikasi sesungguhnya adalah PWA satu file
+   public/rutina.html (meregistrasi sw.js sendiri); route "/" hanya
+   membungkusnya dalam iframe, dan /api/rutina menjadi jembatan data
+   (baca-tulis) ke Turso / SQLite lokal. */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="id">
-      <body>
-        <PwaRegister />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
