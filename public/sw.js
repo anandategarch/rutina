@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v42"; // v2.40 — pulihan audit UI/UX: kontras WCAG AA (token aksen), target sentuh, skip-link, fokus-return modal; v41 memuat check-in harian
+const STATIC_CACHE = "rutina-static-v43"; // v2.41 — perbaikan kritis flicker gulir: fill-mode .rv reveal "both"; v42 memuat pemulihan audit UI/UX
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.40** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.41** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -32,6 +32,7 @@ src/app/
 6. **v2.37**: kolom `Transaction.recurrence` (mingguan/bulanan) + jurnal `habitMeta` diperluas (nama/emoji/kategori/jam/grup) — keduanya lewat migrasi `ALTER` idempoten, database lama aman.
 7. **v2.38**: desain ulang komposer **Pengeluaran kilat** — nominal & dompet dibungkus `.field` (bahasa form aplikasi: 48px, radius 14, tepi 1.5px, fokus cincin terra) menggantikan kontrol mentah; art kepala kartu memakai varian `.head-art.honey` yang sah.
 8. **v2.39**: audit menyeluruh menemukan fitur check-in mood/energi/tidur yang diminta tak pernah terkirim — kini lengkap: kartu **Check-in harian** di Ringkasan (skala 1–5 + lama tidur) menulis lewat jurnal overlay `dailyLog` (kunci tanggal) ke tabel `DailyLog` (UPSERT idempoten). Rapian audit: tinggi nama tanaman dikunci 2 baris (baseline strip rata), `.sc-grid` terdefinisi eksplisit, simbol sprite vestigial dibuang.
+10. **v2.41**: perbaikan kritis "flicker gulir" — sejak v2.31 kartu di bawah lipatan (reveal saat digulir, kelas `.rv`) memakai fill-mode `backwards`, sehingga **setelah animasi masuk usai kartu kembali tak terlihat** (dan tak pernah reveal ulang: chart donat Keuangan, 21 kartu Kebiasaan, kartu Wawasan "hilang" setelah digulir; gulir balik pun tetap bolong). Kini `both` — nilai akhir ditahan, konten bertahan setelah muncul.
 9. **v2.40**: pulihan audit UI/UX profesional — token aksen teks digelapkan sampai lolos **WCAG AA 4.5:1** di semua latar (terra/sage/honey/sky `-deep`; bonus `.btn-check.done` 3.77→5.48:1, tombol bahaya & lencana notifikasi naik ke rose-deep); target sentuh chip pemilih jam & `.btn-sm` 44px di ponsel; **tautan lompat** "Langsung ke konten" + `<main tabindex="-1">`; pemantik modal ditangkap eksplisit agar fokus kembali ke tombol pembuka juga setelah tap layar sentuh; bar progres hero sebaris penuh di ponsel dengan jejak lebih terlihat; keluarga CSS agenda/counter sisa tampilan lama dibuang.
 
 ## Fitur utama
