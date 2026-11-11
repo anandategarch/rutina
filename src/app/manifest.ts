@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Rutina — Kebiasaan & Arus Kas",
+    name: "Rutina",
     short_name: "Rutina",
     description: "Pelacak kebiasaan dan arus kas harian dalam satu tampilan yang tenang.",
     lang: "id",

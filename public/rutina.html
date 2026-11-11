@@ -7,6 +7,25 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.30 · DUA perbaikan hasil audit mendalam:
+     (1) PWA lengkap untuk shell standalone /rutina.html: manifest.json
+         sendiri + apple-touch-icon + meta iOS — sebelumnya hanya route "/"
+         (wrapper Next) yang punya manifest, shell yang dibuka langsung
+         tak bisa di-install.
+     (2) Integritas pasangan transfer: satu peristiwa transfer = dua baris
+         (Keluar + Masuk). Hapus/sunting satu sisi membuat saldo dompet
+         tak seimbang — kini kedua sisi disentuh bersama (lihat
+         transferPairOf, askDelete, doDelete, openTxEdit, formTx submit). -->
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rutina">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rutina">
+<meta property="og:description" content="Pelacak kebiasaan dan arus kas harian dalam satu tampilan yang tenang.">
+<meta property="og:image" content="/icons/icon-512.png?v=2">
 <style>
 /* ============================================================
    RUTINA · KONSEP "EVERGREEN" — primary #10B981, slate neutral,
@@ -3232,7 +3251,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.29';
+const APP_VERSION='v2.30';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3960,6 +3979,29 @@ function walletBalances(){
     else if(t.type==='transfer')bal[t.sourceId]+=(String(t.category).includes('Masuk')?t.amount:-t.amount);
   });
   return bal;
+}
+/* v2.30 · pasangan transfer: satu peristiwa transfer tercatat sebagai DUA
+   baris (Transfer Keluar dari dompet asal + Transfer Masuk ke tujuan).
+   Selama ini hapus/sunting hanya menyentuh SATU sisi → saldo dompet tak
+   seimbang (uang "muncul/hilang" sebesar nominalnya). Hapus & sunting kini
+   bekerja pada kedua sisi bersama. Konvensi id v2.29 (…-out / …-in) dicoba
+   dulu; baris lama dipasangkan heuristik: tanggal+nominal sama, sisi
+   berlawanan, dompet berbeda — hanya bila pasangannya tunggal (ambigu →
+   dianggap sendirian supaya tak salah menyentuh baris yang keliru). */
+function transferPairOf(t){
+  if(!t||t.type!=='transfer')return null;
+  const m=/^(.*)(-out|-in)$/.exec(String(t.id));
+  if(m){
+    const o=TXS.find(x=>x.id===m[1]+(m[2]==='-out'?'-in':'-out'));
+    if(o)return o;
+  }
+  const side=String(t.category).includes('Masuk')?'masuk':'keluar';
+  const cands=TXS.filter(x=>x!==t&&x.type==='transfer'&&x.date===t.date&&x.amount===t.amount
+    &&(String(x.category).includes('Masuk')?'masuk':'keluar')!==side
+    &&x.sourceId&&x.sourceId!==t.sourceId);
+  if(cands.length===1)return cands[0];
+  const sama=cands.filter(x=>(x.description||'')===(t.description||''));
+  return sama.length===1?sama[0]:null;
 }
 function activeDaysInLast(n){const from=dayKey(addDays(TODAY,-n+1));
   return Object.keys(logsByDate).filter(k=>k>=from&&k<=dayKey(TODAY)).length}
@@ -5252,7 +5294,14 @@ function askDelete(kind,key,extra){
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);if(!t)return;
     name=t.description||t.category;
-    desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Statistik arus kas, donat kategori, anggaran, jatah harian, dan saldo dompet dihitung ulang tanpa transaksi ini.`;
+    if(t.type==='transfer'){
+      /* v2.30 · transfer = dua baris; dialog mengabari kedua sisi ikut keluar */
+      const p=transferPairOf(t);
+      if(p)desc=`Transfer ini tercatat sebagai <b>dua baris</b> — keluar dari <b>${esc(srcName(t.sourceId))}</b>, masuk ke <b>${esc(srcName(p.sourceId))}</b>, sama-sama <b>${rupiah(t.amount)}</b> pada ${tglBulan(t.date)}.<br><b>Keduanya dihapus bersama-sama</b> supaya saldo kedua dompet tetap seimbang.`;
+      else desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Baris pasangannya tak ditemukan otomatis (ada beberapa transfer senilai sama pada tanggal yang sama) — hanya baris ini yang keluar. Periksa <b>Mutasi → Transfer</b> untuk sisi sebaliknya.`;
+    }else{
+      desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Statistik arus kas, donat kategori, anggaran, jatah harian, dan saldo dompet dihitung ulang tanpa transaksi ini.`;
+    }
     $('#delEyebrow').textContent='Hapus transaksi';
   }else if(kind==='budget'){
     const cat=key,mk=extra||'';
@@ -5306,14 +5355,22 @@ function doDelete(){
     toast('Kebiasaan dihapus',`${name} keluar dari daftar & database.`,'i-trash','rose');
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);
-    TXS=TXS.filter(x=>x.id!==key);
-    /* v2.22 · penghapusan tersinkron ke database */
-    if(isLocalId(key)){
-      const i=OV.txAdd.findIndex(x=>x.id===key);
-      if(i>=0)OV.txAdd.splice(i,1); /* masih di jurnal → buang */
-      else if(!OV.txDel.includes(key))OV.txDel.push(key); /* sudah tersinkron → perintah hapus ke server */
-    }
-    else{delete OV.txEdit[key];if(!OV.txDel.includes(key))OV.txDel.push(key)}
+    /* v2.30 · transfer dihapus DUA SISI bersama — menghapus satu sisi
+       membuat saldo dompet asal/tujuan melenceng sebesar nominalnya */
+    let p=null;
+    if(t&&t.type==='transfer'){p=transferPairOf(t);if(p&&p.id===key)p=null}
+    const ids=[key,...(p?[p.id]:[])];
+    TXS=TXS.filter(x=>!ids.includes(x.id));
+    /* v2.22 · penghapusan tersinkron ke database — kedua sisi transfer pun
+       dikirimkan (jurnal lokal dibuang / perintah hapus server) */
+    ids.forEach(rid=>{
+      if(isLocalId(rid)){
+        const i=OV.txAdd.findIndex(x=>x.id===rid);
+        if(i>=0)OV.txAdd.splice(i,1); /* masih di jurnal → buang */
+        else if(!OV.txDel.includes(rid))OV.txDel.push(rid); /* sudah tersinkron → perintah hapus ke server */
+      }
+      else{delete OV.txEdit[rid];if(!OV.txDel.includes(rid))OV.txDel.push(rid)}
+    });
     ovPersist();
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
@@ -5322,7 +5379,9 @@ function doDelete(){
     refinance();fillTxMonths();
     if(inited.cal)renderDayDetail(state.calSel);
     renderSettings();
-    toast('Transaksi dihapus',t?`${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.','i-trash','rose');
+    toast(p?'Transfer dihapus':'Transaksi dihapus',p
+      ?`⇄ ${rupiah(t.amount)} · ${srcName(t.sourceId)} → ${srcName(p.sourceId)} · kedua sisi keluar, saldo tetap seimbang 🌿`
+      :(t?`${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.'),'i-trash','rose');
     return;
   }else if(kind==='budget'){
     const {cat,mk}=delTarget;
@@ -5782,7 +5841,11 @@ function openTxEdit(id){
   const seg=$('#modalTx .seg');
   if(t.type==='transfer'){
     /* transfer antar-dompet: jenis & kategori terkunci — hanya nominal,
-       sumber, tanggal, dan catatan yang boleh diubah */
+       sumber, tanggal, dan catatan yang boleh diubah. v2.30 · label dompet
+       mengikuti sisi baris (Keluar = dompet ASAL, Masuk = dompet TUJUAN);
+       menyimpan menyentuh kedua sisi supaya saldo tetap seimbang */
+    const p=transferPairOf(t);
+    const masuk=String(t.category).includes('Masuk');
     seg.classList.add('locked');
     $$('#modalTx .seg button').forEach(b=>b.classList.remove('active'));
     $('#txCat').disabled=true;
@@ -5790,7 +5853,8 @@ function openTxEdit(id){
     $('#txCat').value=t.category;
     $('#txCatWrap').hidden=false;
     $('#txDestWrap').hidden=true;
-    $('#txSourceLbl').textContent='Sumber dana';
+    $('#txSourceLbl').textContent=masuk?'Ke dompet':'Dari dompet';
+    $('#txNote').placeholder=p?(masuk?'cth: pindah gaji':'cth: top-up GoPay'):'cth: transfer antar-dompet';
   }else{
     seg.classList.remove('locked');
     $('#txCat').disabled=false;
@@ -5802,7 +5866,7 @@ function openTxEdit(id){
   $('#txSource').value=t.sourceId||'';
   $('#txAmount').value=t.amount.toLocaleString('id-ID');
   $('#txDate').value=t.date;
-  $('#txNote').value=(t.description&&t.description!==t.category)?t.description:'';
+  $('#txNote').value=(t.type!=='transfer'&&t.description&&t.description!==t.category)?t.description:'';
   openModal('modalTx');
 }
 $('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
@@ -5825,7 +5889,24 @@ $('#formTx').addEventListener('submit',e=>{
   const tgt=mengubah?TXS.find(x=>x.id===editTxId):null;
   if(mengubah&&!tgt){editTxId=null;closeModals();return}
   if(tgt&&tgt.type==='transfer'){
-    Object.assign(tgt,{amount:nominal,sourceId:src,date:dv,description:note||tgt.category});
+    /* v2.30 · sunting transfer menyentuh KEDUA sisi: nominal, tanggal, dan
+       catatan disamakan; dompet diubah pada sisi yang sedang disunting
+       (Keluar = asal, Masuk = tujuan) — sisi pasangan mempertahankan
+       dompetnya. Deskripsi arah dibangun ulang dari nama dompet terkini.
+       Tanpa ini pasangan memakai nominal/tanggal lama → saldo melenceng. */
+    const p=transferPairOf(tgt);
+    const masuk=String(tgt.category).includes('Masuk');
+    const dari=masuk?(p?p.sourceId:null):src;
+    const ke=masuk?src:(p?p.sourceId:null);
+    if(p&&dari&&ke&&dari===ke){toast('Dompet sama','Transfer harus ke dompet yang berbeda.','i-x','rose');return}
+    Object.assign(tgt,{amount:nominal,sourceId:src,date:dv});
+    if(p)Object.assign(p,{amount:nominal,date:dv});
+    const ket=note?note+' · ':'';
+    if(p){
+      tgt.description=ket+(masuk?('⇄ dari '+srcName(dari)):('⇄ ke '+srcName(ke)));
+      p.description=ket+(masuk?('⇄ ke '+srcName(ke)):('⇄ dari '+srcName(dari)));
+      ovTxEdit(p); /* sisi pasangan ikut tersinkron ke database */
+    }else tgt.description=note||tgt.description;
   }else if(txType==='transfer'&&!mengubah){
     /* v2.29 · transfer antar-dompet: satu peristiwa → dua catatan
        (keluar dari sumber + masuk ke tujuan) agar saldo kedua dompet
@@ -5834,8 +5915,9 @@ $('#formTx').addEventListener('submit',e=>{
     if(!dari||!to){toast('Dompet belum lengkap','Pilih dompet asal dan tujuan transfer.','i-x','rose');return}
     if(dari===to){toast('Dompet sama','Transfer harus ke dompet yang berbeda.','i-x','rose');return}
     const nmDari=srcName(dari),nmKe=srcName(to);
-    const keluarSide={id:'local-'+Date.now()+'-out',type:'transfer',amount:nominal,category:'Transfer Keluar',sourceId:dari,description:'⇄ ke '+nmKe,date:dv};
-    const masukSide={id:'local-'+Date.now()+'-in',type:'transfer',amount:nominal,category:'Transfer Masuk',sourceId:to,description:'⇄ dari '+nmDari,date:dv};
+    const ket=note?note+' · ':''; /* v2.30 · catatan transfer ikut kedua sisi */
+    const keluarSide={id:'local-'+Date.now()+'-out',type:'transfer',amount:nominal,category:'Transfer Keluar',sourceId:dari,description:ket+'⇄ ke '+nmKe,date:dv};
+    const masukSide={id:'local-'+Date.now()+'-in',type:'transfer',amount:nominal,category:'Transfer Masuk',sourceId:to,description:ket+'⇄ dari '+nmDari,date:dv};
     TXS.unshift(masukSide);TXS.unshift(keluarSide);
     OV.txAdd.unshift({...keluarSide});OV.txAdd.unshift({...masukSide});
     editTxId=null;
