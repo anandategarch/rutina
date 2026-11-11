@@ -1094,14 +1094,9 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .hero-quote{animation:quoteFloat 6s ease-in-out infinite}
 @keyframes quoteFloat{0%,100%{transform:rotate(-2.5deg) translateY(0)}50%{transform:rotate(-2.5deg) translateY(-3px)}}
 .empty-state .ill{animation:sceneBob 6.5s ease-in-out infinite}
-/* daun melayang di hero — dipasang ambientLeaves() */
-.amb-leaf{position:absolute;top:-14px;left:var(--x,50%);width:var(--s,9px);height:var(--s,9px);background:linear-gradient(140deg,#6EE7B7,#34D399);border-radius:0 100% 0 100%;opacity:0;pointer-events:none;z-index:0;animation:leafDrift var(--d,11s) linear infinite;animation-delay:var(--dl,0s)}
-@keyframes leafDrift{
-  0%{transform:translate(0,-12px) rotate(15deg);opacity:0}
-  10%{opacity:.55}
-  85%{opacity:.4}
-  100%{transform:translate(var(--dx,36px),230px) rotate(320deg);opacity:0}
-}
+/* v2.26 · atmosfer hero — kanvas kelopak dipasang ambientHero() di
+   belakang konten (z 0), di atas latar hero; pointer-events none */
+.hero-atmo{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
 
 /* 5 · grafik */
 /* bar arus kas tumbuh dari dasar, label menyusul */
@@ -1184,7 +1179,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:-1ms !important;transition-duration:.01ms !important}
-  .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill,.amb-leaf{animation:none !important}
+  .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill{animation:none !important} /* v2.26: atmosfer hero dikendalikan JS — reduced → statis */
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
   .rip{display:none !important}
   .swipe-hint{transition:none}
@@ -3212,7 +3207,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.25';
+const APP_VERSION='v2.26';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4000,8 +3995,9 @@ function animateBars(root=document){
    v2.13 · KOREOGRAFI ANIMASI PENUH
    staggerList — item daftar muncul berurutan (transaksi, dompet,
    anggaran, temuan, lencana…). staggerPage — kartu level atas naik
-   berurutan tiap pindah tab. ambientLeaves — daun botani melayang
-   di hero. heroParallax — scene & ilustrasi mengikuti pointer pelan.
+   berurutan tiap pindah tab. ambientHero — atmosfer kelopak kanvas
+   terkendali di hero Ringkasan (v2.26, menggantikan daun DOM v2.13).
+   heroParallax — scene & ilustrasi mengikuti pointer pelan.
    ============================================================ */
 function staggerList(root,sel=':scope > *',{cap=14}={}){
   if(reduced||!root)return;
@@ -4021,23 +4017,151 @@ function staggerPage(p){
     el.classList.add('pg-in');
   });
 }
-function ambientLeaves(){
-  if(reduced)return;
-  const COLS=[['#6EE7B7','#34D399'],['#A7F3D0','#6EE7B7'],['#FDE68A','#F59E0B'],['#BBF7D0','#34D399']];
-  $$('.hero-bg,.page-hero').forEach((h,hi)=>{
-    for(let i=0;i<3;i++){
-      const s=document.createElement('span');
-      s.className='amb-leaf';s.setAttribute('aria-hidden','true');
-      const c=COLS[(hi+i)%COLS.length];
-      s.style.background=`linear-gradient(140deg,${c[0]},${c[1]})`;
-      s.style.setProperty('--x',(8+Math.random()*84).toFixed(1)+'%');
-      s.style.setProperty('--dx',Math.round(Math.random()*70-35)+'px');
-      s.style.setProperty('--d',(9+Math.random()*7).toFixed(1)+'s');
-      s.style.setProperty('--dl',(-Math.random()*12).toFixed(1)+'s');
-      s.style.setProperty('--s',(7+Math.random()*6).toFixed(1)+'px');
-      h.appendChild(s);
-    }
+function ambientHero(){
+  /* v2.26 · AMBIENT HERO — atmosfer kelopak terkendali di SATU section
+     (hero Pohon rutina, tab Ringkasan), menggantikan daun DOM v2.13 yang
+     menempel di semua hero dan tak pernah hening. Kanvas 2D di belakang
+     konten; seluruh disiplin atmosfer profesional diterapkan:
+     · kepadatan diskalakan dari luas section (clamp 14–64 + low-power)
+     · recycle — keluar bawah → lahir ulang di atas section
+     · dorongan pointer radius 110px, mereda alami (listener di section,
+       bukan per-partikel)
+     · hening total saat section tak terlihat (IntersectionObserver),
+       dokumen tersembunyi (visibilitychange), atau modal/scrim aktif
+     · resize via ResizeObserver, resolusi dibatasi dpr ≤ 2
+     · prefers-reduced-motion → komposisi statis renggang deterministik
+     · teardown() melepas seluruh listener & observer; penjaga satu loop */
+  if(window.__rutinaAtmo)return window.__rutinaAtmo; /* satu loop, sekali pasang */
+  const hero=$('.hero.hero-tree');
+  if(!hero)return null;
+  const CFG={count:46,gravity:7,wind:-3,sway:16,speed:[8,18],size:[4,12],opacity:[.18,.62],rotation:[-.8,.8],mode:'recycle',pointerRadius:110,maxDpr:2};
+  const PALETTES=[['#BBF7D0','#34D399'],['#A7F3D0','#6EE7B7'],['#FDE68A','#F59E0B'],['#FBCFE8','#FDA4AF'],['#FFFFFF','#D1FAE5']];
+  const staticMode=reduced; /* hormat prefers-reduced-motion — diam & renggang */
+  const lcg=s=>{let n=s>>>0;return()=>((n=(n*1664525+1013904223)>>>0)/4294967296)};
+  const RND=staticMode?lcg(7):Math.random;
+  const cv=document.createElement('canvas');
+  cv.className='hero-atmo';cv.setAttribute('aria-hidden','true');
+  const bg=hero.querySelector('.hero-bg');
+  bg?bg.after(cv):hero.prepend(cv); /* di atas latar, di bawah konten (z 1) */
+  const ctx=cv.getContext('2d');
+  let w=0,h=0,raf=0,last=0,ioVis=true,watch=0,io=null,ro=null;
+  const parts=[],ptr={x:-1e4,y:-1e4,t:0};
+  const overlayActive=()=>Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim'));
+  const targetCount=()=>{
+    const low=(navigator.hardwareConcurrency||8)<=2;
+    return Math.max(14,Math.min(64,Math.round(w*h/(low?7600:5200))));
+  };
+  /* sprite kelopak per palet — digambar sekali, lalu cukup drawImage */
+  const SPR=PALETTES.map(cols=>{
+    const c=document.createElement('canvas');c.width=c.height=32;
+    const x=c.getContext('2d');x.translate(16,16);
+    x.beginPath();x.moveTo(0,-13);
+    x.bezierCurveTo(9,-8,8,7,0,13);
+    x.bezierCurveTo(-8,7,-9,-8,0,-13);
+    x.closePath();
+    const g=x.createLinearGradient(0,-13,0,13);
+    g.addColorStop(0,cols[0]);g.addColorStop(1,cols[1]);
+    x.fillStyle=g;x.fill();
+    x.strokeStyle='rgba(255,255,255,.5)';x.lineWidth=1;
+    x.beginPath();x.moveTo(0,-8);x.quadraticCurveTo(1.4,0,0,8);x.stroke();
+    return c;
   });
+  function seed(p,fresh){
+    p.x=RND()*w;
+    p.y=fresh?(-14-RND()*Math.min(h,140)):RND()*h;
+    p.vy=CFG.speed[0]+RND()*(CFG.speed[1]-CFG.speed[0]);
+    p.size=CFG.size[0]+RND()*(CFG.size[1]-CFG.size[0]);
+    p.a=CFG.opacity[0]+RND()*(CFG.opacity[1]-CFG.opacity[0]);
+    p.rot=RND()*Math.PI*2;
+    p.rotV=CFG.rotation[0]+RND()*(CFG.rotation[1]-CFG.rotation[0]);
+    p.phase=RND()*Math.PI*2;
+    p.freq=.5+RND()*.9;
+    p.swayAmp=CFG.sway*(.5+RND()*.8);
+    p.spr=SPR[(RND()*SPR.length)|0];
+    p.pushX=0;p.pushY=0;
+  }
+  function fit(){
+    w=hero.clientWidth;h=hero.clientHeight;
+    if(w<2||h<2)return;
+    const dpr=Math.min(devicePixelRatio||1,CFG.maxDpr);
+    cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=staticMode?Math.max(5,Math.round(targetCount()*.4)):targetCount();
+    while(parts.length<n){const p={};seed(p,false);parts.push(p)}
+    if(parts.length>n)parts.length=n;
+    draw();
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of parts){
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.a;
+      const k=p.size/26;
+      ctx.drawImage(p.spr,-16*k,-16*k,32*k,32*k);
+      ctx.restore();
+    }
+  }
+  function step(dt,now){
+    const decay=Math.exp(-2.4*dt),pr=CFG.pointerRadius,hot=ptr.t&&now-ptr.t<500;
+    for(const p of parts){
+      p.phase+=p.freq*dt;
+      p.vy=Math.min(p.vy+CFG.gravity*dt,44);
+      p.x+=(CFG.wind+Math.cos(p.phase)*p.swayAmp+p.pushX)*dt;
+      p.y+=(p.vy+p.pushY)*dt;
+      p.rot+=p.rotV*dt;
+      if(hot){ /* gangguan pointer: dorong menjauh, lalu tenang kembali */
+        const dx=p.x-ptr.x,dy=p.y-ptr.y,d2=dx*dx+dy*dy;
+        if(d2<pr*pr){
+          const d=Math.sqrt(d2)||1,f=1-d/pr;
+          p.pushX+=dx/d*f*f*90*dt;
+          p.pushY+=dy/d*f*f*90*dt;
+        }
+      }
+      p.pushX*=decay;p.pushY*=decay;
+      if(p.y>h+16)seed(p,true); /* recycle: lahir ulang di atas section */
+      if(p.x<-16)p.x=w+15;else if(p.x>w+16)p.x=-15;
+    }
+  }
+  function frame(now){
+    raf=requestAnimationFrame(frame);
+    if(overlayActive()){cancelAnimationFrame(raf);raf=0;return} /* modal aktif → hening */
+    const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+    step(dt,now);draw();
+  }
+  function play(){if(staticMode||raf||!ioVis||document.hidden||overlayActive())return;last=performance.now();raf=requestAnimationFrame(frame)}
+  function pause(){if(raf){cancelAnimationFrame(raf);raf=0}}
+  function sync(){(!staticMode&&ioVis&&!document.hidden&&!overlayActive())?play():pause()}
+  const onPtr=e=>{
+    const r=cv.getBoundingClientRect();
+    ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top;ptr.t=performance.now();
+  };
+  const onPtrOut=()=>{ptr.t=0};
+  ro=new ResizeObserver(()=>fit());
+  ro.observe(hero); /* panggilan awal RO = fit() pertama */
+  if(!staticMode){
+    hero.addEventListener('pointermove',onPtr,{passive:true});
+    hero.addEventListener('pointerleave',onPtrOut,{passive:true});
+    document.addEventListener('visibilitychange',sync);
+    io=new IntersectionObserver(en=>{ioVis=en[0].isIntersecting;sync()},{threshold:.05});
+    io.observe(hero);
+    watch=setInterval(sync,400); /* penjaga pemulihan loop (modal ditutup dsb.) */
+    sync();
+  }
+  function teardown(){
+    pause();clearInterval(watch);
+    if(io)io.disconnect();
+    if(ro)ro.disconnect();
+    if(!staticMode){
+      hero.removeEventListener('pointermove',onPtr);
+      hero.removeEventListener('pointerleave',onPtrOut);
+      document.removeEventListener('visibilitychange',sync);
+    }
+    cv.remove();window.__rutinaAtmo=null;
+  }
+  window.__rutinaAtmo={
+    state:()=>({mode:staticMode?'static':'motion',running:raf>0,count:parts.length,canvas:cv.width+'x'+cv.height,area:w+'x'+h,visible:staticMode||ioVis,overlay:overlayActive(),pointer:ptr.t?{x:Math.round(ptr.x),y:Math.round(ptr.y),age:Math.round(performance.now()-ptr.t)}:null}),
+    teardown
+  };
+  return window.__rutinaAtmo;
 }
 function heroParallax(){
   if(reduced||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
@@ -6547,8 +6671,8 @@ function tunasWake(){
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
-  /* v2.13 · hidup ambien: daun melayang di hero + parallax pointer */
-  ambientLeaves();
+  /* v2.26 · hidup ambien: atmosfer kelopak kanvas di hero + parallax pointer */
+  ambientHero();
   heroParallax();
   if(tunas)tunasWake();
   /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
