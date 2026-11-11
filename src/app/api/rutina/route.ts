@@ -30,6 +30,12 @@ export const dynamic = "force-dynamic";
    identitas "aku yang ingin jadi…"). Ditambahkan lewat migrasi ALTER
    idempoten — database lama (lokal maupun Turso) tak perlu dibuat ulang.
 
+   v2.37 · kolom Transaction.recurrence ("weekly"/"monthly" — transaksi
+   berulang) + habitMeta diperluas: sunting kebiasaan kini membawa nama,
+   emoji (ilustrasi), kategori, jam pengingat, dan grup — UPDATE dibangun
+   dinamis dari kunci yang HADIR di jurnal (jurnal lama tetap kompatibel:
+   hanya mini/afterId yang tersentuh).
+
    Semua nilai di-bind lewat prepared statement; nama tabel & kolom selalu
    hardcoded, tidak pernah berasal dari input klien.
    ========================================================================== */
@@ -108,7 +114,7 @@ const DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "HabitLog"("habitId" TEXT NOT NULL,"date" TEXT NOT NULL,"completed" INTEGER DEFAULT 1,"value" REAL DEFAULT 1,PRIMARY KEY("habitId","date"))`,
   `CREATE TABLE IF NOT EXISTS "HabitOption"("type" TEXT NOT NULL,"label" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0,PRIMARY KEY("type","label"))`,
   `CREATE TABLE IF NOT EXISTS "FinanceCategory"("id" TEXT PRIMARY KEY,"name" TEXT UNIQUE NOT NULL,"emoji" TEXT,"color" TEXT,"type" TEXT DEFAULT 'expense',"sortOrder" INTEGER DEFAULT 0)`,
-  `CREATE TABLE IF NOT EXISTS "Transaction"("id" TEXT PRIMARY KEY,"type" TEXT NOT NULL,"amount" INTEGER,"category" TEXT,"sourceId" TEXT,"description" TEXT,"date" TEXT)`,
+  `CREATE TABLE IF NOT EXISTS "Transaction"("id" TEXT PRIMARY KEY,"type" TEXT NOT NULL,"amount" INTEGER,"category" TEXT,"sourceId" TEXT,"description" TEXT,"date" TEXT,"recurrence" TEXT)`,
   `CREATE TABLE IF NOT EXISTS "WeeklyBudget"("category" TEXT NOT NULL,"month" TEXT NOT NULL,"amount" INTEGER,PRIMARY KEY("category","month"))`,
   `CREATE TABLE IF NOT EXISTS "FundSource"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"type" TEXT,"emoji" TEXT,"initialBalance" INTEGER DEFAULT 0,"sortOrder" INTEGER DEFAULT 0,"isArchived" INTEGER DEFAULT 0)`,
   `CREATE TABLE IF NOT EXISTS "DailyLog"("date" TEXT PRIMARY KEY,"mood" INTEGER,"energy" INTEGER,"sleep" INTEGER)`,
@@ -121,6 +127,7 @@ const COLUMN_MIGRATIONS: [string, string][] = [
   ["Habit", "mini"],
   ["Habit", "afterId"],
   ["AppSettings", "identityText"],
+  ["Transaction", "recurrence"], /* v2.37 · transaksi berulang */
 ];
 async function migrateColumns(client: Client): Promise<void> {
   for (const [table, col] of COLUMN_MIGRATIONS) {
@@ -247,7 +254,7 @@ async function seedFromSnapshot(client: Client): Promise<void> {
 const FALLBACK_COLS: Record<string, string[]> = {
   Habit: ["id", "name", "emoji", "category", "priority", "difficulty", "habitType", "target", "unit", "reminder", "groupId", "isActive", "isArchived", "mini", "afterId"],
   HabitLog: ["habitId", "date", "completed", "value"],
-  Transaction: ["id", "type", "amount", "category", "sourceId", "description", "date"],
+  Transaction: ["id", "type", "amount", "category", "sourceId", "description", "date", "recurrence"],
   WeeklyBudget: ["category", "month", "amount"],
   FundSource: ["id", "name", "type", "emoji", "initialBalance"],
   FinanceCategory: ["id", "name", "emoji", "color", "type", "sortOrder"],
@@ -310,7 +317,7 @@ export async function GET() {
         ),
         target.client.execute(`SELECT "name","emoji","color","type" FROM "FinanceCategory"`),
         target.client.execute(
-          `SELECT "id","type","amount","category","sourceId","description","date" FROM "Transaction" ORDER BY "date" DESC`,
+          `SELECT "id","type","amount","category","sourceId","description","date","recurrence" FROM "Transaction" ORDER BY "date" DESC`,
         ),
         target.client.execute(`SELECT "category","month","amount" FROM "WeeklyBudget"`),
         target.client.execute(
@@ -378,6 +385,7 @@ export async function GET() {
         sourceId: r.sourceId ? String(r.sourceId) : null,
         description: String(r.description ?? ""),
         date: dpart(r.date),
+        recurrence: r.recurrence === "weekly" || r.recurrence === "monthly" ? String(r.recurrence) : null, /* v2.37 */
       })),
       weeklyBudgets: budgets.rows.map((r) => ({
         category: String(r.category),
@@ -407,10 +415,16 @@ export async function GET() {
 
 /* ------------------------------------------------------------- penulisan */
 
-interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string }
+interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string; recurrence?: "weekly" | "monthly" | null }
 interface BudRow { category: string; month: string; amount: number }
 interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null; mini: string | null; afterId: string | null }
-interface HabitMetaRow { mini: string | null; afterId: string | null }
+/* v2.37 · meta sunting kebiasaan — PARTIAL: hanya kunci yang hadir di
+   jurnal yang di-UPDATE (jurnal v2.35 lama hanya membawa mini/afterId). */
+interface HabitMetaRow {
+  name?: string | null; emoji?: string | null; category?: string | null;
+  reminder?: string | null; groupId?: string | null;
+  mini?: string | null; afterId?: string | null;
+}
 interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
 interface Overlay {
   txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
@@ -428,7 +442,7 @@ function asRecord(v: unknown): Record<string, unknown> {
 function sanitizeTx(v: unknown): TxRow {
   const o = asRecord(v);
   const type = str(o.type) === "income" ? "income" : str(o.type) === "transfer" ? "transfer" : "expense";
-  return {
+  const t: TxRow = {
     id: str(o.id),
     type,
     amount: Math.round(num(o.amount)),
@@ -437,6 +451,8 @@ function sanitizeTx(v: unknown): TxRow {
     description: str(o.description),
     date: str(o.date).slice(0, 10),
   };
+  if ("recurrence" in o) t.recurrence = o.recurrence === "weekly" || o.recurrence === "monthly" ? o.recurrence : null; /* v2.37 */
+  return t;
 }
 function sanitizeBud(v: unknown): BudRow {
   const o = asRecord(v);
@@ -503,15 +519,24 @@ function sanitizeOverlay(input: unknown): Overlay | null {
   for (const [k, v] of Object.entries(asRecord(o.catRename))) {
     if (k && str(v) && str(v) !== k) catRename[k] = str(v).slice(0, 40);
   }
-  /* v2.35 · meta kebiasaan (versi mini & jangkar) + identitas pengguna */
+  /* v2.35 · meta kebiasaan + identitas pengguna; v2.37 · meta diperluas
+     (nama/emoji/kategori/jam/grup) — hanya kunci yang HADIR yang disimpan,
+     null berarti "kosongkan" (lepas grup / hapus mini/jangkar). Kolom
+     nullable diuji dengan "in" (bukan typeof) supaya null eksplisit dari
+     klien tetap sampai sebagai perintah kosongkan. */
   const habitMeta: Record<string, HabitMetaRow> = {};
   for (const [k, v] of Object.entries(asRecord(o.habitMeta))) {
     if (!k) continue;
     const m = asRecord(v);
-    habitMeta[k] = {
-      mini: m.mini ? str(m.mini).slice(0, 80) : null,
-      afterId: m.afterId ? str(m.afterId).slice(0, 64) : null,
-    };
+    const e: HabitMetaRow = {};
+    if (typeof m.name === "string" && str(m.name)) e.name = str(m.name).slice(0, 80);
+    if ("emoji" in m) e.emoji = m.emoji ? str(m.emoji).slice(0, 40) : null;
+    if (typeof m.category === "string" && str(m.category)) e.category = str(m.category).slice(0, 40);
+    if ("reminder" in m) e.reminder = m.reminder ? str(m.reminder).slice(0, 16) : null;
+    if ("groupId" in m) e.groupId = m.groupId ? str(m.groupId).slice(0, 64) : null;
+    if ("mini" in m) e.mini = m.mini ? str(m.mini).slice(0, 80) : null;
+    if ("afterId" in m) e.afterId = m.afterId ? str(m.afterId).slice(0, 64) : null;
+    if (Object.keys(e).length) habitMeta[k] = e;
   }
   const identityText = typeof o.identityText === "string" ? o.identityText.slice(0, 120) : null;
   return {
@@ -609,9 +634,16 @@ async function applyOverlay(
   }
   for (const [id, t] of Object.entries(ov.txEdit)) {
     if (!id || !t.date) continue;
+    /* v2.37 · recurrence hanya ikut bila kuncinya hadir (jurnal lama tanpa
+       kolom ini tak akan menimpa nilai berulang yang tersimpan) */
+    const hasRec = t.recurrence !== undefined;
     await run("txEdit", () => client.execute({
-      sql: `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=? WHERE "id"=?`,
-      args: [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, id],
+      sql: hasRec
+        ? `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=?,"recurrence"=? WHERE "id"=?`
+        : `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=? WHERE "id"=?`,
+      args: hasRec
+        ? [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, t.recurrence ?? null, id]
+        : [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, id],
     }));
   }
   for (const t of ov.txAdd) {
@@ -620,6 +652,7 @@ async function applyOverlay(
       await insertRow(client, "Transaction", {
         id: t.id, type: t.type, amount: t.amount, category: mapCat(t.category),
         sourceId: t.sourceId, description: t.description, date: t.date,
+        recurrence: t.recurrence ?? null, /* v2.37 · insertRow menyaring via columnsOf */
       });
     });
   }
@@ -714,13 +747,26 @@ async function applyOverlay(
     });
   }
 
-  /* 8 · v2.35 · Atomic Habits — meta kebiasaan (versi mini & jangkar) lalu
-        identitas pengguna (AppSettings satu baris; insert bila belum ada) */
+  /* 8 · v2.35 · Atomic Habits — meta kebiasaan lalu identitas pengguna
+        (AppSettings satu baris; insert bila belum ada).
+        v2.37 · SET dibangun dinamis dari kunci yang hadir: sunting lengkap
+        (nama/emoji/kategori/jam/grup) maupun jurnal lama (mini/afterId saja)
+        sama-sama aman — kolom tak disebut tak tersentuh. */
   for (const [id, meta] of Object.entries(ov.habitMeta)) {
     if (!id) continue;
+    const cols: string[] = [];
+    const args: InValue[] = [];
+    if (meta.name) { cols.push('"name"=?'); args.push(meta.name); }
+    if ("emoji" in meta) { cols.push('"emoji"=?'); args.push(meta.emoji ?? null); }
+    if (meta.category) { cols.push('"category"=?'); args.push(meta.category); }
+    if ("reminder" in meta) { cols.push('"reminder"=?'); args.push(meta.reminder ?? null); }
+    if ("groupId" in meta) { cols.push('"groupId"=?'); args.push(meta.groupId ?? null); }
+    if ("mini" in meta) { cols.push('"mini"=?'); args.push(meta.mini ?? null); }
+    if ("afterId" in meta) { cols.push('"afterId"=?'); args.push(meta.afterId ?? null); }
+    if (!cols.length) continue;
     await run("habitMeta", () => client.execute({
-      sql: `UPDATE "Habit" SET "mini"=?,"afterId"=? WHERE "id"=?`,
-      args: [meta.mini, meta.afterId, id],
+      sql: `UPDATE "Habit" SET ${cols.join(", ")} WHERE "id"=?`,
+      args: [...args, id],
     }));
   }
   if (ov.identityText !== null) {

@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v38"; // v2.36 — audit: agregat "hari ini" akurat saat untoggle (suara identitas/statistik/heatmap)
+const STATIC_CACHE = "rutina-static-v39"; // v2.37 — enam fitur taman: sunting kebiasaan, catat cepat, transaksi berulang, pembanding pekan, laporan bulanan, taman kebiasaan
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

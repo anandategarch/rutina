@@ -7,6 +7,17 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<!-- v2.37 · ENAM FITUR TAMAN — (1) Sunting kebiasaan: aksi drill + mode
+     edit di form (jurnal habitMeta diperluas: nama/emoji ilustrasi/kategori/
+     jam/grup; ikon kini persisten lewat kolom emoji). (2) Catat cepat:
+     kartu Ringkasan — chip kebiasaan sekali-tap + komposer transaksi
+     (nominal → kategori → dompet → catat). (3) Transaksi berulang:
+     kolom Transaction.recurrence (mingguan/bulanan) + materializer
+     deterministik (id rec-<asal>-<tanggal>, hari yang lewat otomatis
+     tercatat; hapus instance → daftar skip di perangkat). (4) Pembanding
+     pekan: konsistensi/catatan/pengeluaran vs pekan lalu. (5) Laporan
+     bulanan: rekap mengikuti bulan kalender. (6) Taman kebiasaan: tiap
+     kebiasaan jadi tanaman (benih→berbunga sesuai total catatan). -->
 <!-- v2.36 · AUDIT DALAM · perbaikan agregat "hari ini": syncToday()
      kini hanya mempertahankan id yang lognya BENAR masih ada di server
      (kebiasaan amount dengan nilai parsial >0 — semantik v2.15 tetap
@@ -619,6 +630,70 @@ b,strong{font-weight:600}
   .id-form{flex-direction:column}
   .id-form .btn{width:100%}
 }
+
+/* ---------- v2.37 · kartu catat cepat (Ringkasan) ----------
+   Dua pintu satu kartu: chip kebiasaan sekali-tap (catat selesai dalam
+   satu ketukan) + komposer transaksi 3-ketuk. Art terra; chip memakai
+   konvensi .chip agar terasa satu keluarga. */
+.qa-card{padding:18px 20px;margin-bottom:24px}
+.qa-sec+.qa-sec{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line)}
+.qa-habs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin}
+.qa-hab{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:border-color .18s,color .18s,background .18s;max-width:168px}
+.qa-hab .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qa-hab .ic{width:13px;height:13px;flex:none;color:var(--ink-3)}
+.qa-hab:hover{border-color:var(--terra);color:var(--terra-deep)}
+.qa-hab.done{background:var(--terra-strong);border-color:var(--terra-strong);color:#fff}
+.qa-hab.done .ic{color:#fff}
+.qa-tx{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.qa-tx .money{flex:1;min-width:138px;max-width:230px;margin:0}
+.qa-tx select{width:auto;flex:none;max-width:170px}
+.qa-cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.qa-hint{font-size:11.5px;color:var(--ink-3);margin-top:9px}
+@media(max-width:640px){
+  .qa-card{padding:15px 15px}
+  .qa-tx select{max-width:46%}
+}
+/* ---------- v2.37 · pembanding pekan (kartu Ritme aktivitas) ---------- */
+.week-cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.wc-cell{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.wc-l{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-v{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.15}
+.wc-d{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;color:var(--ink-3);line-height:1.3}
+.wc-d .ic{width:11px;height:11px;flex:none}
+.wc-d.up{color:var(--sage-deep)}
+.wc-d.down{color:var(--honey-deep)}
+@media(max-width:640px){.wc-v{font-size:14.5px}.wc-cell{padding:9px 10px}}
+/* ---------- v2.37 · laporan bulanan (tab Kalender) ---------- */
+.mon-report{margin-bottom:24px}
+.mr-sec{margin-top:15px;padding-top:14px;border-top:1px dashed var(--line)}
+.mr-sec:first-child{margin-top:2px;border-top:0;padding-top:0}
+.mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+.mr-cap .ic{width:12px;height:12px;flex:none}
+.mr-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0}
+.mr-row span{color:var(--ink-2)}
+.mr-row b{font-variant-numeric:tabular-nums;font-family:var(--font-display);text-align:right}
+.mr-cat{display:flex;flex-direction:column;gap:4px;padding:5px 0}
+.mr-cat .t{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:600}
+.mr-cat .t b{font-variant-numeric:tabular-nums}
+.mr-note{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.mr-note b{color:var(--terra-deep)}
+/* ---------- v2.37 · taman kebiasaan (tab Kebiasaan) ----------
+   Tiap kebiasaan tampil sebagai tanaman: benih → tunas → pohon muda →
+   pohon dewasa → berbunga (tahap dari TOTAL CATATAN; ilustrasi dipakai
+   dari /tree/ yang sama dengan hero). Strip menggulir horizontal supaya
+   taman bisa memanjang tanpa menambah tinggi halaman. */
+.garden-card{margin-bottom:20px;padding:16px 18px 12px}
+.garden-strip{display:flex;gap:13px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.gd-plant{flex:none;width:92px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px 9px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line-soft);position:relative;cursor:pointer;transition:transform .2s var(--ease-tunas),border-color .18s}
+.gd-plant:hover{transform:translateY(-3px);border-color:var(--terra)}
+.gd-plant img{width:58px;height:58px;display:block;pointer-events:none}
+.gd-nm{font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.25;text-align:center;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.gd-sub{font-size:10.5px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.gd-done{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:var(--terra-strong);display:grid;place-items:center;color:#fff;box-shadow:0 2px 6px rgba(5,150,105,.35)}
+.gd-done .ic{width:11px;height:11px}
+/* ---------- v2.37 · lencana transaksi berulang ---------- */
+.tag-rec{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--sky-deep);background:var(--sky-soft);border-radius:999px;padding:2px 8px;vertical-align:middle}
+.tag-rec .ic{width:10px;height:10px;flex:none}
 
 /* ---------- halaman kebiasaan ---------- */
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
@@ -1398,6 +1473,8 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill{animation:none !important} /* v2.26: atmosfer hero dikendalikan JS — reduced → statis */
   .motiv-art,.motiv-swap{animation:none !important} /* v2.33: semangat hari ini tampil statis tanpa gerak */
   .id-art{animation:none !important} /* v2.35: kartu identitas tampil statis tanpa gerak */
+  .gd-plant{transition:none} /* v2.37: tanaman taman tak bergerak */
+  .gd-plant:hover{transform:none}
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
   .rip{display:none !important}
   .swipe-hint{transition:none}
@@ -2361,6 +2438,34 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
   </div>
 
+  <!-- CATAT CEPAT (v2.37) — pintu tercepat mencatat: chip kebiasaan
+       sekali-tap + komposer pengeluaran 3-ketuk, tanpa pindah tab -->
+  <div class="card qa-card" id="quickCard">
+    <div class="card-head" style="margin-bottom:10px">
+      <div class="ch-title">
+        <span class="head-art terra"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
+        <div>
+          <div class="eyebrow">Catat cepat</div>
+          <h3 class="h-serif">Satu ketukan, satu catatan</h3>
+        </div>
+      </div>
+    </div>
+    <div class="qa-sec">
+      <div class="eyebrow" style="margin-bottom:8px">Kebiasaan hari ini</div>
+      <div class="qa-habs" id="qaHabs" role="group" aria-label="Catat cepat kebiasaan hari ini"></div>
+    </div>
+    <div class="qa-sec">
+      <div class="eyebrow" style="margin-bottom:8px">Pengeluaran kilat</div>
+      <form class="qa-tx" id="qaTxForm">
+        <div class="money"><span>Rp</span><input type="text" id="qaAmount" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Nominal pengeluaran cepat"></div>
+        <select id="qaSrc" aria-label="Dompet sumber"></select>
+        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Catat</button>
+      </form>
+      <div class="qa-cats" id="qaCats" role="group" aria-label="Kategori pengeluaran cepat"></div>
+      <p class="qa-hint">Butuh pemasukan, transfer, atau catatan panjang? <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">Buka form lengkap</button></p>
+    </div>
+  </div>
+
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
        kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
   <div class="card streak-banner jatah-banner drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
@@ -2390,6 +2495,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <img class="pekan-art" src="/illustrations/scene-pekan.svg" alt="" aria-hidden="true" loading="lazy"/>
       <div class="week-strip" id="weekStrip" role="img" aria-label="Ritme aktivitas pekan ini"></div>
+      <div class="week-cmp" id="weekCmp" aria-label="Pembanding pekan ini vs pekan lalu"></div>
       <div class="agenda-note">
         <svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>
         <span id="weekNoteText">Memuat ritme pekan…</span>
@@ -2480,6 +2586,21 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="pill" id="habHeroPill">—</span>
       </div>
     </div>
+  </div>
+
+  <!-- TAMAN KEBIASAAN (v2.37) — tiap kebiasaan tampil sebagai tanaman;
+       tahap tumbuh mengikuti total catatan (benih → berbunga) -->
+  <div class="card garden-card" id="gardenCard">
+    <div class="card-head" style="margin-bottom:8px">
+      <div class="ch-title">
+        <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
+        <div>
+          <div class="eyebrow">Taman kebiasaan</div>
+          <h3 class="h-serif" id="gardenTitle">Tamanmu</h3>
+        </div>
+      </div>
+    </div>
+    <div class="garden-strip" id="gardenStrip" aria-label="Taman kebiasaan — tanaman per kebiasaan"></div>
   </div>
 
   <div class="mini-stats">
@@ -2812,6 +2933,10 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="card card-pad day-detail" id="dayDetail"></div>
   </div>
 
+  <!-- LAPORAN BULANAN (v2.37) — rekap konsistensi + keuangan + refleksi;
+       mengikuti bulan yang sedang dibuka di kalender -->
+  <div class="card card-pad mon-report" id="monthReport"></div>
+
   <div class="cal-strip">
     <div class="card mini-stat">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
@@ -3100,6 +3225,16 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <input type="text" id="txNote" placeholder="cth: kopi sore">
         </div>
       </div>
+      <!-- v2.37 · transaksi berulang: langganan & tagihan rutin dicatat
+           otomatis tiap periode jatuh tempo (mingguan/bulanan) -->
+      <div class="field" id="txRecWrap">
+        <label for="txRec">Berulang<span class="opt-tag">opsional</span></label>
+        <select id="txRec">
+          <option value="">Sekali saja</option>
+          <option value="monthly">Setiap bulan</option>
+          <option value="weekly">Setiap minggu</option>
+        </select>
+      </div>
       <div class="sheet-actions">
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="txSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan transaksi</button>
@@ -3114,7 +3249,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="modal-backdrop" data-close></div>
   <div class="sheet">
     <div class="sheet-head">
-      <div><div class="eyebrow">Tambah baru</div><h3 class="h-serif" id="habitTitle">Kebiasaan baru</h3></div>
+      <div><div class="eyebrow" id="habitEyebrow">Tambah baru</div><h3 class="h-serif" id="habitTitle">Kebiasaan baru</h3></div>
       <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <form class="sheet-body" id="formHabit" novalidate>
@@ -3155,7 +3290,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="sheet-actions">
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
-        <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
+        <button type="submit" class="btn btn-primary" id="habitSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan</button>
       </div>
       <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan.</p>
     </form>
@@ -3470,7 +3605,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.36';
+const APP_VERSION='v2.37';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3549,9 +3684,19 @@ function ovApply(){
   (DB.habits||[]).forEach(h=>hMap.set(h.id,h));
   OV.habitAdd.forEach(h=>hMap.set(h.id,{...h})); /* versi jurnal selalu termutakhir */
   DB.habits=[...hMap.values()].filter(h=>!delH.has(h.id));
-  /* v2.35 · meta Atomic Habits (versi mini & jangkar) menimpa kebiasaan gabungan */
+  /* v2.35 · meta Atomic Habits menimpa kebiasaan gabungan.
+     v2.37 · meta diperluas (nama/emoji/kategori/jam/grup) — hanya kunci
+     yang HADIR yang menimpa; null mengosongkan (lepas grup / hapus mini) */
   const hmMeta=OV.habitMeta||{};
-  DB.habits.forEach(h=>{if(hmMeta[h.id])Object.assign(h,{mini:hmMeta[h.id].mini,afterId:hmMeta[h.id].afterId})});
+  DB.habits.forEach(h=>{const m=hmMeta[h.id];if(!m)return;
+    if(typeof m.name==='string'&&m.name)h.name=m.name;
+    if(typeof m.emoji==='string')h.emoji=m.emoji;
+    if(typeof m.category==='string'&&m.category)h.category=m.category;
+    if('reminder' in m)h.reminder=m.reminder;
+    if('groupId' in m)h.groupId=m.groupId;
+    if('mini' in m)h.mini=m.mini;
+    if('afterId' in m)h.afterId=m.afterId;
+  });
   const hid=new Set(DB.habits.map(h=>h.id));
   /* log kebiasaan: kunci yang tersentuh dibangun ulang supaya deterministik
      (tepat satu log per kebiasaan+tanggal) & yatim dari kebiasaan terhapus dibuang */
@@ -3956,10 +4101,12 @@ function drillHabit(id){
     <div class="drill-sec">${drillCap('Catatan terakhir')}${recent.length?recent.map(k=>dayRowHTML(k)).join(''):drillEmpty('Belum ada catatan sama sekali — mulai hari ini!')}</div>`,
     actions:[
       {id:'check',label:done?'Batalkan hari ini':'Catat hari ini',icon:'i-check',cls:'btn-primary'},
+      {id:'edit',label:'Sunting',icon:'i-edit'}, /* v2.37 · ubah nama/jam/mini/jangkar tanpa kehilangan riwayat */
       {id:'del',label:'Hapus',icon:'i-trash',cls:'btn-danger'},
     ],
     onAct(act){
       if(act==='check'){closeModals();toggleCheck(id)}
+      else if(act==='edit'){closeModals();openHabitEdit(id)}
       else if(act==='del'){closeModals();askDelete('habit',id)}
     }};
 }
@@ -4110,7 +4257,11 @@ function prepData(){
        tampilan bersih; kunci jurnal memakai id, bukan nama, jadi aman */
     const nm=String(h.name||'').replace(/\s+/g,' ').trim();
     const dates=[...new Set((DB.habitLogs||[]).filter(l=>l.habitId===h.id&&l.completed).map(l=>l.date))].sort();
-    return {...h,name:nm,emoji:String(h.emoji||'').trim(),ikon:HABIT_ICON[nm]||ICON_BY_CAT[h.category]||'ill-sprout',
+    /* v2.37 · ikon kini persisten: kolom emoji menyimpan id ilustrasi
+       (ill-…) yang dipilih pengguna; data lama (emoji karakter) jatuh ke
+       pemetaan nama/kategori seperti sebelumnya */
+    const em=String(h.emoji||'').trim();
+    return {...h,name:nm,emoji:em,ikon:em.startsWith('ill-')?em:(HABIT_ICON[nm]||ICON_BY_CAT[h.category]||'ill-sprout'),
       warna:HCAT[h.category]||'#059669',
       grp:h.groupId?GROUPS.find(g=>g.id===h.groupId)||null:null,
       dates,total:dates.length,best:bestRun(dates),first:dates[0]||null,last:dates[dates.length-1]||null};
@@ -4165,6 +4316,7 @@ function rollToday(){
   });
   HABITS.forEach(h=>{if(h.habitType==='amount'&&h.target>1)doneToday[h.id]=(valueToday[h.id]||0)>=h.target});
   syncToday();
+  if(materializeRecurring()>0)refinance(); /* v2.37 · tanggal berganti → transaksi berulang baru jatuh tempo */
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
   refinance();fillTxMonths();
@@ -4831,6 +4983,214 @@ document.addEventListener('click',e=>{
   else if(act==='cancel'){idEditing=false;renderIdentityCard()}
 });
 
+/* ---------- v2.37 · CATAT CEPAT (kartu Ringkasan) ----------
+   Chip kebiasaan sekali-tap memanggil toggleCheck yang sama dengan kartu
+   kebiasaan (jurnal, animasi, suara identitas — semua konsisten). Komposer
+   pengeluaran: nominal → kategori (chip teratas pemakaian bulan ini) →
+   dompet → Catat; masuk lewat jalur txAdd biasa. */
+let qaCat='';
+function renderQuickCard(){
+  const habs=$('#qaHabs'),cats=$('#qaCats'),src=$('#qaSrc');
+  if(!habs||!cats||!src)return;
+  habs.innerHTML=HABITS.length?HABITS.map(h=>{
+    const on=!!doneToday[h.id];
+    return `<button type="button" class="qa-hab ${on?'done':''}" data-qa-check="${esc(h.id)}" aria-pressed="${on}" aria-label="${on?'Batalkan':'Catat'} ${esc(h.name)}${on?' (selesai)':''}">
+      <svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-plus'}"/></svg><span class="nm">${esc(h.name)}</span></button>`;
+  }).join(''):'<p class="qa-hint" style="margin:2px 2px 4px">Belum ada kebiasaan — buat dulu di tab Kebiasaan 🌱</p>';
+  /* kategori kilat: 5 teratas berdasarkan pemakaian bulan ini (fallback urutan daftar) */
+  const mk=dayKey(TODAY).slice(0,7);
+  const usage=expByCat(mk);
+  const ranked=FINCATS.filter(c=>c.type==='expense').map(c=>({name:c.name,emoji:c.emoji,n:usage[c.name]||0})).sort((a,b)=>b.n-a.n).slice(0,5);
+  if(qaCat&&!ranked.some(r=>r.name===qaCat))qaCat='';
+  if(!qaCat&&ranked.length)qaCat=ranked[0].name;
+  cats.innerHTML=ranked.length?ranked.map(r=>`<button type="button" class="chip ${r.name===qaCat?'active':''}" data-qa-cat="${esc(r.name)}" aria-pressed="${r.name===qaCat}">${esc(r.emoji||'')} ${esc(r.name)}</button>`).join(''):'<p class="qa-hint">Belum ada kategori pengeluaran.</p>';
+  /* dompet: pertahankan pilihan bila masih sah */
+  const cur=src.value;
+  src.innerHTML=SOURCES.length?SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji||'')} ${esc(s.name)}</option>`).join(''):'<option value="">tanpa dompet</option>';
+  if(cur&&[...src.options].some(o=>o.value===cur))src.value=cur;
+}
+document.addEventListener('click',e=>{
+  const qaChk=e.target.closest('[data-qa-check]');
+  if(qaChk){toggleCheck(qaChk.dataset.qaCheck,qaChk);return}
+  const qaC=e.target.closest('[data-qa-cat]');
+  if(qaC){qaCat=qaC.dataset.qaCat;renderQuickCard();return}
+});
+$('#qaAmount').addEventListener('input',e=>{
+  const digits=e.target.value.replace(/[^\d]/g,'');
+  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
+});
+$('#qaTxForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nominal=+($('#qaAmount').value||'0').replace(/\./g,'');
+  if(!nominal){toast('Nominal belum terisi','Ketik dulu angka pengeluarannya.','i-x','rose');return}
+  if(!qaCat){toast('Pilih kategori','Ketuk salah satu kategori pengeluaran di bawah.','i-x','rose');return}
+  const src=$('#qaSrc').value||null;
+  if(!src){toast('Dompet belum ada','Tambahkan dompet dulu lewat tab Keuangan.','i-x','rose');return}
+  const dv=dayKey(TODAY);
+  const baru={id:'local-'+Date.now(),type:'expense',amount:nominal,category:qaCat,sourceId:src,description:qaCat,date:dv,recurrence:null};
+  TXS.unshift(baru);OV.txAdd.unshift({...baru});
+  months=[...new Set([...months,dv.slice(0,7)])].sort();
+  ovPersist();armSyncToast();
+  $('#qaAmount').value='';
+  refinance();fillTxMonths();renderBanner(); /* v2.37 · seluruh halaman keuangan ikut segar (mutasi, saldo, donut, budget) */
+  if(inited.cal)renderDayDetail(state.calSel);
+  flashRows([baru.id]);
+  if(!reduced)botaniRain({kinds:['coin'],n:8});
+  haptic(12);
+  toast('Tercatat ⚡',`${qaCat} · ${rupiah(nominal)} keluar hari ini.`,'i-check','honey');
+});
+
+/* ---------- v2.37 · TRANSAKSI BERULANG ----------
+   Template (baris asal) menyimpan recurrence mingguan/bulanan. Occurrence
+   yang jatuh tempo dibuat sebagai baris biasa ber-id DETERMINISTIK
+   rec-<id asal>-<tanggal> → materializer aman diulang (id sudah ada =
+   sudah dibuat), dan penghapusan sebuah instance diingat di daftar skip
+   per perangkat supaya tidak dilahirkan ulang. */
+const LS_REC_SKIP='rutina.recskip.v1';
+const recSkip=()=>{try{return new Set(JSON.parse(localStorage.getItem(LS_REC_SKIP)||'[]'))}catch(_){return new Set()}};
+const recSkipSave=s=>{try{localStorage.setItem(LS_REC_SKIP,JSON.stringify([...s].slice(-400)))}catch(_){/* penyimpanan penuh — skip sesi ini saja */}};
+const addMonths=(d,n)=>{const y=d.getFullYear(),m=d.getMonth()+n,day=d.getDate();const dim=new Date(y,m+1,0).getDate();const e=new Date(y,m,1);e.setDate(Math.min(day,dim));return e};
+function materializeRecurring(){
+  if(!DB)return 0;
+  const today=dayKey(TODAY);
+  const skip=recSkip();
+  const exist=new Set(TXS.map(t=>t.id));
+  const spawned=[];
+  TXS.filter(t=>t.recurrence==='weekly'||t.recurrence==='monthly').forEach(t=>{
+    let d=new Date(t.date+'T00:00:00'),guard=0;
+    while(guard++<400){ /* pagar: ~33 tahun bulanan / ~7,7 tahun mingguan */
+      d=t.recurrence==='monthly'?addMonths(d,1):addDays(d,7);
+      const k=dayKey(d);
+      if(k>today)break;
+      const id=`rec-${t.id}-${k}`;
+      if(exist.has(id)||skip.has(id))continue;
+      spawned.push({id,type:t.type,amount:t.amount,category:t.category,sourceId:t.sourceId,description:t.description,date:k,recurrence:null});
+      exist.add(id);
+    }
+  });
+  if(spawned.length){
+    TXS.push(...spawned);
+    OV.txAdd.push(...spawned.map(s=>({...s})));
+    months=[...new Set([...months,...spawned.map(s=>s.date.slice(0,7))])].sort();
+    ovPersist();armSyncToast();
+  }
+  return spawned.length;
+}
+
+/* ---------- v2.37 · TAMAN KEBIASAAN ----------
+   Tahap per tanaman dari TOTAL CATATAN: 0 benih · 1+ tunas · 7+ pohon
+   muda · 21+ pohon dewasa · 60+ berbunga (lebih cepat dari pohon hero
+   — tiap kebiasaan layak berbunga dalam ±2 bulan konsisten). */
+const GD_STAGES=[{min:0,f:'benih',n:'Benih'},{min:1,f:'tunas',n:'Tunas'},{min:7,f:'pohon-muda',n:'Pohon Muda'},{min:21,f:'pohon-dewasa',n:'Pohon Dewasa'},{min:60,f:'berbunga',n:'Berbunga'}];
+const gdStage=t=>{let s=GD_STAGES[0];for(const st of GD_STAGES){if(t>=st.min)s=st;else break}return s};
+function renderGarden(){
+  const strip=$('#gardenStrip'),title=$('#gardenTitle');
+  if(!strip||!title)return;
+  if(!HABITS.length){
+    title.textContent='Taman menunggu benih pertama';
+    strip.innerHTML='<p class="qa-hint" style="margin:2px 2px 4px">Tambahkan kebiasaan — tiap satu tumbuh tanamannya sendiri di sini.</p>';
+    return;
+  }
+  const dist={};HABITS.forEach(h=>{const n=gdStage(h.total).n;dist[n]=(dist[n]||0)+1});
+  const ringkasDist=GD_STAGES.filter(st=>dist[st.n]).map(st=>`${dist[st.n]} ${st.n.toLowerCase()}`).join(' · ');
+  title.textContent=`${HABITS.length} tanaman${ringkasDist?' · '+ringkasDist:''}`;
+  strip.innerHTML=HABITS.map(h=>{
+    const st=gdStage(h.total),on=!!doneToday[h.id];
+    return `<button type="button" class="gd-plant" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail ${esc(h.name)}" aria-label="${esc(h.name)} — ${st.n.toLowerCase()}, ${h.total} catatan${on?', sudah dicatat hari ini':''}">
+      ${on?'<span class="gd-done" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>':''}
+      <img src="/tree/${st.f}.svg" alt="" width="58" height="58" loading="lazy"/>
+      <span class="gd-nm">${esc(h.name)}</span>
+      <span class="gd-sub">${st.n} · ${h.total}×</span>
+    </button>`;
+  }).join('');
+}
+
+/* ---------- v2.37 · PEMBANDING PEKAN (kartu Ritme aktivitas) ----------
+   Tiga metrik berdampingan: hari aktif · total catatan · pengeluaran —
+   masing-masing dibandingkan dengan pekan lalu (panah sage = membaik,
+   honey = menurun; utk pengeluaran turun justru baik). Pekan berjalan
+   dihitung HINGGA hari ini supaya perbandingan adil. */
+function renderWeekCmp(counts,ws){
+  const el=$('#weekCmp');if(!el)return;
+  const prev=[];for(let j=0;j<7;j++){const d=addDays(ws,-7+j);const k=dayKey(d);prev.push({k,n:(logsByDate[k]||[]).length})}
+  const curC=counts.reduce((a,c)=>a+((!c.future||c.today)?c.n:0),0);
+  const prevC=prev.reduce((a,c)=>a+c.n,0);
+  const curA=counts.filter(c=>c.n>0&&(!c.future||c.today)).length;
+  const prevA=prev.filter(c=>c.n>0).length;
+  const inR=(t,a,b)=>t.date>=a&&t.date<=b&&t.type==='expense';
+  const t0=dayKey(ws),t1=dayKey(addDays(ws,6)),p0=dayKey(addDays(ws,-7)),p1=dayKey(addDays(ws,-1));
+  const curS=TXS.filter(t=>inR(t,t0,t1)).reduce((a,t)=>a+t.amount,0);
+  const prevS=TXS.filter(t=>inR(t,p0,p1)).reduce((a,t)=>a+t.amount,0);
+  const cell=(lbl,now,before,fmt,betterUp)=>{
+    const d=now-before;
+    const good=d===0?null:(betterUp?d>0:d<0);
+    const arrow=good===null?'<svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg>':good?'<svg class="ic" aria-hidden="true"><use href="#i-chev-u"/></svg>':'<svg class="ic" aria-hidden="true"><use href="#i-chev-d"/></svg>';
+    const cls=good===null?'':good?'up':'down';
+    return `<div class="wc-cell"><span class="wc-l">${lbl}</span><span class="wc-v">${fmt(now)}</span><span class="wc-d ${cls}">${arrow}pekan lalu ${fmt(before)}</span></div>`;
+  };
+  el.innerHTML=
+    cell('Hari aktif',curA,prevA,v=>v,true)+
+    cell('Catatan',curC,prevC,v=>v,true)+
+    cell('Pengeluaran',curS,prevS,v=>ringkas(v)||'0',false);
+}
+
+/* ---------- v2.37 · LAPORAN BULANAN (tab Kalender) ----------
+   Rekap mengikuti bulan yang sedang dibuka di kalender (bisa bulan lalu):
+   konsistensi, arus kas + top-3 kategori + anggaran, dan refleksi yang
+   mengikat jumlah catatan bulan itu sebagai suara identitas. */
+function renderMonthReport(mk,y,m){
+  const el=$('#monthReport');
+  if(!el||!DB)return;
+  const cur=dayKey(TODAY).slice(0,7);
+  const elapsed=mk===cur?TODAY.getDate():new Date(y,m+1,0).getDate();
+  let aktif=0,gemuk=0,total=0;
+  Object.keys(logsByDate).forEach(k=>{
+    if(k.slice(0,7)!==mk)return;
+    const c=logsByDate[k].length;total+=c;aktif++;if(c>=5)gemuk++;
+  });
+  const {masuk,keluar}=finTotals(mk);
+  const byCat=expByCat(mk);
+  const topCats=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const maxC=topCats.length?topCats[0][1]:0;
+  const budB=BUDGETS.filter(b=>b.month===mk);
+  const budTot=budB.reduce((a,b)=>a+(b.amount||0),0);
+  const spentB=budB.reduce((a,b)=>a+(byCat[b.category]||0),0);
+  const ratio=elapsed?aktif/elapsed:0;
+  const idTxt=identityText();
+  const refleksi=aktif===0?'Bulan ini belum ada catatan — cukup satu hari untuk memulai.'
+    :ratio>=.8?'Tamanmu nyaris tak pernah sepi bulan ini — ritme yang mengakar dalam.'
+    :ratio>=.5?'Ritme yang sehat: lebih dari separuh hari sudah hidup.'
+    :'Ada hari yang masih kosong — sisa bulan adalah lahan untuk menanam.';
+  el.innerHTML=`
+    <div class="card-head" style="margin-bottom:6px">
+      <div class="ch-title">
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+        <div>
+          <div class="eyebrow">Laporan bulanan</div>
+          <h3 class="h-serif">${BULAN[m]} ${y}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="mr-sec">
+      <div class="mr-cap"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Konsistensi</div>
+      <div class="mr-row"><span>Hari aktif</span><b>${aktif} dari ${elapsed} hari</b></div>
+      <div class="mr-row"><span>Hari terpadat (≥5 kebiasaan)</span><b>${gemuk} hari</b></div>
+      <div class="mr-row"><span>Total catatan</span><b>${total}</b></div>
+    </div>
+    <div class="mr-sec">
+      <div class="mr-cap"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Arus kas</div>
+      <div class="mr-row"><span>Pengeluaran</span><b>${rupiah(keluar)}</b></div>
+      ${masuk?`<div class="mr-row"><span>Pemasukan</span><b>${rupiah(masuk)}</b></div>`:''}
+      ${topCats.map(([c,v])=>`<div class="mr-cat"><div class="t"><span>${esc(c)}</span><b>${rupiah(v)}</b></div><div class="bar"><i data-w="${Math.max(4,Math.round(v/maxC*100))}%"></i></div></div>`).join('')}
+      ${budTot?`<div class="mr-cat"><div class="t"><span>Anggaran terpakai</span><b>${rupiah(spentB)} / ${rupiah(budTot)}</b></div><div class="bar"><i data-w="${Math.min(100,Math.round(spentB/budTot*100))}%"></i></div></div>`:''}
+    </div>
+    <div class="mr-sec">
+      <div class="mr-cap"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Refleksi</div>
+      <p class="mr-note">${refleksi}${idTxt?` Bulan ini kamu memberi <b>${total} suara</b> untuk “${esc(idTxt)}”.`:''}</p>
+    </div>`;
+  animateBars(el);
+}
+
 /* ---------- v2.8 · hero pohon konsistensi ----------
    Pohon tumbuh dari HARI AKTIF (bukan daftar kebiasaan): tiap hari yang
    punya catatan menumbuhkan tahap berikutnya. Ambang: benih 0, tunas 1,
@@ -4915,6 +5275,7 @@ function renderWeekRhythm(){
     :delta>0?`Lebih ramai dari pekan lalu — ${delta} catatan lebih banyak.`
     :delta<0?`Pekan lalu lebih ramai ${-delta} catatan. Tidak apa-apa, mulai dari hari ini.`
     :'Setara dengan pekan lalu.';
+  renderWeekCmp(counts,ws); /* v2.37 · pembanding pekan berdampingan */
 }
 
 
@@ -5702,7 +6063,7 @@ function renderTx(){
       <span class="tx-swipe sw-del" aria-hidden="true"><svg class="ic"><use href="#i-trash"/></svg>Hapus</span>
       <div class="tx-inner">
         <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-        <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}</small></div>
+        <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}${t.recurrence?' · <span class="tag-rec"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>berulang</span>':''}</small></div>
         <div class="tx-act">
           <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
           <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
@@ -5841,7 +6202,7 @@ function doDelete(){
     Object.keys(OV.logDel).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logDel[k2]});
     ovPersist();
     animRowsOut(rowsOut,()=>{
-      renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
+      renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();renderGarden();
       if(inited.wawasan)renderConsChart();
     });
     toast('Kebiasaan dihapus',`${name} keluar dari daftar & database.`,'i-trash','rose');
@@ -5852,6 +6213,11 @@ function doDelete(){
     let p=null;
     if(t&&t.type==='transfer'){p=transferPairOf(t);if(p&&p.id===key)p=null}
     const ids=[key,...(p?[p.id]:[])];
+    /* v2.37 · instance transaksi berulang yang dihapus diingat supaya
+       materializer tidak melahirkan ulang di sesi berikutnya */
+    ids.forEach(rid=>{
+      if(rid.startsWith('rec-')){const s=recSkip();if(!s.has(rid)){s.add(rid);recSkipSave(s)}}
+    });
     /* v2.31 · baris kedua sisi transfer ditangkap sebelum daftar digambar ulang */
     const rowsOut=ids.flatMap(id=>[...document.querySelectorAll(`.tx-row[data-txid="${id}"], .drill-row[data-drill="tx"][data-id="${id}"]`)]);
     TXS=TXS.filter(x=>!ids.includes(x.id));
@@ -5979,6 +6345,7 @@ function renderCalStrip(){
   $('#csStreak').innerHTML=`${aktif} <small>hari</small>`;
   $('#csSpend').textContent=ringkas(keluar);
   $('#csSpendLbl').textContent=`Pengeluaran ${BULAN[m]} ${y}`;
+  renderMonthReport(mk,y,m); /* v2.37 · laporan bulanan mengikuti bulan yang dilihat */
   renderCalendarHero();
 }
 /* ---------- v2.13 · panel detail hari meluncur saat tanggal berganti ---------- */
@@ -6220,6 +6587,8 @@ function refreshToday(){
   /* v2.19 · sapaan emosional ikut menyegarkan — momentum/hari sempurna di
      halaman depan berubah begitu kebiasaan terakhir dicentang */
   renderIdentity();
+  renderQuickCard(); /* v2.37 · chip catat cepat ikut status terbaru */
+  renderGarden(); /* v2.37 · tanaman yang dicatat hari ini beri centang */
   renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
   renderHabitsHero();renderWawasanHero();
   if(inited.heatmap)renderHeatmap();
@@ -6281,7 +6650,7 @@ document.addEventListener('click',e=>{
     if(mid==='modalTx')resetTxModal();
     else if(mid==='modalBudget')resetBudgetModal();
     else if(mid==='modalSource')resetSourceModal();
-    else if(mid==='modalHabit'){$('#formHabit').reset();pickedIcon='ill-bangun';renderIconPicker();fillHabitSelects()}
+    else if(mid==='modalHabit'){$('#formHabit').reset();resetHabitModal();pickedIcon='ill-bangun';renderIconPicker();fillHabitSelects()}
     openModal(mid);return}
   if(e.target.closest('[data-close]')){closeModals();return}
 });
@@ -6401,10 +6770,14 @@ function fillTxType(t){
   $$('#modalTx .seg button').forEach(b=>{const on=b.dataset.txType===t;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
   const jenis=t==='masuk'?'income':'expense';
   $('#txCat').innerHTML=FINCATS.filter(c=>c.type===jenis).map(c=>`<option value="${esc(c.name)}">${esc(c.emoji)} ${esc(c.name)}</option>`).join('');
-  /* v2.29 · mode transfer: kategori sembunyi, muncul tujuan dompet */
+  /* v2.29 · mode transfer: kategori sembunyi, muncul tujuan dompet;
+     v2.37 · transfer tak berulang (pasangan dua sisi membuat periodiknya
+     berlipat) — pilihan berulang ikut sembunyi */
   const trf=t==='transfer';
   $('#txCatWrap').hidden=trf;
   $('#txDestWrap').hidden=!trf;
+  $('#txRecWrap').hidden=trf;
+  if(trf)$('#txRec').value='';
   $('#txSourceLbl').textContent=trf?'Dari dompet':'Sumber dana';
   if(trf)$('#txDest').innerHTML=SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji)} ${esc(s.name)}</option>`).join('');
   syncSegThumb($('#modalTx .seg')); /* v2.31 · thumb ikut menggeser ke tombol jenis yang baru */
@@ -6423,6 +6796,7 @@ function resetTxModal(){
   $('#txCat').disabled=false;
   $('#txCatWrap').hidden=false;
   $('#txDestWrap').hidden=true;
+  $('#txRecWrap').hidden=false; /* v2.37 */
   $('#txSourceLbl').textContent='Sumber dana';
   $('#formTx').reset();
   fillTxType(txType);fillTxSources();
@@ -6463,6 +6837,9 @@ function openTxEdit(id){
   $('#txAmount').value=t.amount.toLocaleString('id-ID');
   $('#txDate').value=t.date;
   $('#txNote').value=(t.type!=='transfer'&&t.description&&t.description!==t.category)?t.description:'';
+  /* v2.37 · nilai berulang terisi sesuai data; transfer tak berulang */
+  $('#txRecWrap').hidden=t.type==='transfer';
+  $('#txRec').value=(t.type==='transfer'||!t.recurrence)?'':t.recurrence;
   openModal('modalTx');
 }
 $('#modalTx .seg').addEventListener('click',e=>{const b=e.target.closest('[data-tx-type]');if(b)fillTxType(b.dataset.txType)});
@@ -6529,8 +6906,9 @@ $('#formTx').addEventListener('submit',e=>{
     return;
   }else{
     const type=txType==='masuk'?'income':'expense';
-    if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
-    else{const baru={id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv};TXS.unshift(baru);OV.txAdd.unshift({...baru})}
+    const rec=($('#txRec').value||'')||null; /* v2.37 · berulang (hanya utk pemasukan/pengeluaran) */
+    if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv,recurrence:rec});
+    else{const baru={id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv,recurrence:rec};TXS.unshift(baru);OV.txAdd.unshift({...baru})}
   }
   /* v2.31 · id baris yang perlu berkilau: yang baru dibuat atau disunting */
   const flashIds=tgt?[tgt.id]:(TXS[0]?[TXS[0].id]:[]);
@@ -6569,28 +6947,105 @@ function renderIconPicker(){
     </label>`).join('');
 }
 $('#iconPicker').addEventListener('change',e=>{pickedIcon=e.target.value;renderIconPicker()});
-function fillHabitSelects(){
+function fillHabitSelects(excludeId){
   $('#habitCat').innerHTML=Object.keys(HCAT).map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
   $('#habitGroup').innerHTML=`<option value="">Tanpa grup</option>`+GROUPS.map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');
-  /* v2.35 · jangkar susun kebiasaan: daftar kebiasaan lain sebagai pilihan */
-  $('#habitAfter').innerHTML=`<option value="">— tanpa jangkar —</option>`+HABITS.map(h=>`<option value="${esc(h.id)}">${esc(h.name)}</option>`).join('');
+  /* v2.35 · jangkar susun kebiasaan: daftar kebiasaan lain sebagai pilihan
+     v2.37 · kebiasaan yang sedang disunting tak boleh menjangkar dirinya */
+  $('#habitAfter').innerHTML=`<option value="">— tanpa jangkar —</option>`+HABITS.filter(h=>h.id!==excludeId).map(h=>`<option value="${esc(h.id)}">${esc(h.name)}</option>`).join('');
+}
+/* ---------- v2.37 · SUNTING KEBIASAAN ----------
+   Sebelum v2.37 kebiasaan hanya bisa dibuat/dihapus — salah ketik nama
+   berarti hapus (ikut mengikut seluruh riwayat) lalu buat ulang. Kini
+   aksi drill "Sunting" membuka form yang sama dalam mode edit: semua
+   kolom (nama/kategori/grup/jam/versi mini/jangkar/ilustrasi) bisa
+   diubah; perubahan masuk jurnal habitMeta (tersinkron ke database).
+   Ikon ilustrasi disimpan di kolom emoji sebagai id ill-… supaya pilihan
+   pengguna bertahan lintas sesi (data emoji lama tetap dikenali).
+   Jam pengingat dikonversi dua arah: form memakai <input type=time>
+   (HH:MM), database memakai konvensi lama "07.00 AM". */
+let editHabitId=null;
+const fmtJamSimpan=t=>{ /* 'HH:MM' → 'hh.mm AM/PM' (konvensi lama) */
+  const m=/^(\d{1,2}):(\d{2})/.exec(t||'');if(!m)return null;
+  const h=+m[1];const ap=h>=12?'PM':'AM';const h12=h%12||12;
+  return String(h12).padStart(2,'0')+'.'+m[2]+' '+ap;
+};
+const fmtJamMuat=r=>{ /* 'hh.mm AM/PM' → 'HH:MM' untuk <input type=time> */
+  const m=/(\d{1,2})[.:](\d{2})\s*(AM|PM)?/i.exec(String(r||''));
+  if(!m)return '07:00';
+  let h=+m[1];const mm=m[2];const ap=(m[3]||'').toUpperCase();
+  if(ap==='PM'&&h<12)h+=12;if(ap==='AM'&&h===12)h=0;
+  return String(h).padStart(2,'0')+':'+mm;
+};
+function resetHabitModal(){
+  editHabitId=null;
+  $('#habitEyebrow').textContent='Tambah baru';
+  $('#habitTitle').textContent='Kebiasaan baru';
+  $('#habitSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan';
+}
+function openHabitEdit(id){
+  const h=habitById(id);if(!h)return;
+  fillHabitSelects(id); /* jangkar tak boleh menunjuk dirinya */
+  if(![...$('#habitCat').options].some(o=>o.value===h.category))$('#habitCat').insertAdjacentHTML('beforeend',`<option value="${esc(h.category)}">${esc(h.category)} · lama</option>`);
+  if(h.groupId&&![...$('#habitGroup').options].some(o=>o.value===h.groupId))$('#habitGroup').insertAdjacentHTML('beforeend',`<option value="${esc(h.groupId)}">${esc(h.grp?h.grp.name:'grup lama')}</option>`);
+  editHabitId=id;
+  $('#habitEyebrow').textContent='Sunting';
+  $('#habitTitle').textContent='Ubah kebiasaan';
+  $('#habitSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan perubahan';
+  $('#habitName').value=h.name;
+  $('#habitCat').value=h.category;
+  $('#habitGroup').value=h.groupId||'';
+  $('#habitTime').value=fmtJamMuat(h.reminder);
+  $('#habitMini').value=h.mini||'';
+  $('#habitAfter').value=h.afterId&&h.afterId!==id?h.afterId:'';
+  pickedIcon=h.ikon&&ICON_OPTS.some(o=>o.id===h.ikon)?h.ikon:'ill-sprout';
+  renderIconPicker();
+  openModal('modalHabit');
 }
 $('#formHabit').addEventListener('submit',e=>{
   e.preventDefault();
   const nama=$('#habitName').value.trim();
-  if(!nama){toast('Nama masih kosong','Beri nama kebiasaan barumu dulu.','i-x','rose');return}
+  if(!nama){toast('Nama masih kosong',editHabitId?'Nama kebiasaan tak boleh kosong.':'Beri nama kebiasaan barumu dulu.','i-x','rose');return}
   const miniTxt=($('#habitMini').value||'').trim(); /* v2.35 · ditangkap sebelum reset */
   const cat=$('#habitCat').value||'General';
   const grpId=$('#habitGroup').value||null;
-  const hidBaru={id:'local-'+Date.now(),name:nama,category:cat,reminder:$('#habitTime').value||null,groupId:grpId,
-    habitType:'normal',target:1,unit:null,priority:'Medium',difficulty:'Easy',emoji:'',
-    mini:miniTxt||null,afterId:$('#habitAfter').value||null}; /* v2.35 · versi mini & jangkar */
+  /* v2.37 · MODE SUNTING — perubahan ditulis ke jurnal habitMeta */
+  if(editHabitId){
+    const h=habitById(editHabitId);
+    if(!h){resetHabitModal();closeModals();return}
+    const meta={
+      name:nama,emoji:pickedIcon,category:cat,
+      reminder:$('#habitTime').value?fmtJamSimpan($('#habitTime').value):null,
+      groupId:grpId,mini:miniTxt||null,
+      afterId:($('#habitAfter').value||null),
+    };
+    Object.assign(h,meta,{
+      grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,
+      ikon:pickedIcon,warna:HCAT[cat]||h.warna||'#059669',
+    });
+    OV.habitMeta[h.id]={...meta}; /* kunci lengkap — server meng-UPDATE kolom yang hadir */
+    /* kebiasaan lokal yang belum tersinkron: elemen habitAdd ikut dibarui
+       supaya push berikut membawa data termutakhir (habitMeta tetap aman:
+       UPDATE setelah INSERT di server, konvergen & idempoten) */
+    if(isLocalId(h.id)){
+      const i=OV.habitAdd.findIndex(x=>x.id===h.id);
+      if(i>=0)OV.habitAdd[i]={...OV.habitAdd[i],...meta};
+    }
+    ovPersist();armSyncToast();
+    closeModals();e.target.reset();resetHabitModal();renderIconPicker();fillHabitSelects();
+    renderHabitChips();refreshToday();renderIdentity();renderSettings();renderGarden();
+    toast('Kebiasaan disunting',`${nama} diperbarui · tersimpan ke database.`,'i-check','sage');
+    return;
+  }
+  const hidBaru={id:'local-'+Date.now(),name:nama,category:cat,reminder:$('#habitTime').value?fmtJamSimpan($('#habitTime').value):null,groupId:grpId,
+    habitType:'normal',target:1,unit:null,priority:'Medium',difficulty:'Easy',emoji:pickedIcon,
+    mini:miniTxt||null,afterId:$('#habitAfter').value||null}; /* v2.35 · versi mini & jangkar; v2.37 · emoji menyimpan ikon */
   HABITS.push({...hidBaru,
     grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,ikon:pickedIcon,warna:HCAT[cat]||'#059669',
     dates:[],total:0,best:0,first:null,last:null});
   OV.habitAdd.push(hidBaru);ovPersist();armSyncToast(); /* v2.22 · kebiasaan baru tersimpan ke database */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
-  state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();
+  state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();renderGarden();
   toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat${miniTxt?' · versi mini menemani':''} · tersimpan ke database.`,'i-sparkle','honey');
 });
 
@@ -6766,6 +7221,7 @@ function tunasPrep(){
     page.querySelector('.hero'),
     page.querySelector('.motiv-card'), /* v2.33 · kartu semangat ikut kaskade pagi */
     page.querySelector('.identity-card'), /* v2.35 · kartu suara identitas mengikuti */
+    page.querySelector('.qa-card'), /* v2.37 · kartu catat cepat mengikuti kaskade */
     ...page.querySelectorAll('.stats > .card'),
     page.querySelector('.streak-banner'),
     page.querySelector('#rowAgenda > .card'),
@@ -7373,7 +7829,7 @@ function tunasWake(){
     if(e.key>='1'&&e.key<='6'){go(ORDER[+e.key-1]);return}
     const k=e.key.toLowerCase();
     if(k==='n'){resetTxModal();openModal('modalTx');return}
-    if(k==='h'){$('#formHabit').reset();pickedIcon='ill-bangun';renderIconPicker();fillHabitSelects();openModal('modalHabit');return}
+    if(k==='h'){$('#formHabit').reset();resetHabitModal();pickedIcon='ill-bangun';renderIconPicker();fillHabitSelects();openModal('modalHabit');return}
     if(k==='b'){resetBudgetModal();openModal('modalBudget');return}
     if(k==='t'){
       state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
@@ -7455,8 +7911,10 @@ function tunasWake(){
   ovApply(); /* v2.21 · lapisan lokal pengguna diterapkan di atas data server */
   if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();renderIdentityCard(true);tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
   prepData();syncToday();
+  const recN=materializeRecurring(); /* v2.37 · transaksi berulang jatuh tempo dilahirkan */
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
+  renderQuickCard();renderGarden(); /* v2.37 */
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
   renderHabitChips();renderHabitCards(true);
   renderFindings();renderReko();renderBadges();
@@ -7468,6 +7926,7 @@ function tunasWake(){
   /* v2.26 · hidup ambien: atmosfer kelopak kanvas di hero + parallax pointer */
   ambientHero();
   heroParallax();
+  if(recN)setTimeout(()=>toast('Transaksi berulang diterapkan',`${recN} catatan langganan yang jatuh tempo sudah dibuatkan otomatis.`,'i-leaf','sky'),1400); /* v2.37 */
   if(tunas)tunasWake();
   /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
   setTimeout(()=>{syncFlush();paintSyncRow()},1100);
