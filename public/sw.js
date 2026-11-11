@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v32"; // v2.30 — manifest.json ikut shell + aset publik (PWA lengkap utk /rutina.html)
+const STATIC_CACHE = "rutina-static-v33"; // v2.31 — animasi penuh tahap 2 (exit sheet, reveal gulir, thumb seg, toast bar)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

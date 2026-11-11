@@ -7,7 +7,17 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
-<!-- v2.30 · DUA perbaikan hasil audit mendalam:
+<!-- v2.31 · ANIMASI PENUH TAHAP 2 — lapisan gerak yang menyempurnakan
+     koreografi v2.13/v2.14: (1) sheet ditutup dengan anggun (meluncur
+     turun di ponsel / memudar mengecil di desktop) + handle di lekuk
+     atas sheet; (2) geser-turun untuk menutup sheet (pointer:coarse);
+     (3) kartu di bawah lipatan layar reveal saat digulir masuk;
+     (4) thumb terra menggeser di seg jenis transaksi; (5) toast hidup:
+     bar umur di dasar + jeda saat disentuh; (6) baris terhapus pergi
+     meluncur & baris transaksi baru/disunting berkilau; (7) isi sheet
+     drill & ritme pekan muncul bergelombang; judul hero keuangan
+     menggelinding (countUp). Semua hormat prefers-reduced-motion.
+     v2.30 · DUA perbaikan hasil audit mendalam:
      (1) PWA lengkap untuk shell standalone /rutina.html: manifest.json
          sendiri + apple-touch-icon + meta iOS — sebelumnya hanya route "/"
          (wrapper Next) yang punya manifest, shell yang dibuka langsung
@@ -237,7 +247,7 @@ b,strong{font-weight:600}
 .btn .ic{width:18px;height:18px}
 .btn-primary{background:var(--terra-strong);color:#FFFFFF}
 .btn-primary:hover{background:#065F46;transform:translateY(-1.5px);box-shadow:var(--shadow-sm)}
-.btn-primary:active{transform:none}
+.btn-primary:active{transform:scale(.97)}
 .btn-ghost{background:var(--surface);border:1.5px solid var(--line);color:var(--ink-2)}
 .btn-ghost:hover{border-color:var(--terra);color:var(--terra-deep)}
 .btn-sm{min-height:40px;padding:0 16px;font-size:13px}
@@ -1216,6 +1226,63 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:center;background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2.5px;border-radius:8px;font-family:var(--font-display);font-size:12px;font-weight:600;color:var(--ink-2)}
 .sc-note{display:block;margin-top:14px;font-size:11.5px;line-height:1.5;color:var(--ink-3)}
 
+/* ============================================================
+   v2.31 · ANIMASI PENUH TAHAP 2 — gerak penutup & kedalaman gulir
+   1) Sheet ditutup dengan anggun: meluncur turun (mobile) / memudar
+      mengecil (desktop) — tidak lagi hilang sekejap
+   2) Handle di lekuk atas sheet + geser-turun untuk menutup (sentuh)
+   3) Kartu di bawah lipatan layar reveal saat digulir masuk
+   4) Thumb terra menggeser di seg jenis transaksi
+   5) Toast: bar umur + jeda saat disentuh + ikon meloncat masuk
+   6) Baris terhapus pergi meluncur; baris baru berkilau hijau
+   7) Ritme pekan & isi sheet drill muncul bergelombang
+   Semua hormat prefers-reduced-motion (blok reduce di bawah).
+   ============================================================ */
+/* 1 · penutupan anggun */
+.modal.closing,.modal.closing-drag{display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.modal.closing,.modal.closing-drag{align-items:center;padding:24px}}
+.modal.closing .modal-backdrop,.modal.closing-drag .modal-backdrop{animation:fadeOut .22s ease forwards}
+.modal.closing .sheet{animation:sheetOut .34s cubic-bezier(.5,0,1,1) forwards}
+@media(min-width:640px){.modal.closing .sheet{animation:sheetPopOut .28s cubic-bezier(.4,0,1,1) forwards}}
+@keyframes sheetOut{to{opacity:0;transform:translateY(78px) scale(.985)}}
+@keyframes sheetPopOut{to{opacity:0;transform:translateY(16px) scale(.965)}}
+/* 2 · handle di lekuk atas sheet — pasangan visual gestur geser-tutup */
+.sheet::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:42px;height:4.5px;border-radius:99px;background:var(--line);z-index:5;pointer-events:none}
+.sheet.dragging{transition:none!important;animation:none!important;will-change:transform}
+/* 3 · reveal kartu saat gulir masuk */
+.rv{opacity:0}
+.rv.rv-in{animation:rvIn .55s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:calc(var(--rv,0)*70ms)}
+@keyframes rvIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+/* 4 · thumb seg menggeser — tombol aktif tak lagi mengecat blok */
+.seg{position:relative}
+.seg-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:9px;background:var(--terra-strong);box-shadow:var(--shadow-sm);opacity:0;transition:left .34s cubic-bezier(.3,1.2,.4,1),width .34s cubic-bezier(.3,1.2,.4,1),opacity .18s;z-index:0}
+.seg-thumb.on{opacity:1}
+.seg button{position:relative;z-index:1;background:transparent}
+.seg button.active{background:transparent;box-shadow:none}
+/* 5 · toast hidup: bar umur di dasar + ikon meloncat masuk */
+.toast{position:relative;overflow:hidden}
+.toast::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--terra-strong);transform-origin:left center;animation:toastBar 3.4s linear forwards}
+.toast.hold::after{animation-play-state:paused}
+.toast.sage::after{background:var(--sage)}
+.toast.rose::after{background:var(--rose)}
+.toast.honey::after{background:var(--honey)}
+.toast.sky::after{background:var(--sky)}
+@keyframes toastBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.toast-ic{animation:toastIc .5s cubic-bezier(.3,1.6,.5,1) .07s backwards}
+@keyframes toastIc{from{transform:scale(.4) rotate(-16deg)}}
+/* 6 · baris keluar meluncur; baris baru berkilau terra lembut */
+.row-out{animation:rowOut .3s cubic-bezier(.4,0,1,1) forwards;pointer-events:none}
+@keyframes rowOut{to{opacity:0;transform:translateX(-34px) scale(.965)}}
+.row-new .tx-inner{animation:rowNew 1.9s ease}
+.drill-row.row-new{animation:rowNew 1.9s ease}
+@keyframes rowNew{0%{background:var(--terra-softer)}70%{background:var(--terra-softer)}100%{background:transparent}}
+/* 7 · ritme pekan bergelombang tiap segar */
+.week-strip .wk-cell{animation:wkIn .5s cubic-bezier(.25,1.25,.4,1) backwards;animation-delay:calc(var(--wk,0)*55ms)}
+@keyframes wkIn{from{opacity:0;transform:translateY(9px) scale(.75)}}
+/* avatar ikut merespons sentuhan */
+.avatar{transition:transform .18s}
+.avatar:active{transform:scale(.92)}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:-1ms !important;transition-duration:.01ms !important}
@@ -1224,6 +1291,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   .rip{display:none !important}
   .swipe-hint{transition:none}
   .tx-row.lp,.habit-card.lp{transform:none}
+  .rv{opacity:1 !important} /* v2.31: reveal gulir dimatikan — konten langsung tampak */
+  .row-out{animation:none !important;opacity:0} /* penghapusan langsung, tanpa gerak */
+  .sheet::before{display:none} /* handle tanpa fungsi saat gerak dimatikan */
 }
 </style>
 </head>
@@ -3251,7 +3321,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.30';
+const APP_VERSION='v2.31';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3486,6 +3556,12 @@ function openDrill(cfg){
   haptic(10);
   openModal('modalDrill');
   fitDrillStats();
+  /* v2.31 · isi drill masuk bergelombang — statistik dulu, lalu daftar;
+     sheet terasa "hidup" setiap dibuka, bukan sekadar muncul */
+  if(!reduced){
+    staggerList($('#drillBody'),':scope > *',{cap:9});
+    $$('#drillBody .drill-sec').forEach(sec=>staggerList(sec,':scope > .drill-row',{cap:10}));
+  }
 }
 /* v2.28 · statistik drill anti-terpotong: pill terakhir meluber penuh bila
    barisnya tak genap (tak menyisakan lubang kosong), dan angka rupiah tak
@@ -4114,12 +4190,43 @@ function staggerList(root,sel=':scope > *',{cap=14}={}){
 function staggerPage(p){
   if(reduced||!p)return;
   const tunasPending=tunasState===1; /* muat pertama Ringkasan: tunas yang mengatur */
-  [...p.children].forEach((el,i)=>{
+  rvTeardown(p); /* v2.31 · lepas reveal lama sebelum koreografi baru */
+  const vh=innerHeight;
+  /* v2.31 · kandidat gerak: anak langsung halaman + section panel keuangan
+     yang aktif + kartu dalam grid (halaman panjang digerakkan per blok
+     maknawati, bukan satu raksasa) */
+  const kids=[...p.children];
+  p.querySelectorAll(':scope > [data-fin-pane]:not([hidden]) > *, :scope > .grid > *, :scope > .habit-grid > *').forEach(el=>{if(!kids.includes(el))kids.push(el)});
+  let above=0,below=0;
+  kids.forEach(el=>{
     if(tunasPending&&(el.classList.contains('tunas')||el.classList.contains('tunas-ill')))return;
-    el.classList.remove('pg-in');void el.offsetWidth;
-    el.style.setProperty('--stg',Math.min(i,9));
-    el.classList.add('pg-in');
+    if(el.closest('[hidden]'))return; /* panel tak aktif tak perlu gerak */
+    el.classList.remove('pg-in','rv','rv-in');void el.offsetWidth;
+    /* v2.31 · di atas lipatan → naik berurutan; di bawah lipatan →
+       menunggu digulir (rv), energi animasi tak terbuang di luar layar */
+    if(el.getBoundingClientRect().top>vh-16){
+      el.style.setProperty('--rv',Math.min(below,5));below++;
+      el.classList.add('rv');
+      if(rvIO)rvIO.observe(el);
+    }else{
+      el.style.setProperty('--stg',Math.min(above,9));above++;
+      el.classList.add('pg-in');
+    }
   });
+}
+/* v2.31 · pengamat reveal gulir — satu observer dibagi semua halaman;
+   elemen di bawah lipatan memunculkan dirinya saat masuk viewport */
+const rvIO=reduced?null:new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(!en.isIntersecting)return;
+    const el=en.target;
+    rvIO.unobserve(el);
+    if(el.classList.contains('rv')&&!el.classList.contains('rv-in'))el.classList.add('rv-in');
+  });
+},{rootMargin:'0px 0px -10% 0px',threshold:.08});
+function rvTeardown(p){
+  if(!rvIO)return;
+  [...p.querySelectorAll('.rv,.rv-in')].forEach(el=>{rvIO.unobserve(el);el.classList.remove('rv','rv-in')});
 }
 function ambientHero(){
   /* v2.26 · AMBIENT HERO — atmosfer kelopak terkendali di SATU section
@@ -4283,13 +4390,39 @@ function heroParallax(){
   },{passive:true});
 }
 function toast(title,sub='',ikon='i-check',tone=''){
-  const el=document.createElement('div');el.className='toast';
-  el.innerHTML=`<span class="toast-ic ${tone}"><svg class="ic" aria-hidden="true"><use href="#${ikon}"/></svg></span><div><b>${esc(title)}</b>${sub?`<small>${esc(sub)}</small>`:''}</div>`;
+  /* v2.31 · toast hidup: kelas nada mewarnai bar umur di dasar; umur
+     berhenti mengalir selama disentuh (pembaca lambat tak kehilangan
+     pesan), lalu lanjut dari sisa waktunya */
+  const tClass=tone||'sage';
+  const el=document.createElement('div');el.className='toast '+tClass;
+  el.innerHTML=`<span class="toast-ic ${tClass}"><svg class="ic" aria-hidden="true"><use href="#${ikon}"/></svg></span><div><b>${esc(title)}</b>${sub?`<small>${esc(sub)}</small>`:''}</div>`;
   $('#toastRoot').appendChild(el);
-  setTimeout(()=>{el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true})},3400);
+  const LIFE=3400;let left=LIFE,t0=performance.now(),tm=setTimeout(out,LIFE);
+  function out(){el.classList.add('out');el.addEventListener('animationend',()=>el.remove(),{once:true})}
+  el.addEventListener('pointerenter',()=>{clearTimeout(tm);left-=performance.now()-t0;el.classList.add('hold')});
+  el.addEventListener('pointerleave',()=>{t0=performance.now();tm=setTimeout(out,Math.max(600,left))});
 }
 /* v2.14 · umpan balik haptik ringan (bila perangkat mendukung) */
 function haptic(ms=10){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(_){}}
+/* v2.31 · baris terhapus pergi dulu — meluncur & memudar ±0.3 dtk —
+   baru daftar digambar ulang; penghapusan terasa "dijawab", bukan berkedip */
+function animRowsOut(els,then){
+  els=(els||[]).filter(Boolean);
+  if(reduced||!els.length){then();return}
+  els.forEach(el=>el.classList.add('row-out'));
+  setTimeout(then,300);
+}
+/* v2.31 · baris transaksi yang baru dicatat/disunting berkilau terra
+   sejenak di daftar — mata langsung tahu di mana perubahannya mendarat */
+function flashRows(ids){
+  if(reduced||!ids||!ids.length)return;
+  requestAnimationFrame(()=>{
+    ids.forEach(id=>document.querySelectorAll(`.tx-row[data-txid="${id}"]`).forEach(r=>{
+      r.classList.add('row-new');
+      setTimeout(()=>r.classList.remove('row-new'),2000);
+    }));
+  });
+}
 function confetti(){
   if(reduced)return;
   const warna=['#10B981','#3B82F6','#F59E0B','#0EA5E9','#22C55E','#F97316'];
@@ -4439,10 +4572,10 @@ function renderWeekRhythm(){
   const aktif=counts.filter(c=>c.n>0&&(!c.future||c.today)).length;
   $('#weekCount').textContent=`${aktif}/7 hari aktif`;
   $('#weekTitle').textContent=`Ritme ${counts[0].d.getDate()}–${counts[6].d.getDate()} ${BULAN[counts[6].d.getMonth()]}`;
-  $('#weekStrip').innerHTML=counts.map(c=>{
+  $('#weekStrip').innerHTML=counts.map((c,j)=>{
     const lv=c.n===0?0:c.n<=2?1:c.n<=5?2:3;
     const dot=c.n>0?`<span class="wk-dot lv${lv} ${c.today?'on-today':''}">${c.n>=1?'<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>':''}</span>`:`<span class="wk-dot ${c.today?'on-today':''}"></span>`;
-    return `<div class="wk-cell ${c.today?'today':''} ${c.future?'future':''}" title="${HARI[c.d.getDay()]}, ${c.d.getDate()} ${BULAN[c.d.getMonth()]}${c.n?` · ${c.n} catatan`:''}">
+    return `<div class="wk-cell ${c.today?'today':''} ${c.future?'future':''}" style="--wk:${j}" title="${HARI[c.d.getDay()]}, ${c.d.getDate()} ${BULAN[c.d.getMonth()]}${c.n?` · ${c.n} catatan`:''}">
       <span class="wk-day">${DOWS[(c.d.getDay()-WS+7)%7]}</span>
       ${dot}
       <span class="wk-n">${c.d.getDate()}</span>
@@ -4500,7 +4633,10 @@ function renderFinanceHero(){
   $('#financeHero').classList.toggle('is-surplus',ada&&net>0);
   $('#financeHero').classList.toggle('is-defisit',ada&&net<0);
   $('#finHeroMonth').textContent=monthLabel(mk);
-  $('#finHeroTitle').textContent=ada?`${net>=0?'Surplus':'Defisit'} ${rupiah(Math.abs(net))}`:'Belum ada transaksi';
+  /* v2.31 · judul hero menggelinding dari nilai sebelumnya — surplus/defisit
+     terasa bergerak, bukan berganti angka mentok */
+  if(ada)countUp($('#finHeroTitle'),Math.abs(net),{dur:900,fmt:v=>`${net>=0?'Surplus':'Defisit'} ${rupiah(v)}`});
+  else $('#finHeroTitle').textContent='Belum ada transaksi';
   $('#finHeroSub').innerHTML=(masuk||keluar)?`<span class="nw">Masuk ${rupiah(masuk)}</span> · <span class="nw">Keluar ${rupiah(keluar)}</span>`
     :'Catat transaksi pertama untuk melihat arus kas.';
   const ratio=masuk>0?Math.min(100,Math.round(keluar/masuk*100)):keluar?100:0;
@@ -5337,6 +5473,9 @@ function doDelete(){
   armSyncToast(); /* v2.22 · penghapusan juga tersinkron — konfirmasi cloud menyusul */
   const {kind,key,name}=delTarget;
   if(kind==='habit'){
+    /* v2.31 · kartu yang akan dihapus ditangkap dulu — ia pergi meluncur,
+    baru daftar digambar ulang */
+    const rowsOut=$$(`.habit-card[data-id="${key}"], .drill-row[data-drill="habit"][data-id="${key}"]`);
     HABITS=HABITS.filter(h=>h.id!==key);
     delete doneToday[key];delete valueToday[key];
     Object.keys(logsByDate).forEach(k=>{const a=logsByDate[k].filter(x=>x!==key);if(a.length)logsByDate[k]=a;else delete logsByDate[k]});
@@ -5350,8 +5489,10 @@ function doDelete(){
     Object.keys(OV.logAdd).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logAdd[k2]});
     Object.keys(OV.logDel).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logDel[k2]});
     ovPersist();
-    renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
-    if(inited.wawasan)renderConsChart();
+    animRowsOut(rowsOut,()=>{
+      renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();
+      if(inited.wawasan)renderConsChart();
+    });
     toast('Kebiasaan dihapus',`${name} keluar dari daftar & database.`,'i-trash','rose');
   }else if(kind==='tx'){
     const t=TXS.find(x=>x.id===key);
@@ -5360,6 +5501,8 @@ function doDelete(){
     let p=null;
     if(t&&t.type==='transfer'){p=transferPairOf(t);if(p&&p.id===key)p=null}
     const ids=[key,...(p?[p.id]:[])];
+    /* v2.31 · baris kedua sisi transfer ditangkap sebelum daftar digambar ulang */
+    const rowsOut=ids.flatMap(id=>[...document.querySelectorAll(`.tx-row[data-txid="${id}"], .drill-row[data-drill="tx"][data-id="${id}"]`)]);
     TXS=TXS.filter(x=>!ids.includes(x.id));
     /* v2.22 · penghapusan tersinkron ke database — kedua sisi transfer pun
        dikirimkan (jurnal lokal dibuang / perintah hapus server) */
@@ -5376,9 +5519,11 @@ function doDelete(){
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     if(state.txMonth!=='ALL'&&!months.includes(state.txMonth)&&state.txMonth!==dayKey(TODAY).slice(0,7))state.txMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
-    refinance();fillTxMonths();
-    if(inited.cal)renderDayDetail(state.calSel);
-    renderSettings();
+    animRowsOut(rowsOut,()=>{
+      refinance();fillTxMonths();
+      if(inited.cal)renderDayDetail(state.calSel);
+      renderSettings();
+    });
     toast(p?'Transfer dihapus':'Transaksi dihapus',p
       ?`⇄ ${rupiah(t.amount)} · ${srcName(t.sourceId)} → ${srcName(p.sourceId)} · kedua sisi keluar, saldo tetap seimbang 🌿`
       :(t?`${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)} · ${t.category} · ${tglPendek(t.date)}.`:'Transaksi dihapus.'),'i-trash','rose');
@@ -5386,6 +5531,8 @@ function doDelete(){
   }else if(kind==='budget'){
     const {cat,mk}=delTarget;
     if(!cat||!mk){delTarget=null;closeModals();return}
+    /* v2.31 · baris anggaran ditangkap dulu untuk exit meluncur */
+    const rowsOut=[...document.querySelectorAll('#budgetList .b-row')].filter(r=>{const b=r.querySelector('[data-del-budget]');return b&&b.dataset.delBudget===cat&&b.dataset.budgetMonth===mk});
     BUDGETS=BUDGETS.filter(b=>!(b.category===cat&&b.month===mk));
     /* v2.21 · penghapusan anggaran tersimpan di perangkat ini */
     const bk=budKey(cat,mk);
@@ -5399,11 +5546,15 @@ function doDelete(){
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
-    refinance();fillTxMonths();
+    animRowsOut(rowsOut,()=>{
+      refinance();fillTxMonths();
+    });
     toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang.`,'i-trash','rose');
     return;
   }else if(kind==='source'){
     const n=TXS.filter(t=>t.sourceId===key).length;
+    /* v2.31 · kartu dompet ditangkap dulu untuk exit meluncur */
+    const rowsOut=[...document.querySelectorAll('.dompet-card')].filter(c=>{const b=c.querySelector('[data-del-source]');return b&&b.dataset.delSource===key});
     TXS.forEach(t=>{if(t.sourceId===key){t.sourceId=null;ovTxEdit(t)}});
     SOURCES=SOURCES.filter(s=>s.id!==key);
     /* v2.22 · penghapusan dompet + transaksi tanpa sumber tersinkron ke database */
@@ -5414,8 +5565,10 @@ function doDelete(){
     }else{delete OV.srcEdit[key];if(!OV.srcDel.includes(key))OV.srcDel.push(key)}
     ovPersist();
     delTarget=null;closeModals();
-    refinance();
-    renderSettings();
+    animRowsOut(rowsOut,()=>{
+      refinance();
+      renderSettings();
+    });
     toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber.`:`${name} dihapus.`,'i-trash','rose');
     return;
   }else if(kind==='local'){
@@ -5654,9 +5807,13 @@ function go(page){
   state.page=page;
   $$('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
   $$('.page').forEach(p=>p.classList.toggle('active',p.dataset.page===page));
+  /* v2.31 · gulir dinolkan SEBELUM pengukuran stagger — rect terbaca
+     dari posisi puncak halaman, klasifikasi lipatan jadi akurat.
+     behavior:'instant' wajib: html smooth membuat scrollTo(0,0) lama
+     meluncur dan pengukuran salah di tengah jalan */
+  try{window.scrollTo({top:0,behavior:'instant'})}catch(_){window.scrollTo(0,0)}
   /* v2.13 · kartu level atas naik berurutan di tab yang dibuka */
   staggerPage($(`.page[data-page="${page}"]`));
-  window.scrollTo(0,0);
   document.title=TITLES[page]+' · Rutina';
   if(page==='kebiasaan'&&!inited.heatmap){renderHeatmap(true);inited.heatmap=true}
   if(page==='kalender'&&!inited.cal){renderCal(true);renderDayDetail(state.calSel);inited.cal=true}
@@ -5778,19 +5935,106 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')){closeModals();return}
 });
 function openModal(id){
-  const m=$('#'+id);m.classList.add('open');document.body.style.overflow='hidden';
+  const m=$('#'+id);
+  /* v2.31 · buka saat penutupan masih berjalan → batalkan penutupan
+     (entrance mengambil alih; display:none→flex me-reset animasi) */
+  if(m.classList.contains('closing')||m.classList.contains('closing-drag'))finishClose(m);
+  m.classList.add('open');document.body.style.overflow='hidden';
   m._opener=document.activeElement;
+  requestAnimationFrame(()=>m.querySelectorAll('.seg').forEach(syncSegThumb)); /* v2.31 · thumb seg pas posisinya saat sheet terlihat */
   const inp=m.querySelector('input:not([type=hidden]),select,textarea')||m.querySelector('#btnDelConfirm')||m.querySelector('.sheet-head [data-close]');
   setTimeout(()=>inp&&inp.focus(),120);
 }
+/* v2.31 · selesaikan penutupan: bersihkan kelas, timer, transform geser,
+   lalu kembalikan fokus ke pemantik (aksesibilitas) */
+function finishClose(m){
+  if(m._closeT){clearTimeout(m._closeT);m._closeT=null}
+  m.classList.remove('open','closing','closing-drag');
+  const sh=m.querySelector('.sheet');
+  if(sh){sh.classList.remove('dragging');sh.style.transform='';sh.style.opacity='';sh.style.transition='';sh.style.willChange=''}
+  const o=m._opener;m._opener=null;
+  if(o&&o.focus&&document.contains(o))o.focus();
+}
 function closeModals(){
+  let any=false;
   $$('.modal').forEach(m=>{
     if(!m.classList.contains('open'))return;
-    const o=m._opener;m.classList.remove('open');m._opener=null;
-    if(o&&o.focus&&document.contains(o))o.focus();
+    if(m.classList.contains('closing')||m.classList.contains('closing-drag')){finishClose(m);return} /* Esc kedua → selesaikan seketika */
+    any=true;
+    if(reduced){finishClose(m);return}
+    m.classList.add('closing');
+    m._closeT=setTimeout(()=>finishClose(m),370);
   });
-  document.body.style.overflow='';
+  if(any)document.body.style.overflow='';
 }
+/* v2.31 · GESER-TURUN UNTUK MENUTUP — pegang sheet (area non-kontrol)
+   lalu tarik ke bawah; lepas melewati ambang → sheet pergi dari posisi
+   jari. Gulir isi tetap diutamakan: gestur hanya aktif saat isi sudah
+   di puncak. Listener terpasang di semua perangkat tapi hanya jari/
+   pena (pointerType) yang menggerakkan — tetikus punya X, Esc, latar. */
+(function sheetDrag(){
+  if(reduced)return;
+  let st=null;
+  document.addEventListener('pointerdown',e=>{
+    if(e.button!==undefined&&e.button!==0)return;
+    if(e.pointerType&&e.pointerType!=='touch'&&e.pointerType!=='pen')return; /* tetikus tak menggeser sheet */
+    const sh=e.target.closest&&e.target.closest('.sheet');
+    if(!sh)return;
+    const m=sh.closest('.modal');
+    if(!m||!m.classList.contains('open')||m.classList.contains('closing')||m.classList.contains('closing-drag'))return;
+    if(e.target.closest('input,textarea,select,[contenteditable],.cs,.dp,.tp,.seg,.counter,.tx-swipe'))return;
+    st={m,sh,scroller:m.querySelector('.sheet--drill .drill-body')||sh,y0:e.clientY,x0:e.clientX,dy:0,drag:false};
+  },{passive:true});
+  document.addEventListener('pointermove',e=>{
+    if(!st)return;
+    const dy=e.clientY-st.y0,dx=e.clientX-st.x0;
+    if(!st.drag){
+      if(dy<12||Math.abs(dx)>dy)return; /* ke atas / menyamping → bukan gestur tutup */
+      if(st.scroller.scrollTop>0)return; /* isi belum di puncak → gulir dulu */
+      st.drag=true;st.sh.classList.add('dragging');haptic(8);
+    }
+    st.dy=dy;
+    const d=dy>180?180+(dy-180)*.38:dy; /* pengereman karet — terasa menahan */
+    st.sh.style.transform=`translateY(${d.toFixed(1)}px)`;
+  },{passive:true});
+  const end=()=>{
+    if(!st)return;
+    const{m,sh,dy,drag}=st;st=null;
+    if(!drag)return;
+    sh.classList.remove('dragging');
+    /* cegah klik tak sengaja pada tombol di bawah jari saat lepas */
+    const kill=ev=>{ev.stopPropagation();ev.preventDefault()};
+    document.addEventListener('click',kill,{capture:true,once:true});
+    setTimeout(()=>document.removeEventListener('click',kill,{capture:true}),350);
+    if(dy>120){
+      m.classList.add('closing-drag');
+      sh.style.transition='transform .3s cubic-bezier(.4,0,1,1),opacity .3s ease';
+      sh.style.transform=`translateY(${(dy+150).toFixed(0)}px)`;
+      sh.style.opacity='0';
+      document.body.style.overflow='';
+      m._closeT=setTimeout(()=>finishClose(m),310);
+    }else{
+      sh.style.transition='transform .32s cubic-bezier(.2,.9,.3,1.2)';
+      sh.style.transform='';
+      setTimeout(()=>{sh.style.transition=''},340);
+    }
+  };
+  document.addEventListener('pointerup',end,{passive:true});
+  document.addEventListener('pointercancel',end,{passive:true});
+})();
+/* v2.31 · thumb seg menggeser — latar terra pindah tombol, tombol
+   hanya berganti warna teks; transisi terasa "mengalir" bukan mengecat */
+function syncSegThumb(seg){
+  if(!seg)return;
+  let th=seg.querySelector('.seg-thumb');
+  if(!th){th=document.createElement('i');th.className='seg-thumb';th.setAttribute('aria-hidden','true');seg.appendChild(th)}
+  const act=seg.querySelector('button.active');
+  if(!act){th.classList.remove('on');th.style.width='0';th.style.left='0';return}
+  th.classList.add('on');
+  th.style.left=act.offsetLeft+'px';
+  th.style.width=act.offsetWidth+'px';
+}
+window.addEventListener('resize',()=>{$$('.modal.open .seg').forEach(syncSegThumb)},{passive:true});
 document.addEventListener('keydown',e=>{
   if(e.key!=='Escape')return;
   /* panel pintasan menangani Esc-nya sendiri — jangan sekali tekan
@@ -5812,6 +6056,7 @@ function fillTxType(t){
   $('#txDestWrap').hidden=!trf;
   $('#txSourceLbl').textContent=trf?'Dari dompet':'Sumber dana';
   if(trf)$('#txDest').innerHTML=SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji)} ${esc(s.name)}</option>`).join('');
+  syncSegThumb($('#modalTx .seg')); /* v2.31 · thumb ikut menggeser ke tombol jenis yang baru */
 }
 function fillTxSources(){
   $('#txSource').innerHTML=`<option value="">Tanpa sumber</option>`+SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji)} ${esc(s.name)}</option>`).join('');
@@ -5925,6 +6170,7 @@ $('#formTx').addEventListener('submit',e=>{
     state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
     closeModals();$('#formTx').reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
     refinance();fillTxMonths();
+    flashRows([keluarSide.id,masukSide.id]); /* v2.31 · kedua sisi berkilau di daftar */
     if(inited.cal)renderDayDetail(state.calSel);
     botaniRain({kinds:['coin'],n:12});
     haptic(14);
@@ -5935,6 +6181,8 @@ $('#formTx').addEventListener('submit',e=>{
     if(tgt)Object.assign(tgt,{type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv});
     else{const baru={id:'local-'+Date.now(),type,amount:nominal,category:cat,sourceId:src,description:note||cat,date:dv};TXS.unshift(baru);OV.txAdd.unshift({...baru})}
   }
+  /* v2.31 · id baris yang perlu berkilau: yang baru dibuat atau disunting */
+  const flashIds=tgt?[tgt.id]:(TXS[0]?[TXS[0].id]:[]);
   /* v2.21 · catatan kini tersimpan permanen — perangkat lalu database */
   if(tgt)ovTxEdit(tgt);
   ovPersist();armSyncToast();
@@ -5945,6 +6193,7 @@ $('#formTx').addEventListener('submit',e=>{
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
   refinance();fillTxMonths();
+  flashRows(flashIds); /* v2.31 · baris baru/disunting berkilau terra sejenak */
   if(inited.cal)renderDayDetail(state.calSel);
   /* v2.19 · reinforcement untuk mencatat uang: hujan koin kecil dari atas —
      kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
