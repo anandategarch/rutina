@@ -7,6 +7,22 @@
 <meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.42 · PULIHAN AUDIT "HILANG-MUNCUL SAAT APP DIBUKA" — (1) FIRST
+     PAINT INSTAN: data penuh sudah tertanam di file (#dbSnapshot) namun
+     seluruh render menunggu fetch /api/rutina (hingga 4,5 dtk timeout) —
+     di jaringan seluler lemah pengguna menatap halaman sunyi/kartu kosong
+     padahal datanya ada. Kini snapshot dilukis SEKARANG (animasi tunas
+     ikut jalan), jaringan menyusul; bila data hidup BERBEDA, seluruh
+     tampilan dilukis ulang & angka menggulir mulus (countUp) — bila
+     identik, tidak ada repaint sama sekali (nol churn). (2) DATA BASI
+     TERLIHAT: bila fetch gagal/timeout, dulu snapshot usang dipakai
+     diam-diam (tanpa penanda) — kini chip amber di bawah topbar
+     menyebut tanggal data + tombol "Coba lagi", plus 3x coba ulang
+     otomatis dengan backoff. (3) RELOAD SW AMAN: controllerchange tak
+     lagi memuat ulang di tengah sesi aktif — ditunda sampai tab
+     berpindah visibilitas (pergi/kembali). (4) FOUT: font Geist utama
+     di-preload di <head>. -->
 <!-- v2.41 · PERBAIKAN KRITIS FLICKER GULIR — sejak v2.31, kartu di bawah
      lipatan memakai koreografi .rv (reveal saat digulir). Nilai dasarnya
      opacity:0 dan animasi rvIn memakai fill-mode "backwards", yang
@@ -277,6 +293,15 @@ b,strong{font-weight:600}
 .avatar{width:40px;height:40px;border-radius:50%;background:var(--terra-soft);color:var(--terra-deep);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:17px;flex:none;border:1.5px solid #A7F3D0}
 
 /* ---------- topbar ---------- */
+/* v2.42 · penanda data basi — fetch gagal/timeout; snapshot tertanam dipakai,
+   chip amber terlihat + tombol coba-lagi (kontras diuji: #92400E di atas
+   #FFF7E3 = 6.7:1 AA) */
+.stale-bar{display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 24px 6px 20px;background:#FFF7E3;border-bottom:1px solid #FDE68A;color:#92400E;font-size:12.5px;font-weight:600}
+.stale-bar[hidden]{display:none}
+.stale-bar .ic{width:16px;height:16px;flex:none}
+.stale-txt{flex:1;min-width:0}
+.stale-act{flex:none;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid #F59E0B;background:#FFFFFF;color:#92400E;font-weight:700;font-size:12.5px;cursor:pointer;transition:border-color .18s}
+.stale-act:hover{border-color:#D97706}
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px;padding:0 24px;background:color-mix(in srgb,var(--bg) 82%,#fff);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
 .tb-left{display:flex;align-items:center;gap:14px;min-width:0}
 .tb-brand{display:none;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:600}
@@ -2425,6 +2450,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 </header>
 
+<!-- v2.42 · penanda data basi: fetch gagal/timeout → snapshot tertanam yang
+     dipakai — pengguna berhak tahu datanya bukan terbaru, dan bisa memancing
+     ulang dengan satu ketukan (atau menunggu coba-ulang otomatis). -->
+<div class="stale-bar" id="staleBar" hidden role="status">
+  <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>
+  <span class="stale-txt" id="staleTxt">Menampilkan data terakhir tersimpan.</span>
+  <button type="button" class="stale-act" id="staleRetryBtn">Coba lagi</button>
+</div>
+
 <main class="view" id="view" tabindex="-1">
 
 <!-- ================= HALAMAN: RINGKASAN ================= -->
@@ -3713,7 +3747,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.41';
+const APP_VERSION='v2.42';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3736,6 +3770,7 @@ const tglBulan=k=>{const d=new Date(k+'T00:00:00');return d.getDate()+' '+BULAN[
 /* ---------- sumber data: API live, fallback snapshot ---------- */
 const snapEl=document.getElementById('dbSnapshot');
 let snapshot=null;
+let RAW_LIVE=''; /* v2.42 · sidik karakt data hidup (JSON.stringify payload) — dibandingkan dengan snapshot tertanam untuk memutuskan perlu repaint */
 try{snapshot=snapEl?JSON.parse(snapEl.textContent):null}catch(_){}
 let DB=null, LIVE=false, DBAT='', DBSRC='';
 async function loadData(){
@@ -3743,7 +3778,7 @@ async function loadData(){
     const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),4500);
     const r=await fetch('/api/rutina',{cache:'no-store',signal:ctl.signal});
     clearTimeout(t);
-    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';return}}
+    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}}
   }catch(err){}
   if(snapshot&&snapshot.ok){DB=snapshot.data;DBAT=snapshot.fetchedAt||''}
 }
@@ -8095,14 +8130,13 @@ function tunasWake(){
   },1700);
 })();
 
-/* ---------- init ---------- */
-(async function init(){
-  const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
-  await loadData();
-  ovApply(); /* v2.21 · lapisan lokal pengguna diterapkan di atas data server */
-  if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();renderIdentityCard(true);tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
-  prepData();syncToday();
-  const recN=materializeRecurring(); /* v2.37 · transaksi berulang jatuh tempo dilahirkan */
+/* ---------- v2.42 · FIRST PAINT INSTAN + DATA BASI TERLIHAT ----------
+   paintAll — seluruh blok render struktur (dipakai seed-snapshot DAN data
+   hidup, jadi tak bisa terjadi "setengah dilukis"). applyLive — terapkan
+   data hidup: bila isinya sama dengan yang sudah dilukis, TIDAK ada repaint
+   (nol churn); bila berbeda, angka menggulir lewat countUp yang ada. */
+let paintAllOnce=false;
+function paintAll(){
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
   renderQuickCard();renderGarden();renderCheckinCard(); /* v2.37 · v2.39 */
@@ -8114,11 +8148,76 @@ function tunasWake(){
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
-  /* v2.26 · hidup ambien: atmosfer kelopak kanvas di hero + parallax pointer */
-  ambientHero();
-  heroParallax();
-  if(recN)setTimeout(()=>toast('Transaksi berulang diterapkan',`${recN} catatan langganan yang jatuh tempo sudah dibuatkan otomatis.`,'i-leaf','sky'),1400); /* v2.37 */
-  if(tunas)tunasWake();
+  if(!paintAllOnce){paintAllOnce=true;ambientHero();heroParallax()} /* v2.26 · hidup ambien sekali saja */
+}
+let PAINTED=null; /* v2.42 · sidik payload yang SUDAH dilukis (seed snapshot) */
+function applyLive(){
+  ovApply(); /* lapisan lokal pengguna di atas data terbaru */
+  if(!DB)return;
+  if(LIVE!==true)return; /* fetch belum berhasil — tampilan seed sudah benar */
+  if(PAINTED&&RAW_LIVE===PAINTED)return; /* isinya identik — tanpa repaint, nol churn */
+  prepData();syncToday();
+  const recN=materializeRecurring(); /* v2.37 · transaksi berulang jatuh tempo dilahirkan */
+  paintAll();
+  if(recN)setTimeout(()=>toast('Transaksi berulang diterapkan',`${recN} catatan langganan yang jatuh tempo sudah dibuatkan otomatis.`,'i-leaf','sky'),1400);
+}
+let staleTries=0;
+function staleDate(){try{return new Date(DBAT).toLocaleDateString('id-ID',{day:'numeric',month:'short'})}catch(_){return 'terakhir tersimpan'}}
+function staleArm(){
+  const bar=$('#staleBar');if(!bar||!bar.hidden)return;
+  $('#staleTxt').textContent=`Data per ${staleDate()} — koneksi database belum terjangkau.`;
+  bar.hidden=false;
+  staleTries=0;
+  setTimeout(staleRetry,9000); /* v2.42 · coba ulang otomatis (backoff 9/18/27 dtk) */
+}
+async function staleRetry(){
+  if(LIVE===true){const b=$('#staleBar');if(b)b.hidden=true;return}
+  staleTries++;
+  await loadData();
+  if(LIVE===true){
+    applyLive();
+    const b=$('#staleBar');if(b)b.hidden=true;
+    toast('Data terbaru tersambung','Data segar dari database berhasil dimuat.','i-check','sage');
+  }else if(staleTries<3){
+    setTimeout(staleRetry,9000);
+  }
+}
+/* v2.42 · tombol "Coba lagi" di chip data basi — umpan balik saat mencoba */
+const staleBtn=$('#staleRetryBtn');
+if(staleBtn)staleBtn.addEventListener('click',async()=>{
+  if(staleBusy||LIVE===true)return;
+  staleBusy=true;const lbl=staleBtn.textContent;staleBtn.textContent='Mencoba…';
+  try{await staleRetry()}
+  finally{
+    staleBusy=false;
+    const b=$('#staleBar');
+    if(b&&b.hidden)staleBtn.textContent=lbl; /* sukses → bar disembunyikan, label kembali untuk pemakaian nanti */
+  }
+});
+let staleBusy=false;
+
+/* ---------- init ---------- */
+(async function init(){
+  const tunas=tunasPrep(); // sembunyikan section Ringkasan sebelum data tiba (bila animasi aktif)
+  /* v2.42 · FIRST PAINT INSTAN — snapshot tertanam dilukis SEKARANG; jaringan
+     menyusul di latar. Buka app di jaringan lemah tetap menampilkan taman
+     penuh (dengan animasi tunas), bukan 2,5 detik halaman sunyi menunggu
+     fetch — audit "hilang-muncul saat app dibuka". */
+  if(snapshot&&snapshot.ok&&snapshot.data){
+    try{PAINTED=JSON.stringify(snapshot.data)}catch(_){}
+  }
+  if(PAINTED){
+    DB=snapshot.data;DBAT=snapshot.fetchedAt||'';LIVE=false;
+    ovApply();prepData();syncToday();
+    materializeRecurring();
+    paintAll();
+    if(tunas)tunasWake();
+  }
+  await loadData();
+  if(!DB){$('#greetTitle').textContent='Rutina';renderMotiv();renderIdentityCard(true);tunasReveal();toast('Data belum terjangkau','Menampilkan tampilan kosong · muat ulang untuk mencoba lagi.','i-x','honey');return}
+  applyLive();
+  if(tunas&&!PAINTED)tunasWake();
+  if(!LIVE&&PAINTED)staleArm(); /* v2.42 · data basi terlihat + coba ulang otomatis */
   /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
   setTimeout(()=>{syncFlush();paintSyncRow()},1100);
 })();
@@ -8136,7 +8235,15 @@ if('serviceWorker' in navigator){
   const swHadController=Boolean(navigator.serviceWorker.controller); /* klaim pertama = instalasi, bukan pembaruan */
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
     if(swReloaded||!swHadController)return; /* cegah muat ulang muter-muter */
-    swReloaded=true;location.reload();
+    swReloaded=true;
+    /* v2.42 · muat ulang hanya di saat AMAN: dulu controllerchange langsung
+       memanggil location.reload() — pembaruan SW yang aktif di tengah sesi
+       mencabut halaman dari bawah tangan pengguna (audit "hilang-muncul").
+       Kini reload ditunda sampai tab berpindah visibilitas (pergi lalu
+       kembali); bila sedang tersembunyi saat itu, langsung segarkan. */
+    if(document.hidden){location.reload();return}
+    const onVis=()=>{document.removeEventListener('visibilitychange',onVis);location.reload()};
+    document.addEventListener('visibilitychange',onVis);
   });
   if(!swDevLocal)window.addEventListener('load',()=>{
     navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(reg=>{
