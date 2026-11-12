@@ -8,6 +8,15 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.43 · TOTAL TIAP TANGGAL DI MUTASI TRANSAKSI — kepala grup tanggal di
+     daftar arus kas kini membawa total hari: label hari kiri, nominal kanan
+     (pola rekening-koron, selaras strip Masuk/Keluar/Net di atasnya).
+     "Total" mengikuti filter aktif sehingga selalu cocok dengan baris yang
+     tampak: filter Semua → net harian (masuk−keluar, transfer netral),
+     filter Masuk/Keluar/Transfer → jumlah jenis tersebut. Rincian kecil
+     "+masuk · –keluar" tampil di layar ≥480px, tooltip merinci jumlah
+     transaksi tiap jenis. Nominal memakai t-num (angka tabular) + warna
+     sage/rose senada tipografi angka aplikasi. -->
 <!-- v2.42 · PULIHAN AUDIT "HILANG-MUNCUL SAAT APP DIBUKA" — (1) FIRST
      PAINT INSTAN: data penuh sudah tertanam di file (#dbSnapshot) namun
      seluruh render menunggu fetch /api/rutina (hingga 4,5 dtk timeout) —
@@ -919,7 +928,15 @@ b,strong{font-weight:600}
 .search-box .ic{width:16px;height:16px;color:var(--ink-3)}
 .search-box input{border:none;background:none;outline:none;width:100%;font-size:13.5px;font-weight:500}
 .search-box input::placeholder{color:var(--ink-3)}
-.tx-date{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
+/* v2.43 · kepala tanggal mutasi kini membawa TOTAL HARI: label kiri, nominal
+   kanan (pola rekening-koron ala strip mut-sum di atasnya). Rincian +/– kecil
+   hanya tampil ≥480px supaya layar ponsel tak sesak. */
+.tx-date{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 6px 8px}
+.tx-date-lbl{min-width:0}
+.tx-date-tot{display:inline-flex;align-items:baseline;gap:8px;flex:none;letter-spacing:0;text-transform:none;color:var(--ink-2)}
+.tx-date-tot small{display:none;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:0}
+.tx-date-tot b{font-size:12.5px;font-weight:700;letter-spacing:0}
+@media(min-width:480px){.tx-date-tot small{display:inline}}
 .tx-row{position:relative;overflow:hidden;border-radius:14px;touch-action:pan-y}
 .tx-inner{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:10px 12px;background:var(--surface);position:relative;transition:transform .3s var(--ease-tunas),background .15s}
 /* v2.25 · semua anak grid baris transaksi boleh menyusut (juga >640px —
@@ -3747,7 +3764,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.42';
+const APP_VERSION='v2.43';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -6254,6 +6271,27 @@ function renderSaldoBank(){
   staggerList($('#saldoFlow'),'.sf-row',{cap:10});
 }
 
+/* v2.43 · kepala tanggal mutasi transaksi — label hari kiri, TOTAL HARI kanan.
+   "Total" mengikuti filter aktif supaya angka selalu cocok dengan baris yang
+   tampak di bawahnya: Semua → net (masuk−keluar, transfer netral, keterangan
+   rupiah() membubuhkan – untuk negatif); Masuk/Keluar/Transfer → jumlah jenis
+   itu. Rincian +/– kecil tampil di layar ≥480px; tooltip selalu merinci jumlah
+   transaksi tiap jenis. Hari yang hanya berisi transfer → tunjuk nilai ⇄. */
+function txDateHeadHTML(lbl,d,f){
+  let tot,col,brk='';
+  if(f==='masuk'){tot=d.in?`+${rupiah(d.in)}`:'Rp 0';col=d.in?'var(--sage-deep)':'var(--ink-3)'}
+  else if(f==='keluar'){tot=d.out?`–${rupiah(d.out)}`:'Rp 0';col=d.out?'var(--rose-deep)':'var(--ink-3)'}
+  else if(f==='transfer'){tot=d.tf?`⇄ ${rupiah(d.tf)}`:'Rp 0';col='var(--ink-3)'}
+  else if(d.in||d.out){
+    const net=d.in-d.out;
+    tot=net>0?`+${rupiah(net)}`:rupiah(net);
+    col=net<0?'var(--rose-deep)':net>0?'var(--sage-deep)':'var(--ink-3)';
+    if(d.in&&d.out)brk=`<small>+${rupiah(d.in)} · –${rupiah(d.out)}</small>`;
+  }else{tot=d.tf?`⇄ ${rupiah(d.tf)}`:'Rp 0';col='var(--ink-3)'}
+  const tip=`${d.n} transaksi${d.in?` · +${rupiah(d.in)} masuk`:''}${d.out?` · –${rupiah(d.out)} keluar`:''}${d.tf?` · ⇄ ${rupiah(d.tf)} transfer`:''}`;
+  return `<div class="tx-date"><span class="tx-date-lbl">${lbl}</span><span class="tx-date-tot nw t-num" title="${esc(tip)}">${brk}<b style="color:${col}">${tot}</b></span></div>`;
+}
+
 function renderTx(){
   const f=state.txFilter,q=state.txQuery.trim().toLowerCase(),mk=state.txMonth,cur=dayKey(TODAY).slice(0,7);
   let list=TXS.filter(t=>(mk==='ALL'||t.date.slice(0,7)===mk)&&(f==='semua'||(f==='masuk'?t.type==='income':f==='keluar'?t.type==='expense':t.type==='transfer')));
@@ -6272,12 +6310,18 @@ function renderTx(){
   }
   let html='',lastKey='';
   const tk=dayKey(TODAY),yk=dayKey(addDays(TODAY,-1));
+  /* v2.43 · total tiap tanggal diakumulasi dari baris yang TAMPAK (ikut filter
+     jenis, bulan, dan kata kunci pencarian) — angka kepala grup == jumlah baris
+     di bawahnya, apa pun kombinasi filternya. */
+  const dayTot={};
+  list.forEach(t=>{const d=dayTot[t.date]||(dayTot[t.date]={in:0,out:0,tf:0,n:0});
+    if(t.type==='income')d.in+=t.amount;else if(t.type==='expense')d.out+=t.amount;else d.tf+=t.amount;d.n++});
   list.forEach(t=>{
     let lbl;
     if(t.date===tk)lbl='Hari ini';
     else if(t.date===yk)lbl='Kemarin';
     else{const d=new Date(t.date+'T00:00:00');lbl=`${HARI[d.getDay()]}, ${d.getDate()} ${BULAN_S[d.getMonth()]}${d.getFullYear()!==TODAY.getFullYear()?' '+d.getFullYear():''}`}
-    if(lbl!==lastKey){html+=`<div class="tx-date">${lbl}</div>`;lastKey=lbl}
+    if(lbl!==lastKey){html+=txDateHeadHTML(lbl,dayTot[t.date],f);lastKey=lbl}
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
     const cls=t.type==='income'?'masuk':t.type==='expense'?'keluar':'tf';
     const sign=t.type==='income'?'+':t.type==='expense'?'–':'⇄ ';

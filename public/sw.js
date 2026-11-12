@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v44"; // v2.42 — first-paint instan dari snapshot tertanam, penanda data basi + coba-ulang, reload SW aman (visibility), preload font; v43 memuat fix flicker gulir
+const STATIC_CACHE = "rutina-static-v45"; // v2.43 — total tiap tanggal di mutasi transaksi (kepala grup rekening-koron); v44 memuat first-paint instan + penanda data basi + reload SW aman
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;
