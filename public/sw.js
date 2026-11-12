@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v46"; // v2.44 — kartu arus kas hari ini di Ringkasan (total keluar/masuk/net + pos teratas + daftar) + polish audit (titik check-in 44px); v45 memuat total tiap tanggal di mutasi
+const STATIC_CACHE = "rutina-static-v47"; // v2.45 — kartu arus kas hari ini penuh ilustrasi (jalur aliran + ubin berilustrasi + bedeng pos) & catat cepat dihapus; v46 memuat kartu arus kas v2.44 + polish audit
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

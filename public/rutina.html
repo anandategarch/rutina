@@ -8,6 +8,17 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.45 · ARUS KAS HARI INI PENUH ILUSTRASI + CATAT CEPAT DIBUANG —
+     (1) Kartu arus kas Ringkasan kini berbahasa VISUAL, bukan angka
+     telanjang: jalur aliran proporsional (porsi masuk sage vs keluar
+     rose, label %), tiga ubin berilustrasi — keranjang (keluar) ·
+     tabungan (masuk) · tunas (net, tintu berganti tanda surplus/
+     defisit) — masing-masing dengan metera banding, bedeng pos teratas
+     sebagai bar kebun berwarna kategori, lalu daftar hari ini. (2)
+     Catat cepat (v2.37–2.38) dihapus atas permintaan pengguna:
+     kartu, CSS .qa-*, renderQuickCard + seluruh handler ikut dibuang
+     (nol dead code); catatan kosong hari ini kini menunjuk form
+     transaksi lengkap. -->
 <!-- v2.44 · ARUS KAS HARI INI DI RINGKASAN + POLISH UI/UX — (1) KARTU BARU:
      "hari ini habis berapa" kini terjawab di halaman depan — kartu
      rekening-koron harian (strip Keluar/Masuk/Net ala mut-sum varian dalam)
@@ -725,41 +736,6 @@ b,strong{font-weight:600}
   .id-form .btn{width:100%}
 }
 
-/* ---------- v2.38 · kartu catat cepat (Ringkasan) ----------
-   Dua pintu satu kartu: chip kebiasaan sekali-tap (catat selesai dalam
-   satu ketukan) + komposer transaksi 3-ketuk. DESAIN ULANG v2.38: dulu
-   input nominal & dompet dirender sebagai kontrol mentah — gaya .field
-   (48px, radius 14, tepi 1.5px, fokus cincin terra) hanya berlaku pada
-   turunan .field, sedangkan .money/.qa-tx tidak membungkusnya; dompet
-   tampil sebagai <select> bawaan browser, dan art kepala memakai kelas
-   .head-art.terra yang tak pernah terdefinisi (varian sah: em/honey/
-   sage/sky/blue) → ubin tanpa latar. Kini komposer berbahasa form
-   aplikasi penuh: .field bertepi & se-tinggi 48px, tombol Catat
-   melurus stretch pada satu baris input; art honey menegaskan ranah
-   uang (sepupu kartu Arus kas ber-ill-koin sama); chip tetap konvensi
-   .chip agar terasa satu keluarga. */
-.qa-card{padding:18px 20px;margin-bottom:24px}
-.qa-sec+.qa-sec{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line)}
-.qa-habs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin}
-.qa-hab{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:border-color .18s,color .18s,background .18s;max-width:168px}
-.qa-hab .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.qa-hab .ic{width:13px;height:13px;flex:none;color:var(--ink-3)}
-.qa-hab:hover{border-color:var(--terra);color:var(--terra-deep)}
-.qa-hab.done{background:var(--terra-strong);border-color:var(--terra-strong);color:#fff}
-.qa-hab.done .ic{color:#fff}
-.qa-tx{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
-.qa-tx .field{margin:0;min-width:0}
-.qa-tx .qa-amt{flex:1;max-width:300px}
-.qa-tx .qa-src{flex:none;width:178px;display:flex} /* select mengisi tinggi baris stretch — se-tinggi nominal & tombol */
-.qa-tx .qa-go{min-height:48px}
-.qa-cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.qa-hint{font-size:11.5px;color:var(--ink-3);margin-top:10px}
-@media(max-width:640px){
-  .qa-card{padding:15px 15px}
-  .qa-tx .qa-amt{max-width:none;flex-basis:100%} /* nominal memenuhi baris sendiri (basis 100% memaksa wrap), bukan berjejalan 3-1-baris */
-  .qa-tx .qa-src{flex:none;width:calc(50% - 5px)} /* dompet & tombol berbagi baris tepat 50/50 (deterministik) */
-  .qa-tx .qa-go{flex:none;width:calc(50% - 5px)}
-}
 /* ---------- v2.37 · pembanding pekan (kartu Ritme aktivitas) ---------- */
 .week-cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .wc-cell{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:13px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
@@ -2592,15 +2568,19 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
   </div>
 
-  <!-- ARUS KAS HARI INI (v2.44) — permintaan pengguna: "hari ini habis berapa"
-       harus terjawab langsung di Ringkasan. Kartu rekening-koron harian: strip
-       Keluar/Masuk/Net (pola mut-sum) + pos teratas + daftar ringkas hari ini;
-       ketuk kartu untuk bedah penuh (drill hari), ketuk baris untuk bedah
-       transaksinya. Judul memakai bahasa pengguna: "Hari ini habis Rp X". -->
+  <!-- ARUS KAS HARI INI (v2.44 · kini v2.45 PENUH ILUSTRASI) — permintaan
+       pengguna: "hari ini habis berapa" harus terjawab langsung di
+       Ringkasan — dan jangan cuma angka biasa: (1) jalur aliran
+       proporsional sage/rose dengan label porsi, (2) tiga ubin
+       berilustrasi (keranjang keluar · tabungan masuk · tunas net)
+       dengan metera banding + tintu tanda, (3) bedeng pos teratas
+       ber-bar warna kategori, (4) daftar ringkas hari ini (drillable).
+       Ketuk kartu → bedah hari; ketuk baris → bedah transaksinya.
+       Judul memakai bahasa pengguna: "Hari ini habis Rp X". -->
   <div class="card card-pad today-card drillable" id="todayCard" data-drill="stat-day" title="Ketuk: bedah arus kas hari ini">
-    <div class="card-head" style="margin-bottom:12px">
+    <div class="card-head" style="margin-bottom:14px">
       <div class="ch-title">
-        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
         <div>
           <div class="eyebrow">Arus kas hari ini · <span id="tdDate">—</span></div>
           <h3 class="h-serif" id="todayTitle">Hari ini habis Rp 0</h3>
@@ -2608,44 +2588,41 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <span class="pill" id="todayPill" style="background:var(--surface-2);color:var(--ink-2)">—</span>
     </div>
-    <div class="today-sum" role="group" aria-label="Arus kas hari ini">
-      <div class="mut-cell"><small>Keluar</small><b class="t-num" id="tdOut" style="color:var(--rose-deep)">Rp 0</b><span id="tdOutSub">—</span></div>
-      <div class="mut-cell"><small>Masuk</small><b class="t-num" id="tdIn" style="color:var(--sage-deep)">Rp 0</b><span id="tdInSub">—</span></div>
-      <div class="mut-cell"><small>Net</small><b class="t-num" id="tdNet">Rp 0</b><span id="tdNetSub">—</span></div>
+    <div class="today-flow" role="group" aria-label="Perbandingan arus masuk dan keluar hari ini">
+      <div class="tf-side tf-in-side"><small>masuk</small><b class="t-num" id="tfInAmt">Rp 0</b></div>
+      <div class="tf-track" id="tfTrack" aria-hidden="true">
+        <i class="tf-in" id="tfInSeg"></i><i class="tf-out" id="tfOutSeg"></i>
+        <span class="tf-pct in" id="tfInPct" hidden>0%</span>
+        <span class="tf-pct out" id="tfOutPct" hidden>0%</span>
+        <span class="tf-idle" id="tfIdle" hidden>belum ada aliran</span>
+      </div>
+      <div class="tf-side tf-out-side"><small>keluar</small><b class="t-num" id="tfOutAmt">Rp 0</b></div>
     </div>
-    <div class="today-chips" id="todayChips" role="group" aria-label="Pos pengeluaran teratas hari ini"></div>
-    <div class="today-rows" id="todayRows"></div>
-  </div>
-
-  <!-- CATAT CEPAT (v2.37) — pintu tercepat mencatat: chip kebiasaan
-       sekali-tap + komposer pengeluaran 3-ketuk, tanpa pindah tab.
-       v2.38 · desain ulang komposer: nominal & dompet dibungkus .field
-       (bahasa form aplikasi — bertepi, 48px, radius 14, fokus terra)
-       dan art kepala memakai varian honey yang sah (ranah uang). -->
-  <div class="card qa-card" id="quickCard">
-    <div class="card-head" style="margin-bottom:10px">
-      <div class="ch-title">
-        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
-        <div>
-          <div class="eyebrow">Catat cepat</div>
-          <h3 class="h-serif">Satu ketukan, satu catatan</h3>
-        </div>
+    <div class="today-tiles">
+      <div class="today-tile to-out">
+        <span class="tt-art"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
+        <small class="tt-lbl">Keluar</small>
+        <b class="t-num tt-num" id="tdOut">Rp 0</b>
+        <span class="tt-sub" id="tdOutSub">—</span>
+        <div class="tt-meter"><span class="tt-track"><i id="tdOutBar"></i></span></div>
+      </div>
+      <div class="today-tile to-in">
+        <span class="tt-art"><svg class="ill" aria-hidden="true"><use href="#ill-tabungan"/></svg></span>
+        <small class="tt-lbl">Masuk</small>
+        <b class="t-num tt-num" id="tdIn">Rp 0</b>
+        <span class="tt-sub" id="tdInSub">—</span>
+        <div class="tt-meter"><span class="tt-track"><i id="tdInBar"></i></span></div>
+      </div>
+      <div class="today-tile to-net" id="tdNetTile">
+        <span class="tt-art"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
+        <small class="tt-lbl">Net</small>
+        <b class="t-num tt-num" id="tdNet">Rp 0</b>
+        <span class="tt-sub" id="tdNetSub">—</span>
+        <div class="tt-meter"><span class="tt-track"><i id="tdNetBar"></i></span></div>
       </div>
     </div>
-    <div class="qa-sec">
-      <div class="eyebrow" style="margin-bottom:8px">Kebiasaan hari ini</div>
-      <div class="qa-habs" id="qaHabs" role="group" aria-label="Catat cepat kebiasaan hari ini"></div>
-    </div>
-    <div class="qa-sec">
-      <div class="eyebrow" style="margin-bottom:8px">Pengeluaran kilat</div>
-      <form class="qa-tx" id="qaTxForm">
-        <div class="field qa-amt"><div class="money"><span>Rp</span><input type="text" id="qaAmount" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Nominal pengeluaran cepat"></div></div>
-        <div class="field qa-src"><select id="qaSrc" aria-label="Dompet sumber pengeluaran"></select></div>
-        <button type="submit" class="btn btn-primary qa-go"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Catat</button>
-      </form>
-      <div class="qa-cats" id="qaCats" role="group" aria-label="Kategori pengeluaran cepat"></div>
-      <p class="qa-hint">Butuh pemasukan, transfer, atau catatan panjang? <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">Buka form lengkap</button></p>
-    </div>
+    <div class="today-beds" id="todayBeds" role="group" aria-label="Pos pengeluaran teratas hari ini"></div>
+    <div class="today-rows" id="todayRows"></div>
   </div>
 
   <!-- CHECK-IN HARIAN (v2.39) — mood · energi · tidur: satu kartu kecil
@@ -3704,25 +3681,84 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   .mut-cell b{font-size:15.5px;flex:none}
   .mut-cell span{margin:0 0 0 auto;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
-/* ---------- v2.44 · kartu arus kas hari ini (Ringkasan) — strip mut-sum
-   varian dalam (surface-2) + chip pos teratas + daftar drill-row ---------- */
-.today-sum{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface-2);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden}
-.today-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.today-chips:empty{display:none}
-.today-chips .pill{padding:5px 11px;font-size:12px}
-.today-chips .pill i{width:8px;height:8px;border-radius:99px;flex:none}
+/* ---------- v2.45 · kartu arus kas hari ini (Ringkasan) — PENUH ILUSTRASI ----------
+   Angka dikawal visual tiga lapis (tema kebun): (1) jalur aliran —
+   porsi masuk (sage) vs keluar (rose) dari total aliran, label % di
+   dalam segmen; (2) tiga ubin berilustrasi — keranjang/tabungan/tunas
+   bawaan sprite, tintu lembut rose/sage/honey + metera banding
+   (skala relatif metrik terbesar hari ini); (3) bedeng pos teratas —
+   bar kecil berwarna kategori, porsi dari pengeluaran hari ini.
+   Bahasa warna satu keluarga strip mutasi & tipografi angka (t-num). */
+.today-flow{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.tf-side{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tf-side small{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.tf-side b{font-size:13px;font-weight:600;white-space:nowrap}
+.tf-in-side b{color:var(--sage-deep)}
+.tf-out-side b{color:var(--rose-deep)}
+.tf-out-side{text-align:right;align-items:flex-end}
+.tf-track{position:relative;display:flex;height:18px;border-radius:99px;background:var(--bg-deep);border:1px solid var(--line-soft);overflow:hidden}
+.tf-track i{display:block;height:100%;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.tf-track .tf-in{background:var(--sage)}
+.tf-track .tf-out{background:var(--rose)}
+.tf-pct{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700;color:rgba(15,23,42,.8);pointer-events:none;letter-spacing:.02em}
+.tf-pct.in{left:9px}
+.tf-pct.out{right:9px}
+.tf-track.idle{background:transparent;border:1.5px dashed var(--line);align-items:center;justify-content:center}
+.tf-track.idle i,.tf-track.idle .tf-pct{display:none}
+.tf-idle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.today-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.today-tile{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:12px 8px 11px;border-radius:15px;border:1px solid var(--line-soft);min-width:0}
+.today-tile .ill{width:44px;height:44px;flex:none;margin-bottom:3px}
+.tt-lbl{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.tt-sub{color:var(--ink-3);font-size:10.5px;font-weight:600}
+.today-tile .tt-num{font-size:14.5px;font-weight:600;line-height:1.3;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tt-sub{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-meter{display:flex;gap:6px;align-items:center;width:100%;padding:0 7px;margin-top:5px}
+.tt-meter .tt-track{flex:1;height:5px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
+.tt-meter .tt-track i{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.today-tile.to-out{background:var(--rose-softer);border-color:var(--rose-line)}
+.today-tile.to-out .tt-lbl{color:var(--rose-deep)}
+.today-tile.to-out .tt-track i{background:var(--rose)}
+.today-tile.to-in{background:#ECFDF5;border-color:#A7F3D0}
+.today-tile.to-in .tt-lbl{color:var(--sage-deep)}
+.today-tile.to-in .tt-track i{background:var(--sage)}
+.today-tile.to-net{background:var(--honey-soft);border-color:#FDE68A}
+.today-tile.to-net .tt-lbl{color:var(--honey-deep)}
+.today-tile.to-net .tt-track i{background:var(--honey)}
+.today-tile.to-net.to-pos{background:#ECFDF5;border-color:#A7F3D0}
+.today-tile.to-net.to-pos .tt-lbl{color:var(--sage-deep)}
+.today-tile.to-net.to-pos .tt-track i{background:var(--sage)}
+.today-tile.to-net.to-neg{background:var(--rose-softer);border-color:var(--rose-line)}
+.today-tile.to-net.to-neg .tt-lbl{color:var(--rose-deep)}
+.today-tile.to-net.to-neg .tt-track i{background:var(--rose)}
+.today-beds{margin-top:4px}
+.today-beds:empty{display:none}
+.tb-row{display:flex;flex-direction:column;gap:4px;padding:7px 2px 1px}
+.tb-top{display:flex;align-items:center;gap:7px;min-width:0}
+.tb-dot{width:8px;height:8px;border-radius:99px;flex:none}
+.tb-name{flex:1;min-width:0;font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-top em{font-size:11px;font-style:normal;font-weight:700;color:var(--ink-3);flex:none}
+.tb-top b{font-size:12.5px;font-weight:600;flex:none}
+.tb-bar{height:6px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
+.tb-bar i{display:block;height:100%;border-radius:99px}
 .today-rows{margin-top:10px}
 .today-rows:empty{display:none}
 .today-rows .drill-row{padding:7px 8px}
-.today-note{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+.today-note{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--ink-3);text-align:center}
 .today-note .ic{width:15px;height:15px;flex:none}
 @media(max-width:640px){
-  .today-sum{grid-template-columns:1fr}
-  .today-sum .mut-cell{display:flex;align-items:baseline;gap:10px;border-left:none;border-top:1px solid var(--line-soft);padding:11px 14px}
-  .today-sum .mut-cell:first-child{border-top:none}
-  .today-sum .mut-cell small{margin:0;flex:none}
-  .today-sum .mut-cell b{font-size:15.5px;flex:none}
-  .today-sum .mut-cell span{margin:0 0 0 auto;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .today-flow{grid-template-columns:1fr;gap:5px}
+  .tf-side{flex-direction:row;justify-content:space-between;align-items:baseline;width:100%}
+  .tf-side b{font-size:12.5px}
+  .tf-track{height:16px}
+  .today-tiles{grid-template-columns:1fr;gap:8px}
+  .today-tile{display:grid;grid-template-columns:44px auto 1fr;grid-template-areas:"art lbl sub" "art num num" "art meter meter";align-items:center;column-gap:12px;row-gap:2px;text-align:left;padding:10px 12px}
+  .tt-art{grid-area:art}
+  .today-tile .ill{width:42px;height:42px;margin:0}
+  .tt-lbl{grid-area:lbl;justify-self:start}
+  .tt-sub{grid-area:sub;justify-self:end}
+  .today-tile .tt-num{font-size:15.5px;grid-area:num;justify-self:start}
+  .tt-meter{grid-area:meter;margin-top:1px;padding:0}
 }
 /* ---------- halaman pengaturan ---------- */
 .g-set{grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
@@ -3823,7 +3859,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.44';
+const APP_VERSION='v2.45';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -5212,65 +5248,6 @@ document.addEventListener('click',e=>{
   else if(act==='cancel'){idEditing=false;renderIdentityCard()}
 });
 
-/* ---------- v2.38 · CATAT CEPAT (kartu Ringkasan) ----------
-   Chip kebiasaan sekali-tap memanggil toggleCheck yang sama dengan kartu
-   kebiasaan (jurnal, animasi, suara identitas — semua konsisten). Komposer
-   pengeluaran: nominal → kategori (chip teratas pemakaian bulan ini) →
-   dompet → Catat; masuk lewat jalur txAdd biasa. v2.38: markup komposer
-   kini membungkus nominal/dompet dalam .field sehingga kontrol tampil
-   dengan bahasa form aplikasi (lihat komentar CSS .qa-tx di atas). */
-let qaCat='';
-function renderQuickCard(){
-  const habs=$('#qaHabs'),cats=$('#qaCats'),src=$('#qaSrc');
-  if(!habs||!cats||!src)return;
-  habs.innerHTML=HABITS.length?HABITS.map(h=>{
-    const on=!!doneToday[h.id];
-    return `<button type="button" class="qa-hab ${on?'done':''}" data-qa-check="${esc(h.id)}" aria-pressed="${on}" aria-label="${on?'Batalkan':'Catat'} ${esc(h.name)}${on?' (selesai)':''}">
-      <svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-plus'}"/></svg><span class="nm">${esc(h.name)}</span></button>`;
-  }).join(''):'<p class="qa-hint" style="margin:2px 2px 4px">Belum ada kebiasaan — buat dulu di tab Kebiasaan 🌱</p>';
-  /* kategori kilat: 5 teratas berdasarkan pemakaian bulan ini (fallback urutan daftar) */
-  const mk=dayKey(TODAY).slice(0,7);
-  const usage=expByCat(mk);
-  const ranked=FINCATS.filter(c=>c.type==='expense').map(c=>({name:c.name,emoji:c.emoji,n:usage[c.name]||0})).sort((a,b)=>b.n-a.n).slice(0,5);
-  if(qaCat&&!ranked.some(r=>r.name===qaCat))qaCat='';
-  if(!qaCat&&ranked.length)qaCat=ranked[0].name;
-  cats.innerHTML=ranked.length?ranked.map(r=>`<button type="button" class="chip ${r.name===qaCat?'active':''}" data-qa-cat="${esc(r.name)}" aria-pressed="${r.name===qaCat}">${esc(r.emoji||'')} ${esc(r.name)}</button>`).join(''):'<p class="qa-hint">Belum ada kategori pengeluaran.</p>';
-  /* dompet: pertahankan pilihan bila masih sah */
-  const cur=src.value;
-  src.innerHTML=SOURCES.length?SOURCES.map(s=>`<option value="${esc(s.id)}">${esc(s.emoji||'')} ${esc(s.name)}</option>`).join(''):'<option value="">tanpa dompet</option>';
-  if(cur&&[...src.options].some(o=>o.value===cur))src.value=cur;
-}
-document.addEventListener('click',e=>{
-  const qaChk=e.target.closest('[data-qa-check]');
-  if(qaChk){toggleCheck(qaChk.dataset.qaCheck,qaChk);return}
-  const qaC=e.target.closest('[data-qa-cat]');
-  if(qaC){qaCat=qaC.dataset.qaCat;renderQuickCard();return}
-});
-$('#qaAmount').addEventListener('input',e=>{
-  const digits=e.target.value.replace(/[^\d]/g,'');
-  e.target.value=digits?(+digits).toLocaleString('id-ID'):'';
-});
-$('#qaTxForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const nominal=+($('#qaAmount').value||'0').replace(/\./g,'');
-  if(!nominal){toast('Nominal belum terisi','Ketik dulu angka pengeluarannya.','i-x','rose');return}
-  if(!qaCat){toast('Pilih kategori','Ketuk salah satu kategori pengeluaran di bawah.','i-x','rose');return}
-  const src=$('#qaSrc').value||null;
-  if(!src){toast('Dompet belum ada','Tambahkan dompet dulu lewat tab Keuangan.','i-x','rose');return}
-  const dv=dayKey(TODAY);
-  const baru={id:'local-'+Date.now(),type:'expense',amount:nominal,category:qaCat,sourceId:src,description:qaCat,date:dv,recurrence:null};
-  TXS.unshift(baru);OV.txAdd.unshift({...baru});
-  months=[...new Set([...months,dv.slice(0,7)])].sort();
-  ovPersist();armSyncToast();
-  $('#qaAmount').value='';
-  refinance();fillTxMonths();renderBanner(); /* v2.37 · seluruh halaman keuangan ikut segar (mutasi, saldo, donut, budget) */
-  if(inited.cal)renderDayDetail(state.calSel);
-  flashRows([baru.id]);
-  if(!reduced)botaniRain({kinds:['coin'],n:8});
-  haptic(12);
-  toast('Tercatat ⚡',`${qaCat} · ${rupiah(nominal)} keluar hari ini.`,'i-check','honey');
-});
-
 /* ---------- v2.39 · CHECK-IN HARIAN (kartu Ringkasan) ----------
    Mood · energi · tidur menulis ke tabel DailyLog melalui jurnal OV.dailyLog
    (kunci = tanggal; server UPSERT idempoten). DRAFT disimpan di memori
@@ -5387,7 +5364,7 @@ function renderGarden(){
   if(!strip||!title)return;
   if(!HABITS.length){
     title.textContent='Taman menunggu benih pertama';
-    strip.innerHTML='<p class="qa-hint" style="margin:2px 2px 4px">Tambahkan kebiasaan — tiap satu tumbuh tanamannya sendiri di sini.</p>';
+    strip.innerHTML='<p class="t-sub" style="margin:2px 2px 4px">Tambahkan kebiasaan — tiap satu tumbuh tanamannya sendiri di sini.</p>';
     return;
   }
   const dist={};HABITS.forEach(h=>{const n=gdStage(h.total).n;dist[n]=(dist[n]||0)+1});
@@ -5754,9 +5731,13 @@ function renderStats(){
   animateBars($('#statSpendBar').closest('.stat'));
   renderToday(); /* v2.44 · kartu arus kas hari ini ikut segar di setiap titik render statistik */
 }
-/* ---------- v2.44 · arus kas hari ini (Ringkasan) — "hari ini habis berapa"
-   terjawab di halaman depan: strip Keluar/Masuk/Net + pos teratas + daftar
-   ringkas; nol diberi catatan (pola v2.17), transfer netral tak mengubah net ---------- */
+/* ---------- v2.45 · arus kas hari ini (Ringkasan) — PENUH ILUSTRASI.
+   "hari ini habis berapa" kini dijawab dengan visual bertema kebun:
+   jalur aliran proporsional (sage masuk · rose keluar, label porsi %),
+   tiga ubin berilustrasi (keranjang/tabungan/tunas) dengan metera
+   banding relatif metrik terbesar, dan bedeng pos teratas ber-bar
+   warna kategori. Nol diberi catatan (pola v2.17), transfer netral
+   tak mengubah net ---------- */
 function renderToday(){
   const card=$('#todayCard');if(!card)return;
   const k=dayKey(TODAY);
@@ -5769,29 +5750,57 @@ function renderToday(){
   $('#todayTitle').textContent=keluar?`Hari ini habis ${rupiah(keluar)}`:'Belum ada pengeluaran hari ini';
   $('#todayPill').textContent=`${tx.length} transaksi`;
   $('#tdDate').textContent=tglPendek(k);
+  /* jalur aliran: porsi masuk/keluar dari total aliran; netral saat kosong */
+  const flow=masuk+keluar;
+  const wIn=flow?masuk/flow*100:0,wOut=flow?keluar/flow*100:0;
+  $('#tfInAmt').textContent=(masuk?'+':'')+rupiah(masuk);
+  $('#tfOutAmt').textContent=(keluar?'–':'')+rupiah(keluar);
+  $('#tfInSeg').style.width=wIn+'%';
+  $('#tfOutSeg').style.width=wOut+'%';
+  const inP=$('#tfInPct'),outP=$('#tfOutPct');
+  inP.hidden=wIn<16;inP.textContent=Math.round(wIn)+'%';
+  outP.hidden=wOut<16;outP.textContent=Math.round(wOut)+'%';
+  $('#tfTrack').classList.toggle('idle',!flow);
+  $('#tfIdle').hidden=!!flow;
+  /* ubin berilustrasi: angka + metera (skala = metrik terbesar hari ini) */
+  const maxV=Math.max(masuk,keluar,Math.abs(net),1);
   countUp($('#tdOut'),keluar);
   const oEl=$('#tdOut');oEl.style.color=keluar?'var(--rose-deep)':'';oEl.classList.toggle('num-zero',!keluar);
-  $('#tdOutSub').textContent=nOut?`${nOut} keluar`:'Belum ada yang keluar';
+  $('#tdOutSub').textContent=nOut?`${nOut} catatan`:'belum ada';
+  $('#tdOutBar').style.width=(keluar/maxV*100)+'%';
   countUp($('#tdIn'),masuk);
   const iEl=$('#tdIn');iEl.style.color=masuk?'var(--sage-deep)':'';iEl.classList.toggle('num-zero',!masuk);
-  $('#tdInSub').textContent=nIn?`${nIn} masuk`:'Belum ada yang masuk';
+  $('#tdInSub').textContent=nIn?`${nIn} catatan`:'belum ada';
+  $('#tdInBar').style.width=(masuk/maxV*100)+'%';
   const netEl=$('#tdNet');countUp(netEl,net);
   netEl.style.color=net<0?'var(--rose-deep)':net>0?'var(--sage-deep)':'';
-  $('#tdNetSub').textContent=(nTf?`${nTf} transfer · `:'')+'transfer netral';
-  /* pos pengeluaran teratas hari ini — chip dengan titik warna kategori */
+  netEl.classList.toggle('num-zero',!net);
+  $('#tdNetSub').textContent=(net>0?'surplus':net<0?'defisit':'seimbang')+(nTf?` · ${nTf} transfer netral`:'');
+  $('#tdNetBar').style.width=(Math.abs(net)/maxV*100)+'%';
+  const nTile=$('#tdNetTile');
+  nTile.classList.toggle('to-pos',net>0);nTile.classList.toggle('to-neg',net<0);
+  /* bedeng pos teratas: bar kebun berwarna kategori, porsi dari pengeluaran */
   const byCat={};tx.forEach(t=>{if(t.type==='expense')byCat[t.category]=(byCat[t.category]||0)+t.amount});
   const top=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,3);
-  $('#todayChips').innerHTML=top.map(([name,v])=>{
+  $('#todayBeds').innerHTML=top.length?drillCap('Pos teratas hari ini')+top.map(([name,v])=>{
     const st=finStyle(name);
-    return `<span class="pill" style="background:var(--surface-2);color:var(--ink-2)" title="${esc(name)} · ${rupiah(v)} hari ini"><i style="background:${st.c}"></i>${esc(name.length>16?name.slice(0,15)+'…':name)} · ${rupiah(v)}</span>`;
-  }).join('');
+    const pct=keluar?Math.min(100,Math.round(v/keluar*100)):0;
+    return `<div class="tb-row">
+      <div class="tb-top">
+        <i class="tb-dot" style="background:${st.c}"></i>
+        <span class="tb-name" title="${esc(name)} · ${rupiah(v)} hari ini">${esc(name.length>16?name.slice(0,15)+'…':name)}</span>
+        <em class="t-num">${pct}%</em><b class="t-num nw">${rupiah(v)}</b>
+      </div>
+      <div class="tb-bar"><i style="background:${st.c};width:${pct}%"></i></div>
+    </div>`;
+  }).join(''):'';
   /* daftar ringkas hari ini — baris drillable (bedah transaksi), kartu = bedah hari */
   const rowsEl=$('#todayRows');
   if(tx.length){
     const sorted=[...tx].sort((a,b)=>(b.date+b.id).localeCompare(a.date+a.id));
     rowsEl.innerHTML=drillCap(`Catatan hari ini · ${tx.length}`)+txListHTML(sorted,4);
   }else{
-    rowsEl.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada catatan uang hari ini — mulai dari Catat cepat di bawah.</span></div>`;
+    rowsEl.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada catatan uang hari ini — mulai dari <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">form Catat transaksi</button>.</span></div>`;
   }
 }
 /* ---------- v2.8 · banner jatah harian ---------- */
@@ -6954,7 +6963,6 @@ function refreshToday(){
   /* v2.19 · sapaan emosional ikut menyegarkan — momentum/hari sempurna di
      halaman depan berubah begitu kebiasaan terakhir dicentang */
   renderIdentity();
-  renderQuickCard(); /* v2.37 · chip catat cepat ikut status terbaru */
   renderGarden(); /* v2.37 · tanaman yang dicatat hari ini beri centang */
   renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
   renderHabitsHero();renderWawasanHero();
@@ -7590,7 +7598,6 @@ function tunasPrep(){
     page.querySelector('.hero'),
     page.querySelector('.motiv-card'), /* v2.33 · kartu semangat ikut kaskade pagi */
     page.querySelector('.identity-card'), /* v2.35 · kartu suara identitas mengikuti */
-    page.querySelector('.qa-card'), /* v2.37 · kartu catat cepat mengikuti kaskade */
     page.querySelector('.ci-card'), /* v2.39 · kartu check-in harian mengikuti kaskade */
     ...page.querySelectorAll('.stats > .card'),
     page.querySelector('.streak-banner'),
@@ -8283,7 +8290,7 @@ let paintAllOnce=false;
 function paintAll(){
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
-  renderQuickCard();renderGarden();renderCheckinCard(); /* v2.37 · v2.39 */
+  renderGarden();renderCheckinCard(); /* v2.37 · v2.39 */
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
   renderHabitChips();renderHabitCards(true);
   renderFindings();renderReko();renderBadges();
