@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · LAVENDER — pucuk ungu yang menenangkan: kebiasaan kecil penenang
+       di akhir hari (kartu kebiasaan: malam & ketenangan) -->
+  <defs>
+    <radialGradient id="w-lv" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#F5F3FF" stop-opacity=".52"/>
+      <stop offset=".45" stop-color="#FAF9FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FAF9FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sp-lv" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna ladang lavender di sudut -->
+  <rect width="180" height="170" fill="url(#w-lv)"/>
+
+  <!-- tangkai utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+  <path d="M124 16C128 26 134 34 140 40" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" opacity=".78"/>
+
+  <!-- malai lavender utama tegak ke sudut -->
+  <g transform="translate(141 48) rotate(18)">
+    <!-- tangkai malai -->
+    <path d="M0 26C0 12 0 -4 0 -16" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- butir malai (kedua sisi bergantian, menyempit ke puncak) -->
+    <g fill="url(#sp-lv)" stroke="#7C3AED" stroke-width=".8" stroke-linejoin="round">
+      <ellipse cx="-5" cy="12" rx="3.4" ry="5.4" transform="rotate(-26 -5 12)"/>
+      <ellipse cx="5" cy="9" rx="3.4" ry="5.4" transform="rotate(26 5 9)"/>
+      <ellipse cx="-5" cy="4" rx="3.2" ry="5" transform="rotate(-26 -5 4)"/>
+      <ellipse cx="5" cy="1" rx="3.2" ry="5" transform="rotate(26 5 1)"/>
+      <ellipse cx="-4.4" cy="-4" rx="3" ry="4.6" transform="rotate(-26 -4.4 -4)"/>
+      <ellipse cx="4.4" cy="-7" rx="3" ry="4.6" transform="rotate(26 4.4 -7)"/>
+      <ellipse cx="-3.4" cy="-11" rx="2.7" ry="4.2" transform="rotate(-26 -3.4 -11)"/>
+      <ellipse cx="3.4" cy="-14" rx="2.7" ry="4.2" transform="rotate(26 3.4 -14)"/>
+      <ellipse cx="0" cy="-18" rx="2.4" ry="4"/>
+      <ellipse cx="0" cy="22" rx="3" ry="4.6" transform="rotate(14 0 22)"/>
+    </g>
+    <!-- daun ramping lavender -->
+    <path d="M0 24C-7 20 -13 21 -16 25C-11 28 -4 27 0 26Z" fill="#6EE7B7" stroke="#059669" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M0 18C7 14 13 15 16 19C11 22 4 21 0 20Z" fill="#A7F3D0" stroke="#059669" stroke-width=".9" stroke-linejoin="round"/>
+  </g>
+
+  <!-- malai sahabat lebih muda (digeser dari tepi kanan — audit visual) -->
+  <g transform="translate(165 92) rotate(10) scale(.6)">
+    <path d="M0 26C0 12 0 -4 0 -16" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round"/>
+    <g fill="#C4B5FD" stroke="#7C3AED" stroke-width="1.2" stroke-linejoin="round">
+      <ellipse cx="-5" cy="10" rx="3.4" ry="5.4" transform="rotate(-26 -5 10)"/>
+      <ellipse cx="5" cy="7" rx="3.4" ry="5.4" transform="rotate(26 5 7)"/>
+      <ellipse cx="-4" cy="1" rx="3.2" ry="5" transform="rotate(-26 -4 1)"/>
+      <ellipse cx="4" cy="-2" rx="3.2" ry="5" transform="rotate(26 4 -2)"/>
+      <ellipse cx="0" cy="-8" rx="2.6" ry="4.2"/>
+    </g>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="94" cy="46" r="2.6" fill="#FBBF24"/>
+    <circle cx="87" cy="56" r="2.2" fill="#34D399"/>
+    <circle cx="101" cy="36" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M108 78l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

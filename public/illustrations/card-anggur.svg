@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · ANGGUR — rangkaian butir kecil menjadi gugus manis: kebiasaan
+       yang bertumpuk (kartu kebiasaan: runtut & kumpulan) -->
+  <defs>
+    <radialGradient id="w-ag" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#EDE9FE" stop-opacity=".5"/>
+      <stop offset=".45" stop-color="#F5F3FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#F5F3FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bb-ag" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </radialGradient>
+    <linearGradient id="lf-ag" x1="0" y1="0" x2=".3" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna kebun anggur di sudut -->
+  <rect width="180" height="170" fill="url(#w-ag)"/>
+
+  <!-- sulur anggur melengkung ke sudut -->
+  <path d="M56 2C94 4 128 20 152 44C162 54 170 62 176 72" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+  <!-- cabang penggantung gugus -->
+  <path d="M118 16C124 26 132 34 140 40" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" opacity=".78"/>
+
+  <!-- daun anggur -->
+  <g transform="translate(92 18) rotate(-18)">
+    <path d="M0 0C-10 -3 -20 -1 -24 6C-18 12 -8 12 -2 8Z" fill="url(#lf-ag)" stroke="#059669" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M-22 6C-17 5 -12 4 -4 6" fill="none" stroke="#059669" stroke-width=".9" opacity=".55"/>
+  </g>
+  <g transform="translate(160 44) rotate(24) scale(.8)">
+    <path d="M0 0C-10 -3 -20 -1 -24 6C-18 12 -8 12 -2 8Z" fill="url(#lf-ag)" stroke="#059669" stroke-width="1.1" stroke-linejoin="round"/>
+  </g>
+
+  <!-- sulur spiral (ciri khas anggur) -->
+  <path d="M170 92C176 88 180 92 176 96C172 100 167 97 169 92C171 88 166 87 165 91" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+
+  <!-- gugus anggur utama -->
+  <g stroke-linejoin="round">
+    <g fill="url(#bb-ag)" stroke="#7C3AED" stroke-width="1">
+      <circle cx="140" cy="52" r="7.4"/>
+      <circle cx="127" cy="60" r="7.2"/><circle cx="153" cy="60" r="7.2"/>
+      <circle cx="134" cy="73" r="7"/><circle cx="146" cy="73" r="7"/><circle cx="121" cy="72" r="6.4"/>
+      <circle cx="129" cy="86" r="6.6"/><circle cx="140" cy="87" r="6.6"/>
+      <circle cx="134.5" cy="99" r="6.2"/>
+    </g>
+    <!-- kilau butir -->
+    <g fill="#FFFFFF" opacity=".7">
+      <circle cx="137.6" cy="49.6" r="1.7"/>
+      <circle cx="124.6" cy="57.8" r="1.5"/>
+      <circle cx="131.6" cy="70.6" r="1.4"/>
+      <circle cx="127" cy="83.6" r="1.3"/>
+    </g>
+    <!-- tangkai gugus -->
+    <path d="M140 46C139 40 137 34 133 29" fill="none" stroke="#92400E" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- gugus muda sahabat -->
+  <g fill="#C4B5FD" stroke="#7C3AED" stroke-width="1.1">
+    <circle cx="164" cy="112" r="4.6"/>
+    <circle cx="156" cy="118" r="4.2"/><circle cx="170" cy="118" r="4.2"/>
+    <circle cx="161" cy="125" r="3.8"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="68" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="68" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="104" cy="48" r="2.6" fill="#FBBF24"/>
+    <circle cx="112" cy="40" r="2.2" fill="#34D399"/>
+    <circle cx="97" cy="58" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M150 120l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

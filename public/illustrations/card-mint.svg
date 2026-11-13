@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · MINT — daun mint yang segar: kebiasaan kecil penyegar di sela
+       hari (kartu kebiasaan: jeda & menyegarkan) -->
+  <defs>
+    <radialGradient id="w-mt" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".5"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lf-mt" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna kebun mint di sudut -->
+  <rect width="180" height="170" fill="url(#w-mt)"/>
+
+  <!-- tangkai utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+
+  <!-- pasangan daun mint berhadapan, bertangkai pendek (petiole) -->
+  <g stroke="#059669" stroke-linejoin="round">
+    <g transform="translate(84 17) rotate(-40)">
+      <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-mt)" stroke-width=".95"/>
+    </g>
+    <g transform="translate(94 24) rotate(18)">
+      <path d="M0 0C2 3 4 5 5 8" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf-mt)" stroke-width=".95"/>
+    </g>
+    <g transform="translate(114 27) rotate(-36)">
+      <path d="M0 0C-3 2 -6 4 -7 7" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M-7 7C-12 5 -18 6 -20 10C-18 15 -12 16 -7 14C-5.4 11.6 -5.8 9 -7 7Z" fill="url(#lf-mt)" stroke-width=".95"/>
+    </g>
+    <g transform="translate(126 38) rotate(16)">
+      <path d="M0 0C2 3 4 5 5 8" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf-mt)" stroke-width=".95"/>
+    </g>
+    <g transform="translate(146 50) rotate(-30) scale(1.12)">
+      <path d="M0 0C-3 2 -6 4 -7 7" fill="none" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M-7 7C-12 5 -18 6 -20 10C-18 15 -12 16 -7 14C-5.4 11.6 -5.8 9 -7 7Z" fill="url(#lf-mt)" stroke-width=".85"/>
+    </g>
+    <g transform="translate(159 65) rotate(14) scale(1.06)">
+      <path d="M0 0C2 3 4 5 5 8" fill="none" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf-mt)" stroke-width=".85"/>
+    </g>
+  </g>
+
+  <!-- tunas mint kecil bertangkai -->
+  <g transform="translate(169 92) rotate(10) scale(.55)">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-mt)" stroke="#059669" stroke-width="1.7" stroke-linejoin="round"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="94" cy="44" r="2.6" fill="#FBBF24"/>
+    <circle cx="88" cy="54" r="2.2" fill="#34D399"/>
+    <circle cx="100" cy="34" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M118 76l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

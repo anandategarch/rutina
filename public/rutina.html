@@ -8,6 +8,24 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.57 · MOTIF TAMAN PER KEBIASAAN + VARIAN MUSIM — permintaan pengguna:
+     "lanjut ke motif untuk kartu habit grid dan varian musim". Dua lapis baru
+     pada kartu kebiasaan di #habitGrid: (1) MOTIF BOTANI PER KEBIASAAN —
+     keluarga untaian sudut diperluas dari 15 menjadi 25 motif (10 taman baru:
+     wortel · stroberi · anggur · padi · teratai · kacang · lavender · pinus ·
+     maple · mint — semua satu bahasa desain: cuci radial sudut, tangkai
+     melengkung mengikuti sudut, koin amber & percik bintang; audit getBBox
+     browser memastikan tak ada geometri terpotong viewBox). Kartu kebiasaan
+     memakai ukuran untaian tersendiri --ill-habit (76px; 60px ponsel) supaya
+     baris padat tetap terbaca. Penugasan motif: hash(id kebiasaan + musim)
+     dengan penghindaran tabrakan berurutan — semua kartu dalam satu tampilan
+     bermotif unik; motif dikecualikan bila dipakai kartu saudari di tab yang
+     sama (matahari/bambu/laurel/sukulen/bonsai) dan koin (makna keuangan).
+     (2) VARIAN MUSIM — taman ditanam ulang tiap musim: kelas body .musim-*
+     (semi Mar–Mei · panas Jun–Agu · gugur Sep–Nov · dingin Des–Feb) menukar
+     cuci musiman --season-wash (rose/honey/peach/sky) di belakang untaian dan
+     mengacak ulang penugasan motif (hash memakai garam musim), plus eyebrow
+     hero "Ritme tanam · musim X" sebagai penanda musim yang terlihat. -->
 <!-- v2.56 · ILUSTRASI BERBEDA TIAP KARTU — permintaan pengguna: "ilustrasinya
      beda-beda dong tiap card". Keluarga untaian sudut kanan-atas dari satu
      card-sprig diperluas menjadi 15 motif botani (ditambah 4 varian tunas
@@ -358,6 +376,9 @@
   --ill-size-c:150px; /* kartu besar */
   --ill-seg:96px; /* sel strip statistik (stat/mini-stat) */
   --ill-size-mini:72px; /* tunas kiri-bawah */
+  /* v2.57 · untaian kartu kebiasaan — ukuran tersendiri (baris padat, supaya
+     tetap terbaca: untaian lebih kecil daripada kartu besar) */
+  --ill-habit:76px;
 }
 html{scroll-behavior:smooth}
 body{
@@ -506,8 +527,24 @@ b,strong{font-weight:600}
    .card-plain-bl mematikan tunas kiri-bawah untuk grid data (heatmap &
    kalender) supaya angka di sel bawah tetap bersih terbaca. */
 .stat,.mini-stat{background-image:var(--ill-corner);background-size:var(--ill-seg)}
-.scene-stat,.habit-card{background-image:none}
+.scene-stat{background-image:none}
 .card-plain-bl{background-image:var(--ill-corner)}
+/* v2.57 · MOTIF TAMAN PER KEBIASAAN + VARIAN MUSIM — permintaan pengguna:
+   "lanjut ke motif untuk kartu habit grid dan varian musim". Kartu kebiasaan
+   (baris padat, sebelumnya sengaja polos) kini membawa untaian botani sudut
+   ukuran --ill-habit (76px; 60px ponsel) + cuci musiman di belakangnya:
+   lapisan background-image = [untaian motif (atas), cuci musim (bawah)],
+   keduanya jangkar 100% 0 (sudut kanan-atas). Kelas .ill-* dipasang per
+   kebiasaan dari JS (hash id+musim, bebas tabrakan — lihat assignHabitMotifs);
+   varian musim menukar warna cuci lewat kelas body .musim-* yang ditetapkan
+   sesuai bulan berjalan (semi/panas/gugur/dingin) — taman ditanam ulang
+   tiap musim. */
+.habit-card{background-image:var(--ill-corner),var(--season-wash);background-position:100% 0,100% 0;background-size:var(--ill-habit),auto}
+body{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(209,250,229,.38),rgba(209,250,229,0) 70%)}
+body.musim-semi{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(253,231,241,.5),rgba(253,231,241,0) 70%)}
+body.musim-panas{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(254,243,199,.52),rgba(254,243,199,0) 70%)}
+body.musim-gugur{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(255,237,213,.5),rgba(255,237,213,0) 70%)}
+body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,242,254,.46),rgba(224,242,254,0) 70%)}
 /* v2.56 · KARTU BERILUSTRASI BERBEDA TIAP KARTU — permintaan pengguna:
    "ilustrasinya beda-beda dong tiap card". Keluarga untaian sudut kanan-atas
    diperluas dari satu card-sprig menjadi 15 motif botani; tiap kartu memakai
@@ -535,12 +572,27 @@ b,strong{font-weight:600}
 .ill-bonsai{--ill-corner:url("/illustrations/card-bonsai.svg")}
 .ill-teh{--ill-corner:url("/illustrations/card-teh.svg")}
 .ill-sukulen{--ill-corner:url("/illustrations/card-sukulen.svg")}
+/* v2.57 · 10 motif taman baru — makna kebiasaan: wortel=kerapian & rumah ·
+   stroberi=butir kecil terkumpul manis · anggur=runtun bertumpuk · padi=progres
+   & syukur (bulir menunduk saat penuh) · teratai=ketenangan & reset ·
+   kacang=urutan & versi mini · lavender=malam & tenang · pinus=konsistensi
+   lintas musim · maple=adaptasi & ganti rupa · mint=jeda menyegarkan. */
+.ill-wortel{--ill-corner:url("/illustrations/card-wortel.svg")}
+.ill-stroberi{--ill-corner:url("/illustrations/card-stroberi.svg")}
+.ill-anggur{--ill-corner:url("/illustrations/card-anggur.svg")}
+.ill-padi{--ill-corner:url("/illustrations/card-padi.svg")}
+.ill-teratai{--ill-corner:url("/illustrations/card-teratai.svg")}
+.ill-kacang{--ill-corner:url("/illustrations/card-kacang.svg")}
+.ill-lavender{--ill-corner:url("/illustrations/card-lavender.svg")}
+.ill-pinus{--ill-corner:url("/illustrations/card-pinus.svg")}
+.ill-maple{--ill-corner:url("/illustrations/card-maple.svg")}
+.ill-mint{--ill-corner:url("/illustrations/card-mint.svg")}
 .ill-bl-sakura{--ill-mini:url("/illustrations/card-sakura-bl.svg")}
 .ill-bl-gandum{--ill-mini:url("/illustrations/card-gandum-bl.svg")}
 .ill-bl-berry{--ill-mini:url("/illustrations/card-berry-bl.svg")}
 .ill-bl-pakis{--ill-mini:url("/illustrations/card-pakis-bl.svg")}
 @media(max-width:640px){
-  :root{--ill-size-c:132px;--ill-seg:88px;--ill-size-mini:64px} /* ponsel: untaian mengecil proporsional */
+  :root{--ill-size-c:132px;--ill-seg:88px;--ill-size-mini:64px;--ill-habit:60px} /* ponsel: untaian mengecil proporsional */
 }
 .card-pad{padding:14px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
@@ -3036,7 +3088,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="page-hero" id="habitsHero">
     <img class="ph-scene" src="/illustrations/hero-bg-habits.svg" alt="" aria-hidden="true" loading="lazy"/>
     <div class="hero-body">
-      <div class="eyebrow">Ritme tanam</div>
+      <div class="eyebrow" id="habEyebrow">Ritme tanam</div>
       <h2 class="h-serif" id="habHeroTitle">Kebiasaan hari ini</h2>
       <p class="t-sub" id="habHeroSub">Memuat progres hari ini…</p>
       <div class="streak-guard" id="habStreakGuard" hidden><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span id="habStreakTxt"></span></div>
@@ -4200,7 +4252,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.56';
+const APP_VERSION='v2.57';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4867,6 +4919,34 @@ const FIN_STYLE={
 };
 const FIN_PAL=['#059669','#0EA5E9','#3B82F6','#6366F1','#8B5CF6','#EC4899','#F43F5E','#F97316','#EAB308','#14B8A6','#64748B'];
 const hash=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;return h};
+/* v2.57 · MOTIF TAMAN PER KEBIASAAN — kolam motif botani untuk kartu grid
+   kebiasaan: keluarga untaian sudut kini 25 motif (15 v2.56 + 10 taman baru).
+   Dikecualikan dari kolam: koin (maknanya catatan uang) dan motif yang dipakai
+   kartu saudari di tab Kebiasaan (matahari/bambu/laurel = mini-stat, bonsai =
+   kartu taman, sukulen = kalender konsistensi) → kolam 19, supaya dalam SATU
+   tampilan tidak ada dua kartu bermotif sama — lanjutan audit keunikan v2.56. */
+const HABIT_MOTIFS=['sakura','gandum','pakis','berry','jamur','kupu','kunang','kaktus','teh','wortel','stroberi','anggur','padi','teratai','kacang','lavender','pinus','maple','mint'];
+/* v2.57 · VARIAN MUSIM — semi (Mar–Mei) · panas (Jun–Agu) · gugur (Sep–Nov) ·
+   dingin (Des–Feb). Musim menjadi: (a) kelas body .musim-* (cuci warna kartu
+   kebiasaan via CSS), (b) garam hash penugasan motif — taman ditanam ulang
+   tiap musim, (c) penanda eyebrow hero "Ritme tanam · musim X". */
+const seasonOf=d=>{const m=d.getMonth();return m>=2&&m<=4?'semi':m>=5&&m<=7?'panas':m>=8&&m<=10?'gugur':'dingin'};
+function assignHabitMotifs(){
+  const musim=seasonOf(TODAY);
+  document.body.classList.add('musim-'+musim);
+  const eb=$('#habEyebrow');
+  if(eb)eb.textContent='Ritme tanam · musim '+musim;
+  const used=new Set();
+  HABITS.forEach(h=>{
+    /* hash(id+musim): stabil sepanjang musim, berganti tiap musim;
+       penghindaran tabrakan berurutan menjamin tiap kartu bermotif unik
+       (selama jumlah kebiasaan ≤ ukuran kolam; lebihnya dipakai ulang) */
+    let idx=hash(String(h.id)+musim)%HABIT_MOTIFS.length,n=0;
+    while(used.has(HABIT_MOTIFS[idx])&&n<HABIT_MOTIFS.length){idx=(idx+1)%HABIT_MOTIFS.length;n++}
+    used.add(HABIT_MOTIFS[idx]);
+    h.motif=HABIT_MOTIFS[idx];
+  });
+}
 const finStyle=n=>FIN_STYLE[n]||{i:'k-lainnya',c:FIN_PAL[hash(n)%FIN_PAL.length]};
 const SRC_STYLE={cash:{i:'k-kas',c:'#059669'},bank:{i:'k-bank',c:'#0EA5E9'},ewallet:{i:'k-ewallet',c:'#8B5CF6'}};
 const srcStyle=t=>SRC_STYLE[t]||{i:'k-bank',c:'#64748B'};
@@ -4928,6 +5008,7 @@ function prepData(){
     const gb=b.grp?(order[b.grp.id]!==undefined?order[b.grp.id]:9):9;
     return ga!==gb?ga-gb:a.name.localeCompare(b.name);
   });
+  assignHabitMotifs(); /* v2.57 · motif taman per kebiasaan + kelas musim body */
   logsByDate={};(DB.habitLogs||[]).forEach(l=>{if(!l.completed)return;(logsByDate[l.date]=logsByDate[l.date]||[]).push(l.habitId)});
   doneToday={};(logsByDate[dayKey(TODAY)]||[]).forEach(id=>doneToday[id]=true);
   /* habit kuantitatif (amount): nilai hari ini = total unit tercatat dari
@@ -6416,7 +6497,7 @@ function renderHabitCards(anim){
     const nInfo=habitNudge(h,done); /* v2.35 · satu baris bimbingan Atomic Habits */
     const anchor=h.afterId?habitById(h.afterId):null; /* v2.35 · jangkar susun kebiasaan */
     const upRest=(h.rests||[]).find(k=>k>=dayKey(TODAY)); /* v2.54 · jeda terdekat */
-    return `<div class="card habit-card drillable" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail kebiasaan">
+    return `<div class="card habit-card drillable ${h.motif?'ill-'+h.motif:''}" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail kebiasaan">
       <div class="hc-main">
         <div class="hc-top">
           <span class="spot"><svg class="ill" aria-hidden="true"><use href="#${h.ikon}"/></svg></span>

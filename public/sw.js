@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v58"; // v2.56 — ilustrasi sudut kartu kini BERBEDA tiap kartu (15 motif botani + 4 tunas kiri-bawah via kelas .ill-*); v57 memuat v2.55 (untaian botani latar semua kartu)
+const STATIC_CACHE = "rutina-static-v59"; // v2.57 — motif taman per kebiasaan (25 motif, hash id+musim) + varian musim (kelas body .musim-*, cuci --season-wash); v58 memuat v2.56 (15 motif botani tiap kartu via kelas .ill-*)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

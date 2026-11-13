@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · MAPLE — daun maple yang berubah warna: kebiasaan yang berani
+       berganti rupa tiap musim (kartu kebiasaan: adaptasi & ganti versi) -->
+  <defs>
+    <radialGradient id="w-mp" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FFEDD5" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#FFF7ED" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FFF7ED" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lf-mp" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#FDBA74"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="lf-mp2" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#FDA4AF"/>
+      <stop offset="1" stop-color="#E11D48"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna musim gugur di sudut -->
+  <rect width="180" height="170" fill="url(#w-mp)"/>
+
+  <!-- ranting utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#92400E" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+
+  <!-- daun maple besar (amber) — lobus palmate: 5 elengkung runcing dari satu pangkal -->
+  <g transform="translate(141 44) rotate(14)">
+    <g fill="url(#lf-mp)" stroke="#C2410C" stroke-width="1.1" stroke-linejoin="round">
+      <path d="M0 2C-2 -4 -2 -14 0 -26C2 -14 2 -4 0 2Z"/>
+      <path d="M0 0C-3 -6 -8 -13 -15 -17C-10 -8 -5 -2 0 0Z"/>
+      <path d="M0 0C3 -6 8 -13 15 -17C10 -8 5 -2 0 0Z"/>
+      <path d="M0 0C-4 -2 -10 -2 -14 1C-8 2 -3 1 0 0Z"/>
+      <path d="M0 0C4 -2 10 -2 14 1C8 2 3 1 0 0Z"/>
+    </g>
+    <path d="M0 2L0 22" fill="none" stroke="#C2410C" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M0 -8C-2 -12 -5 -14 -8 -15M0 -8C2 -12 5 -14 8 -15" fill="none" stroke="#C2410C" stroke-width=".7" opacity=".55"/>
+  </g>
+
+  <!-- daun maple muda (rose, masih berubah) -->
+  <g transform="translate(112 22) rotate(-16) scale(.62)">
+    <g fill="url(#lf-mp2)" stroke="#BE123C" stroke-width="1.7" stroke-linejoin="round">
+      <path d="M0 2C-2 -4 -2 -14 0 -26C2 -14 2 -4 0 2Z"/>
+      <path d="M0 0C-3 -6 -8 -13 -15 -17C-10 -8 -5 -2 0 0Z"/>
+      <path d="M0 0C3 -6 8 -13 15 -17C10 -8 5 -2 0 0Z"/>
+      <path d="M0 0C-4 -2 -10 -2 -14 1C-8 2 -3 1 0 0Z"/>
+      <path d="M0 0C4 -2 10 -2 14 1C8 2 3 1 0 0Z"/>
+    </g>
+    <path d="M0 2L0 22" fill="none" stroke="#BE123C" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- daun maple mini sahabat -->
+  <g transform="translate(168 100) rotate(24) scale(.46)">
+    <g fill="#FDBA74" stroke="#C2410C" stroke-width="2" stroke-linejoin="round">
+      <path d="M0 2C-2 -4 -2 -14 0 -26C2 -14 2 -4 0 2Z"/>
+      <path d="M0 0C-3 -6 -8 -13 -15 -17C-10 -8 -5 -2 0 0Z"/>
+      <path d="M0 0C3 -6 8 -13 15 -17C10 -8 5 -2 0 0Z"/>
+      <path d="M0 0C-4 -2 -10 -2 -14 1C-8 2 -3 1 0 0Z"/>
+      <path d="M0 0C4 -2 10 -2 14 1C8 2 3 1 0 0Z"/>
+    </g>
+  </g>
+
+  <!-- daun melayang (jauh dari ranting) -->
+  <g transform="translate(88 52) rotate(38) scale(.42)" opacity=".92">
+    <g fill="#FDA4AF" stroke="#BE123C" stroke-width="2.2" stroke-linejoin="round">
+      <path d="M0 2C-2 -4 -2 -14 0 -26C2 -14 2 -4 0 2Z"/>
+      <path d="M0 0C-3 -6 -8 -13 -15 -17C-10 -8 -5 -2 0 0Z"/>
+      <path d="M0 0C3 -6 8 -13 15 -17C10 -8 5 -2 0 0Z"/>
+      <path d="M0 0C-4 -2 -10 -2 -14 1C-8 2 -3 1 0 0Z"/>
+      <path d="M0 0C4 -2 10 -2 14 1C8 2 3 1 0 0Z"/>
+    </g>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="96" cy="38" r="2.6" fill="#FBBF24"/>
+    <circle cx="90" cy="48" r="2.2" fill="#34D399"/>
+    <circle cx="102" cy="28" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M132 76l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

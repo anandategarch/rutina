@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · PADI — bulir emas yang menunduk saat penuh: kebiasaan matang
+       jadi kerendahan hati (kartu kebiasaan: progres & syukur) -->
+  <defs>
+    <radialGradient id="w-pd" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#FFFBEB" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#FFFBEB" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gr-pd" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna ladang emas di sudut -->
+  <rect width="180" height="170" fill="url(#w-pd)"/>
+
+  <!-- batang padi utama menunduk dari sudut -->
+  <path d="M170 108C158 92 146 62 132 34C126 22 118 12 108 8" fill="none" stroke="#D97706" stroke-width="2.8" stroke-linecap="round" opacity=".9"/>
+  <path d="M108 8C104 7 100 8 97 11" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+
+  <!-- bulir padi (baris telinga) di sepanjang ujung batang — digeser turun agar
+       tidak terpotong tepi atas (temuan audit VLM) -->
+  <g transform="translate(0 7)">
+    <g fill="url(#gr-pd)" stroke="#B45309" stroke-width=".9" stroke-linejoin="round">
+      <ellipse cx="100" cy="6" rx="4" ry="7" transform="rotate(24 100 6)"/>
+      <ellipse cx="108" cy="7" rx="4" ry="7" transform="rotate(38 108 7)"/>
+      <ellipse cx="115" cy="10" rx="4" ry="7" transform="rotate(52 115 10)"/>
+      <ellipse cx="120" cy="14" rx="4" ry="7" transform="rotate(66 120 14)"/>
+      <ellipse cx="124" cy="19" rx="4" ry="7" transform="rotate(80 124 19)"/>
+      <ellipse cx="127" cy="25" rx="4" ry="7" transform="rotate(94 127 25)"/>
+      <ellipse cx="129" cy="31" rx="4" ry="7" transform="rotate(108 129 31)"/>
+    </g>
+    <!-- janggut bulir -->
+    <g stroke="#B45309" stroke-width=".9" stroke-linecap="round" opacity=".7" fill="none">
+      <path d="M100 1C98 -1 96 -2 93 -4"/>
+      <path d="M115 4C114 1 113 -1 111 -3"/>
+      <path d="M124 13C124 10 124 7 123 5"/>
+    </g>
+  </g>
+
+  <!-- batang kedua menunduk -->
+  <path d="M176 118C166 104 158 84 150 66C144 54 136 46 127 43" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+  <g fill="url(#gr-pd)" stroke="#B45309" stroke-width=".9" stroke-linejoin="round">
+    <ellipse cx="122" cy="40" rx="3.4" ry="6" transform="rotate(30 122 40)"/>
+    <ellipse cx="128" cy="43" rx="3.4" ry="6" transform="rotate(50 128 43)"/>
+    <ellipse cx="133" cy="48" rx="3.4" ry="6" transform="rotate(70 133 48)"/>
+    <ellipse cx="136" cy="54" rx="3.4" ry="6" transform="rotate(88 136 54)"/>
+  </g>
+
+  <!-- batang ketiga kecil -->
+  <path d="M178 130C172 122 168 112 164 102C161 96 156 92 151 91" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
+  <g fill="#FDE68A" stroke="#B45309" stroke-width=".9" stroke-linejoin="round">
+    <ellipse cx="147" cy="88" rx="2.8" ry="5" transform="rotate(40 147 88)"/>
+    <ellipse cx="151" cy="93" rx="2.8" ry="5" transform="rotate(62 151 93)"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="92" cy="34" r="2.6" fill="#FBBF24"/>
+    <circle cx="86" cy="44" r="2.2" fill="#34D399"/>
+    <circle cx="98" cy="24" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M140 70l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>
