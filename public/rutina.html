@@ -8,6 +8,25 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.55 · UNTAIAN BOTANI LATAR KARTU — SEMUA TAB, SEMUA KARTU — permintaan
+     pengguna ("tambahin ilustrasi sebagai background, kayak kartu pohon
+     rutina 'selamat siang', di semua tab dan card"): sistem untaian sudut
+     v2.5 (dihapus di v2.6) dihidupkan kembali & dikalibrasi — .card kini
+     berlatar card-sprig.svg (untaian sudut kanan-atas: batang melengkung
+     mengikuti sudut, 6 daun bergantian, 2 koin amber, beri & percik bintang,
+     cuci radial mint — 180×170) + lapisan card-sprig-bl.svg (tunas garis
+     tipis kiri-bawah — 110×100, sangat halus) via background-image berlapis,
+     ukuran via token --ill-size-c 150px / --ill-seg 96px (sel strip
+     statistik) / --ill-size-mini 72px — semua mengecil proporsional di
+     ponsel (132/88/64px). Presisi per jenis kartu demi keterbacaan (§8:
+     bentuk terang hanya di pita sudut ±60px, zona teks interior kartu
+     tetap putih polos): sel stat/mini-stat hanya untaian sudut ukuran
+     segmen; scene-stat & habit-card tetap polos (scene penuh / baris
+     padat dengan art sendiri); .card-plain-bl mematikan tunas kiri-bawah
+     untuk grid data (heatmap pengeluaran + kalender). Hero pohon "Selamat
+     pagi/siang/sore/malam", page-hero tiap tab & ilustrasi konten tetap
+     utuh — semua tab kini berilustrasi dari kepala halaman sampai kartu
+     terbawah. Dua aset SVG baru bergaya garis vector, tajam semua DPI. -->
 <!-- v2.54 · JEDA RUNTUN AMAN + RINGKASAN PEKAN LALU — (1) streak freeze:
      satu hari libur per pekan yang TAK memutus runtun, dijadwalkan
      sebelum hari itu tiba (hari ini ke depan; maks 1×/pekan, jeda baru
@@ -311,7 +330,15 @@
   --font-body:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
   --sidebar-w:268px;
   --ease-tunas:cubic-bezier(.22,1,.36,1);
-  /* v2.6 · dekorasi latar kartu dihapus — botani tetap hidup di hero, empty state & ilustrasi konten */
+  /* v2.55 · untaian botani KEMBALI sebagai latar kartu (permintaan pengguna:
+     "ilustrasi sebagai latar, seperti kartu pohon rutina") — untaian sudut
+     kanan-atas + tunas kiri-bawah via background-image berlapis; zona teks
+     interior kartu tetap polos (prinsip keterbacaan §8 design-foundation). */
+  --ill-corner:url("/illustrations/card-sprig.svg");
+  --ill-mini:url("/illustrations/card-sprig-bl.svg");
+  --ill-size-c:150px; /* kartu besar */
+  --ill-seg:96px; /* sel strip statistik (stat/mini-stat) */
+  --ill-size-mini:72px; /* tunas kiri-bawah */
 }
 html{scroll-behavior:smooth}
 body{
@@ -450,8 +477,21 @@ b,strong{font-weight:600}
 /* ---------- kartu & grid ---------- */
 /* v2.7 · beautiful shadows (quiet elevation): sm = kartu resting & kontrol,
    md = popover/toast/dock + hover kartu, lg = hanya hero & modal sheet.
-   Ilustrasi botani tetap hidup di hero, empty state, dan ilustrasi konten. */
-.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);box-shadow:var(--shadow-sm)}
+   v2.55 · untaian botani sudut kartu aktif lagi di SEMUA kartu semua tab —
+   hero, empty state, dan ilustrasi konten tetap hidup seperti sebelumnya. */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);background-image:var(--ill-corner),var(--ill-mini);background-repeat:no-repeat;background-position:100% 0,0 100%;background-size:var(--ill-size-c),var(--ill-size-mini);box-shadow:var(--shadow-sm)}
+/* v2.55 · presisi untaian per jenis kartu demi keterbacaan: sel strip statistik
+   (stat/mini-stat) memakai ukuran segmen tanpa tunas bawah (sel kecil — dua
+   lapisan terlalu ramai); scene-stat membawa scene penuh & habit-card baris
+   padat dengan art sendiri — latar polos agar ilustrasi tak berdesisan;
+   .card-plain-bl mematikan tunas kiri-bawah untuk grid data (heatmap &
+   kalender) supaya angka di sel bawah tetap bersih terbaca. */
+.stat,.mini-stat{background-image:var(--ill-corner);background-size:var(--ill-seg)}
+.scene-stat,.habit-card{background-image:none}
+.card-plain-bl{background-image:var(--ill-corner)}
+@media(max-width:640px){
+  :root{--ill-size-c:132px;--ill-seg:88px;--ill-size-mini:64px} /* ponsel: untaian mengecil proporsional */
+}
 .card-pad{padding:14px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
 .card-head h3{font-size:18px}
@@ -3146,7 +3186,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- HEATMAP PENGELUARAN (intensitas belanja harian) -->
-  <div class="card card-pad" id="heatCard">
+  <div class="card card-pad card-plain-bl" id="heatCard">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-panas"/></svg></span>
@@ -3304,7 +3344,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="grid g-cal">
-    <div class="card card-pad">
+    <div class="card card-pad card-plain-bl">
       <div class="cal-head-row" id="calDows"></div>
       <div class="cal-grid" id="calGrid"></div>
     </div>
@@ -4110,7 +4150,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.54';
+const APP_VERSION='v2.55';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · untaian botani sudut kanan-atas kartu (latar ilustrasi, zona teks tetap polos) -->
+  <defs>
+    <radialGradient id="w" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".62"/>
+      <stop offset=".45" stop-color="#D1FAE5" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#D1FAE5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="amb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="lf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#6EE7B7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna mint sudut -->
+  <rect width="180" height="170" fill="url(#w)"/>
+
+  <!-- batang melengkung mengikuti sudut -->
+  <path d="M62 2C100 4 138 20 158 46C166 56 172 63 176 71" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+  <path d="M176 71C173 76 169 79 164 81" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+
+  <!-- daun: keluar (ke sudut) & masuk (ke kartu) bergantian -->
+  <g stroke-linejoin="round">
+    <!-- A keluar (kecil, arah datar) -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(84 12) rotate(-14) scale(.7)" fill="#A7F3D0"/>
+    <path d="M2 0C10-2 18-3 24-3" transform="translate(84 12) rotate(-14) scale(.7)" fill="none" stroke="#10B981" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+    <!-- B masuk -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(103 12) rotate(152)" fill="#D1FAE5"/>
+    <path d="M2 0C10-2 18-3 26-3" transform="translate(103 12) rotate(152)" fill="none" stroke="#10B981" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+    <!-- C keluar -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(126 25) rotate(-46) scale(.8)" fill="url(#lf)"/>
+    <!-- D masuk -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(147 39) rotate(166) scale(.85)" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.4"/>
+    <path d="M2 0C10-2 18-3 25-3" transform="translate(147 39) rotate(166) scale(.85)" fill="none" stroke="#10B981" stroke-width="1.1" stroke-linecap="round" opacity=".5"/>
+    <!-- E keluar -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(157 57) rotate(-18) scale(.62)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.2"/>
+    <!-- ujung -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(164 81) rotate(-62) scale(.5)" fill="#A7F3D0"/>
+    <!-- daun kecil lepas, gaya garis -->
+    <path d="M0 0C5-6 13-7 20-3C15 3 5 4 0 0Z" transform="translate(150 76) rotate(-10)" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.3"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <g>
+    <circle cx="139" cy="55" r="10.5" fill="url(#amb)"/>
+    <circle cx="139" cy="55" r="6.6" fill="#FDE68A" opacity=".9"/>
+    <path d="M132.5 51.5a8.6 8.6 0 0 1 5-4.6" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+    <circle cx="70" cy="13" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+    <circle cx="70" cy="13" r="2.6" fill="#FDE68A"/>
+  </g>
+
+  <!-- beri & percik -->
+  <g>
+    <circle cx="170" cy="90" r="3.1" fill="#10B981"/>
+    <circle cx="176" cy="85" r="2.5" fill="#34D399"/>
+    <circle cx="163" cy="96" r="2.2" fill="#FCD34D"/>
+    <path d="M156 84l1.3 3.4 3.4 1.3-3.4 1.3-1.3 3.4-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
+    <circle cx="118" cy="44" r="2.2" fill="#38BDF8" opacity=".85"/>
+    <circle cx="168" cy="106" r="2.6" fill="#A7F3D0"/>
+    <circle cx="102" cy="30" r="2" fill="#A7F3D0" opacity=".9"/>
+  </g>
+</svg>
