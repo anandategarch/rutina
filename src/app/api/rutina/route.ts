@@ -115,7 +115,7 @@ async function getTarget(): Promise<DbTarget> {
 /* ----------------------------------------------- skema lokal (pratinjau) */
 
 const DDL: string[] = [
-  `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0,"mini" TEXT,"afterId" TEXT)`,
+  `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0,"mini" TEXT,"afterId" TEXT,"restDays" TEXT)`,
   `CREATE TABLE IF NOT EXISTS "HabitGroup"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0)`,
   `CREATE TABLE IF NOT EXISTS "HabitLog"("habitId" TEXT NOT NULL,"date" TEXT NOT NULL,"completed" INTEGER DEFAULT 1,"value" REAL DEFAULT 1,PRIMARY KEY("habitId","date"))`,
   `CREATE TABLE IF NOT EXISTS "HabitOption"("type" TEXT NOT NULL,"label" TEXT NOT NULL,"color" TEXT,"sortOrder" INTEGER DEFAULT 0,PRIMARY KEY("type","label"))`,
@@ -134,6 +134,7 @@ const COLUMN_MIGRATIONS: [string, string][] = [
   ["Habit", "afterId"],
   ["AppSettings", "identityText"],
   ["Transaction", "recurrence"], /* v2.37 · transaksi berulang */
+  ["Habit", "restDays"], /* v2.54 · jeda runtun aman (CSV YYYY-MM-DD) */
 ];
 async function migrateColumns(client: Client): Promise<void> {
   for (const [table, col] of COLUMN_MIGRATIONS) {
@@ -314,7 +315,7 @@ export async function GET() {
     const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings] =
       await Promise.all([
         target.client.execute(
-          `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","mini","afterId" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
+          `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","mini","afterId","restDays" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
         ),
         target.client.execute(`SELECT "id","name","color" FROM "HabitGroup" ORDER BY "sortOrder"`),
         target.client.execute(`SELECT "habitId","date","completed","value" FROM "HabitLog"`),
@@ -363,6 +364,7 @@ export async function GET() {
         groupId: r.groupId ? String(r.groupId) : null,
         mini: r.mini ? String(r.mini) : null,
         afterId: r.afterId ? String(r.afterId) : null,
+        restDays: r.restDays ? String(r.restDays) : null, /* v2.54 · jeda runtun */
       })),
       habitLogs: logs.rows.map((r) => ({
         habitId: String(r.habitId),
@@ -423,13 +425,14 @@ export async function GET() {
 
 interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string; recurrence?: "weekly" | "monthly" | null }
 interface BudRow { category: string; month: string; amount: number }
-interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null; mini: string | null; afterId: string | null }
+interface HabitRow { id: string; name: string; emoji: string; category: string; priority: string; difficulty: string; habitType: string; target: number; unit: string | null; reminder: string | null; groupId: string | null; mini: string | null; afterId: string | null; restDays: string | null }
 /* v2.37 · meta sunting kebiasaan — PARTIAL: hanya kunci yang hadir di
    jurnal yang di-UPDATE (jurnal v2.35 lama hanya membawa mini/afterId). */
 interface HabitMetaRow {
   name?: string | null; emoji?: string | null; category?: string | null;
   reminder?: string | null; groupId?: string | null;
   mini?: string | null; afterId?: string | null;
+  restDays?: string | null; /* v2.54 · jeda runtun: CSV tanggal (maks 260) */
 }
 interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
 interface DailyLogRow { date: string; mood: number; energy: number; sleep: number }
@@ -482,6 +485,7 @@ function sanitizeHabit(v: unknown): HabitRow {
     groupId: o.groupId ? str(o.groupId) : null,
     mini: o.mini ? str(o.mini).slice(0, 80) : null,
     afterId: o.afterId ? str(o.afterId).slice(0, 64) : null,
+    restDays: typeof o.restDays === "string" && o.restDays ? o.restDays.slice(0, 3200) : null, /* v2.54 */
   };
 }
 function sanitizeSrc(v: unknown): SrcRow {
@@ -544,6 +548,19 @@ function sanitizeOverlay(input: unknown): Overlay | null {
     if ("groupId" in m) e.groupId = m.groupId ? str(m.groupId).slice(0, 64) : null;
     if ("mini" in m) e.mini = m.mini ? str(m.mini).slice(0, 80) : null;
     if ("afterId" in m) e.afterId = m.afterId ? str(m.afterId).slice(0, 64) : null;
+    /* v2.54 · jeda runtun aman — CSV tanggal YYYY-MM-DD; token tak valid
+       dibuang, duplikat dirapatkan, urut, dibatasi 260 entri (5 tahun
+       jeda mingguan). "" / null = kosongkan kolom. */
+    if ("restDays" in m) {
+      const rawRest = m.restDays;
+      if (rawRest === null || rawRest === undefined || rawRest === "") e.restDays = null;
+      else {
+        const tokens = (Array.isArray(rawRest) ? rawRest.map((x) => str(x)) : String(rawRest).split(","))
+          .map((t) => t.trim()).filter((t) => /^\d{4}-\d{2}-\d{2}$/.test(t));
+        const uniq = [...new Set(tokens)].sort().slice(0, 260);
+        e.restDays = uniq.length ? uniq.join(",") : null;
+      }
+    }
     if (Object.keys(e).length) habitMeta[k] = e;
   }
   const identityText = typeof o.identityText === "string" ? o.identityText.slice(0, 120) : null;
@@ -727,6 +744,7 @@ async function applyOverlay(
         id: h.id, name: h.name, emoji: h.emoji, category: h.category, priority: h.priority,
         difficulty: h.difficulty, habitType: h.habitType, target: h.target, unit: h.unit,
         reminder: h.reminder, groupId: h.groupId, mini: h.mini, afterId: h.afterId,
+        restDays: h.restDays ?? null,
         isActive: 1, isArchived: 0,
       });
     });
@@ -787,6 +805,7 @@ async function applyOverlay(
     if ("groupId" in meta) { cols.push('"groupId"=?'); args.push(meta.groupId ?? null); }
     if ("mini" in meta) { cols.push('"mini"=?'); args.push(meta.mini ?? null); }
     if ("afterId" in meta) { cols.push('"afterId"=?'); args.push(meta.afterId ?? null); }
+    if ("restDays" in meta) { cols.push('"restDays"=?'); args.push(meta.restDays ?? null); } /* v2.54 */
     if (!cols.length) continue;
     await run("habitMeta", () => client.execute({
       sql: `UPDATE "Habit" SET ${cols.join(", ")} WHERE "id"=?`,

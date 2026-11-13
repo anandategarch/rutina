@@ -8,6 +8,20 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.54 · JEDA RUNTUN AMAN + RINGKASAN PEKAN LALU — (1) streak freeze:
+     satu hari libur per pekan yang TAK memutus runtun, dijadwalkan
+     sebelum hari itu tiba (hari ini ke depan; maks 1×/pekan, jeda baru
+     pada pekan yang sama memindahkan jeda lama). Kalkulasi runtun kini
+     melintasi hari jeda — tapi jeda hanya memanjangkan runtun yang sudah
+     hidup (tak bisa memulai runtun baru, jeda menggantung di ujung tak
+     dihitung) supaya rekor tak menggelembung. UI: seksi "Jeda runtun
+     aman" di modal sunting kebiasaan (pemilih tanggal + chip + lepas),
+     aksi "Jadikan jeda hari ini" di detail kebiasaan, titik pekan &
+     drill 30-hari beraksen madu bulan, streak-guard & nudge sadar-jeda.
+     Persist: kolom Habit.restDays (CSV tanggal, migrasi kolom idempoten).
+     (2) Kartu "Pekan lalu" di Ringkasan: X/7 hari aktif, total catatan,
+     pengeluaran + arah (turun/naik %) vs pekan sebelumnya, strip 7 hari
+     masa lampau — ketuk untuk bedah pekan. -->
 <!-- v2.53 · HAPUS GESTUR GESER LAYAR UNTUK PINDAH TAB (mobile) —
      geser horizontal di badan halaman kini TIDAK lagi memindahkan tab /
      mengganti bulan kalender; navigasi tetap lewat bottom-nav & tombol
@@ -942,6 +956,32 @@ b,strong{font-weight:600}
 .wd{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--ink-2);background:var(--surface-2)}
 .wd.on{background:var(--terra-soft);color:var(--terra-deep)}
 .wd.today{box-shadow:inset 0 0 0 2px var(--terra)}
+/* v2.54 · jeda runtun aman — aksen madu (bulan) pada titik pekan & drill */
+.wd.rest{background:var(--honey-soft);color:var(--honey-deep);box-shadow:inset 0 0 0 1.5px rgba(245,158,11,.55)}
+.wd.rest.on{background:#F59E0B;color:#FFF}
+.drill-dots i.rest{background:#FDE68A;box-shadow:inset 0 0 0 2px #F59E0B}
+.rest-row{display:flex;gap:8px;flex-wrap:wrap}
+.rest-row input{flex:1;min-width:140px}
+.rest-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rest-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;border-radius:999px;background:var(--honey-soft);border:1px solid rgba(245,158,11,.4);color:var(--honey-deep);font-size:12px;font-weight:600}
+.rest-chip .ic{width:12px;height:12px}
+.rest-chip.past{background:var(--surface-2);border-color:var(--line-soft);color:var(--ink-3)}
+.rest-chip button{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;border:0;background:rgba(180,83,9,.14);color:var(--honey-deep);cursor:pointer}
+.rest-chip button .ic{width:11px;height:11px}
+/* v2.54 · kartu Ringkasan Pekan Lalu — strip 7 hari masa lampau + 3 statistik */
+#lastWeekCard{margin-bottom:16px} /* mengikuti ritme margin banner jatah */
+.lw-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.lw-cell{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px 3px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.lw-cell.isi{background:var(--terra-softer);border-color:#A7F3D0}
+.lw-day{font-size:10px;font-weight:700;color:var(--ink-3)}
+.lw-n{font-size:10.5px;font-weight:700;color:var(--ink-1)}
+.lw-dot{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--surface);color:transparent}
+.lw-dot .ic{width:10px;height:10px}
+.lw-dot.on{background:var(--sage);border-color:var(--sage);color:#FFF}
+.lw-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.lw-stat{padding:6px 9px;border-radius:12px;background:var(--surface-2);min-width:0}
+.lw-stat small{display:block;font-size:10.5px;font-weight:700;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lw-stat b{display:block;font-size:13px;line-height:1.3;overflow-wrap:anywhere}
 .hc-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
 .hc-consist{flex:1;min-width:90px}
 .hc-consist small{font-size:11px;font-weight:600;color:var(--ink-3)}
@@ -2789,6 +2829,25 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <button class="btn btn-ghost btn-sm" data-go="keuangan" data-gofin="analisa">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   </div>
 
+  <!-- RINGKASAN PEKAN LALU (v2.54) — skor pekan yang sudah tuntas: hari
+       aktif, catatan, pengeluaran + arah vs pekan sebelumnya. Ketuk kartu
+       → bedah pekan (drill mingguan yang sama dengan grafik arus kas). -->
+  <div class="card card-pad drillable" id="lastWeekCard" data-drill="week" data-start="" title="Ketuk: bedah pekan lalu">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+        <div>
+          <div class="eyebrow" id="lwEyebrow">Pekan lalu</div>
+          <h3 class="h-serif" id="lwTitle">—</h3>
+        </div>
+      </div>
+      <span class="pill" id="lwPill">—</span>
+    </div>
+    <div class="lw-strip" id="lwStrip" role="img" aria-label="Catatan kebiasaan tiap hari pekan lalu"></div>
+    <div class="lw-stats" id="lwStats"></div>
+    <p class="t-sub" id="lwNote" style="margin-top:9px;font-size:12px">—</p>
+  </div>
+
   <!-- RITME PEKAN + ARUS KAS (v2.8) — kartu agenda kebiasaan diganti ritme
        aktivitas pekan berjalan: strip 7 hari + tren vs pekan lalu -->
   <div class="grid g-main" id="rowAgenda">
@@ -3613,6 +3672,18 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <select id="habitAfter"></select>
         </div>
       </div>
+      <!-- v2.54 · JEDA RUNTUN AMAN: satu hari libur per pekan yang tak
+           memutus runtun — dijadwalkan SEBELUM hari itu tiba (hari ini ke
+           depan); maksimal satu jeda per pekan (yang baru menimpa). -->
+      <div class="field" id="restField" hidden>
+        <label for="habitRestDate">Jeda runtun aman<span class="opt-tag">maks 1×/pekan</span></label>
+        <div class="rest-row">
+          <input type="date" id="habitRestDate" aria-label="Tanggal jeda runtun">
+          <button type="button" class="btn btn-ghost btn-sm" id="habitRestAdd"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Jadwalkan</button>
+        </div>
+        <div class="rest-chips" id="restChips"></div>
+        <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Satu hari libur per pekan tak memutus runtun — rencanakan sebelum hari itu tiba. Hari jeda tetap boleh dicatat bila sempat.</p>
+      </div>
       <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Aturan 2 menit: "tampil dulu" lebih penting daripada takaran. Susun kebiasaan: setelah kebiasaan lama, aku akan kebiasaan baru.</p>
       <div class="field">
         <label id="iconPickLabel">Pilih ilustrasi</label>
@@ -4039,7 +4110,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.53';
+const APP_VERSION='v2.54';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -4150,6 +4221,7 @@ function ovApply(){
     if('groupId' in m)h.groupId=m.groupId;
     if('mini' in m)h.mini=m.mini;
     if('afterId' in m)h.afterId=m.afterId;
+    if('restDays' in m)h.restDays=m.restDays; /* v2.54 · jeda runtun */
   });
   const hid=new Set(DB.habits.map(h=>h.id));
   /* log kebiasaan: kunci yang tersentuh dibangun ulang supaya deterministik
@@ -4545,11 +4617,14 @@ function drillWallet(id){
 }
 function drillHabit(id){
   const h=HABITS.find(x=>x.id===id);if(!h)return null;
-  /* runtun aktif: hitung mundur dari hari ini (atau catatan terakhir) */
+  /* runtun aktif: hitung mundur dari hari ini (atau catatan terakhir).
+     v2.54 · hari jeda ikut dilewati — runtun tak putus di jeda terjadwal */
   let run=0;const today=dayKey(TODAY);
+  const passes=k=>h.dates.includes(k)||isRestOn(h,k);
   let cur=h.dates.includes(today)?today:(h.last&&h.last<today?h.last:null);
-  if(cur){while(cur&&h.dates.includes(cur)){run++;cur=dayKey(addDays(new Date(cur+'T00:00:00'),-1))}}
-  const dots=[];for(let j=29;j>=0;j--){const k=dayKey(addDays(TODAY,-j));dots.push(`<i class="${h.dates.includes(k)?'on':''}" title="${tglPendek(k)}"></i>`)}
+  if(cur){while(cur&&passes(cur)){run++;cur=dayKey(addDays(new Date(cur+'T00:00:00'),-1))}}
+  const dots=[];for(let j=29;j>=0;j--){const k=dayKey(addDays(TODAY,-j));const st=h.dates.includes(k)?'on':isRestOn(h,k)?'rest':'';dots.push(`<i class="${st}" title="${tglPendek(k)}${st==='rest'?' · jeda':''}"></i>`)}
+  const upRest=(h.rests||[]).find(k=>k>=today);
   const done=!!doneToday[h.id];
   const recent=[...h.dates].slice(-14).reverse();
   return {eyebrow:'Kebiasaan',title:h.name,ill:h.ikon,
@@ -4563,16 +4638,19 @@ function drillHabit(id){
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">${esc(h.priority||'Medium')} · ${esc(h.difficulty||'Medium')}</span>
       ${h.grp?`<span class="pill" style="background:${esc(h.grp.color)}1A;color:${esc(h.grp.color)}">${esc(h.grp.name)}</span>`:''}
       ${h.reminder?`<span class="pill" style="background:var(--surface-2);color:var(--ink-2)"><svg class="ic" style="width:12px;height:12px" aria-hidden="true"><use href="#i-clock"/></svg> ${esc(fmtJam(h.reminder))}</span>`:''}
+      ${upRest?`<span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)"><svg class="ic" style="width:12px;height:12px" aria-hidden="true"><use href="#i-moon"/></svg> jeda ${tglPendek(upRest)}</span>`:''}
     </div>
-    <div class="drill-sec">${drillCap('30 hari terakhir')}<div class="drill-dots" role="img" aria-label="Catatan 30 hari terakhir">${dots.join('')}</div></div>
+    <div class="drill-sec">${drillCap('30 hari terakhir')}<div class="drill-dots" role="img" aria-label="Catatan 30 hari terakhir (kuning = jeda)">${dots.join('')}</div></div>
     <div class="drill-sec">${drillCap('Catatan terakhir')}${recent.length?recent.map(k=>dayRowHTML(k)).join(''):drillEmpty('Belum ada catatan sama sekali — mulai hari ini!')}</div>`,
     actions:[
       {id:'check',label:done?'Batalkan hari ini':'Catat hari ini',icon:'i-check',cls:'btn-primary'},
+      {id:'rest',label:isRestOn(h,today)?'Lepas jeda hari ini':'Jadikan jeda hari ini',icon:'i-moon'}, /* v2.54 */
       {id:'edit',label:'Sunting',icon:'i-edit'}, /* v2.37 · ubah nama/jam/mini/jangkar tanpa kehilangan riwayat */
       {id:'del',label:'Hapus',icon:'i-trash',cls:'btn-danger'},
     ],
     onAct(act){
       if(act==='check'){closeModals();toggleCheck(id)}
+      else if(act==='rest'){closeModals();toggleRestToday(id)} /* v2.54 */
       else if(act==='edit'){closeModals();openHabitEdit(id)}
       else if(act==='del'){closeModals();askDelete('habit',id)}
     }};
@@ -4587,10 +4665,11 @@ function drillDay(k){
   const dl=DAILY[k];
   const habitRows=HABITS.map(h=>{
     const on=doneIds.includes(h.id);
+    const rest=!on&&isRestOn(h,k); /* v2.54 · hari jeda di detail hari */
     return `<div class="drill-row" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0">
-      <span class="tx-ic" style="background:${h.warna}1F;color:${h.warna}"><svg class="ic" aria-hidden="true"><use href="#i-${on?'check':'x'}"/></svg></span>
+      <span class="tx-ic" style="background:${h.warna}1F;color:${h.warna}"><svg class="ic" aria-hidden="true"><use href="#i-${on?'check':rest?'moon':'x'}"/></svg></span>
       <span class="drill-main"><b>${esc(h.name)}</b><small>${esc(h.category)}</small></span>
-      <b class="drill-amt" style="font-size:11px;color:${on?'var(--sage-deep)':'var(--ink-3)'}">${on?'selesai':'—'}</b>
+      <b class="drill-amt" style="font-size:11px;color:${on?'var(--sage-deep)':rest?'var(--honey-deep)':'var(--ink-3)'}">${on?'selesai':rest?'jeda':'—'}</b>
     </div>`;
   }).join('');
   return {eyebrow:'Kalender',title:HARI[d.getDay()]+', '+tglBulan(k),ill:'ill-kal',
@@ -4711,7 +4790,25 @@ let logsByDate={},doneToday={},valueToday={},months=[],WS=1;
 let DOWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
 
 /* ---------- turunan & indeks ---------- */
-function bestRun(dates){let best=0,cur=0,prev=null;for(const d of dates){cur=(prev&&dayKey(addDays(new Date(prev+'T00:00:00'),1))===d)?cur+1:1;if(cur>best)best=cur;prev=d}return best}
+/* v2.54 · runtun kini melintasi hari jeda (maks 1/pekan, dijaga saat
+   penjadwalan): hari jeda hanya MEMPANJANGKAN runtun yang sudah hidup —
+   tak bisa memulai runtun baru, dan runtun berakhir di catatan terakhir
+   (jeda yang menggantung di ujung tak dihitung) supaya "rekor" tak
+   menggelembung oleh hari yang tak pernah dicatat. */
+function bestRun(dates,rests){
+  if(!dates.length)return 0;
+  const chk=new Set(dates),rst=new Set(rests||[]);
+  if(!rst.size){let best=0,cur=0,prev=null;for(const d of dates){cur=(prev&&dayKey(addDays(new Date(prev+'T00:00:00'),1))===d)?cur+1:1;if(cur>best)best=cur;prev=d}return best}
+  const days=[...new Set([...chk,...rst])].sort();
+  let best=0,cur=0,prev=null;
+  for(const d of days){
+    const cont=prev&&dayKey(addDays(new Date(prev+'T00:00:00'),1))===d;
+    if(chk.has(d)){cur=cont?cur+1:1;if(cur>best)best=cur}
+    else cur=cont&&cur>0?cur+1:0; /* hari jeda: sambung bila runtun hidup */
+    prev=d;
+  }
+  return best;
+}
 function prepData(){
   SETTINGS=DB.settings||{userName:'Sahabat Rutina',weekStart:1};
   WS=SETTINGS.weekStart===0?0:1;
@@ -4724,6 +4821,10 @@ function prepData(){
        tampilan bersih; kunci jurnal memakai id, bukan nama, jadi aman */
     const nm=String(h.name||'').replace(/\s+/g,' ').trim();
     const dates=[...new Set((DB.habitLogs||[]).filter(l=>l.habitId===h.id&&l.completed).map(l=>l.date))].sort();
+    /* v2.54 · jeda runtun aman — kolom restDays (CSV YYYY-MM-DD) dari
+       database; token tak valid dibuang, urut naik */
+    const restRaw=h.restDays;
+    const rests=[...new Set((typeof restRaw==='string'?restRaw.split(','):Array.isArray(restRaw)?restRaw:[]).map(x=>String(x||'').slice(0,10)).filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x)))].sort();
     /* v2.37 · ikon kini persisten: kolom emoji menyimpan id ilustrasi
        (ill-…) yang dipilih pengguna; data lama (emoji karakter) jatuh ke
        pemetaan nama/kategori seperti sebelumnya */
@@ -4731,7 +4832,7 @@ function prepData(){
     return {...h,name:nm,emoji:em,ikon:em.startsWith('ill-')?em:(HABIT_ICON[nm]||ICON_BY_CAT[h.category]||'ill-sprout'),
       warna:HCAT[h.category]||'#059669',
       grp:h.groupId?GROUPS.find(g=>g.id===h.groupId)||null:null,
-      dates,total:dates.length,best:bestRun(dates),first:dates[0]||null,last:dates[dates.length-1]||null};
+      dates,total:dates.length,best:bestRun(dates,rests),first:dates[0]||null,last:dates[dates.length-1]||null,rests};
   }).sort((a,b)=>{
     const ga=a.grp?(order[a.grp.id]!==undefined?order[a.grp.id]:9):9;
     const gb=b.grp?(order[b.grp.id]!==undefined?order[b.grp.id]:9):9;
@@ -4785,7 +4886,7 @@ function rollToday(){
   syncToday();
   if(materializeRecurring()>0)refinance(); /* v2.37 · tanggal berganti → transaksi berulang baru jatuh tempo */
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
-  renderStats();renderCashflow();renderMiniBudgets();renderTip();
+  renderStats();renderCashflow();renderMiniBudgets();renderTip();renderLastWeek(); /* v2.54 */
   refinance();fillTxMonths();
   renderHabitChips();renderHabitCards();renderWawasanHero();
   if(inited.heatmap)renderHeatmap();
@@ -4803,6 +4904,7 @@ window.addEventListener('resize',()=>{clearTimeout(_rzT);_rzT=setTimeout(()=>{
   if(state.page==='wawasan'&&inited.wawasan)renderConsChart();
 },220)});
 const habitById=id=>HABITS.find(h=>h.id===id);
+const isRestOn=(h,k)=>(h.rests||[]).includes(k); /* v2.54 · hari jeda kebiasaan */
 const doneTodayCount=()=>HABITS.filter(h=>!!doneToday[h.id]).length;
 const isAmount=h=>h.habitType==='amount'&&h.target>1;
 const amtLabel=h=>`${valueToday[h.id]||0}/${h.target} ${h.unit||'kali'}`;
@@ -5756,6 +5858,46 @@ function renderWeekRhythm(){
     :'Setara dengan pekan lalu.';
   renderWeekCmp(counts,ws); /* v2.37 · pembanding pekan berdampingan */
 }
+/* ---------- v2.54 · RINGKASAN PEKAN LALU ----------
+   Kartu skor mingguan di Ringkasan: hari aktif X/7, total catatan,
+   pengeluaran + arah vs pekan sebelumnya — refleksi ringan tanpa
+   harus membuka Laporan Bulanan. Ketuk kartu → drill pekan (dragging
+   data-drill="week" memakai kunci data-start). */
+function renderLastWeek(){
+  const ws=weekStartOf(addDays(TODAY,-7)); /* Sen (atau Min) pekan lalu */
+  const days=[];
+  for(let j=0;j<7;j++){const d=addDays(ws,j);const k=dayKey(d);days.push({d,k,n:(logsByDate[k]||[]).length})}
+  const s=dayKey(ws),e=dayKey(addDays(ws,6));
+  const aktif=days.filter(x=>x.n>0).length;
+  const total=days.reduce((a,x)=>a+x.n,0);
+  const txW=TXS.filter(t=>t.date>=s&&t.date<=e);
+  const keluar=sumBy(txW.filter(t=>t.type==='expense'),t=>t.amount);
+  /* pembanding: pengeluaran pekan SEBELUM pekan lalu */
+  const s2=dayKey(addDays(ws,-7)),e2=dayKey(addDays(ws,-1));
+  const keluarPrev=sumBy(TXS.filter(t=>t.type==='expense'&&t.date>=s2&&t.date<=e2),t=>t.amount);
+  $('#lwEyebrow').textContent=`Pekan lalu · ${ws.getDate()}–${addDays(ws,6).getDate()} ${BULAN[addDays(ws,6).getMonth()]}`;
+  $('#lwTitle').textContent=`${aktif}/7 hari aktif`;
+  $('#lwPill').textContent=total?`${total} catatan`:'sepi';
+  $('#lwStrip').innerHTML=days.map(x=>`<div class="lw-cell ${x.n>0?'isi':''}" title="${HARI[x.d.getDay()]}, ${x.d.getDate()} ${BULAN[x.d.getMonth()]}${x.n?` · ${x.n} catatan`:''}">
+      <span class="lw-day">${DOWS[(x.d.getDay()-WS+7)%7]}</span>
+      <span class="lw-dot ${x.n>0?'on':''}">${x.n>0?'<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>':''}</span>
+      <span class="lw-n">${x.d.getDate()}</span>
+    </div>`).join('');
+  let delta=null,deltaTxt='—';
+  if(keluarPrev>0){
+    delta=Math.round((keluar-keluarPrev)/keluarPrev*100);
+    deltaTxt=delta<0?`turun ${-delta}%`:delta>0?`naik ${delta}%`:'setara';
+  }
+  $('#lwStats').innerHTML=`
+    <div class="lw-stat"><small>Catatan</small><b class="t-num">${total}</b></div>
+    <div class="lw-stat"><small>Keluar</small><b class="t-num" style="color:${keluar?'var(--rose-deep)':'var(--ink-3)'}">${rupiah(keluar)}</b></div>
+    <div class="lw-stat"><small>Vs sebelumnya</small><b class="t-num" style="color:${delta==null?'var(--ink-3)':delta<=0?'var(--sage-deep)':'var(--rose-deep)'}">${deltaTxt}</b></div>`;
+  $('#lwNote').textContent=aktif===7?'Pekan penuh — tujuh hari semua berisi catatan. 🌸'
+    :aktif>=5?`Pekan yang sehat — ${7-aktif} hari kosong tak menghapus progres.`
+    :aktif>=1?`Pekan start-stop — pekan ini cukup mulai dari satu catatan.`
+    :'Pekan lalu sepi — tak apa; hari ini batang pertama ditanam.';
+  const card=$('#lastWeekCard');if(card)card.dataset.start=s;
+}
 
 
 /* ---------- v2.9 · hero scene tiap tab ----------
@@ -5777,7 +5919,7 @@ function renderHabitsHero(){
   const guard=$('#habStreakGuard');
   if(guard){
     const tk=dayKey(TODAY);
-    const berisiko=HABITS.filter(h=>h.best>=3&&!(doneToday[h.id]));
+    const berisiko=HABITS.filter(h=>h.best>=3&&!(doneToday[h.id]||isRestOn(h,tk))); /* v2.54 · hari jeda tak dianggap berisiko */
     const top=berisiko.sort((a,b)=>b.best-a.best)[0];
     if(top&&berisiko.length){
       $('#habStreakTxt').textContent=`Jaga runtun ${top.best} hari milik ${top.name} — satu catatan agar tak putus`;
@@ -6140,8 +6282,9 @@ function weeklyDots(h){
     const d=addDays(ws,j);
     const isToday=dayKey(d)===dayKey(TODAY);
     const on=isToday?!!doneToday[h.id]:h.dates.includes(dayKey(d));
+    const rest=isRestOn(h,dayKey(d)); /* v2.54 · titik jeda beraksen madu */
     const future=d>TODAY&&!isToday;
-    out+=`<span class="wd ${on?'on':''} ${isToday?'today':''}" ${future?'style="opacity:.35"':''} title="${HARI[d.getDay()]}">${DOWS[(d.getDay()-WS+7)%7]}</span>`;
+    out+=`<span class="wd ${on?'on':''} ${rest?'rest':''} ${isToday?'today':''}" ${future&&!rest?'style="opacity:.35"':''} title="${HARI[d.getDay()]}${rest?' · jeda runtun':''}">${DOWS[(d.getDay()-WS+7)%7]}</span>`;
   }
   return out;
 }
@@ -6156,6 +6299,8 @@ function weeklyDots(h){
 function habitNudge(h,done){
   if(!h)return null;
   const gap=h.last?Math.round((startOfDay(TODAY)-new Date(h.last+'T00:00:00'))/864e5):null;
+  /* v2.54 · hari jeda: runtun aman — tak perlu peringatan bolong */
+  if(!done&&isRestOn(h,dayKey(TODAY)))return{txt:'Hari jeda — runtunmu aman walau tak dicatat. Tetap boleh dicatat bila sempat.',tone:'honey'};
   if(!done){
     if(gap===2)return{txt:`Kemarin bolong — hari ini jangan sampai dua kali.${h.mini?` Versi mini: ${h.mini}.`:''}`,tone:'honey'};
     if(gap!=null&&gap>=3&&h.mini)return{txt:`Sudah ${gap} hari rehat — mulai dari versi mini: ${h.mini}.`,tone:'honey'};
@@ -6180,6 +6325,7 @@ function renderHabitCards(anim){
     const pct=Math.min(100,Math.round(h.best/14*100));
     const nInfo=habitNudge(h,done); /* v2.35 · satu baris bimbingan Atomic Habits */
     const anchor=h.afterId?habitById(h.afterId):null; /* v2.35 · jangkar susun kebiasaan */
+    const upRest=(h.rests||[]).find(k=>k>=dayKey(TODAY)); /* v2.54 · jeda terdekat */
     return `<div class="card habit-card drillable" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail kebiasaan">
       <div class="hc-main">
         <div class="hc-top">
@@ -6192,6 +6338,7 @@ function renderHabitCards(anim){
               ${h.grp?`<span class="tag" style="color:${esc(h.grp.color)}">${esc(h.grp.name)}</span>`:''}
               ${h.reminder?`<span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>${esc(fmtJam(h.reminder))}</span>`:''}
               ${anchor?`<span class="tag"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg>Setelah ${esc(anchor.name)}</span>`:''}
+              ${upRest?`<span class="tag" style="color:var(--honey-deep);background:var(--honey-soft);border-color:rgba(245,158,11,.35)"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>jeda ${tglPendek(upRest)}</span>`:''}
               <span class="streak-pill"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>${h.total} catatan</span>
             </div>
           </div>
@@ -7142,7 +7289,7 @@ function toggleCheck(id,src){
   const di=h.dates.indexOf(k);
   if(doneToday[id]&&di<0){h.dates.push(k);h.dates.sort();h.total++}
   else if(!doneToday[id]&&di>=0){h.dates.splice(di,1);h.total--}
-  h.best=bestRun(h.dates);h.first=h.dates[0]||null;h.last=h.dates[h.dates.length-1]||null;
+  h.best=bestRun(h.dates,h.rests);h.first=h.dates[0]||null;h.last=h.dates[h.dates.length-1]||null;
   if(doneToday[id]){
     /* v2.19 · reinforcement positif: daun botani menyerbuk dari titik
        centang + kilau cincin — "mencatat terasa hidup", bukan sekadar
@@ -7169,14 +7316,14 @@ function refreshToday(){
      halaman depan berubah begitu kebiasaan terakhir dicentang */
   renderIdentity();
   renderGarden(); /* v2.37 · tanaman yang dicatat hari ini beri centang */
-  renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();
+  renderWeekRhythm();renderTreeHero();renderRing();renderHabitCards();renderStats();renderLastWeek(); /* v2.54 */
   renderHabitsHero();renderWawasanHero();
   if(inited.heatmap)renderHeatmap();
   if(inited.cal){renderCal();renderDayDetail(state.calSel)}
   if(inited.wawasan){renderConsChart();renderFindings();renderBadges()}
 }
 function refinance(){
-  renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderMiniBudgets();renderWallets();renderTx();renderTip();
+  renderFinMonths();renderStats();renderSceneStats();renderCashflow();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderMiniBudgets();renderWallets();renderTx();renderTip();renderLastWeek(); /* v2.54 */
   renderMutasiSum();renderSaldoBank();
   renderFinanceHero();
   if(inited.cal)renderCalStrip();
@@ -7569,6 +7716,66 @@ function resetHabitModal(){
   $('#habitEyebrow').textContent='Tambah baru';
   $('#habitTitle').textContent='Kebiasaan baru';
   $('#habitSubmitBtn').innerHTML='<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tambah kebiasaan';
+  $('#restField').hidden=true; /* v2.54 · jeda hanya saat menyunting */
+}
+/* ---------- v2.54 · JEDA RUNTUN AMAN (streak freeze) ----------
+   Satu hari libur per pekan yang tak memutus runtun, dijadwalkan
+   SEBELUM hari itu tiba (hari ini ke depan). Maks 1 jeda/pekan — jeda
+   baru pada pekan yang sama MENIMPA jeda lama (dipindah, bukan dobel).
+   Hari jeda tetap boleh dicatat bila sempat (jeda = jaring pengaman,
+   bukan larangan). Persist via jurnal habitMeta (kolom restDays CSV). */
+function setHabitRest(id,k,on){
+  const h=habitById(id);if(!h)return false;
+  k=String(k||'').slice(0,10);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(k)){toast('Tanggal jeda belum valid','Pilih tanggal mulai hari ini ke depan.','i-clock','honey');return false}
+  const tk=dayKey(TODAY);
+  if(on&&k<tk){toast('Jeda hanya bisa dijadwalkan ke depan','Atur mulai hari ini ke depan — jeda direncanakan sebelum hari itu tiba.','i-clock','honey');return false}
+  const wkOf=kk=>dayKey(weekStartOf(new Date(kk+'T00:00:00')));
+  const rests=(h.rests||[]).slice();
+  let pindah=null;
+  if(on){
+    const wk=wkOf(k);
+    const lama=rests.filter(r=>r!==k&&wkOf(r)===wk);
+    if(lama.length){
+      lama.forEach(r=>rests.splice(rests.indexOf(r),1));
+      if(!rests.includes(k))rests.push(k);
+      pindah=lama[0];
+    }else if(!rests.includes(k))rests.push(k);
+  }else{
+    const i=rests.indexOf(k);if(i<0)return false;
+    rests.splice(i,1);
+  }
+  rests.sort();
+  h.rests=rests;
+  h.best=bestRun(h.dates,rests);
+  /* jurnal: kunci restDays digabung ke jurnal meta yang mungkin masih
+     menggantung (partial — kunci lain tak tersentuh) */
+  OV.habitMeta[h.id]={...(OV.habitMeta[h.id]||{}),restDays:rests.join(',')};
+  if(isLocalId(h.id)){
+    const i=OV.habitAdd.findIndex(x=>x.id===h.id);
+    if(i>=0)OV.habitAdd[i]={...OV.habitAdd[i],restDays:rests.join(',')};
+  }
+  ovPersist();armSyncToast();
+  /* segarkan tampilan yang memakai runtun & titik pekan */
+  renderHabitCards();renderHabitsHero();renderGarden();renderStats();renderTip();
+  toast(on?'Jeda terjadwal':'Jeda dilepas',
+    on?(pindah?`${h.name} · dipindah dari ${tglPendek(pindah)} ke ${tglPendek(k)} — sepekan hanya satu jeda.`:`${h.name} · ${tglPendek(k)} — runtun tak akan putus hari itu.`)
+    :`${h.name} · ${tglPendek(k)} kembali jadi hari biasa.`,
+    'i-moon',on?'honey':'sage');
+  return true;
+}
+function toggleRestToday(id){const h=habitById(id)||{};setHabitRest(id,dayKey(TODAY),!isRestOn(h,dayKey(TODAY)))}
+/* chip jeda di modal sunting: yang akan datang (dengan tombol lepas) +
+   ringkasan riwayat masa lalu */
+function renderRestChips(h){
+  const box=$('#restChips');if(!box)return;
+  if(!h){box.innerHTML='';return}
+  const tk=dayKey(TODAY);
+  const up=(h.rests||[]).filter(k=>k>=tk);
+  const past=(h.rests||[]).filter(k=>k<tk);
+  box.innerHTML=up.slice(0,4).map(k=>`<span class="rest-chip"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>${tglPendek(k)}${k===tk?' · hari ini':''}<button type="button" data-rest-off="${k}" aria-label="Lepas jeda ${tglPendek(k)}"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></span>`).join('')
+    +(up.length>4?`<span class="rest-chip past">+${up.length-4} lagi</span>`:'')
+    +(past.length?`<span class="rest-chip past">riwayat ${past.length}×</span>`:'');
 }
 function openHabitEdit(id){
   const h=habitById(id);if(!h)return;
@@ -7585,6 +7792,12 @@ function openHabitEdit(id){
   $('#habitTime').value=fmtJamMuat(h.reminder);
   $('#habitMini').value=h.mini||'';
   $('#habitAfter').value=h.afterId&&h.afterId!==id?h.afterId:'';
+  /* v2.54 · seksi jeda runtun — hanya saat menyunting */
+  $('#restField').hidden=false;
+  const tk=dayKey(TODAY);
+  $('#habitRestDate').min=tk;
+  $('#habitRestDate').value=tk;
+  renderRestChips(h);
   pickedIcon=h.ikon&&ICON_OPTS.some(o=>o.id===h.ikon)?h.ikon:'ill-sprout';
   renderIconPicker();
   openModal('modalHabit');
@@ -7605,6 +7818,7 @@ $('#formHabit').addEventListener('submit',e=>{
       reminder:$('#habitTime').value?fmtJamSimpan($('#habitTime').value):null,
       groupId:grpId,mini:miniTxt||null,
       afterId:($('#habitAfter').value||null),
+      restDays:(h.rests||[]).join(','), /* v2.54 · jurnal lengkap termasuk jeda */
     };
     Object.assign(h,meta,{
       grp:grpId?GROUPS.find(g=>g.id===grpId)||null:null,
@@ -7634,6 +7848,19 @@ $('#formHabit').addEventListener('submit',e=>{
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
   state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();renderGarden();
   toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat${miniTxt?' · versi mini menemani':''} · tersimpan ke database.`,'i-sparkle','honey');
+});
+
+/* v2.54 · jeda runtun aman — tombol jadwalkan + chip lepas di modal sunting */
+$('#habitRestAdd').addEventListener('click',()=>{
+  if(!editHabitId)return;
+  const v=$('#habitRestDate').value;
+  if(!v){toast('Pilih tanggal jeda dulu','Jeda dijadwalkan untuk hari ini atau hari mendatang.','i-clock','honey');return}
+  if(setHabitRest(editHabitId,v,true)){$('#habitRestDate').value='';renderRestChips(habitById(editHabitId))}
+});
+$('#restChips').addEventListener('click',e=>{
+  const b=e.target.closest('[data-rest-off]');
+  if(!b||!editHabitId)return;
+  if(setHabitRest(editHabitId,b.dataset.restOff,false))renderRestChips(habitById(editHabitId));
 });
 
 /* ---------- modal anggaran (v2.10) ---------- */
@@ -8443,6 +8670,7 @@ function paintAll(){
   renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
   renderStats();renderCashflow();renderMiniBudgets();renderTip();
   renderGarden();renderCheckinCard(); /* v2.37 · v2.39 */
+  renderLastWeek(); /* v2.54 */
   renderFinMonths();renderSceneStats();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderWallets();renderTx();renderMutasiSum();renderSaldoBank();fillTxMonths();
   renderHabitChips();renderHabitCards(true);
   renderFindings();renderReko();renderBadges();

@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v55"; // v2.53 — hapus gestur geser layar untuk pindah tab di mobile + tuntasan kompak v2.52 (detail hari, laporan bulanan, hero & kartu Wawasan, kalender konsistensi, grafik arus kas, anggaran mini, hero pohon); v54 memuat kompak menyeluruh v2.52, v53 pulihan hero koin v2.51
+const STATIC_CACHE = "rutina-static-v56"; // v2.54 — jeda runtun aman (streak freeze 1×/pekan) + kartu Ringkasan Pekan Lalu; v55 memuat v2.53 (hapus gestur geser tab) + kompak v2.52
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;
