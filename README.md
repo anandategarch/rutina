@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.51** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.52** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 
@@ -32,6 +32,7 @@ src/app/
 6. **v2.37**: kolom `Transaction.recurrence` (mingguan/bulanan) + jurnal `habitMeta` diperluas (nama/emoji/kategori/jam/grup) — keduanya lewat migrasi `ALTER` idempoten, database lama aman.
 7. **v2.38**: desain ulang komposer **Pengeluaran kilat** — nominal & dompet dibungkus `.field` (bahasa form aplikasi: 48px, radius 14, tepi 1.5px, fokus cincin terra) menggantikan kontrol mentah; art kepala kartu memakai varian `.head-art.honey` yang sah.
 8. **v2.39**: audit menyeluruh menemukan fitur check-in mood/energi/tidur yang diminta tak pernah terkirim — kini lengkap: kartu **Check-in harian** di Ringkasan (skala 1–5 + lama tidur) menulis lewat jurnal overlay `dailyLog` (kunci tanggal) ke tabel `DailyLog` (UPSERT idempoten). Rapian audit: tinggi nama tanaman dikunci 2 baris (baseline strip rata), `.sc-grid` terdefinisi eksplisit, simbol sprite vestigial dibuang.
+21. **v2.52**: **kompak menyeluruh, ilustrasi tetap** — audit geometri (mobile 390px) menemukan kartu-kartu yang terlalu makan tempat; semua dirapatkan TANPA membuang satu pun informasi/visual: kartu **Arus Kas Hari Ini** 859→659px (−24%): art gembor 86→64, ubin ikon panel 42→34, timbang net 44→32, baris bedeng pos 70→45 (kunci: line-height warisan 1.55 dirapatkan ke 1.25 + label "% dari keluar" tak lagi membungkus 2 baris), baris catatan 53→42 — gembor, panel Masuk/Keluar + pill porsi, jalur proporsional, vonis net surplus/defisit, "terakhir beli kapan" & daftar hari ini semuanya tetap utuh; **legenda Komposisi** (Keuangan) 864→703px (baris 62→50, ikon 34→26, donut 210→180); **kartu kebiasaan ×18** 263→237 (spot 56→46, meta/nudge/dots lebih rapat); plus ritme pekan, check-in (art fajar 118→92), motivasi, anggaran mini & daftar kelola; ritme global `card-pad` 16→14, `card-head` 16→12, `drill-row`, `agenda-cap` — tinggi gulir: Ringkasan 4278→4009, Kebiasaan 5181→4916, Keuangan 3353→3149. Touch target tombol centang (44px) sengaja dijaga.
 20. **v2.51**: fix pulihan **hero koin Keuangan** — komentar XML ilegal `--` di dalam `hero-fg-finance.svg` sejak v2.16 membuat berkas termuat kosong (tumpukan koin bertunas tak pernah tampil); garis komentar diperbaiki sehingga lapisan depan hero Keuangan tampil kembali.
 19. **v2.50**: ilustrasi tahap 3/3 — **jurnal refleksi** (Kalender: buku catatan terbuka + pena + teh), **kaca pembesar & kompas** (Wawasan: mengamati tunas / menunjuk arah tumbuh), **rak pot & label harga** (Pengaturan) — kini setiap halaman memakai ilustrasi khas sendiri.
 18. **v2.49**: ilustrasi tahap 2/3 — **aliran sungai koin** di pane Mutasi (arus kas harfiah: koin mengalir di sungai) + **brankas tunas** di pane Saldo (koin disimpan berikut tunasnya), tab Keuangan.
