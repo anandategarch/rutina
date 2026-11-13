@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" fill="none" role="img" aria-label="Label harga gantung di ranting: kategori belanja bertanda daun, koin, dan keranjang">
+  <defs>
+    <linearGradient id="slbBg" x1="0" y1="0" x2="360" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFEF8"/><stop offset="1" stop-color="#F2FDF5"/></linearGradient>
+    <linearGradient id="slbTag" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#F1F5F9"/></linearGradient>
+    <radialGradient id="slbCoin" cx=".5" cy=".5" r=".5"><stop stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/></radialGradient>
+  </defs>
+  <rect width="360" height="96" rx="12" fill="url(#slbBg)"/>
+  <!-- ranting penggantung -->
+  <path d="M0 30c40-4 74 6 108 2 40-5 78 4 116 0 50-5 90 2 136-2" stroke="#047857" stroke-width="3.2" stroke-linecap="round" opacity=".65"/>
+  <path d="M64 26c3-6-2-8-1-13M288 28c-3-6 2-8 1-13" stroke="#047857" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>
+  <!-- label 1: kategori makan (koin) -->
+  <g transform="translate(48 28)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H42l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbTag)" stroke="#D97706" stroke-width="2"/>
+    <circle cx="41" cy="23.4" r="5" fill="url(#slbCoin)" stroke="#B45309" stroke-width="1.4"/>
+    <path d="M41 20.8v5.2M38.4 23.4h5.2" stroke="#B45309" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M8 18h20M8 24h12M8 30h16" stroke="#CBD5E1" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="0" cy="12" r="3.4" fill="none" stroke="#B45309" stroke-width="2.2"/>
+  </g>
+  <!-- label 2: kategori transport (roda) -->
+  <g transform="translate(160 22) rotate(4)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H46l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbTag)" stroke="#0369A1" stroke-width="2"/>
+    <g transform="translate(41 23.4)">
+      <circle r="6.4" fill="none" stroke="#0369A1" stroke-width="2"/>
+      <path d="M0-6.4v3M0 3.4v3M-6.4 0h3M3.4 0h3" stroke="#0369A1" stroke-width="1.7" stroke-linecap="round"/>
+      <circle r="1.7" fill="#0369A1"/>
+    </g>
+    <path d="M8 18h22M8 24h12M8 30h18" stroke="#CBD5E1" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="0" cy="12" r="3.4" fill="none" stroke="#0369A1" stroke-width="2.2"/>
+  </g>
+  <!-- label 3: kategori tanam (daun) -->
+  <g transform="translate(268 30) rotate(-5)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H40l16 16-16 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbTag)" stroke="#059669" stroke-width="2"/>
+    <path d="M38 30.6c0-5 4-8.6 9-8.6-.6 6-4 8.6-9 8.6Z" fill="#10B981"/>
+    <path d="M38 30.6c-5-1-7.6-4.6-6-8.4 5 .6 7.4 3.8 6 8.4Z" fill="#34D399"/>
+    <path d="M8 18h18M8 24h10M8 30h14" stroke="#CBD5E1" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="0" cy="12" r="3.4" fill="none" stroke="#047857" stroke-width="2.2"/>
+  </g>
+  <!-- koin jatuh -->
+  <circle cx="130" cy="70" r="6.4" fill="url(#slbCoin)" stroke="#D97706" stroke-width="1.3"/>
+  <path d="M130 66.8v6.4M127 70h6" stroke="#B45309" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="318" cy="64" r="5.2" fill="url(#slbCoin)" stroke="#D97706" stroke-width="1.2" opacity=".95"/>
+  <path d="M318 61.4v5.2M315.4 64h5.2" stroke="#B45309" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M137 76c5 2 9 5 12 9" stroke="#D97706" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1 5" opacity=".6"/>
+  <!-- rumput dasar -->
+  <g stroke="#047857" stroke-width="2.4" stroke-linecap="round" opacity=".75">
+    <path d="M20 92c-3-4 2-7 0-10"/>
+    <path d="M208 90c3-4-2-7 0-10"/>
+    <path d="M340 92c-3-4 2-7 0-10"/>
+  </g>
+  <!-- daun kecil tersendiri -->
+  <path d="M92 78c-6-1-8-5-4-8 5 .6 8 3.4 4 8Z" fill="#34D399"/>
+  <path d="M236 76c6-1 8-5 4-8-5 .6-8 3.4-4 8Z" fill="#6EE7B7"/>
+  <path d="M14 22l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8Z" fill="#FCD34D" opacity=".9"/>
+</svg>

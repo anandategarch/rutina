@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 120" fill="none" role="img" aria-label="Kaca pembesar mengamatj dua tunas dengan percikan penemuan">
+  <defs>
+    <linearGradient id="sklBg" x1="0" y1="0" x2="180" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#ECFDF5"/><stop offset="1" stop-color="#F0F9FF"/></linearGradient>
+    <linearGradient id="sklLens" x1="64" y1="18" x2="116" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#E0F2FE" stop-opacity=".85"/></linearGradient>
+    <radialGradient id="sklGlow" cx=".5" cy=".5" r=".5"><stop stop-color="#FFFFFF" stop-opacity=".8"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="180" height="120" rx="14" fill="url(#sklBg)"/>
+  <ellipse cx="90" cy="112" rx="66" ry="6" fill="#059669" opacity=".12"/>
+  <!-- percikan penemuan -->
+  <path d="M34 26l2.6 5.6 5.6 2.6-5.6 2.6L34 42.4l-2.6-5.6-5.6-2.6 5.6-2.6Z" fill="#FCD34D"/>
+  <path d="M148 38l2 4.4 4.4 2-4.4 2-2 4.4-2-4.4-4.4-2 4.4-2Z" fill="#A7F3D0"/>
+  <circle cx="22" cy="66" r="2.4" fill="#7DD3FC"/>
+  <circle cx="160" cy="22" r="2" fill="#FDE68A"/>
+  <!-- tunas tinggi (kiri, di luar lensa) -->
+  <g transform="translate(36 84)">
+    <path d="M0 18V-4" stroke="#047857" stroke-width="3" stroke-linecap="round"/>
+    <path d="M0 8c-9-1-12-7-5-11 7 1 12 6 5 11Z" fill="#34D399"/>
+    <path d="M2 2c2-8 9-10 14-6-1 7-7 10-14 6Z" fill="#10B981"/>
+    <circle cx="16" cy="-6" r="3" fill="#FCD34D"/>
+  </g>
+  <!-- dua tunas kecil di dalam fokus lensa -->
+  <g transform="translate(90 88)">
+    <path d="M0 16V2" stroke="#047857" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M0 9c-7-1-9-6-4-9 6 1 9 5 4 9Z" fill="#10B981"/>
+    <path d="M-14 18V8" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M-14 12c-5-1-7-4-3-6 4 1 7 3 3 6Z" fill="#6EE7B7"/>
+    <path d="M14 18V6" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M14 10c5-1 7-4 3-6-4 1-7 3-3 6Z" fill="#34D399"/>
+    <circle cx="4" cy="0" r="2.6" fill="#FDE68A"/>
+  </g>
+  <!-- kaca pembesar -->
+  <g>
+    <circle cx="90" cy="44" r="30" fill="url(#sklGlow)"/>
+    <circle cx="90" cy="44" r="26" fill="url(#sklLens)" stroke="#059669" stroke-width="5"/>
+    <path d="M74 32c2-6 6-10 11-12" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" opacity=".9"/>
+    <rect x="108" y="66" width="10" height="34" rx="5" transform="rotate(42 113 83)" fill="#F59E0B"/>
+    <rect x="111" y="70" width="4" height="26" rx="2" transform="rotate(42 113 83)" fill="#FDE68A"/>
+  </g>
+  <!-- rumput -->
+  <g stroke="#047857" stroke-width="2.4" stroke-linecap="round" opacity=".8">
+    <path d="M146 102c-3-4 2-7 0-10"/>
+    <path d="M158 104c3-4-2-7 0-10"/>
+  </g>
+</svg>

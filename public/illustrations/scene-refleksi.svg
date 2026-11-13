@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 130" fill="none" role="img" aria-label="Jurnal terbuka dengan penanda daun, pena, dan secangkir teh di bawah rembulan">
+  <defs>
+    <linearGradient id="srBg" x1="0" y1="0" x2="220" y2="130" gradientUnits="userSpaceOnUse"><stop stop-color="#E0F2FE"/><stop offset=".55" stop-color="#F0FDF4"/><stop offset="1" stop-color="#FEF9EC"/></linearGradient>
+    <linearGradient id="srPage" x1="60" y1="46" x2="160" y2="112" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#F8FAFC"/></linearGradient>
+    <linearGradient id="srCover" x1="44" y1="42" x2="176" y2="116" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+  </defs>
+  <rect width="220" height="130" rx="14" fill="url(#srBg)"/>
+  <!-- rembulan & bintang -->
+  <path d="M188 26a15 15 0 1 0 7 24 12.5 12.5 0 0 1-7-24Z" fill="#FDE68A"/>
+  <circle cx="196" cy="34" r="2.2" fill="#FDE68A" opacity=".8"/>
+  <circle cx="190" cy="44" r="1.7" fill="#FDE68A" opacity=".7"/>
+  <path d="M30 22l2.4 5.2 5.2 2.4-5.2 2.4L30 37.2l-2.4-5.2-5.2-2.4 5.2-2.4Z" fill="#FCD34D"/>
+  <path d="M160 16l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8Z" fill="#FCD34D" opacity=".85"/>
+  <circle cx="18" cy="52" r="1.8" fill="#FDE68A" opacity=".7"/>
+  <circle cx="206" cy="70" r="1.6" fill="#FDE68A" opacity=".6"/>
+  <!-- jurnal terbuka -->
+  <ellipse cx="110" cy="114" rx="78" ry="7" fill="#059669" opacity=".12"/>
+  <path d="M46 48c20-6 42-5 62 2v56c-20-7-42-8-62-2Z" fill="url(#srCover)"/>
+  <path d="M174 48c-20-6-42-5-62 2v56c20-7 42-8 62-2Z" fill="url(#srCover)"/>
+  <path d="M52 56c17-5 35-5 51 1v44c-16-6-34-6-51-1Z" fill="url(#srPage)"/>
+  <path d="M168 56c-17-5-35-5-51 1v44c16-6 34-6 51-1Z" fill="url(#srPage)"/>
+  <!-- garis tulisan -->
+  <g stroke="#A7F3D0" stroke-width="2.2" stroke-linecap="round" opacity=".85">
+    <path d="M60 66c12-3 24-3 34 0M60 74c12-3 24-3 34 0M60 82c12-3 24-3 34 0M60 90c9-2 18-3 26-1"/>
+    <path d="M160 66c-12-3-24-3-34 0M160 74c-12-3-24-3-34 0M160 82c-12-3-24-3-34 0M160 90c-9-2-18-3-26-1"/>
+  </g>
+  <!-- garis tulis tangan pertama lebih pekat -->
+  <path d="M60 58c12-3 24-3 34 0" stroke="#34D399" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M160 58c-12-3-24-3-34 0" stroke="#34D399" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- penanda daun -->
+  <g transform="translate(126 38) rotate(14)">
+    <path d="M0 16c-9-1-13-8-6-13 8 1 13 7 6 13Z" fill="#10B981"/>
+    <path d="M0 16V2" stroke="#047857" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- pena -->
+  <g transform="translate(178 72) rotate(28)">
+    <rect x="0" y="0" width="7" height="34" rx="3.5" fill="#F59E0B"/>
+    <rect x="0" y="0" width="7" height="9" rx="3.5" fill="#D97706"/>
+    <path d="M3.5 34 1 40l5-2Z" fill="#065F46"/>
+    <rect x="1.6" y="8" width="3.8" height="18" fill="#FDE68A" opacity=".8"/>
+  </g>
+  <!-- cangkir teh mengepul -->
+  <g transform="translate(24 76)">
+    <path d="M0 12h24l-3 13c-.6 2.6-2 4-4.6 4h-8.8c-2.6 0-4-1.4-4.6-4Z" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="1.6"/>
+    <path d="M0 12h24v5H0Z" fill="#7DD3FC" opacity=".6"/>
+    <path d="M24 15c4.6-1 7 2 6 5.4-.9 3-3.4 4-6 3.4" stroke="#0369A1" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+    <path d="M8 7c-1.6-2.6 1.6-4 0-6.6M16 7c-1.6-2.6 1.6-4 0-6.6" stroke="#7DD3FC" stroke-width="2.1" stroke-linecap="round" opacity=".9"/>
+  </g>
+  <!-- tunas kecil -->
+  <g transform="translate(200 100)">
+    <path d="M0 12V2" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M0 7c-6-1-8-5-4-8 5 1 8 4 4 8Z" fill="#34D399"/>
+  </g>
+</svg>

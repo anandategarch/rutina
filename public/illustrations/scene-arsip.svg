@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" fill="none" role="img" aria-label="Rak kayu bertingkat berisi pot-pot tanaman dari benih sampai berbunga disertai alat berkebun">
+  <defs>
+    <linearGradient id="sarsBg" x1="0" y1="0" x2="360" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#F0FDF4"/><stop offset="1" stop-color="#FFFEF8"/></linearGradient>
+    <linearGradient id="sarsShelf" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FDBA74"/><stop offset="1" stop-color="#D97706"/></linearGradient>
+    <linearGradient id="sarsPot" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FB923C"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+  </defs>
+  <rect width="360" height="96" rx="12" fill="url(#sarsBg)"/>
+  <!-- rak atas -->
+  <rect x="26" y="44" width="230" height="8" rx="4" fill="url(#sarsShelf)"/>
+  <!-- tanaman rak atas: benih → tunas → berbunga -->
+  <g>
+    <g transform="translate(52 44)">
+      <path d="M0 0v-8" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-11" rx="5.4" ry="6.6" fill="#A7F3D0" stroke="#059669" stroke-width="1.6"/>
+      <path d="M-2-14c1.6-2 4-2 4.6 0" stroke="#047857" stroke-width="1.4" fill="none"/>
+    </g>
+    <g transform="translate(88 44)">
+      <path d="M0 0v-14" stroke="#047857" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M0-7c-8-1-11-6-6-10 7 1 11 5 6 10Z" fill="#34D399"/>
+      <path d="M2-12c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#6EE7B7"/>
+    </g>
+    <g transform="translate(128 44)">
+      <path d="M0 0v-16" stroke="#047857" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M0-9c-9-1-12-7-5-11 8 1 12 6 5 11Z" fill="#10B981"/>
+      <path d="M2-14c2-8 9-10 14-6-1 7-8 10-14 6Z" fill="#34D399"/>
+      <circle cx="17" cy="-19" r="3.4" fill="#FCD34D"/>
+      <circle cx="10" cy="-23" r="2.6" fill="#F9A8D4"/>
+      <circle cx="20" cy="-10" r="2.4" fill="#F9A8D4"/>
+    </g>
+  </g>
+  <!-- rak bawah -->
+  <rect x="26" y="84" width="308" height="8" rx="4" fill="url(#sarsShelf)"/>
+  <!-- pot-pot rak bawah -->
+  <g>
+    <g transform="translate(56 84)"><path d="M-11 0h22l-3-14h-16Z" fill="url(#sarsPot)"/><rect x="-13" y="-17" width="26" height="5" rx="2.5" fill="#C2410C"/><path d="M0-17v-6" stroke="#047857" stroke-width="2.2" stroke-linecap="round"/><path d="M0-20c-6-1-8-5-4-8 5 1 8 4 4 8Z" fill="#34D399"/></g>
+    <g transform="translate(128 84)"><path d="M-11 0h22l-3-14h-16Z" fill="url(#sarsPot)"/><rect x="-13" y="-17" width="26" height="5" rx="2.5" fill="#C2410C"/><path d="M0-17v-9" stroke="#047857" stroke-width="2.4" stroke-linecap="round"/><path d="M0-21c-8-1-11-7-5-10 7 1 11 6 5 10Z" fill="#10B981"/><path d="M2-26c2-7 8-9 12-5-1 6-6 8-12 5Z" fill="#6EE7B7"/></g>
+    <g transform="translate(200 84)"><path d="M-11 0h22l-3-14h-16Z" fill="url(#sarsPot)"/><rect x="-13" y="-17" width="26" height="5" rx="2.5" fill="#C2410C"/><path d="M0-17v-5" stroke="#047857" stroke-width="2" stroke-linecap="round"/><ellipse cx="0" cy="-9" rx="4.6" ry="3.4" fill="#6EE7B7" stroke="#059669" stroke-width="1.4"/></g>
+    <g transform="translate(288 84)"><path d="M-13 0h26l-3.4-16h-19.2Z" fill="url(#sarsPot)"/><rect x="-15.6" y="-19.4" width="31.2" height="5.6" rx="2.8" fill="#C2410C"/><path d="M0-19v-8" stroke="#047857" stroke-width="2.6" stroke-linecap="round"/><path d="M0-23c-9-1-12-7-5-12 8 1 12 7 5 12Z" fill="#34D399"/><path d="M2-29c2-8 9-10 15-6-1 7-9 10-15 6Z" fill="#10B981"/><circle cx="18" cy="-33" r="3" fill="#FCD34D"/><circle cx="8" cy="-36" r="2.4" fill="#F9A8D4"/></g>
+  </g>
+  <!-- sekop & garpu taman bersandar -->
+  <g transform="translate(300 40) rotate(12)">
+    <rect x="0" y="0" width="4.6" height="42" rx="2.3" fill="#B45309"/>
+    <rect x="-4" y="-2" width="13.2" height="6" rx="3" fill="#D97706"/>
+    <path d="M-5 42h14.6l-2-12c-3.4-2.6-7.2-2.6-10.6 0Z" fill="#64748B"/>
+  </g>
+  <g transform="translate(330 38) rotate(20)">
+    <rect x="0" y="0" width="4.2" height="44" rx="2.1" fill="#B45309"/>
+    <rect x="-4.4" y="-2" width="13" height="6" rx="3" fill="#D97706"/>
+    <path d="M-6 44c0-6 3.4-9 8-9s8 3 8 9c-2.6-2-5.4-2-8 0-2.6-2-5.4-2-8 0Z" fill="#64748B"/>
+  </g>
+  <!-- percikan daun -->
+  <path d="M28 26l2.4 5 5 2.4-5 2.4-2.4 5-2.4-5-5-2.4 5-2.4Z" fill="#A7F3D0"/>
+  <path d="M236 24l2 4.2 4.2 2-4.2 2-2 4.2-2-4.2-4.2-2 4.2-2Z" fill="#FCD34D" opacity=".9"/>
+  <circle cx="350" cy="18" r="2.6" fill="#A7F3D0"/>
+</svg>

@@ -8,6 +8,17 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.50 · ILUSTRASI BARU PER TAB (Tahap 3/3 — Kalender, Wawasan,
+     Pengaturan) — KALENDER: laporan bulanan dibuka "jurnal refleksi"
+     (scene-refleksi) — buku catatan terbuka, penanda daun, pena, teh
+     hangat di bawah rembulan. WAWASAN: kartu Temuan utama ber"kaca
+     pembesar" (scene-kaca) mengamati tunas; kartu Rekomendasi membawa
+     "kompas" (scene-kompas) yang menunjuk tunas di puncak bukit.
+     PENGATURAN: kartu kelola kebiasaan memakai "rak pot" (scene-arsip)
+     dari benih sampai berbunga + alat berkebun; kartu kelola kategori
+     memakai "label harga" (scene-label) menggantung di ranting. Kini
+     keenam tab membawa adegan ilustrasi yang BERBEDA-beda, satu keluarga
+     gaya kebun Evergreen. -->
 <!-- v2.49 · ILUSTRASI BARU PER TAB (Tahap 2/3 — Keuangan) — pane mutasi
      dibuka "aliran sungai koin" (scene-aliran): arus kas harfiah — koin
      hanyut di sungai biru yang mengairi taman, ada perahu kertas kecil
@@ -771,6 +782,18 @@ b,strong{font-weight:600}
 @media(max-width:640px){.wc-v{font-size:14.5px}.wc-cell{padding:9px 10px}}
 /* ---------- v2.37 · laporan bulanan (tab Kalender) ---------- */
 .mon-report{margin-bottom:24px}
+/* v2.50 · ilustrasi per tab tahap 3 — jurnal refleksi (laporan bulanan
+   Kalender, tengah kartu), kaca pembesar & kompas (kartu Temuan utama /
+   Rekomendasi Wawasan), rak pot & label harga (kartu kelola Pengaturan).
+   Pola .hm-art: lebar penuh, dipangkas rapi di ponsel. */
+.mr-art{display:block;width:100%;max-width:330px;height:auto;margin:6px auto 10px;border-radius:12px}
+.find-art{display:block;width:100%;height:auto;margin:0 0 14px;border-radius:12px;border:1px solid var(--line-soft)}
+.set-art{display:block;width:100%;height:auto;margin:0 0 14px;border-radius:12px;border:1px solid var(--line-soft)}
+@media(max-width:640px){
+  .mr-art{max-width:250px;margin:4px auto 8px}
+  .find-art{max-height:104px;object-fit:cover;object-position:center 55%}
+  .set-art{max-height:84px;object-fit:cover;object-position:center 55%}
+}
 .mr-sec{margin-top:15px;padding-top:14px;border-top:1px dashed var(--line)}
 .mr-sec:first-child{margin-top:2px;border-top:0;padding-top:0}
 .mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
@@ -3286,6 +3309,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
       </div>
+      <!-- v2.50 · kaca pembesar mengamati tunas (scene-kaca) — kartu
+           temuan kini berilustrasi metafora "memeriksa taman" -->
+      <img class="find-art" src="/illustrations/scene-kaca.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120"/>
       <div class="find-list" id="findList"></div>
     </div>
   </div>
@@ -3314,6 +3340,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
       </div>
+      <!-- v2.50 · kompas menunjuk tunas (scene-kompas) — arah langkah
+           berikutnya di kartu rekomendasi -->
+      <img class="find-art" src="/illustrations/scene-kompas.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120"/>
       <div class="find-list" id="rekoList"></div>
     </div>
   </div>
@@ -3395,6 +3424,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setHabCount">—</span>
       </div>
+      <!-- v2.50 · rak pot bertingkat (scene-arsip) — koleksi kebiasaan
+           sebagai pot yang dirawat di rak -->
+      <img class="set-art" src="/illustrations/scene-arsip.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="96"/>
       <div class="manage-list" id="setHabitList"><div class="t-sub">memuat…</div></div>
     </div>
 
@@ -3410,6 +3442,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setCatCount">—</span>
       </div>
+      <!-- v2.50 · label harga menggantung di ranting (scene-label) —
+           kategori transaksi sebagai label taman -->
+      <img class="set-art" src="/illustrations/scene-label.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="96"/>
       <div class="manage-list" id="setCatList"><div class="t-sub">memuat…</div></div>
     </div>
   </div>
@@ -3980,7 +4015,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.49';
+const APP_VERSION='v2.50';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -5590,6 +5625,7 @@ function renderMonthReport(mk,y,m){
         </div>
       </div>
     </div>
+    <img class="mr-art" src="/illustrations/scene-refleksi.svg" alt="" aria-hidden="true" loading="lazy" width="220" height="130"/>
     <div class="mr-sec">
       <div class="mr-cap"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Konsistensi</div>
       <div class="mr-row"><span>Hari aktif</span><b>${aktif} dari ${elapsed} hari</b></div>
