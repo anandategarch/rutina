@@ -8,6 +8,16 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.53 · HAPUS GESTUR GESER LAYAR UNTUK PINDAH TAB (mobile) —
+     geser horizontal di badan halaman kini TIDAK lagi memindahkan tab /
+     mengganti bulan kalender; navigasi tetap lewat bottom-nav & tombol
+     panah kalender. Gestur baris transaksi (kanan ubah, kiri hapus),
+     tekan lama, riak tekan & pintasan papan ketik TETAP. Sekaligus
+     menuntaskan kompak v2.52 untuk kartu yang belum dirapatkan:
+     detail hari & laporan bulanan (Kalender), hero+legenda/kartu
+     Wawasan (tren, temuan, pola, rekomendasi, lencana), kalender
+     konsistensi, grafik arus kas 6 pekan, anggaran mini, hero pohon —
+     semua info, ilustrasi & label "terakhir beli kapan" tetap utuh. -->
 <!-- v2.52 · KOMPAK MENYELURUH, ILUSTRASI TETAP — audit geometri menemukan
      kartu-kartu yang terlalu makan tempat di layar ponsel; semuanya
      dirapatkan TANPA membuang satu pun informasi/visual: (1) kartu Arus
@@ -431,13 +441,13 @@ b,strong{font-weight:600}
 .card-pad{padding:14px}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
 .card-head h3{font-size:18px}
-.ch-title{display:flex;align-items:center;gap:12px;min-width:0}
-.head-art{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
+.ch-title{display:flex;align-items:center;gap:10px;min-width:0}
+.head-art{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;border:1px solid var(--line-soft)}
 /* v2.25 · .ill diberi rasio eksplisit: <svg> inline tanpa viewBox menghasilkan
    kotak bayangan setinggi 150px (default replaced element) yang meluber
    ±50px keluar ubin 44px — memicu metrik overflow palsu & mencuri gesture.
    Rasio 1:1 mengunci tinggi = lebar yang sudah ditentukan tiap konteks. */
-.head-art .ill{width:36px;aspect-ratio:1}
+.head-art .ill{width:33px;aspect-ratio:1}
 .head-art.em{background:var(--terra-softer)}
 .head-art.sky{background:var(--sky-soft)}
 .head-art.honey{background:var(--honey-soft)}
@@ -514,8 +524,8 @@ b,strong{font-weight:600}
 .jatah-banner.over .bar i{background:var(--rose)}
 /* ---------- v2.8 · ritme pekan ---------- */
 .pekan-art{display:block;width:100%;height:auto;margin:0 0 10px}
-.week-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.wk-cell{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 3px 7px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.week-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.wk-cell{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 3px 5px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
 .wk-cell.today{background:var(--terra-softer);border-color:#A7F3D0}
 .wk-cell.future{opacity:.45;border-style:dashed;background:transparent}
 .wk-day{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
@@ -598,7 +608,7 @@ b,strong{font-weight:600}
 .page-hero--art .hero-ill img{display:block;width:100%;height:auto}
 .page-hero--art .ph-scene{opacity:.45;right:1%;bottom:-20px}
 /* Lencana (Wawasan) — podium juara sebagai pembuka koleksi */
-.badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 14px;border-radius:16px}
+.badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 10px;border-radius:16px}
 @media(max-width:900px){
   .page-hero{min-height:0;padding:18px 20px}
   .page-hero--art{grid-template-columns:1fr}
@@ -606,16 +616,16 @@ b,strong{font-weight:600}
   .page-hero--art .ph-scene{opacity:.4}
 }
 @media(max-width:640px){
-  .page-hero{padding:16px 17px;margin-bottom:16px}
+  .page-hero{padding:16px 17px;margin-bottom:14px}
   .page-hero .hero-body{max-width:100%;padding-right:56px}
   .page-hero .ph-scene{width:150px;opacity:.62;right:-10px;bottom:-12px}
   .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
   .page-hero--fin .ph-scene{width:170px;opacity:.95}
   .page-hero--fin .hero-body{padding-right:64px}
-  .page-hero--art .hero-ill{max-width:150px}
+  .page-hero--art .hero-ill{max-width:112px}
   .page-hero--art .hero-body{padding-right:0}
   .ph-progress .bar{flex-basis:100%;min-width:0} /* v2.40 · bar sebaris penuh; pill turun rapi ke baris sendiri */
-  .badge-art{max-width:280px;margin:0 auto 12px}
+  .badge-art{max-width:240px;margin:0 auto 8px}
 }
 @media(prefers-reduced-motion:reduce){
   .page-hero .ph-scene{filter:none}
@@ -704,23 +714,24 @@ b,strong{font-weight:600}
 .hero .bar,.page-hero .bar{background:rgba(15,23,42,.12)}
 
 /* ---------- arus kas ---------- */
-.legend{display:flex;gap:14px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.legend{display:flex;gap:10px;font-size:12px;font-weight:600;color:var(--ink-2)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .legend i{width:10px;height:10px;border-radius:3.5px;display:inline-block}
-.cf-total{display:flex;gap:10px;margin-top:14px}
-.cf-total>div{flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line-soft)}
-.cf-total .ic{width:19px;height:19px}
-.cf-total b{font-size:13.5px;display:block}
+.cf-total{display:flex;gap:10px;margin-top:10px}
+.cf-total>div{flex:1;display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line-soft)}
+.cf-total .ic{width:18px;height:18px}
+.cf-total b{font-size:13px;display:block}
 .cf-total small{font-size:12px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 
 /* ---------- mini anggaran ---------- */
-.mb-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center}
-.mb-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center}
-.mb-ic .ic{width:19px;height:19px}
-.mb-row .bar{height:8px;margin-top:5px}
+.mb-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center}
+.mb-ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center}
+.mb-ic .ic{width:16px;height:16px}
+.mb-row .bar{height:6px;margin-top:3px}
 .mb-info{min-width:0}
-.mb-info b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mb-amt{font-size:12px;color:var(--ink-3);font-weight:600;white-space:nowrap}
+.mb-info b{font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mb-amt{font-size:11.5px;color:var(--ink-3);font-weight:600;white-space:nowrap}
+#miniBudgets{gap:10px}
 
 /* ---------- tip kartu ---------- */
 .tip-card{position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;padding:20px}
@@ -760,20 +771,20 @@ b,strong{font-weight:600}
    identitas memakai art terra (em) + basah sage lembut di kanan-atas.
    Pernyataan identitas tampil dalam tipografi display dengan tanda
    kutip sage; penghitung suara memakai angka display terra. */
-.identity-card{position:relative;display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin-bottom:24px;overflow:hidden}
+.identity-card{position:relative;display:flex;gap:12px;align-items:flex-start;padding:14px 17px;margin-bottom:24px;overflow:hidden}
 .identity-card::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 95% at 100% 0%,var(--sage-soft) 0%,transparent 62%);pointer-events:none}
 .id-art{position:relative;z-index:1;animation:sceneBob 6.5s ease-in-out infinite}
 .id-art .ill{width:30px;height:30px}
-.id-body{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.id-body{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
 .id-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .id-edit{width:38px;height:38px;border-radius:12px;flex:none}
 .id-edit:active{transform:scale(.92)}
-.id-stmt{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.012em;line-height:1.42;color:var(--ink);text-wrap:balance;padding-left:24px;position:relative}
+.id-stmt{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.012em;line-height:1.36;color:var(--ink);text-wrap:balance;padding-left:22px;position:relative}
 .id-stmt::before{content:"\201C";position:absolute;left:-1px;top:-5px;font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--sage-deep);opacity:.45}
 .id-votes{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
 .id-votes b{font-family:var(--font-display);font-size:15px;color:var(--terra-deep)}
 .id-votes .sep{color:var(--ink-3)}
-.id-ctx{font-size:12.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:9px}
+.id-ctx{font-size:12.5px;line-height:1.45;border-top:1px dashed var(--line);padding-top:7px}
 .id-cta{align-self:flex-start;margin-top:1px}
 .id-empty-note{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .id-form{display:flex;gap:8px;align-items:stretch}
@@ -790,37 +801,37 @@ b,strong{font-weight:600}
 }
 
 /* ---------- v2.37 · pembanding pekan (kartu Ritme aktivitas) ---------- */
-.week-cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.wc-cell{display:flex;flex-direction:column;gap:2px;padding:7px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.week-cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.wc-cell{display:flex;flex-direction:column;gap:2px;padding:5px 9px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
 .wc-l{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wc-v{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.15}
 .wc-d{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;color:var(--ink-3);line-height:1.3}
 .wc-d .ic{width:11px;height:11px;flex:none}
 .wc-d.up{color:var(--sage-deep)}
 .wc-d.down{color:var(--honey-deep)}
-@media(max-width:640px){.wc-v{font-size:14.5px}.wc-cell{padding:9px 10px}}
+@media(max-width:640px){.wc-v{font-size:14.5px}.wc-cell{padding:6px 8px}}
 /* ---------- v2.37 · laporan bulanan (tab Kalender) ---------- */
 .mon-report{margin-bottom:24px}
 /* v2.50 · ilustrasi per tab tahap 3 — jurnal refleksi (laporan bulanan
    Kalender, tengah kartu), kaca pembesar & kompas (kartu Temuan utama /
    Rekomendasi Wawasan), rak pot & label harga (kartu kelola Pengaturan).
    Pola .hm-art: lebar penuh, dipangkas rapi di ponsel. */
-.mr-art{display:block;width:100%;max-width:330px;height:auto;margin:6px auto 10px;border-radius:12px}
-.find-art{display:block;width:100%;height:auto;margin:0 0 14px;border-radius:12px;border:1px solid var(--line-soft)}
+.mr-art{display:block;width:100%;max-width:330px;height:auto;margin:4px auto 8px;border-radius:12px}
+.find-art{display:block;width:100%;height:auto;margin:0 0 10px;border-radius:12px;border:1px solid var(--line-soft)}
 .set-art{display:block;width:100%;height:auto;margin:0 0 14px;border-radius:12px;border:1px solid var(--line-soft)}
 @media(max-width:640px){
-  .mr-art{max-width:250px;margin:4px auto 8px}
-  .find-art{max-height:104px;object-fit:cover;object-position:center 55%}
+  .mr-art{max-width:200px;margin:3px auto 6px}
+  .find-art{max-height:82px;object-fit:cover;object-position:center 55%}
   .set-art{max-height:84px;object-fit:cover;object-position:center 55%}
 }
-.mr-sec{margin-top:15px;padding-top:14px;border-top:1px dashed var(--line)}
+.mr-sec{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
 .mr-sec:first-child{margin-top:2px;border-top:0;padding-top:0}
-.mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+.mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
 .mr-cap .ic{width:12px;height:12px;flex:none}
-.mr-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0}
+.mr-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;padding:3px 0}
 .mr-row span{color:var(--ink-2)}
 .mr-row b{font-variant-numeric:tabular-nums;font-family:var(--font-display);text-align:right}
-.mr-cat{display:flex;flex-direction:column;gap:4px;padding:5px 0}
+.mr-cat{display:flex;flex-direction:column;gap:4px;padding:4px 0}
 .mr-cat .t{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:600}
 .mr-cat .t b{font-variant-numeric:tabular-nums}
 .mr-note{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
@@ -850,7 +861,7 @@ b,strong{font-weight:600}
    asli tabel DailyLog (tersinkron lewat jurnal dailyLog). Setelah
    tersimpan: ringkasan pill + tombol Ubah — pill yang sama persis
    dengan detail hari supaya satu bahasa. */
-.ci-card{padding:15px 17px;margin-bottom:24px}
+.ci-card{padding:13px 15px;margin-bottom:24px}
 /* v2.48 · adegan fajar di kepala kartu check-in — kanan kepala, turun
    rapi ke tepi kartu (margin negatif kecil), bayangan lembut senada
    ph-scene. Sempit → ikut menyusut; ponsel ≤420px disembunyikan agar
@@ -861,14 +872,14 @@ b,strong{font-weight:600}
 /* v2.48 · padang kupu-kupu penutup kartu kalender konsistensi (Kebiasaan)
    — strip lebar pola .pekan-art; ponsel dipangkas agar tak memanjangkan
    halaman (object-position menjaga kupu tetap terlihat) */
-.hm-art{display:block;width:100%;height:auto;margin:16px 0 0;border-radius:12px}
-@media(max-width:640px){.hm-art{max-height:92px;object-fit:cover;object-position:center 65%}}
-.ci-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.hm-art{display:block;width:100%;height:auto;margin:10px 0 0;border-radius:12px}
+@media(max-width:640px){.hm-art{max-height:74px;object-fit:cover;object-position:center 65%}}
+.ci-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:7px}
 .ci-lab{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:96px;flex:none}
 .ci-lab .ic{width:15px;height:15px;color:var(--ink-3);flex:none}
 .ci-scale{display:flex;gap:6px;flex:1;min-width:0}
-.ci-dot{flex:1;min-width:0;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--ink-2);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:border-color .18s,color .18s,background .18s;cursor:pointer;padding:4px 2px}
-.ci-dot span{font-size:16px;line-height:1.1}
+.ci-dot{flex:1;min-width:0;min-height:38px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--ink-2);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:border-color .18s,color .18s,background .18s;cursor:pointer;padding:3px 2px}
+.ci-dot span{font-size:15px;line-height:1.1}
 .ci-dot small{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.02em}
 .ci-dot:hover{border-color:var(--terra);color:var(--terra-deep)}
 .ci-dot:active{transform:scale(.95)}
@@ -876,11 +887,11 @@ b,strong{font-weight:600}
 .ci-dot.active small{color:rgba(255,255,255,.75)}
 .ci-sel{margin:0;flex:1;min-width:132px;display:flex}
 .ci-sel select{flex:1}
-.ci-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.ci-actions .ci-save{flex:1;min-width:150px;min-height:46px}
+.ci-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ci-actions .ci-save{flex:1;min-width:150px;min-height:40px}
 .ci-sum{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 @media(max-width:640px){
-  .ci-card{padding:15px 15px}
+  .ci-card{padding:12px 13px}
   .ci-lab{min-width:88px}
   .ci-row{align-items:flex-start}
   .ci-scale{gap:5px}
@@ -901,17 +912,17 @@ b,strong{font-weight:600}
 .heatmap-wrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
 .hm-flex{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
 .hm-side{flex:0 0 250px;display:flex;flex-direction:column;gap:4px}
-.hm-side .find-item{padding:10px}
+.hm-side .find-item{padding:7px}
 @media(max-width:640px){.hm-side{flex-basis:100%}}
-.hm-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);gap:3.5px;width:max-content}
-.hm-cell{width:13px;height:13px;border-radius:3.5px;background:#F1F5F9}
+.hm-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,12px);gap:3px;width:max-content}
+.hm-cell{width:12px;height:12px;border-radius:3px;background:#F1F5F9}
 .hm-cell.l1{background:#A7F3D0}.hm-cell.l2{background:#6EE7B7}.hm-cell.l3{background:#10B981}
 .hm-cell.today{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--terra)}
 /* v2.25 · label bulan heatmap — dulu tiap label dipaksa selebar 1 sel (13px)
    padahal teks "Agu/Sep" butuh ±23px → meluber ke sel tetangga. Kini label
    ditempatkan di kolom minggu tempat bulan mulai lalu DIRENTANG 4 kolom
    (grid-column span, dari JS) — sejajar grid sel, tak pernah bertabrakan. */
-.hm-months{display:grid;grid-auto-flow:column;grid-auto-columns:13px;gap:3.5px;width:max-content;margin-bottom:6px}
+.hm-months{display:grid;grid-auto-flow:column;grid-auto-columns:12px;gap:3px;width:max-content;margin-bottom:4px}
 .hm-months span{font-size:12px;font-weight:600;color:var(--ink-3);white-space:nowrap}
 .hm-legend{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-3);font-weight:600}
 .hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
@@ -1042,23 +1053,23 @@ b,strong{font-weight:600}
 .ticks i.on{background:var(--terra-deep)}
 .cal-cell.today .ticks i.on{background:var(--terra-deep)}
 .perf-star{position:absolute;top:6px;right:7px;width:11px;height:11px;color:var(--honey-deep)}
-.day-detail{display:flex;flex-direction:column;gap:16px}
-.dd-head{display:flex;gap:14px;align-items:center}
-.dd-head .spot{width:62px;height:62px}
-.dd-head .spot .ill{width:52px}
-.dd-head b{font-family:var(--font-display);font-size:19px;display:block}
+.day-detail{display:flex;flex-direction:column;gap:12px}
+.dd-head{display:flex;gap:10px;align-items:center}
+.dd-head .spot{width:46px;height:46px}
+.dd-head .spot .ill{width:38px}
+.dd-head b{font-family:var(--font-display);font-size:17px;display:block}
 .dd-head small{font-size:12px;color:var(--ink-3);font-weight:600}
 .dd-stats{display:flex;gap:10px;flex-wrap:wrap}
 .dd-stats .pill{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line-soft)}
-.dd-habits{display:flex;flex-direction:column;gap:7px}
-.dd-habit{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:8px 11px;border-radius:12px;background:var(--surface-2)}
-.dd-habit .ic{width:18px;height:18px;flex:none}
+.dd-habits{display:flex;flex-direction:column;gap:5px}
+.dd-habit{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;padding:5px 9px;border-radius:12px;background:var(--surface-2)}
+.dd-habit .ic{width:17px;height:17px;flex:none}
 .dd-habit.y{color:var(--sage-deep)}
 .dd-habit.n{color:var(--ink-3)}
-.dd-tx{display:flex;flex-direction:column;gap:7px}
-.dd-tx-row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
-.dd-tx-row .tx-ic{width:34px;height:34px;border-radius:11px;flex:none}
-.dd-tx-row .tx-ic .ic{width:18px;height:18px}
+.dd-tx{display:flex;flex-direction:column;gap:5px}
+.dd-tx-row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.dd-tx-row .tx-ic{width:28px;height:28px;border-radius:9px;flex:none}
+.dd-tx-row .tx-ic .ic{width:15px;height:15px}
 /* v2.25 · catatan transaksi di detail hari: dari elipsis 1 baris (hanya
    dapat ±119px) menjadi clamp 2 baris — catatan pendek tampil UTUH,
    yang panjang terpangkas rapi (pola line-clamp Apple/Material).
@@ -1120,31 +1131,31 @@ b,strong{font-weight:600}
 .cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:600}
 
 /* ---------- halaman wawasan ---------- */
-.find-list{display:flex;flex-direction:column;gap:6px}
-.find-item{display:flex;gap:13px;align-items:center;padding:11px}
-.find-item .spot{width:50px;height:50px}
-.find-item .spot .ill{width:42px}
-.find-item b{font-size:13.5px;display:block;line-height:1.3}
-.find-item small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.4;display:block;margin-top:1px}
-.pola-list{display:flex;flex-direction:column;gap:14px}
-.pola-row{display:flex;flex-direction:column;gap:6px}
+.find-list{display:flex;flex-direction:column;gap:5px}
+.find-item{display:flex;gap:10px;align-items:center;padding:8px}
+.find-item .spot{width:40px;height:40px}
+.find-item .spot .ill{width:34px}
+.find-item b{font-size:13px;display:block;line-height:1.28}
+.find-item small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.32;display:block;margin-top:0}
+.pola-list{display:flex;flex-direction:column;gap:9px}
+.pola-row{display:flex;flex-direction:column;gap:4px}
 .pola-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .pola-head .lbl{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600}
-.pola-head .dl-ic{width:28px;height:28px;border-radius:9px}
-.pola-head .dl-ic .ic{width:16px;height:16px}
+.pola-head .dl-ic{width:24px;height:24px;border-radius:8px}
+.pola-head .dl-ic .ic{width:14px;height:14px}
 .pola-head b{font-size:12.5px;white-space:nowrap}
-.pola-bar{height:14px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
+.pola-bar{height:10px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
 .pola-bar i{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
-.badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:18px 12px 15px}
-.badge .ill{width:74px;height:74px}
-.badge b{font-size:12.5px;line-height:1.25}
-.badge small{font-size:12px;color:var(--ink-3);font-weight:600;line-height:1.35}
+.badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:12px 10px 10px}
+.badge .ill{width:60px;height:60px}
+.badge b{font-size:12px;line-height:1.25}
+.badge small{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.3}
 .badge.locked{filter:grayscale(1);opacity:.55}
-.badge .lock-tag{display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);filter:none}
+.badge .lock-tag{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);filter:none}
 .badge .lock-tag .ic{width:11px;height:11px}
 .badge.unlocked .lock-tag{color:var(--sage-deep)}
-.cons-note{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px 14px;border-radius:var(--r-md);background:var(--sage-soft);border:1px solid #BBF7D0;font-size:12.5px;font-weight:600;color:var(--sage-deep)}
+.cons-note{display:flex;gap:10px;align-items:center;margin-top:10px;padding:9px 12px;border-radius:var(--r-md);background:var(--sage-soft);border:1px solid #BBF7D0;font-size:12.5px;font-weight:600;color:var(--sage-deep)}
 .cons-note .ic{width:17px;height:17px;flex:none}
 
 /* ---------- modal ---------- */
@@ -1398,8 +1409,8 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
   .tree-progress{position:relative;z-index:1;max-width:100%;background:rgba(255,255,255,.92)}
   .sheet{padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
   /* kepala kartu: pill turun ke baris sendiri agar judul tak terperangkap */
-  .card-head{flex-wrap:wrap;row-gap:8px}
-  .card-head>.pill{margin-left:auto}
+  .card-head{flex-wrap:wrap;row-gap:6px}
+  .card-head>.pill{margin-left:auto;padding:5px 11px}
   .card-head>.head-act{margin-left:auto}
   /* toolbar kalender: padat satu baris, muat di 360px */
   .cal-tools{gap:6px;justify-content:space-between;flex-wrap:nowrap}
@@ -1575,10 +1586,6 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .sw-edit{justify-content:flex-start;color:var(--terra-deep);background:linear-gradient(270deg,transparent,rgba(16,185,129,.12) 30%,rgba(16,185,129,.2))}
 /* lapisan aksi muncul hanya saat baris sedang digeser */
 .tx-row.swiping .tx-swipe{opacity:1}
-/* pill arah geser antar tab / bulan kalender */
-.swipe-hint{position:fixed;left:50%;top:86px;transform:translate(-50%,-10px);z-index:80;display:flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;background:rgba(15,23,42,.88);color:#F8FAFC;font-size:12.5px;font-weight:600;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.swipe-hint.show{opacity:1;transform:translate(-50%,0)}
-.swipe-hint .ic{width:14px;height:14px;color:#6EE7B7}
 /* donat interaktif: irisan mengembang saat disentuh, lainnya meredup;
    transisi tunggal (stroke-width+opacity+dasharray) — sapuan v2.13 tetap hidup */
 .donut-slice{cursor:pointer;transition:stroke-width .22s var(--ease-tunas),opacity .22s,stroke-dasharray .85s cubic-bezier(.25,.8,.3,1)}
@@ -1676,7 +1683,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   .gd-plant:hover{transform:none}
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
   .rip{display:none !important}
-  .swipe-hint{transition:none}
   .tx-row.lp,.habit-card.lp{transform:none}
   .rv{opacity:1 !important} /* v2.31: reveal gulir dimatikan — konten langsung tampak */
   .row-out{animation:none !important;opacity:0} /* penghapusan langsung, tanpa gerak */
@@ -2804,7 +2810,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>
         <span id="weekNoteText">Memuat ritme pekan…</span>
       </div>
-      <button class="link-btn" data-go="kalender" style="margin-top:12px">Buka kalender <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <button class="link-btn" data-go="kalender" style="margin-top:8px">Buka kalender <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
     <div class="row" style="gap:18px">
       <div class="card card-pad">
@@ -3483,8 +3489,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 </nav>
 
 <!-- ================= TOAST ================= -->
-<!-- v2.14 · lapisan interaksi: pill arah geser, tombol melayang, panel pintasan -->
-<div class="swipe-hint" id="swipeHint" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg><span id="swipeHintTx"></span></div>
+<!-- v2.14 · lapisan interaksi: tombol melayang, panel pintasan -->
 <button type="button" class="scbtn" id="scBtn" aria-label="Pintasan papan ketik" title="Pintasan papan ketik ( ? )"><svg class="ic" aria-hidden="true"><use href="#i-kbd"/></svg></button>
 <button type="button" class="totop" id="toTop" aria-label="Kembali ke atas" title="Kembali ke atas"><svg class="ic" aria-hidden="true"><use href="#i-chev-u"/></svg></button>
 <div class="sc-help" id="scHelp" role="dialog" aria-modal="true" aria-labelledby="scHelpTitle">
@@ -3504,7 +3509,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="sc-row"><small>Panel pintasan ini</small><span class="sc-keys"><kbd>?</kbd></span></div>
       <div class="sc-row"><small>Tutup modal / panel</small><span class="sc-keys"><kbd>Esc</kbd></span></div>
     </div>
-    <small class="sc-note">Pintasan hanya aktif saat tidak sedang mengetik. Di layar sentuh: geser baris transaksi ke kiri untuk menghapus, ke kanan untuk mengubah; geser layar untuk pindah tab; tahan lama kartu kebiasaan untuk menghapus.</small>
+    <small class="sc-note">Pintasan hanya aktif saat tidak sedang mengetik. Di layar sentuh: geser baris transaksi ke kiri untuk menghapus, ke kanan untuk mengubah; tahan lama kartu kebiasaan untuk menghapus.</small>
   </div>
 </div>
 <div class="toast-root" id="toastRoot" aria-live="polite"></div>
@@ -4012,7 +4017,7 @@ button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-sha
 .month-sel .chev{width:14px;height:14px;color:var(--ink-3);flex:none}
 /* ---------- cetak ---------- */
 @media print{
-  .sidebar,.topbar,.bottomnav,.totop,.scbtn,.swipe-hint,.toast-root,.modal,.pop-scrim,.sc-help{display:none!important}
+  .sidebar,.topbar,.bottomnav,.totop,.scbtn,.toast-root,.modal,.pop-scrim,.sc-help{display:none!important}
   .page{display:none!important}
   .page.active{display:block!important}
   body{background:none}
@@ -4034,7 +4039,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.52';
+const APP_VERSION='v2.53';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -6050,7 +6055,7 @@ function renderCashflow(){
   const win=weeks.map(w0=>({s:dayKey(w0),e:dayKey(addDays(w0,6))}));
   const masuk=win.map(x=>sumBy(TXS.filter(t=>t.type==='income'&&t.date>=x.s&&t.date<=x.e),t=>t.amount));
   const keluar=win.map(x=>sumBy(TXS.filter(t=>t.type==='expense'&&t.date>=x.s&&t.date<=x.e),t=>t.amount));
-  const W=Math.max(280,cw),H=210,L=50,R=14,T=22,B=30;
+  const W=Math.max(280,cw),H=190,L=50,R=14,T=22,B=30;
   const gw=(W-L-R)/N;
   const maxV=Math.max(...masuk,...keluar,100000);
   const nice=Math.ceil(maxV/250000)*250000;
@@ -6105,7 +6110,7 @@ function renderMiniBudgets(){
         <div class="mb-info"><b>${esc(r.category)}</b><div class="bar"><i data-w="${r.pct}%" style="background:${warna}"></i></div></div>
         <span class="mb-amt">${r.pct}% dari batas</span>
       </div>
-      <div class="t-sub" style="font-size:12px;margin-top:5px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}${lt?` · <b style="color:var(--terra-deep);font-weight:700">terakhir ${relTanggal(lt.date)}</b>`:''}</div>
+      <div class="t-sub" style="font-size:11.5px;margin-top:3px">${rupiah(r.used)} dari batas ${rupiah(r.amount)}${lt?` · <b style="color:var(--terra-deep);font-weight:700">terakhir ${relTanggal(lt.date)}</b>`:''}</div>
     </div>`;
   }).join('');
   animateBars($('#miniBudgets'));
@@ -6997,7 +7002,7 @@ function renderConsChart(){
   const ct=$('#consTitle');if(ct)ct.textContent=`Konsistensi ${vals.length} minggu terakhir`;
   const avg=Math.round(sumBy(vals,v=>v)/vals.length);
   const maxV=Math.max(...vals,1);
-  const W=Math.max(280,cw),H=240,L=44,R=14,T=18,B=34;
+  const W=Math.max(280,cw),H=200,L=44,R=14,T=18,B=34;
   const x=i=>L+(W-L-R)*i/Math.max(1,vals.length-1);
   const y=v=>T+(H-T-B)*(1-v/maxV);
   const pts=vals.map((v,i)=>[x(i),y(v)]);
@@ -8208,16 +8213,16 @@ function tunasWake(){
    v2.14 · LAPISAN INTERAKSI PENUH
    Riak tekan "sentuhan daun" · tekan lama (baris transaksi →
    sunting, kartu kebiasaan → hapus) · geser baris transaksi
-   (kanan = ubah, kiri = hapus) · geser layar antar tab · geser
-   kisi kalender untuk ganti bulan · pintasan papan ketik +
+   (kanan = ubah, kiri = hapus) · pintasan papan ketik +
    panel bantuan · donat interaktif · tombol kembali ke atas ·
    toast bisa ditutup sekali ketuk. Semua hormat
    prefers-reduced-motion dan tak mengganggu navigasi tetikus.
+   v2.53: geser layar antar tab & kisi kalender DIHAPUS —
+   di ponsel, geser horizontal kini murni milik gulir/aksi baris.
    ============================================================ */
 (function(){
   const ORDER=['ringkasan','kebiasaan','keuangan','kalender','wawasan','pengaturan'];
   const COARSE=matchMedia('(pointer:coarse)').matches;
-  const hint=$('#swipeHint'),hintTx=$('#swipeHintTx'),hintUse=hint?hint.querySelector('use'):null;
 
   /* ---------- riak tekan: semburat hijau dari titik sentuh ---------- */
   const RIP_SEL='.btn,.chip,.icon-btn,.nav-item,.bn-item,.fin-tab,.btn-check,.tx-btn,.btn-edit,.btn-del,.dp-nav,.link-btn,.cal-cell,.seg button,.tp-item,.tp-quick .chip';
@@ -8329,64 +8334,6 @@ function tunasWake(){
       if(id)setTimeout(()=>openTxEdit(id),220);
     }else{
       inner.style.transform='';
-    }
-  }));
-
-  /* ---------- geser layar antar tab & kisi kalender untuk ganti bulan ---------- */
-  let pg=null;
-  function showHint(label,leftDir){
-    if(!hint)return;
-    hintTx.textContent=label;
-    if(hintUse)hintUse.setAttribute('href',leftDir?'#i-chev-l':'#i-chev-r');
-    hint.classList.add('show');
-  }
-  function hideHint(){if(hint)hint.classList.remove('show')}
-  document.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||!e.target.closest)return;
-    if(document.querySelector('.modal.open,.sc-help.open,.pop-scrim'))return;
-    const t=e.target;
-    if(t.closest('input,textarea,select,.tx-row,.tp-col,.pop-scrim,.modal,.heatmap-wrap,.fin-months,.cs-menu'))return;
-    const cal=!!t.closest('.cal-grid');
-    pg={x:e.touches[0].clientX,y:e.touches[0].clientY,dx:0,on:false,cal,page:$('.page.active')};
-  },{passive:true});
-  document.addEventListener('touchmove',e=>{
-    if(!pg)return;
-    if(e.touches.length>1){pg=null;hideHint();return}
-    const t=e.touches[0];
-    pg.dx=t.clientX-pg.x;
-    const dy=t.clientY-pg.y;
-    if(!pg.on){
-      if(Math.abs(dy)>14&&Math.abs(dy)>Math.abs(pg.dx)){pg=null;return}
-      if(Math.abs(pg.dx)<14)return;
-      pg.on=true;
-      if(!pg.cal&&!reduced&&pg.page)pg.page.style.transition='none';
-    }
-    e.preventDefault();
-    if(pg.cal){
-      showHint(pg.dx<0?'Bulan berikutnya':'Bulan sebelumnya',pg.dx>0);
-    }else{
-      const i=ORDER.indexOf(state.page);
-      const tgt=pg.dx<0?ORDER[i+1]:ORDER[i-1];
-      showHint(tgt?TITLES[tgt]:(pg.dx<0?'Sudah tab terakhir':'Sudah tab pertama'),pg.dx>0);
-    }
-    if(!pg.cal&&!reduced&&pg.page){
-      const d=Math.max(-24,Math.min(24,pg.dx*.12));
-      pg.page.style.transform=`translateX(${d.toFixed(1)}px)`;
-    }
-  },{passive:false});
-  ['touchend','touchcancel'].forEach(ev=>document.addEventListener(ev,()=>{
-    if(!pg)return;
-    const{dx,on,cal,page}=pg;pg=null;
-    hideHint();
-    if(page){page.style.transition='';page.style.transform=''}
-    if(!on)return;
-    if(cal){
-      if(dx<-56){haptic(10);state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal(true)}
-      else if(dx>56){haptic(10);state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal(true)}
-    }else if(Math.abs(dx)>=72){
-      const i=ORDER.indexOf(state.page);
-      const tgt=dx<0?ORDER[i+1]:ORDER[i-1];
-      if(tgt){haptic(10);go(tgt)}
     }
   }));
 
