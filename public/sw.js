@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v49"; // v2.47 — napas antar-kartu: margin-bottom kartu arus kas hari ini (tak lagi menempel check-in harian)
+const STATIC_CACHE = "rutina-static-v50"; // v2.48 — ilustrasi per tab tahap 1: adegan fajar (check-in Ringkasan) + padang kupu-kupu (kalender konsistensi Kebiasaan)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

@@ -8,6 +8,16 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.48 · ILUSTRASI BARU PER TAB (Tahap 1/3 — Ringkasan & Kebiasaan) —
+     permintaan pengguna: perbanyak ilustrasi di SEMUA tab, tiap tab punya
+     adegan yang BERBEDA. (1) RINGKASAN: kartu check-in harian kini
+     berpasangan dengan "adegan fajar" (scene-fajar) — mentari terbit,
+     cangkir teh hangat, burung pagi — metafora menyapa diri tiap pagi;
+     bersembunyi di ponsel sangat sempit agar titik skala tetap lega.
+     (2) KEBIASAAN: kartu kalender konsistensi ditutup "padang kupu-kupu"
+     (scene-kupu) — hari-hari catatan adalah taman yang ramai dikunjungi.
+     Semua adegan digambar satu keluarga gaya kebun Evergreen (sage ·
+     madu · langit), vektor ringan, aria-hidden karena dekoratif. -->
 <!-- v2.47 · NAPAS ANTAR-KARTU RINGKASAN — kartu hero "Arus kas hari ini"
      (v2.46) lahir tanpa margin-bottom sehingga menempel persis ke kartu
      "Check-in harian" di bawahnya (temuan pengguna). Kini diberi napas
@@ -791,6 +801,18 @@ b,strong{font-weight:600}
    tersimpan: ringkasan pill + tombol Ubah — pill yang sama persis
    dengan detail hari supaya satu bahasa. */
 .ci-card{padding:18px 20px;margin-bottom:24px}
+/* v2.48 · adegan fajar di kepala kartu check-in — kanan kepala, turun
+   rapi ke tepi kartu (margin negatif kecil), bayangan lembut senada
+   ph-scene. Sempit → ikut menyusut; ponsel ≤420px disembunyikan agar
+   titik skala mood/energi tetap pusat panggung. */
+.ci-art{flex:none;width:118px;height:auto;margin:-6px -4px -10px 0;filter:drop-shadow(0 8px 14px rgba(15,23,42,.08));align-self:flex-start}
+@media(max-width:640px){.ci-art{width:96px;margin:-4px -2px -8px 0}}
+@media(max-width:420px){.ci-art{display:none}}
+/* v2.48 · padang kupu-kupu penutup kartu kalender konsistensi (Kebiasaan)
+   — strip lebar pola .pekan-art; ponsel dipangkas agar tak memanjangkan
+   halaman (object-position menjaga kupu tetap terlihat) */
+.hm-art{display:block;width:100%;height:auto;margin:16px 0 0;border-radius:12px}
+@media(max-width:640px){.hm-art{max-height:92px;object-fit:cover;object-position:center 65%}}
 .ci-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
 .ci-lab{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:96px;flex:none}
 .ci-lab .ic{width:15px;height:15px;color:var(--ink-3);flex:none}
@@ -2681,7 +2703,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- CHECK-IN HARIAN (v2.39) — mood · energi · tidur: satu kartu kecil
        di Ringkasan, menulis ke tabel DailyLog (jurnal dailyLog — upsert
-       idempoten per tanggal). Ringkasan pill yang sama dengan detail hari. -->
+       idempoten per tanggal). Ringkasan pill yang sama dengan detail hari.
+       v2.48 · adegan fajar (scene-fajar) menghiasi kepala kartu — metafora
+       "menyapa pagi" saat check-in, tiap tab kini punya ilustrasi khas. -->
   <div class="card ci-card" id="checkinCard">
     <div class="card-head" style="margin-bottom:12px">
       <div class="ch-title">
@@ -2691,6 +2715,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="ciTitle">Bagaimana kabarmu hari ini?</h3>
         </div>
       </div>
+      <img class="ci-art" src="/illustrations/scene-fajar.svg" alt="" aria-hidden="true" loading="lazy" width="170" height="118"/>
     </div>
     <div id="ciBody"></div>
   </div>
@@ -2865,6 +2890,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="hm-side" id="hmSide"></div>
     </div>
+    <!-- v2.48 · padang kupu-kupu (scene-kupu) — penutup kartu kalender
+         konsistensi: hari-hari catatan adalah taman yang dikunjungi -->
+    <img class="hm-art" src="/illustrations/scene-kupu.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
   </div>
 
   <div class="chips" id="habitChips" style="margin-bottom:18px" role="group" aria-label="Filter kategori"></div>
@@ -3933,7 +3961,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.47';
+const APP_VERSION='v2.48';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
