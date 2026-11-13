@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v52"; // v2.50 — ilustrasi per tab tahap 3: jurnal refleksi (Kalender) + kaca pembesar & kompas (Wawasan) + rak pot & label harga (Pengaturan)
+const STATIC_CACHE = "rutina-static-v53"; // v2.51 — pulihkan hero koin keuangan (komentar XML ilegal "--" dibetulkan)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

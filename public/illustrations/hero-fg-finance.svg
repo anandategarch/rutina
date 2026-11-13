@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" fill="none" role="img" aria-label="Tumpukan koin keemasan dengan tunas yang bertumbuh">
   <!-- v2.16 · lapisan depan hero Keuangan (ph-scene) — elemen mengapung yang
-       tetap berayun (sceneBob) & bergeser mengikuti pointer (parallax --px/--py).
+       tetap berayun (sceneBob) & bergeser mengikuti pointer (parallax px py).
        Warna koin & tunas ditebalkan garisnya agar terbaca di kartu terang. -->
   <defs>
     <linearGradient id="fgf-coin" x1="0" y1="0" x2="0" y2="1">
