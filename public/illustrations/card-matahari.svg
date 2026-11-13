@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · MATAHARI — tunas bunga matahari: hari yang terang sejak pagi (kartu Pengeluaran Hari Ini / mini-stat hari) -->
+  <defs>
+    <radialGradient id="w-ms" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".68"/>
+      <stop offset=".45" stop-color="#FEF9E7" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#FEF9E7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pt-ms" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+    <linearGradient id="lf-ms" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#6EE7B7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna madu hangat di sudut -->
+  <rect width="180" height="170" fill="url(#w-ms)"/>
+
+  <!-- batang melengkung mengikuti sudut -->
+  <path d="M60 2C98 4 134 20 156 46C165 57 172 64 177 72" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+
+  <!-- bunga matahari besar -->
+  <g transform="translate(139 52)">
+    <g fill="url(#pt-ms)" stroke="#F59E0B" stroke-width="1">
+      <ellipse rx="5" ry="13.5" transform="rotate(0) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(30) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(60) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(90) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(120) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(150) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(180) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(210) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(240) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(270) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(300) translate(0 -10.5)"/>
+      <ellipse rx="5" ry="13.5" transform="rotate(330) translate(0 -10.5)"/>
+    </g>
+    <circle r="8.4" fill="#F59E0B"/>
+    <circle r="5.4" fill="#FDE68A" opacity=".9"/>
+    <path d="M-6.5-4a8.4 8.4 0 0 1 4.6-4.4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+  </g>
+
+  <!-- bunga kecil menghadap ke dalam kartu -->
+  <g transform="translate(96 24)">
+    <g fill="#FDE68A" stroke="#F59E0B" stroke-width="1">
+      <ellipse rx="4" ry="9.5" transform="rotate(22) translate(0 -7.5)"/>
+      <ellipse rx="4" ry="9.5" transform="rotate(94) translate(0 -7.5)"/>
+      <ellipse rx="4" ry="9.5" transform="rotate(166) translate(0 -7.5)"/>
+      <ellipse rx="4" ry="9.5" transform="rotate(238) translate(0 -7.5)"/>
+      <ellipse rx="4" ry="9.5" transform="rotate(310) translate(0 -7.5)"/>
+    </g>
+    <circle r="4.6" fill="#F59E0B"/>
+    <circle r="2" fill="#FDE68A"/>
+  </g>
+
+  <!-- daun: keluar & masuk bergantian -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(126 40) rotate(-46) scale(.8)" fill="url(#lf-ms)"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(147 60) rotate(160) scale(.85)" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.4"/>
+    <path d="M2 0C10-2 18-3 26-3" transform="translate(147 60) rotate(160) scale(.85)" fill="none" stroke="#10B981" stroke-width="1.1" stroke-linecap="round" opacity=".5"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(66 14) rotate(-20) scale(.66)" fill="#A7F3D0"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(163 88) rotate(-56) scale(.5)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.2"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="72" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="72" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- benih & percik -->
+  <g>
+    <ellipse cx="170" cy="94" rx="3.4" ry="2.1" transform="rotate(-24 170 94)" fill="#92400E" opacity=".55"/>
+    <ellipse cx="176" cy="86" rx="2.6" ry="1.7" transform="rotate(18 176 86)" fill="#92400E" opacity=".45"/>
+    <ellipse cx="150" cy="80" rx="2.2" ry="1.5" transform="rotate(-48 150 80)" fill="#92400E" opacity=".4"/>
+    <circle cx="102" cy="48" r="2" fill="#FBBF24" opacity=".9"/>
+    <circle cx="118" cy="58" r="2.3" fill="#A7F3D0"/>
+    <path d="M128 84l1.2 3.2 3.2 1.2-3.2 1.2-1.2 3.2-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
+  </g>
+</svg>

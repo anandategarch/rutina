@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · GANDUM — bulir gandum emas: panen & jatah rezeki harian (kartu pengeluaran bulanan / jatah harian) -->
+  <defs>
+    <radialGradient id="w-gd" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#F7F5E8" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#F7F5E8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gr-gd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna ladang gandum di sudut -->
+  <rect width="180" height="170" fill="url(#w-gd)"/>
+
+  <!-- tiga tangkai gandum condong ke sudut -->
+  <g fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round">
+    <path d="M62 4C96 8 128 24 150 46"/>
+    <path d="M84 2C112 8 138 26 156 50"/>
+    <path d="M106 6C128 14 148 32 164 54"/>
+  </g>
+
+  <!-- kepala bulir: butir berselang-seling pada tiap tangkai -->
+  <g stroke-linejoin="round">
+    <!-- tangkai 1 (terbesar, dekat sudut) -->
+    <g transform="translate(150 46) rotate(-52)">
+      <g fill="url(#gr-gd)" stroke="#F59E0B" stroke-width=".9">
+        <ellipse cx="-5" cy="-9" rx="4.6" ry="7" transform="rotate(24)"/>
+        <ellipse cx="5" cy="-9" rx="4.6" ry="7" transform="rotate(-24)"/>
+        <ellipse cx="-5" cy="-20" rx="4.2" ry="6.6" transform="rotate(24)"/>
+        <ellipse cx="5" cy="-20" rx="4.2" ry="6.6" transform="rotate(-24)"/>
+        <ellipse cx="-4.4" cy="-30" rx="3.8" ry="6" transform="rotate(24)"/>
+        <ellipse cx="4.4" cy="-30" rx="3.8" ry="6" transform="rotate(-24)"/>
+      </g>
+      <path d="M0 -34L0 -44" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+      <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(-14 2) rotate(-8) scale(.6)" fill="#A7F3D0"/>
+      <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(12 4) rotate(160) scale(.5)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.1"/>
+    </g>
+    <!-- tangkai 2 -->
+    <g transform="translate(124 30) rotate(-44) scale(.82)">
+      <g fill="url(#gr-gd)" stroke="#F59E0B" stroke-width=".9">
+        <ellipse cx="-5" cy="-9" rx="4.6" ry="7" transform="rotate(24)"/>
+        <ellipse cx="5" cy="-9" rx="4.6" ry="7" transform="rotate(-24)"/>
+        <ellipse cx="-5" cy="-20" rx="4.2" ry="6.6" transform="rotate(24)"/>
+        <ellipse cx="5" cy="-20" rx="4.2" ry="6.6" transform="rotate(-24)"/>
+      </g>
+      <path d="M0 -24L0 -33" stroke="#34D399" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(-13 2) rotate(-6) scale(.5)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.1"/>
+    </g>
+    <!-- tangkai 3 (menghadap ke dalam) -->
+    <g transform="translate(100 16) rotate(-36) scale(.6)">
+      <g fill="url(#gr-gd)" stroke="#F59E0B" stroke-width=".9">
+        <ellipse cx="-5" cy="-9" rx="4.6" ry="7" transform="rotate(24)"/>
+        <ellipse cx="5" cy="-9" rx="4.6" ry="7" transform="rotate(-24)"/>
+        <ellipse cx="-4.4" cy="-19" rx="4" ry="6.4" transform="rotate(24)"/>
+        <ellipse cx="4.4" cy="-19" rx="4" ry="6.4" transform="rotate(-24)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- butir lepas & percik -->
+  <g>
+    <ellipse cx="171" cy="92" rx="3.1" ry="2" transform="rotate(30 171 92)" fill="#F59E0B" opacity=".8"/>
+    <ellipse cx="163" cy="98" rx="2.4" ry="1.6" transform="rotate(-20 163 98)" fill="#FBBF24" opacity=".85"/>
+    <ellipse cx="86" cy="36" rx="2.6" ry="1.8" transform="rotate(-40 86 36)" fill="#FBBF24" opacity=".7"/>
+    <circle cx="166" cy="108" r="2.6" fill="#A7F3D0"/>
+    <circle cx="112" cy="44" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M138 84l1.2 3.2 3.2 1.2-3.2 1.2-1.2 3.2-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
+  </g>
+</svg>

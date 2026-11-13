@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · KAKTUS — tunas kaktus gigih: disiplin anggaran yang tak mudah layu (kartu anggaran & kelola kebiasaan) -->
+  <defs>
+    <radialGradient id="w-kt" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".58"/>
+      <stop offset=".45" stop-color="#FEF3C7" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bd-kt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34D399"/>
+      <stop offset=".55" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#A7F3D0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna gurun lembut di sudut -->
+  <rect width="180" height="170" fill="url(#w-kt)"/>
+
+  <!-- kaktus utama condong ke sudut -->
+  <g transform="translate(136 84) rotate(-8)">
+    <!-- batang utama -->
+    <path d="M-9 0C-9-14 -9-38 -8-52C-8-62 -4-66 0-66C4-66 8-62 8-52C9-38 9-14 9 0Z" fill="url(#bd-kt)" stroke="#059669" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- lengan atas ke sudut -->
+    <path d="M9-30C18-30 26-24 26-16C26-10 20-8 16-10C16-18 12-24 9-26Z" fill="url(#bd-kt)" stroke="#059669" stroke-width="1.1" stroke-linejoin="round"/>
+    <!-- lengan bawah ke dalam kartu -->
+    <path d="M-9-22C-18-22 -26-16 -26-8C-26-2 -20 0 -16-2C-16-10 -12-16 -9-18Z" fill="#6EE7B7" stroke="#059669" stroke-width="1.1" stroke-linejoin="round"/>
+    <!-- alur duri -->
+    <g fill="none" stroke="#059669" stroke-width="1" stroke-linecap="round" opacity=".5">
+      <path d="M0-60C0-40 0-20 0-4"/>
+      <path d="M-4-52C-4-38 -4-20 -4-6"/>
+      <path d="M4-48C4-34 4-18 4-6"/>
+    </g>
+    <!-- duri titik -->
+    <g fill="#059669" opacity=".6">
+      <circle cx="-6" cy="-44" r="1"/><circle cx="6" cy="-40" r="1"/>
+      <circle cx="-6" cy="-24" r="1"/><circle cx="6" cy="-18" r="1"/>
+      <circle cx="20" cy="-16" r=".9"/><circle cx="-20" cy="-10" r=".9"/>
+    </g>
+    <!-- bunga di puncak -->
+    <g transform="translate(0 -66)">
+      <g fill="#FDA4AF" stroke="#F43F5E" stroke-width=".9">
+        <ellipse rx="3.4" ry="6.4" transform="rotate(0) translate(0 -5)"/>
+        <ellipse rx="3.4" ry="6.4" transform="rotate(72) translate(0 -5)"/>
+        <ellipse rx="3.4" ry="6.4" transform="rotate(144) translate(0 -5)"/>
+        <ellipse rx="3.4" ry="6.4" transform="rotate(216) translate(0 -5)"/>
+        <ellipse rx="3.4" ry="6.4" transform="rotate(288) translate(0 -5)"/>
+      </g>
+      <circle r="2.4" fill="#F59E0B"/>
+    </g>
+  </g>
+
+  <!-- kaktus kecil sahabat -->
+  <g transform="translate(104 96) scale(.42) rotate(6)">
+    <path d="M-9 0C-9-14 -9-38 -8-52C-8-62 -4-66 0-66C4-66 8-62 8-52C9-38 9-14 9 0Z" fill="#6EE7B7" stroke="#059669" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M9-30C18-30 26-24 26-16C26-10 20-8 16-10C16-18 12-24 9-26Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cy="-66" r="3" fill="#FDA4AF"/>
+  </g>
+
+  <!-- pasir & batu kerikil -->
+  <g>
+    <path d="M60 6C88 10 116 24 138 46" fill="none" stroke="#FBBF24" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>
+    <path d="M152 40C160 50 168 58 174 66" fill="none" stroke="#FBBF24" stroke-width="2.2" stroke-linecap="round" opacity=".75"/>
+    <ellipse cx="78" cy="30" rx="4.4" ry="3" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+    <ellipse cx="122" cy="62" rx="3.4" ry="2.4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="172" cy="96" r="2.6" fill="#FBBF24"/>
+    <circle cx="176" cy="88" r="2.2" fill="#34D399"/>
+    <circle cx="166" cy="108" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M92 50l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

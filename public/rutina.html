@@ -8,6 +8,25 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.56 · ILUSTRASI BERBEDA TIAP KARTU — permintaan pengguna: "ilustrasinya
+     beda-beda dong tiap card". Keluarga untaian sudut kanan-atas dari satu
+     card-sprig diperluas menjadi 15 motif botani (ditambah 4 varian tunas
+     kiri-bawah), semuanya satu bahasa desain — cuci radial sudut, batang
+     melengkung mengikuti sudut, aksen koin amber & percik bintang — namun
+     tanaman/motifnya berbeda sesuai MAKNA kartunya: sakura (Suara identitas,
+     Detail hari) · matahari (Pengeluaran hari ini, peta panas, hari selesai)
+     · gandum (jatah & pengeluaran bulan) · bambu (konsistensi 30 hari,
+     kalender, tren) · pakis (ritme pekan, arus dana) · berry (total saldo,
+     komposisi, pola) · jamur (tip analisis) · kupu (check-in harian) ·
+     kunang (Semangat hari ini, Temuan utama) · laurel (Pekan lalu, lencana,
+     laporan bulanan) · koin (banner jatah, mutasi transaksi, kelola kategori)
+     · kaktus (anggaran per kategori) · bonsai (taman kebiasaan, saldo total,
+     hari terpadat) · teh (aktivitas mingguan, rekomendasi) · sukulen (dompet,
+     kalender konsistensi). Dipasang lewat kelas utilitas .ill-* / .ill-bl-*
+     yang meng-override token --ill-corner/--ill-mini per kartu; kartu tanpa
+     kelas (Arus kas hari ini, profil) tetap memakai sprig asli sebagai tanda
+     tangan. Audit keunikan: dalam satu tampilan tidak ada dua kartu
+     bermotif sama (Ringkasan 13 kartu 13 motif; tiap pane keuangan unik). -->
 <!-- v2.55 · UNTAIAN BOTANI LATAR KARTU — SEMUA TAB, SEMUA KARTU — permintaan
      pengguna ("tambahin ilustrasi sebagai background, kayak kartu pohon
      rutina 'selamat siang', di semua tab dan card"): sistem untaian sudut
@@ -489,6 +508,37 @@ b,strong{font-weight:600}
 .stat,.mini-stat{background-image:var(--ill-corner);background-size:var(--ill-seg)}
 .scene-stat,.habit-card{background-image:none}
 .card-plain-bl{background-image:var(--ill-corner)}
+/* v2.56 · KARTU BERILUSTRASI BERBEDA TIAP KARTU — permintaan pengguna:
+   "ilustrasinya beda-beda dong tiap card". Keluarga untaian sudut kanan-atas
+   diperluas dari satu card-sprig menjadi 15 motif botani; tiap kartu memakai
+   kelas .ill-* sesuai MAKNA kartunya (dalam satu tampilan tidak ada dua
+   kartu bermotif sama):
+   sakura=identitas · matahari=hari/panas · gandum=jatah & pengeluaran bulan
+   · bambu=konsistensi & kalender · pakis=ritme & arus · berry=saldo &
+   komposisi · jamur=tip · kupu=check-in · kunang=semangat & temuan
+   · laurel=pekan lalu & lencana · koin=catatan uang · kaktus=anggaran
+   · bonsai=taman & tabungan · teh=rekomendasi · sukulen=dompet.
+   Tunas kiri-bawah ikut bervariasi lewat .ill-bl-*; kartu tanpa kelas
+   tetap memakai sprig asli (tanda tangan "hari ini" & profil). */
+.ill-sakura{--ill-corner:url("/illustrations/card-sakura.svg")}
+.ill-matahari{--ill-corner:url("/illustrations/card-matahari.svg")}
+.ill-gandum{--ill-corner:url("/illustrations/card-gandum.svg")}
+.ill-bambu{--ill-corner:url("/illustrations/card-bambu.svg")}
+.ill-pakis{--ill-corner:url("/illustrations/card-pakis.svg")}
+.ill-berry{--ill-corner:url("/illustrations/card-berry.svg")}
+.ill-jamur{--ill-corner:url("/illustrations/card-jamur.svg")}
+.ill-kupu{--ill-corner:url("/illustrations/card-kupu.svg")}
+.ill-kunang{--ill-corner:url("/illustrations/card-kunang.svg")}
+.ill-laurel{--ill-corner:url("/illustrations/card-laurel.svg")}
+.ill-koin{--ill-corner:url("/illustrations/card-koin.svg")}
+.ill-kaktus{--ill-corner:url("/illustrations/card-kaktus.svg")}
+.ill-bonsai{--ill-corner:url("/illustrations/card-bonsai.svg")}
+.ill-teh{--ill-corner:url("/illustrations/card-teh.svg")}
+.ill-sukulen{--ill-corner:url("/illustrations/card-sukulen.svg")}
+.ill-bl-sakura{--ill-mini:url("/illustrations/card-sakura-bl.svg")}
+.ill-bl-gandum{--ill-mini:url("/illustrations/card-gandum-bl.svg")}
+.ill-bl-berry{--ill-mini:url("/illustrations/card-berry-bl.svg")}
+.ill-bl-pakis{--ill-mini:url("/illustrations/card-pakis-bl.svg")}
 @media(max-width:640px){
   :root{--ill-size-c:132px;--ill-seg:88px;--ill-size-mini:64px} /* ponsel: untaian mengecil proporsional */
 }
@@ -2717,7 +2767,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- SEMANGAT HARI INI (v2.33) — kata-kata motivasi kebiasaan: kutipan
        harian deterministik + baris konteks dari progres asli + CTA. -->
-  <div class="card motiv-card" id="motivCard">
+  <div class="card motiv-card ill-kunang" id="motivCard">
     <span class="head-art sage motiv-art" aria-hidden="true"><svg class="ill"><use href="#ill-sprout"/></svg></span>
     <div class="motiv-body" id="motivBody">
       <div class="motiv-head">
@@ -2735,7 +2785,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
        suara untuk pribadi yang ingin kamu jadi". Pernyataan identitas
        ditulis sekali (tersinkron ke database), lalu tiap centang kebiasaan
        dihitung sebagai satu suara — pekan ini & total — dari data asli. -->
-  <div class="card identity-card" id="identityCard">
+  <div class="card identity-card ill-sakura" id="identityCard">
     <span class="head-art em id-art" aria-hidden="true"><svg class="ill"><use href="#ill-sprout"/></svg></span>
     <div class="id-body" id="idBody"><div class="id-head"><div class="eyebrow">Suara identitas</div></div></div>
   </div>
@@ -2743,7 +2793,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- STATISTIK · v2.8: kartu rekor streak diganti pengeluaran hari ini
        (statistik kebiasaan tinggal di tabnya; ringkasan kini lintas domain) -->
   <div class="stats">
-    <div class="card stat drillable" data-drill="stat-day" role="button" tabindex="0" title="Ketuk: bedah pengeluaran hari ini">
+    <div class="card stat ill-matahari drillable" data-drill="stat-day" role="button" tabindex="0" title="Ketuk: bedah pengeluaran hari ini">
       <div class="stat-top">
         <span class="stat-ic terra"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></span>
         <svg class="spark" id="sparkDay" aria-hidden="true"></svg>
@@ -2751,7 +2801,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div><div class="num t-num" id="statDay">Rp 0</div><div class="lbl" id="statDayLbl">Pengeluaran hari ini</div></div>
       <div class="sub" id="statDaySub">memuat…</div>
     </div>
-    <div class="card stat drillable" data-drill="stat-kons" role="button" tabindex="0" title="Ketuk: bedah hari aktif 30 hari">
+    <div class="card stat ill-bambu drillable" data-drill="stat-kons" role="button" tabindex="0" title="Ketuk: bedah hari aktif 30 hari">
       <div class="stat-top">
         <span class="stat-ic blue"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
         <svg class="spark" id="sparkKons" aria-hidden="true"></svg>
@@ -2759,7 +2809,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div><div class="num t-num" id="statKons">—</div><div class="lbl" id="statKonsLbl">Hari aktif dalam 30 hari</div></div>
       <div class="sub" id="statKonsSub">memuat…</div>
     </div>
-    <div class="card stat drillable" data-drill="stat-spend" role="button" tabindex="0" title="Ketuk: bedah pengeluaran bulan">
+    <div class="card stat ill-gandum drillable" data-drill="stat-spend" role="button" tabindex="0" title="Ketuk: bedah pengeluaran bulan">
       <div class="stat-top">
         <span class="stat-ic honey"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span>
       </div>
@@ -2769,7 +2819,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="sub" id="statSpendPct" style="flex:none">0% dari anggaran</span>
       </div>
     </div>
-    <div class="card stat drillable" data-drill="stat-sisa" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
+    <div class="card stat ill-berry drillable" data-drill="stat-sisa" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
       <div class="stat-top">
         <span class="stat-ic sage"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span>
       </div>
@@ -2842,7 +2892,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
        idempoten per tanggal). Ringkasan pill yang sama dengan detail hari.
        v2.48 · adegan fajar (scene-fajar) menghiasi kepala kartu — metafora
        "menyapa pagi" saat check-in, tiap tab kini punya ilustrasi khas. -->
-  <div class="card ci-card" id="checkinCard">
+  <div class="card ci-card ill-kupu" id="checkinCard">
     <div class="card-head" style="margin-bottom:12px">
       <div class="ch-title">
         <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-pagi"/></svg></span>
@@ -2858,7 +2908,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
        kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
-  <div class="card streak-banner jatah-banner drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
+  <div class="card streak-banner jatah-banner ill-koin ill-bl-gandum drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
     <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy"/></span>
     <div class="sb-body">
       <b id="sbT">Memuat…</b>
@@ -2872,7 +2922,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- RINGKASAN PEKAN LALU (v2.54) — skor pekan yang sudah tuntas: hari
        aktif, catatan, pengeluaran + arah vs pekan sebelumnya. Ketuk kartu
        → bedah pekan (drill mingguan yang sama dengan grafik arus kas). -->
-  <div class="card card-pad drillable" id="lastWeekCard" data-drill="week" data-start="" title="Ketuk: bedah pekan lalu">
+  <div class="card card-pad ill-laurel ill-bl-pakis drillable" id="lastWeekCard" data-drill="week" data-start="" title="Ketuk: bedah pekan lalu">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
@@ -2891,7 +2941,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- RITME PEKAN + ARUS KAS (v2.8) — kartu agenda kebiasaan diganti ritme
        aktivitas pekan berjalan: strip 7 hari + tren vs pekan lalu -->
   <div class="grid g-main" id="rowAgenda">
-    <div class="card card-pad">
+    <div class="card card-pad ill-pakis">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-kal"/></svg></span>
@@ -2912,7 +2962,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <button class="link-btn" data-go="kalender" style="margin-top:8px">Buka kalender <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
     <div class="row" style="gap:18px">
-      <div class="card card-pad">
+      <div class="card card-pad ill-teh">
         <div class="card-head">
           <div class="ch-title">
             <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
@@ -2938,7 +2988,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
       </div>
-      <div class="card card-pad tip-card">
+      <div class="card card-pad ill-jamur tip-card">
         <svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg>
         <div>
           <b id="tipTitle">Analisis cepat</b>
@@ -2950,7 +3000,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- ANGGARAN MINI -->
-  <div class="card card-pad">
+  <div class="card card-pad ill-kaktus">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-target"/></svg></span>
@@ -2999,7 +3049,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- TAMAN KEBIASAAN (v2.37) — tiap kebiasaan tampil sebagai tanaman;
        tahap tumbuh mengikuti total catatan (benih → berbunga) -->
-  <div class="card garden-card" id="gardenCard">
+  <div class="card garden-card ill-bonsai ill-bl-sakura" id="gardenCard">
     <div class="card-head" style="margin-bottom:8px">
       <div class="ch-title">
         <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
@@ -3013,21 +3063,21 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="mini-stats">
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-matahari">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
       <div><div class="num t-num" id="msHariIni">4/7</div><div class="lbl">Kebiasaan selesai hari ini</div></div>
     </div>
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-bambu">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
       <div><div class="num t-num" id="msKons">—</div><div class="lbl" id="msKonsLbl">Hari aktif dalam 30 hari</div></div>
     </div>
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-laurel">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
       <div><div class="num t-num" id="msTotal">—</div><div class="lbl" id="msTotalLbl">Total catatan</div></div>
     </div>
   </div>
 
-  <div class="card card-pad" style="margin-bottom:20px">
+  <div class="card card-pad ill-sukulen" style="margin-bottom:20px">
     <div class="card-head" style="margin-bottom:12px">
       <div class="ch-title">
         <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-kal"/></svg></span>
@@ -3129,7 +3179,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- JATAH HARIAN & PROYEKSI (WeeklyBudget + Transaction) -->
-  <div class="card card-pad" id="jatahCard">
+  <div class="card card-pad ill-gandum" id="jatahCard">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jatah"/></svg></span>
@@ -3144,7 +3194,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="grid g-donut">
-    <div class="card card-pad">
+    <div class="card card-pad ill-berry">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
@@ -3162,7 +3212,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div class="donut-legend" id="donutLegend"></div>
       </div>
     </div>
-    <div class="card card-pad">
+    <div class="card card-pad ill-kaktus">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-perisai"/></svg></span>
@@ -3186,7 +3236,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- HEATMAP PENGELUARAN (intensitas belanja harian) -->
-  <div class="card card-pad card-plain-bl" id="heatCard">
+  <div class="card card-pad card-plain-bl ill-matahari" id="heatCard">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-panas"/></svg></span>
@@ -3218,7 +3268,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="mut-cell"><small>Net</small><b class="t-num" id="mutNet">Rp 0</b><span id="mutNetSub">—</span></div>
   </div>
 
-  <div class="card card-pad">
+  <div class="card card-pad ill-koin">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-jurnal"/></svg></span>
@@ -3256,7 +3306,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
        disimpan aman namun tetap hidup (tunas tumbuh di atas brankas) -->
   <img class="pane-art" src="/illustrations/scene-brankas.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
   <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
-  <div class="card card-pad drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
+  <div class="card card-pad ill-bonsai ill-bl-berry drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
     <div class="saldo-top">
       <div class="ch-title">
         <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
@@ -3276,7 +3326,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- DOMPET & SUMBER DANA (dari tabel FundSource) -->
-  <div class="card card-pad">
+  <div class="card card-pad ill-sukulen">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
@@ -3295,7 +3345,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- ARUS DANA TIAP DOMPET (v2.11) — mutasi masuk/keluar bulan berjalan -->
-  <div class="card card-pad">
+  <div class="card card-pad ill-pakis">
     <div class="card-head">
       <div class="ch-title">
         <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg></span>
@@ -3344,31 +3394,31 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="grid g-cal">
-    <div class="card card-pad card-plain-bl">
+    <div class="card card-pad card-plain-bl ill-bambu">
       <div class="cal-head-row" id="calDows"></div>
       <div class="cal-grid" id="calGrid"></div>
     </div>
-    <div class="card card-pad day-detail" id="dayDetail"></div>
+    <div class="card card-pad ill-sakura day-detail" id="dayDetail"></div>
   </div>
 
   <!-- LAPORAN BULANAN (v2.37) — rekap konsistensi + keuangan + refleksi;
        mengikuti bulan yang sedang dibuka di kalender -->
-  <div class="card card-pad mon-report" id="monthReport"></div>
+  <div class="card card-pad ill-laurel ill-bl-gandum mon-report" id="monthReport"></div>
 
   <div class="cal-strip">
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-bonsai">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
       <div><div class="num t-num" id="csPerfect">6 <small>hari</small></div><div class="lbl">Hari terpadat bulan ini</div></div>
     </div>
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-matahari">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-meditasi"/></svg></span>
       <div><div class="num t-num" id="csDone">128</div><div class="lbl">Total kebiasaan selesai</div></div>
     </div>
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-pakis">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
       <div><div class="num t-num" id="csStreak">—</div><div class="lbl" id="csStreakLbl">Hari aktif bulan ini</div></div>
     </div>
-    <div class="card mini-stat">
+    <div class="card mini-stat ill-gandum">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
       <div><div class="num t-num" id="csSpend">Rp 0</div><div class="lbl" id="csSpendLbl">Pengeluaran bulan tampil</div></div>
     </div>
@@ -3406,7 +3456,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="grid g-waw">
-    <div class="card card-pad">
+    <div class="card card-pad ill-bambu">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-bintang"/></svg></span>
@@ -3423,7 +3473,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span id="consNote">Menghitung tren dari catatan asli…</span>
       </div>
     </div>
-    <div class="card card-pad">
+    <div class="card card-pad ill-kunang">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-roket"/></svg></span>
@@ -3441,7 +3491,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <div class="grid g-waw">
-    <div class="card card-pad">
+    <div class="card card-pad ill-berry">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art blue"><svg class="ill" aria-hidden="true"><use href="#ill-naik"/></svg></span>
@@ -3454,7 +3504,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="pola-list" id="polaList"></div>
     </div>
-    <div class="card card-pad">
+    <div class="card card-pad ill-teh">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-bulb"/></svg></span>
@@ -3471,7 +3521,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
   </div>
 
-  <div class="card card-pad">
+  <div class="card card-pad ill-laurel">
     <div class="card-head">
       <div>
         <div class="eyebrow">Lencana</div>
@@ -3537,7 +3587,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <div class="grid g-set">
     <!-- kelola kebiasaan -->
-    <div class="card card-pad">
+    <div class="card card-pad ill-kaktus">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-sprout"/></svg></span>
@@ -3555,7 +3605,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
 
     <!-- kelola kategori keuangan -->
-    <div class="card card-pad">
+    <div class="card card-pad ill-koin">
       <div class="card-head">
         <div class="ch-title">
           <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-koin"/></svg></span>
@@ -4150,7 +4200,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.55';
+const APP_VERSION='v2.56';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

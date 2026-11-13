@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · KUNANG — kunang-kunang senja: secercah semangat yang berpendar (kartu Semangat hari ini & temuan) -->
+  <defs>
+    <radialGradient id="w-kn" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gl-kn" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FEF9C3"/>
+      <stop offset=".35" stop-color="#FDE047" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#FDE047" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna senja kebun di sudut -->
+  <rect width="180" height="170" fill="url(#w-kn)"/>
+
+  <!-- ranting tipis melengkung ke sudut -->
+  <path d="M62 2C96 6 130 22 152 48C162 58 170 66 176 74" fill="none" stroke="#34D399" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+
+  <!-- daun mint halus -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(78 14) rotate(-20) scale(.62)" fill="#A7F3D0"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(126 40) rotate(-46) scale(.56)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.2"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(158 84) rotate(-20) scale(.44)" fill="#A7F3D0" opacity=".9"/>
+  </g>
+
+  <!-- kunang-kunang berpendar -->
+  <g>
+    <!-- besar dekat sudut -->
+    <circle cx="152" cy="56" r="16" fill="url(#gl-kn)"/>
+    <circle cx="152" cy="56" r="4.6" fill="#FDE047" stroke="#F59E0B" stroke-width="1.1"/>
+    <ellipse cx="150" cy="52.6" rx="1.6" ry="1.1" transform="rotate(-30 150 52.6)" fill="#FEF9C3"/>
+    <!-- sedang -->
+    <circle cx="118" cy="30" r="11" fill="url(#gl-kn)" opacity=".9"/>
+    <circle cx="118" cy="30" r="3.4" fill="#FDE047" stroke="#F59E0B" stroke-width="1"/>
+    <!-- kecil menyebar -->
+    <circle cx="92" cy="52" r="8" fill="url(#gl-kn)" opacity=".8"/>
+    <circle cx="92" cy="52" r="2.6" fill="#FDE047"/>
+    <circle cx="168" cy="92" r="9" fill="url(#gl-kn)" opacity=".85"/>
+    <circle cx="168" cy="92" r="3" fill="#FDE047"/>
+    <circle cx="140" cy="88" r="7" fill="url(#gl-kn)" opacity=".7"/>
+    <circle cx="140" cy="88" r="2.3" fill="#FDE047"/>
+    <circle cx="76" cy="44" r="6" fill="url(#gl-kn)" opacity=".6"/>
+    <circle cx="76" cy="44" r="2" fill="#FDE047"/>
+    <circle cx="132" cy="62" r="6" fill="url(#gl-kn)" opacity=".75"/>
+    <circle cx="132" cy="62" r="2" fill="#FDE047"/>
+  </g>
+
+  <!-- jejak-jejak melayang -->
+  <g fill="none" stroke="#F59E0B" stroke-width="1.1" stroke-linecap="round" opacity=".55">
+    <path d="M158 66c2 4 3 7 3 10"/>
+    <path d="M112 38c-2 5 -3 9 -3 13"/>
+    <path d="M162 98c3 4 5 7 5 9"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="24" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="24" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="176" cy="80" r="2.2" fill="#34D399"/>
+    <circle cx="104" cy="70" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M96 60l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · LAUREL — karangan daun salam kemenangan (kartu pekan lalu / lencana / laporan bulanan) -->
+  <defs>
+    <radialGradient id="w-lr" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".62"/>
+      <stop offset=".45" stop-color="#FEF3C7" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lv-lr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna arena kemenangan di sudut -->
+  <rect width="180" height="170" fill="url(#w-lr)"/>
+
+  <!-- dua ranting salam menekuk membentuk karangan -->
+  <g fill="none" stroke="#059669" stroke-linecap="round">
+    <path d="M56 2C84 6 110 18 126 36C136 48 148 56 158 62" stroke-width="2.4" opacity=".9"/>
+    <path d="M180 34C158 36 136 46 122 62C112 74 102 82 92 86" stroke-width="2.2" opacity=".85"/>
+    <path d="M92 86C86 88 80 88 74 86" stroke-width="1.8" opacity=".7"/>
+  </g>
+
+  <!-- daun salm lanceolate berpasangan sepanjang ranting atas -->
+  <g stroke-linejoin="round">
+    <g fill="url(#lv-lr)" stroke="#059669" stroke-width=".9">
+      <path d="M0 0C-2-12 3-24 12-28C16-16 12-4 0 0Z" transform="translate(66 8) rotate(-18)"/>
+      <path d="M0 0C2-12 -3-24 -12-28C-16-16 -12-4 0 0Z" transform="translate(78 18) rotate(-18)"/>
+      <path d="M0 0C-2-11 3-22 11-26C14-15 11-4 0 0Z" transform="translate(90 26) rotate(-8)"/>
+      <path d="M0 0C2-11 -3-22 -11-26C-14-15 -11-4 0 0Z" transform="translate(102 36) rotate(-8)"/>
+      <path d="M0 0C-2-10 2-19 10-23C13-14 10-4 0 0Z" transform="translate(114 46) rotate(2)"/>
+      <path d="M0 0C2-10 -2-19 -10-23C-13-14 -10-4 0 0Z" transform="translate(126 56) rotate(2)"/>
+    </g>
+    <!-- daun ranting bawah (arah berlawanan) -->
+    <g fill="#A7F3D0" stroke="#10B981" stroke-width=".9">
+      <path d="M0 0C-2-12 3-24 12-28C16-16 12-4 0 0Z" transform="translate(168 44) rotate(192)"/>
+      <path d="M0 0C2-12 -3-24 -12-28C-16-16 -12-4 0 0Z" transform="translate(156 52) rotate(192)"/>
+      <path d="M0 0C-2-11 3-22 11-26C14-15 11-4 0 0Z" transform="translate(144 60) rotate(202)"/>
+      <path d="M0 0C2-11 -3-22 -11-26C-14-15 -11-4 0 0Z" transform="translate(132 68) rotate(202)"/>
+      <path d="M0 0C-2-10 2-19 10-23C13-14 10-4 0 0Z" transform="translate(120 76) rotate(212)"/>
+      <path d="M0 0C2-10 -2-19 -10-23C-13-14 -10-4 0 0Z" transform="translate(108 82) rotate(212)"/>
+    </g>
+    <!-- daun pemutus dekat sudut & pangkal -->
+    <path d="M0 0C-2-12 3-24 12-28C16-16 12-4 0 0Z" transform="translate(146 30) rotate(46) scale(.8)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1"/>
+    <path d="M0 0C2-12 -3-24 -12-28C-16-16 -12-4 0 0Z" transform="translate(160 68) rotate(-52) scale(.7)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1"/>
+  </g>
+
+  <!-- pita kecil di muara karangan -->
+  <g transform="translate(104 74)">
+    <path d="M-14 0C-8-6 8-6 14 0C8 6 -8 6 -14 0Z" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.1"/>
+    <path d="M-14 0C-18 6 -22 12 -22 16M14 0C18 6 22 12 22 16" fill="none" stroke="#F59E0B" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+
+  <!-- beri pengikat -->
+  <g>
+    <circle cx="108" cy="62" r="3.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="114" cy="58" r="2.6" fill="#FB7185"/>
+    <circle cx="102" cy="60" r="2.4" fill="#FB7185" opacity=".9"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="72" cy="36" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="72" cy="36" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="170" cy="86" r="2.4" fill="#34D399"/>
+    <circle cx="174" cy="98" r="2" fill="#FBBF24"/>
+    <circle cx="88" cy="58" r="1.9" fill="#A7F3D0" opacity=".9"/>
+    <path d="M130 96l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

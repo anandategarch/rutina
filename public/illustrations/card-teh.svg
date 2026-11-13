@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · TEH — pucuk daun teh dua warna: racikan saran yang menenangkan (kartu rekomendasi / grafik mingguan) -->
+  <defs>
+    <radialGradient id="w-th" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".58"/>
+      <stop offset=".45" stop-color="#FEF3C7" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lv-th" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna kebun teh pagi di sudut -->
+  <rect width="180" height="170" fill="url(#w-th)"/>
+
+  <!-- tangkai miring ke sudut -->
+  <path d="M58 2C98 4 134 20 156 46C165 56 172 64 177 72" fill="none" stroke="#059669" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+
+  <!-- daun teh oval berselang-seling (dua warna) -->
+  <g stroke-linejoin="round">
+    <g stroke="#059669" stroke-width="1">
+      <ellipse rx="15.5" ry="6.4" transform="translate(84 16) rotate(-30)" fill="url(#lv-th)"/>
+      <ellipse rx="15.5" ry="6.4" transform="translate(97 33) rotate(120)" fill="#A7F3D0"/>
+      <ellipse rx="14.5" ry="6" transform="translate(112 28) rotate(-38)" fill="url(#lv-th)"/>
+      <ellipse rx="14.5" ry="6" transform="translate(124 45) rotate(116)" fill="#D1FAE5"/>
+      <ellipse rx="13.5" ry="5.6" transform="translate(138 44) rotate(-44)" fill="url(#lv-th)"/>
+      <ellipse rx="13.5" ry="5.6" transform="translate(150 61) rotate(112)" fill="#A7F3D0"/>
+      <ellipse rx="12" ry="5" transform="translate(160 60) rotate(-50)" fill="#6EE7B7"/>
+    </g>
+    <!-- urat daun tengah -->
+    <g fill="none" stroke="#059669" stroke-width=".9" stroke-linecap="round" opacity=".5">
+      <path d="M72 22C78 18 90 14 96 12"/>
+      <path d="M100 26C104 30 106 38 108 40"/>
+      <path d="M118 22C124 19 132 17 138 16"/>
+      <path d="M130 38C134 42 136 48 138 51"/>
+      <path d="M144 40C150 38 154 38 158 40"/>
+    </g>
+    <!-- pucuk muda menggulung -->
+    <path d="M172 54c-6-8 -14-10 -18-6c-2 3 2 8 8 7c4-1 8-2 10-1Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.1"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="66" cy="38" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="66" cy="38" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik & daun lepas -->
+  <g>
+    <ellipse rx="7" ry="2.8" transform="translate(94 58) rotate(28)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1"/>
+    <ellipse rx="6" ry="2.4" transform="translate(78 56) rotate(-16)" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+    <circle cx="172" cy="92" r="2.8" fill="#34D399"/>
+    <circle cx="176" cy="86" r="2.2" fill="#FBBF24"/>
+    <circle cx="164" cy="104" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M120 64l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

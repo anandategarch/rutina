@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v57"; // v2.55 — untaian botani latar kartu (card-sprig sudut kanan-atas + tunas kiri-bawah, semua kartu semua tab); v56 memuat v2.54 (jeda runtun aman + kartu Pekan lalu)
+const STATIC_CACHE = "rutina-static-v58"; // v2.56 — ilustrasi sudut kartu kini BERBEDA tiap kartu (15 motif botani + 4 tunas kiri-bawah via kelas .ill-*); v57 memuat v2.55 (untaian botani latar semua kartu)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

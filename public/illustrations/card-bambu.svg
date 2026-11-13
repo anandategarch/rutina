@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · BAMBU — buluh bambu bertunas: hari aktif bertumbuh berkali lipat (kartu konsistensi 30 hari / kalender) -->
+  <defs>
+    <radialGradient id="w-bb" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".62"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cl-bb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset=".6" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#ECFDF5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna rumpun bambu di sudut -->
+  <rect width="180" height="170" fill="url(#w-bb)"/>
+
+  <!-- buluh utama: ruas-ruas condong mengikuti sudut -->
+  <g>
+    <path d="M64 2C92 6 120 20 140 42C152 56 164 64 174 70" fill="none" stroke="url(#cl-bb)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M64 2C92 6 120 20 140 42C152 56 164 64 174 70" fill="none" stroke="#10B981" stroke-width="1.2" stroke-linecap="round" opacity=".35"/>
+    <!-- buku (node) bambu -->
+    <g stroke="#059669" stroke-width="1.6" stroke-linecap="round" opacity=".75" fill="none">
+      <path d="M92 8C90 13 92 17 95 20"/>
+      <path d="M118 22C115 26 116 31 119 34"/>
+      <path d="M142 42C139 46 140 51 143 54"/>
+      <path d="M162 58C159 62 160 66 163 69"/>
+    </g>
+  </g>
+  <!-- buluh kecil belakang -->
+  <path d="M108 4C126 12 144 28 158 48" fill="none" stroke="#A7F3D0" stroke-width="5.5" stroke-linecap="round" opacity=".55"/>
+  <path d="M158 48C164 55 168 60 172 64" fill="none" stroke="#A7F3D0" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+
+  <!-- tunas ujung & daun bambu (kipas daun lancip) -->
+  <g stroke-linejoin="round">
+    <g transform="translate(171 66)">
+      <path d="M0 0C-8-20 -4-38 8-48C14-34 12-12 0 0Z" fill="#A7F3D0" stroke="#34D399" stroke-width="1.2"/>
+      <path d="M0 0C-2-14 -1-26 4-38" fill="none" stroke="#10B981" stroke-width="1" opacity=".45"/>
+    </g>
+    <g transform="translate(138 30) rotate(30)">
+      <path d="M0 0C-7-16 -3-30 7-38C12-27 10-9 0 0Z" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.2"/>
+    </g>
+    <g transform="translate(102 10) rotate(-10)">
+      <path d="M0 0C-6-13 -2-24 6-31C10-22 8-8 0 0Z" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.1"/>
+    </g>
+    <!-- tunas muda daun ganda di pangkal -->
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(64 12) rotate(-16) scale(.62)" fill="#A7F3D0"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="74" cy="22" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="74" cy="22" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik & tunas kecil lepas -->
+  <g>
+    <circle cx="168" cy="98" r="3" fill="#10B981"/>
+    <circle cx="176" cy="90" r="2.4" fill="#34D399"/>
+    <circle cx="150" cy="72" r="2.2" fill="#FCD34D"/>
+    <circle cx="126" cy="52" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M148 90l1.2 3.2 3.2 1.2-3.2 1.2-1.2 3.2-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(56 38) rotate(-30)" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.2"/>
+  </g>
+</svg>

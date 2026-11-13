@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · BONSAI — pohon mungil dalam pot: kebiasaan dirawat menjadi karya (kartu taman kebiasaan / saldo) -->
+  <defs>
+    <radialGradient id="w-bs" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pt-bs" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#6EE7B7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci warna taman zen di sudut -->
+  <rect width="180" height="170" fill="url(#w-bs)"/>
+
+  <!-- kanopi awan (pad-pad berlapis) -->
+  <g stroke-linejoin="round">
+    <g fill="url(#pt-bs)" stroke="#10B981" stroke-width="1.1">
+      <path d="M104 32C100 14 116 2 134 6C150 10 154 26 146 34C136 40 110 42 104 32Z"/>
+      <path d="M96 46C92 34 102 26 112 30C120 33 120 44 110 46C104 48 98 49 96 46Z"/>
+      <path d="M140 22C136 12 146 4 158 8C168 11 168 22 160 24C152 26 144 27 140 22Z"/>
+      <path d="M124 12C122 4 130 0 138 3C144 5 144 12 138 13C132 14 126 15 124 12Z"/>
+    </g>
+    <!-- highlight awan -->
+    <path d="M112 30C108 18 120 10 132 12" fill="none" stroke="#ECFDF5" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+    <path d="M144 20C142 14 148 10 154 12" fill="none" stroke="#ECFDF5" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+  </g>
+
+  <!-- batang berliku bonsai -->
+  <path d="M126 42C122 52 130 56 124 64C120 70 122 76 118 82" fill="none" stroke="#92400E" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M126 42C122 52 130 56 124 64C120 70 122 76 118 82" fill="none" stroke="#B45309" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>
+
+  <!-- cabang kecil ke sudut -->
+  <path d="M126 42C134 40 142 38 150 36" fill="none" stroke="#92400E" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M124 64C132 64 140 62 146 60" fill="none" stroke="#92400E" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+
+  <!-- pot bonsai -->
+  <g>
+    <path d="M98 88C116 84 134 84 150 88L144 104C132 108 114 108 104 104Z" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M96 84C114 79 136 79 152 84L152 88C136 83 114 83 96 88Z" fill="#F59E0B"/>
+    <path d="M104 104C114 108 132 108 144 104L140 116C132 119 114 119 106 116Z" fill="#FBBF24" stroke="#F59E0B" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- tanah & kerikil -->
+    <ellipse cx="118" cy="100" rx="3" ry="1.8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width=".8"/>
+    <ellipse cx="134" cy="102" rx="2.4" ry="1.5" fill="#F1F5F9" stroke="#E2E8F0" stroke-width=".8"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="72" cy="20" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="72" cy="20" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik & daun lepas -->
+  <g>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(88 38) rotate(-30)" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.2"/>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(66 44) rotate(20)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.1"/>
+    <circle cx="168" cy="72" r="2.8" fill="#10B981"/>
+    <circle cx="176" cy="82" r="2.2" fill="#34D399"/>
+    <circle cx="164" cy="94" r="2" fill="#FCD34D"/>
+    <circle cx="92" cy="64" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M104 68l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

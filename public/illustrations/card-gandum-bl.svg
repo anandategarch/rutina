@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 100" preserveAspectRatio="xMinYMax meet">
+  <!-- Rutina · bulir gandum sudut kiri-bawah kartu -->
+  <defs>
+    <radialGradient id="w-gdbl" cx="0" cy="1" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".55"/>
+      <stop offset=".5" stop-color="#F7F5E8" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#F7F5E8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="110" height="100" fill="url(#w-gdbl)"/>
+
+  <!-- dua tangkai -->
+  <g fill="none" stroke="#34D399" stroke-linecap="round">
+    <path d="M4 98C11 79 23 63 39 53C45 49 51 46 58 44" stroke-width="2.1" opacity=".9"/>
+    <path d="M14 98C20 82 30 70 44 62" stroke-width="1.7" opacity=".7"/>
+  </g>
+
+  <!-- kepala bulir di ujung tangkai utama -->
+  <g transform="translate(58 44) rotate(-62)">
+    <g fill="#FDE68A" stroke="#F59E0B" stroke-width=".9">
+      <ellipse cx="-4.4" cy="-8" rx="4" ry="6.2" transform="rotate(24)"/>
+      <ellipse cx="4.4" cy="-8" rx="4" ry="6.2" transform="rotate(-24)"/>
+      <ellipse cx="-4" cy="-17.6" rx="3.6" ry="5.8" transform="rotate(24)"/>
+      <ellipse cx="4" cy="-17.6" rx="3.6" ry="5.8" transform="rotate(-24)"/>
+    </g>
+    <path d="M0 -21L0 -29" fill="none" stroke="#34D399" stroke-width="1.7" stroke-linecap="round"/>
+  </g>
+
+  <!-- daun kecil -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(21 73) rotate(-34) scale(.7)" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.5"/>
+    <path d="M0 0C5-6 13-7 20-3C15 3 5 4 0 0Z" transform="translate(30 62) rotate(-20)" fill="#D1FAE5" stroke="#A7F3D0" stroke-width="1.2"/>
+  </g>
+
+  <!-- butir lepas & percik -->
+  <ellipse cx="38" cy="36" rx="2.6" ry="1.8" transform="rotate(-30 38 36)" fill="#FBBF24" opacity=".85"/>
+  <circle cx="12" cy="68" r="5" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.1"/>
+  <circle cx="12" cy="68" r="2" fill="#FDE68A"/>
+  <circle cx="66" cy="57" r="2.4" fill="#A7F3D0"/>
+  <path d="M45 72l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24" opacity=".9"/>
+</svg>

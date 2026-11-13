@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · BERRY — ranting beri: tabungan yang terkumpul satu per satu (kartu total saldo / komposisi) -->
+  <defs>
+    <radialGradient id="w-br" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#FDF2F8" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FDF2F8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bb-br" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#FDA4AF"/>
+      <stop offset="1" stop-color="#E11D48"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna kebun beri di sudut -->
+  <rect width="180" height="170" fill="url(#w-br)"/>
+
+  <!-- ranting utama melengkung ke sudut -->
+  <path d="M58 2C98 4 136 20 158 46C166 56 172 64 177 72" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>
+  <path d="M158 46C152 54 148 60 144 66" fill="none" stroke="#34D399" stroke-width="1.9" stroke-linecap="round" opacity=".75"/>
+  <path d="M110 18C112 30 118 40 126 46" fill="none" stroke="#34D399" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
+
+  <!-- daun mint -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(72 12) rotate(-16) scale(.7)" fill="#A7F3D0"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(120 30) rotate(-48) scale(.68)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.3"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(140 52) rotate(162) scale(.7)" fill="#6EE7B7" opacity=".9"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(162 84) rotate(-30) scale(.5)" fill="#A7F3D0"/>
+  </g>
+
+  <!-- kelompok beri (rose & amber) -->
+  <g>
+    <!-- trio dekat sudut -->
+    <circle cx="150" cy="62" r="8" fill="url(#bb-br)"/>
+    <circle cx="150" cy="62" r="8" fill="none" stroke="#E11D48" stroke-width="1" opacity=".5"/>
+    <ellipse cx="146.6" cy="58.4" rx="2.6" ry="1.8" transform="rotate(-40 146.6 58.4)" fill="#FDA4AF" opacity=".85"/>
+    <circle cx="163" cy="76" r="7" fill="url(#bb-br)"/>
+    <ellipse cx="160" cy="72.8" rx="2.3" ry="1.6" transform="rotate(-40 160 72.8)" fill="#FDA4AF" opacity=".85"/>
+    <circle cx="156" cy="84" r="5.6" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.1"/>
+    <!-- pasangan di tengah ranting -->
+    <circle cx="128" cy="42" r="6.6" fill="url(#bb-br)"/>
+    <ellipse cx="125.4" cy="39" rx="2.2" ry="1.5" transform="rotate(-40 125.4 39)" fill="#FDA4AF" opacity=".8"/>
+    <circle cx="116" cy="24" r="5.6" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="104" cy="34" r="4.6" fill="url(#bb-br)" opacity=".92"/>
+    <!-- kuncup kecil -->
+    <circle cx="140" cy="36" r="3.4" fill="#FECDD3" stroke="#FDA4AF" stroke-width=".9"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="76" cy="24" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="76" cy="24" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik -->
+  <g>
+    <circle cx="172" cy="96" r="2.6" fill="#FB7185"/>
+    <circle cx="176" cy="88" r="2.2" fill="#34D399"/>
+    <circle cx="166" cy="104" r="2" fill="#FCD34D"/>
+    <circle cx="96" cy="46" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M120 62l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

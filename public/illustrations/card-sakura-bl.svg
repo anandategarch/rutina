@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 100" preserveAspectRatio="xMinYMax meet">
+  <!-- Rutina · kuncup sakura sudut kiri-bawah kartu -->
+  <defs>
+    <radialGradient id="w-skbl" cx="0" cy="1" r="1">
+      <stop offset="0" stop-color="#FDF2F8" stop-opacity=".6"/>
+      <stop offset=".5" stop-color="#FDE8F0" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FDE8F0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="110" height="100" fill="url(#w-skbl)"/>
+
+  <!-- batang -->
+  <path d="M4 98C11 79 23 63 39 53C45 49 51 46 58 44" fill="none" stroke="#34D399" stroke-width="2.1" stroke-linecap="round" opacity=".9"/>
+
+  <!-- daun tipis -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(21 73) rotate(-34) scale(.78)" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.6"/>
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" transform="translate(35 57) rotate(-58) scale(.64)" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.5"/>
+  </g>
+
+  <!-- bunga sakura kecil di ujung -->
+  <g transform="translate(58 40)">
+    <g fill="#FECDD3" stroke="#FDA4AF" stroke-width="1.1">
+      <ellipse rx="4.4" ry="6" transform="rotate(0) translate(0 -4.4)"/>
+      <ellipse rx="4.4" ry="6" transform="rotate(72) translate(0 -4.4)"/>
+      <ellipse rx="4.4" ry="6" transform="rotate(144) translate(0 -4.4)"/>
+      <ellipse rx="4.4" ry="6" transform="rotate(216) translate(0 -4.4)"/>
+      <ellipse rx="4.4" ry="6" transform="rotate(288) translate(0 -4.4)"/>
+    </g>
+    <circle r="2.6" fill="#F59E0B"/>
+  </g>
+
+  <!-- kelopak gugur & percik -->
+  <path d="M0 0C3-4 8-5 12-2C9 3 3 4 0 0Z" transform="translate(28 42) rotate(30)" fill="#FECDD3" opacity=".85"/>
+  <circle cx="12" cy="68" r="5" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.1"/>
+  <circle cx="12" cy="68" r="2" fill="#FDE68A"/>
+  <circle cx="66" cy="57" r="2.4" fill="#A7F3D0"/>
+  <path d="M45 72l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24" opacity=".9"/>
+</svg>
