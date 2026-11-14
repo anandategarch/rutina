@@ -6,45 +6,20 @@ import { dirname, resolve } from "node:path";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/* ==========================================================================
-   /api/rutina — jembatan data untuk konsep Rutina (public/rutina.html).
-
-   v2.22 · BACA-TULIS PENUH.
-   - GET  : membaca seluruh isi database (bentuk respons sama seperti
-            versi sebelumnya, klien lama tetap kompatibel).
-   - POST : menerima "lapisan catatan pengguna" (overlay — struktur yang sama
-            dengan jurnal localStorage di perangkat) + daftar final anggaran
-            & kategori, lalu menerapkannya secara IDEMPOTEN: diputar ulang
-            berapa pun kali hasil akhirnya sama. Aman untuk retry saat
-            koneksi goyah, dan aman bila respons sukses hilang di jaringan.
-
-   Sumber database dipilih otomatis:
-   - RUTINA_TURSO_URL + RUTINA_TURSO_TOKEN terisi → Turso (produksi).
-   - Belum terisi (mis. pratinjau lokal) → SQLite file db/rutina-preview.db
-     dengan skema V1 (nama tabel/kolom identik), otomatis dibuat & diisi
-     dari snapshot yang tertanam di public/rutina.html saat pertama kali
-     diakses — jalur baca-tulis tetap hidup penuh tanpa kredensial.
-
-   v2.35 · kolom Atomic Habits: Habit.mini + Habit.afterId (versi 2 menit
-   & jangkar "susun kebiasaan") dan AppSettings.identityText (pernyataan
-   identitas "aku yang ingin jadi…"). Ditambahkan lewat migrasi ALTER
-   idempoten — database lama (lokal maupun Turso) tak perlu dibuat ulang.
-
-   v2.37 · kolom Transaction.recurrence ("weekly"/"monthly" — transaksi
-   berulang) + habitMeta diperluas: sunting kebiasaan kini membawa nama,
-   emoji (ilustrasi), kategori, jam pengingat, dan grup — UPDATE dibangun
-   dinamis dari kunci yang HADIR di jurnal (jurnal lama tetap kompatibel:
-   hanya mini/afterId yang tersentuh).
-
-   v2.39 · jurnal dailyLog: check-in harian mood/energi/tidur — peta
-   tanggal → nilai, UPSERT ke tabel DailyLog (sudah ada sejak skema V1
-   via CREATE TABLE IF NOT EXISTS). Tabel "date" PRIMARY KEY membuatnya
-   idempoten alami: diputar ulang berapa pun kali, baris hari itu tetap
-   satu dengan nilai terakhir.
-
-   Semua nilai di-bind lewat prepared statement; nama tabel & kolom selalu
-   hardcoded, tidak pernah berasal dari input klien.
-   ========================================================================== */
+/* /api/rutina: jembatan data untuk public/rutina.html.
+   GET  : seluruh isi database (bentuk respons stabil, klien lama kompatibel;
+          ETag/304 saat data tak berubah).
+   POST : lapisan catatan pengguna (overlay, struktur sama dengan jurnal
+          localStorage) + daftar final anggaran/kategori, diterapkan
+          IDEMPOTEN: retry aman walau respons sukses hilang di jaringan.
+   Database: RUTINA_TURSO_URL + RUTINA_TURSO_TOKEN terisi = Turso (produksi);
+   kosong = SQLite db/rutina-preview.db (skema identik, dibuat & diisi dari
+   snapshot rutina.html saat pertama diakses).
+   Kolom fitur baru ditambahkan lewat migrasi ALTER idempoten; UPDATE meta
+   dibangun dinamis dari kunci yang HADIR di jurnal (jurnal lama kompatibel).
+   DailyLog idempoten alami: PRIMARY KEY tanggal, baris hari tetap satu.
+   Semua nilai di-bind prepared statement; nama tabel/kolom selalu hardcoded,
+   tidak pernah dari input klien. */
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 const MAX_BODY_BYTES = 2 * 1024 * 1024;
@@ -57,7 +32,7 @@ const HTML_SNAPSHOT = resolve(process.cwd(), "public", "rutina.html");
 const BOOT_TAG = Date.now().toString(36);
 let dataRev = 0;
 
-/* ---------------------------------------------------------------- utilitas */
+/* utilitas */
 
 const dpart = (v: unknown): string => String(v ?? "").slice(0, 10);
 const num = (v: unknown): number => {
@@ -78,7 +53,7 @@ const inVal = (v: unknown): InValue => {
   return String(v); /* objek/ragam lain → bentuk string yang aman */
 };
 
-/* ------------------------------------------------------- pemilihan klien */
+/* pemilihan klien */
 
 type DbTarget = { client: Client; source: "turso" | "local" };
 
@@ -123,7 +98,7 @@ async function getTarget(): Promise<DbTarget> {
   return { client: cachedLocal.client, source: "local" };
 }
 
-/* ----------------------------------------------- skema lokal (pratinjau) */
+/* skema lokal (pratinjau) */
 
 const DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "Habit"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"emoji" TEXT,"category" TEXT,"priority" TEXT,"difficulty" TEXT,"habitType" TEXT,"target" INTEGER,"unit" TEXT,"reminder" TEXT,"groupId" TEXT,"isActive" INTEGER DEFAULT 1,"isArchived" INTEGER DEFAULT 0,"mini" TEXT,"afterId" TEXT,"restDays" TEXT)`,
@@ -331,7 +306,7 @@ async function seedFromSnapshot(client: Client): Promise<void> {
   }
 }
 
-/* -------------------------------------------- introspeksi kolom (aman) */
+/* introspeksi kolom (aman) */
 
 const FALLBACK_COLS: Record<string, string[]> = {
   Habit: ["id", "name", "emoji", "category", "priority", "difficulty", "habitType", "target", "unit", "reminder", "groupId", "isActive", "isArchived", "mini", "afterId"],
@@ -374,7 +349,7 @@ function buildInsert(cols: Set<string>, table: string, row: Record<string, unkno
   return { sql, args };
 }
 
-/* -------------------------------------------------------------- pembacaan */
+/* pembacaan */
 
 export async function GET(request: Request) {
   /* v2.64 · 304 pintar — If-None-Match cocok → nol byte body: penghematan
@@ -553,7 +528,7 @@ export async function GET(request: Request) {
   }
 }
 
-/* ------------------------------------------------------------- penulisan */
+/* penulisan */
 
 interface TxRow { id: string; type: string; amount: number; category: string; sourceId: string | null; description: string; date: string; recurrence?: "weekly" | "monthly" | null }
 interface BudRow { category: string; month: string; amount: number }
