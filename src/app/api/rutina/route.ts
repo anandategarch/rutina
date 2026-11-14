@@ -50,6 +50,12 @@ const NO_STORE = { "Cache-Control": "no-store" } as const;
 const MAX_BODY_BYTES = 2 * 1024 * 1024;
 const LOCAL_DB = resolve(process.cwd(), "db", "rutina-preview.db");
 const HTML_SNAPSHOT = resolve(process.cwd(), "public", "rutina.html");
+/* v2.64 · ETag — GET kini bisa menjawab 304 saat data tak berubah: payload
+   penuh (73 KB terukur, ~192 B per transaksi baru) tak diunduh ulang di
+   tiap buka aplikasi. Revisi = boot-tag proses + penghitung POST sukses —
+   restart proses selalu menghasilkan tag baru → tak pernah salah 304. */
+const BOOT_TAG = Date.now().toString(36);
+let dataRev = 0;
 
 /* ---------------------------------------------------------------- utilitas */
 
@@ -138,6 +144,15 @@ const DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "WorkoutSet"("id" TEXT PRIMARY KEY,"workoutId" TEXT NOT NULL,"exercise" TEXT,"reps" INTEGER,"weight" REAL)`,
   `CREATE TABLE IF NOT EXISTS "FoodLog"("id" TEXT PRIMARY KEY,"date" TEXT NOT NULL,"meal" TEXT,"name" TEXT,"kcal" INTEGER,"protein" REAL,"carb" REAL,"fat" REAL)`,
   `CREATE TABLE IF NOT EXISTS "BodyLog"("date" TEXT PRIMARY KEY,"water" INTEGER,"weight" REAL,"recover" INTEGER)`,
+  /* v2.64 · indeks sekunder — audit EXPLAIN QUERY PLAN menemukan: ORDER BY
+     date memakai SCAN + USE TEMP B-TREE, UPDATE kategori & DELETE set
+     latihan memindai seluruh tabel. Diciptakan idempoten (pola migrasi
+     yang sudah ada) di Turso & lokal. */
+  `CREATE INDEX IF NOT EXISTS "idx_tx_date" ON "Transaction"("date" DESC)`,
+  `CREATE INDEX IF NOT EXISTS "idx_tx_category" ON "Transaction"("category")`,
+  `CREATE INDEX IF NOT EXISTS "idx_wset_workout" ON "WorkoutSet"("workoutId")`,
+  `CREATE INDEX IF NOT EXISTS "idx_workout_date" ON "Workout"("date" DESC)`,
+  `CREATE INDEX IF NOT EXISTS "idx_food_date" ON "FoodLog"("date" DESC)`,
 ];
 
 /* v2.35 · migrasi kolom Atomic Habits — ALTER per kolom; gagal "duplicate
@@ -172,6 +187,11 @@ async function ensureLocalSchema(client: Client): Promise<void> {
   try {
     await client.execute("PRAGMA journal_mode=WAL");
     await client.execute("PRAGMA busy_timeout=5000");
+    /* v2.64 · rampingkan WAL peninggalan saat boot — audit menemukan file
+       -wal membengkak 25× ukuran db (4 MB vs 160 KB) karena tiap POST
+       menulis ulang dua tabel penuh dalam ~34 autocommit terpisah; kini
+       tulisan dibatch (lihat applyOverlay) + checkpoint di boot & pasca-POST. */
+    try { await client.execute("PRAGMA wal_checkpoint(TRUNCATE)"); } catch { /* pembaca aktif — nanti saja */ }
   } catch { /* modul read-only / fs aneh → lanjut dengan perilaku lama */ }
   for (const sql of DDL) await client.execute(sql);
   await migrateColumns(client);
@@ -340,22 +360,29 @@ async function columnsOf(client: Client, table: string): Promise<Set<string>> {
 
 /* INSERT yang hanya memakai kolom yang benar-benar ada di tabel target —
    mencocokkan diri dengan skema asli apa pun bentuknya (mis. kolom waktu
-   opsional createdAt/updatedAt di Turso legacy ikut terisi bila tersedia). */
-async function insertRow(client: Client, table: string, row: Record<string, unknown>): Promise<void> {
-  const cols = await columnsOf(client, table);
+   opsional createdAt/updatedAt di Turso legacy ikut terisi bila tersedia).
+   v2.64 · buildInsert murni (sinkron) — dipakai merangkai pernyataan utk
+   client.batch di applyOverlay; jalur penyemaian memakai SQL eksplisit. */
+function buildInsert(cols: Set<string>, table: string, row: Record<string, unknown>): { sql: string; args: InValue[] } | null {
   const names = Object.keys(row).filter((c) => cols.has(c));
   if (cols.has("createdAt") && !names.includes("createdAt")) names.push("createdAt");
   if (cols.has("updatedAt") && !names.includes("updatedAt")) names.push("updatedAt");
-  if (!names.length) return;
+  if (!names.length) return null;
   const now = new Date().toISOString();
   const args: InValue[] = names.map((n) => inVal(n in row ? (row[n] ?? null) : now));
   const sql = `INSERT INTO "${table}" (${names.map((n) => `"${n}"`).join(", ")}) VALUES (${names.map(() => "?").join(", ")})`;
-  await client.execute({ sql, args });
+  return { sql, args };
 }
 
 /* -------------------------------------------------------------- pembacaan */
 
-export async function GET() {
+export async function GET(request: Request) {
+  /* v2.64 · 304 pintar — If-None-Match cocok → nol byte body: penghematan
+     undulan 73 KB per buka aplikasi saat data tak berubah. */
+  const etag = `W/"rutina-${BOOT_TAG}-${dataRev}"`;
+  if (request.headers.get("if-none-match") === etag) {
+    return new NextResponse(null, { status: 304, headers: { ETag: etag, "Cache-Control": "no-cache" } });
+  }
   let target: DbTarget;
   try {
     target = await getTarget();
@@ -471,22 +498,30 @@ export async function GET() {
       })),
       /* v2.58 · tab Bugar — sesi latihan dengan set barbel tertanam,
          asupan kalori/makro, dan catatan tubuh per tanggal */
-      workouts: workouts.rows.map((r) => ({
-        id: String(r.id),
-        date: dpart(r.date),
-        kind: String(r.kind ?? "beban"),
-        duration: Math.round(num(r.duration)),
-        distance: r.distance == null ? null : num(r.distance),
-        note: String(r.note ?? ""),
-        sets: wsets.rows
-          .filter((s) => String(s.workoutId) === String(r.id))
-          .map((s) => ({
+      workouts: (() => {
+        /* v2.64 · grouping satu pass — dulu .filter() atas seluruh daftar set
+           PER sesi latihan (O(sesi×set) membesar bersama riwayat). */
+        const setsByW = new Map<string, typeof wsets.rows>();
+        for (const s of wsets.rows) {
+          const k = String(s.workoutId);
+          const arr = setsByW.get(k);
+          if (arr) arr.push(s); else setsByW.set(k, [s]);
+        }
+        return workouts.rows.map((r) => ({
+          id: String(r.id),
+          date: dpart(r.date),
+          kind: String(r.kind ?? "beban"),
+          duration: Math.round(num(r.duration)),
+          distance: r.distance == null ? null : num(r.distance),
+          note: String(r.note ?? ""),
+          sets: (setsByW.get(String(r.id)) ?? []).map((s) => ({
             id: String(s.id),
             exercise: String(s.exercise ?? ""),
             reps: Math.round(num(s.reps)),
             weight: num(s.weight),
           })),
-      })),
+        }));
+      })(),
       foodLogs: foods.rows.map((r) => ({
         id: String(r.id),
         date: dpart(r.date),
@@ -507,7 +542,7 @@ export async function GET() {
 
     return NextResponse.json(
       { ok: true, source: target.source, fetchedAt: new Date().toISOString(), data },
-      { headers: NO_STORE },
+      { headers: { "Cache-Control": "no-cache", ETag: etag } }, /* v2.64 · boleh tersimpan, WAJIB divalidasi ulang (ETag) */
     );
   } catch (error) {
     console.error("[/api/rutina] gagal membaca database:", error);
@@ -813,6 +848,12 @@ export async function POST(request: Request) {
       Array.isArray(b.budgets) ? (b.budgets as unknown[]) : null,
       Array.isArray(b.finCats) ? (b.finCats as unknown[]) : null,
     );
+    dataRev++; /* v2.64 · data berubah → ETag baru: GET berikutnya klien mengunduh isinya */
+    /* v2.64 · WAL lokal dirampingkan pasca-POST — tulisan terbatch kini
+       kecil, checkpoint TRUNCATE menjaga -wal tak menumpuk antar sesi. */
+    if (target.source === "local") {
+      try { await target.client.execute("PRAGMA wal_checkpoint(TRUNCATE)"); } catch { /* pembaca aktif — nanti saja */ }
+    }
     return NextResponse.json({ ok: true, source: target.source, ...result }, { headers: NO_STORE });
   } catch (error) {
     console.error("[/api/rutina] gagal menerapkan catatan:", error);
@@ -820,6 +861,7 @@ export async function POST(request: Request) {
   }
 }
 
+type Stmt = { sql: string; args: InValue[] };
 async function applyOverlay(
   client: Client,
   ov: Overlay,
@@ -828,6 +870,35 @@ async function applyOverlay(
 ): Promise<{ applied: Record<string, number>; failed: { op: string; error: string }[] }> {
   const applied: Record<string, number> = {};
   const failed: { op: string; error: string }[] = [];
+  /* v2.64 · SEKSI-BATCH — dulu setiap pernyataan dieksekusi await-sendiri
+     (autocommit terpisah): satu POST memutar ~34 transaksi implicit, diukur
+     6× lebih lambat dari satu BEGIN/COMMIT di disk lokal — dan di Turso
+     tiap pernyataan = satu HTTP round-trip beruntun. Kini tiap seksi
+     dirangkai penuh lalu dikirim SEKALI lewat client.batch(..., "write")
+     = satu transaksi tulis atomik (gagal di tengah → seluruh seksi
+     tergulung, jurnal tetap di klien & diputar ulang idempoten — lebih
+     aman dari laku lama yang bisa setengah-terpasang). */
+  const [txCols, budCols, habitCols, srcCols, logCols, workoutCols, wsetCols, foodCols] =
+    await Promise.all([
+      columnsOf(client, "Transaction"), columnsOf(client, "WeeklyBudget"),
+      columnsOf(client, "Habit"), columnsOf(client, "FundSource"),
+      columnsOf(client, "HabitLog"), columnsOf(client, "Workout"),
+      columnsOf(client, "WorkoutSet"), columnsOf(client, "FoodLog"),
+    ]);
+  const push = (S: Stmt[], cols: Set<string>, table: string, row: Record<string, unknown>) => {
+    const st = buildInsert(cols, table, row);
+    if (st) S.push(st);
+  };
+  const batchRun = async (op: string, build: (S: Stmt[]) => void) => {
+    const S: Stmt[] = [];
+    try {
+      build(S);
+      if (S.length) await client.batch(S, "write");
+      if (S.length) applied[op] = S.length;
+    } catch (error) {
+      failed.push({ op, error: String((error as Error)?.message ?? error).slice(0, 160) });
+    }
+  };
   const run = async (op: string, fn: () => Promise<unknown>) => {
     try {
       await fn();
@@ -840,66 +911,69 @@ async function applyOverlay(
 
   /* 1 · ganti nama kategori pada transaksi. (Daftar kategori & anggaran
         diganti penuh dari daftar final klien di bawah — tak perlu di-update.) */
-  for (const [oldName, newName] of Object.entries(ov.catRename)) {
-    await run("catRename", () => client.execute({
-      sql: `UPDATE "Transaction" SET "category"=? WHERE "category"=?`,
-      args: [newName, oldName],
-    }));
-  }
+  await batchRun("catRename", (S) => {
+    for (const [oldName, newName] of Object.entries(ov.catRename)) {
+      S.push({ sql: `UPDATE "Transaction" SET "category"=? WHERE "category"=?`, args: [newName, oldName] });
+    }
+  });
 
-  /* 2 · transaksi: hapus → tambal → tambah */
-  for (const id of ov.txDel) {
-    await run("txDel", () => client.execute({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [id] }));
-  }
-  for (const [id, t] of Object.entries(ov.txEdit)) {
-    if (!id || !t.date) continue;
-    /* v2.37 · recurrence hanya ikut bila kuncinya hadir (jurnal lama tanpa
-       kolom ini tak akan menimpa nilai berulang yang tersimpan) */
-    const hasRec = t.recurrence !== undefined;
-    await run("txEdit", () => client.execute({
-      sql: hasRec
-        ? `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=?,"recurrence"=? WHERE "id"=?`
-        : `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=? WHERE "id"=?`,
-      args: hasRec
-        ? [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, t.recurrence ?? null, id]
-        : [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, id],
-    }));
-  }
-  for (const t of ov.txAdd) {
-    await run("txAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [t.id] });
-      await insertRow(client, "Transaction", {
+  /* 2 · transaksi: hapus → tambal → tambah (tiap jalur satu batch) */
+  await batchRun("txDel", (S) => {
+    for (const id of ov.txDel) S.push({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [id] });
+  });
+  await batchRun("txEdit", (S) => {
+    for (const [id, t] of Object.entries(ov.txEdit)) {
+      if (!id || !t.date) continue;
+      /* v2.37 · recurrence hanya ikut bila kuncinya hadir (jurnal lama tanpa
+         kolom ini tak akan menimpa nilai berulang yang tersimpan) */
+      const hasRec = t.recurrence !== undefined;
+      S.push({
+        sql: hasRec
+          ? `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=?,"recurrence"=? WHERE "id"=?`
+          : `UPDATE "Transaction" SET "type"=?,"amount"=?,"category"=?,"sourceId"=?,"description"=?,"date"=? WHERE "id"=?`,
+        args: hasRec
+          ? [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, t.recurrence ?? null, id]
+          : [t.type, t.amount, mapCat(t.category), t.sourceId, t.description, t.date, id],
+      });
+    }
+  });
+  await batchRun("txAdd", (S) => {
+    for (const t of ov.txAdd) {
+      S.push({ sql: `DELETE FROM "Transaction" WHERE "id"=?`, args: [t.id] });
+      push(S, txCols, "Transaction", {
         id: t.id, type: t.type, amount: t.amount, category: mapCat(t.category),
         sourceId: t.sourceId, description: t.description, date: t.date,
-        recurrence: t.recurrence ?? null, /* v2.37 · insertRow menyaring via columnsOf */
+        recurrence: t.recurrence ?? null, /* v2.37 */
       });
-    });
-  }
+    }
+  });
 
   /* 3 · anggaran — daftar final dari klien menggantikan seluruh baris;
         menetralkan jerat kunci ganti-nama kategori (bulan tetap dipertahankan
-        klien yang mengelola) */
+        klien yang mengelola). v2.64 · satu batch: DELETE + INSERT semua baris
+        atomik (dulu setengah-terpasang mungkin terjadi bila INSERT gagal). */
   if (budgets) {
-    await run("budgets", async () => {
-      await client.execute(`DELETE FROM "WeeklyBudget"`);
+    await batchRun("budgets", (S) => {
+      S.push({ sql: `DELETE FROM "WeeklyBudget"`, args: [] });
       for (const raw of budgets) {
         const bb = sanitizeBud(raw);
         if (!bb.category || !bb.month) continue;
-        await insertRow(client, "WeeklyBudget", { category: mapCat(bb.category), month: bb.month, amount: bb.amount });
+        push(S, budCols, "WeeklyBudget", { category: mapCat(bb.category), month: bb.month, amount: bb.amount });
       }
     });
   }
 
   /* 4 · kategori keuangan — daftar final, id deterministik dari nama */
   if (finCats) {
-    await run("finCats", async () => {
-      await client.execute(`DELETE FROM "FinanceCategory"`);
+    const fcCols = await columnsOf(client, "FinanceCategory");
+    await batchRun("finCats", (S) => {
+      S.push({ sql: `DELETE FROM "FinanceCategory"`, args: [] });
       let i = 0;
       for (const raw of finCats) {
         const o = asRecord(raw);
         const name = str(o.name).slice(0, 40);
         if (!name) continue;
-        await insertRow(client, "FinanceCategory", {
+        push(S, fcCols, "FinanceCategory", {
           id: catRowId(name), name,
           emoji: str(o.emoji).slice(0, 16), color: str(o.color, "#64748B").slice(0, 16),
           type: str(o.type) === "income" ? "income" : "expense", sortOrder: i++,
@@ -909,87 +983,87 @@ async function applyOverlay(
   }
 
   /* 5 · kebiasaan: hapus (arsipkan + bersihkan log) → tambah */
-  for (const id of ov.habitDel) {
-    await run("habitDel", async () => {
-      await client.execute({ sql: `UPDATE "Habit" SET "isArchived"=1 WHERE "id"=?`, args: [id] });
-      await client.execute({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=?`, args: [id] });
-    });
-  }
-  for (const h of ov.habitAdd) {
-    await run("habitAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "Habit" WHERE "id"=?`, args: [h.id] });
-      await insertRow(client, "Habit", {
+  await batchRun("habitDel", (S) => {
+    for (const id of ov.habitDel) {
+      S.push({ sql: `UPDATE "Habit" SET "isArchived"=1 WHERE "id"=?`, args: [id] });
+      S.push({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=?`, args: [id] });
+    }
+  });
+  await batchRun("habitAdd", (S) => {
+    for (const h of ov.habitAdd) {
+      S.push({ sql: `DELETE FROM "Habit" WHERE "id"=?`, args: [h.id] });
+      push(S, habitCols, "Habit", {
         id: h.id, name: h.name, emoji: h.emoji, category: h.category, priority: h.priority,
         difficulty: h.difficulty, habitType: h.habitType, target: h.target, unit: h.unit,
         reminder: h.reminder, groupId: h.groupId, mini: h.mini, afterId: h.afterId,
         restDays: h.restDays ?? null,
         isActive: 1, isArchived: 0,
       });
-    });
-  }
+    }
+  });
 
   /* 6 · centang kebiasaan (kunci habitId|date) */
-  for (const key of Object.keys(ov.logDel)) {
-    const [habitId, date] = splitKey(key);
-    if (!habitId || !date) continue;
-    await run("logDel", () => client.execute({
-      sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`,
-      args: [habitId, date],
-    }));
-  }
-  for (const [key, v] of Object.entries(ov.logAdd)) {
-    const [habitId, date] = splitKey(key);
-    if (!habitId || !date) continue;
-    await run("logAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`, args: [habitId, date] });
-      await insertRow(client, "HabitLog", { habitId, date, completed: 1, value: typeof v === "number" ? v : 1 });
-    });
-  }
+  await batchRun("logDel", (S) => {
+    for (const key of Object.keys(ov.logDel)) {
+      const [habitId, date] = splitKey(key);
+      if (!habitId || !date) continue;
+      S.push({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`, args: [habitId, date] });
+    }
+  });
+  await batchRun("logAdd", (S) => {
+    for (const [key, v] of Object.entries(ov.logAdd)) {
+      const [habitId, date] = splitKey(key);
+      if (!habitId || !date) continue;
+      S.push({ sql: `DELETE FROM "HabitLog" WHERE "habitId"=? AND "date"=?`, args: [habitId, date] });
+      push(S, logCols, "HabitLog", { habitId, date, completed: 1, value: typeof v === "number" ? v : 1 });
+    }
+  });
 
   /* 7 · dompet: arsipkan → tambal → tambah */
-  for (const id of ov.srcDel) {
-    await run("srcDel", () => client.execute({ sql: `UPDATE "FundSource" SET "isArchived"=1 WHERE "id"=?`, args: [id] }));
-  }
-  for (const [id, s] of Object.entries(ov.srcEdit)) {
-    if (!id || !s.name) continue;
-    await run("srcEdit", () => client.execute({
-      sql: `UPDATE "FundSource" SET "name"=?,"type"=?,"emoji"=?,"initialBalance"=? WHERE "id"=?`,
-      args: [s.name, s.type, s.emoji, s.initialBalance, id],
-    }));
-  }
-  for (const s of ov.srcAdd) {
-    await run("srcAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "FundSource" WHERE "id"=?`, args: [s.id] });
-      await insertRow(client, "FundSource", {
+  await batchRun("srcDel", (S) => {
+    for (const id of ov.srcDel) S.push({ sql: `UPDATE "FundSource" SET "isArchived"=1 WHERE "id"=?`, args: [id] });
+  });
+  await batchRun("srcEdit", (S) => {
+    for (const [id, s] of Object.entries(ov.srcEdit)) {
+      if (!id || !s.name) continue;
+      S.push({
+        sql: `UPDATE "FundSource" SET "name"=?,"type"=?,"emoji"=?,"initialBalance"=? WHERE "id"=?`,
+        args: [s.name, s.type, s.emoji, s.initialBalance, id],
+      });
+    }
+  });
+  await batchRun("srcAdd", (S) => {
+    for (const s of ov.srcAdd) {
+      S.push({ sql: `DELETE FROM "FundSource" WHERE "id"=?`, args: [s.id] });
+      push(S, srcCols, "FundSource", {
         id: s.id, name: s.name, type: s.type, emoji: s.emoji,
         initialBalance: s.initialBalance, isArchived: 0,
       });
-    });
-  }
+    }
+  });
 
   /* 8 · v2.35 · Atomic Habits — meta kebiasaan lalu identitas pengguna
         (AppSettings satu baris; insert bila belum ada).
         v2.37 · SET dibangun dinamis dari kunci yang hadir: sunting lengkap
         (nama/emoji/kategori/jam/grup) maupun jurnal lama (mini/afterId saja)
         sama-sama aman — kolom tak disebut tak tersentuh. */
-  for (const [id, meta] of Object.entries(ov.habitMeta)) {
-    if (!id) continue;
-    const cols: string[] = [];
-    const args: InValue[] = [];
-    if (meta.name) { cols.push('"name"=?'); args.push(meta.name); }
-    if ("emoji" in meta) { cols.push('"emoji"=?'); args.push(meta.emoji ?? null); }
-    if (meta.category) { cols.push('"category"=?'); args.push(meta.category); }
-    if ("reminder" in meta) { cols.push('"reminder"=?'); args.push(meta.reminder ?? null); }
-    if ("groupId" in meta) { cols.push('"groupId"=?'); args.push(meta.groupId ?? null); }
-    if ("mini" in meta) { cols.push('"mini"=?'); args.push(meta.mini ?? null); }
-    if ("afterId" in meta) { cols.push('"afterId"=?'); args.push(meta.afterId ?? null); }
-    if ("restDays" in meta) { cols.push('"restDays"=?'); args.push(meta.restDays ?? null); } /* v2.54 */
-    if (!cols.length) continue;
-    await run("habitMeta", () => client.execute({
-      sql: `UPDATE "Habit" SET ${cols.join(", ")} WHERE "id"=?`,
-      args: [...args, id],
-    }));
-  }
+  await batchRun("habitMeta", (S) => {
+    for (const [id, meta] of Object.entries(ov.habitMeta)) {
+      if (!id) continue;
+      const cols: string[] = [];
+      const args: InValue[] = [];
+      if (meta.name) { cols.push('"name"=?'); args.push(meta.name); }
+      if ("emoji" in meta) { cols.push('"emoji"=?'); args.push(meta.emoji ?? null); }
+      if (meta.category) { cols.push('"category"=?'); args.push(meta.category); }
+      if ("reminder" in meta) { cols.push('"reminder"=?'); args.push(meta.reminder ?? null); }
+      if ("groupId" in meta) { cols.push('"groupId"=?'); args.push(meta.groupId ?? null); }
+      if ("mini" in meta) { cols.push('"mini"=?'); args.push(meta.mini ?? null); }
+      if ("afterId" in meta) { cols.push('"afterId"=?'); args.push(meta.afterId ?? null); }
+      if ("restDays" in meta) { cols.push('"restDays"=?'); args.push(meta.restDays ?? null); } /* v2.54 */
+      if (!cols.length) continue;
+      S.push({ sql: `UPDATE "Habit" SET ${cols.join(", ")} WHERE "id"=?`, args: [...args, id] });
+    }
+  });
   if (ov.identityText !== null) {
     await run("identitySet", async () => {
       const res = await client.execute({ sql: `UPDATE "AppSettings" SET "identityText"=?`, args: [ov.identityText] });
@@ -1002,61 +1076,65 @@ async function applyOverlay(
   /* 9 · v2.39 · check-in harian (mood/energi/tidur) — kunci = tanggal,
         PRIMARY KEY pada tabel membuat INSERT OR REPLACE menjadi upsert
         idempoten: nilai terakhir menang, baris hari tetap satu. */
-  for (const d of Object.values(ov.dailyLog)) {
-    await run("dailyLog", () => client.execute({
-      sql: `INSERT OR REPLACE INTO "DailyLog"("date","mood","energy","sleep") VALUES (?,?,?,?)`,
-      args: [d.date, d.mood, d.energy, d.sleep],
-    }));
-  }
+  await batchRun("dailyLog", (S) => {
+    for (const d of Object.values(ov.dailyLog)) {
+      S.push({
+        sql: `INSERT OR REPLACE INTO "DailyLog"("date","mood","energy","sleep") VALUES (?,?,?,?)`,
+        args: [d.date, d.mood, d.energy, d.sleep],
+      });
+    }
+  });
 
   /* 10 · v2.58 · BUGAR — latihan: hapus sesi (beserta setnya) → tambah.
          Id deterministik dari klien membuat putar ulang jurnal aman:
          DELETE dulu lalu INSERT = hasil akhir selalu baris terakhir. */
-  for (const id of ov.fitWDel) {
-    await run("fitWDel", async () => {
-      await client.execute({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [id] });
-      await client.execute({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [id] });
-    });
-  }
-  for (const w of ov.fitWAdd) {
-    await run("fitWAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [w.id] });
-      await client.execute({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [w.id] });
-      await insertRow(client, "Workout", {
+  await batchRun("fitWDel", (S) => {
+    for (const id of ov.fitWDel) {
+      S.push({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [id] });
+      S.push({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [id] });
+    }
+  });
+  await batchRun("fitWAdd", (S) => {
+    for (const w of ov.fitWAdd) {
+      S.push({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [w.id] });
+      S.push({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [w.id] });
+      push(S, workoutCols, "Workout", {
         id: w.id, date: w.date, kind: w.kind,
         duration: w.duration, distance: w.distance, note: w.note,
       });
       for (const s of w.sets) {
-        await insertRow(client, "WorkoutSet", {
+        push(S, wsetCols, "WorkoutSet", {
           id: s.id, workoutId: w.id, exercise: s.exercise, reps: s.reps, weight: s.weight,
         });
       }
-    });
-  }
+    }
+  });
 
-  /* 11 · v2.58 · BUGAR — asupan kalori/makro: hapus → tambah */
-  for (const id of ov.fitFDel) {
-    await run("fitFDel", () => client.execute({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [id] }));
-  }
-  for (const f of ov.fitFAdd) {
-    await run("fitFAdd", async () => {
-      await client.execute({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [f.id] });
-      await insertRow(client, "FoodLog", {
+  /* 11 · v2.58 · BUGAR — asupan kalori/makro: hapus → tambah (sekali batch) */
+  await batchRun("fitFDel", (S) => {
+    for (const id of ov.fitFDel) S.push({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [id] });
+  });
+  await batchRun("fitFAdd", (S) => {
+    for (const f of ov.fitFAdd) {
+      S.push({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [f.id] });
+      push(S, foodCols, "FoodLog", {
         id: f.id, date: f.date, meal: f.meal, name: f.name,
         kcal: f.kcal, protein: f.protein, carb: f.carb, fat: f.fat,
       });
-    });
-  }
+    }
+  });
 
   /* 12 · v2.58 · BUGAR — tubuh per tanggal (hidrasi/berat/pemulihan):
         PRIMARY KEY tanggal = upsert idempoten ala dailyLog. Baris hari
         menimpa penuh (klien selalu mengirim tiga nilai tergabung). */
-  for (const b of Object.values(ov.bodyLog)) {
-    await run("bodyLog", () => client.execute({
-      sql: `INSERT OR REPLACE INTO "BodyLog"("date","water","weight","recover") VALUES (?,?,?,?)`,
-      args: [b.date, b.water, b.weight, b.recover],
-    }));
-  }
+  await batchRun("bodyLog", (S) => {
+    for (const bl of Object.values(ov.bodyLog)) {
+      S.push({
+        sql: `INSERT OR REPLACE INTO "BodyLog"("date","water","weight","recover") VALUES (?,?,?,?)`,
+        args: [bl.date, bl.water, bl.weight, bl.recover],
+      });
+    }
+  });
 
   /* 13 · v2.58 · BUGAR — sasaran (JSON teks) di AppSettings satu baris;
         insert bila belum ada (pola identityText). */

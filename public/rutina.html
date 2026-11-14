@@ -44,6 +44,80 @@
      from-font (fallback diskalakan ke x-height Geist — swap webfont
      tanpa CLS).
      sw.js STATIC_CACHE → v65. -->
+<!-- v2.64 · AUDIT MENYELURUH "CEK ULANG SEMUANYA" — permintaan pengguna
+     ("hanya itu aja temuanmu? cek ulang dong dan cari banyak potensi
+     temuan dan fix"). Empat audit paralel (CSS/kompositor, arsitektur
+     render, siklus listener, backend SQL) membedah 10.527 baris — 30+
+     temuan terverifikasi, semua diperbaiki dalam satu versi:
+     CSS/KOMPOSITOR: (1) pop-scrim kalender/jam membuka blur(3px) KEDUA
+     di atas blur(3px) modal-backdrop saat pemilih tanggal dibuka DI DALAM
+     form transaksi (persis jalur "lemot tambah transaksi") — blur-atas-blur
+     selebar viewport tak bisa di-cache, dikomposit ulang tiap frame;
+     blur-nya dicabut (tetap ada peredup .46 — di atas modal yang sudah
+     gelap+blur, frosting ekstra tak kasat mata). (2) frost topbar
+     blur(14px) selebar viewport dihitung ulang selama scene kelopak
+     beranimasi di belakangnya — kini latar opak color-mix 96% (visual
+     nyaris identik), biaya GPU lenyap. (3) badgeShine menganimasikan
+     `left` (LAYOUT per frame di ~lencana terbuka) → transform:translateX
+     murni kompositor. (4) filter:drop-shadow di LELUHUR .hero-ill &
+     .tc-hero-art memaksa treeSway/tcSway/quoteFloat direpaint DI THREAD
+     UTAMA tiap frame (filter ancestor mem-flatten komposit turunan) —
+     bayangan pindah ke elemen beranimasi sendiri (pola self-filter yang
+     sudah dipakai hero-tree). (5) tree-progress backdrop blur(3px) di atas
+     kanvas kelopak beranimasi → latar opak .92 ala override mobile.
+     (6) tunasReveal transisi filter:blur(5px) (re-rasterisasi hero penuh
+     per frame .65 dtk) → opacity+scale. (7) rowNew menganimasikan
+     background (paint per frame 1.9 dtk) → lapisan ::before ber-opacity.
+     (8) tp-item transisi font-size (layout per item) → transform:scale.
+     (9) btGlow menganimasikan box-shadow → cincin ::after transform.
+     (10) SEMUA keluarga bar (.bar/.pola-bar/.sf-bars/.tc-seg) transisi
+     width (LAYOUT per frame 1 dtk × belasan bar tiap render) → scaleX
+     transform-origin kiri (kanan utk seg keluar) — kompositor murni.
+     ARSITEKTUR RENDER: (11) PAINT_QUIET — jalur "data berubah" (simpan/
+     hapus/tengah-malam) kini SNAP: countUp ~30 angka, sweep donat,
+     spark-draw, cf-bar, line-draw, stagger & bar tak diputar ulang;
+     pindah tab/buka pertama tetap menghidupkan koreografi. Dulu tiap
+     simpan memutar ulang seluruh dashboard "dari nol". (12) agregat
+     sekali-hitung: expByCat/walletBalances/finTotals/lastTxOf/catUsage
+     dipanggil BERULANG DI DALAM LOOP render (~50–60 pemindaian penuh
+     285 transaksi per simpan; renderStats menjumlah per baris anggaran,
+     renderSettings per kategori, renderSaldoBank per dompet) → SATU pass
+     membangun semua peta, diingat sampai data berubah (finDirty dari
+     ovPersist/prepData — titik perubahan tunggal). (13) centang kebiasaan:
+     18 renderer sinkron DI DALAM task klik → rAF frame berikutnya +
+     hening (pola v2.61 kini menutup aksi TERPENDINGING). (14) renderTx
+     "Semua bulan": 285 baris × animasi serentak → hanya 48 baris awal
+     bergelombang. (15) pencarian transaksi: renderTx penuh PER KETIKAN →
+     debounce 140 ms + hening. (16) staggerList: antrean mikro-tugas —
+     semua stagger satu giliran render dipasang setelah SATU reflow
+     bersama (dulu 8 layout paksa per frame simpan). (17) renderConsChart/
+     renderWawasanHero O(pekan×tanggal) → bucketing satu pass. (18)
+     renderStats spark 7 hari: 7× filter penuh → peta dayOut. (19)
+     renderSaldoBank: pemindaian per dompet → satu pass flow. (20) rollToday
+     render ganda dihapus; handler simpan kebiasaan tak lagi memanggil
+     renderer yang sudah dijalankan refreshToday. (21) fitDrillStats:
+     pengecilan font .5px beruntun (baca-tulis per langkah) → cari biner
+     4 langkah. (22) drill daftar transaksi kini dibatasi 30 baris
+     (+footer "N lainnya") seperti drillWallet. (23) flashRows: satu
+     pemindaian dokumen utk semua id (dulu querySelectorAll per id).
+     LISTENER: (24) touchmove non-passive di document (gestur geser baris)
+     memblokir scroll-linking SELURUH aplikasi tiap sentuhan — kini dipasang
+     hanya selama gestur baris aktif. (25) enam pointerdown capture + enam
+     MutationObserver dari mountSelect digabung satu penutup bersama.
+     (26) heroParallax querySelectorAll per frame pointer → cache.
+     (27) penjaga atmo 400 ms → 2 dtk + pulih instan via syncOvPause.
+     (28) listener pointer/touchend lain ditandai passive.
+     BACKEND (/api/rutina): (29) POST menulis ulang PENUH tabel
+     FinanceCategory+WeeklyBudget (~34 pernyataan autocommit beruntun;
+     WAL membengkak 25× ukuran db) walau datanya tak berubah — klien kini
+     hanya mengirim daftar saat anggaran/kategori benar berubah; server
+     menerapkan tiap seksi dalam client.batch("write") transaksi tunggal
+     (6× lebih cepat terukur, plus atomik). (30) GET kini ETag/304 —
+     payload 73 KB tak diunduh ulang saat data tak berubah. (31) indeks
+     Transaction(date/category), WorkoutSet(workoutId), Workout(date),
+     FoodLog(date). (32) grouping set latihan via Map (O(n×m)→O(n)).
+     (33) PRAGMA wal_checkpoint(TRUNCATE) pasca-POST lokal — WAL ramping.
+     sw.js STATIC_CACHE → v66. -->
 <!-- v2.62 · BEBAN GPU OVERLAY LAYAR PENUH — permintaan pengguna
      ("malah tambah lemot ketika buka tambah transaksi, cek ulang semua
      nya juga dan perbaiki"). Terukur di browser: saat modal terbuka,
@@ -596,12 +670,14 @@ b,strong{font-weight:600}
 .page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 /* ---------- animasi masuk "Tunas Pagi" (Ringkasan, sekali per muat) ----------
-   Section "tumbuh" berurutan dari atas ke bawah; sapaan menajam dari kabur;
-   ilustrasi hero menyusul dengan pegas ringan. Dikendalikan dari tunasPrep(). */
+   Section "tumbuh" berurutan dari atas ke bawah; sapaan menajam pelan;
+   ilustrasi hero menyusul dengan pegas ringan. Dikendalikan dari tunasPrep().
+   v2.64 · transisi filter:blur(5px) diganti scale halus — blur memaksa
+   re-rasterisasi hero penuh (kanvas kelopak + SVG + kartu kaca) tiap frame
+   selama .65 dtk, bertepatan dengan animateBars & sparkline. */
 .tunas{opacity:0;transform:translateY(16px)}
-.page-head.tunas,.hero.tunas{filter:blur(5px)}
-.tunas.tunas-on{opacity:1;transform:none;transition:opacity .65s var(--ease-tunas),transform .65s var(--ease-tunas),filter .65s var(--ease-tunas)}
-.page-head.tunas-on,.hero.tunas-on{filter:none}
+.page-head.tunas,.hero.tunas{transform:translateY(16px) scale(.985)}
+.tunas.tunas-on{opacity:1;transform:none;transition:opacity .65s var(--ease-tunas),transform .65s var(--ease-tunas)}
 .tunas-ill{opacity:0;transform:translateY(12px) scale(.95)}
 .tunas-ill.tunas-on{opacity:1;transform:none;transition:opacity .75s cubic-bezier(.3,1.3,.45,1),transform .75s cubic-bezier(.3,1.3,.45,1)}
 .page-head{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
@@ -646,7 +722,11 @@ b,strong{font-weight:600}
 .stale-txt{flex:1;min-width:0}
 .stale-act{flex:none;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid #F59E0B;background:#FFFFFF;color:#92400E;font-weight:700;font-size:12.5px;cursor:pointer;transition:border-color .18s}
 .stale-act:hover{border-color:#D97706}
-.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px;padding:0 24px;background:color-mix(in srgb,var(--bg) 82%,#fff);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+/* v2.64 · frost blur(14px) dicabut: bilah sticky selebar viewport di-blur
+   ulang TIAP FRAME selama scene kelopak/quote beranimasi di belakangnya —
+   beban GPU permanen demi efek nyaris tak terlihat (latar sudah 82% opak).
+   Kini opak color-mix 96%: visual tak terbedakan, biaya komposit lenyap. */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px;padding:0 24px;background:color-mix(in srgb,var(--bg) 96%,#fff);border-bottom:1px solid var(--line-soft)}
 .tb-left{display:flex;align-items:center;gap:14px;min-width:0}
 .tb-brand{display:none;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;font-weight:600}
 .tb-brand .brand-mark{width:34px;height:34px;border-radius:11px}
@@ -932,7 +1012,12 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
 .hero h2{font-size:clamp(20px,2.4vw,22px);max-width:340px}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px}
-.hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))}
+/* v2.64 · filter pindah dari LELUHUR ke elemen beranimasi sendiri:
+   filter pada ancestor mem-flatten komposit turunan → treeSway/quoteFloat
+   direpaint di thread utama tiap frame selamanya. Self-filter +
+   self-transform (pola hero-tree v2.8) tetap ramah kompositor. */
+.hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px}
+.hero-ill .ill,.hero-ill img{filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))}
 .hero-ill .ill{aspect-ratio:480/320}
 .hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:12px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
@@ -943,7 +1028,10 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .hero-tree .hero-body{gap:9px}
 .hero-tree .hero-ill{display:grid;place-items:center}
 .hero-tree .hero-ill img{width:min(100%,340px);height:auto;aspect-ratio:1;filter:drop-shadow(0 12px 18px rgba(5,150,105,.16)) drop-shadow(0 30px 42px rgba(15,23,42,.08))}
-.tree-progress{display:flex;flex-direction:column;gap:8px;padding:13px 15px;border-radius:15px;background:rgba(255,255,255,.84);border:1px solid rgba(167,243,208,.85);max-width:360px;backdrop-filter:blur(3px)}
+/* v2.64 · backdrop blur(3px) di atas kanvas kelopak beranimasi diganti
+   latar opak .92 (nilai yang sudah dipakai override mobile — visual
+   seragam lintas layar); komposit kanvas di baliknya kini murah. */
+.tree-progress{display:flex;flex-direction:column;gap:8px;padding:13px 15px;border-radius:15px;background:rgba(255,255,255,.92);border:1px solid rgba(167,243,208,.85);max-width:360px}
 .tree-stage{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .tree-stage-chip{display:inline-flex;align-items:center;gap:6px;background:var(--terra-strong);color:#fff;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px}
 .tree-stage-chip .ic{width:13px;height:13px}
@@ -1142,7 +1230,10 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 
 /* ---------- bar progress ---------- */
 .bar{height:10px;border-radius:99px;background:var(--bg-deep);overflow:hidden;position:relative}
-.bar i{display:block;height:100%;border-radius:99px;background:var(--sage);width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+/* v2.64 · width→scaleX: transisi width = LAYOUT per frame × belasan bar
+   tiap render; transform murni kompositor (pil berseragam diskalakan —
+   bentuk terjaga). */
+.bar i{display:block;height:100%;border-radius:99px;background:var(--sage);width:100%;transform:scaleX(0);transform-origin:left center;transition:transform 1s cubic-bezier(.25,.8,.3,1)}
 .bar.slate i{background:var(--orange)}
 /* v2.40 · jejak bar di kartu hero terlihat di atas gradien botani */
 .hero .bar,.page-hero .bar{background:rgba(15,23,42,.12)}
@@ -1605,7 +1696,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .pola-head .dl-ic .ic{width:14px;height:14px}
 .pola-head b{font-size:12.5px;white-space:nowrap}
 .pola-bar{height:10px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
-.pola-bar i{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.pola-bar i{display:block;height:100%;border-radius:99px;width:100%;transform:scaleX(0);transform-origin:left center;transition:transform 1s cubic-bezier(.25,.8,.3,1)} /* v2.64 · scaleX kompositor */
 .badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:12px 10px 10px}
 .badge .ill{width:60px;height:60px}
@@ -1657,7 +1748,8 @@ body.ov-open .motiv-art,body.ov-open .id-art,body.ov-open .ph-scene,body.ov-open
    elemen itu tiap frame — blur di dalam blur tak bisa di-cache stabil.
    Selama overlay terbuka frost mereka dimatikan; di balik scrim gelap+blur
    perbedaannya tak kasat mata, dan frost kembali sempurna saat ditutup. */
-body.ov-open .topbar,body.ov-open .tree-progress{backdrop-filter:none;-webkit-backdrop-filter:none}
+/* v2.64 · topbar & tree-progress kini bebas backdrop-filter (lihat aturan
+   masing-masing) — aturan pemadam v2.62 tak lagi diperlukan. */
 .sheet{position:relative;width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--surface);border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg);animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
 @media(min-width:640px){.sheet{border-radius:28px}}
 @keyframes sheetIn{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
@@ -1743,7 +1835,13 @@ p{text-wrap:pretty}
 /* ============================================================
    POPUP LAYAR PENUH KECIL — kalender & roda jam (di atas modal)
    ============================================================ */
-.pop-scrim{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .2s;display:flex;align-items:center;justify-content:center;padding:20px}
+/* v2.64 · blur(3px) pop-scrim DICABUT: pemilih tanggal/jam dibuka DI DALAM
+   modal (form transaksi) → blur(3px) layar penuh KEDUA bertumpuk di atas
+   blur(3px) modal-backdrop — blur-atas-blur tak bisa di-cache kompositor,
+   dikomposit ulang tiap frame selama popIn; di atas modal yang sudah
+   gelap+blur, frosting ekstra tak kasat mata. Peredup sedikit ditingkatkan
+   (.4→.46) sebagai ganti kedalaman visualnya. */
+.pop-scrim{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.46);animation:fadeIn .2s;display:flex;align-items:center;justify-content:center;padding:20px}
 .pop-scrim.closing{animation:fadeOut .18s forwards}
 @keyframes fadeOut{to{opacity:0}}
 .dp{width:322px;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-md);padding:18px;animation:popIn .34s cubic-bezier(.3,1.25,.45,1)}
@@ -1774,8 +1872,10 @@ p{text-wrap:pretty}
 .tp-col::-webkit-scrollbar{display:none}
 .tp-col+.tp-col{border-left:1px dashed var(--line)}
 .tp-sep{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;font-size:20px;font-weight:600;color:var(--terra-deep);pointer-events:none}
-.tp-item{height:46px;width:100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:17px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;cursor:pointer;transition:color .15s,font-size .15s}
-.tp-item.on{color:var(--terra-deep);font-size:18.5px}
+/* v2.64 · font-size→transform:scale — transisi font-size = layout per item
+   tiap frame selama roda jam berputar/menjangkar; scale murni kompositor. */
+.tp-item{height:46px;width:100%;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-size:17px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;cursor:pointer;transition:color .15s,transform .15s}
+.tp-item.on{color:var(--terra-deep);transform:scale(1.09)}
 .tp-lab{position:absolute;top:10px;width:50%;text-align:center;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);z-index:3;pointer-events:none}
 .tp-lab.l{left:0}.tp-lab.r{right:0}
 .tp-quick{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center}
@@ -1837,9 +1937,12 @@ p{text-wrap:pretty}
   86%{opacity:1}
   100%{opacity:0;transform:translate(var(--dx,0),104vh) rotate(var(--rot,520deg))}
 }
-/* badge perayaan kecil di sekitar tombol yang baru diaktifkan */
-.bt-glow{animation:btGlow .9s cubic-bezier(.2,.8,.3,1)}
-@keyframes btGlow{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}70%{box-shadow:0 0 0 14px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+/* badge perayaan kecil di sekitar tombol yang baru diaktifkan —
+   v2.64 · box-shadow animasi (paint per frame .9 dtk) diganti cincin
+   ::after ber-transform: kompositor murni, visual setara */
+.bt-glow{position:relative}
+.bt-glow::after{content:"";position:absolute;inset:-2px;border-radius:inherit;border:2px solid rgba(16,185,129,.55);pointer-events:none;animation:btGlowRing .9s cubic-bezier(.2,.8,.3,1)}
+@keyframes btGlowRing{0%{opacity:1;transform:scale(.9)}70%{opacity:0;transform:scale(1.32)}100%{opacity:0;transform:scale(1.32)}}
 
 /* ---------- v2.19 · sapaan emosional ----------
    .is-bloom: subjudul hari sempurna memakai terra pekat + lonjakan lembut
@@ -2093,12 +2196,15 @@ p{text-wrap:pretty}
 /* panel detail hari meluncur saat tanggal berganti */
 .dd-in{animation:ddIn .38s cubic-bezier(.2,.7,.3,1)}
 @keyframes ddIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
-/* bar mutasi dompet tumbuh */
-.sf-bars i{transition:width .8s cubic-bezier(.25,.8,.3,1)}
-/* kilau lembut pada lencana terbuka */
+/* bar mutasi dompet tumbuh — v2.64 · scaleX kompositor */
+.sf-bars i{display:block;width:100%;transform:scaleX(0);transform-origin:left center;transition:transform .8s cubic-bezier(.25,.8,.3,1)}
+/* kilau lembut pada lencana terbuka — v2.64 · keyframes `left` (LAYOUT
+   per frame, selamanya, di tiap lencana terbuka) → translateX murni
+   kompositor (jarak ekuivalen: -70%→135% lebar lencana = 456% lebar
+   pita 45% — kosmetik identik) */
 .badge.unlocked{position:relative;overflow:hidden}
 .badge.unlocked::after{content:"";position:absolute;top:-25%;bottom:-25%;left:-70%;width:45%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);transform:rotate(12deg);animation:badgeShine 4.6s ease-in-out infinite}
-@keyframes badgeShine{0%,58%{left:-70%}100%{left:135%}}
+@keyframes badgeShine{0%,58%{transform:rotate(12deg) translateX(0)}100%{transform:rotate(12deg) translateX(456%)}}
 .badge.unlocked:nth-child(3n+2)::after{animation-delay:1.6s}
 .badge.unlocked:nth-child(3n)::after{animation-delay:3.1s}
 
@@ -2194,12 +2300,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 @keyframes toastBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 .toast-ic{animation:toastIc .5s cubic-bezier(.3,1.6,.5,1) .07s backwards}
 @keyframes toastIc{from{transform:scale(.4) rotate(-16deg)}}
-/* 6 · baris keluar meluncur; baris baru berkilau terra lembut */
+/* 6 · baris keluar meluncur; baris baru berkilau terra lembut —
+   v2.64 · animasi background (paint per frame 1.9 dtk) diganti lapisan
+   ::before ber-opacity di BELAKANG konten (z-index:-1, konteks tumpukan
+   di baris): kompositor murni, tint identik */
 .row-out{animation:rowOut .3s cubic-bezier(.4,0,1,1) forwards;pointer-events:none}
 @keyframes rowOut{to{opacity:0;transform:translateX(-34px) scale(.965)}}
-.row-new .tx-inner{animation:rowNew 1.9s ease}
-.drill-row.row-new{animation:rowNew 1.9s ease}
-@keyframes rowNew{0%{background:var(--terra-softer)}70%{background:var(--terra-softer)}100%{background:transparent}}
+.row-new{position:relative;z-index:0}
+.row-new::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--terra-softer);pointer-events:none;z-index:-1;animation:rowNew 1.9s ease}
+@keyframes rowNew{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
 /* 7 · ritme pekan bergelombang tiap segar */
 .week-strip .wk-cell{animation:wkIn .5s cubic-bezier(.25,1.25,.4,1) backwards;animation-delay:calc(var(--wk,0)*55ms)}
 @keyframes wkIn{from{opacity:0;transform:translateY(9px) scale(.75)}}
@@ -4869,8 +4978,10 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .tc-hero .h-serif{font-size:clamp(18px,2.2vw,20px);letter-spacing:-.012em}
 .tc-hero-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .tc-hero .pill{background:rgba(255,255,255,.82);border:1px solid rgba(167,243,208,.95);color:var(--terra-deep);font-weight:700;font-size:11px;padding:4px 9px;box-shadow:0 1px 3px rgba(15,23,42,.05)}
-.tc-hero-art{flex:none;width:76px;display:grid;place-items:center;position:relative;z-index:1;filter:drop-shadow(0 8px 12px rgba(15,23,42,.08))}
-.tc-hero-art .ill{width:76px;height:76px;animation:tcSway 7.5s ease-in-out infinite;transform-origin:50% 92%}
+/* v2.64 · filter leluhur → self-filter (tcSway direpaint thread utama
+   selamanya dulu; kini kompositor) */
+.tc-hero-art{flex:none;width:76px;display:grid;place-items:center;position:relative;z-index:1}
+.tc-hero-art .ill{width:76px;height:76px;filter:drop-shadow(0 8px 12px rgba(15,23,42,.08));animation:tcSway 7.5s ease-in-out infinite;transform-origin:50% 92%}
 @keyframes tcSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.6deg)}}
 .tc-body{padding:11px 14px 12px}
 .tc-panels{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -4890,9 +5001,12 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .tc-out .tc-p-pct{color:var(--rose-deep)}
 /* jalur aliran proporsional — kini murni visual (angka tinggal di panel) */
 .tc-track{position:relative;display:flex;gap:2px;height:12px;margin-top:8px;border-radius:99px;background:var(--bg-deep);overflow:hidden}
-.tc-seg{display:block;height:100%;width:0;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+/* v2.64 · segmen aliran: dua bilah kini ABSOLUTE berjangkar kiri/kanan +
+   scaleX — transisi width (flex) memicu layout jalur tiap frame 1 dtk;
+   saat penuh keduanya bertemu tepat (dulu terpotong 2px gap di ujung). */
+.tc-seg{position:absolute;top:0;bottom:0;left:0;width:100%;transform:scaleX(0);transform-origin:left center;transition:transform 1s cubic-bezier(.25,.8,.3,1)}
 .tc-seg.in{background:linear-gradient(90deg,#4ADE80,#22C55E);border-radius:99px 0 0 99px}
-.tc-seg.out{background:linear-gradient(90deg,#F87171,#EF4444);border-radius:0 99px 99px 0}
+.tc-seg.out{left:auto;right:0;transform-origin:right center;background:linear-gradient(90deg,#F87171,#EF4444);border-radius:0 99px 99px 0}
 .tc-track.idle{background:transparent;border:1.5px dashed var(--line);height:22px;align-items:center;justify-content:center}
 .tf-idle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
 /* strip vonis net — timbangan daun vs koin, tint mengikuti keputusan */
@@ -5048,10 +5162,22 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.63';
+const APP_VERSION='v2.64';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+/* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
+   Simpan/hapus/rollover tengah malam memakai quietPaint(): angka countUp,
+   sweep donat, spark-draw, cf-bar, line-draw, stagger li-in & bar tumbuh
+   SNAP ke nilai final — dulu TIAP simpan memutar ulang ~30 angka menggulir +
+   sweep donat + bergelombang daftar penuh (dashboard "mengulang dari nol"
+   tiap catatan; di ponsel terasa kayak lag). Pindah tab & buka pertama
+   TIDAK dibungkam — koreografi tetap hidup di momen yang tepat. */
+let PAINT_QUIET=false;
+function quietPaint(fn){const p=PAINT_QUIET;PAINT_QUIET=true;let r;try{r=fn()}finally{PAINT_QUIET=p}return r}
+/* v2.64 · esc satu-regex — dulu 4 objek regex dialokasi per panggilan
+   (~1.700 panggilan per render transaksi penuh) */
+const _ESC_MAP={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>_ESC_MAP[c]);
 const rupiah=n=>{const a=Math.abs(Math.round(n)).toLocaleString('id-ID');return n<0?'–Rp '+a:'Rp '+a}; /* konvensi minus: –Rp 1.000, bukan Rp -1.000 */
 /* v2.18 · waktu tampil ala Indonesia (24 jam, pemisah titik) — data lama
    berformat Inggris ("05.00 AM") dinormalisasi di lapisan tampilan saja */
@@ -5073,7 +5199,7 @@ const tglBulan=k=>{const d=new Date(k+'T00:00:00');return d.getDate()+' '+BULAN[
    kategori. relTanggal mengubah kunci tanggal menjadi frasa relatif
    (hari ini · kemarin · 3 hari lalu · 2 pekan lalu · 1 bulan lalu …);
    lebih tua setahun tampil "12 Mei 2024" agar tak ambigu. ---------- */
-function lastTxOf(cat){let best=null;for(const t of TXS){if(t.category===cat&&(!best||(t.date+t.id)>(best.date+best.id)))best=t}return best}
+function lastTxOf(cat){return agg().last[cat]||null} /* v2.64 · lihat agg() — peta sekali-jalan, bukan pemindaian penuh per panggilan */
 function relTanggal(k){
   if(!k)return '';
   const d=Math.round((new Date(dayKey(TODAY)+'T00:00:00')-new Date(k+'T00:00:00'))/864e5);
@@ -5095,7 +5221,10 @@ let DB=null, LIVE=false, DBAT='', DBSRC='';
 async function loadData(){
   try{
     const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),4500);
-    const r=await fetch('/api/rutina',{cache:'no-store',signal:ctl.signal});
+    /* v2.64 · 'no-cache' + ETag server: data tersimpan di HTTP cache tapi
+       WAJIB divalidasi ulang tiap muat — 304 = nol byte body diundul ulang
+       (73 KB terukur) saat isinya tak berubah sejak POST terakhir. */
+    const r=await fetch('/api/rutina',{cache:'no-cache',signal:ctl.signal});
     clearTimeout(t);
     if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}}
   }catch(err){}
@@ -5121,6 +5250,7 @@ function ovLoad(){
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
 }
 function ovPersist(){
+  finDirty(); /* v2.64 · titik perubahan tunggal: semua mutasi data lewat sini → agregat dihitung ulang saat dibutuhkan berikutnya */
   try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){/* penyimpanan penuh/diblokir — sesi ini saja */}
   OVREV++;scheduleSync(); /* v2.22 · jurnal berubah → antre dorong ke database */
 }
@@ -5283,6 +5413,16 @@ function ovBudEdit(oC,oM,cat,mk,amount){
    Gagal/offline → jurnal tetap di perangkat & dicoba lagi. Nomor revisi
    (OVREV) mencegah mutasi baru hilang saat pengiriman sedang berlangsung. */
 let OVREV=0, syncTimer=null, syncInflight=false, syncToastAt=0;
+/* v2.64 · daftar anggaran/kategori hanya dikirim saat BERUBAH — dulu payload
+   POST selalu membawa BUDGETS+FINCATS sehingga server menulis ulang PENUH
+   dua tabel (~34 pernyataan: DELETE semua + INSERT 27+ baris) untuk tiap
+   centang kebiasaan/transaksi walau isinya identik; WAL database pratinjau
+   membengkak 25× ukuran datanya. Dikirim saat: pertama kali sesi ini (baru
+   mulai), atau setelah mutasi anggaran/kategori. Diverifikasi aman lintas
+   perangkat: klien lain tetap segar lewat GET (server tetap sumber
+   kebenaran utk daftar), dan pengiriman berikutnya membawa daftar termutakhir. */
+let finMetaDirty=true;
+function markFinMeta(){finMetaDirty=true}
 function persistRaw(){try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){}}
 function scheduleSync(){
   if(!LIVE)return; /* server tak terjangkau — jurnal aman di perangkat */
@@ -5295,7 +5435,8 @@ async function syncFlush(){
   if(!LIVE||!OV||ovCount()===0){paintSyncRow();return}
   if(syncInflight){scheduleSync();return}
   const rev=OVREV;
-  const payload={overlay:OV,budgets:BUDGETS,finCats:FINCATS};
+  const payload={overlay:OV};
+  if(finMetaDirty){payload.budgets=BUDGETS;payload.finCats=FINCATS}
   syncInflight=true;
   try{
     const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),9000);
@@ -5305,6 +5446,7 @@ async function syncFlush(){
     if(j&&j.ok){
       if(j.source)DBSRC=j.source;
       if(!j.failed||!j.failed.length){
+        finMetaDirty=false; /* v2.64 · daftar anggaran/kategori tersimpan — tak perlu dikirim ulang sampai berubah */
         if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
         else scheduleSync(); /* ada edit selama pengiriman — antre ulang (idempoten) */
         paintSyncRow();
@@ -5372,8 +5514,17 @@ function fitDrillStats(){
   });
   document.querySelectorAll('#drillBody .drill-stat .num').forEach(n=>{
     n.style.fontSize='';
-    let f=15.5;
-    while(n.scrollWidth>n.clientWidth+.5&&f>11){f-=.5;n.style.fontSize=f+'px'}
+    /* v2.64 · cari biner 4 langkah — dulu font turun .5px beruntun dengan
+       baca scrollWidth SETELAH tiap tulis (interleave baca-tulis = layout
+       paksa per langkah, sampai 9× per angka); biner mengubah rentang
+       [11,15.5] dengan resolusi ~.28px dalam 4 bacaan. */
+    let lo=11,hi=15.5;
+    for(let i=0;i<4;i++){
+      const mid=(lo+hi)/2;
+      n.style.fontSize=mid+'px';
+      if(n.scrollWidth>n.clientWidth+.5)hi=mid;else lo=mid;
+    }
+    n.style.fontSize=lo.toFixed(2)+'px';
   });
 }
 function drillStat(items){
@@ -5446,7 +5597,7 @@ function drillStatDay(){
       {v:rupiah(masuk),l:'Masuk hari ini',color:masuk?'var(--sage-deep)':'',zero:!masuk},
       {v:''+tx.length,l:'Transaksi'},
       {v:`${nH}/${HABITS.length||0}`,l:'Kebiasaan'},
-    ])+`<div class="drill-sec">${drillCap('Catatan hari ini · '+tx.length+' transaksi')}${txListHTML(tx)}</div>`};
+    ])+`<div class="drill-sec">${drillCap('Catatan hari ini · '+tx.length+' transaksi')}${txListHTML(tx,30)}</div>`};
 }
 function drillStatKons(){
   const days=[];
@@ -5509,7 +5660,7 @@ function drillFinFlow(jenis){
       {v:rupiah(tot),l:'Total periode',color:jenis==='income'?'var(--sage-deep)':'var(--rose-deep)'},
       {v:''+tx.length,l:'Transaksi'},
       {v:tx.length?rupiah(Math.round(tot/tx.length)):'—',l:'Rata-rata'},
-    ])+`<div class="drill-sec">${drillCap('Daftar transaksi · '+tx.length)}${txListHTML(tx)}</div>`};
+    ])+`<div class="drill-sec">${drillCap('Daftar transaksi · '+tx.length)}${txListHTML(tx,30)}</div>`};
 }
 function drillCategory(cat,mk){
   mk=(mk&&mk!=='ALL')?mk:state.finMonth;
@@ -5526,7 +5677,7 @@ function drillCategory(cat,mk){
       {v:keluar?Math.round(tot/(keluar||1)*100)+'%':'—',l:'Porsi dari keluar'},
       {v:lt?relTanggal(lt.date):'belum pernah',l:'Terakhir dicatat'},
     ])+(lt?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Terakhir ${rupiah(lt.amount)} · ${tglBulan(lt.date)}</span></div>`:'')+(bud?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Anggaran ${monthShort(mk)}: ${rupiah(bud.amount)}</span><span class="pill" style="background:var(--surface-2);color:${tot>bud.amount?'var(--rose-deep)':'var(--ink-2)'}">Sisa ${rupiah(bud.amount-tot)}</span></div>`:'')
-    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx)}</div>`};
+    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx,30)}</div>`};
 }
 function drillBudget(cat,mk){
   const b=BUDGETS.find(x=>x.category===cat&&x.month===mk);if(!b)return null;
@@ -5546,7 +5697,7 @@ function drillBudget(cat,mk){
     ])+`<div class="bar" style="margin:4px 2px 10px"><i data-w="${pct}%" style="background:${warna}"></i></div>`
     +(lt?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Terakhir keluar ${relTanggal(lt.date)} · ${rupiah(lt.amount)}</span></div>`:'')
     +(j.cur&&j.daysLeft>0?`<div class="drill-chips"><span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)">Jatah sisa ± ${rupiah(Math.round(Math.max(0,j.sisa)/j.daysLeft))}/hari · ${j.daysLeft} hari lagi</span></div>`:'')
-    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx)}</div>`,
+    +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx,30)}</div>`,
     actions:[
       {id:'edit',label:'Ubah anggaran',icon:'i-edit'},
     ],
@@ -5642,7 +5793,7 @@ function drillDay(k){
       {v:rupiah(keluar),l:'Keluar',color:keluar?'var(--rose-deep)':'',zero:!keluar},
     ])+(dl?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Mood ${dl.mood}/5</span><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Energi ${dl.energy}/5</span><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Tidur ${dl.sleep} jam</span></div>`:'')
     +`<div class="drill-sec">${drillCap('Kebiasaan hari itu')}${habitRows||drillEmpty('Belum ada kebiasaan.')}</div>
-    <div class="drill-sec">${drillCap('Transaksi hari itu · '+tx.length)}${txListHTML(tx)}</div>`};
+    <div class="drill-sec">${drillCap('Transaksi hari itu · '+tx.length)}${txListHTML(tx,30)}</div>`};
 }
 function drillWeek(startK){
   const s=new Date(startK+'T00:00:00');
@@ -5849,6 +6000,7 @@ function prepData(){
   BODY={};(DB.bodyLogs||[]).forEach(b=>BODY[b.date]=b);
   FIT=fitParse(DB.settings&&DB.settings.fitness);
   months=[...new Set(TXS.map(t=>t.date.slice(0,7)))].sort();
+  finDirty(); /* v2.64 · data segar dimuat → agregat lama tidak berlaku */
   state.finMonth=months[months.length-1]||'ALL';
   /* v2.11 · default bulan riwayat: bulan berjalan bila ada mutasi, selain itu
      bulan data terakhir — supaya pane Mutasi Transaksi langsung berisi */
@@ -5881,15 +6033,19 @@ function rollToday(){
   });
   HABITS.forEach(h=>{if(h.habitType==='amount'&&h.target>1)doneToday[h.id]=(valueToday[h.id]||0)>=h.target});
   syncToday();
-  if(materializeRecurring()>0)refinance(); /* v2.37 · tanggal berganti → transaksi berulang baru jatuh tempo */
-  renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
-  renderStats();renderCashflow();renderMiniBudgets();renderTip();renderLastWeek(); /* v2.54 */
-  refinance();fillTxMonths();
-  renderHabitChips();renderHabitCards();renderWawasanHero();
-  if(inited.heatmap)renderHeatmap();
-  if(inited.cal){renderCal();renderDayDetail(state.calSel)}
-  if(inited.wawasan){renderConsChart();renderFindings();renderReko();renderBadges()}
-  if(inited.bugar)renderBugar(); /* v2.58 · tengah malam → hidrasi/berat/pemulihan hari baru */
+  /* v2.64 · dulu: 5 renderer eksplisit LALU refinance() menjalankan kelima
+     -nya LAGI (render ganda tiap pergantian hari); seluruh blok kini hening
+     (jalur data) — angka & grafik snap ke hari baru. */
+  quietPaint(()=>{
+    materializeRecurring(); /* v2.37 · tanggal berganti → transaksi berulang jatuh tempo dilahirkan (refinance di bawah menampilkannya) */
+    renderIdentity();renderWeekRhythm();renderTreeHero();renderRing();renderBanner();
+    refinance();fillTxMonths();
+    renderHabitChips();renderHabitCards();renderWawasanHero();
+    if(inited.heatmap)renderHeatmap();
+    if(inited.cal){renderCal();renderDayDetail(state.calSel)}
+    if(inited.wawasan){renderConsChart();renderFindings();renderReko();renderBadges()}
+    if(inited.bugar)renderBugar(); /* v2.58 · tengah malam → hidrasi/berat/pemulihan hari baru */
+  });
 }
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)rollToday()});
 setInterval(rollToday,60000);
@@ -5920,22 +6076,55 @@ function monthLabel(mk){
   return `${BULAN[+mk.slice(5,7)-1]} ${mk.slice(0,4)}`;
 }
 function monthShort(mk){return mk==='ALL'?'Semua':`${BULAN_S[+mk.slice(5,7)-1]} ${String(mk.slice(2,4))}`}
-function finTotals(mk){let masuk=0,keluar=0,nIn=0,nOut=0;
-  TXS.forEach(t=>{if(mk!=='ALL'&&t.date.slice(0,7)!==mk)return;
-    if(t.type==='income'){masuk+=t.amount;nIn++}else if(t.type==='expense'){keluar+=t.amount;nOut++}});
-  return{masuk,keluar,nIn,nOut};
+function finTotals(mk){
+  /* v2.64 · agregat memo (lihat agg()) — dulu pemindaian penuh per panggilan,
+     dan dipanggil 6× per refinance */
+  if(mk==='ALL')return{...agg().tot};
+  const m=agg().mon[mk];return m?{...m}:{masuk:0,keluar:0,nIn:0,nOut:0};
 }
-function expByCat(mk){const m={};TXS.forEach(t=>{if(t.type!=='expense')return;if(mk!=='ALL'&&t.date.slice(0,7)!==mk)return;m[t.category]=(m[t.category]||0)+t.amount});return m}
-function cntByCat(mk){const m={};TXS.forEach(t=>{if(t.type!=='expense')return;if(mk!=='ALL'&&t.date.slice(0,7)!==mk)return;m[t.category]=(m[t.category]||0)+1});return m}
-function walletBalances(){
-  const bal={};SOURCES.forEach(s=>bal[s.id]=s.initialBalance);
-  TXS.forEach(t=>{
-    if(!t.sourceId||!(t.sourceId in bal))return;
-    if(t.type==='income')bal[t.sourceId]+=t.amount;
-    else if(t.type==='expense')bal[t.sourceId]-=t.amount;
-    else if(t.type==='transfer')bal[t.sourceId]+=(String(t.category).includes('Masuk')?t.amount:-t.amount);
-  });
-  return bal;
+function expByCat(mk){const a=agg();return mk==='ALL'?a.exp:(a.expM[mk]||{})}
+function cntByCat(mk){const a=agg();return mk==='ALL'?a.cnt:(a.cntM[mk]||{})}
+function walletBalances(){return {...agg().bal}}
+/* ---------- v2.64 · AGREGAT SEKALI-HITUNG — audit menemukan ekspedisi
+   agregat BERULANG di dalam loop render: expByCat dipanggil PER BARIS
+   anggaran di renderStats & renderBudgets (285 transaksi dipindai per
+   baris!), lastTxOf PER KATEGORI di pengaturan/mini-budget/today,
+   walletBalances 4× per refinance, catUsage per kategori — total ~50–60
+   pemindaian penuh per simpan transaksi, membesar bersama riwayat.
+   SATU pass kini membangun semua peta (total + per-bulan + per-hari +
+   per-dompet + jejak terakhir), diingat sampai finDirty() dari
+   ovPersist/prepData. ---------- */
+let _AGG=null;
+function finDirty(){_AGG=null}
+function agg(){
+  if(_AGG)return _AGG;
+  const exp={},expM={},cnt={},cntM={},last={},dayOut={},dayN={},bal={},mon={};
+  let tIn=0,tOut=0,nIn=0,nOut=0;
+  SOURCES.forEach(s=>bal[s.id]=s.initialBalance);
+  for(const t of TXS){
+    const m=t.date.slice(0,7);
+    if(t.type==='expense'){
+      exp[t.category]=(exp[t.category]||0)+t.amount;
+      (expM[m]=expM[m]||{})[t.category]=(expM[m][t.category]||0)+t.amount;
+      cnt[t.category]=(cnt[t.category]||0)+1;
+      (cntM[m]=cntM[m]||{})[t.category]=(cntM[m][t.category]||0)+1;
+      dayOut[t.date]=(dayOut[t.date]||0)+t.amount;
+      dayN[t.date]=(dayN[t.date]||0)+1;
+    }
+    const L=last[t.category];
+    if(!L||(t.date+t.id)>(L.date+L.id))last[t.category]=t;
+    if(t.sourceId&&t.sourceId in bal){
+      if(t.type==='income')bal[t.sourceId]+=t.amount;
+      else if(t.type==='expense')bal[t.sourceId]-=t.amount;
+      else if(String(t.category).includes('Masuk'))bal[t.sourceId]+=t.amount;
+      else bal[t.sourceId]-=t.amount;
+    }
+    const mm=mon[m]=mon[m]||{masuk:0,keluar:0,nIn:0,nOut:0};
+    if(t.type==='income'){tIn+=t.amount;nIn++;mm.masuk+=t.amount;mm.nIn++}
+    else if(t.type==='expense'){tOut+=t.amount;nOut++;mm.keluar+=t.amount;mm.nOut++}
+  }
+  _AGG={exp,expM,cnt,cntM,last,dayOut,dayN,bal,mon,tot:{masuk:tIn,keluar:tOut,nIn,nOut}};
+  return _AGG;
 }
 /* v2.30 · pasangan transfer: satu peristiwa transfer tercatat sebagai DUA
    baris (Transfer Keluar dari dompet asal + Transfer Masuk ke tujuan).
@@ -6035,7 +6224,7 @@ function glowPulse(el){
   setTimeout(()=>el.classList.remove('bt-glow'),1000);
 }
 function countUp(el,to,{dur=850,fmt=rupiah}={}){
-  if(reduced||!el){if(el)el.textContent=fmt(to);return}
+  if(reduced||!el||PAINT_QUIET){if(el){el._cv=to;el.textContent=fmt(to)}return} /* v2.64 · jalur data: angka langsung final — ~30 loop rAF textContent beruntun per simpan kini nol */
   /* v2.13: menggelinding dari nilai sebelumnya — re-render terasa hidup,
      bukan mengulang dari nol setiap kali data berubah. rAF sebelumnya
      dibatalkan agar dua animasi tak saling menimpa (angka tak "mundur"). */
@@ -6048,9 +6237,16 @@ function countUp(el,to,{dur=850,fmt=rupiah}={}){
 }
 function animateBars(root=document){
   if(!root)return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w],.sf-bars i[data-w]').forEach(b=>b.style.width=b.dataset.w);
-  }));
+  /* v2.64 · width→scaleX (transisi width = layout per frame; lihat CSS
+     .bar i) + jalur PAINT_QUIET memasang nilai SEKARANG dengan transisi
+     dimatikan sesaat — bar tumbuh instan saat data berubah, tetap
+     bertumbuh anggun saat tampilan berpindah. */
+  const set=()=>{root.querySelectorAll('.bar i[data-w],.pola-bar i[data-w],.sf-bars i[data-w]').forEach(b=>{
+    const p=parseFloat(b.dataset.w);if(!isFinite(p))return;
+    b.style.transition=PAINT_QUIET?'none':'';
+    b.style.transform='scaleX('+(p/100)+')';
+  })};
+  if(PAINT_QUIET)set();else requestAnimationFrame(()=>requestAnimationFrame(set));
 }
 /* ============================================================
    v2.13 · KOREOGRAFI ANIMASI PENUH
@@ -6060,18 +6256,29 @@ function animateBars(root=document){
    terkendali di hero Ringkasan (v2.26, menggantikan daun DOM v2.13).
    heroParallax — scene & ilustrasi mengikuti pointer pelan.
    ============================================================ */
-function staggerList(root,sel=':scope > *',{cap=14}={}){
-  if(reduced||!root)return;
+const _stQ=[];let _stQOn=false;
+function staggerList(root,sel=':scope > *',{cap=14,max=Infinity}={}){
+  if(reduced||PAINT_QUIET||!root)return;
   const els=[...root.querySelectorAll(sel)];
   if(!els.length)return;
-  /* v2.61 · tulis-semua → SATU reflow → pasang animasi. Dulu tiap item
-     memicu void el.offsetWidth DI TENGAH loop baca-tulis: daftar 16 baris
-     = 16 layout paksa beruntun (layout thrashing) — di ponsel lambat,
-     gelombang "muncul berurutan" justru terasa tersendat. Batching
-     menurunkan reflow paksa dari O(n) menjadi tepat 1. */
-  els.forEach((el,i)=>{el.classList.remove('li-in');el.style.setProperty('--li',Math.min(i,cap))});
-  void root.offsetWidth;
-  els.forEach(el=>el.classList.add('li-in'));
+  /* v2.64 · dua lapis perbaikan:
+     (a) MAX — daftar panjang (riwayat "Semua bulan" 285 baris) hanya
+     menganimasikan baris awal; sisanya tampil langsung (ratusan animasi
+     serentak = lonjakan style-recalc besar tanpa nilai tambah).
+     (b) ANTREAN MIKRO-TUGAS — semua stagger dalam SATU giliran render
+     (refinance memanggil 8 renderer bergalir) dipasang SETELAH SATU
+     reflow bersama; dulu tiap panggilan memaksa layoutnya sendiri =
+     8 layout paksa dalam satu frame. v2.61 sudah membatch DI DALAM satu
+     daftar; kini lintas daftar pun satu. */
+  const anim=els.slice(0,max);
+  anim.forEach((el,i)=>{el.classList.remove('li-in');el.style.setProperty('--li',Math.min(i,cap))});
+  _stQ.push(anim);
+  if(!_stQOn){_stQOn=true;queueMicrotask(()=>{
+    _stQOn=false;const qs=_stQ.splice(0);
+    if(!qs.length)return;
+    void document.body.offsetWidth; /* SATU reflow bersama utk semua daftar */
+    qs.forEach(a=>a.forEach(el=>el.classList.add('li-in')));
+  })}
 }
 function staggerPage(p){
   if(reduced||!p)return;
@@ -6254,7 +6461,7 @@ function ambientHero(){
     document.addEventListener('visibilitychange',sync);
     io=new IntersectionObserver(en=>{ioVis=en[0].isIntersecting;sync()},{threshold:.05});
     io.observe(hero);
-    watch=setInterval(sync,400); /* penjaga pemulihan loop (modal ditutup dsb.) */
+    watch=setInterval(sync,2000); /* v2.64 · penjaga pemulihan diperlambat 4× — pemulihan utama kini instan lewat syncOvPause() saat modal ditutup */
     sync();
   }
   function teardown(){
@@ -6270,19 +6477,21 @@ function ambientHero(){
   }
   window.__rutinaAtmo={
     state:()=>({mode:staticMode?'static':'motion',running:raf>0,count:parts.length,canvas:cv.width+'x'+cv.height,area:w+'x'+h,visible:staticMode||ioVis,overlay:overlayActive(),pointer:ptr.t?{x:Math.round(ptr.x),y:Math.round(ptr.y),age:Math.round(performance.now()-ptr.t)}:null}),
-    teardown
+    teardown,
+    sync /* v2.64 · dipanggil syncOvPause saat overlay tertutup — kelopak tak menunggu penjaga lagi */
   };
   return window.__rutinaAtmo;
 }
 function heroParallax(){
   if(reduced||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
   let raf=0;
+  const heroEls=$$('.page-hero,.hero'); /* v2.64 · cache daftar hero — dulu querySelectorAll SELURUH dokumen di tiap frame pointer bergerak */
   document.addEventListener('pointermove',e=>{
     if(raf)return;
     raf=requestAnimationFrame(()=>{
       raf=0;
       const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
-      $$('.page-hero,.hero').forEach(h=>{
+      heroEls.forEach(h=>{
         h.style.setProperty('--px',x.toFixed(3));
         h.style.setProperty('--py',y.toFixed(3));
       });
@@ -6316,11 +6525,15 @@ function animRowsOut(els,then){
    sejenak di daftar — mata langsung tahu di mana perubahannya mendarat */
 function flashRows(ids){
   if(reduced||!ids||!ids.length)return;
+  /* v2.64 · SATU pemindaian untuk semua id (dulu querySelectorAll per id
+     — tiap pemindaian menyisir seluruh dokumen termasuk daftar ribuan node) */
   requestAnimationFrame(()=>{
-    ids.forEach(id=>document.querySelectorAll(`.tx-row[data-txid="${id}"]`).forEach(r=>{
+    const set=new Set(ids);
+    document.querySelectorAll('.tx-row[data-txid]').forEach(r=>{
+      if(!set.has(r.dataset.txid))return;
       r.classList.add('row-new');
       setTimeout(()=>r.classList.remove('row-new'),2000);
-    }));
+    });
   });
 }
 function confetti(){
@@ -6345,8 +6558,9 @@ function spark(el,vals,color){
   const pts=vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1),hh-p-(v-mn)/(mx-mn||1)*(hh-2*p)]);
   const d='M'+pts.map(pt=>pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' L');
   const last=pts[pts.length-1];
+  const cls=PAINT_QUIET?'':'spark-draw'; /* v2.64 · jalur data: garis langsung final — merambat tetap hidup di buka tab */
   el.setAttribute('viewBox',`0 0 ${w} ${hh}`);
-  el.innerHTML=`<path class="spark-draw" d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
+  el.innerHTML=`<path class="${cls}" d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.7" fill="${color}"/>`;
 }
 function smoothPath(pts){
   let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
@@ -7069,7 +7283,7 @@ function renderBugar(){
   renderKaloriCard();renderMutasiKal();
   renderHidrasiCard();renderBeratCard();renderPulihCard();fillSasaran();
 }
-function refit(){if(inited.bugar)renderBugar()}
+function refit(){if(inited.bugar)quietPaint(renderBugar)} /* v2.64 · refit hanya dipanggil dari jalur data (simpan/hapus bugar) → hening */
 function goBugarSection(sec){
   state.bugarSection=sec;
   $$('#bugarTabs .fin-tab').forEach(b=>{const on=b.dataset.bugarSection===sec;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
@@ -7668,6 +7882,24 @@ function renderCalendarHero(){
     ?`<span class="nw">${aktif} hari aktif</span> · <span class="nw">${total} catatan kebiasaan</span> · <span class="nw">belanja ${ringkas(keluar)||'0'}</span>` /* v2.18 · segmen nowrap: angka tak pernah yatim di baris baru */
     :'Pilih tanggal untuk melihat catatan kebiasaan dan arus kas harian.';
 }
+/* v2.64 · bucket pekan satu-pass — renderWawasanHero & renderConsChart dulu
+   O(pekan×tanggal): ~100 pekan × tiap tanggal log dibandingkan string dengan
+   rentang pekan (plus alokasi Date per pekan) × dua fungsi per render; kini
+   tiap tanggal langsung dilompatkan ke indeks pekannya. */
+function weekBuckets(){
+  const keys=Object.keys(logsByDate).sort();
+  if(!keys.length)return [];
+  const w0=weekStartOf(new Date(keys[0]+'T00:00:00'));
+  const t0=new Date(dayKey(w0)+'T00:00:00');
+  const out=[{s:dayKey(w0),c:0}];
+  for(const k of keys){
+    const i=Math.floor(Math.round((new Date(k+'T00:00:00')-t0)/864e5)/7);
+    if(i<0)continue;
+    while(out.length<=i)out.push({s:dayKey(addDays(w0,out.length*7)),c:0});
+    out[i].c+=logsByDate[k].length;
+  }
+  return out;
+}
 function renderWawasanHero(){
   const allKeys=Object.keys(logsByDate).sort();
   if(!allKeys.length){
@@ -7680,13 +7912,7 @@ function renderWawasanHero(){
     return;
   }
   /* agregat mingguan — logika yang sama dengan renderConsChart */
-  let ws=weekStartOf(new Date(allKeys[0]+'T00:00:00'));
-  const weeks=[];
-  while(ws<=TODAY){
-    const s=dayKey(ws),e=dayKey(addDays(ws,6));
-    let c=0;allKeys.forEach(k=>{if(k>=s&&k<=e)c+=logsByDate[k].length});
-    weeks.push({s,c});ws=addDays(ws,7);
-  }
+  let weeks=weekBuckets();
   if(!weeks.length){
     $('#wawHeroTitle').textContent='Catatan menunggu jadwalnya';
     $('#wawHeroSub').textContent='Semua catatan masih di masa depan — belum ada pekan tercatat.';
@@ -7731,18 +7957,15 @@ function renderRing(){
 function renderStats(){
   /* v2.8: kartu pertama kini pengeluaran HARI INI (spark 7 hari terakhir) */
   const tk=dayKey(TODAY);
+  const a=agg(); /* v2.64 · spark 7 hari: dulu 7× TXS.filter penuh → peta dayOut dari agregat memo */
   const dayOut=[];
-  for(let j=6;j>=0;j--){
-    const k=dayKey(addDays(TODAY,-j));
-    dayOut.push(sumBy(TXS.filter(t=>t.date===k&&t.type==='expense'),t=>t.amount));
-  }
+  for(let j=6;j>=0;j--)dayOut.push(a.dayOut[dayKey(addDays(TODAY,-j))]||0);
   spark($('#sparkDay'),dayOut,'#F59E0B');
-  const todayTx=TXS.filter(t=>t.date===tk);
-  const keluarToday=sumBy(todayTx.filter(t=>t.type==='expense'),t=>t.amount);
+  const keluarToday=a.dayOut[tk]||0;
   countUp($('#statDay'),keluarToday);
   $('#statDay').classList.toggle('num-zero',!keluarToday);
   $('#statDayLbl').textContent='Pengeluaran hari ini';
-  const nOut=todayTx.filter(t=>t.type==='expense').length;
+  const nOut=a.dayN[tk]||0;
   $('#statDaySub').textContent=nOut?`${nOut} transaksi tercatat hari ini`:'Belum ada pengeluaran hari ini';
   spark($('#sparkKons'),[activeDaysInLast(7),activeDaysInLast(14),activeDaysInLast(21),activeDaysInLast(30),activeDaysAll()],'#0EA5E9');
   $('#statKons').innerHTML=`${activeDaysInLast(30)}<small> hari</small>`;
@@ -7810,9 +8033,11 @@ function renderToday(){
   const oEl=$('#tdOut');oEl.style.color=keluar?'var(--rose-deep)':'';oEl.classList.toggle('num-zero',!keluar);
   $('#tdOutSub').textContent=nOut?`${nOut} catatan`:'belum ada';
   $('#tdOutPct').hidden=!flow;$('#tdOutPct').textContent=wOut+'%';
-  /* jalur aliran: porsi masuk/keluar dari total aliran; netral saat kosong */
-  $('#tfInSeg').style.width=(flow?masuk/flow*100:0)+'%';
-  $('#tfOutSeg').style.width=(flow?keluar/flow*100:0)+'%';
+  /* jalur aliran: porsi masuk/keluar dari total aliran; netral saat kosong —
+     v2.64 · segmen scaleX (CSS) + snap saat PAINT_QUIET */
+  const setSeg=(el,p)=>{el.style.transition=PAINT_QUIET?'none':'';el.style.transform='scaleX('+(p/100)+')'};
+  setSeg($('#tfInSeg'),flow?masuk/flow*100:0);
+  setSeg($('#tfOutSeg'),flow?keluar/flow*100:0);
   $('#tfTrack').classList.toggle('idle',!flow);
   $('#tfIdle').hidden=!!flow;
   /* strip vonis net: label + angka + alasan, tint madu/sage/rose */
@@ -7904,6 +8129,10 @@ function renderCashflow(){
   const maxV=Math.max(...masuk,...keluar,100000);
   const nice=Math.ceil(maxV/250000)*250000;
   const y=v=>T+(H-T-B)*(1-v/nice);
+  /* v2.64 · jalur data (PAINT_QUIET): bar & label langsung final — cfGrow/
+     liIn tak diputar ulang tiap simpan; tumbuh tetap hidup di buka tab */
+  const barCls=PAINT_QUIET?'':'cf-bar';
+  const lblCls=PAINT_QUIET?'chart-label':'chart-label cf-lbl';
   let s='';
   for(let g=0;g<=4;g++){
     const gy=y(nice*g/4);
@@ -7915,11 +8144,11 @@ function renderCashflow(){
     const cx=L+gw*i+gw/2;
     const bw=Math.min(17,Math.max(12,gw-27));
     const hM=(H-T-B)*(masuk[i]/nice),hK=(H-T-B)*(keluar[i]/nice);
-    s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
-    s+=`<rect class="cf-bar" style="--i:${i}" x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
-    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i};font-weight:600" fill="#15803D">${ringkas(masuk[i])}</text>`;
-    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i};font-weight:600" fill="#B45309">${ringkas(keluar[i])}</text>`;
-    s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="chart-label cf-lbl" style="--i:${i}">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
+    s+=`<rect ${barCls?`class="${barCls}" `:''}style="--i:${i}" x="${(cx-bw-2.5).toFixed(1)}" y="${(H-B-Math.max(hM,2)).toFixed(1)}" width="${bw}" height="${Math.max(hM,2).toFixed(1)}" rx="5" fill="${masuk[i]>0?'#22C55E':'#E2E8F0'}"/>`;
+    s+=`<rect ${barCls?`class="${barCls}" `:''}style="--i:${i}" x="${(cx+2.5).toFixed(1)}" y="${(H-B-Math.max(hK,2)).toFixed(1)}" width="${bw}" height="${Math.max(hK,2).toFixed(1)}" rx="5" fill="${keluar[i]>0?'#F97316':'#E2E8F0'}"/>`;
+    if(masuk[i]>0&&hM>26)s+=`<text x="${(cx-bw/2-2.5).toFixed(1)}" y="${(H-B-hM-5).toFixed(1)}" text-anchor="middle" class="${lblCls}" style="--i:${i};font-weight:600" fill="#15803D">${ringkas(masuk[i])}</text>`;
+    if(keluar[i]>0&&hK>26)s+=`<text x="${(cx+bw/2+2.5).toFixed(1)}" y="${(H-B-hK-5).toFixed(1)}" text-anchor="middle" class="${lblCls}" style="--i:${i};font-weight:600" fill="#B45309">${ringkas(keluar[i])}</text>`;
+    s+=`<text x="${cx.toFixed(1)}" y="${H-9}" text-anchor="middle" class="${lblCls}" style="--i:${i}">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
   });
   $('#cfChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Grafik arus kas ${N} minggu terakhir">${s}</svg>`;
   $('#cfTitle').textContent=`Aktivitas ${N} pekan terakhir`;
@@ -7977,16 +8206,33 @@ function renderHabitChips(){
   if(state.habitFilter!=='semua'&&!kats.includes(state.habitFilter))state.habitFilter='semua';
   $('#habitChips').innerHTML=kats.map(k=>`<button class="chip ${state.habitFilter===k?'active':''}" data-habit-filter="${esc(k)}">${k==='semua'?'Semua':esc(k)}</button>`).join('');
 }
+/* v2.64 · kunci pekan di-cache per hari — weeklyDots/habitNudge dulu
+   mengalokasikan ~250 objek Date per renderHabitCards (7 hari × 18 kartu) */
+let _WK=null;
+function wkKeys(){
+  const k=dayKey(TODAY);
+  if(_WK&&_WK.k===k)return _WK;
+  const ws=weekStartOf(TODAY),week=[],last7=[],dow=[],hari=[];
+  for(let j=0;j<7;j++){
+    const kk=dayKey(addDays(ws,j));
+    week.push(kk);last7.push(dayKey(addDays(TODAY,-j)));
+    const d=new Date(kk+'T00:00:00');
+    dow.push(DOWS[(d.getDay()-WS+7)%7]);hari.push(HARI[d.getDay()]);
+  }
+  _WK={k,week,last7,dow,hari};
+  return _WK;
+}
 function weeklyDots(h){
   let out='';
-  const ws=weekStartOf(TODAY);
+  const wk=wkKeys();
+  const tk=wk.k;
   for(let j=0;j<7;j++){
-    const d=addDays(ws,j);
-    const isToday=dayKey(d)===dayKey(TODAY);
-    const on=isToday?!!doneToday[h.id]:h.dates.includes(dayKey(d));
-    const rest=isRestOn(h,dayKey(d)); /* v2.54 · titik jeda beraksen madu */
-    const future=d>TODAY&&!isToday;
-    out+=`<span class="wd ${on?'on':''} ${rest?'rest':''} ${isToday?'today':''}" ${future&&!rest?'style="opacity:.35"':''} title="${HARI[d.getDay()]}${rest?' · jeda runtun':''}">${DOWS[(d.getDay()-WS+7)%7]}</span>`;
+    const k=wk.week[j];
+    const isToday=k===tk;
+    const on=isToday?!!doneToday[h.id]:h.dates.includes(k);
+    const rest=isRestOn(h,k); /* v2.54 · titik jeda beraksen madu */
+    const future=k>tk&&!isToday;
+    out+=`<span class="wd ${on?'on':''} ${rest?'rest':''} ${isToday?'today':''}" ${future&&!rest?'style="opacity:.35"':''} title="${wk.hari[j]}${rest?' · jeda runtun':''}">${wk.dow[j]}</span>`;
   }
   return out;
 }
@@ -8008,7 +8254,7 @@ function habitNudge(h,done){
     if(gap!=null&&gap>=3&&h.mini)return{txt:`Sudah ${gap} hari rehat — mulai dari versi mini: ${h.mini}.`,tone:'honey'};
   }
   let done7=0;
-  for(let i=0;i<7;i++){if(h.dates.includes(dayKey(addDays(TODAY,-i))))done7++}
+  for(const k of wkKeys().last7){if(h.dates.includes(k))done7++} /* v2.64 · kunci 7 hari terakhir dari cache — dulu 7 alokasi Date per kartu */
   if(done7>=7)return{txt:'Pekan sempurna 7/7 — waktunya naik kelas? Tambah takarannya.',tone:'sage'};
   if(!done&&done7<=3&&h.total>=8&&h.first&&h.first<=dayKey(addDays(TODAY,-6)))return{txt:`Pekan ini ${done7}/7 — perkecil takarannya dulu; versi 2 menit pun sah.`,tone:'honey'};
   return null;
@@ -8140,8 +8386,10 @@ function renderDonut(){
   });
   $('#donutSvg').innerHTML=`<g transform="rotate(-90 105 105)">${slices}</g>`;
   /* v2.13 · donut menyapu masuk: dasharray berangkat dari kosong lalu
-     bertransisi ke porsi final (transisi di kelas .donut-slice) */
-  if(!reduced){
+     bertransisi ke porsi final (transisi di kelas .donut-slice).
+     v2.64 · jalur data (PAINT_QUIET): sapuan dilewati — irisan langsung
+     final; sweep tetap hidup di buka tab / ganti bulan. */
+  if(!reduced&&!PAINT_QUIET){
     const sls=$$('#donutSvg .donut-slice');
     sls.forEach(sl=>sl.setAttribute('stroke-dasharray',`0 ${C.toFixed(1)}`));
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -8404,18 +8652,19 @@ function renderSaldoBank(){
   $('#saldoInSub').textContent=nIn?`${nIn} transaksi`:'Belum ada pemasukan tercatat';
   $('#saldoOutSub').textContent=nOut?`${nOut} transaksi`:'Belum ada pengeluaran tercatat';
   $('#saldoNetSub').textContent=`posisi ${monthShort(mk)}`;
-  /* arus dana tiap dompet — bulan berjalan; transfer dihitung sbg masuk/keluar dompet */
-  const rows=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]).map(s=>{
-    let ins=0,outs=0;
-    TXS.forEach(t=>{
-      if(t.sourceId!==s.id||t.date.slice(0,7)!==mk)return;
-      if(t.type==='income')ins+=t.amount;
-      else if(t.type==='expense')outs+=t.amount;
-      else if(String(t.category).includes('Masuk'))ins+=t.amount;
-      else outs+=t.amount;
-    });
-    return{s,ins,outs,net:ins-outs};
+  /* arus dana tiap dompet — bulan berjalan; transfer dihitung sbg masuk/keluar dompet.
+     v2.64 · SATU pass utk semua dompet (dulu TXS.forEach PER DOMPET —
+     O(dompet×transaksi) membesar bersama riwayat) */
+  const flow={};SOURCES.forEach(s=>flow[s.id]={i:0,o:0});
+  TXS.forEach(t=>{
+    if(t.date.slice(0,7)!==mk||!t.sourceId)return;
+    const f=flow[t.sourceId];if(!f)return;
+    if(t.type==='income')f.i+=t.amount;
+    else if(t.type==='expense')f.o+=t.amount;
+    else if(String(t.category).includes('Masuk'))f.i+=t.amount;
+    else f.o+=t.amount;
   });
+  const rows=SOURCES.slice().sort((a,b)=>w[b.id]-w[a.id]).map(s=>{const f=flow[s.id];return{s,ins:f.i,outs:f.o,net:f.i-f.o}});
   const mx=Math.max(1,...rows.map(r=>Math.max(r.ins,r.outs)));
   $('#saldoFlow').innerHTML=rows.length?rows.map(r=>{
     const st=srcStyle(r.s.type);
@@ -8503,8 +8752,10 @@ function renderTx(){
     </div>`;
   });
   $('#txList').innerHTML=html;
-  /* v2.13 · riwayat transaksi muncul bergelombang */
-  staggerList($('#txList'),':scope > *',{cap:16});
+  /* v2.13 · riwayat transaksi muncul bergelombang — v2.64 · hanya 48 baris
+     pertama bergelombang; sisanya tampil langsung (mode "Semua bulan"
+     dulu melahirkan 285 animasi serentak per render) */
+  staggerList($('#txList'),':scope > *',{cap:16,max:48});
 }
 
 /* ---------- rentang bulan riwayat ---------- */
@@ -8520,7 +8771,7 @@ function fillTxMonths(){
 }
 
 /* ---------- pengaturan ---------- */
-const catUsage=name=>TXS.filter(t=>t.category===name).length;
+const catUsage=name=>(agg().cnt[name]||0); /* v2.64 · peta agregat — dulu TXS.filter penuh PER KATEGORI tiap buka tab Pengaturan */
 function renderSettings(){
   $('#setUserName').textContent=SETTINGS.userName||'—';
   $('#setWeek').textContent=WS===0?'Minggu':'Senin';
@@ -8632,8 +8883,7 @@ function doDelete(){
     Object.keys(OV.logDel).forEach(k2=>{if(k2.startsWith(key+'|'))delete OV.logDel[k2]});
     ovPersist();
     animRowsOut(rowsOut,()=>{
-      renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();renderGarden();
-      if(inited.wawasan)renderConsChart();
+      quietPaint(()=>{renderIdentity();renderHabitChips();refreshToday();renderBanner();renderFindings();renderReko();renderBadges();renderGarden();if(inited.wawasan)renderConsChart()}); /* v2.64 · hening */
     });
     toast('Kebiasaan dihapus',`${name} keluar dari daftar & database.`,'i-trash','rose');
   }else if(kind==='tx'){
@@ -8667,9 +8917,7 @@ function doDelete(){
     if(state.txMonth!=='ALL'&&!months.includes(state.txMonth)&&state.txMonth!==dayKey(TODAY).slice(0,7))state.txMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
     animRowsOut(rowsOut,()=>{
-      refinance();fillTxMonths();
-      if(inited.cal)renderDayDetail(state.calSel);
-      renderSettings();
+      quietPaint(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel);renderSettings()}); /* v2.64 · hening */
     });
     toast(p?'Transfer dihapus':'Transaksi dihapus',p
       ?`⇄ ${rupiah(t.amount)} · ${srcName(t.sourceId)} → ${srcName(p.sourceId)} · kedua sisi keluar, saldo tetap seimbang 🌿`
@@ -8689,12 +8937,13 @@ function doDelete(){
       if(ok===bk||budKey(r.category,r.month)===bk){delete OV.budEdit[ok];if(!OV.budDel.includes(ok))OV.budDel.push(ok)}
     });
     if(!OV.budDel.includes(bk))OV.budDel.push(bk);
+    markFinMeta(); /* v2.64 · daftar anggaran berubah → kirim di POST berikutnya */
     ovPersist();
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     if(state.finMonth!=='ALL'&&!months.includes(state.finMonth))state.finMonth=months[months.length-1]||'ALL';
     delTarget=null;closeModals();
     animRowsOut(rowsOut,()=>{
-      refinance();fillTxMonths();
+      quietPaint(()=>{refinance();fillTxMonths()}); /* v2.64 · hening */
     });
     toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang.`,'i-trash','rose');
     return;
@@ -8713,8 +8962,7 @@ function doDelete(){
     ovPersist();
     delTarget=null;closeModals();
     animRowsOut(rowsOut,()=>{
-      refinance();
-      renderSettings();
+      quietPaint(()=>{refinance();renderSettings()}); /* v2.64 · hening */
     });
     toast('Dompet dihapus',n?`${name} dihapus · ${n} transaksi kini tanpa sumber.`:`${name} dihapus.`,'i-trash','rose');
     return;
@@ -8729,6 +8977,7 @@ function doDelete(){
   }else{
     FINCATS=FINCATS.filter(c=>c.name!==key);
     if(!OV.catDel.includes(key))OV.catDel.push(key); /* v2.21 · tersimpan di perangkat ini */
+    markFinMeta(); /* v2.64 · daftar kategori berubah → kirim di POST berikutnya */
     ovPersist();
     fillTxType(txType);
     toast('Kategori dihapus',`${name} tak lagi muncul di formulir transaksi.`,'i-trash','rose');
@@ -8829,16 +9078,8 @@ function renderDayDetail(d){
 
 /* ---------- wawasan ---------- */
 function renderConsChart(){
-  const allKeys=Object.keys(logsByDate).sort();
-  if(!allKeys.length){$('#consChart').innerHTML='';return}
-  const first=new Date(allKeys[0]+'T00:00:00');
-  let ws=weekStartOf(first);
-  let weeks=[];
-  while(ws<=TODAY){
-    const s=dayKey(ws),e=dayKey(addDays(ws,6));
-    let c=0;allKeys.forEach(k=>{if(k>=s&&k<=e)c+=logsByDate[k].length});
-    weeks.push({s,c});ws=addDays(ws,7);
-  }
+  let weeks=weekBuckets();
+  if(!weeks.length){$('#consChart').innerHTML='';return}
   /* v2.27 · redraw responsif: lebar kanvas = kontainer asli (skala 1:1,
      sumbu-Y selalu terlihat — temuan audit 390px). Riwayat panjang dibatasi
      ke pekan TERBARU agar densitas tetap sehat di layar sempit. */
@@ -8872,7 +9113,7 @@ function renderConsChart(){
     const step=vals.length>15?4:vals.length>9?3:2;
     if(i%step===0||i===vals.length-1){const akhirLbl=i===vals.length-1;s+=`<text x="${(akhirLbl?W-2:p[0]).toFixed(1)}" y="${H-12}" text-anchor="${akhirLbl?'end':'middle'}" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`}
   });
-  s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
+  s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round"${PAINT_QUIET?'':' class="line-draw"'}/>`; /* v2.64 · jalur data: garis final tanpa merambat ulang */
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Catatan kebiasaan per minggu">${s}</svg>`;
   const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
   const pk=new Date(peak.s+'T00:00:00');
@@ -9012,7 +9253,12 @@ function toggleCheck(id,src){
   if(doneToday[id]){OV.logAdd[lk]=isAmount(h)?(valueToday[id]||0):true;delete OV.logDel[lk]}
   else{delete OV.logAdd[lk];OV.logDel[lk]=true}
   ovPersist();
-  refreshToday();
+  scheduleRefreshToday(); /* v2.64 · 18 renderer pindah ke frame BERIKUTNYA + hening — dulu seluruh kaskade sinkron DI DALAM task klik: semburan/riak centang tak sempat digambar dulu (pola v2.61 kini menutup aksi terpenting ini) */
+}
+let _refQ=false;
+function scheduleRefreshToday(){
+  if(_refQ)return;_refQ=true;
+  requestAnimationFrame(()=>{_refQ=false;quietPaint(refreshToday)});
 }
 function refreshToday(){
   /* v2.19 · sapaan emosional ikut menyegarkan — momentum/hari sempurna di
@@ -9108,7 +9354,13 @@ function openModal(id,trigger){
    layar-penuh ber-blur; tanpa ini GPU menghitung ulang blur selebar
    viewport tiap frame hanya karena daun bergoyang di belakangnya. */
 function syncOvPause(){
-  document.body.classList.toggle('ov-open',Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim:not(.closing)')));
+  const on=Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim:not(.closing)'));
+  const was=document.body.classList.contains('ov-open');
+  document.body.classList.toggle('ov-open',on);
+  /* v2.64 · kelopak atmo pulir SEKETIKA saat overlay tertutup (dulu menunggu
+     penjaga 400 ms — kini penjaga diperlambat 2 dtk karena jalur utama
+     sudah eksplisit, lihat ambientHero) */
+  if(was&&!on&&window.__rutinaAtmo&&window.__rutinaAtmo.sync)window.__rutinaAtmo.sync();
 }
 function finishClose(m){
   if(m._closeT){clearTimeout(m._closeT);m._closeT=null}
@@ -9356,8 +9608,9 @@ $('#formTx').addEventListener('submit',e=>{
        renderer keuangan menguras DOM. Dulu semuanya sinkron dalam satu
        giliran JS — frame pertama animasi penutupan modal tersita →
        "simpan transaksi kayak lag" di ponsel. flashRows mendaftar rAF
-       SETELAH rAF ini → kilau mendarat setelah baris selesai digambar. */
-    requestAnimationFrame(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)});
+       SETELAH rAF ini → kilau mendarat setelah baris selesai digambar.
+       v2.64 · kini juga HENING: koreografi masuk tak diputar ulang. */
+    requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)}));
     flashRows([keluarSide.id,masukSide.id]); /* v2.31 · kedua sisi berkilau di daftar */
     botaniRain({kinds:['coin'],n:12});
     haptic(14);
@@ -9380,8 +9633,8 @@ $('#formTx').addEventListener('submit',e=>{
   editTxId=null;
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
-  /* v2.61 · sama dengan jalur transfer: render berat satu frame kemudian */
-  requestAnimationFrame(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)});
+  /* v2.61 · sama dengan jalur transfer: render berat satu frame kemudian — v2.64 · + hening */
+  requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)}));
   flashRows(flashIds); /* v2.31 · baris baru/disunting berkilau terra sejenak */
   /* v2.19 · reinforcement untuk mencatat uang: hujan koin kecil dari atas —
      kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
@@ -9559,8 +9812,11 @@ $('#formHabit').addEventListener('submit',e=>{
     }
     ovPersist();armSyncToast();
     closeModals();e.target.reset();resetHabitModal();renderIconPicker();fillHabitSelects();
-    /* v2.61 · render berat satu frame kemudian — penutupan sheet mulai digambar dulu */
-    requestAnimationFrame(()=>{renderHabitChips();refreshToday();renderIdentity();renderSettings();renderGarden()});
+    /* v2.61 · render berat satu frame kemudian — penutupan sheet mulai digambar dulu.
+       v2.64 · + hening; renderIdentity/renderGarden/renderBadges dihapus —
+       refreshToday() sudah menjalankan semuanya (dulu kartu identitas, strip
+       taman & lencana dibangun DUA kali per sunting). */
+    requestAnimationFrame(()=>quietPaint(()=>{renderHabitChips();refreshToday();renderSettings()}));
     toast('Kebiasaan disunting',`${nama} diperbarui · tersimpan ke database.`,'i-check','sage');
     return;
   }
@@ -9573,8 +9829,8 @@ $('#formHabit').addEventListener('submit',e=>{
   OV.habitAdd.push(hidBaru);ovPersist();armSyncToast(); /* v2.22 · kebiasaan baru tersimpan ke database */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
   state.habitFilter='semua';
-  /* v2.61 · render berat satu frame kemudian — pola jalur sunting */
-  requestAnimationFrame(()=>{renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();renderGarden()});
+  /* v2.61 · render berat satu frame kemudian — pola jalur sunting; v2.64 · + hening + dedup renderer */
+  requestAnimationFrame(()=>quietPaint(()=>{renderHabitChips();refreshToday();renderBanner();renderSettings()}));
   toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat${miniTxt?' · versi mini menemani':''} · tersimpan ke database.`,'i-sparkle','honey');
 });
 
@@ -9645,13 +9901,14 @@ $('#formBudget').addEventListener('submit',e=>{
     if(b)Object.assign(b,{category:cat,month:mk,amount:nominal});
     ovBudEdit(editBud.cat,editBud.mk,cat,mk,nominal); /* v2.21 · lapisan lokal ikut berubah */
   }else{BUDGETS.push({category:cat,month:mk,amount:nominal});OV.budAdd.push({category:cat,month:mk,amount:nominal})}
+  markFinMeta(); /* v2.64 · daftar anggaran berubah → kirim di POST berikutnya */
   ovPersist();armSyncToast();
   editBud={cat:'',mk:''};
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
-  /* v2.61 · render anggaran juga satu frame kemudian — pola simpan transaksi */
-  requestAnimationFrame(()=>{refinance();fillTxMonths()});
+  /* v2.61 · render anggaran juga satu frame kemudian — pola simpan transaksi; v2.64 · + hening */
+  requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths()}));
   toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan ke database`,'i-edit','sage');
 });
 
@@ -9695,8 +9952,8 @@ $('#formSource').addEventListener('submit',e=>{
   ovPersist();armSyncToast(); /* v2.22 · dompet tersimpan ke database */
   editSrcId=null;
   closeModals();
-  /* v2.61 · render dompet satu frame kemudian — pola simpan transaksi */
-  requestAnimationFrame(()=>{refinance();if(inited.set)renderSettings()});
+  /* v2.61 · render dompet satu frame kemudian — pola simpan transaksi; v2.64 · + hening */
+  requestAnimationFrame(()=>quietPaint(()=>{refinance();if(inited.set)renderSettings()}));
   toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · tersimpan ke database`,'i-edit','sage');
 });
 
@@ -9729,9 +9986,10 @@ $('#formCat').addEventListener('submit',e=>{
   });
   OV.budDel=OV.budDel.map(k2=>k2.startsWith(lama+'|')?budKey(baru,k2.split('|')[1]):k2);
   OV.catRename[lama]=baru;
+  markFinMeta(); /* v2.64 · daftar kategori berubah → kirim di POST berikutnya */
   ovPersist();armSyncToast();
-  /* v2.61 · render kategori satu frame kemudian — pola simpan transaksi */
-  requestAnimationFrame(()=>{refinance();renderSettings();fillTxType(txType)});
+  /* v2.61 · render kategori satu frame kemudian — pola simpan transaksi; v2.64 · + hening */
+  requestAnimationFrame(()=>quietPaint(()=>{refinance();renderSettings();fillTxType(txType)}));
   toast('Kategori diganti nama',`${lama} → ${baru} · ${nTx} transaksi & ${nBud} anggaran ikut diperbarui.`,'i-edit','sage');
 });
 
@@ -9739,7 +9997,10 @@ $('#formCat').addEventListener('submit',e=>{
 $('#calPrev').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()-1,1);renderCal(true)});
 $('#calNext').addEventListener('click',()=>{state.calMonth=new Date(state.calMonth.getFullYear(),state.calMonth.getMonth()+1,1);renderCal(true)});
 $('#calToday').addEventListener('click',()=>{state.calMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);state.calSel=new Date(TODAY);renderCal(true);renderDayDetail(state.calSel)});
-$('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;renderTx()});
+/* v2.64 · debounce 140 ms + hening — dulu renderTx penuh (ribuan node)
+   PER KETIKAN; daftar kini menyusul jeda singkat tanpa bergelombang ulang */
+let _txqT=0;
+$('#txSearch').addEventListener('input',e=>{state.txQuery=e.target.value;clearTimeout(_txqT);_txqT=setTimeout(()=>quietPaint(renderTx),140)});
 $('#txMonth').addEventListener('change',e=>{state.txMonth=e.target.value;renderMutasiSum();renderTx()});
 $('#btnDelConfirm').addEventListener('click',doDelete);
 $('#btnResetLocal').addEventListener('click',()=>askDelete('local')); /* v2.21 · pulihkan data asli */
@@ -9840,6 +10101,21 @@ function tunasWake(){
   const splitEmoji=t=>{const m=String(t).match(EMO);return m?{e:m[1],t:m[2]}:{e:'',t:String(t)}};
 
   /* ---------- 1 · DROPDOWN pengganti <select> ---------- */
+  /* v2.64 · SATU penutup bersama utk semua dropdown terpasang — dulu tiap
+     mountSelect memasang pointerdown capture sendiri di document (×6,
+     semuanya menyala di TIAP ketukan sepanjang umur aplikasi walau menunya
+     tertutup) + MutationObserver per select yang membangun ulang tombol
+     menu setiap opsi ditulis ulang (fillTxType/fillTxMonths menulis opsi
+     di setiap buka modal/repaint). Menu kini dibangun saat DIBUKA (open()
+     sudah memanggil render() sejak awal) dan label tetap disinkronkan
+     lewat setter value + event change. */
+  const CS_WRAPS=new Set();
+  document.addEventListener('pointerdown',e=>{
+    if(!CS_WRAPS.size)return;
+    CS_WRAPS.forEach(w=>{
+      if(w.classList.contains('open')&&!w.contains(e.target)&&!e.target.closest('.month-sel'))w._csClose();
+    });
+  },{passive:true,capture:true});
   function mountSelect(sel){
     if(!sel||sel.__cs)return;sel.__cs=1;
     sel.classList.add('cs-native');
@@ -9879,6 +10155,7 @@ function tunasWake(){
       return true;
     };
     CLOSERS.push(close);
+    CS_WRAPS.add(wrap);wrap._csClose=close; /* v2.64 · penutup bersama (lihat registrar di atas) */
     const render=()=>{
       const cur=desc.get.call(sel);
       menu.innerHTML='';
@@ -9931,10 +10208,6 @@ function tunasWake(){
         e.preventDefault();b.click();
       }else if(e.key==='Tab'){close()}
     });
-    document.addEventListener('pointerdown',e=>{
-      if(wrap.classList.contains('open')&&!wrap.contains(e.target)&&!e.target.closest('.month-sel'))close();
-    },true);
-    new MutationObserver(render).observe(sel,{childList:true});
     Object.defineProperty(sel,'value',{
       get(){return desc.get.call(sel)},
       set(v){desc.set.call(sel,v);sync()},
@@ -10223,12 +10496,12 @@ function tunasWake(){
         if(chk)setTimeout(()=>askDelete('habit',chk.dataset.check),150);
       }
     },480);
-  });
+  },{passive:true}); /* v2.64 · passive — handler tak pernah preventDefault */
   document.addEventListener('pointermove',e=>{
     if(!lpT)return;
     if(Math.abs(e.clientX-lpX)>10||Math.abs(e.clientY-lpY)>10){clearTimeout(lpT);lpT=0}
   },{passive:true});
-  ['pointerup','pointercancel','pointerleave'].forEach(ev=>document.addEventListener(ev,()=>{clearTimeout(lpT);lpT=0}));
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>document.addEventListener(ev,()=>{clearTimeout(lpT);lpT=0},{passive:true})); /* v2.64 · passive */
   /* klik pertama tepat setelah tekan lama dibatalkan agar aksi ganda
      tidak terpicu — kaitan sekali-pakai, bukan jendela waktu */
   document.addEventListener('click',e=>{
@@ -10240,27 +10513,27 @@ function tunasWake(){
   document.addEventListener('click',e=>{
     if(swFired){swFired=false;e.stopImmediatePropagation();e.preventDefault()}
   },true);
+  /* v2.64 · touchmove non-passive kini dipasang HANYA selama gestur baris
+     berlangsung (touchstart di baris → pasang; selesai/batal → lepas).
+     Dulu terpasang permanen di document: karena non-passive, browser harus
+     menunggu handler JS ini pada SETIAP sentuhan gulir di seluruh aplikasi
+     (semua tab, modal, menu) sebelum boleh menggulir — scroll-linking
+     aplikasi penuh tersita demi gestur yang jarang dipakai. */
   function resetSw(){
     if(!sw)return;
     const{row,inner}=sw;sw=null;
+    document.removeEventListener('touchmove',swMove);
     if(inner){inner.style.transition='';inner.style.transform=''}
     if(row)row.classList.remove('swiping');
   }
-  document.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||!e.target.closest)return;
-    const row=e.target.closest('#txList .tx-row');
-    if(!row)return;
-    swFired=false;
-    sw={row,inner:row.querySelector('.tx-inner'),x:e.touches[0].clientX,y:e.touches[0].clientY,dx:0,on:false,id:row.dataset.txid||''};
-  },{passive:true});
-  document.addEventListener('touchmove',e=>{
-    if(!sw)return;
+  function swMove(e){
+    if(!sw){document.removeEventListener('touchmove',swMove);return}
     if(e.touches.length>1){resetSw();return}
     const t=e.touches[0];
     sw.dx=t.clientX-sw.x;
     const dy=t.clientY-sw.y;
     if(!sw.on){
-      if(Math.abs(dy)>12&&Math.abs(dy)>Math.abs(sw.dx)){sw=null;return}
+      if(Math.abs(dy)>12&&Math.abs(dy)>Math.abs(sw.dx)){document.removeEventListener('touchmove',swMove);sw=null;return}
       if(Math.abs(sw.dx)<12)return;
       sw.on=true;
       if(sw.inner)sw.inner.style.transition='none';
@@ -10273,8 +10546,17 @@ function tunasWake(){
     if(d>lim)d=lim+(d-lim)*.22;
     if(d<-lim)d=-lim+(d+lim)*.22;
     if(sw.inner)sw.inner.style.transform=`translateX(${d.toFixed(1)}px)`;
-  },{passive:false});
+  }
+  document.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1||!e.target.closest)return;
+    const row=e.target.closest('#txList .tx-row');
+    if(!row)return;
+    swFired=false;
+    sw={row,inner:row.querySelector('.tx-inner'),x:e.touches[0].clientX,y:e.touches[0].clientY,dx:0,on:false,id:row.dataset.txid||''};
+    document.addEventListener('touchmove',swMove,{passive:false});
+  },{passive:true});
   ['touchend','touchcancel'].forEach(ev=>document.addEventListener(ev,()=>{
+    document.removeEventListener('touchmove',swMove); /* v2.64 · pasang-ulang per gestur */
     if(!sw)return;
     if(ev==='touchcancel'){resetSw();return}
     const{row,inner,dx,id}=sw;sw=null;
