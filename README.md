@@ -1,6 +1,6 @@
 # Rutina
 
-Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.64** (`APP_VERSION` di `public/rutina.html`).
+Pelacak kebiasaan dan arus kas harian — PWA satu file bertema taman botani ("Evergreen"), berbahasa Indonesia, mobile-first. Versi terkini: **v2.65** (`APP_VERSION` di `public/rutina.html`).
 
 ## Arsitektur
 

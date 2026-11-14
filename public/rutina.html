@@ -4,10 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F8FAFC">
-<meta name="description" content="Rutina — pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
+<meta name="description" content="Rutina: pelacak kebiasaan dan arus kas harian dalam satu tampilan.">
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.65 · ADAPTASI ANTI-SLOP (github.com/miqdadbadjuber/anti-slop)
+     — permintaan pengguna ("cek juga ini ya relevan apa nggak masihan
+     … perbaiki dan push"). Repo = rulebook 40 aturan tiga tingkat
+     (Hard Gate / Purpose-Gate / Quality Locks) + 6 skill (ui,
+     copywriting, human, layoutmobile, code) untuk mencegah keluaran
+     "AI slop" dari agen-AI. Rutina ditulis AI → SANGAT relevan;
+     dijalankan mode AUDIT vs seluruh Hard Gate. GAGAL & DIPERBAIKI:
+     (R-02 em dash) ~85 kalimat prosa UI ditulis ulang ke koma/titik-
+     dua/titik (meta description, aria-label taman, catatan bantu
+     hidrasi/sasaran/latihan/asupan/jeda, semua toast, empty-state
+     keuangan & bugar, salam hero, 14 kutipan motivasi, deskripsi
+     dialog hapus transfer/dompet/catatan lokal); 82 glyph placeholder
+     nilai-kosong — → – (en dash, konvensi akuntansi, karakter tidak
+     dilarang); atribusi kutipan "— nama" → "· nama"; opsi jangkar
+     "— tanpa jangkar —" → "(tanpa jangkar)"; pemicu select "— pilih —"
+     → "– pilih –".
+     (R-25 kontras AA dihitung) keadaan jatah over di atas rose-soft
+     #FEE2E2: lbl 12px rose-deep 3.95:1 GAGAL → #991B1B (6.80:1);
+     sub & num small ink-3 3.90:1 GAGAL → ink-2 (6.20:1); num besar
+     tetap rose-deep (3.95 ≥ 3:1 teks besar, sah).
+     (R-03 target ketuk) tombol buang gerakan latihan 38px → 44px.
+     (R-39 afordans) button:disabled{cursor:not-allowed} (sel masa-
+     depan kalender panas & select kategori saat dimuat).
+     (R-40 anti-CLS) 10 img ilustrasi lazy kini ber width/height
+     intrinsik (jatah 150×130, pekan 360×110, fajar 170×118, kupu
+     360×110, hero kebiasaan/bugar 480×200, keuangan-bg 960×300,
+     keuangan-fg 420×260, kalender 300×280, analisis 360×240,
+     juara 480×320, pengaturan 240×160).
+     LOLOS VERIFIKASI (alasan dicatat, tak diubah): kontras token
+     inti & warna status semua AA untuk ukuran fontnya (ink 17.9,
+     ink-2 7.6, ink-3 4.76, terra-deep 5.48, sage-deep 5.02,
+     honey-deep 5.02, rose-deep 4.83); prefers-reduced-motion lengkap
+     (blok CSS + guard JS); fokus-visible global 2.5px terra +
+     drillable Enter/Spasi + modal Esc; aria-label semua tombol ikon;
+     role=tab/aria-selected; lang=id + title unik + landmark + h1 per
+     halaman; viewport tanpa user-scalable=no; empty/loading/error
+     state lengkap (stale-bar v2.42); backdrop-filter dosis 2 elemen
+     (batas R-10); sel kalender popup 38px dipertahankan (7×44px
+     meluap layar 360px); em dash di komentar kode = dokumentasi
+     (di luar scope R-02 yang mengatur teks UI).
+     Verifikasi browser 390px: lencana v2.65; NOL node teks em dash
+     di seluruh body; form transaksi buka 4.1 ms / submit 6.5 ms;
+     simpan E2E 285→286→hapus→285 tersinkron database; ex-del
+     terhitung 44px; .jatah-main.over .lbl terhitung rgb(153,27,27);
+     semua img berdimensi; 6 tab + Pengaturan hidup; console & page
+     error kosong; lint lulus. package.json 2.65.0, sw.js
+     STATIC_CACHE → v67. -->
 <!-- v2.63 · ADAPTASI MODERN WEB GUIDANCE — repo referensi
      github.com/GoogleChrome/modern-web-guidance (kurasi Google Chrome /
      Edge / Firefox / MDN, 250+ fitur platform web modern) dievaluasi
@@ -631,6 +678,9 @@ body{
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2.5px solid var(--terra);outline-offset:2px}
+/* v2.65 · R-39 anti-slop: kontrol nonaktif menunjukkan afordans larangan (
+   sel hari-masa-depan kalender panas & pilihan kategori saat dimuat) */
+button:disabled{cursor:not-allowed}
 .ic{width:20px;height:20px;flex:none;display:block}
 .ill{display:block;width:100%;height:auto}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
@@ -939,7 +989,8 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .ex-block{border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:10px;background:var(--surface)}
 .ex-block-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .ex-block-head .field{flex:1;margin:0}
-.ex-del{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px;color:var(--rose-deep);background:var(--surface-2)}
+/* v2.65 · R-03 anti-slop: target ketuk tombol buang gerakan 38px -> 44px */
+.ex-del{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;color:var(--rose-deep);background:var(--surface-2)}
 .set-row{display:grid;grid-template-columns:26px 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
 .set-no{font-weight:800;font-size:12px;color:var(--ink-3);text-align:center}
 .set-row .money{margin:0}
@@ -1188,7 +1239,13 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .jatah-main .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra-strong)}
 .jatah-main .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:7px;line-height:1.45}
 .jatah-main.over{background:var(--rose-soft);border-color:var(--rose-line)}
-.jatah-main.over .num,.jatah-main.over .lbl{color:var(--rose-deep)}
+/* v2.65 · R-25 anti-slop: keadaan over jatah dihitung kontrasnya di atas
+   rose-soft #FEE2E2. num (24px/600 = teks besar) sah 3:1 dgn rose-deep
+   (3.95); lbl 12px dinaikkan ke #991B1B (6.80:1), teks kecil sub &
+   num small ke ink-2 (6.20:1). */
+.jatah-main.over .num{color:var(--rose-deep)}
+.jatah-main.over .lbl{color:#991B1B}
+.jatah-main.over .sub,.jatah-main.over .num small{color:var(--ink-2)}
 .jatah-rows{display:flex;flex-direction:column;gap:9px}
 .jatah-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px}
 .jatah-row small{color:var(--ink-3);font-weight:600}
@@ -3260,7 +3317,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="tb-date" id="tbDate">Memuat tanggal…</div>
   </div>
   <div class="tb-right">
-    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">—</b><span id="tbStreakUnit">hari aktif total</span></span>
+    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">–</b><span id="tbStreakUnit">hari aktif total</span></span>
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
       <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-cnt" id="bellCnt" aria-hidden="true" hidden></span>
     </button>
@@ -3296,17 +3353,17 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div class="hero-body">
       <div class="eyebrow">Pohon rutina</div>
       <h2 class="h-serif" id="treeGreet">Selamat datang, Sahabat Rutina</h2>
-      <p class="t-sub" id="treeDate">—</p>
+      <p class="t-sub" id="treeDate">–</p>
       <div class="tree-progress">
         <div class="tree-stage">
-          <span class="tree-stage-chip"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><b id="treeStage">—</b></span>
+          <span class="tree-stage-chip"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><b id="treeStage">–</b></span>
           <span class="tree-days t-num" id="treeDays">0 hari aktif</span>
         </div>
         <div class="bar tree-bar"><i id="treeBar" data-w="0%"></i></div>
-        <div class="t-sub" id="treeNext" style="font-size:12px">—</div>
+        <div class="t-sub" id="treeNext" style="font-size:12px">–</div>
       </div>
       <div class="hero-meta">
-        <span class="pill" id="treeLogs">—</span>
+        <span class="pill" id="treeLogs">–</span>
       </div>
       <button class="btn btn-primary btn-sm" data-go="wawasan">Lihat analisis <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
@@ -3357,7 +3414,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="stat-ic blue"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
         <svg class="spark" id="sparkKons" aria-hidden="true"></svg>
       </div>
-      <div><div class="num t-num" id="statKons">—</div><div class="lbl" id="statKonsLbl">Hari aktif dalam 30 hari</div></div>
+      <div><div class="num t-num" id="statKons">–</div><div class="lbl" id="statKonsLbl">Hari aktif dalam 30 hari</div></div>
       <div class="sub" id="statKonsSub">memuat…</div>
     </div>
     <div class="card stat ill-gandum drillable" data-drill="stat-spend" role="button" tabindex="0" title="Ketuk: bedah pengeluaran bulan">
@@ -3394,9 +3451,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="card today-card drillable" id="todayCard" data-drill="stat-day" title="Ketuk: bedah arus kas hari ini">
     <div class="tc-hero">
       <div class="tc-hero-body">
-        <div class="eyebrow">Arus kas hari ini · <span id="tdDate">—</span></div>
+        <div class="eyebrow">Arus kas hari ini · <span id="tdDate">–</span></div>
         <h3 class="h-serif" id="todayTitle">Hari ini habis Rp 0</h3>
-        <div class="tc-hero-meta"><span class="pill" id="todayPill">—</span></div>
+        <div class="tc-hero-meta"><span class="pill" id="todayPill">–</span></div>
       </div>
       <div class="tc-hero-art" aria-hidden="true"><svg class="ill"><use href="#ill-siram"/></svg></div>
     </div>
@@ -3407,7 +3464,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <div class="tc-p-main">
             <small class="tc-p-lbl">Masuk</small>
             <b class="t-num tc-p-num" id="tdIn">Rp 0</b>
-            <span class="tc-p-sub" id="tdInSub">—</span>
+            <span class="tc-p-sub" id="tdInSub">–</span>
           </div>
           <span class="tc-p-pct t-num" id="tdInPct" hidden>0%</span>
         </div>
@@ -3416,7 +3473,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <div class="tc-p-main">
             <small class="tc-p-lbl">Keluar</small>
             <b class="t-num tc-p-num" id="tdOut">Rp 0</b>
-            <span class="tc-p-sub" id="tdOutSub">—</span>
+            <span class="tc-p-sub" id="tdOutSub">–</span>
           </div>
           <span class="tc-p-pct t-num" id="tdOutPct" hidden>0%</span>
         </div>
@@ -3431,7 +3488,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <small id="tcNetLbl">Net hari ini</small>
           <b class="t-num" id="tdNet">Rp 0</b>
         </div>
-        <span class="tc-net-sub" id="tdNetSub">—</span>
+        <span class="tc-net-sub" id="tdNetSub">–</span>
       </div>
       <div class="today-beds" id="todayBeds" role="group" aria-label="Pos pengeluaran teratas hari ini"></div>
       <div class="today-rows" id="todayRows"></div>
@@ -3460,12 +3517,12 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
        kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
   <div class="card streak-banner jatah-banner ill-koin ill-bl-gandum drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
-    <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy"/></span>
+    <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy" width="150" height="130"/></span>
     <div class="sb-body">
       <b id="sbT">Memuat…</b>
       <p class="t-sub" id="sbS">Menghitung dari catatan database.</p>
       <div class="bar"><i id="sbBar" data-w="0%"></i></div>
-      <small class="t-sub t-num" style="font-size:12px" id="sbCount">—</small>
+      <small class="t-sub t-num" style="font-size:12px" id="sbCount">–</small>
     </div>
     <button class="btn btn-ghost btn-sm" data-go="keuangan" data-gofin="analisa">Kelola anggaran <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   </div>
@@ -3479,14 +3536,14 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
         <div>
           <div class="eyebrow" id="lwEyebrow">Pekan lalu</div>
-          <h3 class="h-serif" id="lwTitle">—</h3>
+          <h3 class="h-serif" id="lwTitle">–</h3>
         </div>
       </div>
-      <span class="pill" id="lwPill">—</span>
+      <span class="pill" id="lwPill">–</span>
     </div>
     <div class="lw-strip" id="lwStrip" role="img" aria-label="Catatan kebiasaan tiap hari pekan lalu"></div>
     <div class="lw-stats" id="lwStats"></div>
-    <p class="t-sub" id="lwNote" style="margin-top:9px;font-size:12px">—</p>
+    <p class="t-sub" id="lwNote" style="margin-top:9px;font-size:12px">–</p>
   </div>
 
   <!-- RITME PEKAN + ARUS KAS (v2.8) — kartu agenda kebiasaan diganti ritme
@@ -3501,9 +3558,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
             <h3 class="h-serif" id="weekTitle">Ritme aktivitas</h3>
           </div>
         </div>
-        <span class="pill pill-streak" id="weekCount">—/7 hari aktif</span>
+        <span class="pill pill-streak" id="weekCount">–/7 hari aktif</span>
       </div>
-      <img class="pekan-art" src="/illustrations/scene-pekan.svg" alt="" aria-hidden="true" loading="lazy"/>
+      <img class="pekan-art" src="/illustrations/scene-pekan.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
       <div class="week-strip" id="weekStrip" role="img" aria-label="Ritme aktivitas pekan ini"></div>
       <div class="week-cmp" id="weekCmp" aria-label="Pembanding pekan ini vs pekan lalu"></div>
       <div class="agenda-note">
@@ -3585,7 +3642,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · RITME TANAM (v2.9) — scene botani per tab: barisan pot tunas
        di dasar kartu (pola scene v2.8 diperluas ke seluruh tab) -->
   <div class="page-hero" id="habitsHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-habits.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-bg-habits.svg" alt="" aria-hidden="true" loading="lazy" width="480" height="200"/>
     <div class="hero-body">
       <div class="eyebrow" id="habEyebrow">Ritme tanam</div>
       <h2 class="h-serif" id="habHeroTitle">Kebiasaan hari ini</h2>
@@ -3593,7 +3650,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="streak-guard" id="habStreakGuard" hidden><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span id="habStreakTxt"></span></div>
       <div class="ph-progress">
         <div class="bar"><i id="habHeroBar" data-w="0%"></i></div>
-        <span class="pill" id="habHeroPill">—</span>
+        <span class="pill" id="habHeroPill">–</span>
       </div>
     </div>
   </div>
@@ -3610,7 +3667,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
       </div>
     </div>
-    <div class="garden-strip" id="gardenStrip" aria-label="Taman kebiasaan — tanaman per kebiasaan"></div>
+    <div class="garden-strip" id="gardenStrip" aria-label="Taman kebiasaan, tanaman per kebiasaan"></div>
   </div>
 
   <div class="mini-stats">
@@ -3620,11 +3677,11 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
     <div class="card mini-stat ill-bambu">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><div class="num t-num" id="msKons">—</div><div class="lbl" id="msKonsLbl">Hari aktif dalam 30 hari</div></div>
+      <div><div class="num t-num" id="msKons">–</div><div class="lbl" id="msKonsLbl">Hari aktif dalam 30 hari</div></div>
     </div>
     <div class="card mini-stat ill-laurel">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
-      <div><div class="num t-num" id="msTotal">—</div><div class="lbl" id="msTotalLbl">Total catatan</div></div>
+      <div><div class="num t-num" id="msTotal">–</div><div class="lbl" id="msTotalLbl">Total catatan</div></div>
     </div>
   </div>
 
@@ -3687,14 +3744,14 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · TAMAN BUGAR (v2.58) — setapik lari berkelok, barbel bersandar,
        pohon apel & can penyiram: kebugaran yang tumbuh di kebun) -->
   <div class="page-hero bugar-hero" id="bugarHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-bugar.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-bg-bugar.svg" alt="" aria-hidden="true" loading="lazy" width="480" height="200"/>
     <div class="hero-body">
       <div class="eyebrow" id="bugarEyebrow">Ritme gerak</div>
       <h2 class="h-serif" id="bugarHeroTitle">Taman bugar</h2>
       <p class="t-sub" id="bugarHeroSub">Memuat ritme gerak pekan ini…</p>
       <div class="ph-progress">
         <div class="bar"><i id="bugarHeroBar" data-w="0%"></i></div>
-        <span class="pill" id="bugarHeroPill">—</span>
+        <span class="pill" id="bugarHeroPill">–</span>
       </div>
     </div>
   </div>
@@ -3702,15 +3759,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="mini-stats">
     <div class="card mini-stat ill-lari">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-lari"/></svg></span>
-      <div><div class="num t-num" id="bgMin">—</div><div class="lbl" id="bgMinLbl">Menit gerak pekan ini</div></div>
+      <div><div class="num t-num" id="bgMin">–</div><div class="lbl" id="bgMinLbl">Menit gerak pekan ini</div></div>
     </div>
     <div class="card mini-stat ill-dumbel">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-beban"/></svg></span>
-      <div><div class="num t-num" id="bgSes">—</div><div class="lbl" id="bgSesLbl">Sesi latihan pekan ini</div></div>
+      <div><div class="num t-num" id="bgSes">–</div><div class="lbl" id="bgSesLbl">Sesi latihan pekan ini</div></div>
     </div>
     <div class="card mini-stat ill-pemulih">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#i-flame"/></svg></span>
-      <div><div class="num t-num" id="bgKcal">—</div><div class="lbl" id="bgKcalLbl">Kkal terbakar pekan ini</div></div>
+      <div><div class="num t-num" id="bgKcal">–</div><div class="lbl" id="bgKcalLbl">Kkal terbakar pekan ini</div></div>
     </div>
   </div>
 
@@ -3725,7 +3782,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="bebanTitle">Buku beban</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="bebanPill">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="bebanPill">–</span>
     </div>
     <div id="bebanBody"><div class="t-sub">memuat…</div></div>
   </div>
@@ -3742,7 +3799,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex:none">
-        <span class="pill" id="kardioPill" style="background:var(--surface-2);color:var(--ink-2)">—</span>
+        <span class="pill" id="kardioPill" style="background:var(--surface-2);color:var(--ink-2)">–</span>
         <button class="btn btn-ghost btn-sm" data-open-modal="modalWorkout" data-wk-kind="lari"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Sesi</button>
       </div>
     </div>
@@ -3761,12 +3818,12 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="fitChartTitle">Grafik progres</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="fitChartPill">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="fitChartPill">–</span>
     </div>
     <div id="fitMinChart" class="fit-chart"></div>
-    <p class="fit-chart-note" id="fitMinNote">—</p>
+    <p class="fit-chart-note" id="fitMinNote">–</p>
     <div id="fitVolChart" class="fit-chart" style="margin-top:14px"></div>
-    <p class="fit-chart-note" id="fitVolNote">—</p>
+    <p class="fit-chart-note" id="fitVolNote">–</p>
   </div>
 
   <!-- TARGET MINGGUAN (v2.58) — menit gerak & sesi vs sasaran pekan;
@@ -3816,7 +3873,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="mutasiKalTitle">Mutasi kalori</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="mutasiKalPill">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="mutasiKalPill">–</span>
     </div>
     <div id="mutasiKalBody"><div class="t-sub">memuat…</div></div>
   </div>
@@ -3836,11 +3893,11 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="hidrasiTitle">Air putih hari ini</h3>
         </div>
       </div>
-      <span class="pill" id="hidrasiPill" style="background:var(--surface-2);color:var(--ink-2)">—</span>
+      <span class="pill" id="hidrasiPill" style="background:var(--surface-2);color:var(--ink-2)">–</span>
     </div>
     <div class="hy-glasses" id="hyGlasses" role="group" aria-label="Jumlah gelas air yang diminum hari ini"></div>
     <div class="bar"><i id="hyBar" data-w="0%"></i></div>
-    <p class="t-sub" style="margin-top:8px;font-size:12px" id="hyNote">Ketuk gelas untuk mengisi — tersimpan langsung ke hari ini.</p>
+    <p class="t-sub" style="margin-top:8px;font-size:12px" id="hyNote">Ketuk gelas untuk mengisi; tersimpan langsung ke hari ini.</p>
   </div>
 
   <!-- BERAT BADAN (v2.58) — input ringan + tren + BMI -->
@@ -3853,7 +3910,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="beratTitle">Timbangan</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="beratPill">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="beratPill">–</span>
     </div>
     <div class="bw-grid">
       <div class="field" style="margin:0">
@@ -3866,7 +3923,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div id="bmiBox" style="min-width:104px"></div>
     </div>
     <div id="bwTrend" class="fit-chart" style="margin-top:12px"></div>
-    <p class="fit-chart-note" id="bwNote">—</p>
+    <p class="fit-chart-note" id="bwNote">–</p>
   </div>
 
   <!-- PEMULIHAN (v2.58) — skala pemulihan 1–5 + tidur semalam (DailyLog) -->
@@ -3909,7 +3966,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <button type="button" class="btn btn-ghost" id="tgReset">Kembalikan bawaan</button>
       <button type="button" class="btn btn-primary" id="tgSave"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan sasaran</button>
     </div>
-    <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Sasaran tersimpan ke database — dipakai batang progres, jatah kalori, makro &amp; gelas hidrasi.</p>
+    <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Sasaran tersimpan ke database dan dipakai batang progres, jatah kalori, makro &amp; gelas hidrasi.</p>
   </div>
 
   </div><!-- /pane tubuh -->
@@ -3948,15 +4005,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
        koin menjadi LATAR PENUH (ph-bg), koin bertunas mengapung di depan
        (ph-scene) sehingga napas taman & parallax tetap hidup -->
   <div class="page-hero page-hero--fin" id="financeHero">
-    <img class="ph-bg" src="/illustrations/hero-bg-finance-light.svg" alt="" aria-hidden="true" loading="lazy"/>
-    <img class="ph-scene" src="/illustrations/hero-fg-finance.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-bg" src="/illustrations/hero-bg-finance-light.svg" alt="" aria-hidden="true" loading="lazy" width="960" height="300"/>
+    <img class="ph-scene" src="/illustrations/hero-fg-finance.svg" alt="" aria-hidden="true" loading="lazy" width="420" height="260"/>
     <div class="hero-body">
       <div class="eyebrow">Arus kas · <span id="finHeroMonth">bulan ini</span></div>
       <h2 class="h-serif" id="finHeroTitle">Memuat arus kas…</h2>
-      <p class="t-sub" id="finHeroSub">—</p>
+      <p class="t-sub" id="finHeroSub">–</p>
       <div class="ph-progress">
         <div class="bar"><i id="finHeroBar" data-w="0%"></i></div>
-        <span class="pill" id="finHeroPill">—</span>
+        <span class="pill" id="finHeroPill">–</span>
       </div>
     </div>
   </div>
@@ -3999,7 +4056,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="jatahTitle">Batas belanja harian</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="jatahMonth">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="jatahMonth">–</span>
     </div>
     <div class="jatah-body" id="jatahBody"><div class="t-sub">memuat…</div></div>
   </div>
@@ -4074,9 +4131,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <img class="pane-art" src="/illustrations/scene-aliran.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
   <!-- STRIP RINGKASAN MUTASI — posisi rekening-koran untuk bulan terpilih -->
   <div class="mut-sum" id="mutSum" role="group" aria-label="Ringkasan mutasi bulan terpilih">
-    <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="mutIn">Rp 0</b><span id="mutInSub">—</span></div>
-    <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="mutOut">Rp 0</b><span id="mutOutSub">—</span></div>
-    <div class="mut-cell"><small>Net</small><b class="t-num" id="mutNet">Rp 0</b><span id="mutNetSub">—</span></div>
+    <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="mutIn">Rp 0</b><span id="mutInSub">–</span></div>
+    <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="mutOut">Rp 0</b><span id="mutOutSub">–</span></div>
+    <div class="mut-cell"><small>Net</small><b class="t-num" id="mutNet">Rp 0</b><span id="mutNetSub">–</span></div>
   </div>
 
   <div class="card card-pad ill-koin">
@@ -4088,7 +4145,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="txHistTitle">Transaksi bulan ini</h3>
         </div>
       </div>
-      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="txCount">—</span>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="txCount">–</span>
     </div>
     <div class="tx-tools" style="margin-top:-6px">
       <div class="month-sel">
@@ -4124,15 +4181,15 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div>
           <div class="eyebrow">Saldo total · semua dompet</div>
           <div class="saldo-big t-num" id="saldoTotal">Rp 0</div>
-          <p class="t-sub" id="saldoSub">—</p>
+          <p class="t-sub" id="saldoSub">–</p>
         </div>
       </div>
       <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="saldoMonth">bulan ini</span>
     </div>
     <div class="mut-sum in" id="saldoSum" role="group" aria-label="Arus kas bulan berjalan">
-      <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="saldoIn">Rp 0</b><span id="saldoInSub">—</span></div>
-      <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="saldoOut">Rp 0</b><span id="saldoOutSub">—</span></div>
-      <div class="mut-cell"><small>Net</small><b class="t-num" id="saldoNet">Rp 0</b><span id="saldoNetSub">—</span></div>
+      <div class="mut-cell"><small>Masuk</small><b class="t-num" style="color:var(--sage-deep)" id="saldoIn">Rp 0</b><span id="saldoInSub">–</span></div>
+      <div class="mut-cell"><small>Keluar</small><b class="t-num" style="color:var(--rose-deep)" id="saldoOut">Rp 0</b><span id="saldoOutSub">–</span></div>
+      <div class="mut-cell"><small>Net</small><b class="t-num" id="saldoNet">Rp 0</b><span id="saldoNetSub">–</span></div>
     </div>
   </div>
 
@@ -4147,7 +4204,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
       </div>
       <div class="head-act">
-        <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">—</span>
+        <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)" id="dompetSum">–</span>
         <button class="btn btn-ghost btn-sm" data-open-modal="modalSource"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Dompet</button>
       </div>
     </div>
@@ -4187,7 +4244,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
     <div class="cal-tools">
       <button class="icon-btn" id="calPrev" aria-label="Bulan sebelumnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
-      <span class="pill cal-month" style="background:var(--surface);border:1px solid var(--line);justify-content:center" id="calTitle">—</span>
+      <span class="pill cal-month" style="background:var(--surface);border:1px solid var(--line);justify-content:center" id="calTitle">–</span>
       <button class="icon-btn" id="calNext" aria-label="Bulan berikutnya"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
       <button class="btn btn-ghost btn-sm" id="calToday">Hari ini</button>
     </div>
@@ -4196,10 +4253,10 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · BULAN BERJALAN (v2.9) — scene busur fase bulan, karangan daun
        & mentari; ringkas bulan yang sedang ditampilkan -->
   <div class="page-hero page-hero--sky" id="calendarHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-calendar.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-bg-calendar.svg" alt="" aria-hidden="true" loading="lazy" width="300" height="280"/>
     <div class="hero-body">
       <div class="eyebrow">Bulan berjalan</div>
-      <h2 class="h-serif" id="calHeroTitle">—</h2>
+      <h2 class="h-serif" id="calHeroTitle">–</h2>
       <p class="t-sub" id="calHeroSub">Pilih tanggal untuk melihat catatan kebiasaan dan arus kas harianmu.</p>
     </div>
   </div>
@@ -4227,7 +4284,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
     <div class="card mini-stat ill-pakis">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-api"/></svg></span>
-      <div><div class="num t-num" id="csStreak">—</div><div class="lbl" id="csStreakLbl">Hari aktif bulan ini</div></div>
+      <div><div class="num t-num" id="csStreak">–</div><div class="lbl" id="csStreakLbl">Hari aktif bulan ini</div></div>
     </div>
     <div class="card mini-stat ill-gandum">
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#ill-keranjang"/></svg></span>
@@ -4251,14 +4308,14 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · TAMAN CATATAN (v2.9) — scene taman tenang sebagai ilustrasi
        utama + rimbun daun bertunas dari dasar kartu -->
   <div class="page-hero page-hero--art" id="wawasanHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-insights.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-bg-insights.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="240"/>
     <div class="hero-body">
       <div class="eyebrow">Pola &amp; tren</div>
       <h2 class="h-serif" id="wawHeroTitle">Memuat ritme catatan…</h2>
-      <p class="t-sub" id="wawHeroSub">—</p>
+      <p class="t-sub" id="wawHeroSub">–</p>
       <div class="ph-progress">
         <div class="bar"><i id="wawHeroBar" data-w="0%"></i></div>
-        <span class="pill" id="wawHeroPill">—</span>
+        <span class="pill" id="wawHeroPill">–</span>
       </div>
     </div>
     <div class="hero-ill">
@@ -4311,7 +4368,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
             <h3 class="h-serif">Pengeluaran per kategori</h3>
           </div>
         </div>
-        <span class="t-sub" style="font-size:12px" id="polaSub">—</span>
+        <span class="t-sub" style="font-size:12px" id="polaSub">–</span>
       </div>
       <div class="pola-list" id="polaList"></div>
     </div>
@@ -4338,9 +4395,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div class="eyebrow">Lencana</div>
         <h3 class="h-serif">Koleksi lencana</h3>
       </div>
-      <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)" id="badgeCount">—</span>
+      <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)" id="badgeCount">–</span>
     </div>
-    <img class="badge-art" src="/illustrations/scene-juara.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="badge-art" src="/illustrations/scene-juara.svg" alt="" aria-hidden="true" loading="lazy" width="480" height="320"/>
     <div class="badge-grid" id="badgeGrid"></div>
   </div>
 </section>
@@ -4360,7 +4417,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · RUANG KENDALI (v2.9) — scene roda gigi sage dengan daun
        merambat di ujung kartu -->
   <div class="page-hero" id="settingsHero">
-    <img class="ph-scene" src="/illustrations/hero-bg-settings.svg" alt="" aria-hidden="true" loading="lazy"/>
+    <img class="ph-scene" src="/illustrations/hero-bg-settings.svg" alt="" aria-hidden="true" loading="lazy" width="240" height="160"/>
     <div class="hero-body">
       <div class="eyebrow">Ruang kendali</div>
       <h2 class="h-serif" id="setHeroTitle">Semua kendali di satu ruang</h2>
@@ -4381,17 +4438,17 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setDataSrc">memuat…</span>
     </div>
     <div class="set-grid">
-      <div class="set-cell"><small>Nama</small><b id="setUserName">—</b></div>
-      <div class="set-cell"><small>Awal minggu</small><b id="setWeek">—</b></div>
-      <div class="set-cell"><small>Target harian</small><b id="setTarget">—</b></div>
-      <div class="set-cell"><small>Isi data</small><b id="setDataCounts">—</b></div>
+      <div class="set-cell"><small>Nama</small><b id="setUserName">–</b></div>
+      <div class="set-cell"><small>Awal minggu</small><b id="setWeek">–</b></div>
+      <div class="set-cell"><small>Target harian</small><b id="setTarget">–</b></div>
+      <div class="set-cell"><small>Isi data</small><b id="setDataCounts">–</b></div>
     </div>
-    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">—</b>. Setiap catatan tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan saat tersambung.</p>
+    <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">–</b>. Setiap catatan tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan saat tersambung.</p>
     <div id="setSyncRow" style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap">
-      <small class="t-sub" style="font-size:12px" id="setSyncNote">—</small>
+      <small class="t-sub" style="font-size:12px" id="setSyncNote">–</small>
     </div>
     <div id="setLocalRow" style="display:none;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap">
-      <small class="t-sub" style="font-size:12px" id="setLocalCount">—</small>
+      <small class="t-sub" style="font-size:12px" id="setLocalCount">–</small>
       <button type="button" class="btn btn-ghost" id="btnResetLocal" style="margin-left:auto;min-height:38px;padding:6px 14px;font-size:13px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Buang catatan lokal</button>
     </div>
   </div>
@@ -4407,7 +4464,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
             <h3 class="h-serif">Hapus kebiasaan</h3>
           </div>
         </div>
-        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setHabCount">—</span>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setHabCount">–</span>
       </div>
       <!-- v2.50 · rak pot bertingkat (scene-arsip) — koleksi kebiasaan
            sebagai pot yang dirawat di rak -->
@@ -4425,7 +4482,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
             <h3 class="h-serif">Hapus kategori</h3>
           </div>
         </div>
-        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setCatCount">—</span>
+        <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setCatCount">–</span>
       </div>
       <!-- v2.50 · label harga menggantung di ranting (scene-label) —
            kategori transaksi sebagai label taman -->
@@ -4497,7 +4554,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
              HANYA setelah pengguna berinteraksi/submit — lihat CSS; terkait
              lewat aria-describedby (tersembunyi = tak dibaca layar) -->
         <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required aria-describedby="txAmountErr"></div>
-        <p class="field-err" id="txAmountErr"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Nominal belum terisi — masukkan angka lebih besar dari nol.</p>
+        <p class="field-err" id="txAmountErr"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Nominal belum terisi; masukkan angka lebih besar dari nol.</p>
       </div>
       <div class="field" id="txCatWrap">
         <label for="txCat">Kategori</label>
@@ -4573,7 +4630,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <div class="money"><span>km</span><input type="text" id="wkDist" inputmode="decimal" autocomplete="off" placeholder="0.0"></div>
       </div>
       <!-- PACE OTOMATIS — terhitung dari durasi ÷ jarak, tampil hidup -->
-      <p class="pace-live" id="wkPace" hidden><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span id="wkPaceTxt">—</span></p>
+      <p class="pace-live" id="wkPace" hidden><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span id="wkPaceTxt">–</span></p>
       <div class="field">
         <label for="wkNote">Catatan <span style="color:var(--ink-3);font-weight:600">(opsional)</span></label>
         <input type="text" id="wkNote" placeholder="cth: kaki terasa berat">
@@ -4602,7 +4659,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="wkSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan latihan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Set, repetisi &amp; kilogram tersimpan lengkap — pembanding sesi berikutnya menunggu.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Set, repetisi &amp; kilogram tersimpan lengkap; pembanding sesi berikutnya menunggu.</p>
     </form>
   </div>
 </div>
@@ -4675,7 +4732,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="fdSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan asupan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Makro boleh kosong — kalori tetap tercatat ke neraca harianmu.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Makro boleh kosong; kalori tetap tercatat ke neraca harianmu.</p>
     </form>
   </div>
 </div>
@@ -4729,7 +4786,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <button type="button" class="btn btn-ghost btn-sm" id="habitRestAdd"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Jadwalkan</button>
         </div>
         <div class="rest-chips" id="restChips"></div>
-        <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Satu hari libur per pekan tak memutus runtun — rencanakan sebelum hari itu tiba. Hari jeda tetap boleh dicatat bila sempat.</p>
+        <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Satu hari libur per pekan tak memutus runtun; rencanakan sebelum hari itu tiba. Hari jeda tetap boleh dicatat bila sempat.</p>
       </div>
       <p class="field-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Aturan 2 menit: "tampil dulu" lebih penting daripada takaran. Susun kebiasaan: setelah kebiasaan lama, aku akan kebiasaan baru.</p>
       <div class="field">
@@ -4818,7 +4875,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <form class="sheet-body" id="formCat" novalidate>
-      <p class="del-desc" style="padding:0">Nama sekarang: <b id="catOldName">—</b>. Nama baru otomatis dipakai ulang oleh semua transaksi dan anggaran yang memakainya.</p>
+      <p class="del-desc" style="padding:0">Nama sekarang: <b id="catOldName">–</b>. Nama baru otomatis dipakai ulang oleh semua transaksi dan anggaran yang memakainya.</p>
       <div class="field">
         <label for="catNew">Nama baru</label>
         <input type="text" id="catNew" placeholder="cth: Jajan sore" required>
@@ -5162,7 +5219,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.64';
+const APP_VERSION='v2.65';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -5452,7 +5509,7 @@ async function syncFlush(){
         paintSyncRow();
         if(syncToastAt&&Date.now()-syncToastAt<4500){
           syncToastAt=0;
-          toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database')+' ✓','Catatanmu kini permanen di database — aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
+          toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database')+' ✓','Catatanmu kini permanen di database; aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
         }
       }else paintSyncRow();
     }else paintSyncRow();
@@ -5466,7 +5523,7 @@ function paintSyncRow(){
   const tujuan=DBSRC==='turso'?'Turso':'database server';
   el.innerHTML=n
     ?`Mengirim ke <b>${tujuan}</b>… <b style="color:var(--honey-deep)">${n} catatan</b> menunggu terkirim.`
-    :`Sinkron penuh dengan <b>${tujuan}</b> ✓ — semua catatan tersimpan permanen di database.`;
+    :`Sinkron penuh dengan <b>${tujuan}</b> ✓: semua catatan tersimpan permanen di database.`;
 }
 /* kembali online di tengah sesi: dorong jurnal yang menumpuk */
 window.addEventListener('online',()=>{if(LIVE)scheduleSync()});
@@ -5621,7 +5678,7 @@ function drillStatSpend(){
     body:drillStat([
       {v:rupiah(keluar),l:'Pengeluaran',color:keluar?'var(--rose-deep)':''},
       {v:rupiah(masuk),l:'Pemasukan',color:masuk?'var(--sage-deep)':''},
-      {v:j.totB?rupiah(j.sisa):'—',l:j.totB?'Sisa anggaran':'Tanpa anggaran',color:j.totB&&j.sisa<0?'var(--rose-deep)':''},
+      {v:j.totB?rupiah(j.sisa):'–',l:j.totB?'Sisa anggaran':'Tanpa anggaran',color:j.totB&&j.sisa<0?'var(--rose-deep)':''},
     ])+(j.rows.length?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">${j.rows.length} kategori beranggaran · ${j.pct}% terpakai</span></div>`:'')
     +`<div class="drill-sec">${drillCap('Pos terbesar '+monthLabel(mk))}${cats.length?cats.map(([name,v])=>{
       const st=finStyle(name);
@@ -5659,7 +5716,7 @@ function drillFinFlow(jenis){
     body:drillStat([
       {v:rupiah(tot),l:'Total periode',color:jenis==='income'?'var(--sage-deep)':'var(--rose-deep)'},
       {v:''+tx.length,l:'Transaksi'},
-      {v:tx.length?rupiah(Math.round(tot/tx.length)):'—',l:'Rata-rata'},
+      {v:tx.length?rupiah(Math.round(tot/tx.length)):'–',l:'Rata-rata'},
     ])+`<div class="drill-sec">${drillCap('Daftar transaksi · '+tx.length)}${txListHTML(tx,30)}</div>`};
 }
 function drillCategory(cat,mk){
@@ -5674,7 +5731,7 @@ function drillCategory(cat,mk){
     body:drillStat([
       {v:rupiah(tot),l:'Pengeluaran '+monthLabel(mk),color:tot?'var(--rose-deep)':''},
       {v:''+tx.length,l:'Transaksi'},
-      {v:keluar?Math.round(tot/(keluar||1)*100)+'%':'—',l:'Porsi dari keluar'},
+      {v:keluar?Math.round(tot/(keluar||1)*100)+'%':'–',l:'Porsi dari keluar'},
       {v:lt?relTanggal(lt.date):'belum pernah',l:'Terakhir dicatat'},
     ])+(lt?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Terakhir ${rupiah(lt.amount)} · ${tglBulan(lt.date)}</span></div>`:'')+(bud?`<div class="drill-chips"><span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Anggaran ${monthShort(mk)}: ${rupiah(bud.amount)}</span><span class="pill" style="background:var(--surface-2);color:${tot>bud.amount?'var(--rose-deep)':'var(--ink-2)'}">Sisa ${rupiah(bud.amount-tot)}</span></div>`:'')
     +`<div class="drill-sec">${drillCap('Transaksi kategori ini · '+tx.length)}${txListHTML(tx,30)}</div>`};
@@ -5745,7 +5802,7 @@ function drillHabit(id){
       {v:''+h.total,l:'Total catatan'},
       {v:''+run,l:'Runtun aktif',color:run>=3?'var(--terra-deep)':''},
       {v:''+h.best,l:'Rekor runtun'},
-      {v:h.first?tglPendek(h.first):'—',l:'Catatan pertama'},
+      {v:h.first?tglPendek(h.first):'–',l:'Catatan pertama'},
     ])+`<div class="drill-chips">
       <span class="pill" style="background:${h.warna}1A;color:${h.warna}">${esc(h.category)}</span>
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">${esc(h.priority||'Medium')} · ${esc(h.difficulty||'Medium')}</span>
@@ -5754,7 +5811,7 @@ function drillHabit(id){
       ${upRest?`<span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)"><svg class="ic" style="width:12px;height:12px" aria-hidden="true"><use href="#i-moon"/></svg> jeda ${tglPendek(upRest)}</span>`:''}
     </div>
     <div class="drill-sec">${drillCap('30 hari terakhir')}<div class="drill-dots" role="img" aria-label="Catatan 30 hari terakhir (kuning = jeda)">${dots.join('')}</div></div>
-    <div class="drill-sec">${drillCap('Catatan terakhir')}${recent.length?recent.map(k=>dayRowHTML(k)).join(''):drillEmpty('Belum ada catatan sama sekali — mulai hari ini!')}</div>`,
+    <div class="drill-sec">${drillCap('Catatan terakhir')}${recent.length?recent.map(k=>dayRowHTML(k)).join(''):drillEmpty('Belum ada catatan sama sekali; mulai hari ini!')}</div>`,
     actions:[
       {id:'check',label:done?'Batalkan hari ini':'Catat hari ini',icon:'i-check',cls:'btn-primary'},
       {id:'rest',label:isRestOn(h,today)?'Lepas jeda hari ini':'Jadikan jeda hari ini',icon:'i-moon'}, /* v2.54 */
@@ -5782,11 +5839,11 @@ function drillDay(k){
     return `<div class="drill-row" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0">
       <span class="tx-ic" style="background:${h.warna}1F;color:${h.warna}"><svg class="ic" aria-hidden="true"><use href="#i-${on?'check':rest?'moon':'x'}"/></svg></span>
       <span class="drill-main"><b>${esc(h.name)}</b><small>${esc(h.category)}</small></span>
-      <b class="drill-amt" style="font-size:11px;color:${on?'var(--sage-deep)':rest?'var(--honey-deep)':'var(--ink-3)'}">${on?'selesai':rest?'jeda':'—'}</b>
+      <b class="drill-amt" style="font-size:11px;color:${on?'var(--sage-deep)':rest?'var(--honey-deep)':'var(--ink-3)'}">${on?'selesai':rest?'jeda':'–'}</b>
     </div>`;
   }).join('');
   return {eyebrow:'Kalender',title:HARI[d.getDay()]+', '+tglBulan(k),ill:'ill-kal',
-    body:future?drillEmpty('Belum terjadi — kalender mengisi hari yang sudah dicatat.')
+    body:future?drillEmpty('Belum terjadi; kalender mengisi hari yang sudah dicatat.')
     :drillStat([
       {v:`${doneIds.length}/${HABITS.length||0}`,l:'Kebiasaan selesai'},
       {v:rupiah(masuk),l:'Masuk',color:masuk?'var(--sage-deep)':'',zero:!masuk},
@@ -6070,7 +6127,7 @@ const srcName=id=>{const s=SOURCES.find(x=>x.id===id);return s?s.name:''};
 const weekStartOf=d=>addDays(d,-((d.getDay()-WS+7)%7));
 function monthLabel(mk){
   if(mk==='ALL'){const a=months[0],b=months[months.length-1];
-    if(!a)return '—';
+    if(!a)return '–';
     if(a.slice(0,4)!==b.slice(0,4))return `${BULAN[+a.slice(5,7)-1]} ${a.slice(0,4)} – ${BULAN[+b.slice(5,7)-1]} ${b.slice(0,4)}`;
     return `${BULAN[+a.slice(5,7)-1]}–${BULAN[+b.slice(5,7)-1]} ${b.slice(0,4)}`}
   return `${BULAN[+mk.slice(5,7)-1]} ${mk.slice(0,4)}`;
@@ -6587,24 +6644,24 @@ function renderIdentity(){
   const hariTanpaCatatan=terakhirLog?(Math.round((startOfDay(TODAY)-new Date(terakhirLog+'T00:00:00'))/864e5)):null;
   let cerita;
   if(n>0&&done>=n){
-    cerita=`Hari sempurna, ${nama.split(' ')[0]} — ${n} kebiasaan tuntas, tamanmu berbunga 🌸`;
+    cerita=`Hari sempurna, ${nama.split(' ')[0]}: ${n} kebiasaan tuntas, tamanmu berbunga 🌸`;
     $('#greetSub').classList.add('is-bloom');
   }else if(n>0&&sisa===1){
     /* goal-gradient: satu langkah lagi terasa paling ringan untuk diambil */
-    cerita=`Satu contangan lagi menuju hari sempurna — hampir sampai 🌿`;
+    cerita=`Satu contangan lagi menuju hari sempurna; hampir sampai 🌿`;
     $('#greetSub').classList.remove('is-bloom');
   }else if(n>0&&done>0){
-    cerita=`Momentum hidup: ${done}/${n} tuntas — ${sisa} lagi menuju hari sempurna`;
+    cerita=`Momentum hidup: ${done}/${n} tuntas, ${sisa} lagi menuju hari sempurna`;
     $('#greetSub').classList.remove('is-bloom');
   }else if(hariTanpaCatatan>=2){
     /* fresh-start tanpa menuduh: senang kembali, bukan "kamu bolos" */
-    cerita=`Senang kamu kembali — ${hariTanpaCatatan} hari sejak catatan terakhir. Satu catatan hari ini cukup untuk mulai lagi`;
+    cerita=`Senang kamu kembali; ${hariTanpaCatatan} hari sejak catatan terakhir. Satu catatan hari ini cukup untuk mulai lagi`;
     $('#greetSub').classList.remove('is-bloom');
   }else if(n>0){
-    cerita=`${n} kebiasaan menunggu contongan hari ini — satu klik menumbuhkan tunas baru`;
+    cerita=`${n} kebiasaan menunggu contongan hari ini; satu klik menumbuhkan tunas baru`;
     $('#greetSub').classList.remove('is-bloom');
   }else{
-    cerita=`Hari baru mencatat — tambahkan kebiasaan pertama untuk menumbuhkan tamanmu`;
+    cerita=`Hari baru mencatat; tambahkan kebiasaan pertama untuk menumbuhkan tamanmu`;
     $('#greetSub').classList.remove('is-bloom');
   }
   $('#greetSub').textContent=cerita;
@@ -6636,30 +6693,30 @@ function renderIdentity(){
    (3) Bisa digulir manual (tombol kilau) — jalan keluar saat satu kutipan
        tak beresonansi; tidak mengubah pilihan hari berikutnya. */
 const MOTIV_QUOTES=[
-  {q:'Kita adalah apa yang kita lakukan berulang kali. Keunggulan, karenanya, bukanlah tindakan — melainkan kebiasaan.',by:'Aristoteles'},
+  {q:'Kita adalah apa yang kita lakukan berulang kali. Keunggulan, karenanya, bukanlah tindakan, melainkan kebiasaan.',by:'Aristoteles'},
   {q:'Setiap tindakan yang kamu ambil adalah suara untuk pribadi yang ingin kamu jadi.',by:'James Clear'},
-  {q:'Kamu tidak akan naik ke level targetmu — kamu jatuh ke level sistemmu.',by:'James Clear'},
+  {q:'Kamu tidak akan naik ke level targetmu; kamu jatuh ke level sistemmu.',by:'James Clear'},
   {q:'Kamu tidak akan mengubah hidupmu sampai kamu mengubah sesuatu yang kamu lakukan setiap hari. Rahasianya ada di rutinitasmu.',by:'John C. Maxwell'},
   {q:'Perjalanan seribu li dimulai dari satu langkah.',by:'Lao Tzu'},
   {q:'Jatuh tujuh kali, bangkit delapan kali.',by:'Peribahasa Jepang'},
   {q:'Taburkan pikiran, panen tindakan; taburkan tindakan, panen kebiasaan; taburkan kebiasaan, panen karakter; taburkan karakter, panen takdir.',by:'Ralph W. Emerson'},
-  {q:'Sempurna adalah musuh dari baik — hari yang baik hari ini lebih berharga daripada hari sempurna yang tak pernah datang.',by:'Voltaire'},
+  {q:'Sempurna adalah musuh dari baik; hari yang baik hari ini lebih berharga daripada hari sempurna yang tak pernah datang.',by:'Voltaire'},
   {q:'Kamu boleh menunda, tetapi waktu tidak.',by:'Benjamin Franklin'},
   {q:'Orang yang memindahkan gunung mulai dengan memungut batu kecil.',by:'Konfusius'},
-  {q:'Jangan putuskan rantainya — cukup jangan bolos dua hari berturut-turut.',by:'Jerry Seinfeld'},
+  {q:'Jangan putuskan rantainya; cukup jangan bolos dua hari berturut-turut.',by:'Jerry Seinfeld'},
   {q:'Cara kita menghabiskan hari-hari kita, tentu saja, adalah cara kita menghabiskan hidup kita.',by:'Annie Dillard'},
-  {q:'Tumbuh itu pelan dulu, kuat kemudian — akar selalu lebih dulu daripada daun.',by:'Taman Rutina'},
+  {q:'Tumbuh itu pelan dulu, kuat kemudian; akar selalu lebih dulu daripada daun.',by:'Taman Rutina'},
   {q:'Tunas tidak menyalahkan malam yang panjang; ia hanya terus menunggu pagi.',by:'Taman Rutina'},
   {q:'Satu catatan hari ini mengalahkan seribu rencana indah untuk besok.',by:'Taman Rutina'},
-  {q:'Rajin bukan bakat — ia kebiasaan yang setia kamu siram.',by:'Taman Rutina'},
+  {q:'Rajin bukan bakat; ia kebiasaan yang setia kamu siram.',by:'Taman Rutina'},
   {q:'Pohon tertinggi di hutan pun pernah sekecil benih di telapak tanganmu.',by:'Taman Rutina'},
-  {q:'Konsistensi adalah pupuk yang tak terlihat — diam-diam ia menumbuhkan segalanya.',by:'Taman Rutina'},
+  {q:'Konsistensi adalah pupuk yang tak terlihat; diam-diam ia menumbuhkan segalanya.',by:'Taman Rutina'},
   {q:'Jangan hitung hari yang berat; tanam hari yang ringan, berulang-ulang.',by:'Taman Rutina'},
-  {q:'Bunga tidak mekar karena dipacu — ia mekar karena dirawat rutin.',by:'Taman Rutina'},
-  {q:'Mulai kecil, tapi mulai hari ini — besar itu urusan waktu.',by:'Taman Rutina'},
+  {q:'Bunga tidak mekar karena dipacu; ia mekar karena dirawat rutin.',by:'Taman Rutina'},
+  {q:'Mulai kecil, tapi mulai hari ini; besar itu urusan waktu.',by:'Taman Rutina'},
   {q:'Setiap centang hari ini adalah setetes air untuk tamanmu.',by:'Taman Rutina'},
-  {q:'Hujan sekalipun tidak menunda akar menyebar — begitu pula kamu.',by:'Taman Rutina'},
-  {q:'Rekor lamanya bukan untuk dibanggakan — ia untuk dilampaui satu hari lagi.',by:'Taman Rutina'}
+  {q:'Hujan sekalipun tidak menunda akar menyebar; begitu pula kamu.',by:'Taman Rutina'},
+  {q:'Rekor lamanya bukan untuk dibanggakan; ia untuk dilampaui satu hari lagi.',by:'Taman Rutina'}
 ];
 let motivShift=0; /* offset manual dari pilihan harian (sesi ini saja) */
 const motivDayIdx=()=>{const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)};
@@ -6673,7 +6730,7 @@ function renderMotiv(animate){
   const m=motivPick();
   $('#motivQuote').textContent=m.q;
   const attr=$('#motivAttr');
-  if(m.by){attr.hidden=false;attr.textContent='— '+m.by}
+  if(m.by){attr.hidden=false;attr.textContent='· '+m.by}
   else attr.hidden=true;
   /* baris konteks dari progres ASLI hari ini — selaras dgn renderIdentity()
      tapi berbidik tindakan (mendorong ke tab kebiasaan), bukan sekadar cerita */
@@ -6682,19 +6739,19 @@ function renderMotiv(animate){
   const gap=terakhirLog?Math.round((startOfDay(TODAY)-new Date(terakhirLog+'T00:00:00'))/864e5):null;
   let ctx,cta,go='kebiasaan';
   if(n>0&&done>=n){
-    ctx=`Hari sempurna — ${n} kebiasaan tuntas, tamanmu berbunga. Besok tanam lagi, benih baru menunggu.`;
+    ctx=`Hari sempurna: ${n} kebiasaan tuntas, tamanmu berbunga. Besok tanam lagi, benih baru menunggu.`;
     cta='Lihat analismu';go='wawasan';
   }else if(n>0&&sisa===1){
-    ctx=`Tinggal satu kebiasaan lagi — langkah terakhir selalu yang paling manis untuk diambil.`;
+    ctx=`Tinggal satu kebiasaan lagi; langkah terakhir selalu yang paling manis untuk diambil.`;
     cta='Tuntaskan sekarang';
   }else if(n>0&&done>0){
-    ctx=`${done} dari ${n} kebiasaan tuntas hari ini. Momentum itu seperti air — makin deras bila terus dialirkan.`;
+    ctx=`${done} dari ${n} kebiasaan tuntas hari ini. Momentum itu seperti air; makin deras bila terus dialirkan.`;
     cta='Lanjutkan momentum';
   }else if(gap!=null&&gap>=2){
-    ctx=`${gap} hari sejak catatan terakhirmu. Kembali pun berarti tumbuh — satu catatan hari ini cukup untuk menyiram ulang tamanmu.`;
+    ctx=`${gap} hari sejak catatan terakhirmu. Kembali pun berarti tumbuh; satu catatan hari ini cukup untuk menyiram ulang tamanmu.`;
     cta='Mulai lagi';
   }else if(n>0){
-    ctx=`${n} kebiasaan menunggu contongan pertama. Mulai dari yang paling ringan — biarkan sisanya mengalir.`;
+    ctx=`${n} kebiasaan menunggu contongan pertama. Mulai dari yang paling ringan; biarkan sisanya mengalir.`;
     cta='Mulai sekarang';
   }else{
     ctx=`Tamanmu masih kosong. Tanam kebiasaan pertamamu, dan biarkan Rutina merawatnya bersamamu setiap hari.`;
@@ -6744,7 +6801,7 @@ function renderIdentityCard(readonly){
   }else if(!txt){
     body.innerHTML=`
       <div class="id-head"><div class="eyebrow">Suara identitas</div></div>
-      <p class="id-empty-note">Tulis jenis orang yang kamu mau jadi — tiap centang kebiasaan menjadi satu suara untuk pribadi itu.</p>
+      <p class="id-empty-note">Tulis jenis orang yang kamu mau jadi; tiap centang kebiasaan menjadi satu suara untuk pribadi itu.</p>
       <form class="id-form" id="formIdentity">
         <div class="field"><input type="text" id="idInput" maxlength="120" autocomplete="off" placeholder="aku yang lebih rajin &amp; sadar uang" aria-label="Pernyataan identitas"></div>
         <button type="submit" class="btn btn-primary"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Tanam identitas</button>
@@ -6758,7 +6815,7 @@ function renderIdentityCard(readonly){
       </div>
       <p class="id-stmt">${esc(txt)}</p>
       <div class="id-votes"><span>Minggu ini <b class="t-num">${v.week}</b> suara</span><span class="sep">·</span><span>Total <b class="t-num">${v.total}</b> suara</span></div>
-      <p class="t-sub id-ctx">Setiap centang kebiasaan menambah satu suara — bukti kecil yang mengakar, satu hari demi satu hari.</p>
+      <p class="t-sub id-ctx">Setiap centang kebiasaan menambah satu suara: bukti kecil yang mengakar, satu hari demi satu hari.</p>
       <button class="link-btn id-cta" data-go="kebiasaan">Catat suara hari ini <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>`;
   }
 }
@@ -6766,7 +6823,7 @@ function saveIdentity(){
   const inp=$('#idInput');
   const v=inp?inp.value.trim().slice(0,120):'';
   if(!v){toast('Belum tertulis','Tulis dulu jenis orang yang kamu mau jadi.','i-x','rose');if(inp)inp.focus();return}
-  if(!DB){toast('Belum bisa tersimpan','Database belum terjangkau — coba lagi setelah aplikasi siap.','i-x','honey');return}
+  if(!DB){toast('Belum bisa tersimpan','Database belum terjangkau; coba lagi setelah aplikasi siap.','i-x','honey');return}
   SETTINGS.identityText=v;
   OV.identityText=v;ovPersist();armSyncToast(); /* v2.35 · identitas ikut jurnal → tersinkron ke database */
   idEditing=false;renderIdentityCard();
@@ -6806,7 +6863,7 @@ function renderCheckinCard(){
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)">Tidur ${dl.sleep} jam</span>
       <button type="button" class="btn btn-ghost btn-sm" data-ci-act="edit">Ubah</button>
     </div>
-    <p class="t-sub" style="margin-top:8px">Tersimpan untuk hari ini — terlihat juga di detail hari (tab Kalender) dan ikut ke database.</p>`;
+    <p class="t-sub" style="margin-top:8px">Tersimpan untuk hari ini; terlihat juga di detail hari (tab Kalender) dan ikut ke database.</p>`;
     return;
   }
   title.textContent='Bagaimana kabarmu hari ini?';
@@ -6823,7 +6880,7 @@ function renderCheckinCard(){
     </div>`;
 }
 function saveCheckin(){
-  if(!ciDraft.mood||!ciDraft.energi){toast('Pilih dulu skalanya','Sentuh satu titik mood dan satu titik energi — keduanya masing-masing lima detik.','i-x','rose');return}
+  if(!ciDraft.mood||!ciDraft.energi){toast('Pilih dulu skalanya','Sentuh satu titik mood dan satu titik energi; keduanya masing-masing lima detik.','i-x','rose');return}
   const k=dayKey(TODAY);
   DAILY[k]={date:k,mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
   OV.dailyLog[k]={mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
@@ -6833,7 +6890,7 @@ function saveCheckin(){
   if(inited.cal)renderDayDetail(state.calSel);
   if(!reduced)botaniRain({kinds:['petal','sparkle'],n:9});
   haptic(12);
-  toast('Check-in tersimpan',`Mood ${ciDraft.mood}/5 · energi ${ciDraft.energi}/5 · tidur ${ciDraft.sleep} jam — terlihat juga di detail hari.`,'i-check','sky');
+  toast('Check-in tersimpan',`Mood ${ciDraft.mood}/5 · energi ${ciDraft.energi}/5 · tidur ${ciDraft.sleep} jam; terlihat juga di detail hari.`,'i-check','sky');
 }
 document.addEventListener('click',e=>{
   const dot=e.target.closest('[data-ci]');
@@ -6881,7 +6938,7 @@ const KCAL_MET={beban:5,jalan:3.5,lari:9.8,kombinasi:6};
 const bodyWeight=()=>{const ws=Object.entries(BODY).filter(([k,b])=>b.weight>0).sort((a,b)=>b[0].localeCompare(a[0]));return ws.length?ws[0][1].weight:65};
 const kcalOf=w=>Math.round((KCAL_MET[w.kind]||5)*bodyWeight()*(w.duration||0)/60);
 const paceMinOf=w=>w.distance>0&&w.duration>0?w.duration/w.distance:0;
-const paceStr=m=>{if(!m)return '—';const t=Math.round(m*60);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
+const paceStr=m=>{if(!m)return '–';const t=Math.round(m*60);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
 const volOf=w=>(w.sets||[]).reduce((a,s)=>a+s.reps*s.weight,0);
 const topSetOf=w=>(w.sets||[]).reduce((a,s)=>Math.max(a,s.weight),0);
 const e1rmOf=s=>s.weight*(1+s.reps/30);
@@ -6937,7 +6994,7 @@ function renderBugarHero(){
   const wk=fitWeekOf(weekStartOf(TODAY));
   const pct=FIT.weekMin?Math.min(100,Math.round(wk.mins/FIT.weekMin*100)):0;
   if(eb)eb.textContent='Ritme gerak · musim '+seasonOf(TODAY);
-  sub.textContent=wk.ses?`${wk.ses} sesi · ${wk.mins} menit gerak pekan ini${wk.kcal?` · ~${wk.kcal} kkal terbakar`:''}.`:'Belum ada latihan pekan ini — taman bugarmu menunggu set pertama.';
+  sub.textContent=wk.ses?`${wk.ses} sesi · ${wk.mins} menit gerak pekan ini${wk.kcal?` · ~${wk.kcal} kkal terbakar`:''}.`:'Belum ada latihan pekan ini; taman bugarmu menunggu set pertama.';
   if(bar){bar.dataset.w=pct+'%';bar.style.width=pct+'%'} /* v2.59 · lebar dipasang langsung — animateBars paintAll berjalan sebelum tab bugar dirender, tanpa ini bar hero tetap 0% */
   if(pill)pill.textContent=`${wk.mins}/${FIT.weekMin} menit`;
 }
@@ -6957,7 +7014,7 @@ function renderBebanCard(){
   if(!w){
     $('#bebanTitle').textContent='Buku beban';
     if(pill)pill.textContent='belum ada sesi';
-    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada latihan beban — catat set pertama: gerakan, repetisi &amp; kilogram; sesi berikutnya otomatis dibandingkan.</span></div>
+    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada latihan beban; catat set pertama: gerakan, repetisi &amp; kilogram; sesi berikutnya otomatis dibandingkan.</span></div>
     <button type="button" class="btn btn-primary" style="margin-top:10px" data-open-modal="modalWorkout" data-wk-kind="beban"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat latihan beban</button>`;
     return;
   }
@@ -6966,7 +7023,7 @@ function renderBebanCard(){
   $('#bebanTitle').textContent='Buku beban · sesi terakhir';
   const exNames=[...new Set(w.sets.map(s=>s.exercise))];
   body.innerHTML=`
-    <p class="t-sub" style="margin-bottom:10px">${KIND_LBL[w.kind]} · <b>${tglPendek(w.date)}</b>${w.duration?` · ${w.duration} menit`:''}${w.note?` · “${esc(w.note)}”`:''} — set terberat <b>${top} kg</b>.</p>
+    <p class="t-sub" style="margin-bottom:10px">${KIND_LBL[w.kind]} · <b>${tglPendek(w.date)}</b>${w.duration?` · ${w.duration} menit`:''}${w.note?` · “${esc(w.note)}”`:''}; set terberat <b>${top} kg</b>.</p>
     ${exNames.map(ex=>{
       const cur=w.sets.filter(s=>s.exercise===ex);
       const prev=prevSessionOf(ex,w);
@@ -6979,7 +7036,7 @@ function renderBebanCard(){
           <div class="wk-vol">${Math.round(pv)} kg tonase</div>
         </div>
         <div class="wk-sets">${cur.map((s,i)=>`<span class="wk-set">${i+1}× <b>${s.reps}</b> rep · <b>${s.weight}</b> kg</span>`).join('')}</div>
-        ${cmp?cmpChip(cmp.dv)+`<span class="wk-cmp" style="display:flex;margin-top:3px;font-size:11.5px;color:var(--ink-3)">set terberat ${cmp.ct} kg${cmp.ct!==cmp.pt?` (${cmp.ct>cmp.pt?'naik':'turun'} dari ${cmp.pt} kg)`:' · sama'} · e1RM ~${Math.round(e1)} kg</span>`:`<span class="wk-cmp"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span>gerakan baru — sesi berikutnya dibandingkan otomatis</span></span>`}
+        ${cmp?cmpChip(cmp.dv)+`<span class="wk-cmp" style="display:flex;margin-top:3px;font-size:11.5px;color:var(--ink-3)">set terberat ${cmp.ct} kg${cmp.ct!==cmp.pt?` (${cmp.ct>cmp.pt?'naik':'turun'} dari ${cmp.pt} kg)`:' · sama'} · e1RM ~${Math.round(e1)} kg</span>`:`<span class="wk-cmp"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span>gerakan baru; sesi berikutnya dibandingkan otomatis</span></span>`}
       </div>`;
     }).join('')}
     <div class="hy-act" style="margin-top:6px">
@@ -6995,7 +7052,7 @@ function renderKardioCard(){
   const pill=$('#kardioPill');
   if(!cardio.length){
     if(pill)pill.textContent='belum ada sesi';
-    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada jalan/lari tercatat — masukkan jarak &amp; durasi; pace per km terhitung otomatis.</span></div>`;
+    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada jalan/lari tercatat. Masukkan jarak &amp; durasi; pace per km terhitung otomatis.</span></div>`;
     return;
   }
   const wk=fitWeekOf(weekStartOf(TODAY));
@@ -7006,8 +7063,8 @@ function renderKardioCard(){
   body.innerHTML=`
     <div class="cr-sum">
       <div><b>${(wkC.reduce((a,w)=>a+(w.distance||0),0)).toFixed(1)} km</b><small>jarak pekan ini</small></div>
-      <div><b>${far&&far.distance?far.distance.toFixed(1)+' km':'—'}</b><small>terjauh (${far?tglPendek(far.date):'—'})</small></div>
-      <div><b>${best?paceStr(paceMinOf(best))+'/km':'—'}</b><small>pace terbaik</small></div>
+      <div><b>${far&&far.distance?far.distance.toFixed(1)+' km':'–'}</b><small>terjauh (${far?tglPendek(far.date):'–'})</small></div>
+      <div><b>${best?paceStr(paceMinOf(best))+'/km':'–'}</b><small>pace terbaik</small></div>
     </div>
     <div style="margin-top:10px">
     ${cardio.slice(0,6).map(w=>`
@@ -7068,7 +7125,7 @@ function renderFitCharts(){
   });
   s+=`<path d="${smoothPath(pts)}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" class="line-draw"/>`;
   wrap.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Menit gerak per pekan">${s}</svg>`;
-  $('#fitMinNote').innerHTML=`Menit gerak per pekan — garis amber putus-putus adalah sasaran <b>${FIT.weekMin} menit</b>/pekan.`;
+  $('#fitMinNote').innerHTML=`Menit gerak per pekan; garis amber putus-putus adalah sasaran <b>${FIT.weekMin} menit</b>/pekan.`;
   /* volume beban per pekan (batang) */
   const vwrap=$('#fitVolChart');
   const maxVol=Math.max(...vols,1);
@@ -7083,7 +7140,7 @@ function renderFitCharts(){
   });
   vs+=`<line x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}" class="chart-grid"/>`;
   vwrap.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Tonase angkat beban per pekan">${vs}</svg>`;
-  $('#fitVolNote').innerHTML=`Tonase beban per pekan (set × rep × kg dijumlahkan) — pelan naik = <b>progressive overload</b> yang sehat.`;
+  $('#fitVolNote').innerHTML=`Tonase beban per pekan (set × rep × kg dijumlahkan): pelan naik = <b>progressive overload</b> yang sehat.`;
   $('#fitChartPill').textContent=`10 pekan terakhir`;
 }
 function renderFitTarget(){
@@ -7099,7 +7156,7 @@ function renderFitTarget(){
       <div class="tg-lab"><span>Sesi latihan</span><small>${wk.ses}/${FIT.weekSes} sesi · ${pctS}%</small></div>
       <div class="bar"><i data-w="${pctS}%" style="background:var(--honey)"></i></div>
     </div>
-    <p class="t-sub" style="font-size:12px">${pctM>=100?'Sasaran menit tercapai pekan ini — taman bugarmu rimbun! 🌿':pctM>=50?'Setengah jalan — satu-dua sesi lagi menyentuh sasaran.':'Pekan masih muda: mulai dari jalan 20 menit juga berarti.'}</p>`;
+    <p class="t-sub" style="font-size:12px">${pctM>=100?'Sasaran menit tercapai pekan ini; taman bugarmu rimbun! 🌿':pctM>=50?'Setengah jalan; satu-dua sesi lagi menyentuh sasaran.':'Pekan masih muda: mulai dari jalan 20 menit juga berarti.'}</p>`;
   animateBars(body);
 }
 
@@ -7131,7 +7188,7 @@ function renderKaloriCard(){
         <span class="fd-kcal">${f.kcal}<small style="font-size:9.5px;color:var(--ink-3);font-weight:600"> kkal</small></span>
         <button type="button" class="set-del" data-fd-del="${f.id}" aria-label="Hapus ${esc(f.name)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
       </div>`).join('')}</div>`;
-    }).join(''):`<div class="today-note" style="margin-top:12px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada asupan tercatat hari ini — tambah makan pagi supaya neraca kalorimu hidup.</span></div>`}
+    }).join(''):`<div class="today-note" style="margin-top:12px"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada asupan tercatat hari ini; tambah makan pagi supaya neraca kalorimu hidup.</span></div>`}
     <div class="hy-act" style="margin-top:10px">
       <button type="button" class="btn btn-primary btn-sm" data-open-modal="modalFood"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat asupan</button>
     </div>`;
@@ -7166,7 +7223,7 @@ function renderMutasiKal(){
         <span class="fd-kcal" style="color:${d.net>FIT.kcal?'var(--rose-deep)':d.net>0?'var(--honey-deep)':'var(--terra-deep)'}">${d.net>0?'+':''}${d.net}<small style="font-size:9.5px;color:var(--ink-3);font-weight:600"> kkal net</small></span>
       </div>`).join('')}
     </div>
-    <p class="t-sub" style="margin-top:10px;font-size:12px">Net positif berarti surplus (di atas kebutuhan) — hijau berarti defisit. Jatah harianmu ${FIT.kcal} kkal.</p>`;
+    <p class="t-sub" style="margin-top:10px;font-size:12px">Net positif berarti surplus (di atas kebutuhan); hijau berarti defisit. Jatah harianmu ${FIT.kcal} kkal.</p>`;
   animateBars(body);
 }
 
@@ -7191,7 +7248,7 @@ function renderHidrasiCard(){
   const pct=Math.min(100,Math.round(n/FIT.water*100));
   const bar=$('#hyBar');if(bar){bar.dataset.w=pct+'%';bar.style.width=pct+'%'} /* v2.59 · idem bar hidrasi — transisi CSS tetap menganimasikan tiap ketukan */
   const note=$('#hyNote');
-  if(note)note.textContent=n>=FIT.water?'Sasaran air tercapai hari ini — tubuhmu berterima kasih. 💧':'Ketuk gelas untuk mengisi — tersimpan langsung ke hari ini.';
+  if(note)note.textContent=n>=FIT.water?'Sasaran air tercapai hari ini; tubuhmu berterima kasih. 💧':'Ketuk gelas untuk mengisi; tersimpan langsung ke hari ini.';
 }
 function renderBeratCard(){
   const input=$('#bwInput'),pill=$('#beratPill'),box=$('#bmiBox'),trend=$('#bwTrend'),note=$('#bwNote');
@@ -7201,7 +7258,7 @@ function renderBeratCard(){
   if(latest)input.value=String(latest[1].weight);
   if(pill)pill.textContent=latest?`terakhir ${tglPendek(latest[0])}`:'belum ada';
   if(box){
-    if(!latest)box.innerHTML=`<div class="t-sub" style="font-size:11.5px">Timbang sekali seminggu cukup — tren lebih penting dari angka harian.</div>`;
+    if(!latest)box.innerHTML=`<div class="t-sub" style="font-size:11.5px">Timbang sekali seminggu cukup; tren lebih penting dari angka harian.</div>`;
     else{
       const prev=entries[1];
       const d=prev?latest[1].weight-prev[1].weight:0;
@@ -7227,7 +7284,7 @@ function renderBeratCard(){
     }else trend.innerHTML='';
   }
   if(note){
-    note.innerHTML=FIT.weightGoal?(latest?`Sasaran <b>${FIT.weightGoal} kg</b> — ${Math.abs(latest[1].weight-FIT.weightGoal).toFixed(1)} kg lagi.`:`Sasaran <b>${FIT.weightGoal} kg</b> — catat berat pertamamu.`):'Tren naik/turun halus lebih jujur daripada satu angka — timbang di waktu yang sama tiap pekan.';
+    note.innerHTML=FIT.weightGoal?(latest?`Sasaran <b>${FIT.weightGoal} kg</b>: ${Math.abs(latest[1].weight-FIT.weightGoal).toFixed(1)} kg lagi.`:`Sasaran <b>${FIT.weightGoal} kg</b>: catat berat pertamamu.`):'Tren naik/turun halus lebih jujur daripada satu angka; timbang di waktu yang sama tiap pekan.';
   }
 }
 function renderPulihCard(){
@@ -7240,12 +7297,12 @@ function renderPulihCard(){
   const lastW=WORKOUTS[0];
   const gap=lastW?Math.round((TODAY-new Date(lastW.date+'T00:00:00'))/864e5):null;
   let advice;
-  if(val&&val<=2)advice='Tubuh masih lelah — hari ini cocok untuk jalan santai atau peregangan, bukan PR baru.';
-  else if(val>=4)advice='Pemulihanmu prima — jendela bagus untuk sesi berkualitas (naikkan rep atau kg secara kecil).';
-  else advice='Cukup pulih — dengarkan tubuh: pilih gerakan sedang, jaga teknik.';
+  if(val&&val<=2)advice='Tubuh masih lelah; hari ini cocok untuk jalan santai atau peregangan, bukan PR baru.';
+  else if(val>=4)advice='Pemulihanmu prima; jendela bagus untuk sesi berkualitas (naikkan rep atau kg secara kecil).';
+  else advice='Cukup pulih; dengarkan tubuh: pilih gerakan sedang, jaga teknik.';
   sum.innerHTML=`${val?`<div class="rest-note"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg><span><b>${LBL[val]}</b> · ${advice}</span></div>`:''}
-  ${dl&&dl.sleep?`<p class="t-sub" style="margin:8px 0 0;font-size:12px">Tidur semalam <b>${dl.sleep} jam</b> (check-in Ringkasan) — ${dl.sleep>=7?'cukup untuk pulih':dl.sleep<6?'kurang; prioritas besok tidur lebih awal':'mendekati cukup'}.</p>`:''}
-  ${gap!==null&&gap>=1?`<p class="t-sub" style="margin:6px 0 0;font-size:12px">Latihan terakhir ${gap} hari lalu — otot punya waktu pulih.</p>`:''}`;
+  ${dl&&dl.sleep?`<p class="t-sub" style="margin:8px 0 0;font-size:12px">Tidur semalam <b>${dl.sleep} jam</b> (check-in Ringkasan): ${dl.sleep>=7?'cukup untuk pulih':dl.sleep<6?'kurang; prioritas besok tidur lebih awal':'mendekati cukup'}.</p>`:''}
+  ${gap!==null&&gap>=1?`<p class="t-sub" style="margin:6px 0 0;font-size:12px">Latihan terakhir ${gap} hari lalu; otot punya waktu pulih.</p>`:''}`;
 }
 
 /* ---------- render: sasaran (form) ---------- */
@@ -7402,7 +7459,7 @@ function saveWorkout(e){
   requestAnimationFrame(()=>{refit()});
   haptic(14);
   if(!reduced)botaniRain({kinds:['leaf','sparkle'],n:9});
-  toast('Latihan tersimpan',kind==='beban'?`${sets.length} set tercatat · ${Math.round(volOf(w))} kg tonase — sesi berikutnya akan dibandingkan.`:(dist?`${dist} km · ${dur} menit · pace ${paceStr(paceMinOf(w))}/km.`:`${dur} menit tercatat.`),'i-check','sage');
+  toast('Latihan tersimpan',kind==='beban'?`${sets.length} set tercatat · ${Math.round(volOf(w))} kg tonase; sesi berikutnya akan dibandingkan.`:(dist?`${dist} km · ${dur} menit · pace ${paceStr(paceMinOf(w))}/km.`:`${dur} menit tercatat.`),'i-check','sage');
 }
 function delWorkout(id){
   const w=WORKOUTS.find(x=>x.id===id);if(!w)return;
@@ -7436,7 +7493,7 @@ function saveFood(e){
   e.preventDefault();
   const name=$('#fdName').value.trim();
   const kcal=parseInt(String($('#fdKcal').value).replace(/[^\d]/g,''),10)||0;
-  if(!name||!kcal){toast('Lengkapi dulu','Nama makanan & kalori diperlukan — makro boleh kosong.','i-x','rose');return}
+  if(!name||!kcal){toast('Lengkapi dulu','Nama makanan & kalori diperlukan; makro boleh kosong.','i-x','rose');return}
   const gv=id=>{const v=parseFloat(String($(id).value).replace(',','.'));return isNaN(v)?0:Math.max(0,v)};
   const f={id:`local-f-${Date.now()}-${Math.floor(Math.random()*999)}`,date:$('#fdDate').value||dayKey(TODAY),meal:fdMealSel,name,kcal,
     protein:Math.round(gv('#fdProt')),carb:Math.round(gv('#fdCarb')),fat:Math.round(gv('#fdFat'))};
@@ -7506,11 +7563,11 @@ document.addEventListener('click',e=>{
   if(exadd){addExBlock('');return}
   if(e.target.closest('#bwSave')){
     const v=parseFloat(String($('#bwInput').value).replace(',','.'));
-    if(!(v>=20&&v<=400)){toast('Berat belum wajar','Isi antara 20–400 kg — hasil timbangan hari ini.','i-x','rose');return}
+    if(!(v>=20&&v<=400)){toast('Berat belum wajar','Isi antara 20–400 kg; hasil timbangan hari ini.','i-x','rose');return}
     bodyUpsert({weight:Math.round(v*10)/10});
     renderBeratCard();
     haptic(12);
-    toast('Berat tersimpan',`${Math.round(v*10)/10} kg untuk hari ini — tren ikut digambar ulang.`,'i-check','sage');
+    toast('Berat tersimpan',`${Math.round(v*10)/10} kg untuk hari ini; tren ikut digambar ulang.`,'i-check','sage');
     return;
   }
   if(e.target.closest('#tgSave')){saveSasaran(false);return}
@@ -7584,7 +7641,7 @@ function renderGarden(){
   if(!strip||!title)return;
   if(!HABITS.length){
     title.textContent='Taman menunggu benih pertama';
-    strip.innerHTML='<p class="t-sub" style="margin:2px 2px 4px">Tambahkan kebiasaan — tiap satu tumbuh tanamannya sendiri di sini.</p>';
+    strip.innerHTML='<p class="t-sub" style="margin:2px 2px 4px">Tambahkan kebiasaan; tiap satu tumbuh tanamannya sendiri di sini.</p>';
     return;
   }
   const dist={};HABITS.forEach(h=>{const n=gdStage(h.total).n;dist[n]=(dist[n]||0)+1});
@@ -7592,7 +7649,7 @@ function renderGarden(){
   title.textContent=`${HABITS.length} tanaman${ringkasDist?' · '+ringkasDist:''}`;
   strip.innerHTML=HABITS.map(h=>{
     const st=gdStage(h.total),on=!!doneToday[h.id];
-    return `<button type="button" class="gd-plant" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail ${esc(h.name)}" aria-label="${esc(h.name)} — ${st.n.toLowerCase()}, ${h.total} catatan${on?', sudah dicatat hari ini':''}">
+    return `<button type="button" class="gd-plant" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail ${esc(h.name)}" aria-label="${esc(h.name)}: ${st.n.toLowerCase()}, ${h.total} catatan${on?', sudah dicatat hari ini':''}">
       ${on?'<span class="gd-done" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>':''}
       <img src="/tree/${st.f}.svg" alt="" width="58" height="58" loading="lazy"/>
       <span class="gd-nm">${esc(h.name)}</span>
@@ -7653,10 +7710,10 @@ function renderMonthReport(mk,y,m){
   const spentB=budB.reduce((a,b)=>a+(byCat[b.category]||0),0);
   const ratio=elapsed?aktif/elapsed:0;
   const idTxt=identityText();
-  const refleksi=aktif===0?'Bulan ini belum ada catatan — cukup satu hari untuk memulai.'
-    :ratio>=.8?'Tamanmu nyaris tak pernah sepi bulan ini — ritme yang mengakar dalam.'
+  const refleksi=aktif===0?'Bulan ini belum ada catatan; cukup satu hari untuk memulai.'
+    :ratio>=.8?'Tamanmu nyaris tak pernah sepi bulan ini; ritme yang mengakar dalam.'
     :ratio>=.5?'Ritme yang sehat: lebih dari separuh hari sudah hidup.'
-    :'Ada hari yang masih kosong — sisa bulan adalah lahan untuk menanam.';
+    :'Ada hari yang masih kosong; sisa bulan adalah lahan untuk menanam.';
   el.innerHTML=`
     <div class="card-head" style="margin-bottom:6px">
       <div class="ch-title">
@@ -7728,9 +7785,9 @@ function renderTreeHero(){
     bar.dataset.w=pct+'%';
     animateBars(bar.closest('.tree-progress'));
   }
-  $('#treeNext').textContent=!next?'Tahap tertinggi — pohonmu berbunga terus.'
-    :a===0?'Akar tumbuh dulu di bawah tanah — catat satu aktivitas hari ini untuk menumbuhkannya.'
-    :a<7?`${next.min-a} hari aktif lagi menuju ${next.name} — akar masih bekerja diam-diam di bawah tanah.`
+  $('#treeNext').textContent=!next?'Tahap tertinggi; pohonmu berbunga terus.'
+    :a===0?'Akar tumbuh dulu di bawah tanah; catat satu aktivitas hari ini untuk menumbuhkannya.'
+    :a<7?`${next.min-a} hari aktif lagi menuju ${next.name}; akar masih bekerja diam-diam di bawah tanah.`
     :`${next.min-a} hari aktif lagi menuju ${next.name}.`;
   /* kartu sisi (desktop): cerita pertumbuhan yang sama */
   $('#sideCardT').textContent=`${st.name} · ${a} hari aktif`;
@@ -7768,8 +7825,8 @@ function renderWeekRhythm(){
   const wc=weekLogCounts(2);
   const cur=wc[1]?wc[1].c:0,prev=wc[0]?wc[0].c:0,delta=cur-prev;
   $('#weekNoteText').textContent=aktif===0&&counts[6].future
-    ?'Pekan masih sepi — satu catatan hari ini cukup untuk memulai.'
-    :delta>0?`Lebih ramai dari pekan lalu — ${delta} catatan lebih banyak.`
+    ?'Pekan masih sepi; satu catatan hari ini cukup untuk memulai.'
+    :delta>0?`Lebih ramai dari pekan lalu: ${delta} catatan lebih banyak.`
     :delta<0?`Pekan lalu lebih ramai ${-delta} catatan. Tidak apa-apa, mulai dari hari ini.`
     :'Setara dengan pekan lalu.';
   renderWeekCmp(counts,ws); /* v2.37 · pembanding pekan berdampingan */
@@ -7799,7 +7856,7 @@ function renderLastWeek(){
       <span class="lw-dot ${x.n>0?'on':''}">${x.n>0?'<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>':''}</span>
       <span class="lw-n">${x.d.getDate()}</span>
     </div>`).join('');
-  let delta=null,deltaTxt='—';
+  let delta=null,deltaTxt='–';
   if(keluarPrev>0){
     delta=Math.round((keluar-keluarPrev)/keluarPrev*100);
     deltaTxt=delta<0?`turun ${-delta}%`:delta>0?`naik ${delta}%`:'setara';
@@ -7808,10 +7865,10 @@ function renderLastWeek(){
     <div class="lw-stat"><small>Catatan</small><b class="t-num">${total}</b></div>
     <div class="lw-stat"><small>Keluar</small><b class="t-num" style="color:${keluar?'var(--rose-deep)':'var(--ink-3)'}">${rupiah(keluar)}</b></div>
     <div class="lw-stat"><small>Vs sebelumnya</small><b class="t-num" style="color:${delta==null?'var(--ink-3)':delta<=0?'var(--sage-deep)':'var(--rose-deep)'}">${deltaTxt}</b></div>`;
-  $('#lwNote').textContent=aktif===7?'Pekan penuh — tujuh hari semua berisi catatan. 🌸'
-    :aktif>=5?`Pekan yang sehat — ${7-aktif} hari kosong tak menghapus progres.`
-    :aktif>=1?`Pekan start-stop — pekan ini cukup mulai dari satu catatan.`
-    :'Pekan lalu sepi — tak apa; hari ini batang pertama ditanam.';
+  $('#lwNote').textContent=aktif===7?'Pekan penuh; tujuh hari semua berisi catatan. 🌸'
+    :aktif>=5?`Pekan yang sehat; ${7-aktif} hari kosong tak menghapus progres.`
+    :aktif>=1?`Pekan start-stop; pekan ini cukup mulai dari satu catatan.`
+    :'Pekan lalu sepi. Tak apa; hari ini batang pertama ditanam.';
   const card=$('#lastWeekCard');if(card)card.dataset.start=s;
 }
 
@@ -7826,10 +7883,10 @@ function renderHabitsHero(){
   $('#habHeroTitle').textContent=n?`${done} dari ${n} kebiasaan selesai`:'Ritme tanam menunggu';
   /* v2.19 · copy goal-gradient: makin dekat sempurna, makin ringan melangkah */
   $('#habHeroSub').textContent=!n?'Tambahkan kebiasaan pertama untuk mulai menumbuhkan ritme.'
-    :done>=n?'Semua kebiasaan hari ini tuntas — istirahat yang layak. Tamanmu berbunga 🌸'
-    :n-done===1?'Hampir sempurna — satu contangan lagi hari ini.'
-    :done>0?`${done} tuntas · ${n-done} lagi menuju hari sempurna — kamu sedang melangkah.`
-    :`${n} kebiasaan menunggu — mulai dari yang paling ringan.`;
+    :done>=n?'Semua kebiasaan hari ini tuntas; istirahat yang layak. Tamanmu berbunga 🌸'
+    :n-done===1?'Hampir sempurna; satu contangan lagi hari ini.'
+    :done>0?`${done} tuntas · ${n-done} lagi menuju hari sempurna; kamu sedang melangkah.`
+    :`${n} kebiasaan menunggu; mulai dari yang paling ringan.`;
   /* v2.19 · streak-guard: loss aversion lembut — runtun panjang yang belum
      dicatat hari ini diberi pengingat hangat (bukan ancaman merah) */
   const guard=$('#habStreakGuard');
@@ -7838,7 +7895,7 @@ function renderHabitsHero(){
     const berisiko=HABITS.filter(h=>h.best>=3&&!(doneToday[h.id]||isRestOn(h,tk))); /* v2.54 · hari jeda tak dianggap berisiko */
     const top=berisiko.sort((a,b)=>b.best-a.best)[0];
     if(top&&berisiko.length){
-      $('#habStreakTxt').textContent=`Jaga runtun ${top.best} hari milik ${top.name} — satu catatan agar tak putus`;
+      $('#habStreakTxt').textContent=`Jaga runtun ${top.best} hari milik ${top.name}; satu catatan agar tak putus`;
       guard.hidden=false;
     }else guard.hidden=true;
   }
@@ -7915,7 +7972,7 @@ function renderWawasanHero(){
   let weeks=weekBuckets();
   if(!weeks.length){
     $('#wawHeroTitle').textContent='Catatan menunggu jadwalnya';
-    $('#wawHeroSub').textContent='Semua catatan masih di masa depan — belum ada pekan tercatat.';
+    $('#wawHeroSub').textContent='Semua catatan masih di masa depan; belum ada pekan tercatat.';
     $('#wawHeroBar').dataset.w='0%';
     $('#wawHeroPill').textContent='0 minggu tercatat';
     const pp0=$('#wawHeroBar').closest('.ph-progress');if(pp0)pp0.hidden=true;
@@ -7990,7 +8047,7 @@ function renderStats(){
       $('#statSpendPct').textContent=pct>=1000?ratio.toFixed(1).replace('.',',')+'× batas':pct+'% dari anggaran';
       $('#statSpendBar').dataset.w=Math.min(100,pct)+'%';
     }
-    else{$('#statSpendPct').textContent='—';$('#statSpendBar').dataset.w='0%'}
+    else{$('#statSpendPct').textContent='–';$('#statSpendBar').dataset.w='0%'}
   }
   const w=walletBalances();
   const totD=sumBy(SOURCES,s=>w[s.id]);
@@ -8047,7 +8104,7 @@ function renderToday(){
   const nRow=$('#tcNet');
   nRow.classList.toggle('pos',net>0);nRow.classList.toggle('neg',net<0);
   $('#tcNetLbl').textContent=net>0?'Surplus hari ini':net<0?'Defisit hari ini':'Net hari ini';
-  $('#tdNetSub').textContent=(!flow?'belum ada aliran uang':net>0?'pemasukan melebihi pengeluaran':net<0?'pengeluaran melebihi pemasukan':'seimbang — masuk = keluar')+(nTf?` · ${nTf} transfer netral`:'');
+  $('#tdNetSub').textContent=(!flow?'belum ada aliran uang':net>0?'pemasukan melebihi pengeluaran':net<0?'pengeluaran melebihi pemasukan':'seimbang (masuk = keluar)')+(nTf?` · ${nTf} transfer netral`:'');
   /* bedeng pos teratas v2.46: ubin ikon kategori + JEJAK TERAKHIR +
      bar porsi; ketuk baris → bedah kategori bulan berjalan */
   const mk=k.slice(0,7);
@@ -8073,7 +8130,7 @@ function renderToday(){
     const sorted=[...tx].sort((a,b)=>(b.date+b.id).localeCompare(a.date+a.id));
     rowsEl.innerHTML=drillCap(`Catatan hari ini · ${tx.length}`)+txListHTML(sorted,4);
   }else{
-    rowsEl.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada catatan uang hari ini — mulai dari <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">form Catat transaksi</button>.</span></div>`;
+    rowsEl.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada catatan uang hari ini; mulai dari <button type="button" class="link-btn" data-open-modal="modalTx" style="padding:2px 0">form Catat transaksi</button>.</span></div>`;
   }
 }
 /* ---------- v2.8 · banner jatah harian ---------- */
@@ -8248,15 +8305,15 @@ function habitNudge(h,done){
   if(!h)return null;
   const gap=h.last?Math.round((startOfDay(TODAY)-new Date(h.last+'T00:00:00'))/864e5):null;
   /* v2.54 · hari jeda: runtun aman — tak perlu peringatan bolong */
-  if(!done&&isRestOn(h,dayKey(TODAY)))return{txt:'Hari jeda — runtunmu aman walau tak dicatat. Tetap boleh dicatat bila sempat.',tone:'honey'};
+  if(!done&&isRestOn(h,dayKey(TODAY)))return{txt:'Hari jeda; runtunmu aman walau tak dicatat. Tetap boleh dicatat bila sempat.',tone:'honey'};
   if(!done){
-    if(gap===2)return{txt:`Kemarin bolong — hari ini jangan sampai dua kali.${h.mini?` Versi mini: ${h.mini}.`:''}`,tone:'honey'};
-    if(gap!=null&&gap>=3&&h.mini)return{txt:`Sudah ${gap} hari rehat — mulai dari versi mini: ${h.mini}.`,tone:'honey'};
+    if(gap===2)return{txt:`Kemarin bolong; hari ini jangan sampai dua kali.${h.mini?` Versi mini: ${h.mini}.`:''}`,tone:'honey'};
+    if(gap!=null&&gap>=3&&h.mini)return{txt:`Sudah ${gap} hari rehat; mulai dari versi mini: ${h.mini}.`,tone:'honey'};
   }
   let done7=0;
   for(const k of wkKeys().last7){if(h.dates.includes(k))done7++} /* v2.64 · kunci 7 hari terakhir dari cache — dulu 7 alokasi Date per kartu */
-  if(done7>=7)return{txt:'Pekan sempurna 7/7 — waktunya naik kelas? Tambah takarannya.',tone:'sage'};
-  if(!done&&done7<=3&&h.total>=8&&h.first&&h.first<=dayKey(addDays(TODAY,-6)))return{txt:`Pekan ini ${done7}/7 — perkecil takarannya dulu; versi 2 menit pun sah.`,tone:'honey'};
+  if(done7>=7)return{txt:'Pekan sempurna 7/7; waktunya naik kelas? Tambah takarannya.',tone:'sage'};
+  if(!done&&done7<=3&&h.total>=8&&h.first&&h.first<=dayKey(addDays(TODAY,-6)))return{txt:`Pekan ini ${done7}/7; perkecil takarannya dulu, versi 2 menit pun sah.`,tone:'honey'};
   return null;
 }
 function renderHabitCards(anim){
@@ -8417,7 +8474,7 @@ function renderBudgets(){
   });
   if(!rows.length){
     $('#budgetList').innerHTML=`<div class="empty-state" style="padding:18px 10px"><svg class="ill" style="width:130px" aria-hidden="true"><use href="#ill-kosong"/></svg><b>Belum ada anggaran</b><p>Belum ada batas yang tercatat untuk ${esc(monthLabel(mk))}.</p></div>`;
-    $('#budgetLeft').textContent='—';return;
+    $('#budgetLeft').textContent='–';return;
   }
   $('#budgetList').innerHTML=rows.map(r=>{
     const st=finStyle(r.category);
@@ -8773,7 +8830,7 @@ function fillTxMonths(){
 /* ---------- pengaturan ---------- */
 const catUsage=name=>(agg().cnt[name]||0); /* v2.64 · peta agregat — dulu TXS.filter penuh PER KATEGORI tiap buka tab Pengaturan */
 function renderSettings(){
-  $('#setUserName').textContent=SETTINGS.userName||'—';
+  $('#setUserName').textContent=SETTINGS.userName||'–';
   $('#setWeek').textContent=WS===0?'Minggu':'Senin';
   $('#setTarget').textContent=Math.round(+SETTINGS.targetCompletion||80)+'% catatan';
   $('#setDataCounts').textContent=`${HABITS.length} kebiasaan · ${TXS.length} transaksi`;
@@ -8826,10 +8883,10 @@ function askDelete(kind,key,extra){
     if(t.type==='transfer'){
       /* v2.30 · transfer = dua baris; dialog mengabari kedua sisi ikut keluar */
       const p=transferPairOf(t);
-      if(p)desc=`Transfer ini tercatat sebagai <b>dua baris</b> — keluar dari <b>${esc(srcName(t.sourceId))}</b>, masuk ke <b>${esc(srcName(p.sourceId))}</b>, sama-sama <b>${rupiah(t.amount)}</b> pada ${tglBulan(t.date)}.<br><b>Keduanya dihapus bersama-sama</b> supaya saldo kedua dompet tetap seimbang.`;
-      else desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Baris pasangannya tak ditemukan otomatis (ada beberapa transfer senilai sama pada tanggal yang sama) — hanya baris ini yang keluar. Periksa <b>Mutasi → Transfer</b> untuk sisi sebaliknya.`;
+      if(p)desc=`Transfer ini tercatat sebagai <b>dua baris</b>: keluar dari <b>${esc(srcName(t.sourceId))}</b>, masuk ke <b>${esc(srcName(p.sourceId))}</b>, sama-sama <b>${rupiah(t.amount)}</b> pada ${tglBulan(t.date)}.<br><b>Keduanya dihapus bersama-sama</b> supaya saldo kedua dompet tetap seimbang.`;
+      else desc=`${esc(t.description||'–')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Baris pasangannya tak ditemukan otomatis (ada beberapa transfer senilai sama pada tanggal yang sama); hanya baris ini yang keluar. Periksa <b>Mutasi → Transfer</b> untuk sisi sebaliknya.`;
     }else{
-      desc=`${esc(t.description||'—')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Statistik arus kas, donat kategori, anggaran, jatah harian, dan saldo dompet dihitung ulang tanpa transaksi ini.`;
+      desc=`${esc(t.description||'–')} · ${esc(t.category)} · ${tglBulan(t.date)}${t.sourceId?` · ${esc(srcName(t.sourceId))}`:''}.<br>Statistik arus kas, donat kategori, anggaran, jatah harian, dan saldo dompet dihitung ulang tanpa transaksi ini.`;
     }
     $('#delEyebrow').textContent='Hapus transaksi';
   }else if(kind==='budget'){
@@ -8847,7 +8904,7 @@ function askDelete(kind,key,extra){
     $('#delEyebrow').textContent='Hapus dompet';
   }else if(kind==='local'){
     name='Catatan lokal perangkat';
-    desc=`Ada <b>${ovCount()}</b> catatan yang belum tersinkron ke database — transaksi, centang kebiasaan, anggaran, dompet & nama kategori. Semuanya dibuang dari perangkat ini, lalu Rutina memuat ulang data server.`;
+    desc=`Ada <b>${ovCount()}</b> catatan yang belum tersinkron ke database: transaksi, centang kebiasaan, anggaran, dompet & nama kategori. Semuanya dibuang dari perangkat ini, lalu Rutina memuat ulang data server.`;
     $('#delEyebrow').textContent='Buang catatan lokal';
   }else{
     name=key;
@@ -8945,7 +9002,7 @@ function doDelete(){
     animRowsOut(rowsOut,()=>{
       quietPaint(()=>{refinance();fillTxMonths()}); /* v2.64 · hening */
     });
-    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)} — jatah harian dihitung ulang.`,'i-trash','rose');
+    toast('Anggaran dihapus',`${cat} · ${monthShort(mk)}; jatah harian dihitung ulang.`,'i-trash','rose');
     return;
   }else if(kind==='source'){
     const n=TXS.filter(t=>t.sourceId===key).length;
@@ -8971,7 +9028,7 @@ function doDelete(){
     try{localStorage.removeItem(LS_KEY)}catch(_){}
     OV=ovBlank();
     delTarget=null;closeModals();
-    toast('Catatan lokal dibuang','Yang belum tersinkron dihapus dari perangkat — memuat ulang Rutina…','i-leaf','sage');
+    toast('Catatan lokal dibuang','Yang belum tersinkron dihapus dari perangkat; memuat ulang Rutina…','i-leaf','sage');
     setTimeout(()=>location.reload(),700);
     return;
   }else{
@@ -9046,7 +9103,7 @@ function renderDayDetail(d){
   const doneIds=future?[]:(logsByDate[k]||[]);
   const habitRows=HABITS.map(h=>{
     const on=doneIds.includes(h.id);
-    return `<div class="dd-habit drillable ${on?'y':'n'}" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0" title="Ketuk: detail kebiasaan"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:12px;color:var(--ink-3)">${on?'selesai':'—'}</span></div>`;
+    return `<div class="dd-habit drillable ${on?'y':'n'}" data-drill="habit" data-id="${esc(h.id)}" role="button" tabindex="0" title="Ketuk: detail kebiasaan"><svg class="ic" aria-hidden="true"><use href="#${on?'i-check':'i-x'}"/></svg>${esc(h.name)}<span style="margin-left:auto;font-size:12px;color:var(--ink-3)">${on?'selesai':'–'}</span></div>`;
   }).join('');
   const txRows=tx.length?tx.slice(0,4).map(t=>{
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
@@ -9149,7 +9206,7 @@ function renderFindings(){
   const lastKey=allKeys.sort()[allKeys.length-1];
   const gap=lastKey?Math.round((TODAY-new Date(lastKey+'T00:00:00'))/864e5):null;
   const items=[];
-  if(ch)items.push({ill:'ill-api',b:`${ch.name}: paling sering dicatat`,s:`${ch.total} kali dicatat sejak ${ch.first?tglBulan(ch.first):'—'} · rekor ${ch.best} hari berturut-turut.`});
+  if(ch)items.push({ill:'ill-api',b:`${ch.name}: paling sering dicatat`,s:`${ch.total} kali dicatat sejak ${ch.first?tglBulan(ch.first):'–'} · rekor ${ch.best} hari berturut-turut.`});
   if(dowSum[best])items.push({ill:'ill-pagi',b:`Hari terproduktif: ${HARI[(best+WS)%7]}`,s:`${dowSum[best]} catatan, terbanyak dari semua hari.`});
   if(entries[0])items.push({ill:'ill-keranjang',b:`Pos terbesar: ${entries[0][0]}`,s:`${rupiah(entries[0][1])} · ${Math.round(entries[0][1]/total*100)}% dari total belanja.`});
   if(topSrc)items.push({ill:'ill-dompet',b:`${srcName(topSrc[0])}: sumber teraktif`,s:`${topSrc[1]} dari ${TXS.length} transaksi lewat sumber ini.`});
@@ -9175,9 +9232,9 @@ function renderBadges(){
   const list=[
     {ill:'ill-sprout',t:'Benih Pertama',s:'Kebiasaan pertama berhasil dibuat',ok:HABITS.length>=1,tag:`${HABITS.length} kebiasaan tercatat`},
     {ill:'ill-api',t:'Api Pertama',s:'Satu kebiasaan beruntun 7 hari',ok:maxRun>=7,tag:`Terbaik ${maxRun} hari`},
-    {ill:'ill-piala',t:'Hari Terpadat',s:'5+ kebiasaan dalam sehari',ok:!!(busiest&&busiest[1].length>=5),tag:busiest?`Puncak ${busiest[1].length} catatan · ${tglPendek(busiest[0])}`:'—'},
+    {ill:'ill-piala',t:'Hari Terpadat',s:'5+ kebiasaan dalam sehari',ok:!!(busiest&&busiest[1].length>=5),tag:busiest?`Puncak ${busiest[1].length} catatan · ${tglPendek(busiest[0])}`:'–'},
     {ill:'ill-medali',t:'Trio 30',s:'3 kebiasaan dengan 30+ catatan',ok:trio>=3,tag:`${trio}/3 kebiasaan`},
-    {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan paling konsisten dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'—'},
+    {ill:'ill-roket',t:'Penjaga Andalan',s:'Kebiasaan paling konsisten dengan 30+ catatan',ok:!!(ch&&ch.total>=30),tag:ch?`${ch.total} catatan (${ch.name})`:'–'},
     {ill:'ill-lari',t:'Jalan 10×',s:'Kebiasaan Jalan tercatat 10 kali',ok:!!(jalan&&jalan.total>=10),tag:`${jalan?jalan.total:0}/10 catatan`},
   ];
   BADGE_LIST=list;
@@ -9243,10 +9300,10 @@ function toggleCheck(id,src){
     if(doneTodayCount()>=HABITS.length&&HABITS.length>0){
       /* hari sempurna: hujan kelopak & daun + ucapan yang menyentuh */
       botaniRain({kinds:['petal','leaf','sparkle','coin'],n:26});
-      toast('Hari sempurna! 🌸',`Semua ${HABITS.length} kebiasaan tuntas hari ini. Terima kasih sudah merawat tamanmu — besok tunas baru menunggu.`,'i-sparkle','honey');
+      toast('Hari sempurna! 🌸',`Semua ${HABITS.length} kebiasaan tuntas hari ini. Terima kasih sudah merawat tamanmu; besok tunas baru menunggu.`,'i-sparkle','honey');
     }
-    else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)} — ritme kebiasaanmu hidup. 🌱`,'i-check','sage');
-    else toast('Kebiasaan selesai',`${h.name} tercatat — tunas hari ini ikut tumbuh. 🌿`,'i-check','sage');
+    else if(isAmount(h))toast('Target tercapai',`${h.name} · ${amtLabel(h)}; ritme kebiasaanmu hidup. 🌱`,'i-check','sage');
+    else toast('Kebiasaan selesai',`${h.name} tercatat; tunas hari ini ikut tumbuh. 🌿`,'i-check','sage');
   }
   /* v2.21 · centang tersimpan di perangkat — buka ulang aplikasi tak lagi hilang */
   const lk=logKey(id,k);
@@ -9664,7 +9721,7 @@ function fillHabitSelects(excludeId){
   $('#habitGroup').innerHTML=`<option value="">Tanpa grup</option>`+GROUPS.map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');
   /* v2.35 · jangkar susun kebiasaan: daftar kebiasaan lain sebagai pilihan
      v2.37 · kebiasaan yang sedang disunting tak boleh menjangkar dirinya */
-  $('#habitAfter').innerHTML=`<option value="">— tanpa jangkar —</option>`+HABITS.filter(h=>h.id!==excludeId).map(h=>`<option value="${esc(h.id)}">${esc(h.name)}</option>`).join('');
+  $('#habitAfter').innerHTML=`<option value="">(tanpa jangkar)</option>`+HABITS.filter(h=>h.id!==excludeId).map(h=>`<option value="${esc(h.id)}">${esc(h.name)}</option>`).join('');
 }
 /* ---------- v2.37 · SUNTING KEBIASAAN ----------
    Sebelum v2.37 kebiasaan hanya bisa dibuat/dihapus — salah ketik nama
@@ -9707,7 +9764,7 @@ function setHabitRest(id,k,on){
   k=String(k||'').slice(0,10);
   if(!/^\d{4}-\d{2}-\d{2}$/.test(k)){toast('Tanggal jeda belum valid','Pilih tanggal mulai hari ini ke depan.','i-clock','honey');return false}
   const tk=dayKey(TODAY);
-  if(on&&k<tk){toast('Jeda hanya bisa dijadwalkan ke depan','Atur mulai hari ini ke depan — jeda direncanakan sebelum hari itu tiba.','i-clock','honey');return false}
+  if(on&&k<tk){toast('Jeda hanya bisa dijadwalkan ke depan','Atur mulai hari ini ke depan; jeda direncanakan sebelum hari itu tiba.','i-clock','honey');return false}
   const wkOf=kk=>dayKey(weekStartOf(new Date(kk+'T00:00:00')));
   const rests=(h.rests||[]).slice();
   let pindah=null;
@@ -9737,7 +9794,7 @@ function setHabitRest(id,k,on){
   /* segarkan tampilan yang memakai runtun & titik pekan */
   renderHabitCards();renderHabitsHero();renderGarden();renderStats();renderTip();
   toast(on?'Jeda terjadwal':'Jeda dilepas',
-    on?(pindah?`${h.name} · dipindah dari ${tglPendek(pindah)} ke ${tglPendek(k)} — sepekan hanya satu jeda.`:`${h.name} · ${tglPendek(k)} — runtun tak akan putus hari itu.`)
+    on?(pindah?`${h.name} · dipindah dari ${tglPendek(pindah)} ke ${tglPendek(k)}; sepekan hanya satu jeda.`:`${h.name} · ${tglPendek(k)}; runtun tak akan putus hari itu.`)
     :`${h.name} · ${tglPendek(k)} kembali jadi hari biasa.`,
     'i-moon',on?'honey':'sage');
   return true;
@@ -10180,7 +10237,7 @@ function tunasWake(){
       const o=sel.options[sel.selectedIndex];
       const lab=o?splitEmoji(o.textContent):null;
       trig.innerHTML=(lab&&lab.e?`<span class="cs-emoji">${esc_(lab.e)}</span>`:'')
-        +`<span class="cs-lab${o?'':' ph'}">${o?esc_(lab.t||o.textContent):'— pilih —'}</span>`+CHEV;
+        +`<span class="cs-lab${o?'':' ph'}">${o?esc_(lab.t||o.textContent):'– pilih –'}</span>`+CHEV;
     };
     SYNCERS.push(sync);
     trig.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
@@ -10671,7 +10728,7 @@ function tunasWake(){
   let tipSeen=false;
   try{tipSeen=localStorage.getItem('rutina.tip.v15')==='1';localStorage.setItem('rutina.tip.v15','1')}catch(_){}
   if(!tipSeen)setTimeout(()=>{
-    if(COARSE)toast('Ketuk untuk bedah detail','Ketuk kartu statistik, kategori, anggaran, dompet, kebiasaan, hari, atau lencana — isinya terbuka dari bawah. Geser baris transaksi: kanan ubah, kiri hapus.','i-checklist');
+    if(COARSE)toast('Ketuk untuk bedah detail','Ketuk kartu statistik, kategori, anggaran, dompet, kebiasaan, hari, atau lencana; isinya terbuka dari bawah. Geser baris transaksi: kanan ubah, kiri hapus.','i-checklist');
     else toast('Pintasan papan ketik','Tekan tombol ? kapan saja untuk melihat daftar pintasan. Ketuk kartu mana pun untuk membedah isinya.','i-chart');
   },1700);
 })();
@@ -10713,7 +10770,7 @@ let staleTries=0;
 function staleDate(){try{return new Date(DBAT).toLocaleDateString('id-ID',{day:'numeric',month:'short'})}catch(_){return 'terakhir tersimpan'}}
 function staleArm(){
   const bar=$('#staleBar');if(!bar||!bar.hidden)return;
-  $('#staleTxt').textContent=`Data per ${staleDate()} — koneksi database belum terjangkau.`;
+  $('#staleTxt').textContent=`Data per ${staleDate()}; koneksi database belum terjangkau.`;
   bar.hidden=false;
   staleTries=0;
   setTimeout(staleRetry,9000); /* v2.42 · coba ulang otomatis (backoff 9/18/27 dtk) */
