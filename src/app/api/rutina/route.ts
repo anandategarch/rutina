@@ -159,6 +159,20 @@ async function migrateColumns(client: Client): Promise<void> {
 }
 
 async function ensureLocalSchema(client: Client): Promise<void> {
+  /* v2.60 · hardening SQLite pratinjau — audit "koneksi ke database aman
+     dan sehat ya?" menemukan file db memakai journal_mode=delete bawaan:
+     satu penulis mengunci seluruh file → pembacaan GET saat sinkronisasi
+     POST berjalan bisa kena SQLITE_BUSY. Dua pragma permanen memperbaikinya
+     tanpa mengubah semantik transaksi:
+     · WAL — pembaca & penulis hidup bersamaan; file -wal/-shm akan muncul
+       di samping db/rutina-preview.db (normal, bukan kebocoran).
+     · busy_timeout 5 dtk — penulis kedua menunggu antrean, bukan gagal.
+     klien lokal adalah singleton per proses, jadi pragma sekali di boot
+     berlaku untuk seluruh umur server; idempoten & aman diulang. */
+  try {
+    await client.execute("PRAGMA journal_mode=WAL");
+    await client.execute("PRAGMA busy_timeout=5000");
+  } catch { /* modul read-only / fs aneh → lanjut dengan perilaku lama */ }
   for (const sql of DDL) await client.execute(sql);
   await migrateColumns(client);
   const res = await client.execute(`SELECT COUNT(*) AS n FROM "Habit"`);

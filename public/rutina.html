@@ -8,6 +8,24 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.60 · RITME KARTU TAB BUGAR + KESEHATAN DATABASE — permintaan
+     pengguna ("di tab bugar tampilan mobile jarak antara card tidak
+     konsisten dan terlalu dekat coba cek keseluruhan juga. coba juga
+     koneksi ke data base aman dan sehat ya?"):
+     (1) SPASI KARTU BUGAR 0px — aturan ritme [data-fin-pane]>.card hanya
+     menyasar pane keuangan; semua kartu dalam pane bugar (beban, kardio,
+     grafik, target, kalori, mutasi kalori, hidrasi, berat, pemulihan,
+     sasaran) TIDAK punya margin → saling menempel 0px di ponsel & desktop.
+     Kini [data-bugar-pane]>.card margin-bottom 20px (ritme identik pane
+     keuangan), kartu terakhir rapat ke bawah, dan .bugar-tabs ikut aturan
+     mobile 16px bersama .fin-tabs. Audit menyeluruh 7 halaman × semua
+     pane: tidak ada lagi pasangan kartu berjarak < 8px; audit overflow
+     horizontal bersih (taman kebiasaan = strip gulir disengaja).
+     (2) DATABASE — integrity_check ok, nol baris yatim/nol duplikat;
+     pratinjau lokal SQLite kini journal_mode=WAL + busy_timeout 5 dtk
+     (pembaca GET tak lagi terkunci penulis POST — SQLITE_BUSY musnah),
+     diuji stres 4 POST + 4 GET serentak: lulus, idempoten, data bersih.
+     sw.js STATIC_CACHE → v62. -->
 <!-- v2.59 · BUGFIX TAB BUGAR — audit pasca-rilis menemukan & memperbaiki:
      (1) KRITIS: JSON snapshot tertanam terpotong (kurang kurung tutup
      pembungkus) — first-paint instan v2.42 & seeding database pratinjau
@@ -643,6 +661,17 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 /* ---- strip statistik bugar (mini-stats dipakai ulang) ---- */
 .bugar-tabs{display:flex;gap:8px;margin:0 0 20px;overflow-x:auto;scrollbar-width:none}
 .bugar-tabs::-webkit-scrollbar{display:none}
+/* v2.60 · ritme vertikal kartu bugar — pola pane keuangan dipakai ulang.
+   SEBELUMNYA kartu dalam pane bugar TIDAK punya margin apa pun (aturan
+   [data-fin-pane]>.card hanya menyasar pane keuangan) → bebanCard,
+   kardioCard, fitChartCard, fitTargetCard, kaloriCard, mutasiKalCard,
+   hidrasiCard, beratCard, pulihCard & sasaranCard saling MENEMPEL 0px
+   di ponsel maupun desktop — jarak antar kartu terlihat "terlalu dekat"
+   dan tidak konsisten dengan tab lain (14–20px). Kini satu ritme 20px
+   sama seperti pane keuangan; elemen penutup tetap rapat ke bawah
+   (tanpa margin) supaya tidak ada ruang hampa sebelum akhir pane. */
+[data-bugar-pane]>.card{margin-bottom:20px}
+[data-bugar-pane]>.card:last-child{margin-bottom:0}
 
 /* ---- kartu buku beban ---- */
 .wk-ex{border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;margin-bottom:10px;background:var(--surface)}
@@ -4613,7 +4642,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .sf-net.in{color:var(--sage-deep)}
 .sf-net.out{color:var(--rose-deep)}
 @media(max-width:640px){
-  .fin-tabs{margin-bottom:16px}
+  .fin-tabs,.bugar-tabs{margin-bottom:16px}
   .fin-tab{gap:6px;font-size:12.5px;min-height:44px}
   .ft-full{display:none}
   .ft-short{display:inline}
@@ -4822,7 +4851,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.59';
+const APP_VERSION='v2.60';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
