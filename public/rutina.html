@@ -8,6 +8,42 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.63 · ADAPTASI MODERN WEB GUIDANCE — repo referensi
+     github.com/GoogleChrome/modern-web-guidance (kurasi Google Chrome /
+     Edge / Firefox / MDN, 250+ fitur platform web modern) dievaluasi
+     terhadap arsitektur rutina; yang diadopsi adalah panduan yang paling
+     relevan & paling aman (progresif murni, tanpa refactor), yang
+     dinilai & sengaja TIDAK diadopsi: <dialog>+@starting-style (sheet
+     kustom dengan gestur geser-tutup & manajemen fokus sendiri sudah
+     matang — migrasi = risiko regresi), View Transitions antar-tab
+     (koreografi stagger kartu bespoke sudah lebih halus), popover API
+     untuk popup kalender/jam (anchoring & light-dismiss manual sudah
+     teruji). Yang DIADOPTI:
+     (1) KUNCI-GULIR OVERLAY DEKLARATIF — mutasi JS
+     document.body.style.overflow (pola lama, rapuh & layout-shift)
+     diganti body.ov-open{overflow:hidden} satu sumber kebenaran bersama
+     pembeku animasi v2.62; popup kalender/jam & panel bantuan yang
+     dulu TIDAK mengunci gulir latar kini terkunci seragam.
+     (2) overscroll-behavior:contain di .modal/.sheet/.pop-scrim
+     (panduan prevent-page-scroll-under-modal): gulir di batas sheet
+     tak merangkai ke halaman di belakang scrim.
+     (3) scrollbar modern (panduan customize-scrollbar): jalur STANDARD
+     scrollbar-color/gutter + fallback ::-webkit-scrollbar DIBUNGKUS
+     @supports not(scrollbar-color:auto) (Chrome/FF kini jalur standard,
+     Safari lama tetap fallback) — jempol digelapkan ke #64748B agar
+     kontras ≥3:1 (WCAG 1.4.11 non-teks); scrollbar-gutter:stable
+     mencegah geser layout saat scrollbar viewport muncul-hilang.
+     (4) :user-invalid (panduan validate-input-after-interaction) di
+     nominal transaksi: umpan balik rose tepat SETELAH interaksi/submit
+     (bukan saat baru fokus) + teks bantuan via :has() + aria-describedby;
+     form sudah novalidate — validasi tetap milik toast JS.
+     (5) text-wrap:balance (judul) & pretty (paragraf) — tipografi
+     anti-orphan, progresif nol-risiko.
+     (6) :root color-scheme:light (kontrol native selalu render terang),
+     accent-color terra (kontrol native aksen botani), font-size-adjust:
+     from-font (fallback diskalakan ke x-height Geist — swap webfont
+     tanpa CLS).
+     sw.js STATIC_CACHE → v65. -->
 <!-- v2.62 · BEBAN GPU OVERLAY LAYAR PENUH — permintaan pengguna
      ("malah tambah lemot ketika buka tambah transaksi, cek ulang semua
      nya juga dan perbaiki"). Terukur di browser: saat modal terbuka,
@@ -454,6 +490,26 @@
 @font-face{font-family:"Geist";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/geist-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
+  /* v2.63 · adaptasi Modern Web Guidance (GoogleChrome) — preferensi
+     platform modern di level akar:
+     · color-scheme:light — deklarasi eksplisit skema terang; kontrol native
+       (kalender, input) & scrollbar UA selalu render terang, tak terpengaruh
+       preferensi gelap OS pengguna (aplikasi ini sengaja light-only)
+     · accent-color — kontrol native apapun (checkbox/radio/range) otomatis
+       memakai terra, bukan biru UA
+     · scrollbar-gutter:stable — ruang scrollbar SELALU dicadangkan di
+       viewport: bilah tak lagi muncul-hilang menggeser layout saat
+       kunci-gulir overlay aktif/nonaktif (panduan anti-layout-shift)
+     · scrollbar-color — jalur STANDARD menggantikan (plus fallback) selektor
+       non-standar ::-webkit-scrollbar; jempol #64748B dipilih agar kontras
+       ≥3:1 terhadap latar (WCAG 1.4.11 non-teks)
+     · font-size-adjust:from-font — fallback font diskalakan ke rasio
+       x-height Geist: swap webfont tak lagi menggeser teks (CLS) */
+  color-scheme:light;
+  accent-color:var(--terra);
+  scrollbar-gutter:stable;
+  scrollbar-color:#64748B transparent;
+  font-size-adjust:from-font;
   --bg:#F8FAFC; --bg-deep:#F1F5F9;
   --surface:#FFFFFF; --surface-2:#F8FAFC; --cream:#ECFDF5;
   --line:#E2E8F0; --line-soft:#EEF2F6;
@@ -1562,6 +1618,24 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .cons-note{display:flex;gap:10px;align-items:center;margin-top:10px;padding:9px 12px;border-radius:var(--r-md);background:var(--sage-soft);border:1px solid #BBF7D0;font-size:12.5px;font-weight:600;color:var(--sage-deep)}
 .cons-note .ic{width:17px;height:17px;flex:none}
 
+/* ============================================================
+   v2.63 · MODERN WEB GUIDANCE (GoogleChrome/modern-web-guidance)
+   — pola lama "mutasi overflow body via JS" diganti kurasi modern:
+   · body.ov-open{overflow:hidden} — kunci-gulir deklaratif SATU sumber
+     kebenaran (kelas yang sama dengan pembeku animasi v2.62); semua
+     overlay (modal, popup kalender/jam, panel bantuan) terkunci seragam
+     — sebelumnya popup & panel bantuan TIDAK mengunci gulir latar
+     (halaman di belakang masih bisa bergulir, tidak konsisten)
+   · .modal + .sheet + .pop-scrim memasang overscroll-behavior:contain
+     (panduan "prevent page scroll under modal") — gestur gulir DI DALAM
+     sheet berhenti di batas sheet (tak merangkai ke halaman di belakang);
+     gestur di atas scrim terperangkap di elemen fixed (browser modern)
+   · saat kunci aktif, scrollbar viewport hilang TANPA menggeser layout
+     karena scrollbar-gutter:stable (lihat :root) */
+body.ov-open{overflow:hidden}
+.modal{overflow:hidden;overscroll-behavior:contain}
+.sheet{overscroll-behavior:contain}
+.pop-scrim{overflow:hidden;overscroll-behavior:contain}
 /* ---------- modal ---------- */
 .modal{position:fixed;inset:0;z-index:90;display:none}
 .modal.open{display:flex;align-items:flex-end;justify-content:center}
@@ -1595,6 +1669,20 @@ body.ov-open .topbar,body.ov-open .tree-progress{backdrop-filter:none;-webkit-ba
 .field input[type=text],.field input[type=date],.field input[type=time],.field select{width:100%;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);padding:10px 15px;font-size:16px;font-weight:600;transition:border .18s;outline:none;appearance:none}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647568' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:42px}
 .field input:focus,.field select:focus{border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-softer)}
+/* v2.63 · :user-invalid — panduan "validate-input-after-interaction"
+  (Modern Web Guidance): umpan balik merah HANYA setelah pengguna benar-benar
+  berinteraksi (ketik-lalu-kosongkan / attempt submit), bukan saat field baru
+  difokuskan. Form sudah novalidate (validasi tetap milik toast JS), jadi
+  pseudo-class ini murni umpan-balik-dini visual. Teks bantuan .field-err
+  muncul via :has() — pesan tak dibaca layar saat tersembunyi (display:none
+  = keluar dari pohon aksesibilitas), otomatis terkait lewat
+  aria-describedby saat terlihat — dua indikator (tepi+teks), bukan
+  warna saja. */
+.field input:user-invalid{border-color:var(--rose);background:var(--rose-softer)}
+.field input:user-invalid:focus{border-color:var(--rose-deep);box-shadow:0 0 0 4px var(--rose-soft)}
+.field:has(input:user-invalid) .field-err{display:flex}
+.field-err{display:none;align-items:center;gap:6px;margin-top:6px;font-size:13px;font-weight:600;color:var(--rose-deep)}
+.field-err .ic{width:15px;height:15px;flex:none}
 .field input{caret-color:var(--terra)}
 .field input::placeholder{color:var(--ink-3);font-weight:500}
 .search-box input{caret-color:var(--terra)}
@@ -1620,7 +1708,14 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .cs.open>.cs-trigger .cs-chev{transform:rotate(180deg)}
 .cs-trigger:focus-visible{outline:none;border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-softer)}
 /* --- menu dropdown --- */
-.cs-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-md);padding:6px;max-height:266px;overflow-y:auto;overscroll-behavior:contain;display:none;transform-origin:top center}
+.cs-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-md);padding:6px;max-height:266px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;display:none;transform-origin:top center}
+/* v2.63 · idem pola scrollbar modern: fallback webkit di balik
+   @supports not(scrollbar-color:auto); jalur standard thin (atas) primer */
+@supports not (scrollbar-color:auto){
+  .cs-menu::-webkit-scrollbar{width:8px}
+  .cs-menu::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:8px;border:2px solid var(--surface)}
+  .cs-menu::-webkit-scrollbar-thumb:hover{background:var(--ink-2)}
+}
 .cs-menu.up{top:auto;bottom:calc(100% + 8px);transform-origin:bottom center}
 .cs.open>.cs-menu{display:block;animation:menuIn .3s cubic-bezier(.25,1.1,.4,1)}
 @keyframes menuIn{from{opacity:0;transform:translateY(-7px) scale(.975)}to{opacity:1;transform:none}}
@@ -1631,9 +1726,12 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 .cs-opt:hover,.cs-opt:focus-visible{background:var(--surface-2);color:var(--ink);outline:none}
 .cs-opt.on{background:var(--terra-softer);color:var(--terra-deep)}
 .cs-opt.on .cs-check{opacity:1;transform:none}
-.cs-menu::-webkit-scrollbar{width:8px}
-.cs-menu::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;border:2px solid var(--surface)}
-.cs-menu::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+/* v2.63 · text-wrap (panduan "improve text layout and legibility"):
+   balance = breaking simetris utk blok pendek (judul kartu/sheet, max 6–10
+   baris by design); pretty = anti-orphan utk paragraf panjang. Keduanya
+   progresif murni — browser lama render wrap default, nol perubahan. */
+h1,h2,h3,h4,.sheet-head h3{text-wrap:balance}
+p{text-wrap:pretty}
 /* --- varian pill (pemilih bulan di kartu riwayat) --- */
 .month-sel .cs{flex:0 1 auto;min-width:0}
 .month-sel .cs-trigger{width:auto;min-height:auto;padding:0;border:none;background:none;font-size:13px;font-weight:600;border-radius:8px;gap:0}
@@ -1787,10 +1885,19 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
 @keyframes draw{to{stroke-dashoffset:0}}
 
 /* ---------- scrollbar ---------- */
-::-webkit-scrollbar{width:9px;height:9px}
-::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px;border:2px solid var(--bg)}
-::-webkit-scrollbar-thumb:hover{background:#94A3B8}
-::-webkit-scrollbar-track{background:transparent}
+/* v2.63 · scrollbar modern (panduan "customize scrollbar color/thickness"):
+   jalur standard scrollbar-color/width (di :root, inherited) menjadi
+   primer; selektor non-standar ::-webkit-scrollbar hanya sebagai fallback
+   di balik @supports not(scrollbar-color:auto) — browser yang mendukung
+   properti standard mengabaikan selektor webkit (konflik visual dicegah),
+   browser lawas (Safari lama) tetap kena fallback. Jempol gelapkan ke
+   #64748B: kontras ≥3:1 vs latar — WCAG 1.4.11 non-teks. */
+@supports not (scrollbar-color:auto){
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#64748B;border-radius:99px;border:2px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:#475569}
+  ::-webkit-scrollbar-track{background:transparent}
+}
 
 /* ---------- responsive ---------- */
 @media(min-width:1024px){
@@ -4276,7 +4383,12 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="field">
         <label for="txAmount">Nominal</label>
-        <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required></div>
+        <!-- v2.63 · :user-invalid (Modern Web Guidance "validate-input-after-
+             interaction"): error-err muncul via .field:has(input:user-invalid)
+             HANYA setelah pengguna berinteraksi/submit — lihat CSS; terkait
+             lewat aria-describedby (tersembunyi = tak dibaca layar) -->
+        <div class="money"><span>Rp</span><input type="text" id="txAmount" inputmode="numeric" autocomplete="off" placeholder="0" required aria-describedby="txAmountErr"></div>
+        <p class="field-err" id="txAmountErr"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Nominal belum terisi — masukkan angka lebih besar dari nol.</p>
       </div>
       <div class="field" id="txCatWrap">
         <label for="txCat">Kategori</label>
@@ -4936,7 +5048,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.62';
+const APP_VERSION='v2.63';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -8979,7 +9091,7 @@ function openModal(id,trigger){
   /* v2.31 · buka saat penutupan masih berjalan → batalkan penutupan
      (entrance mengambil alih; display:none→flex me-reset animasi) */
   if(m.classList.contains('closing')||m.classList.contains('closing-drag'))finishClose(m);
-  m.classList.add('open');document.body.style.overflow='hidden';
+  m.classList.add('open'); /* v2.63 · kunci-gulir kini deklaratif: body.ov-open{overflow:hidden} — dipasang bersamaan oleh syncOvPause() di bawah */
   syncOvPause(); /* v2.62 · bekukan animasi hiasan di balik scrim (lihat CSS body.ov-open) */
   /* v2.40 · pemicu ditangkap eksplisit — tap layar sentuh tak memfokuskan
      tombol, jadi activeElement tak bisa diandalkan sebagai pemantik */
@@ -9008,16 +9120,16 @@ function finishClose(m){
   if(o&&o.focus&&document.contains(o))o.focus();
 }
 function closeModals(){
-  let any=false;
+  /* v2.63 · kunci-gulir & hiasan-dibekukan kini sepenuhnya deklaratif
+     (body.ov-open) — syncOvPause di finishClose melepas kunci begitu
+     tiap modal benar-benar tertutup; tak ada lagi mutasi inline body. */
   $$('.modal').forEach(m=>{
     if(!m.classList.contains('open'))return;
     if(m.classList.contains('closing')||m.classList.contains('closing-drag')){finishClose(m);return} /* Esc kedua → selesaikan seketika */
-    any=true;
     if(reduced){finishClose(m);return}
     m.classList.add('closing');
     m._closeT=setTimeout(()=>finishClose(m),370);
   });
-  if(any)document.body.style.overflow='';
 }
 /* v2.31 · GESER-TURUN UNTUK MENUTUP — pegang sheet (area non-kontrol)
    lalu tarik ke bawah; lepas melewati ambang → sheet pergi dari posisi
@@ -9063,7 +9175,7 @@ function closeModals(){
       sh.style.transition='transform .3s cubic-bezier(.4,0,1,1),opacity .3s ease';
       sh.style.transform=`translateY(${(dy+150).toFixed(0)}px)`;
       sh.style.opacity='0';
-      document.body.style.overflow='';
+      /* v2.63 · lepas kunci deklaratif — syncOvPause di finishClose menangani body.ov-open */
       m._closeT=setTimeout(()=>finishClose(m),310);
     }else{
       sh.style.transition='transform .32s cubic-bezier(.2,.9,.3,1.2)';
