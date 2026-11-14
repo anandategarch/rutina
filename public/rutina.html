@@ -10,6 +10,17 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v2.67 dock bernapas + simpan 3-gerbong + kunang-kunang semua hero:
+     (1) dock bawah kini 70px (dulu 64px terasa "terlalu pendek" saat item
+     terpilih), gap antar pill 6px, pill aktif padding-inline 12px & grow 2.9
+     (label tak lagi menempel tepi / terpangkas di layar sempit);
+     (2) refinanceSoon: simpan transaksi/anggaran kini 3 gerbong (rAF → 45ms
+     → 95ms, token anti-tumpuk) menggantikan satu rAF besar v2.61 — tak ada
+     lagi frame panjang pasca-Simpan; (3) kelopak jatuh (v2.26, hanya hero
+     Ringkasan) digantikan kunang-kunang di SEMUA 7 kartu hero: bola cahaya
+     mengembara 360° (wrap toroidal, bukan jatuh), berkedip, tertarik ke
+     pointer & menyala; satu loop rAF bersama, hanya hero terlihat digambar,
+     hening saat modal/no-amb/tersembunyi, reduced-motion = statis. -->
 <!-- v2.66 audit anti-slop lapis dua (skill antislop-code/ui): komentar dipangkas
      (banner dekoratif & narasi versi-histori jadi kendala satu-baris), emoji
      dekoratif dibuang dari teks UI, hero img fetchpriority=high, toggle
@@ -262,7 +273,7 @@ b,strong{font-weight:600}
 .icon-btn .dot-cnt[hidden]{display:none}
 
 /* bottom nav (mobile) — floating island dock */
-.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:#fff;border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md);will-change:transform}
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:6px;padding:8px;background:#fff;border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md);will-change:transform}
 /* v2.62 · blur(18px) di bawah latar 97%-opak dicabut: 3% tembusnya tak
    terlihat mata, tapi GPU menghitung ulang blur selebar bilah tiap frame
    selama konten bergulir/beranimasi di belakangnya — biaya permanen untuk
@@ -270,16 +281,20 @@ b,strong{font-weight:600}
 /* v2.20 · dock tak lagi "tenggelam" saat pull-to-refresh: latar nyaris solid
    (.97) + will-change:transform meng-pin dock ke layer kompositor viewport,
    sehingga rubber-band overscroll tak lagi menarik/memudarkannya. */
-.bn-item{flex:1;min-width:0;min-height:50px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink-3);overflow:hidden;transition:background .28s,color .28s,box-shadow .28s,flex-grow .4s cubic-bezier(.2,.9,.3,1)}
+/* v2.67 · napas dock: item 54px + padding 8px (bar 64→70px, tak lagi
+   "terlalu pendek" saat item terpilih), gap 6px, pill aktif kini ber
+   padding-inline 12px & grow 2.9 — label yang mengembang tak menempel
+   tepi pill / terpangkas di layar sempit (dulu tanpa padding, grow 1.8). */
+.bn-item{flex:1;min-width:0;min-height:54px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink-3);overflow:hidden;padding-inline:0;transition:background .28s,color .28s,box-shadow .28s,flex-grow .4s cubic-bezier(.2,.9,.3,1),padding .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item .ic{width:21px;height:21px;flex:none;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
-.bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:600;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
+.bn-item .lb{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12.5px;font-weight:600;letter-spacing:.01em;transition:max-width .4s cubic-bezier(.2,.9,.3,1),opacity .25s,margin .4s cubic-bezier(.2,.9,.3,1)}
 .bn-item:active .ic{transform:scale(.86)}
-.bn-item.active{flex-grow:1.8;background:linear-gradient(135deg,var(--terra-strong),#065F46);color:#FFFFFF;box-shadow:var(--shadow-sm)}
-.bn-item.active .lb{max-width:86px;opacity:1;margin-left:8px}
+.bn-item.active{flex-grow:2.9;padding-inline:12px;background:linear-gradient(135deg,var(--terra-strong),#065F46);color:#FFFFFF;box-shadow:var(--shadow-sm)}
+.bn-item.active .lb{max-width:120px;opacity:1;margin-left:9px}
 .bn-item.active .ic{transform:translateY(-1px)}
 @media(max-width:400px){
-  .bn-item.active{flex-grow:2.7}
-  .bn-item.active .lb{max-width:118px;font-size:12px}
+  .bn-item.active{flex-grow:3.4;padding-inline:9px}
+  .bn-item.active .lb{max-width:128px;font-size:11.5px}
 }
 
 /* kartu & grid */
@@ -596,7 +611,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .page-hero .hero-body h2{font-size:clamp(19px,2.2vw,21.5px);max-width:none}
 .page-hero .hero-body .t-sub{max-width:52ch}
 .page-hero .ph-scene{position:absolute;right:-14px;bottom:-16px;z-index:0;width:clamp(192px,27vw,312px);height:auto;pointer-events:none;user-select:none;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07))}
-.page-hero>*:not(.ph-scene):not(.ph-bg){position:relative;z-index:1}
+.page-hero>*:not(.ph-scene):not(.ph-bg):not(.hero-atmo){position:relative;z-index:1}
 .ph-progress{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;max-width:430px}
 .ph-progress .bar{flex:1;min-width:140px;height:9px}
 .ph-progress .pill{background:#FFFFFF;border:1px solid rgba(167,243,208,.9);color:var(--terra-deep);font-size:12px;padding:6px 12px;box-shadow:0 1px 3px rgba(15,23,42,.07)} /* v2.18 · latar solid: koin ilustrasi di belakang tak lagi terbaca 'menabrak' pill */
@@ -1619,8 +1634,10 @@ p{text-wrap:pretty}
 .hero-quote{animation:quoteFloat 6s ease-in-out infinite}
 @keyframes quoteFloat{0%,100%{transform:rotate(-2.5deg) translateY(0)}50%{transform:rotate(-2.5deg) translateY(-3px)}}
 .empty-state .ill{animation:sceneBob 6.5s ease-in-out infinite}
-/* v2.26 · atmosfer hero — kanvas kelopak dipasang ambientHero() di
-   belakang konten (z 0), di atas latar hero; pointer-events none */
+/* v2.67 · atmosfer hero — kanvas kunang-kunang dipasang ambientHero() di
+   semua kartu hero (z 0, di atas latar/scene, di bawah konten teks);
+   pointer-events none. Dikecualikan dari aturan .page-hero>* supaya
+   kanvas tetap absolut (aturan itu memaksa anak jadi relative). */
 .hero-atmo{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
 
 /* 5 · grafik */
@@ -3835,7 +3852,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <button type="button" class="btn btn-ghost" id="btnAmb" aria-pressed="true">Hidup</button>
       </div>
-      <p class="t-sub" style="font-size:12.5px">Pohon berayun, kutipan mengapung, kelopak &amp; kilau lencana bergerak sepanjang waktu. Matikan bila gemar halaman tenang atau perangkat terasa berat.</p>
+      <p class="t-sub" style="font-size:12.5px">Pohon berayun, kutipan mengapung, kunang-kunang &amp; kilau lencana bergerak sepanjang waktu. Matikan bila gemar halaman tenang atau perangkat terasa berat.</p>
     </div>
     <!-- kelola kebiasaan -->
     <div class="card card-pad ill-kaktus">
@@ -4591,7 +4608,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.66';
+const APP_VERSION='v2.67';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -5657,7 +5674,7 @@ function animateBars(root=document){
   if(PAINT_QUIET)set();else requestAnimationFrame(()=>requestAnimationFrame(set));
 }
 /* koreografi: staggerList (item daftar berurutan), staggerPage (kartu per
-   pindah tab), ambientHero (kelopak kanvas hero Ringkasan), heroParallax. */
+   pindah tab), ambientHero (kunang-kunang kanvas SEMUA hero, v2.67), heroParallax. */
 const _stQ=[];let _stQOn=false;
 function staggerList(root,sel=':scope > *',{cap=14,max=Infinity}={}){
   if(reduced||PAINT_QUIET||!root)return;
@@ -5727,141 +5744,161 @@ function rvTeardown(p){
   [...p.querySelectorAll('.rv,.rv-in')].forEach(el=>{rvIO.unobserve(el);el.classList.remove('rv','rv-in')});
 }
 function ambientHero(){
-  /* ambient hero (kelopak kanvas 2D): kepadatan diskalakan dari luas section
-     (clamp 14-64 + low-power), recycle keluar-bawah/lahir-atas, dorongan pointer
-     radius 110px, hening saat section tak terlihat / dokumen tersembunyi /
-     overlay aktif, ResizeObserver + dpr <= 2, reduced-motion = komposisi statis,
-     teardown() melepas seluruh listener & observer. */
+  /* ambient hero (kunang-kunang kanvas 2D, SEMUA kartu hero — v2.67):
+     menggantikan kelopak jatuh v2.26 yang hanya di hero Ringkasan.
+     Kunang: bola cahaya mengembara pelan 360° (wrap toroidal, bukan
+     jatuh dari atas), berkedip lembut, tertarik ke pointer & menyala.
+     Disiplin dipertahankan + dinaikkan multi-hero: SATU loop rAF bersama
+     7 hero, hanya hero terlihat yang digambar (IO per hero), kepadatan
+     renggang (8–22 + low-power 5–14, bokeh besar utk kedalaman), hening
+     saat tak ada hero terlihat / dokumen tersembunyi / overlay aktif /
+     gerak latar dimatikan pengguna (no-amb), ResizeObserver + dpr <= 2,
+     reduced-motion = taburan statis, teardown() melepas semuanya.
+     sync() dipanggil ambienceCtl & syncOvPause. */
   if(window.__rutinaAtmo)return window.__rutinaAtmo; /* satu loop, sekali pasang */
-  const hero=$('.hero.hero-tree');
-  if(!hero)return null;
-  const CFG={count:46,gravity:7,wind:-3,sway:16,speed:[8,18],size:[4,12],opacity:[.18,.62],rotation:[-.8,.8],mode:'recycle',pointerRadius:110,maxDpr:2};
-  const PALETTES=[['#BBF7D0','#34D399'],['#A7F3D0','#6EE7B7'],['#FDE68A','#F59E0B'],['#FBCFE8','#FDA4AF'],['#FFFFFF','#D1FAE5']];
-  const staticMode=reduced; /* hormat prefers-reduced-motion — diam & renggang */
+  const heroes=$$('.hero,.page-hero');
+  if(!heroes.length)return null;
+  const CFG={speed:[4,13],turn:1.15,rise:[-7,-2],size:[13,24],bokeh:[26,40],opacity:[.4,.78],bokehOp:[.08,.16],pointerRadius:120,maxDpr:2};
+  const staticMode=reduced; /* hormat prefers-reduced-motion — diam & tenang */
   const lcg=s=>{let n=s>>>0;return()=>((n=(n*1664525+1013904223)>>>0)/4294967296)};
   const RND=staticMode?lcg(7):Math.random;
-  const cv=document.createElement('canvas');
-  cv.className='hero-atmo';cv.setAttribute('aria-hidden','true');
-  const bg=hero.querySelector('.hero-bg');
-  bg?bg.after(cv):hero.prepend(cv); /* di atas latar, di bawah konten (z 1) */
-  const ctx=cv.getContext('2d');
-  let w=0,h=0,raf=0,last=0,ioVis=true,watch=0,io=null,ro=null;
-  const parts=[],ptr={x:-1e4,y:-1e4,t:0};
   const overlayActive=()=>Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim'))||document.body.classList.contains('no-amb'); /* no-amb: gerak latar dimatikan pengguna */
-  const targetCount=()=>{
-    const low=(navigator.hardwareConcurrency||8)<=2;
-    return Math.max(14,Math.min(64,Math.round(w*h/(low?7600:5200))));
-  };
-  /* sprite kelopak per palet — digambar sekali, lalu cukup drawImage */
-  const SPR=PALETTES.map(cols=>{
+  /* sprite kunang digambar sekali — inti panas + halo; lalu cukup drawImage.
+     amber dominan: kontras terbaik di latar hijau muda hero. */
+  const makeGlow=(core,halo)=>{
     const c=document.createElement('canvas');c.width=c.height=32;
-    const x=c.getContext('2d');x.translate(16,16);
-    x.beginPath();x.moveTo(0,-13);
-    x.bezierCurveTo(9,-8,8,7,0,13);
-    x.bezierCurveTo(-8,7,-9,-8,0,-13);
-    x.closePath();
-    const g=x.createLinearGradient(0,-13,0,13);
-    g.addColorStop(0,cols[0]);g.addColorStop(1,cols[1]);
-    x.fillStyle=g;x.fill();
-    x.strokeStyle='rgba(255,255,255,.5)';x.lineWidth=1;
-    x.beginPath();x.moveTo(0,-8);x.quadraticCurveTo(1.4,0,0,8);x.stroke();
+    const x=c.getContext('2d');
+    const g=x.createRadialGradient(16,16,0,16,16,16);
+    g.addColorStop(0,'#FFFFFF');g.addColorStop(.3,core);g.addColorStop(.62,halo);g.addColorStop(1,'rgba(255,255,255,0)');
+    x.fillStyle=g;x.fillRect(0,0,32,32);
     return c;
+  };
+  const SPR=[makeGlow('#FCD34D','rgba(245,158,11,.52)'),makeGlow('#6EE7B7','rgba(5,150,105,.44)'),makeGlow('#FFFFFF','rgba(52,211,153,.40)')];
+  const BOKEH=makeGlow('#ECFDF5','rgba(110,231,183,.26)');
+  const lowPower=(navigator.hardwareConcurrency||8)<=2;
+  const sites=heroes.map(hero=>{
+    const cv=document.createElement('canvas');
+    cv.className='hero-atmo';cv.setAttribute('aria-hidden','true');
+    /* sisip tepat di atas latar/scene terakhir, di bawah konten teks (z 1) */
+    const scenes=hero.querySelectorAll('.hero-bg,.ph-bg,.ph-scene');
+    scenes.length?scenes[scenes.length-1].after(cv):hero.prepend(cv);
+    const site={hero,cv,ctx:cv.getContext('2d'),w:0,h:0,vis:staticMode,io:null,ro:null,parts:[],ptr:{x:-1e4,y:-1e4,t:0}};
+    site.onPtr=e=>{const r=cv.getBoundingClientRect();site.ptr.x=e.clientX-r.left;site.ptr.y=e.clientY-r.top;site.ptr.t=performance.now()};
+    site.onPtrOut=()=>{site.ptr.t=0};
+    return site;
   });
-  function seed(p,fresh){
-    p.x=RND()*w;
-    p.y=fresh?(-14-RND()*Math.min(h,140)):RND()*h;
-    p.vy=CFG.speed[0]+RND()*(CFG.speed[1]-CFG.speed[0]);
-    p.size=CFG.size[0]+RND()*(CFG.size[1]-CFG.size[0]);
-    p.a=CFG.opacity[0]+RND()*(CFG.opacity[1]-CFG.opacity[0]);
-    p.rot=RND()*Math.PI*2;
-    p.rotV=CFG.rotation[0]+RND()*(CFG.rotation[1]-CFG.rotation[0]);
-    p.phase=RND()*Math.PI*2;
-    p.freq=.5+RND()*.9;
-    p.swayAmp=CFG.sway*(.5+RND()*.8);
-    p.spr=SPR[(RND()*SPR.length)|0];
-    p.pushX=0;p.pushY=0;
+  const targetCount=site=>{
+    const dens=lowPower?9000:5200;
+    return Math.max(lowPower?6:8,Math.min(lowPower?14:24,Math.round(site.w*site.h/dens)));
+  };
+  function seed(site,p){
+    const R=RND;
+    p.x=R()*site.w;p.y=R()*site.h;
+    p.dir=R()*Math.PI*2; /* arah jalan bebas (bukan gravitasi) */
+    p.sp=CFG.speed[0]+R()*(CFG.speed[1]-CFG.speed[0]);
+    p.rise=CFG.rise[0]+R()*(CFG.rise[1]-CFG.rise[0]); /* apung naik ringan */
+    p.bokeh=R()<.16; /* sebagian jadi bokeh besar redup: rasa kedalaman */
+    p.size=p.bokeh?CFG.bokeh[0]+R()*(CFG.bokeh[1]-CFG.bokeh[0]):CFG.size[0]+R()*(CFG.size[1]-CFG.size[0]);
+    p.base=p.bokeh?CFG.bokehOp[0]+R()*(CFG.bokehOp[1]-CFG.bokehOp[0]):CFG.opacity[0]+R()*(CFG.opacity[1]-CFG.opacity[0]);
+    p.tf=.5+R()*1.6; /* frekuensi kedip — tiap kunang punya iramanya */
+    p.ph=R()*Math.PI*2;
+    p.wph=R()*Math.PI*2; /* fase belok berkelok */
+    p.spr=p.bokeh?BOKEH:(R()<.5?SPR[0]:(R()<.62?SPR[1]:SPR[2]));
+    p.pushX=0;p.pushY=0;p.hot=0;
   }
-  function fit(){
-    w=hero.clientWidth;h=hero.clientHeight;
-    if(w<2||h<2)return;
+  function fit(site){
+    site.w=site.hero.clientWidth;site.h=site.hero.clientHeight;
+    if(site.w<2||site.h<2)return; /* hero di tab tersembunyi (display:none) */
     const dpr=Math.min(devicePixelRatio||1,CFG.maxDpr);
-    cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    const n=staticMode?Math.max(5,Math.round(targetCount()*.4)):targetCount();
-    while(parts.length<n){const p={};seed(p,false);parts.push(p)}
-    if(parts.length>n)parts.length=n;
-    draw();
+    site.cv.width=Math.round(site.w*dpr);site.cv.height=Math.round(site.h*dpr);
+    site.ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=staticMode?Math.max(3,Math.round(targetCount(site)*.5)):targetCount(site);
+    while(site.parts.length<n){const p={};seed(site,p);site.parts.push(p)}
+    if(site.parts.length>n)site.parts.length=n;
+    draw(site,0);
   }
-  function draw(){
+  function draw(site,t){
+    const{ctx,w,h,parts}=site;
     ctx.clearRect(0,0,w,h);
     for(const p of parts){
-      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.a;
-      const k=p.size/26;
-      ctx.drawImage(p.spr,-16*k,-16*k,32*k,32*k);
-      ctx.restore();
+      const tw=.5+.5*Math.sin(t*p.tf+p.ph); /* kedip lembut */
+      const a=Math.min(.95,p.base*(.6+.4*tw*tw)+p.hot*.5); /* lantai tinggi: selalu terlihat, denyut lembut */
+      ctx.globalAlpha=a;
+      const s=p.size*(1+p.hot*.22);
+      ctx.drawImage(p.spr,p.x-s/2,p.y-s/2,s,s);
     }
+    ctx.globalAlpha=1;
   }
-  function step(dt,now){
-    const decay=Math.exp(-2.4*dt),pr=CFG.pointerRadius,hot=ptr.t&&now-ptr.t<500;
-    for(const p of parts){
-      p.phase+=p.freq*dt;
-      p.vy=Math.min(p.vy+CFG.gravity*dt,44);
-      p.x+=(CFG.wind+Math.cos(p.phase)*p.swayAmp+p.pushX)*dt;
-      p.y+=(p.vy+p.pushY)*dt;
-      p.rot+=p.rotV*dt;
-      if(hot){ /* gangguan pointer: dorong menjauh, lalu tenang kembali */
-        const dx=p.x-ptr.x,dy=p.y-ptr.y,d2=dx*dx+dy*dy;
+  function step(site,dt,nowMs){
+    const decay=Math.exp(-1.7*dt),pr=CFG.pointerRadius,hot=site.ptr.t&&nowMs-site.ptr.t<600;
+    for(const p of site.parts){
+      p.wph+=dt;
+      p.dir+=Math.sin(p.wph*.9)*CFG.turn*dt; /* belok berkelok pelan */
+      p.x+=(Math.cos(p.dir)*p.sp+p.pushX)*dt;
+      p.y+=(Math.sin(p.dir)*p.sp+p.rise+p.pushY)*dt;
+      if(hot){ /* kunang penasaran: tertarik ke pointer & menyala */
+        const dx=site.ptr.x-p.x,dy=site.ptr.y-p.y,d2=dx*dx+dy*dy;
         if(d2<pr*pr){
           const d=Math.sqrt(d2)||1,f=1-d/pr;
-          p.pushX+=dx/d*f*f*90*dt;
-          p.pushY+=dy/d*f*f*90*dt;
+          p.pushX+=dx/d*f*f*34*dt;p.pushY+=dy/d*f*f*34*dt;
+          p.hot=Math.min(1,p.hot+f*3.6*dt);
         }
       }
-      p.pushX*=decay;p.pushY*=decay;
-      if(p.y>h+16)seed(p,true); /* recycle: lahir ulang di atas section */
-      if(p.x<-16)p.x=w+15;else if(p.x>w+16)p.x=-15;
+      p.pushX*=decay;p.pushY*=decay;p.hot*=Math.exp(-.8*dt);
+      /* wrap toroidal — keluar tepi mana pun, masuk seberangnya */
+      if(p.x<-24)p.x=site.w+22;else if(p.x>site.w+24)p.x=-22;
+      if(p.y<-24)p.y=site.h+22;else if(p.y>site.h+24)p.y=-22;
     }
   }
+  let raf=0,lastMs=0,watch=0;
+  const anyVis=()=>sites.some(s=>s.vis);
   function frame(now){
+    if(!anyVis()){raf=0;return} /* tak ada hero terlihat → IO/sync memulihkan */
     raf=requestAnimationFrame(frame);
-    if(overlayActive()){cancelAnimationFrame(raf);raf=0;return} /* modal aktif → hening */
-    const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
-    step(dt,now);draw();
+    if(overlayActive()){cancelAnimationFrame(raf);raf=0;return} /* modal / no-amb → hening */
+    const dt=Math.min(.05,Math.max(0,(now-lastMs)/1000));lastMs=now;
+    const t=now*.001;
+    for(const site of sites){
+      if(!site.vis)continue;
+      step(site,dt,now);draw(site,t);
+    }
   }
-  function play(){if(staticMode||raf||!ioVis||document.hidden||overlayActive())return;last=performance.now();raf=requestAnimationFrame(frame)}
+  function play(){if(staticMode||raf||!anyVis()||document.hidden||overlayActive())return;lastMs=performance.now();raf=requestAnimationFrame(frame)}
   function pause(){if(raf){cancelAnimationFrame(raf);raf=0}}
-  function sync(){(!staticMode&&ioVis&&!document.hidden&&!overlayActive())?play():pause()}
-  const onPtr=e=>{
-    const r=cv.getBoundingClientRect();
-    ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top;ptr.t=performance.now();
-  };
-  const onPtrOut=()=>{ptr.t=0};
-  ro=new ResizeObserver(()=>fit());
-  ro.observe(hero); /* panggilan awal RO = fit() pertama */
+  function sync(){(!staticMode&&anyVis()&&!document.hidden&&!overlayActive())?play():pause()}
+  sites.forEach(site=>{
+    site.ro=new ResizeObserver(()=>fit(site));
+    site.ro.observe(site.hero); /* panggilan awal RO = fit() pertama */
+    if(!staticMode){
+      site.hero.addEventListener('pointermove',site.onPtr,{passive:true});
+      site.hero.addEventListener('pointerleave',site.onPtrOut,{passive:true});
+      site.io=new IntersectionObserver(en=>{site.vis=en[0].isIntersecting;sync()},{threshold:.05});
+      site.io.observe(site.hero);
+    }
+  });
   if(!staticMode){
-    hero.addEventListener('pointermove',onPtr,{passive:true});
-    hero.addEventListener('pointerleave',onPtrOut,{passive:true});
     document.addEventListener('visibilitychange',sync);
-    io=new IntersectionObserver(en=>{ioVis=en[0].isIntersecting;sync()},{threshold:.05});
-    io.observe(hero);
-    watch=setInterval(sync,2000); /* v2.64 · penjaga pemulihan diperlambat 4× — pemulihan utama kini instan lewat syncOvPause() saat modal ditutup */
+    watch=setInterval(sync,2000); /* penjaga pemulihan — jalur utama kini instan via syncOvPause() */
     sync();
   }
   function teardown(){
     pause();clearInterval(watch);
-    if(io)io.disconnect();
-    if(ro)ro.disconnect();
-    if(!staticMode){
-      hero.removeEventListener('pointermove',onPtr);
-      hero.removeEventListener('pointerleave',onPtrOut);
-      document.removeEventListener('visibilitychange',sync);
-    }
-    cv.remove();window.__rutinaAtmo=null;
+    document.removeEventListener('visibilitychange',sync);
+    sites.forEach(site=>{
+      if(site.io)site.io.disconnect();
+      if(site.ro)site.ro.disconnect();
+      if(!staticMode){
+        site.hero.removeEventListener('pointermove',site.onPtr);
+        site.hero.removeEventListener('pointerleave',site.onPtrOut);
+      }
+      site.cv.remove();
+    });
+    window.__rutinaAtmo=null;
   }
   window.__rutinaAtmo={
-    state:()=>({mode:staticMode?'static':'motion',running:raf>0,count:parts.length,canvas:cv.width+'x'+cv.height,area:w+'x'+h,visible:staticMode||ioVis,overlay:overlayActive(),pointer:ptr.t?{x:Math.round(ptr.x),y:Math.round(ptr.y),age:Math.round(performance.now()-ptr.t)}:null}),
+    state:()=>({mode:staticMode?'static':'motion',running:raf>0,heroes:sites.map(s=>({w:s.w,h:s.h,visible:s.vis,count:s.parts.length}))}),
     teardown,
-    sync /* v2.64 · dipanggil syncOvPause saat overlay tertutup — kelopak tak menunggu penjaga lagi */
+    sync /* dipanggil ambienceCtl & syncOvPause — pemulihan instan */
   };
   return window.__rutinaAtmo;
 }
@@ -8643,6 +8680,28 @@ function refinance(){
   /* pola belanja, temuan & rekomendasi bergantung transaksi — ikut disegarkan */
   if(inited.wawasan){renderConsChart();renderFindings();renderReko();renderBadges()}
 }
+/* v2.67 · refinance bertahap (3 gerbong): v2.61 memindahkan seluruh
+   refinance ke SATU frame berikutnya — penutupan modal mulai digambar, tapi
+   frame kedua itu sendiri masih panjang (16+ renderer dalam satu giliran).
+   Kini dibagi 3: rAF (bulan, statistik, hero, daftar transaksi — yang mata
+   cari) → 45ms (grafik & anggaran) → 95ms (dompet, panel, analisa); token
+   anti-tumpuk membatalkan gerbong sisa bila simpan berikut datang cepat.
+   Tiap gerbong tetap diheningkan quietPaint (v2.64). */
+let _refiTok=0;
+function refinanceSoon(){
+  const tok=++_refiTok;
+  requestAnimationFrame(()=>{if(tok!==_refiTok)return;quietPaint(()=>{
+    renderFinMonths();renderStats();renderSceneStats();renderFinanceHero();renderTx();fillTxMonths();
+  })});
+  setTimeout(()=>{if(tok!==_refiTok)return;quietPaint(()=>{
+    renderCashflow();renderDonut();renderBudgets();renderJatah();renderSpendHeat();renderMiniBudgets();
+  })},45);
+  setTimeout(()=>{if(tok!==_refiTok)return;quietPaint(()=>{
+    renderWallets();renderTip();renderLastWeek();renderMutasiSum();renderSaldoBank();
+    if(inited.cal){renderDayDetail(state.calSel);renderCalStrip()}
+    if(inited.wawasan){renderConsChart();renderFindings();renderReko();renderBadges()}
+  })},95);
+}
 document.addEventListener('click',e=>{
   const nav=e.target.closest('[data-nav]');
   if(nav){go(nav.dataset.nav);return}
@@ -8721,7 +8780,7 @@ function syncOvPause(){
   const on=Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim:not(.closing)'));
   const was=document.body.classList.contains('ov-open');
   document.body.classList.toggle('ov-open',on);
-  /* v2.64 · kelopak atmo pulir SEKETIKA saat overlay tertutup (dulu menunggu
+  /* v2.64 · atmo pulir SEKETIKA saat overlay tertutup (dulu menunggu
      penjaga 400 ms — kini penjaga diperlambat 2 dtk karena jalur utama
      sudah eksplisit, lihat ambientHero) */
   if(was&&!on&&window.__rutinaAtmo&&window.__rutinaAtmo.sync)window.__rutinaAtmo.sync();
@@ -8967,14 +9026,13 @@ $('#formTx').addEventListener('submit',e=>{
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
     closeModals();$('#formTx').reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
-    /* v2.61 · render berat pindah ke frame BERIKUTNYA: penutupan sheet,
-       toast & hujan koin mulai digambar dulu (respons instan), baru ~20
-       renderer keuangan menguras DOM. Dulu semuanya sinkron dalam satu
-       giliran JS — frame pertama animasi penutupan modal tersita →
-       "simpan transaksi kayak lag" di ponsel. flashRows mendaftar rAF
-       SETELAH rAF ini → kilau mendarat setelah baris selesai digambar.
-       v2.64 · kini juga HENING: koreografi masuk tak diputar ulang. */
-    requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)}));
+    /* v2.61 · render berat pindah ke frame berikutnya (dulu sinkron dalam
+       satu giliran JS → "simpan transaksi kayak lag" di ponsel); v2.67 ·
+       kini 3 gerbong refinanceSoon — tiap frame pendek, bukan satu frame
+       besar; v2.64 · tetap HENING (koreografi masuk tak diputar ulang).
+       flashRows mendaftar rAF SETELAH rAF gerbong pertama → kilau
+       mendarat setelah baris selesai digambar. */
+    refinanceSoon();
     flashRows([keluarSide.id,masukSide.id]); /* v2.31 · kedua sisi berkilau di daftar */
     botaniRain({kinds:['coin'],n:12});
     haptic(14);
@@ -8997,8 +9055,9 @@ $('#formTx').addEventListener('submit',e=>{
   editTxId=null;
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
-  /* v2.61 · sama dengan jalur transfer: render berat satu frame kemudian — v2.64 · + hening */
-  requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)}));
+  /* v2.67 · sama dengan jalur transfer: 3 gerbong refinanceSoon (dulu satu
+     rAF besar) — v2.64 · tetap hening */
+  refinanceSoon();
   flashRows(flashIds); /* v2.31 · baris baru/disunting berkilau terra sejenak */
   /* v2.19 · reinforcement untuk mencatat uang: hujan koin kecil dari atas —
      kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
@@ -9264,8 +9323,8 @@ $('#formBudget').addEventListener('submit',e=>{
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
-  /* v2.61 · render anggaran juga satu frame kemudian — pola simpan transaksi; v2.64 · + hening */
-  requestAnimationFrame(()=>quietPaint(()=>{refinance();fillTxMonths()}));
+  /* v2.67 · pola simpan transaksi: 3 gerbong refinanceSoon — v2.64 · tetap hening */
+  refinanceSoon();
   toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan ke database`,'i-edit','sage');
 });
 
@@ -10038,7 +10097,7 @@ function paintAll(){
   renderIconPicker();$('#txDate').value=dayKey(TODAY);
   animateBars(document);
   setTimeout(()=>{renderRing()},80);
-  if(!paintAllOnce){paintAllOnce=true;ambientHero();heroParallax()} /* v2.26 · hidup ambien sekali saja */
+  if(!paintAllOnce){paintAllOnce=true;ambientHero();heroParallax()} /* hidup ambien sekali saja — v2.67 kunang-kunang */
 }
 let PAINTED=null; /* v2.42 · sidik payload yang SUDAH dilukis (seed snapshot) */
 function applyLive(){
@@ -10104,7 +10163,7 @@ let staleBusy=false;
     try{localStorage.setItem('rutina.amb',off?'0':'1')}catch(_){}
     sync();
     if(window.__rutinaAtmo&&window.__rutinaAtmo.sync)window.__rutinaAtmo.sync();
-    toast(off?'Gerak latar dimatikan':'Gerak latar hidup kembali',off?'Ayunan, kelopak & kilau lencana kini diam.':'Taman kembali bergerak pelan.','i-leaf',off?'honey':'sage');
+    toast(off?'Gerak latar dimatikan':'Gerak latar hidup kembali',off?'Ayunan, kunang-kunang & kilau lencana kini diam.':'Taman kembali bergerak pelan.','i-leaf',off?'honey':'sage');
   });
 })();
 (async function init(){
