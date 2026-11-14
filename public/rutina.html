@@ -8,6 +8,37 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.62 · BEBAN GPU OVERLAY LAYAR PENUH — permintaan pengguna
+     ("malah tambah lemot ketika buka tambah transaksi, cek ulang semua
+     nya juga dan perbaiki"). Terukur di browser: saat modal terbuka,
+     TIAP frame makan ~50 ms (20 fps) di desktop — makin parah di GPU
+     ponsel — padahal handler buka hanya 2 ms. Akar masalah: latar scrim
+     modal memakai backdrop-filter blur(3px) selebar viewport; selama
+     konten DI BELAKANGNYA masih beranimasi (sceneBob/treeSway/
+     quoteFloat/chartPulse/badgeShine/tcSway berputar tanpa henti),
+     kompositor menghitung ulang blur penuh itu tiap frame demi gerakan
+     yang tak terlihat mata di balik gelap+blur. Perbaikan (validasi A/B:
+     animasi dijeda → 17 ms/frame datar):
+     (1) body.ov-open dipasang di semua gerbang overlay (openModal,
+     finishClose, popupShell kalender/jam + kill-nya, panel bantuan
+     keyboard) — membekukan SEMUA animasi hiasan tak berhenti selama
+     overlay layar penuh terbuka; animasi lanjut dari posisi terhenti
+     saat overlay ditutup. Nol perubahan visual (pemandangan di balik
+     scrim tak terlihat), kelas jank 50 ms lenyap.
+     (2) blur(18px) bottomnav di bawah latar 97%-opak dicabut — 3%
+     tembusnya tak pernah terlihat, namun GPU menghitung ulang blur
+     selebar bilah tiap frame konten bergulir/beranimasi di belakangnya;
+     latar kini opak murni, visual sama, biaya lenyap permanen.
+     (3) rantai blur BERTUMPUK diputus: elemen ber-backdrop-filter yang
+     terletak DI BAWAH scrim overlay (frost topbar 14px, kartu kaca
+     tree-progress 3px) memaksa blur scrim + blur elemen itu dihitung
+     ulang tiap frame — blur di dalam blur tak stabil di-cache; selama
+     overlay terbuka frost mereka dimatikan (tak kasat mata di balik
+     scrim), frost kembali saat ditutup.
+     (4) fillTxType: lastTxOf() memindai seluruh jurnal PER KATEGORI
+     saat modal dibuka/diganti jenis (O(kategori×transaksi), membengkak
+     bersama riwayat) — kini peta sekali-jalan satu pass atas TXS.
+     sw.js STATIC_CACHE → v64. -->
 <!-- v2.61 · HALUSKAN ANIMASI SIMPAN & LINTAS TAB — permintaan pengguna
      ("animasi waktu simpan transaksi kaya lag gitu coba cek, terus juga
      animasi lag lainnya"). Tiga sumber jank struktural dibedah & diperbaiki:
@@ -577,7 +608,11 @@ b,strong{font-weight:600}
 .icon-btn .dot-cnt[hidden]{display:none}
 
 /* ---------- bottom nav (mobile) — floating island dock ---------- */
-.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:rgba(255,255,255,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md);will-change:transform}
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:4px;padding:7px;background:#fff;border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md);will-change:transform}
+/* v2.62 · blur(18px) di bawah latar 97%-opak dicabut: 3% tembusnya tak
+   terlihat mata, tapi GPU menghitung ulang blur selebar bilah tiap frame
+   selama konten bergulir/beranimasi di belakangnya — biaya permanen untuk
+   efek yang tak pernah tampak. Latar kini opak murni (visual sama). */
 /* v2.20 · dock tak lagi "tenggelam" saat pull-to-refresh: latar nyaris solid
    (.97) + will-change:transform meng-pin dock ke layer kompositor viewport,
    sehingga rubber-band overscroll tak lagi menarik/memudarkannya. */
@@ -1532,6 +1567,23 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .modal.open{display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:640px){.modal.open{align-items:center;padding:24px}}
 .modal-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);animation:fadeIn .25s}
+/* v2.62 · heningkan animasi hiasan saat overlay layar penuh terbuka.
+   backdrop-filter blur memapar ulang TIAP FRAME selama konten di belakangnya
+   masih bergerak: sceneBob/treeSway/quoteFloat/chartPulse/badgeShine dsb.
+   yang berputar tanpa henti membuat blur selebar viewport dihitung ulang
+   terus-menerus (terukur 50 ms/frame di desktop ≈ jauh lebih berat di GPU
+   ponsel) — sheet terasa "lemot" saat dibuka. Pemandangan di balik scrim
+   gelap+blur tak terlihat mata, jadi membekukannya memutus mata-rantai
+   repaint penuh (50 ms → 17 ms/frame) tanpa perubahan visual apa pun;
+   animasi lanjut dari posisi terhenti begitu overlay ditutup. */
+body.ov-open .motiv-art,body.ov-open .id-art,body.ov-open .ph-scene,body.ov-open .hero-ill img,body.ov-open .hero-quote,body.ov-open .empty-state .ill,body.ov-open .chart-last,body.ov-open .badge.unlocked::after,body.ov-open .tc-hero-art .ill{animation-play-state:paused}
+/* v2.62 · rantai blur BERTUMPUK harus diputus juga: elemen ber-backdrop-filter
+   yang TERLETAK DI BAWAH scrim overlay (topbar frost 14px, kartu kaca
+   tree-progress 3px) membuat kompositor menghitung ulang blur scrim DAN blur
+   elemen itu tiap frame — blur di dalam blur tak bisa di-cache stabil.
+   Selama overlay terbuka frost mereka dimatikan; di balik scrim gelap+blur
+   perbedaannya tak kasat mata, dan frost kembali sempurna saat ditutup. */
+body.ov-open .topbar,body.ov-open .tree-progress{backdrop-filter:none;-webkit-backdrop-filter:none}
 .sheet{position:relative;width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--surface);border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg);animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
 @media(min-width:640px){.sheet{border-radius:28px}}
 @keyframes sheetIn{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
@@ -4884,7 +4936,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.61';
+const APP_VERSION='v2.62';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -8928,6 +8980,7 @@ function openModal(id,trigger){
      (entrance mengambil alih; display:none→flex me-reset animasi) */
   if(m.classList.contains('closing')||m.classList.contains('closing-drag'))finishClose(m);
   m.classList.add('open');document.body.style.overflow='hidden';
+  syncOvPause(); /* v2.62 · bekukan animasi hiasan di balik scrim (lihat CSS body.ov-open) */
   /* v2.40 · pemicu ditangkap eksplisit — tap layar sentuh tak memfokuskan
      tombol, jadi activeElement tak bisa diandalkan sebagai pemantik */
   m._opener=trigger&&trigger.focus?trigger:document.activeElement;
@@ -8937,9 +8990,18 @@ function openModal(id,trigger){
 }
 /* v2.31 · selesaikan penutupan: bersihkan kelas, timer, transform geser,
    lalu kembalikan fokus ke pemantik (aksesibilitas) */
+/* v2.62 · satu gerbang untuk kelas pembeku animasi hiasan — dipanggil di
+   semua titik buka/tutup overlay (modal, popup kalender/jam, panel bantuan).
+   body.ov-open mem-pause animasi dekoratif tak berhenti di balik scrim
+   layar-penuh ber-blur; tanpa ini GPU menghitung ulang blur selebar
+   viewport tiap frame hanya karena daun bergoyang di belakangnya. */
+function syncOvPause(){
+  document.body.classList.toggle('ov-open',Boolean(document.querySelector('.modal.open,.sc-help.open,.pop-scrim:not(.closing)')));
+}
 function finishClose(m){
   if(m._closeT){clearTimeout(m._closeT);m._closeT=null}
   m.classList.remove('open','closing','closing-drag');
+  syncOvPause(); /* v2.62 · hiasan hidup kembali begitu modal benar-benar tertutup */
   const sh=m.querySelector('.sheet');
   if(sh){sh.classList.remove('dragging');sh.style.transform='';sh.style.opacity='';sh.style.transition='';sh.style.willChange=''}
   const o=m._opener;m._opener=null;
@@ -9040,9 +9102,14 @@ function fillTxType(t){
   $$('#modalTx .seg button').forEach(b=>{const on=b.dataset.txType===t;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
   const jenis=t==='masuk'?'income':'expense';
   /* v2.46 · jejak terakhir di pilihan kategori — "terakhir beli kapan?"
-     terjawab langsung saat memilih kategori */
+     terjawab langsung saat memilih kategori.
+     v2.62 · peta sekali-jalan: lastTxOf() memindai SELURUH jurnal per kategori
+     (O(kategori×transaksi) — membengkak saat riwayat panjang); satu pass atas
+     TXS lalu lookup langsung — buka modal tetap ringan walau ribuan transaksi. */
+  const best={};
+  for(const x of TXS){const b=best[x.category];if(!b||(x.date+x.id)>(b.date+b.id))best[x.category]=x}
   $('#txCat').innerHTML=FINCATS.filter(c=>c.type===jenis).map(c=>{
-    const lt=lastTxOf(c.name);
+    const lt=best[c.name];
     return `<option value="${esc(c.name)}">${esc(c.emoji)} ${esc(c.name)}${lt?` · terakhir ${relTanggal(lt.date)}`:''}</option>`;
   }).join('');
   /* v2.29 · mode transfer: kategori sembunyi, muncul tujuan dompet;
@@ -9770,13 +9837,15 @@ function tunasWake(){
     const scrim=document.createElement('div');
     scrim.className='pop-scrim';scrim.innerHTML=inner;
     document.body.appendChild(scrim);
+    syncOvPause(); /* v2.62 · scrim layar penuh ber-blur → hiasan di belakang dibekukan */
     scrim.addEventListener('pointerdown',e=>{if(e.target===scrim)kill()});
     let dead=false;
     function kill(){
       if(dead)return false;
       dead=true;
       scrim.classList.add('closing');
-      setTimeout(()=>scrim.remove(),170);
+      syncOvPause(); /* v2.62 · dihitung tertutup sejak transisi tutup dimulai */
+      setTimeout(()=>{scrim.remove();syncOvPause()},170);
       const i=CLOSERS.indexOf(kill);if(i>-1)CLOSERS.splice(i,1);
       return true;
     }
@@ -10120,12 +10189,13 @@ function tunasWake(){
   function toggleHelp(){
     if(!help)return;
     const open=help.classList.toggle('open');
+    syncOvPause(); /* v2.62 · panel bantuan = overlay layar penuh juga */
     if(open){haptic(8);const c=help.querySelector('.dp-nav');setTimeout(()=>c&&c.focus(),90)}
   }
   if($('#scBtn'))$('#scBtn').addEventListener('click',toggleHelp);
-  if(help)help.addEventListener('click',e=>{if(e.target.closest('[data-scclose]'))help.classList.remove('open')});
+  if(help)help.addEventListener('click',e=>{if(e.target.closest('[data-scclose]')){help.classList.remove('open');syncOvPause()}});
   document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&help&&help.classList.contains('open')){help.classList.remove('open');return}
+    if(e.key==='Escape'&&help&&help.classList.contains('open')){help.classList.remove('open');syncOvPause();return}
     if(e.ctrlKey||e.metaKey||e.altKey)return;
     if(e.target&&e.target.closest&&e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
     if(!help)return;
