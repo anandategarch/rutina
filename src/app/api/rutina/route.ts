@@ -373,9 +373,11 @@ export async function GET() {
         ),
         target.client.execute(`SELECT "date","mood","energy","sleep" FROM "DailyLog"`),
         target.client.execute(`SELECT "userName","weekStart","targetCompletion","identityText","fitness" FROM "AppSettings" LIMIT 1`),
-        /* v2.58 · tab Bugar — sesi latihan (dengan set barbel), asupan, tubuh */
+        /* v2.58 · tab Bugar — sesi latihan (dengan set barbel), asupan, tubuh.
+           v2.59 · set diurut rowid — urutan set 1,2,3… deterministik lintas
+           SQLite/Turso (tanpa ORDER BY, urutan baris tak dijamin). */
         target.client.execute(`SELECT "id","date","kind","duration","distance","note" FROM "Workout" ORDER BY "date" DESC`),
-        target.client.execute(`SELECT "id","workoutId","exercise","reps","weight" FROM "WorkoutSet"`),
+        target.client.execute(`SELECT "id","workoutId","exercise","reps","weight" FROM "WorkoutSet" ORDER BY "rowid"`),
         target.client.execute(`SELECT "id","date","meal","name","kcal","protein","carb","fat" FROM "FoodLog" ORDER BY "date" DESC`),
         target.client.execute(`SELECT "date","water","weight","recover" FROM "BodyLog"`),
       ]);
