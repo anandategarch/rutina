@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v59"; // v2.57 — motif taman per kebiasaan (25 motif, hash id+musim) + varian musim (kelas body .musim-*, cuci --season-wash); v58 memuat v2.56 (15 motif botani tiap kartu via kelas .ill-*)
+const STATIC_CACHE = "rutina-static-v60"; // v2.58 — tab Bugar: latihan beban (set×rep×kg + pembanding), jalan/lari + pace otomatis, kalori & makro, hidrasi/berat/pemulihan, grafik & target mingguan (tabel Workout/WorkoutSet/FoodLog/BodyLog + sasaran AppSettings.fitness); v59 memuat v2.57 (motif taman per kebiasaan + varian musim), v58 memuat v2.56 (15 motif botani tiap kartu)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

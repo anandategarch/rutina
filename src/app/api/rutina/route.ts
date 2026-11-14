@@ -91,8 +91,13 @@ function tursoClient(): Client | null {
 async function getTarget(): Promise<DbTarget> {
   const turso = tursoClient();
   if (turso) {
-    /* v2.35 · pastikan kolom Atomic Habits hadir di database produksi */
+    /* v2.35 · pastikan kolom Atomic Habits hadir di database produksi.
+       v2.58 · tabel Bugar juga dibuat idempoten di Turso (CREATE IF NOT
+       EXISTS aman diputar ulang tiap boot proses). */
     if (!tursoMigrated) {
+      for (const sql of DDL) {
+        try { await turso.execute(sql); } catch { /* tabel sudah ada — lanjut */ }
+      }
       await migrateColumns(turso);
       tursoMigrated = true;
     }
@@ -125,6 +130,14 @@ const DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "FundSource"("id" TEXT PRIMARY KEY,"name" TEXT NOT NULL,"type" TEXT,"emoji" TEXT,"initialBalance" INTEGER DEFAULT 0,"sortOrder" INTEGER DEFAULT 0,"isArchived" INTEGER DEFAULT 0)`,
   `CREATE TABLE IF NOT EXISTS "DailyLog"("date" TEXT PRIMARY KEY,"mood" INTEGER,"energy" INTEGER,"sleep" INTEGER)`,
   `CREATE TABLE IF NOT EXISTS "AppSettings"("userName" TEXT,"weekStart" INTEGER DEFAULT 1,"targetCompletion" INTEGER DEFAULT 80,"identityText" TEXT)`,
+  /* v2.58 · tab Bugar — latihan (beban & kardio), asupan kalori/makro, tubuh
+     (hidrasi · berat · pemulihan). WorkoutSet.id menyatu dengan sesinya
+     (hapus sesi = hapus serentetan set); BodyLog per-tanggal (PRIMARY KEY)
+     membuat upsert idempoten alami seperti DailyLog. */
+  `CREATE TABLE IF NOT EXISTS "Workout"("id" TEXT PRIMARY KEY,"date" TEXT NOT NULL,"kind" TEXT NOT NULL,"duration" INTEGER,"distance" REAL,"note" TEXT)`,
+  `CREATE TABLE IF NOT EXISTS "WorkoutSet"("id" TEXT PRIMARY KEY,"workoutId" TEXT NOT NULL,"exercise" TEXT,"reps" INTEGER,"weight" REAL)`,
+  `CREATE TABLE IF NOT EXISTS "FoodLog"("id" TEXT PRIMARY KEY,"date" TEXT NOT NULL,"meal" TEXT,"name" TEXT,"kcal" INTEGER,"protein" REAL,"carb" REAL,"fat" REAL)`,
+  `CREATE TABLE IF NOT EXISTS "BodyLog"("date" TEXT PRIMARY KEY,"water" INTEGER,"weight" REAL,"recover" INTEGER)`,
 ];
 
 /* v2.35 · migrasi kolom Atomic Habits — ALTER per kolom; gagal "duplicate
@@ -135,6 +148,7 @@ const COLUMN_MIGRATIONS: [string, string][] = [
   ["AppSettings", "identityText"],
   ["Transaction", "recurrence"], /* v2.37 · transaksi berulang */
   ["Habit", "restDays"], /* v2.54 · jeda runtun aman (CSV YYYY-MM-DD) */
+  ["AppSettings", "fitness"], /* v2.58 · sasaran Bugar (JSON teks) */
 ];
 async function migrateColumns(client: Client): Promise<void> {
   for (const [table, col] of COLUMN_MIGRATIONS) {
@@ -254,6 +268,33 @@ async function seedFromSnapshot(client: Client): Promise<void> {
       args: [dpart(d.date), Math.round(num(d.mood)), Math.round(num(d.energy)), num(d.sleep)],
     });
   }
+  /* v2.58 · tab Bugar — seed sesi latihan + set, asupan, dan catatan tubuh
+     dari snapshot (pratinjau baru mulai dari taman bugar yang sama). */
+  for (const w of rows("workouts")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "Workout"("id","date","kind","duration","distance","note") VALUES (?,?,?,?,?,?)`,
+      args: [str(w.id), dpart(w.date), str(w.kind, "beban"), Math.round(num(w.duration)), w.distance == null ? null : num(w.distance), str(w.note)],
+    });
+    const sets = Array.isArray(w.sets) ? (w.sets as Record<string, unknown>[]) : [];
+    for (const s of sets) {
+      await client.execute({
+        sql: `INSERT OR REPLACE INTO "WorkoutSet"("id","workoutId","exercise","reps","weight") VALUES (?,?,?,?,?)`,
+        args: [str(s.id), str(w.id), str(s.exercise), Math.round(num(s.reps)), num(s.weight)],
+      });
+    }
+  }
+  for (const f of rows("foodLogs")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "FoodLog"("id","date","meal","name","kcal","protein","carb","fat") VALUES (?,?,?,?,?,?,?,?)`,
+      args: [str(f.id), dpart(f.date), str(f.meal, "camilan"), str(f.name), Math.round(num(f.kcal)), num(f.protein), num(f.carb), num(f.fat)],
+    });
+  }
+  for (const b of rows("bodyLogs")) {
+    await client.execute({
+      sql: `INSERT OR REPLACE INTO "BodyLog"("date","water","weight","recover") VALUES (?,?,?,?)`,
+      args: [dpart(b.date), Math.round(num(b.water)), b.weight == null ? null : num(b.weight), Math.round(num(b.recover))],
+    });
+  }
 }
 
 /* -------------------------------------------- introspeksi kolom (aman) */
@@ -312,7 +353,7 @@ export async function GET() {
   }
 
   try {
-    const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings] =
+    const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings, workouts, wsets, foods, body] =
       await Promise.all([
         target.client.execute(
           `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","mini","afterId","restDays" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
@@ -331,7 +372,12 @@ export async function GET() {
           `SELECT "id","name","type","emoji","initialBalance" FROM "FundSource" WHERE "isArchived"=0 ORDER BY "sortOrder"`,
         ),
         target.client.execute(`SELECT "date","mood","energy","sleep" FROM "DailyLog"`),
-        target.client.execute(`SELECT "userName","weekStart","targetCompletion","identityText" FROM "AppSettings" LIMIT 1`),
+        target.client.execute(`SELECT "userName","weekStart","targetCompletion","identityText","fitness" FROM "AppSettings" LIMIT 1`),
+        /* v2.58 · tab Bugar — sesi latihan (dengan set barbel), asupan, tubuh */
+        target.client.execute(`SELECT "id","date","kind","duration","distance","note" FROM "Workout" ORDER BY "date" DESC`),
+        target.client.execute(`SELECT "id","workoutId","exercise","reps","weight" FROM "WorkoutSet"`),
+        target.client.execute(`SELECT "id","date","meal","name","kcal","protein","carb","fat" FROM "FoodLog" ORDER BY "date" DESC`),
+        target.client.execute(`SELECT "date","water","weight","recover" FROM "BodyLog"`),
       ]);
 
     const data = {
@@ -340,6 +386,7 @@ export async function GET() {
         weekStart: Number(settings.rows[0]?.weekStart ?? 1),
         targetCompletion: Number(settings.rows[0]?.targetCompletion ?? 80),
         identityText: settings.rows[0]?.identityText ? String(settings.rows[0].identityText) : null,
+        fitness: settings.rows[0]?.fitness ? String(settings.rows[0].fitness) : null, /* v2.58 · sasaran Bugar (JSON teks) */
       },
       habitGroups: groups.rows.map((r) => ({
         id: String(r.id),
@@ -406,6 +453,40 @@ export async function GET() {
         energy: num(r.energy),
         sleep: num(r.sleep),
       })),
+      /* v2.58 · tab Bugar — sesi latihan dengan set barbel tertanam,
+         asupan kalori/makro, dan catatan tubuh per tanggal */
+      workouts: workouts.rows.map((r) => ({
+        id: String(r.id),
+        date: dpart(r.date),
+        kind: String(r.kind ?? "beban"),
+        duration: Math.round(num(r.duration)),
+        distance: r.distance == null ? null : num(r.distance),
+        note: String(r.note ?? ""),
+        sets: wsets.rows
+          .filter((s) => String(s.workoutId) === String(r.id))
+          .map((s) => ({
+            id: String(s.id),
+            exercise: String(s.exercise ?? ""),
+            reps: Math.round(num(s.reps)),
+            weight: num(s.weight),
+          })),
+      })),
+      foodLogs: foods.rows.map((r) => ({
+        id: String(r.id),
+        date: dpart(r.date),
+        meal: String(r.meal ?? "snack"),
+        name: String(r.name ?? ""),
+        kcal: Math.round(num(r.kcal)),
+        protein: num(r.protein),
+        carb: num(r.carb),
+        fat: num(r.fat),
+      })),
+      bodyLogs: body.rows.map((r) => ({
+        date: dpart(r.date),
+        water: Math.round(num(r.water)),
+        weight: r.weight == null ? null : num(r.weight),
+        recover: Math.round(num(r.recover)),
+      })),
     };
 
     return NextResponse.json(
@@ -436,6 +517,11 @@ interface HabitMetaRow {
 }
 interface SrcRow { id: string; name: string; type: string; emoji: string; initialBalance: number }
 interface DailyLogRow { date: string; mood: number; energy: number; sleep: number }
+/* v2.58 · tab Bugar — baris jurnal latihan/asupan/tubuh */
+interface SetRow { id: string; exercise: string; reps: number; weight: number }
+interface WorkoutRow { id: string; date: string; kind: string; duration: number; distance: number | null; note: string; sets: SetRow[] }
+interface FoodRow { id: string; date: string; meal: string; name: string; kcal: number; protein: number; carb: number; fat: number }
+interface BodyRow { date: string; water: number; weight: number | null; recover: number }
 interface Overlay {
   txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
   budAdd: BudRow[]; budEdit: Record<string, BudRow>; budDel: string[];
@@ -445,6 +531,10 @@ interface Overlay {
   srcAdd: SrcRow[]; srcEdit: Record<string, SrcRow>; srcDel: string[];
   catRename: Record<string, string>; catDel: string[];
   dailyLog: Record<string, DailyLogRow>; /* v2.39 · kunci = tanggal */
+  fitWAdd: WorkoutRow[]; fitWDel: string[]; /* v2.58 · latihan + set */
+  fitFAdd: FoodRow[]; fitFDel: string[]; /* v2.58 · asupan */
+  bodyLog: Record<string, BodyRow>; /* v2.58 · tubuh per tanggal */
+  fitness: string | null; /* v2.58 · sasaran Bugar (JSON teks, null = belum tersentuh) */
 }
 
 function asRecord(v: unknown): Record<string, unknown> {
@@ -496,6 +586,61 @@ function sanitizeSrc(v: unknown): SrcRow {
     type: str(o.type, "bank").slice(0, 16),
     emoji: str(o.emoji).slice(0, 16),
     initialBalance: Math.round(num(o.initialBalance)),
+  };
+}
+/* v2.58 · tab Bugar — sanitizer latihan/asupan/tubuh: semua nilai dijepit
+   ke rentang sehat, kind/meal dibatasi ke daftar yang dikenal UI. */
+const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
+const KINDS = ["beban", "jalan", "lari", "kombinasi"] as const;
+const MEALS = ["pagi", "siang", "malam", "camilan"] as const;
+function sanitizeSet(v: unknown): SetRow {
+  const o = asRecord(v);
+  return {
+    id: str(o.id),
+    exercise: str(o.exercise).slice(0, 60),
+    reps: Math.round(clamp(num(o.reps), 0, 500)),
+    weight: clamp(num(o.weight), 0, 1000),
+  };
+}
+function sanitizeWorkout(v: unknown): WorkoutRow {
+  const o = asRecord(v);
+  const kindRaw = str(o.kind);
+  const kind = (KINDS as readonly string[]).includes(kindRaw) ? kindRaw : "beban";
+  const hasDist = kind !== "beban" && o.distance != null && num(o.distance) > 0;
+  return {
+    id: str(o.id),
+    date: str(o.date).slice(0, 10),
+    kind,
+    duration: Math.round(clamp(num(o.duration), 0, 1440)),
+    distance: hasDist ? clamp(num(o.distance), 0.1, 500) : null,
+    note: str(o.note).slice(0, 200),
+    sets: Array.isArray(o.sets)
+      ? (o.sets as unknown[]).map(sanitizeSet).filter((s) => s.id && s.exercise && s.reps > 0 && s.weight > 0)
+      : [],
+  };
+}
+function sanitizeFood(v: unknown): FoodRow {
+  const o = asRecord(v);
+  const mealRaw = str(o.meal);
+  const meal = (MEALS as readonly string[]).includes(mealRaw) ? mealRaw : "camilan";
+  return {
+    id: str(o.id),
+    date: str(o.date).slice(0, 10),
+    meal,
+    name: str(o.name).slice(0, 80),
+    kcal: Math.round(clamp(num(o.kcal), 0, 20000)),
+    protein: clamp(num(o.protein), 0, 2000),
+    carb: clamp(num(o.carb), 0, 2000),
+    fat: clamp(num(o.fat), 0, 2000),
+  };
+}
+function sanitizeBody(v: unknown): BodyRow {
+  const o = asRecord(v);
+  return {
+    date: str(o.date).slice(0, 10),
+    water: Math.round(clamp(num(o.water), 0, 40)),
+    weight: o.weight != null && num(o.weight) > 0 ? clamp(num(o.weight), 20, 400) : null,
+    recover: Math.round(clamp(num(o.recover), 0, 5)),
   };
 }
 function strList(v: unknown): string[] {
@@ -595,6 +740,23 @@ function sanitizeOverlay(input: unknown): Overlay | null {
     })(), srcDel: strList(o.srcDel),
     catRename, catDel: strList(o.catDel),
     dailyLog,
+    /* v2.58 · tab Bugar — jurnal latihan (set tertanam), asupan, tubuh,
+       dan sasaran (JSON teks dibatasi 2000 karakter). */
+    fitWAdd: (Array.isArray(o.fitWAdd) ? (o.fitWAdd as unknown[]).map(sanitizeWorkout).filter((w) => w.id && w.date) : []),
+    fitWDel: strList(o.fitWDel),
+    fitFAdd: (Array.isArray(o.fitFAdd) ? (o.fitFAdd as unknown[]).map(sanitizeFood).filter((f) => f.id && f.date) : []),
+    fitFDel: strList(o.fitFDel),
+    bodyLog: (() => {
+      const m: Record<string, BodyRow> = {};
+      for (const [k, v] of Object.entries(asRecord(o.bodyLog))) {
+        const date = k.slice(0, 10);
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+        const b = sanitizeBody({ ...(asRecord(v) as Record<string, unknown>), date });
+        m[date] = b;
+      }
+      return m;
+    })(),
+    fitness: typeof o.fitness === "string" && o.fitness.trim().startsWith("{") ? o.fitness.slice(0, 2000) : null,
   };
 }
 
@@ -829,6 +991,66 @@ async function applyOverlay(
       sql: `INSERT OR REPLACE INTO "DailyLog"("date","mood","energy","sleep") VALUES (?,?,?,?)`,
       args: [d.date, d.mood, d.energy, d.sleep],
     }));
+  }
+
+  /* 10 · v2.58 · BUGAR — latihan: hapus sesi (beserta setnya) → tambah.
+         Id deterministik dari klien membuat putar ulang jurnal aman:
+         DELETE dulu lalu INSERT = hasil akhir selalu baris terakhir. */
+  for (const id of ov.fitWDel) {
+    await run("fitWDel", async () => {
+      await client.execute({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [id] });
+      await client.execute({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [id] });
+    });
+  }
+  for (const w of ov.fitWAdd) {
+    await run("fitWAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "WorkoutSet" WHERE "workoutId"=?`, args: [w.id] });
+      await client.execute({ sql: `DELETE FROM "Workout" WHERE "id"=?`, args: [w.id] });
+      await insertRow(client, "Workout", {
+        id: w.id, date: w.date, kind: w.kind,
+        duration: w.duration, distance: w.distance, note: w.note,
+      });
+      for (const s of w.sets) {
+        await insertRow(client, "WorkoutSet", {
+          id: s.id, workoutId: w.id, exercise: s.exercise, reps: s.reps, weight: s.weight,
+        });
+      }
+    });
+  }
+
+  /* 11 · v2.58 · BUGAR — asupan kalori/makro: hapus → tambah */
+  for (const id of ov.fitFDel) {
+    await run("fitFDel", () => client.execute({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [id] }));
+  }
+  for (const f of ov.fitFAdd) {
+    await run("fitFAdd", async () => {
+      await client.execute({ sql: `DELETE FROM "FoodLog" WHERE "id"=?`, args: [f.id] });
+      await insertRow(client, "FoodLog", {
+        id: f.id, date: f.date, meal: f.meal, name: f.name,
+        kcal: f.kcal, protein: f.protein, carb: f.carb, fat: f.fat,
+      });
+    });
+  }
+
+  /* 12 · v2.58 · BUGAR — tubuh per tanggal (hidrasi/berat/pemulihan):
+        PRIMARY KEY tanggal = upsert idempoten ala dailyLog. Baris hari
+        menimpa penuh (klien selalu mengirim tiga nilai tergabung). */
+  for (const b of Object.values(ov.bodyLog)) {
+    await run("bodyLog", () => client.execute({
+      sql: `INSERT OR REPLACE INTO "BodyLog"("date","water","weight","recover") VALUES (?,?,?,?)`,
+      args: [b.date, b.water, b.weight, b.recover],
+    }));
+  }
+
+  /* 13 · v2.58 · BUGAR — sasaran (JSON teks) di AppSettings satu baris;
+        insert bila belum ada (pola identityText). */
+  if (ov.fitness !== null) {
+    await run("fitnessSet", async () => {
+      const res = await client.execute({ sql: `UPDATE "AppSettings" SET "fitness"=?`, args: [ov.fitness] });
+      if (!Number(res.rowsAffected ?? 0)) {
+        await client.execute({ sql: `INSERT INTO "AppSettings"("fitness") VALUES (?)`, args: [ov.fitness] });
+      }
+    });
   }
 
   return { applied, failed };

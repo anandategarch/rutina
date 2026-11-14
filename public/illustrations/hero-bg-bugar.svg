@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none" role="img" aria-label="Jalan setapak yang berkelok di kebun bugar dengan barbel penanaman dan pohon apel">
+  <!-- Rutina · HERO BUGAR — kebun kebugaran: setapak berkelok, barbel
+       bersandar di pohon, pohon apel, dan can penyiram -->
+  <defs>
+    <linearGradient id="hgB-sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ECFDF5"/><stop offset="1" stop-color="#D1FAE5"/></linearGradient>
+    <linearGradient id="hgB-path" x1="40" y1="150" x2="420" y2="130" gradientUnits="userSpaceOnUse"><stop stop-color="#FDE68A"/><stop offset=".5" stop-color="#FCD34D"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+    <linearGradient id="hgB-trunk" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#A85F43"/><stop offset="1" stop-color="#7C4A2D"/></linearGradient>
+    <linearGradient id="hgB-leafA" x1="300" y1="20" x2="400" y2="110" gradientUnits="userSpaceOnUse"><stop stop-color="#9DBF7B"/><stop offset="1" stop-color="#3F704B"/></linearGradient>
+    <linearGradient id="hgB-leafB" x1="360" y1="40" x2="430" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#A8C58B"/><stop offset="1" stop-color="#5C895E"/></linearGradient>
+    <linearGradient id="hgB-apple" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#FDBA74"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+    <linearGradient id="hgB-bar" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#94A3B8"/><stop offset="1" stop-color="#475569"/></linearGradient>
+    <linearGradient id="hgB-plate" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/></linearGradient>
+    <linearGradient id="hgB-can" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#7DD3FC"/><stop offset="1" stop-color="#0284C7"/></linearGradient>
+    <linearGradient id="hgB-sproutL" x1="0" y1="30" x2="60" y2="130" gradientUnits="userSpaceOnUse"><stop stop-color="#8FB476"/><stop offset="1" stop-color="#3F704B"/></linearGradient>
+  </defs>
+
+  <!-- langit pagi kebun -->
+  <rect width="480" height="200" fill="url(#hgB-sky)"/>
+
+  <!-- bukit lembut -->
+  <ellipse cx="120" cy="196" rx="200" ry="52" fill="#A7F3D0" opacity=".55"/>
+  <ellipse cx="380" cy="200" rx="220" ry="58" fill="#6EE7B7" opacity=".4"/>
+
+  <!-- setapak berkelok (jalan lari kecil) dengan garis tepi -->
+  <path d="M-10 176C90 168 150 150 216 148C300 146 350 160 470 128" stroke="url(#hgB-path)" stroke-width="26" stroke-linecap="round"/>
+  <path d="M-10 168C90 160 150 142 216 140C300 138 350 152 470 120" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="10 12" opacity=".7"/>
+  <path d="M-10 184C90 176 150 158 216 156C300 154 350 168 470 136" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 10" opacity=".55"/>
+
+  <!-- pohon apel di kanan -->
+  <g>
+    <path d="M404 128C402 104 404 88 408 76" stroke="url(#hgB-trunk)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M408 84C400 78 392 76 384 78M408 88C416 80 424 78 432 80" stroke="url(#hgB-trunk)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M408 74C360 28 330 40 336 84C340 112 370 118 392 112C416 108 432 96 408 74Z" fill="url(#hgB-leafA)"/>
+    <path d="M416 70C440 44 462 54 458 84C454 106 432 112 416 104C404 98 402 84 416 70Z" fill="url(#hgB-leafB)"/>
+    <circle cx="368" cy="70" r="9" fill="url(#hgB-apple)" stroke="#C2410C" stroke-width="1.2"/>
+    <path d="M368 62c.8-1.6 2-2.5 3.5-3" stroke="#7C2D12" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    <circle cx="440" cy="62" r="7.5" fill="url(#hgB-apple)" stroke="#C2410C" stroke-width="1.1"/>
+    <circle cx="398" cy="96" r="7" fill="url(#hgB-apple)" stroke="#C2410C" stroke-width="1.1"/>
+    <path d="M352 34c3-4 8-4.5 11-2-2.5 3.5-7 4.5-11 2z" fill="#34D399"/>
+    <path d="M430 30l1.4 3.6 3.6 1.4-3.6 1.4L430 40l-1.4-3.6-3.6-1.4 3.6-1.4z" fill="#FBBF24"/>
+  </g>
+
+  <!-- barbel bersandar di pohon (kiri setapak) -->
+  <g transform="translate(96 138) rotate(-18)">
+    <rect x="-38" y="-3" width="76" height="6" rx="3" fill="url(#hgB-bar)"/>
+    <rect x="-32" y="-7.5" width="10" height="15" rx="4" fill="url(#hgB-plate)" stroke="#92400E" stroke-width="1"/>
+    <rect x="-22" y="-10" width="9" height="20" rx="4" fill="url(#hgB-plate)" stroke="#92400E" stroke-width="1"/>
+    <rect x="22" y="-10" width="9" height="20" rx="4" fill="url(#hgB-plate)" stroke="#92400E" stroke-width="1"/>
+    <rect x="32" y="-7.5" width="10" height="15" rx="4" fill="url(#hgB-plate)" stroke="#92400E" stroke-width="1"/>
+    <path d="M-29 -3h4M25 -3h4" stroke="#FFFFFF" stroke-width="1.8" opacity=".5" stroke-linecap="round"/>
+    <ellipse cx="0" cy="14" rx="44" ry="5" fill="#0F172A" opacity=".08"/>
+  </g>
+
+  <!-- can penyiram kecil -->
+  <g transform="translate(216 128) scale(.9)">
+    <path d="M-6 0h26c3 0 5 2 5 5v12c0 3-2 5-5 5H-6c-3 0-5-2-5-5V5c0-3 2-5 5-5z" fill="url(#hgB-can)" stroke="#075985" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M-11 5C-24 2 -34 6 -38 14" stroke="#075985" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M20 4L34 -8M34 -8c3-1 5 0 6 3" stroke="#075985" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M-6 8c8 3 20 3 26 0" stroke="#FFFFFF" stroke-width="2" opacity=".4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="-4" cy="24" rx="20" ry="3.6" fill="#0F172A" opacity=".08"/>
+  </g>
+
+  <!-- barisan tunas di kiri -->
+  <g>
+    <g transform="translate(36 158)">
+      <path d="M0 0V-26" stroke="#047857" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M0 -12c-9-1-12-7-7-11 7 1 11 6 7 11z" fill="#6EE7B7"/>
+      <path d="M2 -18c2-8 9-10 13-5-1 6-7 9-13 5z" fill="#34D399"/>
+      <circle cy="0" r="3.4" fill="#A7F3D0"/>
+    </g>
+    <g transform="translate(58 148)">
+      <path d="M0 0V-34" stroke="#047857" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M0 -14c-9-1-12-7-7-11 7 1 11 6 7 11z" fill="#34D399"/>
+      <path d="M2 -22c2-8 9-10 13-5-1 6-7 9-13 5z" fill="#6EE7B7"/>
+      <circle cx="14" cy="-26" r="3" fill="#FCD34D"/>
+    </g>
+    <g transform="translate(150 160)">
+      <path d="M0 0V-20" stroke="#047857" stroke-width="3" stroke-linecap="round"/>
+      <path d="M0 -10c-8-1-11-6-6-10 6 1 9 5 6 10z" fill="url(#hgB-sproutL)"/>
+      <circle cy="0" r="3" fill="#A7F3D0"/>
+    </g>
+  </g>
+
+  <!-- kupu-kupu kecil & bintang -->
+  <g>
+    <path d="M180 48c-5-6-13-6-16 0 3 6 11 6 16 0z" fill="#F9A8D4"/>
+    <path d="M180 48c5-6 13-6 16 0-3 6-11 6-16 0z" fill="#FBCFE8"/>
+    <path d="M180 48V54" stroke="#9D174D" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M64 44l1.3 3.4 3.4 1.3-3.4 1.3L64 54l-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#FBBF24"/>
+    <circle cx="128" cy="36" r="2.6" fill="#38BDF8"/>
+    <circle cx="300" cy="28" r="2.2" fill="#FBBF24"/>
+  </g>
+</svg>

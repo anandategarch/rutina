@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · TETES — embun pagi yang menyiram tunas: gelas demi gelas
+       (kartu Bugar: hidrasi harian) -->
+  <defs>
+    <radialGradient id="w-tt" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#E0F2FE" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#F0F9FF" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="dr-tt" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#7DD3FC"/>
+      <stop offset="1" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="lf-tt" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci embun di sudut -->
+  <rect width="180" height="170" fill="url(#w-tt)"/>
+
+  <!-- tangkai utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#0369A1" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>
+
+  <!-- tetes embun besar di ranting -->
+  <g transform="translate(130 40)">
+    <path d="M0 -22C8 -10 12 -2 12 6C12 14 7 19 0 19C-7 19 -12 14 -12 6C-12 -2 -8 -10 0 -22Z" fill="url(#dr-tt)" stroke="#075985" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M-5 0C-7 4 -7 9 -4 12" stroke="#FFFFFF" stroke-width="2.4" opacity=".6" fill="none" stroke-linecap="round"/>
+    <circle cx="4" cy="8" r="2.2" fill="#FFFFFF" opacity=".5"/>
+  </g>
+
+  <!-- tunas kecil yang disiram tetes -->
+  <g transform="translate(96 22)">
+    <path d="M0 0C-1 6 -2 10 -1 14" fill="none" stroke="#047857" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M-1 14C-8 13 -13 7 -9 2C-3 3 0 8 -1 14Z" fill="url(#lf-tt)" stroke="#047857" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M1 7C5 3 11 4 13 8C9 12 3 12 1 7Z" fill="#6EE7B7" stroke="#047857" stroke-width=".9" stroke-linejoin="round"/>
+    <circle cx="13" cy="-6" r="3.4" fill="url(#dr-tt)" stroke="#075985" stroke-width=".8"/>
+    <circle cx="9" cy="-13" r="2.2" fill="#BAE6FD"/>
+  </g>
+
+  <!-- tetes-tetes kecil berjajar di ranting bawah -->
+  <g fill="url(#dr-tt)" stroke="#075985" stroke-width=".8">
+    <path transform="translate(76 40) scale(.34)" d="M0 -22C8 -10 12 -2 12 6C12 14 7 19 0 19C-7 19 -12 14 -12 6C-12 -2 -8 -10 0 -22Z"/>
+    <path transform="translate(160 74) scale(.42)" d="M0 -22C8 -10 12 -2 12 6C12 14 7 19 0 19C-7 19 -12 14 -12 6C-12 -2 -8 -10 0 -22Z"/>
+    <circle cx="148" cy="18" r="4" fill="#BAE6FD"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="70" cy="14" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="70" cy="14" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik embun -->
+  <g>
+    <circle cx="110" cy="6" r="2.6" fill="#38BDF8"/>
+    <circle cx="116" cy="58" r="2.2" fill="#7DD3FC"/>
+    <circle cx="88" cy="58" r="2" fill="#BAE6FD" opacity=".9"/>
+    <path d="M58 50l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

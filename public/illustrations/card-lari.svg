@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · LARI — sepatu lari di ranting berdaun: langkah yang
+       bertumbuh jauh (kartu Bugar: jalan · lari · pace) -->
+  <defs>
+    <radialGradient id="w-lr" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#E0F2FE" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#F0F9FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sh-lr" x1="0" y1="0" x2=".1" y2="1">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="lf-lr" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cuci langit pagi di sudut -->
+  <rect width="180" height="170" fill="url(#w-lr)"/>
+
+  <!-- tangkai utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#0284C7" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>
+
+  <!-- sepatu lari menghadap depan (sudut pandang samping) -->
+  <g transform="translate(124 30) rotate(-8)">
+    <path d="M-24 18C-26 8 -22 -6 -12 -8C-4 -10 4 -6 12 -8C20 -9 26 -4 26 4L26 12C26 15 24 17 21 17L-21 17C-23 17 -24.6 18 -24 18Z" fill="url(#sh-lr)" stroke="#075985" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M-22 4C-14 1 8 -1 22 2" stroke="#FFFFFF" stroke-width="2" opacity=".4" fill="none" stroke-linecap="round"/>
+    <path d="M-24 17C-14 12 -4 14 4 12C12 10 18 12 21 17Z" fill="#FFFFFF" stroke="#075985" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M-20 20L-16 17M-12 21L-8 17M-4 21L0 17M4 21L8 17M12 21L16 17" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M-12 -8C-10 -14 -6 -16 -2 -14L0 -8Z" fill="#FCD34D" stroke="#F59E0B" stroke-width=".8" stroke-linejoin="round"/>
+    <circle cx="8" cy="-9" r="2.4" fill="#F8FAFC" stroke="#075985" stroke-width=".8"/>
+  </g>
+
+  <!-- daun angin di belakang sepatu — jejak langkah bertiup -->
+  <g transform="translate(78 20) rotate(-30)">
+    <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke="#047857" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-lr)" stroke="#047857" stroke-width=".9" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(94 34) rotate(20) scale(.9)">
+    <path d="M0 0C2 3 4 5 5 8" fill="none" stroke="#047857" stroke-width="1" stroke-linecap="round"/>
+    <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf-lr)" stroke="#047857" stroke-width=".9" stroke-linejoin="round"/>
+  </g>
+
+  <!-- tunas lintasan di ujung ranting -->
+  <g transform="translate(170 96) rotate(10) scale(.6)">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-lr)" stroke="#047857" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="72" cy="12" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="72" cy="12" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik & garis kecepatan -->
+  <g>
+    <path d="M56 28h14M52 36h10M60 44h8" stroke="#38BDF8" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>
+    <circle cx="150" cy="12" r="2.6" fill="#FBBF24"/>
+    <circle cx="104" cy="58" r="2.2" fill="#38BDF8"/>
+    <path d="M160 46l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

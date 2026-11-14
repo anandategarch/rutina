@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" fill="none" role="img" aria-label="Lintasan lari dengan penanda kilometer dan dua tunas di tepi">
+  <!-- Rutina · SCENE TRACK — lintasan lari kebun: karet sage dengan garis
+       lajur putus-putus, penanda KM amber, dan tunas penonton -->
+  <defs>
+    <linearGradient id="trkTrack" x1="0" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset=".5" stop-color="#6EE7B7"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+    <linearGradient id="trkLft" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#6EE7B7"/><stop offset="1" stop-color="#047857"/></linearGradient>
+  </defs>
+
+  <!-- permukaan lintasan (pita berliku) -->
+  <path d="M-6 70C70 62 130 58 190 62C250 66 300 60 366 52" stroke="url(#trkTrack)" stroke-width="26" stroke-linecap="round"/>
+  <!-- garis lajur putus-putus -->
+  <path d="M-6 70C70 62 130 58 190 62C250 66 300 60 366 52" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="12 10" opacity=".85"/>
+
+  <!-- penanda kilometer (tiang KM) -->
+  <g>
+    <g transform="translate(64 44)">
+      <rect x="-2" y="0" width="4" height="26" rx="2" fill="#92400E"/>
+      <circle cx="0" cy="-4" r="9" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.6"/>
+      <text x="0" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="9" font-weight="700" fill="#92400E" dy="3">1</text>
+    </g>
+    <g transform="translate(184 48) scale(1.1)">
+      <rect x="-2" y="0" width="4" height="26" rx="2" fill="#92400E"/>
+      <circle cx="0" cy="-4" r="9" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.6"/>
+      <text x="0" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="9" font-weight="700" fill="#92400E" dy="3">2</text>
+    </g>
+    <g transform="translate(300 40) scale(1.2)">
+      <rect x="-2" y="0" width="4" height="26" rx="2" fill="#92400E"/>
+      <circle cx="0" cy="-4" r="9" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.6"/>
+      <text x="0" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="9" font-weight="700" fill="#92400E" dy="3">3</text>
+    </g>
+  </g>
+
+  <!-- tunas penonton di tepi lintasan -->
+  <g>
+    <g transform="translate(24 66)"><path d="M0 22V4" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 12c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#34D399"/><circle cy="24" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(124 62)"><path d="M0 22V0" stroke="#047857" stroke-width="3.4" stroke-linecap="round"/><path d="M0 8c-9-1-12-7-7-11 7 1 11 6 7 11Z" fill="url(#trkLft)"/><path d="M2 4c2-8 9-10 13-5-1 6-7 9-13 5Z" fill="#6EE7B7"/><circle cx="14" cy="-2" r="3" fill="#FCD34D"/></g>
+    <g transform="translate(254 66)"><path d="M0 22V6" stroke="#047857" stroke-width="3" stroke-linecap="round"/><path d="M0 14c-8-1-11-6-6-10 6 1 10 5 6 10Z" fill="#6EE7B7"/><circle cy="24" r="3" fill="#A7F3D0"/></g>
+    <g transform="translate(340 58) scale(.8)"><path d="M0 22V2" stroke="#047857" stroke-width="3.2" stroke-linecap="round"/><path d="M0 10c-9-1-12-7-7-11 7 1 11 6 7 11Z" fill="#34D399"/><circle cy="24" r="3" fill="#6EE7B7"/></g>
+  </g>
+
+  <!-- kilau & awan kecil -->
+  <g>
+    <path d="M92 20l1.2 3.2 3.2 1.2-3.2 1.2L92 30l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#FBBF24"/>
+    <circle cx="210" cy="16" r="2.4" fill="#38BDF8"/>
+    <circle cx="150" cy="24" r="2" fill="#A7F3D0"/>
+    <path d="M330 20l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>

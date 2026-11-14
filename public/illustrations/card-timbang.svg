@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · TIMBANG — timbangan kebun dengan jarum daun: berat badan
+       yang ditimbang lembut (kartu Bugar: berat badan & tren) -->
+  <defs>
+    <radialGradient id="w-tb" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FCE7F3" stop-opacity=".42"/>
+      <stop offset=".45" stop-color="#FDF2F8" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sc-tb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDBA74"/>
+      <stop offset="1" stop-color="#C2410C"/>
+    </linearGradient>
+    <linearGradient id="lf-tb" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cusi lembut di sudut -->
+  <rect width="180" height="170" fill="url(#w-tb)"/>
+
+  <!-- tangkai utama melengkung ke sudut -->
+  <path d="M58 2C96 4 132 20 156 46C165 56 172 64 177 74" fill="none" stroke="#92400E" stroke-width="2.6" stroke-linecap="round" opacity=".85"/>
+
+  <!-- timbangan kecil (platform + pelat) dengan jarum daun -->
+  <g transform="translate(126 42) rotate(-10)">
+    <path d="M-22 16L-17 -8C-16 -12 -12 -14 -8 -14L8 -14C12 -14 16 -12 17 -8L22 16C23 19 21 21 18 21L-18 21C-21 21 -23 19 -22 16Z" fill="url(#sc-tb)" stroke="#9A3412" stroke-width="1.1" stroke-linejoin="round"/>
+    <ellipse cx="0" cy="-14" rx="9" ry="3.4" fill="#FDE68A" stroke="#9A3412" stroke-width=".9"/>
+    <circle cx="0" cy="4" r="7.6" fill="#FFF7ED" stroke="#9A3412" stroke-width=".9"/>
+    <path d="M0 4L4 -3" stroke="#047857" stroke-width="1.9" stroke-linecap="round"/>
+    <circle cx="0" cy="4" r="1.4" fill="#9A3412"/>
+    <path d="M-13 8C-8 5 -4 4 0 4C4 4 8 5 13 8" stroke="#FFFFFF" stroke-width="1.8" opacity=".4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- daun kecil di pelat timbangan -->
+  <g transform="translate(80 24) rotate(-24) scale(.8)">
+    <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke="#047857" stroke-width="1" stroke-linecap="round"/>
+    <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-tb)" stroke="#047857" stroke-width=".9" stroke-linejoin="round"/>
+  </g>
+
+  <!-- tunas di ujung ranting -->
+  <g transform="translate(168 92) rotate(10) scale(.6)">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-tb)" stroke="#047857" stroke-width="1.7" stroke-linejoin="round"/>
+  </g>
+
+  <!-- koin amber (gema ilustrasi hero) -->
+  <circle cx="68" cy="12" r="6.2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.2"/>
+  <circle cx="68" cy="12" r="2.6" fill="#FDE68A"/>
+
+  <!-- percik ketimbang -->
+  <g>
+    <circle cx="102" cy="10" r="2.6" fill="#FBBF24"/>
+    <circle cx="96" cy="48" r="2.2" fill="#F9A8D4"/>
+    <circle cx="158" cy="14" r="2" fill="#FDE68A" opacity=".9"/>
+    <path d="M146 62l1.1 2.9 2.9 1.1-2.9 1.1-1.1 2.9-1.1-2.9-2.9-1.1 2.9-1.1z" fill="#FBBF24"/>
+  </g>
+</svg>
