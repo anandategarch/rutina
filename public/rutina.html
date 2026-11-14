@@ -8,6 +8,32 @@
 <title>Rutina · Kebiasaan &amp; Arus Kas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334D399'/%3E%3Cstop offset='1' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cg transform='scale(2.666)' fill='none' stroke='%23FFFFFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z'/%3E%3Cpath d='M4.5 19.5C8 14 11 11 15.5 8.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- v2.61 · HALUSKAN ANIMASI SIMPAN & LINTAS TAB — permintaan pengguna
+     ("animasi waktu simpan transaksi kaya lag gitu coba cek, terus juga
+     animasi lag lainnya"). Tiga sumber jank struktural dibedah & diperbaiki:
+     (1) LAYOUT THRASHING stagger — staggerList/staggerPage memicu
+     void el.offsetWidth DI TENGAH loop tulis (baca-sesudah-tulis): tiap
+     item = satu layout paksa; daftar 16 baris + belasan kartu halaman =
+     belasan layout paksa beruntun setiap render/pindah tab. Kini batch:
+     tulis semua → SATU reflow → pasang animasi (O(n) → O(1)); staggerPage
+     memisah pass tulis / pass baca rect / pass tulis — tak ada baca-tulis
+     selang-seling.
+     (2) RENDER BERAT DI JALUR KRITIS INPUT — simpan transaksi menjalankan
+     ~20 renderer keuangan SINKRON dalam satu giliran JS SEBELUM frame
+     pertama animasi penutupan modal tergambar (11 ms di desktop ≈
+     60–110 ms di ponsel) → tap terasa membeku, sheet "kayak lag".
+     Kini render berat (refinance+fillTxMonths+renderDayDetail) pindah ke
+     requestAnimationFrame frame berikutnya: penutupan sheet, toast &
+     hujan koin menggambar dulu; flashRows mendaftar rAF setelahnya →
+     kilau tetap mendarat di baris yang selesai digambar. Pola yang sama
+     diterapkan ke SEMUA jalur simpan modal: transfer & sunting transaksi,
+     anggaran, kebiasaan (baru/sunting), latihan bugar, asupan kalori,
+     dompet, dan ganti nama kategori.
+     (3) BLUR HALAMAN PENUH SAAT PINDAH TAB — pageIn2 menganimasikan
+     filter:blur(5px) pada seluruh halaman 0.55 dtk = re-rasterisasi
+     puluhan kartu berilustrasi + SVG tiap frame (mahal di GPU ponsel).
+     Kini murni kompositor: opacity + translateY(8px).
+     sw.js STATIC_CACHE → v63. -->
 <!-- v2.60 · RITME KARTU TAB BUGAR + KESEHATAN DATABASE — permintaan
      pengguna ("di tab bugar tampilan mobile jarak antara card tidak
      konsisten dan terlalu dekat coba cek keseluruhan juga. coba juga
@@ -1836,10 +1862,17 @@ input:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 60px var
    Semua hormat prefers-reduced-motion (guard JS `reduced` + blok
    reduce di bawah).
    ============================================================ */
-/* 1 · transisi tab — kontainer fokus dari kabur; kartu di dalamnya
-   yang menyediakan gerak naik (stagger), agar tidak berganda */
+/* 1 · transisi tab — halaman memudar-naik ringan (kompositor); gerak naik
+   utama disediakan stagger kartu di dalamnya, agar tidak berganda */
 .page.active{animation:pageIn2 .55s cubic-bezier(.2,.7,.3,1)}
-@keyframes pageIn2{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:none}}
+/* v2.61 · filter:blur(5px) pada HALAMAN PENUH dicabut: animasi filter
+   = re-rasterisasi seluruh konten (puluhan kartu berilustrasi + SVG)
+   TIAP FRAME selama 0.55 dtk — pindah tab terasa berat di GPU ponsel,
+   apalagi saat bersamaan stagger kartu berjalan. Penggantinya murni
+   kompositor (opacity + translateY) — tetap lembut, kini nyaris gratis.
+   "Sapaan menajam dari kabur" tetap hidup di animasi tunas Ringkasan
+   yang scopenya kecil (page-head & hero saja). */
+@keyframes pageIn2{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 /* 2 · stagger kartu saat pindah tab */
 .pg-in{animation:pgIn .5s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:calc(var(--stg,0)*65ms)}
 @keyframes pgIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -4851,7 +4884,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.60';
+const APP_VERSION='v2.61';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -5865,11 +5898,16 @@ function animateBars(root=document){
    ============================================================ */
 function staggerList(root,sel=':scope > *',{cap=14}={}){
   if(reduced||!root)return;
-  [...root.querySelectorAll(sel)].forEach((el,i)=>{
-    el.classList.remove('li-in');void el.offsetWidth;
-    el.style.setProperty('--li',Math.min(i,cap));
-    el.classList.add('li-in');
-  });
+  const els=[...root.querySelectorAll(sel)];
+  if(!els.length)return;
+  /* v2.61 · tulis-semua → SATU reflow → pasang animasi. Dulu tiap item
+     memicu void el.offsetWidth DI TENGAH loop baca-tulis: daftar 16 baris
+     = 16 layout paksa beruntun (layout thrashing) — di ponsel lambat,
+     gelombang "muncul berurutan" justru terasa tersendat. Batching
+     menurunkan reflow paksa dari O(n) menjadi tepat 1. */
+  els.forEach((el,i)=>{el.classList.remove('li-in');el.style.setProperty('--li',Math.min(i,cap))});
+  void root.offsetWidth;
+  els.forEach(el=>el.classList.add('li-in'));
 }
 function staggerPage(p){
   if(reduced||!p)return;
@@ -5881,14 +5919,28 @@ function staggerPage(p){
      maknawati, bukan satu raksasa) */
   const kids=[...p.children];
   p.querySelectorAll(':scope > [data-fin-pane]:not([hidden]) > *, :scope > .grid > *, :scope > .habit-grid > *').forEach(el=>{if(!kids.includes(el))kids.push(el)});
-  let above=0,below=0;
+  /* v2.61 · tiga pass bebas thrashing (dulu: lepas kelas → reflow → tulis
+     variabel → baca rect, DIULANG PER ELEMEN — pindah tab = belasan
+     layout paksa + belasan hitung-ulang gaya di ponsel):
+     pass 1 tulis: lepas semua kelas animasi lama;
+     SATU reflow: kelas benar-benar lepas, geometri kembali alami;
+     pass 2 baca: semua rect sekaligus (tanpa tulis di antaranya);
+     pass 3 tulis: variabel stagger + kelas animasi. */
+  const vis=[];
   kids.forEach(el=>{
     if(tunasPending&&(el.classList.contains('tunas')||el.classList.contains('tunas-ill')))return;
     if(el.closest('[hidden]'))return; /* panel tak aktif tak perlu gerak */
-    el.classList.remove('pg-in','rv','rv-in');void el.offsetWidth;
-    /* v2.31 · di atas lipatan → naik berurutan; di bawah lipatan →
-       menunggu digulir (rv), energi animasi tak terbuang di luar layar */
-    if(el.getBoundingClientRect().top>vh-16){
+    el.classList.remove('pg-in','rv','rv-in');
+    vis.push(el);
+  });
+  if(!vis.length)return;
+  void p.offsetWidth;
+  const tops=vis.map(el=>el.getBoundingClientRect().top);
+  /* v2.31 · di atas lipatan → naik berurutan; di bawah lipatan →
+     menunggu digulir (rv), energi animasi tak terbuang di luar layar */
+  let above=0,below=0;
+  vis.forEach((el,i)=>{
+    if(tops[i]>vh-16){
       el.style.setProperty('--rv',Math.min(below,5));below++;
       el.classList.add('rv');
       if(rvIO)rvIO.observe(el);
@@ -6968,7 +7020,9 @@ function saveWorkout(e){
   OV.fitWAdd.push({id:w.id,date,kind,duration:dur,distance:dist,note:w.note,sets:sets.map(s=>({...s}))});
   ovPersist();armSyncToast();
   closeModals();
-  refit();haptic(14);
+  /* v2.61 · render bugar (~12 renderer) satu frame kemudian — pola simpan transaksi */
+  requestAnimationFrame(()=>{refit()});
+  haptic(14);
   if(!reduced)botaniRain({kinds:['leaf','sparkle'],n:9});
   toast('Latihan tersimpan',kind==='beban'?`${sets.length} set tercatat · ${Math.round(volOf(w))} kg tonase — sesi berikutnya akan dibandingkan.`:(dist?`${dist} km · ${dur} menit · pace ${paceStr(paceMinOf(w))}/km.`:`${dur} menit tercatat.`),'i-check','sage');
 }
@@ -7013,7 +7067,9 @@ function saveFood(e){
   OV.fitFAdd.push({...f});
   ovPersist();armSyncToast();
   closeModals();
-  refit();haptic(12);
+  /* v2.61 · render asupan satu frame kemudian — pola simpan transaksi */
+  requestAnimationFrame(()=>{refit()});
+  haptic(12);
   toast('Asupan tersimpan',`${name} · ${kcal} kkal tercatat ke neraca hari ini.`,'i-check','honey');
 }
 function delFood(id){
@@ -9116,9 +9172,14 @@ $('#formTx').addEventListener('submit',e=>{
     months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
     state.txMonth=dv.slice(0,7);state.finMonth=dv.slice(0,7);
     closeModals();$('#formTx').reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
-    refinance();fillTxMonths();
+    /* v2.61 · render berat pindah ke frame BERIKUTNYA: penutupan sheet,
+       toast & hujan koin mulai digambar dulu (respons instan), baru ~20
+       renderer keuangan menguras DOM. Dulu semuanya sinkron dalam satu
+       giliran JS — frame pertama animasi penutupan modal tersita →
+       "simpan transaksi kayak lag" di ponsel. flashRows mendaftar rAF
+       SETELAH rAF ini → kilau mendarat setelah baris selesai digambar. */
+    requestAnimationFrame(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)});
     flashRows([keluarSide.id,masukSide.id]); /* v2.31 · kedua sisi berkilau di daftar */
-    if(inited.cal)renderDayDetail(state.calSel);
     botaniRain({kinds:['coin'],n:12});
     haptic(14);
     toast('Transfer tercatat',`⇄ ${rupiah(nominal)} · ${nmDari} → ${nmKe} · saldo kedua dompet langsung pas 🌿`,'i-check','sky');
@@ -9140,9 +9201,9 @@ $('#formTx').addEventListener('submit',e=>{
   editTxId=null;
   closeModals();e.target.reset();fillTxType(txType);fillTxSources();$('#txDate').value=dayKey(TODAY);
   $('#txCat').disabled=false;$('#modalTx .seg').classList.remove('locked');
-  refinance();fillTxMonths();
+  /* v2.61 · sama dengan jalur transfer: render berat satu frame kemudian */
+  requestAnimationFrame(()=>{refinance();fillTxMonths();if(inited.cal)renderDayDetail(state.calSel)});
   flashRows(flashIds); /* v2.31 · baris baru/disunting berkilau terra sejenak */
-  if(inited.cal)renderDayDetail(state.calSel);
   /* v2.19 · reinforcement untuk mencatat uang: hujan koin kecil dari atas —
      kini ada alasan menyenangkan untuk membuka dompet dan mencatat */
   botaniRain({kinds:['coin'],n:12});
@@ -9319,7 +9380,8 @@ $('#formHabit').addEventListener('submit',e=>{
     }
     ovPersist();armSyncToast();
     closeModals();e.target.reset();resetHabitModal();renderIconPicker();fillHabitSelects();
-    renderHabitChips();refreshToday();renderIdentity();renderSettings();renderGarden();
+    /* v2.61 · render berat satu frame kemudian — penutupan sheet mulai digambar dulu */
+    requestAnimationFrame(()=>{renderHabitChips();refreshToday();renderIdentity();renderSettings();renderGarden()});
     toast('Kebiasaan disunting',`${nama} diperbarui · tersimpan ke database.`,'i-check','sage');
     return;
   }
@@ -9331,7 +9393,9 @@ $('#formHabit').addEventListener('submit',e=>{
     dates:[],total:0,best:0,first:null,last:null});
   OV.habitAdd.push(hidBaru);ovPersist();armSyncToast(); /* v2.22 · kebiasaan baru tersimpan ke database */
   closeModals();e.target.reset();renderIconPicker();fillHabitSelects();
-  state.habitFilter='semua';renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();renderGarden();
+  state.habitFilter='semua';
+  /* v2.61 · render berat satu frame kemudian — pola jalur sunting */
+  requestAnimationFrame(()=>{renderHabitChips();refreshToday();renderIdentity();renderBanner();renderBadges();renderSettings();renderGarden()});
   toast('Kebiasaan baru ditambahkan',`${nama} siap dicatat${miniTxt?' · versi mini menemani':''} · tersimpan ke database.`,'i-sparkle','honey');
 });
 
@@ -9407,7 +9471,8 @@ $('#formBudget').addEventListener('submit',e=>{
   months=[...new Set([...TXS.map(x=>x.date.slice(0,7)),...BUDGETS.map(b=>b.month)])].sort();
   state.finMonth=mk;
   closeModals();
-  refinance();fillTxMonths();
+  /* v2.61 · render anggaran juga satu frame kemudian — pola simpan transaksi */
+  requestAnimationFrame(()=>{refinance();fillTxMonths()});
   toast(mengubah?'Anggaran diperbarui':'Anggaran ditambahkan',`${cat} · ${monthLabel(mk)} · ${rupiah(nominal)} · tersimpan ke database`,'i-edit','sage');
 });
 
@@ -9451,8 +9516,8 @@ $('#formSource').addEventListener('submit',e=>{
   ovPersist();armSyncToast(); /* v2.22 · dompet tersimpan ke database */
   editSrcId=null;
   closeModals();
-  refinance();
-  if(inited.set)renderSettings();
+  /* v2.61 · render dompet satu frame kemudian — pola simpan transaksi */
+  requestAnimationFrame(()=>{refinance();if(inited.set)renderSettings()});
   toast(mengubah?'Dompet diperbarui':'Dompet ditambahkan',`${nama} · ${SRC_LABEL[tipe]||tipe} · saldo awal ${rupiah(saldo)} · tersimpan ke database`,'i-edit','sage');
 });
 
@@ -9486,7 +9551,8 @@ $('#formCat').addEventListener('submit',e=>{
   OV.budDel=OV.budDel.map(k2=>k2.startsWith(lama+'|')?budKey(baru,k2.split('|')[1]):k2);
   OV.catRename[lama]=baru;
   ovPersist();armSyncToast();
-  refinance();renderSettings();fillTxType(txType);
+  /* v2.61 · render kategori satu frame kemudian — pola simpan transaksi */
+  requestAnimationFrame(()=>{refinance();renderSettings();fillTxType(txType)});
   toast('Kategori diganti nama',`${lama} → ${baru} · ${nTx} transaksi & ${nBud} anggaran ikut diperbarui.`,'i-edit','sage');
 });
 
