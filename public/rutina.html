@@ -10,6 +10,15 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v2.70 ilustrasi VEKTOR TAMAN (akhir 'kasar'): seluruh aset mood kartu
+     kini SVG vektor datar-berlapis (gradasi lembut, blob organik) — mengganti
+     cat air webp/jpg yang bertekstur kasar. (1) 9 aset digambar ulang sebagai
+     vektor: 5 tahap pohon + perbukitan hero + still-life bugar + taman
+     wawasan + aliran/brankas/juara/track — semua cutout alpha, ditanam bukan
+     tempelan; gundukan/membayang kontak tetap. (2) Latar dasar .hero-bg webp
+     → gradasi CSS murni (nol permintaan jaringan). (3) Penambatan v2.69
+     dipertahankan: pohon di dasar kanan -12px, drop-shadow ikut kontur
+     alpha SVG; thumbnail taman 54px tetap object-fit:contain. -->
 <!-- v2.67 dock bernapas + simpan 3-gerbong + kunang-kunang semua hero:
      (1) dock bawah kini 70px (dulu 64px terasa "terlalu pendek" saat item
      terpilih), gap antar pill 6px, pill aktif padding-inline 12px & grow 2.9
@@ -240,8 +249,8 @@ b,strong{font-weight:600}
 @keyframes spDot{0%{opacity:0;transform:translateY(6px)}30%{opacity:.9}100%{opacity:0;transform:translateY(-26px)}}
 @media (prefers-reduced-motion:reduce){#splash{display:none}}
 body.no-amb .sp-sun,body.no-amb .sp-dots i{animation:none}
-img.ill-real--mask{filter:none!important;-webkit-mask-image:radial-gradient(74% 74% at 50% 45%,#000 54%,transparent 88%);mask-image:radial-gradient(74% 74% at 50% 45%,#000 54%,transparent 88%)}
-.hero-ill:has(img.ill-real--mask){filter:none!important}
+/* v2.70 · aset ilustrasi = SVG vektor cutout alpha (tepi organik; tak
+   perlu masker radial maupun isolasi webp). */
 /* v2.68 · TOMBOL SEMBUNYI PAPAN KETIK (#kbdHide) — ponsel navigasi gestur:
    menutup keyboard dengan usap dari tepi sering memicu gestur kembali /
    keluar app. Tombol mengambang menempel tepat di atas papan ketik
@@ -412,8 +421,9 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .ill-tetes{--ill-corner:url("/illustrations/card-tetes.svg")}
 .ill-timbang{--ill-corner:url("/illustrations/card-timbang.svg")}
 .ill-pemulih{--ill-corner:url("/illustrations/card-pemulih.svg")}
+.bugar-hero .ph-scene{width:auto;max-width:min(30vw,300px);max-height:238px} /* v2.69 · still-life bugar cutout ditanam kanan-bawah hero */
 @media(max-width:640px){
-  .bugar-hero .ph-scene{width:min(64vw,260px)}
+  .bugar-hero .ph-scene{width:auto;max-width:56vw;max-height:150px}
 }
 
 /* strip statistik bugar (mini-stats dipakai ulang) */
@@ -562,7 +572,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 
 /* hero ringkasan */
 .hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.22);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
-.hero-bg{position:absolute;inset:0;z-index:0;background:#D1FAE5 url("/illustrations/hero-bg.webp") center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,#F0FDF4 0%,#D1FAE5 60%,#BBF7D0 100%)} /* v2.70 · webp pensiun — gradasi murni */
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
 .hero h2{font-size:clamp(20px,2.4vw,22px);max-width:340px}
@@ -572,17 +582,24 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
    direpaint di thread utama tiap frame selamanya. Self-filter +
    self-transform (pola hero-tree v2.8) tetap ramah kompositor. */
 .hero-ill{position:relative;z-index:1;align-self:center;width:100%;max-width:505px}
-.hero-ill .ill,.hero-ill img{filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))}
+.hero-ill .ill{filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 30px 48px rgba(15,23,42,.1))} /* v2.69 · sprite SVG saja; img cutout bebas 'stiker' — bayangan lewat kontur alpha */
 .hero-ill .ill{aspect-ratio:480/320}
 .hero-quote{position:absolute;left:-6px;bottom:-10px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:12px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-md);display:flex;gap:7px;align-items:center;transform:rotate(-2.5deg)}
 .hero-quote .ic{width:14px;height:14px;color:var(--sage-deep)}
 @media(max-width:640px){.hero-ill{opacity:.88}}
 
 /* v2.8 · hero pohon konsistensi */
-.hero-tree .hero-bg{background:#D1FAE5 url("/illustrations/hero-bg-growth.svg") right center/cover no-repeat}
+.hero-tree .hero-bg{background:#D1FAE5 url("/illustrations/hero-bg-growth.svg") center bottom/cover no-repeat} /* v2.70 · perbukitan vektor — satu medium dengan pohon cutout */
 .hero-tree .hero-body{gap:9px}
-.hero-tree .hero-ill{display:grid;place-items:center}
-.hero-tree .hero-ill img{width:min(100%,340px);height:auto;aspect-ratio:1;filter:drop-shadow(0 12px 18px rgba(5,150,105,.16)) drop-shadow(0 30px 42px rgba(15,23,42,.08))}
+/* v2.70 · POHON DITANAM, BUKAN TEMPELAN: kolom ilustrasi meregang penuh,
+   pohon cutout vektor berdiri di dasar kanan di atas band perbukitan —
+   margin -12px menjatuhkan gundukan melewati tepi (overflow kartu memotong
+   = 'menggali bukit'), bayangan kontak ellipse menambatkan akar.
+   Tidak ada kanvas persegi, tidak ada masker: alpha nyata + medium senada. */
+.hero-tree .hero-ill{position:relative;z-index:1;align-self:stretch;justify-self:end;width:100%;max-width:none;display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none}
+.hero-tree .hero-ill img{width:auto;max-width:none;height:clamp(184px,29vh,256px);margin:0 -8px -12px 0;filter:none}
+.hero-tree .hero-ill::after{content:"";position:absolute;bottom:6px;left:50%;width:min(66%,160px);height:20px;transform:translateX(-46%);border-radius:50%;background:radial-gradient(closest-side,rgba(13,88,45,.2),rgba(13,88,45,0) 74%);filter:blur(5px);z-index:-1}
+.hero-tree .hero-quote{left:auto;right:16px;bottom:3px} /* v2.69 · papan kecil di kaki pohon — napas 3px dari gundukan & tepi kartu */
 /* v2.64 · backdrop blur(3px) di atas kanvas kelopak beranimasi diganti
    latar opak .92 (nilai yang sudah dipakai override mobile — visual
    seragam lintas layar); komposit kanvas di baliknya kini murah. */
@@ -619,11 +636,13 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 @media(max-width:900px){
   /* pohon tumbuh dari pojok kanan-bawah hero (di atas perbukitan latar),
      tidak lagi menabrak zona teks sapaan di atas */
-  .hero-tree .hero-ill{top:auto;right:-12px;bottom:-14px;width:138px;max-width:138px;opacity:.96;z-index:1;transform:none}
-  .hero-tree .hero-ill img{width:100%;height:auto;aspect-ratio:1}
+  /* v2.69 · pohon ditanam pojok kanan-bawah dengan kehadiran TINGGI
+     (bukan kotak 138px): akar di bukit, kanopi menjulang */
+  .hero-tree .hero-ill{top:auto;right:-4px;bottom:-10px;width:auto;max-width:46%;opacity:1;z-index:0;transform:none} /* z-0: teks/kartu progres selalu terbaca di atas pohon */
+  .hero-tree .hero-ill img{width:auto;max-width:152px;max-height:176px;height:auto;aspect-ratio:auto;margin:0}
   .hero.hero-tree .h-serif{padding-right:12px}
   .hero-tree .hero-body{gap:9px}
-  .hero-tree .hero-body>.btn{margin-right:128px}
+  .hero-tree .hero-body>.btn{margin-right:150px}
   .pekan-art{max-height:84px;object-fit:cover;object-position:center 70%;border-radius:12px}
   .wk-dot{width:22px;height:22px}
   .wk-dot.lv1{width:19px;height:19px}
@@ -681,8 +700,10 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
    utama, rimbun daun bertunas jadi latar lembut di dasarnya */
 .page-hero--art{display:grid;grid-template-columns:1.3fr .7fr;gap:10px;padding:20px 24px}
 .page-hero--art .hero-body{max-width:none;padding-right:0}
-.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:330px;filter:drop-shadow(0 10px 16px rgba(15,23,42,.07)) drop-shadow(0 26px 40px rgba(15,23,42,.06))}
-.page-hero--art .hero-ill img{display:block;width:100%;height:auto}
+/* v2.69 · taman cutout ditanam kolom kanan — bayangan ikut kontur alpha,
+   bukan dua lapis 'tempelan' persegi */
+.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:330px;filter:drop-shadow(0 12px 20px rgba(15,23,42,.10))}
+.page-hero--art .hero-ill img{display:block;width:auto;height:auto;max-height:252px;max-width:100%;margin:0 auto}
 .page-hero--art .ph-scene{opacity:.45;right:1%;bottom:-20px}
 /* Lencana (Wawasan) — podium juara sebagai pembuka koleksi */
 .badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 10px;border-radius:16px}
@@ -699,7 +720,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
   .page-hero--fin .ph-scene{width:170px;opacity:.95}
   .page-hero--fin .hero-body{padding-right:64px}
-  .page-hero--art .hero-ill{max-width:112px}
+  .page-hero--art .hero-ill{max-width:148px}
   .page-hero--art .hero-body{padding-right:0}
   .ph-progress .bar{flex-basis:100%;min-width:0} /* v2.40 · bar sebaris penuh; pill turun rapi ke baris sendiri */
   .badge-art{max-width:240px;margin:0 auto 8px}
@@ -931,7 +952,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .garden-strip{display:flex;gap:13px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
 .gd-plant{flex:none;width:92px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px 9px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line-soft);position:relative;cursor:pointer;transition:transform .2s var(--ease-tunas),border-color .18s}
 .gd-plant:hover{transform:translateY(-3px);border-color:var(--terra)}
-.gd-plant img{width:58px;height:58px;display:block;pointer-events:none}
+.gd-plant img{width:54px;height:54px;object-fit:contain;object-position:center bottom;display:block;pointer-events:none} /* v2.69 · thumbnail cutout: utuh, tanpa squish/masker */
 .gd-nm{font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.25;text-align:center;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 /* v2.39 · audit: tinggi nama dikunci 2 baris penuh — nama 1-baris tak lagi
    menggeser baseline label tahap di kartu sebelahnya (strip rata) */
@@ -1548,7 +1569,8 @@ p{text-wrap:pretty}
   .habit-grid{grid-template-columns:1fr}
   /* v2.17 · pohon jadi latar lembut pojok bawah hero; kartu progres pohon
      tetap kontras & terbaca penuh di atasnya (bukan tertimpa ilustrasi) */
-  .hero-tree .hero-ill{width:116px;max-width:116px;opacity:.5;z-index:0}
+  .hero-tree .hero-ill{width:auto;max-width:44%;opacity:.94;z-index:0}
+  .hero-tree .hero-ill img{max-width:128px;max-height:150px}
   .tree-progress{position:relative;z-index:1;max-width:100%;background:rgba(255,255,255,.92)}
   .sheet{padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
   /* kepala kartu: pill turun ke baris sendiri agar judul tak terperangkap */
@@ -2820,7 +2842,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <button class="btn btn-primary btn-sm" data-go="wawasan">Lihat analisis <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
     </div>
     <div class="hero-ill">
-      <img id="treeArt" class="ill-real--mask" src="/tree/tunas.jpg" alt="Ilustrasi cat air pohon konsistensi tahap tunas" width="480" height="480" loading="eager" fetchpriority="high"/>
+      <img id="treeArt" class="ill-plant" src="/tree/tunas.svg" alt="Ilustrasi vektor pohon konsistensi tahap tunas, ditanam di perbukitan kartu" width="560" height="586" loading="eager" fetchpriority="high"/>
       <div class="hero-quote"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Satu hari, satu catatan.</div>
     </div>
   </div>
@@ -3188,7 +3210,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <!-- HERO · TAMAN BUGAR (v2.58) — setapik lari berkelok, barbel bersandar,
        pohon apel & can penyiram: kebugaran yang tumbuh di kebun) -->
   <div class="page-hero bugar-hero" id="bugarHero">
-    <img class="ph-scene ill-real--mask" src="/illustrations/hero-bg-bugar.jpg" alt="" aria-hidden="true" loading="lazy" width="480" height="240"/>
+    <img class="ph-scene ill-plant" src="/illustrations/hero-bg-bugar.svg" alt="" aria-hidden="true" loading="lazy" width="560" height="548"/>
     <div class="hero-body">
       <div class="eyebrow" id="bugarEyebrow">Ritme gerak</div>
       <h2 class="h-serif" id="bugarHeroTitle">Taman bugar</h2>
@@ -3248,7 +3270,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
     </div>
     <div id="kardioBody"><div class="t-sub">memuat…</div></div>
-    <img class="set-art" src="/illustrations/scene-track.jpg" alt="" aria-hidden="true" loading="lazy" width="360" height="180" style="margin-top:10px"/>
+    <img class="set-art" src="/illustrations/scene-track.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180" style="margin-top:10px"/>
   </div>
 
   <!-- GRAFIK PROGRES & TARGET MINGGUAN (v2.58) — menit gerak per pekan
@@ -3572,7 +3594,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div data-fin-pane="mutasi" id="fin-pane-mutasi" hidden role="tabpanel" aria-labelledby="fin-tab-mutasi" aria-label="Mutasi transaksi">
   <!-- v2.49 · ALIRAN SUNGAI KOIN (scene-aliran) — pembuka pane mutasi:
        "arus kas" harfiah — koin hanyut di sungai yang mengairi taman -->
-  <img class="pane-art" src="/illustrations/scene-aliran.jpg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
+  <img class="pane-art" src="/illustrations/scene-aliran.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
   <!-- v2.68 · KARTU REKENING-KORAN (mut-bank) — ringkasan mutasi bulan
        terpilih sebagai kartu ala rekening koran bank: net arus kas sebagai
        angka utama, bar proporsi masuk–keluar, sel rincian masuk/keluar. -->
@@ -3635,7 +3657,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div data-fin-pane="saldo" id="fin-pane-saldo" hidden role="tabpanel" aria-labelledby="fin-tab-saldo" aria-label="Saldo bank & sumber dana">
   <!-- v2.49 · BRANKAS TUNAS (scene-brankas) — pembuka pane saldo: dana
        disimpan aman namun tetap hidup (tunas tumbuh di atas brankas) -->
-  <img class="pane-art" src="/illustrations/scene-brankas.jpg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
+  <img class="pane-art" src="/illustrations/scene-brankas.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
   <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
   <div class="card card-pad ill-bonsai ill-bl-berry drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
     <div class="saldo-top">
@@ -3790,7 +3812,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
     </div>
     <div class="hero-ill">
-      <img class="ill-real--mask" src="/illustrations/scene-taman.jpg" alt="Ilustrasi cat air taman tenang dengan pohon dan bangku batu" width="480" height="360" loading="lazy"/>
+      <img class="ill-plant" src="/illustrations/scene-taman.svg" alt="Ilustrasi vektor taman tenang dengan pohon dan bangku batu, ditanam di kartu" width="560" height="505" loading="lazy"/>
     </div>
   </div>
 
@@ -3868,7 +3890,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)" id="badgeCount">–</span>
     </div>
-    <img class="badge-art" src="/illustrations/scene-juara.jpg" alt="" aria-hidden="true" loading="lazy" width="480" height="360"/>
+    <img class="badge-art" src="/illustrations/scene-juara.svg" alt="" aria-hidden="true" loading="lazy" width="480" height="360"/>
     <div class="badge-grid" id="badgeGrid"></div>
   </div>
 </section>
@@ -4736,7 +4758,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.68';
+const APP_VERSION='v2.70';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -7130,7 +7152,7 @@ function renderGarden(){
     const st=gdStage(h.total),on=!!doneToday[h.id];
     return `<button type="button" class="gd-plant" data-drill="habit" data-id="${esc(h.id)}" title="Ketuk: detail ${esc(h.name)}" aria-label="${esc(h.name)}: ${st.n.toLowerCase()}, ${h.total} catatan${on?', sudah dicatat hari ini':''}">
       ${on?'<span class="gd-done" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>':''}
-      <img src="/tree/${st.f}.jpg" class="ill-real--mask" alt="" width="58" height="58" loading="lazy"/>
+      <img src="/tree/${st.f}.svg" alt="" width="54" height="54" loading="lazy"/>
       <span class="gd-nm">${esc(h.name)}</span>
       <span class="gd-sub">${st.n} · ${h.total}×</span>
     </button>`;
@@ -7255,8 +7277,8 @@ function renderTreeHero(){
   $('#treeLogs').textContent=`Total ${totalLogs} catatan`;
   const art=$('#treeArt');
   if(art){
-    art.src=`/tree/${st.file}.jpg`; /* v2.68 · cat air realistis — peta nama sama, ekstensi berganti */
-    art.alt=`Ilustrasi cat air pohon konsistensi tahap ${st.name.toLowerCase()}`;
+    art.src=`/tree/${st.file}.svg`; /* v2.70 · cutout vektor — peta nama sama */
+    art.alt=`Ilustrasi vektor pohon konsistensi tahap ${st.name.toLowerCase()}`;
   }
   const bar=$('#treeBar');
   if(bar){

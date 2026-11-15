@@ -1,51 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" fill="none" role="img" aria-label="Perbukitan mint, mentari senja, dan daun melayang untuk latar pohon konsistensi">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430">
+  <!-- Rutina · perbukitan hero pohon — vektor taman: langit senja lembut + 4 band bukit -->
   <defs>
-    <linearGradient id="hgG-sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ECFDF5"/><stop offset="1" stop-color="#D1FAE5" stop-opacity=".4"/></linearGradient>
-    <linearGradient id="hgG-hillA" x1="80" y1="240" x2="420" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#6EE7B7"/><stop offset="1" stop-color="#10B981"/></linearGradient>
-    <linearGradient id="hgG-hillB" x1="520" y1="250" x2="900" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399"/><stop offset="1" stop-color="#059669"/></linearGradient>
-    <linearGradient id="hgG-leafA" x1="770" y1="70" x2="850" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#6EE7B7"/><stop offset="1" stop-color="#059669"/></linearGradient>
-    <linearGradient id="hgG-leafB" x1="880" y1="120" x2="930" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset="1" stop-color="#34D399"/></linearGradient>
-    <radialGradient id="hgG-sun" cx=".5" cy=".5" r=".5"><stop stop-color="#FDE68A"/><stop offset="1" stop-color="#FCD34D"/></radialGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F0FDF4"/><stop offset=".55" stop-color="#D1FAE5"/><stop offset="1" stop-color="#BBF7D0"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="crest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#059669"/><stop offset="1" stop-color="#047857"/>
+    </linearGradient>
   </defs>
-  <!-- langit lembut -->
-  <path d="M0 0h960v340H0z" fill="url(#hgG-sky)" opacity=".55"/>
-  <!-- mentari senja kanan-atas -->
-  <circle cx="842" cy="64" r="42" fill="url(#hgG-sun)" opacity=".9"/>
-  <circle cx="842" cy="64" r="58" fill="#FDE68A" opacity=".28"/>
-  <circle cx="842" cy="64" r="74" fill="#FDE68A" opacity=".14"/>
-  <!-- perbukitan -->
-  <path d="M0 288c120-34 210-52 318-40 86 10 128 34 202 44v48H0Z" fill="url(#hgG-hillA)"/>
-  <path d="M470 262c96-26 158-18 234 6 74 24 156 30 256 10v62H470Z" fill="url(#hgG-hillB)"/>
-  <path d="M0 316c150-18 300-14 460 4 160 18 340 16 500-6v26H0Z" fill="#059669" opacity=".22"/>
-  <!-- jalan setapak berliku menuju bukit -->
-  <path d="M60 340c40-44 96-30 130-58 30-26 78-16 96-44" stroke="#ECFDF5" stroke-width="10" stroke-linecap="round" opacity=".75" stroke-dasharray="2 20"/>
-  <!-- daun besar kanan (dewasa) -->
-  <g>
-    <path d="M812 214V128" stroke="#047857" stroke-width="6" stroke-linecap="round"/>
-    <path d="M812 176c-40-3-54-30-33-52 32 4 48 30 33 52Z" fill="url(#hgG-leafA)"/>
-    <path d="M815 144c6-30 30-42 50-25-3 26-25 39-50 25Z" fill="#A7F3D0"/>
-    <path d="M812 128c-18-20-13-40 6-47 13 15 11 35-6 47Z" fill="#6EE7B7"/>
+  <rect width="960" height="430" fill="url(#sky)"/>
+  <circle cx="128" cy="84" r="58" fill="#FDE68A" opacity=".28"/>
+  <circle cx="128" cy="84" r="34" fill="#FDE68A"/>
+  <circle cx="128" cy="84" r="34" fill="none" stroke="#FCD34D" stroke-width="2" opacity=".55"/>
+  <g fill="#FFFFFF" opacity=".75">
+    <path d="M560 66 C560 52 572 44 586 44 C588 32 600 26 612 30 C618 20 634 20 642 30 C654 28 664 36 664 48 C664 58 656 66 646 66 Z"/>
+    <path d="M780 118 C780 108 790 102 800 104 C804 96 816 94 822 100 C828 92 840 94 844 104 C852 104 858 112 856 120 C854 126 848 128 842 128 L792 128 C784 128 780 124 780 118 Z"/>
   </g>
-  <!-- daun muda kecil -->
-  <g>
-    <path d="M922 236v-44" stroke="#047857" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M922 214c20-2 27-15 16-26-15 3-21 14-16 26Z" fill="url(#hgG-leafB)"/>
-    <path d="M920 200c-3-13 7-19 18-14-2 11-9 17-18 14Z" fill="#A7F3D0"/>
+  <path d="M306 96 q7 -8 14 0 q7 -8 14 0" stroke="#0F172A" stroke-width="2.4" fill="none" opacity=".22" stroke-linecap="round"/>
+  <path d="M368 126 q6 -7 12 0 q6 -7 12 0" stroke="#0F172A" stroke-width="2" fill="none" opacity=".18" stroke-linecap="round"/>
+  <path d="M0 250 C140 216 260 208 400 224 C540 240 660 240 780 222 C860 210 920 214 960 224 L960 430 L0 430 Z" fill="#A7F3D0"/>
+  <rect x="0" y="240" width="960" height="26" fill="#FFFFFF" opacity=".14"/>
+  <path d="M0 292 C120 262 280 252 420 268 C560 284 700 280 820 262 C900 250 940 254 960 260 L960 430 L0 430 Z" fill="#6EE7B7"/>
+  <rect x="0" y="286" width="960" height="24" fill="#FFFFFF" opacity=".12"/>
+  <path d="M0 336 C160 306 340 296 500 314 C640 328 760 322 860 306 C920 296 950 300 960 304 L960 430 L0 430 Z" fill="#34D399"/>
+  <path d="M0 384 C200 356 420 348 600 366 C760 380 880 376 960 368 L960 430 L0 430 Z" fill="url(#front)"/>
+  <path d="M560 430 C606 398 690 382 772 386 C838 389 902 400 960 418 L960 430 Z" fill="url(#crest)"/>
+  <g stroke="#059669" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8">
+    <path d="M120 398 C118 386 120 378 126 372"/>
+    <path d="M126 398 C128 388 132 382 138 378"/>
+    <path d="M330 404 C328 393 330 385 336 379"/>
+    <path d="M760 402 C758 391 760 383 766 377"/>
+    <path d="M772 402 C774 392 778 386 784 382"/>
   </g>
-  <!-- tunas kecil di bukit -->
   <g>
-    <path d="M560 262v-26" stroke="#047857" stroke-width="4" stroke-linecap="round"/>
-    <path d="M560 248c-14-1-19-11-11-18 11 1 17 10 11 18Z" fill="#34D399"/>
-    <path d="M562 240c2-10 10-14 17-9-1 9-8 13-17 9Z" fill="#6EE7B7"/>
+    <circle cx="220" cy="398" r="4.5" fill="#FFFFFF"/><circle cx="220" cy="398" r="2" fill="#F59E0B"/>
+    <circle cx="410" cy="408" r="4" fill="#FFFFFF"/><circle cx="410" cy="408" r="1.8" fill="#F59E0B"/>
+    <circle cx="680" cy="400" r="4.5" fill="#FFFFFF"/><circle cx="680" cy="400" r="2" fill="#F59E0B"/>
+    <circle cx="900" cy="396" r="3.6" fill="#FDE68A"/>
   </g>
-  <!-- daun melayang -->
-  <path d="M700 92c-9-9-7-21 3-24 7 7 7 17-3 24Z" fill="#34D399" opacity=".85"/>
-  <path d="M748 132c9-8 20-6 23 4-7 7-17 6-23-4Z" fill="#6EE7B7" opacity=".8"/>
-  <path d="M660 58c7-7 16-5 18 3-5 6-13 5-18-3Z" fill="#A7F3D0" opacity=".9"/>
-  <!-- kilau -->
-  <path d="M586 96l2.6 8.2 8.2 2.6-8.2 2.6-2.6 8.2-2.6-8.2-8.2-2.6 8.2-2.6Z" fill="#FCD34D"/>
-  <path d="M640 210l2 6.4 6.4 2-6.4 2-2 6.4-2-6.4-6.4-2 6.4-2Z" fill="#FDE68A" opacity=".9"/>
-  <circle cx="540" cy="66" r="4.5" fill="#FCD34D" opacity=".8"/>
-  <circle cx="770" cy="170" r="4" fill="#FDBA74" opacity=".75"/>
-  <circle cx="614" cy="150" r="3.5" fill="#A7F3D0"/>
 </svg>

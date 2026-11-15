@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v70"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v2.68: pembukaan app, tombol sembunyi papan ketik, rekening koran, filter bulan Analisis, ilustrasi cat air)
+const STATIC_CACHE = "rutina-static-v72"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v2.70: ilustrasi vektor taman — pohon 5 tahap + perbukitan + still-life bugar + taman/aliran/brankas/juara/track SVG cutout)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

@@ -1,13 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" fill="none"><defs>
-    <radialGradient id="halo" cx="50%" cy="43%" r="58%"><stop stop-color="#f8f5e9"/><stop offset="1" stop-color="#e9f2df"/></radialGradient>
-    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#9d7654"/><stop offset=".55" stop-color="#79583e"/><stop offset="1" stop-color="#654a39"/></linearGradient>
-    <linearGradient id="pot" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5a77e"/><stop offset="1" stop-color="#c87f62"/></linearGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 586" width="560" height="586">
+  <!-- Rutina · tahap 1 "Benih" — vektor taman: benih menetas di gundukan tanah -->
+  <defs>
+    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#92400E"/><stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="seed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D97706"/><stop offset="1" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="leafA" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="leafB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#166534"/>
+    </linearGradient>
   </defs>
-  <circle cx="240" cy="225" r="190" fill="url(#halo)"/>
-  <circle cx="240" cy="225" r="168" fill="#f7f5e9" opacity=".34"/>
-  <ellipse cx="240" cy="398" rx="113" ry="16" fill="#9bb58b" opacity=".23" filter="url(#soft)"/><path d="M102 370c48-19 91-25 138-22 53 4 96 15 138 22" stroke="#9cb987" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M139 373c61 16 141 17 202 0" stroke="#b5c99e" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <path d="M146 334q94 39 188 0l-12 65q-83 34-164 0z" fill="url(#pot)"/><path d="M139 335q101 29 202 0l-4 16q-97 29-194 0z" fill="#efbd91"/>
-    <path d="M240 343c-2-28 0-47 0-67" stroke="#73995f" stroke-width="8" stroke-linecap="round"/>
-    <path d="M239 300c-45 4-59-20-54-49 33 0 53 15 58 43" fill="#93b77a"/><path d="M242 286c8-33 29-47 57-42-4 30-22 47-55 49" fill="#6f9d67"/><path d="M240 326c-22-3-33-14-35-30 22 1 35 12 38 28" fill="#b2c995"/>
-    <ellipse cx="242" cy="345" rx="11" ry="14" fill="#916040"/><path d="M240 336q10 7 4 17" stroke="#d7ad7c" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="183" cy="318" r="5" fill="#e8b765"/><circle cx="298" cy="320" r="4" fill="#dca17c"/></svg>
+  <path d="M92 586 C118 549 170 527 226 522 C258 519 310 519 340 523 C392 530 442 552 472 586 Z" fill="url(#soil)"/>
+  <path d="M112 586 C160 566 240 556 300 556 C370 556 428 566 462 586 Z" fill="#451A03" opacity=".28"/>
+  <ellipse cx="225" cy="538" rx="58" ry="9" fill="#D97706" opacity=".22" transform="rotate(-4 225 538)"/>
+  <path d="M188 527 C185 515 187 505 193 498 C195 507 196 517 201 524 Z" fill="#22C55E"/>
+  <path d="M160 534 C157 524 158 515 163 509 C165 516 166 525 170 532 Z" fill="#15803D"/>
+  <path d="M352 528 C349 516 351 506 357 500 C359 509 360 518 364 525 Z" fill="#15803D"/>
+  <path d="M384 536 C382 527 383 519 387 514 C389 520 390 528 393 534 Z" fill="#4ADE80"/>
+  <ellipse cx="146" cy="578" rx="9" ry="6" fill="#D97706"/>
+  <ellipse cx="428" cy="574" rx="7" ry="5" fill="#FDE68A"/>
+  <g transform="rotate(-10 285 543)">
+    <ellipse cx="285" cy="543" rx="16" ry="21" fill="url(#seed)"/>
+    <path d="M285 524 C281 532 281 552 285 562" stroke="#78350F" stroke-width="1.6" fill="none" opacity=".55"/>
+    <ellipse cx="279" cy="538" rx="4.5" ry="8" fill="#FDE68A" opacity=".5"/>
+  </g>
+  <path d="M283 534 C281 521 282 512 286 504" stroke="#15803D" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M286 508 C294 498 305 494 314 495 C312 505 304 512 295 515 Z" fill="url(#leafA)"/>
+  <path d="M283 517 C276 509 268 506 261 507 C263 515 270 520 278 522 Z" fill="url(#leafB)"/>
+  <path d="M348 462 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 Z" fill="#FDE68A" opacity=".85"/>
+  <circle cx="338" cy="492" r="3" fill="#FDE68A" opacity=".6"/>
+  <circle cx="230" cy="470" r="2.5" fill="#FDE68A" opacity=".5"/>
+</svg>
