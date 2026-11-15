@@ -287,11 +287,10 @@ body.no-amb .sp-sun,body.no-amb .sp-dots i{animation:none}
 .brand-mark .ic{width:22px;height:22px}
 .brand-name{font-size:28px;font-weight:700}
 .brand-sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:1px}
-/* v2.20 · lencana versi aplikasi — sumber tunggal kebenaran via JS APP_VERSION.
-   Mungil & tenang, tak bersaing dgn fokus utama; selalu tampak di sidebar
-   (desktop) & topbar (mobile) supaya pengguna tahu versi yang sedang berjalan. */
-.app-ver{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:2px 7px 3px;margin-left:8px;border-radius:99px;background:var(--terra-soft);color:var(--terra-deep);vertical-align:middle;line-height:1.3;white-space:nowrap}
-.tb-brand .app-ver{font-size:10px;padding:2px 6px;margin-left:6px}
+/* v3.00 · versi aplikasi pindah rumah (audit desainer mobile profesional):
+   bilah atas adalah ruang kerja pengguna, bukan ruang rilis — nomor versi
+   kini tampil di kartu "Ringkasan akun" tab Pengaturan, tempat pengguna
+   lazim mencarinya; APP_VERSION tetap sumber tunggal kebenaran. */
 .nav{display:flex;flex-direction:column;gap:4px}
 .nav-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:8px 12px 6px}
 .nav-item{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;color:var(--ink-2);transition:background .18s,color .18s;min-height:46px;text-align:left}
@@ -1183,7 +1182,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .drill-dots i{width:11px;height:11px;border-radius:4px;background:var(--surface-2);display:inline-block}
 .drill-dots i.on{background:var(--sage)}
 #donutSvg .donut-slice{cursor:pointer}
-#consChart circle{cursor:pointer}
+#consChart circle,#consChart rect[data-drill]{cursor:pointer} /* v3.00 · mode batang ikut bisa diklik */
 .cal-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
 .cal-strip .mini-stat{padding:13px 15px}
 .cal-strip .num small{font-size:12px;font-family:var(--font-body);color:var(--ink-2);font-weight:600}
@@ -2684,7 +2683,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="brand">
     <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
     <div>
-      <div class="brand-name h-serif">Rutina <span class="app-ver" aria-label="Versi aplikasi"></span></div>
+      <div class="brand-name h-serif">Rutina</div>
       <div class="brand-sub">Kebiasaan &amp; keuangan</div>
     </div>
   </div>
@@ -2721,12 +2720,14 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   <div class="tb-left">
     <div class="tb-brand">
       <span class="brand-mark"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
-      Rutina <span class="app-ver" aria-label="Versi aplikasi"></span>
+      Rutina
     </div>
     <div class="tb-date" id="tbDate">Memuat tanggal…</div>
   </div>
+  <!-- v3.00 · topbar profesional: sisa dua kendali utama (notifikasi & akun);
+       pil runtun & lencana versi dicabut — runtun sudah tampil di hero tiap
+       tab cerita (Ringkasan/Analisis) tanpa menumpuk bilah kerja. -->
   <div class="tb-right">
-    <span class="pill pill-streak"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><b id="tbStreak">–</b><span id="tbStreakUnit">hari aktif total</span></span>
     <button class="icon-btn" id="btnBell" aria-label="Notifikasi">
       <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-cnt" id="bellCnt" aria-hidden="true" hidden></span>
     </button>
@@ -3743,7 +3744,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
             <h3 class="h-serif" id="consTitle">Konsistensi per minggu</h3>
           </div>
         </div>
-        <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)">Target 70%</span>
+        <span class="pill" style="background:var(--sage-soft);color:var(--sage-deep)" id="consTargetPill">Target 70%</span>
       </div>
       <div id="consChart"></div>
       <div class="cons-note">
@@ -3845,6 +3846,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <div class="set-cell"><small>Awal minggu</small><b id="setWeek">–</b></div>
       <div class="set-cell"><small>Target harian</small><b id="setTarget">–</b></div>
       <div class="set-cell"><small>Isi data</small><b id="setDataCounts">–</b></div>
+      <div class="set-cell"><small>Versi aplikasi</small><b id="setVersion">–</b></div>
     </div>
     <p class="t-sub" style="font-size:12px;margin-top:12px">Sumber: <b id="setSrcNote">–</b>. Setiap catatan tersimpan otomatis ke database; saat offline disimpan di perangkat lalu disinkronkan saat tersambung.</p>
     <div id="setSyncRow" style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap">
@@ -4651,11 +4653,10 @@ button.avatar:hover{border-color:var(--terra);transform:translateY(-1px);box-sha
    server lokal). Server tak terjangkau: snapshot tersemat + jurnal perangkat
    terdorong otomatis saat koneksi kembali (idempoten). */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-/* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
-   & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
-   yang sedang berjalan. */
-const APP_VERSION='v2.90';
-$$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
+/* v3.00 · sumber tunggal versi aplikasi — tampil di kartu "Ringkasan akun"
+   tab Pengaturan (bukan lagi di bilah atas: ruang kerja pengguna murni). */
+const APP_VERSION='v3.00';
+$$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
    Simpan/hapus/rollover tengah malam memakai quietPaint(): angka countUp,
@@ -6076,8 +6077,9 @@ function renderIdentity(){
   $('#greetSub').textContent=cerita;
   const tglLengkap=`${HARI[now.getDay()]}, ${now.getDate()} ${BULAN[now.getMonth()]} ${now.getFullYear()}`;
   $('#tbDate').innerHTML=`<b>${tglLengkap}</b>`;
-  $('#tbStreak').textContent=activeDaysAll();
-  $('#tbStreakUnit').textContent='hari aktif total';
+  const tbS=$('#tbStreak'),tbSU=$('#tbStreakUnit'); /* v3.00 · pil runtun topbar dicabut — pengaman utk DOM lama */
+  if(tbS)tbS.textContent=activeDaysAll();
+  if(tbSU)tbSU.textContent='hari aktif total';
   const inisial=(nama.match(/\p{L}/u)||['R'])[0].toUpperCase();
   $$('.avatar').forEach(a=>a.textContent=inisial);
   $('#sideName').textContent=nama;
@@ -6389,9 +6391,18 @@ function renderBugarHero(){
   const sub=$('#bugarHeroSub'),bar=$('#bugarHeroBar'),pill=$('#bugarHeroPill'),eb=$('#bugarEyebrow');
   if(!sub)return;
   const wk=fitWeekOf(weekStartOf(TODAY));
+  const prevW=fitWeekOf(addDays(weekStartOf(TODAY),-7));
   const pct=FIT.weekMin?Math.min(100,Math.round(wk.mins/FIT.weekMin*100)):0;
   if(eb)eb.textContent='Ritme gerak · musim '+seasonOf(TODAY);
-  sub.textContent=wk.ses?`${wk.ses} sesi · ${wk.mins} menit gerak pekan ini${wk.kcal?` · ~${wk.kcal} kkal terbakar`:''}.`:'Belum ada latihan pekan ini; taman bugarmu menunggu set pertama.';
+  /* v3.00 · sub hero = narasi progres sasaran + tren vs pekan lalu — angka
+     menit/sesi/kkal kini hanya milik strip mini-stat (audit desainer: hero
+     mengetik ulang tiga angka yang sudah tampil di bawahnya). */
+  let trendTxt='';
+  if(wk.ses){
+    const d=wk.mins-prevW.mins;
+    trendTxt=d>9?` — ${d} menit lebih padat dari pekan lalu`:d<-9?` — ${Math.abs(d)} menit lebih ringan dari pekan lalu`:' — setara ritme pekan lalu';
+  }
+  sub.textContent=wk.ses?(FIT.weekMin?`Sasaran ${FIT.weekMin} menit pekan ini · ${pct>=100?'sasaran genap tercapai':`${pct}% tercapai`}${trendTxt}.`:`Ritme gerak pekan ini tercatat${trendTxt}.`):'Belum ada latihan pekan ini; taman bugarmu menunggu set pertama.';
   if(bar){bar.dataset.w=pct+'%';bar.style.width=pct+'%'} /* v2.59 · lebar dipasang langsung — animateBars paintAll berjalan sebelum tab bugar dirender, tanpa ini bar hero tetap 0% */
   if(pill)pill.textContent=`${wk.mins}/${FIT.weekMin} menit`;
 }
@@ -7381,12 +7392,14 @@ function renderWawasanHero(){
       return;
     }
     const vals=weeks.map(w=>w.c);
-    const avg=Math.round(sumBy(vals,v=>v)/vals.length);
     const last=vals[vals.length-1]||0;
+    const prev=vals.length>1?vals[vals.length-2]:0;
+    /* v3.00 · sub hero = NARASI tren vs pekan lalu (audit desainer: hero &
+       catatan grafik dulu menulis kalimat rata-rata/puncak yang sama). */
+    const dlt=last-prev;
     const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
-    const pk=new Date(peak.s+'T00:00:00');
     $('#wawHeroTitle').textContent=`Pekan ini: ${last} catatan`;
-    $('#wawHeroSub').textContent=`Rata-rata ${avg} catatan/minggu · puncak ${peak.c} pada ${pk.getDate()} ${BULAN_S[pk.getMonth()]}.`;
+    $('#wawHeroSub').textContent=vals.length>1?(dlt>0?`Naik ${dlt} catatan dari pekan lalu — momentum tumbuh.`:dlt<0?`Turun ${Math.abs(dlt)} catatan dari pekan lalu; satu catatan hari ini cukup membaliknya.`:'Setara pekan lalu — ritme stabil.'):'Pekan pertama tercatat; pekan berikutnya melengkapi ceritanya.';
     $('#wawHeroBar').dataset.w=(peak.c?Math.min(100,Math.round(last/peak.c*100)):0)+'%';
     $('#wawHeroPill').textContent=`${vals.length} minggu tercatat`;
     const pp=$('#wawHeroBar').closest('.ph-progress');if(pp)pp.hidden=!last;
@@ -7402,11 +7415,15 @@ function renderWawasanHero(){
   const first=new Date(mk+'-01T00:00:00');
   const dEnd=new Date(first.getFullYear(),first.getMonth()+1,0).getDate();
   const weeks=Math.ceil(dEnd/7);
-  const avg=Math.round(N/weeks*10)/10;
-  const peak=new Date(pk+'T00:00:00');
+  /* v3.00 · sub hero = narasi CAKUPAN vs sasaran (bukan pengulangan
+     rata-rata/puncak yang sudah dipegang kartu grafik di bawah — audit
+     desainer). Bulan berjalan dihitung sampai hari ini, bukan dEnd penuh. */
+  const spanDays=mk===cur?Math.max(TODAY.getDate(),1):dEnd;
+  const pctA=Math.min(100,Math.round(A/spanDays*100));
+  const tgt=Math.round(+(SETTINGS&&SETTINGS.targetCompletion))||80;
   $('#wawHeroTitle').textContent=`${mk===cur?'Bulan ini':monthLabel(mk)}: ${N} catatan`;
-  $('#wawHeroSub').textContent=`Rata-rata ${avg} catatan/minggu · puncak ${pkN} pada ${peak.getDate()} ${BULAN_S[peak.getMonth()]} · ${A} hari aktif.`;
-  $('#wawHeroBar').dataset.w=Math.min(100,Math.round(A/dEnd*100))+'%';
+  $('#wawHeroSub').textContent=`Hari aktif ${A}/${spanDays} (${pctA}%) · sasaran ${tgt}% catatan.`;
+  $('#wawHeroBar').dataset.w=pctA+'%';
   $('#wawHeroPill').textContent=`${A} hari aktif`;
   const pp=$('#wawHeroBar').closest('.ph-progress');if(pp)pp.hidden=!A;
   animateBars($('#wawasanHero'));
@@ -8608,6 +8625,7 @@ function renderConsChart(){
   if(weeks.length>cap)weeks=weeks.slice(-cap);
   const vals=weeks.map(w=>w.c);
   const ct=$('#consTitle');if(ct)ct.textContent=all?`Konsistensi ${vals.length} minggu terakhir`:`Konsistensi · ${monthShort(mk)}`;
+  const ctp=$('#consTargetPill');if(ctp)ctp.textContent='Target '+(Math.round(+(SETTINGS&&SETTINGS.targetCompletion))||80)+'%'; /* v3.00 · sasaran asli dari Pengaturan — bukan 70% kaku yang tak cocok dgn setelan pengguna */
   const avg=Math.round(sumBy(vals,v=>v)/vals.length);
   const maxV=Math.max(...vals,1);
   const W=Math.max(280,cw),H=200,L=44,R=14,T=18,B=34;
@@ -8616,13 +8634,32 @@ function renderConsChart(){
   const pts=vals.map((v,i)=>[x(i),y(v)]);
   const line=smoothPath(pts);
   const area=line+`L${x(vals.length-1).toFixed(1)} ${(H-B).toFixed(1)} L${x(0).toFixed(1)} ${(H-B).toFixed(1)} Z`;
-  let s=`<path d="${area}" fill="#10B981" opacity=".12"/>`;
+  /* v3.00 · kejujuran data-viz (audit desainer): <3 titik → BATANG, bukan
+     garis "tren" — dua titik menyiratkan arah yang belum terbukti. Garis,
+     area & titik dipakai saat tren memang ada (≥3 pekan). */
+  const few=vals.length<3;
+  let s=few?'':`<path d="${area}" fill="#10B981" opacity=".12"/>`;
   [0,Math.round(maxV/2),maxV].forEach(v=>{
     s+=`<line x1="${L}" x2="${W-R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="chart-grid"/>`;
     s+=`<text x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end" class="chart-label">${v}</text>`;
   });
+  if(vals.length>1){ /* n=1: garis rata-rata menimpa satu-satunya batang — ditinggalkan */
   s+=`<line x1="${L}" x2="${W-R}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>`;
   s+=`<text x="${W-R}" y="${(y(avg)-7).toFixed(1)}" text-anchor="end" class="chart-label" fill="#B45309" style="font-weight:600" font-size="14.5" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">rata-rata ${avg}</text>`;
+  }
+  if(few){
+    const bw=Math.round(Math.min(56,Math.max(26,(W-L-R)/Math.max(1,vals.length)*.5)));
+    vals.forEach((v,i)=>{
+      const cx=vals.length===1?L+(W-L-R)/2:x(i);
+      const bh=Math.max(4,(H-T-B)*(v/maxV));
+      const by=(H-B)-bh;
+      const akhir=i===vals.length-1;
+      s+=`<rect x="${(cx-bw/2).toFixed(1)}" y="${by.toFixed(1)}" width="${bw}" height="${bh.toFixed(1)}" rx="9" fill="${akhir?'#059669':'#10B981'}" opacity="${akhir?'1':'.82'}" data-drill="week" data-start="${weeks[i].s}" tabindex="0"/>`;
+      s+=`<text x="${cx.toFixed(1)}" y="${(by-9).toFixed(1)}" text-anchor="middle" class="chart-label" style="font-weight:600" font-size="14" fill="#047857" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.5">${v}</text>`;
+      const d=new Date(weeks[i].s+'T00:00:00');
+      s+=`<text x="${cx.toFixed(1)}" y="${H-12}" text-anchor="middle" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`;
+    });
+  }else{
   pts.forEach((p,i)=>{
     const akhir=i===vals.length-1;
     s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${akhir?5.5:4.5}" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"${akhir?' class="chart-last"':''} data-drill="week" data-start="${weeks[i].s}" tabindex="0"/>`;
@@ -8632,10 +8669,11 @@ function renderConsChart(){
     if(i%step===0||i===vals.length-1){const akhirLbl=i===vals.length-1;s+=`<text x="${(akhirLbl?W-2:p[0]).toFixed(1)}" y="${H-12}" text-anchor="${akhirLbl?'end':'middle'}" class="chart-label">${d.getDate()} ${BULAN_S[d.getMonth()]}</text>`}
   });
   s+=`<path d="${line}" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round"${PAINT_QUIET?'':' class="line-draw"'}/>`; /* v2.64 · jalur data: garis final tanpa merambat ulang */
+  }
   $('#consChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Catatan kebiasaan per minggu">${s}</svg>`;
   const peak=weeks.reduce((a,b)=>b.c>a.c?b:a,weeks[0]);
   const pkd=new Date(peak.s+'T00:00:00');
-  $('#consNote').innerHTML=`Rata-rata <b>${avg} catatan/minggu</b> dalam ${vals.length} minggu · puncak <b>${peak.c}</b> pada ${pkd.getDate()} ${BULAN_S[pkd.getMonth()]}.`;
+  $('#consNote').innerHTML=vals.length===1?`Satu pekan tercatat: <b>${peak.c} catatan</b> — pekan berikutnya akan melengkapi trennya.`:`Rata-rata <b>${avg} catatan/minggu</b> dalam ${vals.length} minggu · puncak <b>${peak.c}</b> pada ${pkd.getDate()} ${BULAN_S[pkd.getMonth()]}.`;
   }
   /* pola pengeluaran mengikuti rentang analisis yang sama (v2.68) */
   const txN=all?TXS.length:TXS.filter(t=>t.date.slice(0,7)===mk).length;
