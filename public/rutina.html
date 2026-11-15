@@ -19,6 +19,14 @@
      → gradasi CSS murni (nol permintaan jaringan). (3) Penambatan v2.69
      dipertahankan: pohon di dasar kanan -12px, drop-shadow ikut kontur
      alpha SVG; thumbnail taman 54px tetap object-fit:contain. -->
+<!-- v2.71 ilustrasi VEKTOR SEMI-REALISTIS: penajaman kualitas seni di atas
+     vektor datar v2.70 — cahaya kiri-atas 3-nilai (punggung gelap/tengah/terang),
+     gumpal tajuk bergerigi + bayangan sabit antar lapis, titik dapple besar;
+     64 aset digambar ulang (5 pohon, 13 scene, 6 hero-bg + fg keuangan, 37 motif
+     kartu, perbukitan); detail skala-tampil (rumput/bark/kerikil/kunang chunky)
+     supaya terbaca di render 128-172px; pohon hero mobile 128→148px; scene
+     track & kaca penemuan kini tampil UTUH (max-height:none) bukan potongan
+     strip 84px. Kendala: nol filter/raster/teks di SVG; ukuran per aset <20KB. -->
 <!-- v2.67 dock bernapas + simpan 3-gerbong + kunang-kunang semua hero:
      (1) dock bawah kini 70px (dulu 64px terasa "terlalu pendek" saat item
      terpilih), gap antar pill 6px, pill aktif padding-inline 12px & grow 2.9
@@ -639,7 +647,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   /* v2.69 · pohon ditanam pojok kanan-bawah dengan kehadiran TINGGI
      (bukan kotak 138px): akar di bukit, kanopi menjulang */
   .hero-tree .hero-ill{top:auto;right:-4px;bottom:-10px;width:auto;max-width:46%;opacity:1;z-index:0;transform:none} /* z-0: teks/kartu progres selalu terbaca di atas pohon */
-  .hero-tree .hero-ill img{width:auto;max-width:152px;max-height:176px;height:auto;aspect-ratio:auto;margin:0}
+  .hero-tree .hero-ill img{width:auto;max-width:164px;max-height:190px;height:auto;aspect-ratio:auto;margin:0}
   .hero.hero-tree .h-serif{padding-right:12px}
   .hero-tree .hero-body{gap:9px}
   .hero-tree .hero-body>.btn{margin-right:150px}
@@ -1570,7 +1578,7 @@ p{text-wrap:pretty}
   /* v2.17 · pohon jadi latar lembut pojok bawah hero; kartu progres pohon
      tetap kontras & terbaca penuh di atasnya (bukan tertimpa ilustrasi) */
   .hero-tree .hero-ill{width:auto;max-width:44%;opacity:.94;z-index:0}
-  .hero-tree .hero-ill img{max-width:128px;max-height:150px}
+  .hero-tree .hero-ill img{max-width:148px;max-height:172px} /* v2.71 · pohon lebih hadir; progres tetap di kartu putih .92 */
   .tree-progress{position:relative;z-index:1;max-width:100%;background:rgba(255,255,255,.92)}
   .sheet{padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
   /* kepala kartu: pill turun ke baris sendiri agar judul tak terperangkap */
@@ -3270,7 +3278,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
     </div>
     <div id="kardioBody"><div class="t-sub">memuat…</div></div>
-    <img class="set-art" src="/illustrations/scene-track.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180" style="margin-top:10px"/>
+    <img class="set-art" src="/illustrations/scene-track.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180" style="margin-top:10px;max-height:none"/> <!-- v2.71 · scene track utuh, bukan potongan 84px -->
   </div>
 
   <!-- GRAFIK PROGRES & TARGET MINGGUAN (v2.58) — menit gerak per pekan
@@ -3846,7 +3854,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <!-- v2.50 · kaca pembesar mengamati tunas (scene-kaca) — kartu
            temuan kini berilustrasi metafora "memeriksa taman" -->
-      <img class="find-art" src="/illustrations/scene-kaca.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120"/>
+      <img class="find-art" src="/illustrations/scene-kaca.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120" style="max-height:none;max-width:230px;margin-left:auto;margin-right:auto"/> <!-- v2.71 · kaca penemuan utuh, terpusat -->
       <div class="find-list" id="findList"></div>
     </div>
   </div>
@@ -4758,7 +4766,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.70';
+const APP_VERSION='v2.71';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
