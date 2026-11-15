@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v82"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v2.80: sistem kartu presisi korporat — bayangan berlapis kalem, milled edge, hairline editorial)
+const STATIC_CACHE = "rutina-static-v90"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v2.90: anggaran ilustrasi — kartu konten polos, dekorasi sudut & adegan tengah-kartu dicabut, ilustrasi hanya di momen hero/splash/empty state)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

@@ -10,6 +10,15 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v2.90 ANGGARAN ILUSTRASI (audit desainer mobile profesional): ya,
+     ilustrasinya KEBANYAKAN — 8-9 lapisan dekor per layar menyaingi data.
+     Anggaran baru: 1 MOMEN per layar (hero + splash + empty state),
+     kartu konten polos. Dicabut: untaian sudut/tunas di SEMUA kartu
+     (peta .ill-* 37 motif pensiun; aset tak lagi diminta), 14 adegan
+     tengah-kartu (fajar/jatah/pekan/kupu/track/taman/kaca/kompas/juara/
+     aliran/brankas/arsip/label/refleksi), gembor siram tc-hero-art,
+     ilustrasi stat keuangan 96px → ikon 44px. Tetap hidup: hero tiap tab,
+     pohon Ringkasan, taman kebiasaan (visualisasi data), splash tunas. -->
 <!-- v2.70 ilustrasi VEKTOR TAMAN (akhir 'kasar'): seluruh aset mood kartu
      kini SVG vektor datar-berlapis (gradasi lembut, blob organik) — mengganti
      cat air webp/jpg yang bertekstur kasar. (1) 9 aset digambar ulang sebagai
@@ -159,18 +168,11 @@
   --font-body:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
   --sidebar-w:268px;
   --ease-tunas:cubic-bezier(.22,1,.36,1);
-  /* v2.55 · untaian botani KEMBALI sebagai latar kartu (permintaan pengguna:
-     "ilustrasi sebagai latar, seperti kartu pohon rutina") — untaian sudut
-     kanan-atas + tunas kiri-bawah via background-image berlapis; zona teks
-     interior kartu tetap polos (prinsip keterbacaan §8 design-foundation). */
-  --ill-corner:url("/illustrations/card-sprig.svg");
-  --ill-mini:url("/illustrations/card-sprig-bl.svg");
-  --ill-size-c:150px; /* kartu besar */
-  --ill-seg:96px; /* sel strip statistik (stat/mini-stat) */
-  --ill-size-mini:72px; /* tunas kiri-bawah */
-  /* v2.57 · untaian kartu kebiasaan — ukuran tersendiri (baris padat, supaya
-     tetap terbaca: untaian lebih kecil daripada kartu besar) */
-  --ill-habit:76px;
+  /* v2.90 · ANGGARAN ILUSTRASI (audit kacamata desainer mobile profesional):
+     kartu konten POLOS semua tab — dekorasi untaian sudut & tunas (v2.55-v2.71)
+     dicabut; ilustrasi hanya di MOMEN bermakna: hero tiap layar, empty state,
+     splash. Kartu bersandar ke sistem kartu v2.80 (bayangan berlapis, milled
+     edge, tipografi) — data jadi bintang, dekorasi jadi bumbu. */
 }
 html{scroll-behavior:smooth}
 body{
@@ -365,76 +367,22 @@ body.no-amb .sp-sun,body.no-amb .sp-dots i{animation:none}
 /* kartu & grid */
 /* v2.7 · beautiful shadows (quiet elevation): sm = kartu resting & kontrol,
    md = popover/toast/dock + hover kartu, lg = hanya hero & modal sheet.
-   v2.55 · untaian botani sudut kartu aktif lagi di SEMUA kartu semua tab —
-   hero, empty state, dan ilustrasi konten tetap hidup seperti sebelumnya. */
-.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);background-image:var(--ill-corner),var(--ill-mini);background-repeat:no-repeat;background-position:100% 0,0 100%;background-size:var(--ill-size-c),var(--ill-size-mini);box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.9)} /* v2.80 · "milled edge": sorot 1px putih di tepi atas — kartu terasa ter-freist, bukan panel datar */
-/* presisi untaian per jenis kartu: sel stat/mini-stat hanya untaian segmen
-   (sel kecil, dua lapisan terlalu ramai); scene-stat & habit-card polos
-   (art sendiri tak berdesisan); .card-plain-bl mematikan tunas kiri-bawah
-   untuk grid data (heatmap, kalender) agar sel angka tetap bersih. */
-.stat,.mini-stat{background-image:var(--ill-corner);background-size:var(--ill-seg)}
-.scene-stat{background-image:none}
-.card-plain-bl{background-image:var(--ill-corner)}
-/* motif botani kartu kebiasaan: kelas .ill-* dipasang JS lewat hash(id+musim)
-   bebas tabrakan (assignHabitMotifs); latar = [untaian motif, cuci musim] jangkar
-   100% 0; musim menukar --season-wash lewat kelas body.musim-*. */
-.habit-card{background-image:var(--ill-corner),var(--season-wash);background-position:100% 0,100% 0;background-size:var(--ill-habit),auto}
+   v2.90 · kartu konten polos seluruhnya (anggaran ilustrasi): untaian sudut
+   + tunas dicabut — hierarki visual lewat bayangan & tipografi saja. */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.9)} /* v2.80 · "milled edge": sorot 1px putih di tepi atas — kartu terasa ter-freist, bukan panel datar */
+/* v2.90 · kartu kebiasaan hanya membawa cuci musim — warna lembut, bukan
+   ilustrasi; identitas musim tetap hadir tanpa desisan bentuk. */
+.habit-card{background-image:var(--season-wash);background-position:100% 0}
 body{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(209,250,229,.38),rgba(209,250,229,0) 70%)}
 body.musim-semi{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(253,231,241,.5),rgba(253,231,241,0) 70%)}
 body.musim-panas{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(254,243,199,.52),rgba(254,243,199,0) 70%)}
 body.musim-gugur{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(255,237,213,.5),rgba(255,237,213,0) 70%)}
 body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,242,254,.46),rgba(224,242,254,0) 70%)}
-/* 15 motif sudut kartu via kelas .ill-* sesuai makna (dalam satu tampilan tak
-   ada dua kartu bermotif sama): sakura=identitas · matahari=hari/panas ·
-   gandum=jatah & pengeluaran · bambu=konsistensi & kalender · pakis=ritme &
-   arus · berry=saldo & komposisi · jamur=tip · kupu=check-in · kunang=semangat
-   & temuan · laurel=pekan lalu & lencana · koin=catatan uang · kaktus=anggaran
-   · bonsai=taman & tabungan · teh=rekomendasi · sukulen=dompet. Tunas kiri-bawah
-   via .ill-bl-*; kartu tanpa kelas memakai sprig asli. */
-.ill-sakura{--ill-corner:url("/illustrations/card-sakura.svg")}
-.ill-matahari{--ill-corner:url("/illustrations/card-matahari.svg")}
-.ill-gandum{--ill-corner:url("/illustrations/card-gandum.svg")}
-.ill-bambu{--ill-corner:url("/illustrations/card-bambu.svg")}
-.ill-pakis{--ill-corner:url("/illustrations/card-pakis.svg")}
-.ill-berry{--ill-corner:url("/illustrations/card-berry.svg")}
-.ill-jamur{--ill-corner:url("/illustrations/card-jamur.svg")}
-.ill-kupu{--ill-corner:url("/illustrations/card-kupu.svg")}
-.ill-kunang{--ill-corner:url("/illustrations/card-kunang.svg")}
-.ill-laurel{--ill-corner:url("/illustrations/card-laurel.svg")}
-.ill-koin{--ill-corner:url("/illustrations/card-koin.svg")}
-.ill-kaktus{--ill-corner:url("/illustrations/card-kaktus.svg")}
-.ill-bonsai{--ill-corner:url("/illustrations/card-bonsai.svg")}
-.ill-teh{--ill-corner:url("/illustrations/card-teh.svg")}
-.ill-sukulen{--ill-corner:url("/illustrations/card-sukulen.svg")}
-/* v2.57 · 10 motif taman baru — makna kebiasaan: wortel=kerapian & rumah ·
-   stroberi=butir kecil terkumpul manis · anggur=runtun bertumpuk · padi=progres
-   & syukur (bulir menunduk saat penuh) · teratai=ketenangan & reset ·
-   kacang=urutan & versi mini · lavender=malam & tenang · pinus=konsistensi
-   lintas musim · maple=adaptasi & ganti rupa · mint=jeda menyegarkan. */
-.ill-wortel{--ill-corner:url("/illustrations/card-wortel.svg")}
-.ill-stroberi{--ill-corner:url("/illustrations/card-stroberi.svg")}
-.ill-anggur{--ill-corner:url("/illustrations/card-anggur.svg")}
-.ill-padi{--ill-corner:url("/illustrations/card-padi.svg")}
-.ill-teratai{--ill-corner:url("/illustrations/card-teratai.svg")}
-.ill-kacang{--ill-corner:url("/illustrations/card-kacang.svg")}
-.ill-lavender{--ill-corner:url("/illustrations/card-lavender.svg")}
-.ill-pinus{--ill-corner:url("/illustrations/card-pinus.svg")}
-.ill-maple{--ill-corner:url("/illustrations/card-maple.svg")}
-.ill-mint{--ill-corner:url("/illustrations/card-mint.svg")}
-.ill-bl-sakura{--ill-mini:url("/illustrations/card-sakura-bl.svg")}
-.ill-bl-gandum{--ill-mini:url("/illustrations/card-gandum-bl.svg")}
-.ill-bl-berry{--ill-mini:url("/illustrations/card-berry-bl.svg")}
-.ill-bl-pakis{--ill-mini:url("/illustrations/card-pakis-bl.svg")}
-/* v2.58 · TAB BUGAR — motif kartu bugar: barbel (latihan beban), lari
-   (jalan/lari/pace), apel (kalori & makro), tetes (hidrasi), timbangan
-   (berat badan), pemulih (pemulihan). Semua satu bahasa untaian sudut
-   (cuci radial + tangkai melengkung + koin amber + percik). */
-.ill-dumbel{--ill-corner:url("/illustrations/card-dumbel.svg")}
-.ill-lari{--ill-corner:url("/illustrations/card-lari.svg")}
-.ill-apel{--ill-corner:url("/illustrations/card-apel.svg")}
-.ill-tetes{--ill-corner:url("/illustrations/card-tetes.svg")}
-.ill-timbang{--ill-corner:url("/illustrations/card-timbang.svg")}
-.ill-pemulih{--ill-corner:url("/illustrations/card-pemulih.svg")}
+/* v2.90 · peta motif .ill-* (37 untaian sudut + 4 tunas) DIPENSIUNKAN —
+   kelas .ill-* yang masih tertulis di markup/JS kini inert (nol efek
+   visual); aset /illustrations/card-*.svg tidak lagi diminta browser.
+   Pohon identitas taman tetap hidup di: hero tiap tab, splash, empty
+   state, dan strip taman kebiasaan (visualisasi data, bukan dekorasi). */
 .bugar-hero .ph-scene{width:auto;max-width:min(30vw,300px);max-height:238px} /* v2.69 · still-life bugar cutout ditanam kanan-bawah hero */
 @media(max-width:640px){
   .bugar-hero .ph-scene{width:auto;max-width:56vw;max-height:150px}
@@ -628,12 +576,9 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .tree-bar i{background:linear-gradient(90deg,#34D399,#059669)}
 .hero-meta .pill{background:#FFFFFF;border:1px solid rgba(167,243,208,.9);color:var(--terra-deep);font-weight:600;font-size:12px;padding:6px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
 /* v2.8 · banner jatah harian */
-.jatah-banner .jb-art{width:92px;flex:none;display:grid;place-items:center;position:relative;z-index:1}
-.jatah-banner .jb-art img{width:100%;height:auto}
 .jatah-banner.over .sb-body b{color:var(--rose-deep)}
 .jatah-banner.over .bar i{background:var(--rose)}
 /* v2.8 · ritme pekan */
-.pekan-art{display:block;width:100%;height:auto;margin:0 0 10px}
 .week-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
 .wk-cell{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 3px 5px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
 .wk-cell.today{background:var(--terra-softer);border-color:#A7F3D0}
@@ -659,13 +604,11 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   .hero.hero-tree .h-serif{padding-right:12px}
   .hero-tree .hero-body{gap:9px}
   .hero-tree .hero-body>.btn{margin-right:150px}
-  .pekan-art{max-height:84px;object-fit:cover;object-position:center 70%;border-radius:12px}
   .wk-dot{width:22px;height:22px}
   .wk-dot.lv1{width:19px;height:19px}
   .wk-dot.lv2{width:22px;height:22px}
 }
 @media(max-width:640px){
-  .jatah-banner .jb-art{width:58px}
   /* tombol turun ke baris sendiri supaya kolom teks dapat ruas penuh
      (min-width:0 warisan banner lama membuat teks terremuk bila sebaris) */
   .jatah-banner>.btn{flex-basis:100%;justify-content:flex-start}
@@ -674,7 +617,6 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   .wk-cell{padding:8px 3px 7px;border-radius:11px}
   .wk-day{font-size:10px}
   .wk-n{font-size:10.5px}
-  .pekan-art{max-height:72px}
 }
 
 /* v2.9 · SCENE LATAR HERO TIAP TAB
@@ -712,21 +654,14 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .page-hero--sky{border-color:rgba(14,165,233,.24);background:linear-gradient(130deg,#F0F9FF 0%,#E0F2FE 58%,#D1FAE5 100%)}
 .page-hero--sky .eyebrow{color:var(--sky-deep)}
 .page-hero--sky .ph-scene{top:-16px;right:-14px;bottom:auto;width:clamp(148px,19vw,216px)}
-/* Wawasan — hero dua kolom ala Ringkasan: taman tenang sebagai ilustrasi
-   utama, rimbun daun bertunas jadi latar lembut di dasarnya */
-.page-hero--art{display:grid;grid-template-columns:1.3fr .7fr;gap:10px;padding:20px 24px}
+/* Wawasan — hero satu kolom penuh (v2.90 · ilustrasi taman besar dipensikan,
+   scene hero-bg-insights tetap sebagai momen satu-satunya di tab ini) */
+.page-hero--art{display:grid;grid-template-columns:1fr;gap:10px;padding:20px 24px}
 .page-hero--art .hero-body{max-width:none;padding-right:0}
-/* v2.69 · taman cutout ditanam kolom kanan — bayangan ikut kontur alpha,
-   bukan dua lapis 'tempelan' persegi */
-.page-hero--art .hero-ill{position:relative;z-index:1;align-self:center;justify-self:end;width:100%;max-width:330px;filter:drop-shadow(0 12px 20px rgba(15,23,42,.10))}
-.page-hero--art .hero-ill img{display:block;width:auto;height:auto;max-height:252px;max-width:100%;margin:0 auto}
 .page-hero--art .ph-scene{opacity:.45;right:1%;bottom:-20px}
-/* Lencana (Wawasan) — podium juara sebagai pembuka koleksi */
-.badge-art{display:block;width:100%;max-width:390px;height:auto;margin:2px auto 10px;border-radius:16px}
 @media(max-width:900px){
   .page-hero{min-height:0;padding:18px 20px}
   .page-hero--art{grid-template-columns:1fr}
-  .page-hero--art .hero-ill{max-width:210px;justify-self:center;order:2;margin-top:6px}
   .page-hero--art .ph-scene{opacity:.4}
 }
 @media(max-width:640px){
@@ -736,10 +671,8 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   .page-hero--sky .ph-scene{width:116px;top:-12px;right:-8px}
   .page-hero--fin .ph-scene{width:170px;opacity:.95}
   .page-hero--fin .hero-body{padding-right:64px}
-  .page-hero--art .hero-ill{max-width:148px}
   .page-hero--art .hero-body{padding-right:0}
   .ph-progress .bar{flex-basis:100%;min-width:0} /* v2.40 · bar sebaris penuh; pill turun rapi ke baris sendiri */
-  .badge-art{max-width:240px;margin:0 auto 8px}
 }
 @media(prefers-reduced-motion:reduce){
   .page-hero .ph-scene{filter:none}
@@ -935,18 +868,8 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 @media(max-width:640px){.wc-v{font-size:14.5px}.wc-cell{padding:6px 8px}}
 /* v2.37 · laporan bulanan (tab Kalender) */
 .mon-report{margin-bottom:24px}
-/* v2.50 · ilustrasi per tab tahap 3 — jurnal refleksi (laporan bulanan
-   Kalender, tengah kartu), kaca pembesar & kompas (kartu Temuan utama /
-   Rekomendasi Wawasan), rak pot & label harga (kartu kelola Pengaturan).
-   Pola .hm-art: lebar penuh, dipangkas rapi di ponsel. */
-.mr-art{display:block;width:100%;max-width:330px;height:auto;margin:4px auto 8px;border-radius:12px}
-.find-art{display:block;width:100%;height:auto;margin:0 0 10px;border-radius:12px;border:1px solid var(--line-soft)}
-.set-art{display:block;width:100%;height:auto;margin:0 0 14px;border-radius:12px;border:1px solid var(--line-soft)}
-@media(max-width:640px){
-  .mr-art{max-width:200px;margin:3px auto 6px}
-  .find-art{max-height:82px;object-fit:cover;object-position:center 55%}
-  .set-art{max-height:84px;object-fit:cover;object-position:center 55%}
-}
+/* v2.90 · aturan ilustrasi per tab tahap 3 (v2.50) dipensikan bersama
+   asetnya — kartu laporan/kaca/kompas/rak/label kini panel data polos. */
 .mr-sec{margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft)} /* v2.80 · hairline solid */
 .mr-sec:first-child{margin-top:2px;border-top:0;padding-top:0}
 .mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
@@ -985,18 +908,8 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
    tersimpan: ringkasan pill + tombol Ubah — pill yang sama persis
    dengan detail hari supaya satu bahasa. */
 .ci-card{padding:13px 15px;margin-bottom:24px}
-/* v2.48 · adegan fajar di kepala kartu check-in — kanan kepala, turun
-   rapi ke tepi kartu (margin negatif kecil), bayangan lembut senada
-   ph-scene. Sempit → ikut menyusut; ponsel ≤420px disembunyikan agar
-   titik skala mood/energi tetap pusat panggung. */
-.ci-art{flex:none;width:92px;height:auto;margin:-4px -2px -8px 0;filter:drop-shadow(0 8px 12px rgba(15,23,42,.08));align-self:flex-start}
-@media(max-width:640px){.ci-art{width:84px;margin:-3px -1px -6px 0}}
-@media(max-width:420px){.ci-art{display:none}}
-/* v2.48 · padang kupu-kupu penutup kartu kalender konsistensi (Kebiasaan)
-   — strip lebar pola .pekan-art; ponsel dipangkas agar tak memanjangkan
-   halaman (object-position menjaga kupu tetap terlihat) */
-.hm-art{display:block;width:100%;height:auto;margin:10px 0 0;border-radius:12px}
-@media(max-width:640px){.hm-art{max-height:74px;object-fit:cover;object-position:center 65%}}
+/* v2.90 · adegan fajar & padang kupu-kupu (v2.48) dipensikan bersama
+   asetnya — kartu check-in & kalender konsistensi kini panel polos. */
 .ci-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:7px}
 .ci-lab{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:96px;flex:none}
 .ci-lab .ic{width:15px;height:15px;color:var(--ink-3);flex:none}
@@ -1113,7 +1026,9 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 
 /* halaman keuangan */
 .scene-stat{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:16px;border:none;border-radius:0;box-shadow:none}
-.scene-stat .ill{width:96px;aspect-ratio:160/130;flex:none;position:relative;z-index:1}
+/* v2.90 · scene-stat: ilustrasi dikecilkan ke skala IKON (96px → 44px) —
+   stat keuangan butuh ikon bermakna, bukan lukisan bersaing dengan angka. */
+.scene-stat .ill{width:44px;aspect-ratio:160/130;flex:none;position:relative;z-index:1}
 .scene-stat + .scene-stat{border-left:1px solid var(--line-soft)}
 .scene-stat .num{font-family:var(--font-display);font-size:clamp(20px,4.4vw,24px);font-weight:600;line-height:1.1}
 .scene-stat .lbl{font-size:12px;font-weight:600;color:var(--ink-2);margin:3px 0 2px}
@@ -1316,9 +1231,9 @@ body.ov-open{overflow:hidden}
 .modal-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);animation:fadeIn .25s}
 /* body.ov-open membekukan animasi hiasan tak berhenti selama overlay terbuka
    (daftar selector di bawah); lanjut dari posisi terhenti saat ditutup. */
-body.ov-open .motiv-art,body.ov-open .id-art,body.ov-open .ph-scene,body.ov-open .hero-ill img,body.ov-open .hero-quote,body.ov-open .empty-state .ill,body.ov-open .chart-last,body.ov-open .badge.unlocked::after,body.ov-open .tc-hero-art .ill{animation-play-state:paused}
+body.ov-open .motiv-art,body.ov-open .id-art,body.ov-open .ph-scene,body.ov-open .hero-ill img,body.ov-open .hero-quote,body.ov-open .empty-state .ill,body.ov-open .chart-last,body.ov-open .badge.unlocked::after{animation-play-state:paused}
 /* gerak latar dimatikan pengguna (Pengaturan): daftar selector sama dgn ov-open */
-body.no-amb .motiv-art,body.no-amb .id-art,body.no-amb .ph-scene,body.no-amb .hero-ill img,body.no-amb .hero-quote,body.no-amb .empty-state .ill,body.no-amb .chart-last,body.no-amb .badge.unlocked::after,body.no-amb .tc-hero-art .ill{animation-play-state:paused}
+body.no-amb .motiv-art,body.no-amb .id-art,body.no-amb .ph-scene,body.no-amb .hero-ill img,body.no-amb .hero-quote,body.no-amb .empty-state .ill,body.no-amb .chart-last,body.no-amb .badge.unlocked::after{animation-play-state:paused}
 /* elemen ber-backdrop-filter yang berada DI BAWAH scrim (frost topbar, kaca
    tree-progress) dimatikan selama overlay terbuka: blur di dalam blur tak
    stabil di-cache; kembali saat ditutup. */
@@ -1858,7 +1773,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   .ph-scene,.hero-ill img,.hero-quote,.empty-state .ill{animation:none !important} /* v2.26: atmosfer hero dikendalikan JS — reduced → statis */
   .motiv-art,.motiv-swap{animation:none !important} /* v2.33: semangat hari ini tampil statis tanpa gerak */
   .id-art{animation:none !important} /* v2.35: kartu identitas tampil statis tanpa gerak */
-  .tc-hero-art .ill{animation:none !important} /* v2.46: gembor arus kas tampil statis tanpa gerak */
   .gd-plant{transition:none} /* v2.37: tanaman taman tak bergerak */
   .gd-plant:hover{transform:none}
   .card:hover,.dompet-card:hover,.badge.unlocked:hover{transform:none}
@@ -2931,10 +2845,11 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     </div>
   </div>
 
-  <!-- kartu Arus kas hari ini "siraman kebun": kepala hero gembor penyiram koin,
-       panel buku besar Masuk/Keluar + porsi % aliran, jalur aliran sage/rose,
-       vonis Net timbangan (tint surplus/defisit), bedeng pos ber-ikon + jejak
-       terakhir kategori, daftar ringkas hari ini (drillable). Ketuk = bedah hari. -->
+  <!-- kartu Arus kas hari ini: panel buku besar Masuk/Keluar + porsi % aliran,
+       jalur aliran sage/rose, vonis Net timbangan (tint surplus/defisit),
+       bedeng pos ber-ikon + jejak terakhir kategori, daftar ringkas hari ini
+       (drillable). Ketuk = bedah hari. v2.90 · gembor penyiram dikecilkan
+       jadi kepala hero teks murni (anggaran ilustrasi). -->
   <div class="card today-card drillable" id="todayCard" data-drill="stat-day" title="Ketuk: bedah arus kas hari ini">
     <div class="tc-hero">
       <div class="tc-hero-body">
@@ -2942,7 +2857,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <h3 class="h-serif" id="todayTitle">Hari ini habis Rp 0</h3>
         <div class="tc-hero-meta"><span class="pill" id="todayPill">–</span></div>
       </div>
-      <div class="tc-hero-art" aria-hidden="true"><svg class="ill"><use href="#ill-siram"/></svg></div>
     </div>
     <div class="tc-body">
       <div class="tc-panels" role="group" aria-label="Arus masuk dan keluar hari ini">
@@ -2984,9 +2898,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- CHECK-IN HARIAN (v2.39) — mood · energi · tidur: satu kartu kecil
        di Ringkasan, menulis ke tabel DailyLog (jurnal dailyLog — upsert
-       idempoten per tanggal). Ringkasan pill yang sama dengan detail hari.
-       v2.48 · adegan fajar (scene-fajar) menghiasi kepala kartu — metafora
-       "menyapa pagi" saat check-in, tiap tab kini punya ilustrasi khas. -->
+       idempoten per tanggal). Ringkasan pill yang sama dengan detail hari. -->
   <div class="card ci-card ill-kupu" id="checkinCard">
     <div class="card-head" style="margin-bottom:12px">
       <div class="ch-title">
@@ -2996,15 +2908,13 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <h3 class="h-serif" id="ciTitle">Bagaimana kabarmu hari ini?</h3>
         </div>
       </div>
-      <img class="ci-art" src="/illustrations/scene-fajar.svg" alt="" aria-hidden="true" loading="lazy" width="170" height="118"/>
     </div>
     <div id="ciBody"></div>
   </div>
 
   <!-- BANNER JATAH HARIAN (v2.8) — menggantikan banner juara kebiasaan;
        kini ringkasan membawa satu angka keuangan yang bisa langsung dipakai -->
-  <div class="card streak-banner jatah-banner ill-koin ill-bl-gandum drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
-    <span class="jb-art" aria-hidden="true"><img src="/illustrations/scene-jatah.svg" alt="" loading="lazy" width="150" height="130"/></span>
+  <div class="card streak-banner jatah-banner drillable" id="jatahBanner" data-drill="stat-spend" title="Ketuk: bedah anggaran & pos bulan">
     <div class="sb-body">
       <b id="sbT">Memuat…</b>
       <p class="t-sub" id="sbS">Menghitung dari catatan database.</p>
@@ -3047,7 +2957,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <span class="pill pill-streak" id="weekCount">–/7 hari aktif</span>
       </div>
-      <img class="pekan-art" src="/illustrations/scene-pekan.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
       <div class="week-strip" id="weekStrip" role="img" aria-label="Ritme aktivitas pekan ini"></div>
       <div class="week-cmp" id="weekCmp" aria-label="Pembanding pekan ini vs pekan lalu"></div>
       <div class="agenda-note">
@@ -3190,9 +3099,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <div class="hm-side" id="hmSide"></div>
     </div>
-    <!-- v2.48 · padang kupu-kupu (scene-kupu) — penutup kartu kalender
-         konsistensi: hari-hari catatan adalah taman yang dikunjungi -->
-    <img class="hm-art" src="/illustrations/scene-kupu.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="110"/>
   </div>
 
   <div class="chips" id="habitChips" style="margin-bottom:18px" role="group" aria-label="Filter kategori"></div>
@@ -3291,7 +3197,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
     </div>
     <div id="kardioBody"><div class="t-sub">memuat…</div></div>
-    <img class="set-art" src="/illustrations/scene-track.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180" style="margin-top:10px;max-height:none"/> <!-- v2.71 · scene track utuh, bukan potongan 84px -->
   </div>
 
   <!-- GRAFIK PROGRES & TARGET MINGGUAN (v2.58) — menit gerak per pekan
@@ -3613,9 +3518,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- PANE · MUTASI TRANSAKSI (v2.11) -->
   <div data-fin-pane="mutasi" id="fin-pane-mutasi" hidden role="tabpanel" aria-labelledby="fin-tab-mutasi" aria-label="Mutasi transaksi">
-  <!-- v2.49 · ALIRAN SUNGAI KOIN (scene-aliran) — pembuka pane mutasi:
-       "arus kas" harfiah — koin hanyut di sungai yang mengairi taman -->
-  <img class="pane-art" src="/illustrations/scene-aliran.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
   <!-- v2.68 · KARTU REKENING-KORAN (mut-bank) — ringkasan mutasi bulan
        terpilih sebagai kartu ala rekening koran bank: net arus kas sebagai
        angka utama, bar proporsi masuk–keluar, sel rincian masuk/keluar. -->
@@ -3676,11 +3578,8 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 
   <!-- PANE · SALDO BANK (v2.11) -->
   <div data-fin-pane="saldo" id="fin-pane-saldo" hidden role="tabpanel" aria-labelledby="fin-tab-saldo" aria-label="Saldo bank & sumber dana">
-  <!-- v2.49 · BRANKAS TUNAS (scene-brankas) — pembuka pane saldo: dana
-       disimpan aman namun tetap hidup (tunas tumbuh di atas brankas) -->
-  <img class="pane-art" src="/illustrations/scene-brankas.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="180"/>
   <!-- RINGKASAN SALDO — total semua dompet + arus bulan berjalan -->
-  <div class="card card-pad ill-bonsai ill-bl-berry drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
+  <div class="card card-pad drillable" id="saldoCard" data-drill="fin-saldo" role="button" tabindex="0" title="Ketuk: bedah saldo tiap dompet">
     <div class="saldo-top">
       <div class="ch-title">
         <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-dompet"/></svg></span>
@@ -3832,9 +3731,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <span class="pill" id="wawHeroPill">–</span>
       </div>
     </div>
-    <div class="hero-ill">
-      <img class="ill-plant" src="/illustrations/scene-taman.svg" alt="Ilustrasi vektor taman tenang dengan pohon dan bangku batu, ditanam di kartu" width="560" height="505" loading="lazy"/>
-    </div>
   </div>
 
   <div class="grid g-waw">
@@ -3865,9 +3761,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
       </div>
-      <!-- v2.50 · kaca pembesar mengamati tunas (scene-kaca) — kartu
-           temuan kini berilustrasi metafora "memeriksa taman" -->
-      <img class="find-art" src="/illustrations/scene-kaca.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120" style="max-height:none;max-width:230px;margin-left:auto;margin-right:auto"/> <!-- v2.71 · kaca penemuan utuh, terpusat -->
       <div class="find-list" id="findList"></div>
     </div>
   </div>
@@ -3896,9 +3789,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           </div>
         </div>
       </div>
-      <!-- v2.50 · kompas menunjuk tunas (scene-kompas) — arah langkah
-           berikutnya di kartu rekomendasi -->
-      <img class="find-art" src="/illustrations/scene-kompas.svg" alt="" aria-hidden="true" loading="lazy" width="180" height="120"/>
       <div class="find-list" id="rekoList"></div>
     </div>
   </div>
@@ -3911,7 +3801,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       </div>
       <span class="pill" style="background:var(--honey-soft);color:var(--honey-deep)" id="badgeCount">–</span>
     </div>
-    <img class="badge-art" src="/illustrations/scene-juara.svg" alt="" aria-hidden="true" loading="lazy" width="480" height="360"/>
     <div class="badge-grid" id="badgeGrid"></div>
   </div>
 </section>
@@ -3994,9 +3883,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setHabCount">–</span>
       </div>
-      <!-- v2.50 · rak pot bertingkat (scene-arsip) — koleksi kebiasaan
-           sebagai pot yang dirawat di rak -->
-      <img class="set-art" src="/illustrations/scene-arsip.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="96"/>
       <div class="manage-list" id="setHabitList"><div class="t-sub">memuat…</div></div>
     </div>
 
@@ -4012,9 +3898,6 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         </div>
         <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="setCatCount">–</span>
       </div>
-      <!-- v2.50 · label harga menggantung di ranting (scene-label) —
-           kategori transaksi sebagai label taman -->
-      <img class="set-art" src="/illustrations/scene-label.svg" alt="" aria-hidden="true" loading="lazy" width="360" height="96"/>
       <div class="manage-list" id="setCatList"><div class="t-sub">memuat…</div></div>
     </div>
   </div>
@@ -4545,11 +4428,8 @@ body.no-amb .mut-bank::after,body.ov-open .mut-bank::after{animation:none}
 .mut-bank b.num-zero{font-size:.84em;font-weight:600;opacity:.92} /* nol di kartu gelap tetap terbaca (kontras AA), hanya sedikit meredup */
 @media(max-width:520px){.mut-bank{padding:16px 16px 14px;border-radius:22px}.mb-row{grid-template-columns:1fr}.mb-hero b{font-size:30px}.mb-mark{width:38px;height:38px}}
 .mut-sum{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:20px}
-/* v2.49 · pembuka pane keuangan — strip adegan lebar (aliran sungai koin
-   untuk mutasi · brankas tunas untuk saldo), pola .hm-art: penuh di
-   desktop, dipangkas rapi di ponsel */
-.pane-art{display:block;width:100%;height:auto;margin:0 0 20px;border-radius:var(--r-lg);border:1px solid var(--line-soft);box-shadow:var(--shadow-sm)}
-@media(max-width:640px){.pane-art{max-height:96px;object-fit:cover;object-position:center 60%;margin-bottom:16px}}
+/* v2.90 · strip adegan pembuka pane (aliran/brankas v2.49) dipensikan —
+   pane mutasi & saldo dibuka rekening koran / ringkasan saldo langsung. */
 .mut-sum.in{background:var(--surface-2);border-color:var(--line-soft);border-radius:12px;box-shadow:none;margin:14px 0 0}
 .mut-cell{padding:13px 16px;border-left:1px solid var(--line-soft);min-width:0}
 .mut-cell:first-child{border-left:none}
@@ -4598,11 +4478,8 @@ body.no-amb .mut-bank::after,body.ov-open .mut-bank::after{animation:none}
 .tc-hero .h-serif{font-size:clamp(18px,2.2vw,20px);letter-spacing:-.012em}
 .tc-hero-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .tc-hero .pill{background:rgba(255,255,255,.82);border:1px solid rgba(167,243,208,.95);color:var(--terra-deep);font-weight:700;font-size:11px;padding:4px 9px;box-shadow:0 1px 3px rgba(15,23,42,.05)}
-/* v2.64 · filter leluhur → self-filter (tcSway direpaint thread utama
-   selamanya dulu; kini kompositor) */
-.tc-hero-art{flex:none;width:76px;display:grid;place-items:center;position:relative;z-index:1}
-.tc-hero-art .ill{width:76px;height:76px;filter:drop-shadow(0 8px 12px rgba(15,23,42,.08));animation:tcSway 7.5s ease-in-out infinite;transform-origin:50% 92%}
-@keyframes tcSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.6deg)}}
+/* v2.90 · gembor siram (tc-hero-art v2.46-v2.64) dipensikan — kepala hero
+   teks murni; animasi tcSway pensiun bersama elemennya. */
 .tc-body{padding:11px 14px 12px}
 .tc-panels{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tc-panel{position:relative;display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:14px;border:1px solid;min-width:0}
@@ -4666,8 +4543,6 @@ body.no-amb .mut-bank::after,body.ov-open .mut-bank::after{animation:none}
 .today-note .ic{width:15px;height:15px;flex:none}
 @media(max-width:640px){
   .tc-hero{padding:10px 12px 9px;gap:0}
-  .tc-hero-art{width:64px}
-  .tc-hero-art .ill{width:64px;height:64px}
   .tc-hero .h-serif{font-size:17px}
   .tc-body{padding:10px 11px 11px}
   .tc-panels{gap:7px}
@@ -4779,7 +4654,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.80';
+const APP_VERSION='v2.90';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -7246,7 +7121,6 @@ function renderMonthReport(mk,y,m){
         </div>
       </div>
     </div>
-    <img class="mr-art" src="/illustrations/scene-refleksi.svg" alt="" aria-hidden="true" loading="lazy" width="220" height="130"/>
     <div class="mr-sec">
       <div class="mr-cap"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Konsistensi</div>
       <div class="mr-row"><span>Hari aktif</span><b>${aktif} dari ${elapsed} hari</b></div>
