@@ -144,10 +144,16 @@
   --sky:#0EA5E9; --sky-deep:#0369A1; --sky-soft:#E0F2FE;
   --rose:#EF4444; --rose-deep:#DC2626; --rose-soft:#FEE2E2; --rose-softer:#FFF1F2; --rose-line:#FECDD3;
   --orange:#F97316; --orange-deep:#EA580C;
-  /* Beautiful shadows — layered, neutral, refined */
-  --shadow-sm:0px 2px 3px -1px rgba(0,0,0,.1),0px 1px 0px 0px rgba(25,28,33,.02),0px 0px 0px 1px rgba(25,28,33,.08);
-  --shadow-md:0px 0px 0px 1px rgba(0,0,0,.06),0px 1px 1px -.5px rgba(0,0,0,.06),0px 3px 3px -1.5px rgba(0,0,0,.06),0px 6px 6px -3px rgba(0,0,0,.06),0px 12px 12px -6px rgba(0,0,0,.06),0px 24px 24px -12px rgba(0,0,0,.06);
-  --shadow-lg:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12);
+  /* v2.80 · "quiet precision" — sistem bayangan kartu disusun ulang mengikuti
+     resep korporat modern (Stripe/Linear): BERLAPIS, tiap lapisan ringan (≤5%),
+     nada netral-dingin, plus cincin 1px nyaris tak terlihat sebagai tepi kris.
+     sm = kartu resting & kontrol, md = hover/popover/dock, lg = hero & modal.
+     Lapisan lama (ring .08 + kurva Material 100px) terbukti sebagai sumber
+     kesan "berat & generik" — diganti total. */
+  --shadow-sm:0 0 0 1px rgba(16,24,40,.035),0 1px 2px rgba(16,24,40,.04),0 3px 8px -2px rgba(16,24,40,.05),0 8px 20px -6px rgba(16,24,40,.05);
+  --shadow-md:0 0 0 1px rgba(16,24,40,.05),0 2px 4px -1px rgba(16,24,40,.05),0 6px 12px -3px rgba(16,24,40,.07),0 16px 32px -8px rgba(16,24,40,.09);
+  --shadow-lg:0 0 0 1px rgba(16,24,40,.05),0 2px 4px rgba(16,24,40,.03),0 8px 16px -4px rgba(16,24,40,.05),0 20px 40px -8px rgba(16,24,40,.07),0 40px 80px -16px rgba(16,24,40,.09);
+  --shadow-hero:0 0 0 1px rgba(5,150,105,.07),0 1px 2px rgba(6,95,70,.05),0 6px 16px -3px rgba(6,95,70,.07),0 24px 48px -12px rgba(16,185,129,.18);
   --r-md:12px; --r-lg:16px; --r-xl:20px;
   --font-display:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
   --font-body:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
@@ -332,7 +338,7 @@ body.no-amb .sp-sun,body.no-amb .sp-dots i{animation:none}
 .icon-btn .dot-cnt[hidden]{display:none}
 
 /* bottom nav (mobile) — floating island dock */
-.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:6px;padding:8px;background:#fff;border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:var(--shadow-md);will-change:transform}
+.bottomnav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:6px;padding:8px;background:#fff;border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:0 0 0 1px rgba(16,24,40,.05),0 6px 14px -4px rgba(16,24,40,.1),0 18px 40px -10px rgba(16,24,40,.16);will-change:transform} /* v2.80 · dok melayang: bayangan lebih dalam dari kartu biasa — hierarki elevasi konsisten (dock > popover > kartu) */
 /* v2.62 · blur(18px) di bawah latar 97%-opak dicabut: 3% tembusnya tak
    terlihat mata, tapi GPU menghitung ulang blur selebar bilah tiap frame
    selama konten bergulir/beranimasi di belakangnya — biaya permanen untuk
@@ -361,7 +367,7 @@ body.no-amb .sp-sun,body.no-amb .sp-dots i{animation:none}
    md = popover/toast/dock + hover kartu, lg = hanya hero & modal sheet.
    v2.55 · untaian botani sudut kartu aktif lagi di SEMUA kartu semua tab —
    hero, empty state, dan ilustrasi konten tetap hidup seperti sebelumnya. */
-.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);background-image:var(--ill-corner),var(--ill-mini);background-repeat:no-repeat;background-position:100% 0,0 100%;background-size:var(--ill-size-c),var(--ill-size-mini);box-shadow:var(--shadow-sm)}
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--surface);background-image:var(--ill-corner),var(--ill-mini);background-repeat:no-repeat;background-position:100% 0,0 100%;background-size:var(--ill-size-c),var(--ill-size-mini);box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.9)} /* v2.80 · "milled edge": sorot 1px putih di tepi atas — kartu terasa ter-freist, bukan panel datar */
 /* presisi untaian per jenis kartu: sel stat/mini-stat hanya untaian segmen
    (sel kecil, dua lapisan terlalu ramai); scene-stat & habit-card polos
    (art sendiri tak berdesisan); .card-plain-bl mematikan tunas kiri-bawah
@@ -443,12 +449,13 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 [data-bugar-pane]>.card:last-child{margin-bottom:0}
 
 /* kartu buku beban */
-.wk-ex{border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;margin-bottom:10px;background:var(--surface)}
+.wk-ex{border:1px solid var(--line-soft);border-radius:var(--r-md);padding:10px 12px;margin-bottom:10px;background:var(--surface-2)} /* v2.80 · kartu bersarang: frame lembut + latar sel-2 — kartu-dalam-kartu tak lagi berbingkai ganda tegas */
+.wk-ex .field input[type=text],.wk-ex .field input[type=number],.wk-ex .field select{background:var(--surface)} /* v2.80 · kontras input di panel sel-2 */
 .wk-ex-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
 .wk-ex-name{font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:8px;min-width:0}
 .wk-ex-name .wk-vol{font-size:11.5px;color:var(--ink-3);font-weight:600;white-space:nowrap}
 .wk-sets{display:flex;flex-wrap:wrap;gap:6px}
-.wk-set{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;background:var(--surface-2);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.wk-set{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line-soft);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums} /* v2.80 · pil putih di panel sel-2 — set terbaca jelas, panel tetap kalem */
 .wk-set b{color:var(--terra-deep)}
 .wk-cmp{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:11.5px;font-weight:600;color:var(--ink-3)}
 .wk-cmp .up{color:var(--sage-deep)}
@@ -456,9 +463,9 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .wk-cmp .flat{color:var(--ink-3)}
 
 /* kartu kardio (jalan/lari) */
-.cr-row{display:flex;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px dashed var(--line)}
+.cr-row{display:flex;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid var(--line-soft)} /* v2.80 · garis putus-putus → hairline solid: presisi editorial, bukan tulisan tangan */
 .cr-row:last-child{border-bottom:none}
-.cr-ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px}
+.cr-ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(16,24,40,.045),inset 0 1px 0 rgba(255,255,255,.6)} /* v2.80 · satu keluarga chip ikon data dengan tx-ic */
 .cr-body{flex:1;min-width:0}
 .cr-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .cr-dist{font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
@@ -478,9 +485,9 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .tg-row .bar{height:9px}
 
 /* asupan */
-.fd-row{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px dashed var(--line)}
+.fd-row{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line-soft)} /* v2.80 · hairline solid — konsisten dengan cr-row */
 .fd-row:last-child{border-bottom:none}
-.fd-meal{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:11px;font-size:16px;background:var(--surface-2)}
+.fd-meal{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:11px;font-size:16px;background:var(--honey-soft);border:1px solid #FDE68A;box-shadow:inset 0 0 0 1px rgba(180,83,9,.05),inset 0 1px 0 rgba(255,255,255,.75)} /* v2.80 · chip asupan ber-warm-tint: emoji makanan kini duduk di "mangkuk" yang didesain, senada dengan keluarga tx-ic */
 .fd-body{flex:1;min-width:0}
 .fd-name{font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fd-sub{font-size:11px;color:var(--ink-3);font-weight:600;font-variant-numeric:tabular-nums}
@@ -508,15 +515,16 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .rest-note{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--ink-3);background:var(--surface-2);border-radius:12px;padding:10px 12px}
 
 /* modal latihan: pilih gerakan & set */
-.ex-block{border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:10px;background:var(--surface)}
+.ex-block{border:1px solid var(--line-soft);border-radius:var(--r-md);padding:12px;margin-bottom:10px;background:var(--surface-2)} /* v2.80 · senada wk-ex: nested ringan, bukan bingkai ganda — input di dalamnya dibalik putih agar kontras tetap */
+.ex-block .field input[type=text],.ex-block .field input[type=number],.ex-block .field input[type=date],.ex-block .field select{background:var(--surface)}
 .ex-block-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .ex-block-head .field{flex:1;margin:0}
 /* v2.65 · R-03 anti-slop: target ketuk tombol buang gerakan 38px -> 44px */
-.ex-del{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;color:var(--rose-deep);background:var(--surface-2)}
+.ex-del{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;color:var(--rose-deep);background:var(--surface);border:1px solid var(--line-soft)} /* v2.80 · putih di atas panel sel-2 */
 .set-row{display:grid;grid-template-columns:26px 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
 .set-no{font-weight:800;font-size:12px;color:var(--ink-3);text-align:center}
 .set-row .money{margin:0}
-.set-del{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:var(--ink-3);background:var(--surface-2)}
+.set-del{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:var(--ink-3);background:var(--surface);border:1px solid var(--line-soft)} /* v2.80 · putih di atas panel sel-2 */
 .set-hint{font-size:11px;color:var(--ink-3);font-weight:600;padding:2px 2px 6px}
 .wk-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .wk-meta .field{margin:0}
@@ -579,7 +587,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .seg button.active{background:var(--terra-strong);color:#FFFFFF;box-shadow:var(--shadow-sm)}
 
 /* hero ringkasan */
-.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.22);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px}
+.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.22);background:linear-gradient(135deg,#F0FDF4 0%,#D1FAE5 55%,#BBF7D0 100%);box-shadow:var(--shadow-hero),inset 0 1px 0 rgba(255,255,255,.8);display:grid;grid-template-columns:1.05fr .95fr;gap:8px;padding:24px;margin-bottom:24px} /* v2.80 · elevasi ber-tint zamrud: bayangan mewarnai sesuai rupa kartu (trik Stripe), bukan hitam generik */
 .hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,#F0FDF4 0%,#D1FAE5 60%,#BBF7D0 100%)} /* v2.70 · webp pensiun — gradasi murni */
 .hero::after{content:"";position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.16),transparent)}
 .hero-body{display:flex;flex-direction:column;gap:16px;min-width:0;position:relative;z-index:1}
@@ -674,7 +682,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
    ringkas pembuka tiap halaman dengan scene botani dari
    public/illustrations/hero-bg-*.svg menempel di tepi kanan/bawah —
    zona teks kiri tetap bersih, tepi berlebih dipangkas overflow kartu. */
-.page-hero{position:relative;overflow:hidden;display:flex;align-items:center;min-height:148px;padding:22px 26px;margin-bottom:22px;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.2);background:linear-gradient(130deg,#F0FDF4 0%,#ECFDF5 58%,#D1FAE5 100%);box-shadow:var(--shadow-md)}
+.page-hero{position:relative;overflow:hidden;display:flex;align-items:center;min-height:148px;padding:22px 26px;margin-bottom:22px;border-radius:var(--r-xl);border:1px solid rgba(5,150,105,.2);background:linear-gradient(130deg,#F0FDF4 0%,#ECFDF5 58%,#D1FAE5 100%);box-shadow:var(--shadow-hero),inset 0 1px 0 rgba(255,255,255,.8)}
 .page-hero::after{content:"";position:absolute;left:-60px;bottom:-80px;width:210px;height:210px;border-radius:50%;background:radial-gradient(closest-side,rgba(16,185,129,.1),transparent);pointer-events:none}
 .page-hero .hero-body{gap:8px;max-width:min(60%,560px);padding-right:10px}
 .page-hero .hero-body h2{font-size:clamp(19px,2.2vw,21.5px);max-width:none}
@@ -747,7 +755,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .stat-ic.terra{background:var(--terra-soft);color:var(--terra-deep)}
 .stat-ic.blue{background:var(--blue-soft);color:var(--blue-deep)}
 .stat-ic.honey{background:var(--honey-soft);color:var(--honey-deep)}
-.stat .num{font-family:var(--font-display);font-size:28px;font-weight:600;line-height:1.1}
+.stat .num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.015em} /* v2.80 · angka display: 700 + tracking ketat — khas panel korporat (angka "berdiri tegak", bukan longgar) */
 .stat .num small{font-size:14px;font-weight:600;color:var(--ink-2);font-family:var(--font-body)}
 .stat .lbl{font-size:12px;font-weight:600;color:var(--ink-2)}
 .stat .sub{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:5px;font-weight:600}
@@ -868,7 +876,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .motiv-quote{font-family:var(--font-display);font-size:15.5px;font-weight:600;letter-spacing:-.012em;line-height:1.4;color:var(--ink);text-wrap:balance;padding-left:22px;position:relative}
 .motiv-quote::before{content:"\201C";position:absolute;left:-1px;top:-5px;font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--terra);opacity:.5}
 .motiv-attr{font-size:12px;font-weight:600;color:var(--terra-strong);margin-top:-3px}
-.motiv-ctx{font-size:12.5px;line-height:1.55;border-top:1px dashed var(--line);padding-top:9px}
+.motiv-ctx{font-size:12.5px;line-height:1.55;border-top:1px solid var(--line-soft);padding-top:9px} /* v2.80 · hairline solid */
 .motiv-cta{align-self:flex-start;margin-top:1px}
 .motiv-next:active{transform:scale(.92)}
 /* pergantian kutipan — naik halus dari bawah (hanya body, kartu diam) */
@@ -899,7 +907,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .id-votes{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
 .id-votes b{font-family:var(--font-display);font-size:15px;color:var(--terra-deep)}
 .id-votes .sep{color:var(--ink-3)}
-.id-ctx{font-size:12.5px;line-height:1.45;border-top:1px dashed var(--line);padding-top:7px}
+.id-ctx{font-size:12.5px;line-height:1.45;border-top:1px solid var(--line-soft);padding-top:7px} /* v2.80 · hairline solid */
 .id-cta{align-self:flex-start;margin-top:1px}
 .id-empty-note{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .id-form{display:flex;gap:8px;align-items:stretch}
@@ -939,7 +947,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
   .find-art{max-height:82px;object-fit:cover;object-position:center 55%}
   .set-art{max-height:84px;object-fit:cover;object-position:center 55%}
 }
-.mr-sec{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.mr-sec{margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft)} /* v2.80 · hairline solid */
 .mr-sec:first-child{margin-top:2px;border-top:0;padding-top:0}
 .mr-cap{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
 .mr-cap .ic{width:12px;height:12px;flex:none}
@@ -1022,7 +1030,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .mini-stat + .mini-stat{border-left:1px solid var(--line-soft)}
 .mini-stat .spot{width:46px;height:46px}
 .mini-stat .spot .ill{width:38px}
-.mini-stat .num{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1}
+.mini-stat .num{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1;letter-spacing:-.012em}
 .mini-stat .lbl{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:3px}
 .heatmap-wrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
 .hm-flex{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
@@ -1162,7 +1170,7 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
    sebelumnya hanya mobile) supaya nominal panjang tak mendorong baris */
 .tx-inner>*{min-width:0}
 .tx-row:not(.swiping):hover .tx-inner{background:var(--surface-2)}
-.tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.tx-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(16,24,40,.045),inset 0 1px 0 rgba(255,255,255,.6)} /* v2.80 · cincin dalam 1px + sorot atas: chip ikon kini terasa "diproduksi", bukan blok warna tempel — satu bahasa dengan .card milled edge */
 .tx-ic .ic{width:24px;height:24px}
 .tx-row b{font-size:14px;display:block;line-height:1.25}
 .tx-row small{font-size:12px;color:var(--ink-3);font-weight:600}
@@ -1172,6 +1180,11 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .tx-amt.keluar{color:var(--rose-deep)}
 .tx-amt.tf{color:var(--ink-3)}
 .tx-scroll{padding-right:2px}
+/* v2.80 · pembatas hairline editorial antar baris mutasi — garis 1px lembut
+   ala iOS (mulai setelah chip ikon, bukan full-bleed) membuat daftar panjang
+   terbaca sebagai satu tabel korporat yang rapat. Hanya antar-baris dalam
+   grup tanggal sama (kepala tanggal tetap memberi jeda napas). */
+.tx-row + .tx-row::after{content:"";position:absolute;left:56px;right:12px;top:0;height:1px;background:var(--line-soft)}
 
 /* halaman kalender */
 .cal-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
@@ -1311,7 +1324,7 @@ body.no-amb .motiv-art,body.no-amb .id-art,body.no-amb .ph-scene,body.no-amb .he
    stabil di-cache; kembali saat ditutup. */
 /* v2.64 · topbar & tree-progress kini bebas backdrop-filter (lihat aturan
    masing-masing) — aturan pemadam v2.62 tak lagi diperlukan. */
-.sheet{position:relative;width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--surface);border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg);animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
+.sheet{position:relative;width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--surface);border-radius:28px 28px 0 0;box-shadow:var(--shadow-lg),0 -10px 44px -8px rgba(15,23,42,.2);animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)} /* v2.80 · tepi atas sheet dinaikkan — kertas terangkat terbaca di atas scrim */
 @media(min-width:640px){.sheet{border-radius:28px}}
 @keyframes sheetIn{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}}
@@ -1421,7 +1434,7 @@ p{text-wrap:pretty}
 .tp-band{position:absolute;left:12px;right:12px;top:50%;height:46px;transform:translateY(-50%);background:var(--terra-softer);border:1.5px solid var(--terra);border-radius:12px;pointer-events:none;z-index:1}
 .tp-col{height:276px;overflow-y:auto;scroll-snap-type:y mandatory;padding:115px 0;position:relative;z-index:2;text-align:center;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent);mask-image:linear-gradient(transparent,#000 26%,#000 74%,transparent)}
 .tp-col::-webkit-scrollbar{display:none}
-.tp-col+.tp-col{border-left:1px dashed var(--line)}
+.tp-col+.tp-col{border-left:1px solid var(--line-soft)} /* v2.80 · hairline solid */
 .tp-sep{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;font-size:20px;font-weight:600;color:var(--terra-deep);pointer-events:none}
 /* v2.64 · font-size→transform:scale — transisi font-size = layout per item
    tiap frame selama roda jam berputar/menjangkar; scale murni kompositor. */
@@ -1777,7 +1790,7 @@ p{text-wrap:pretty}
 .sc-help.open{display:flex}
 @media(min-width:640px){.sc-help.open{align-items:center;padding:24px}}
 .sc-scrim{position:absolute;inset:0;background:rgba(15,23,42,.4);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:fadeIn .25s}
-.sc-sheet{position:relative;width:100%;max-width:470px;background:var(--surface);border-radius:26px 26px 0 0;box-shadow:var(--shadow-lg);padding:20px 22px 24px;animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)}
+.sc-sheet{position:relative;width:100%;max-width:470px;background:var(--surface);border-radius:26px 26px 0 0;box-shadow:var(--shadow-lg),0 -10px 44px -8px rgba(15,23,42,.2);padding:20px 22px 24px;animation:sheetIn .38s cubic-bezier(.25,.9,.3,1)} /* v2.80 · senada .sheet: tepi atas terangkat */
 @media(min-width:640px){.sc-sheet{border-radius:26px}}
 .sc-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 2px;border-bottom:1px solid var(--line-soft)}
 .sc-row:last-of-type{border-bottom:none}
@@ -4465,8 +4478,8 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .agenda-cap i{width:8px;height:8px;border-radius:3px;display:inline-block;flex:none}
 .fin-months{margin:-4px 0 18px;overflow-x:auto;padding-bottom:2px}
 .dompet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.dompet-card{display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
-.dompet-card .src-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none}
+.dompet-card{display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.9)} /* v2.80 · milled edge — satu bahasa dengan .card */
+.dompet-card .src-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px rgba(16,24,40,.045),inset 0 1px 0 rgba(255,255,255,.6)} /* v2.80 · keluarga chip ikon seragam */
 .dompet-card .src-ic .ic{width:20px;height:20px}
 .dompet-card b{font-size:13px;display:block;line-height:1.25}
 .dompet-card .bal{font-family:var(--font-display);font-size:15.5px;font-weight:600;margin-top:1px}
@@ -4766,7 +4779,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 /* v2.20 · sumber tunggal versi aplikasi — ditampilkan di sidebar (desktop)
    & topbar (mobile) sebagai lencana kecil agar pengguna selalu tahu versi
    yang sedang berjalan. */
-const APP_VERSION='v2.71';
+const APP_VERSION='v2.80';
 $$('.app-ver').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
