@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · MINT — vektor semi-realistis: pasangan daun berhadapan, tiap daun bergradasi dan berurat -->
+  <defs>
+    <radialGradient id="w-mt" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".5"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lf-mt" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/>
+      <stop offset=".5" stop-color="#4ADE80"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lf2-mt" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset=".5" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="st-mt" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="cn-mt" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-mt" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna kebun mint di sudut -->
+  <rect width="180" height="170" fill="url(#w-mt)"/>
+
+  <!-- tangkai utama: batang meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#st-mt)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#BBF7D0" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+
+  <!-- daun mint kiri: gradasi + urat + rim + bayang inti -->
+  <g transform="translate(84 17) rotate(-40)" stroke-linejoin="round">
+    <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke="url(#st-mt)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-mt)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M-6.6 7.6C-10 6.6 -14 6.8 -17.6 10.6" fill="none" stroke="#14532D" stroke-width=".85" opacity=".45" stroke-linecap="round"/>
+    <path d="M-9.5 7.2C-10.8 6 -12.4 5.7 -13.6 6.1M-8.4 11C-10.2 11.3 -11.8 12 -12.8 13.2" fill="none" stroke="#14532D" stroke-width=".6" opacity=".32" stroke-linecap="round"/>
+    <path d="M-18.6 9.4C-16.6 6 -12.2 4.8 -7.6 6.2" fill="none" stroke="#D9F99D" stroke-width="1.2" opacity=".55" stroke-linecap="round"/>
+    <path d="M-16.8 13.4C-14.4 14.9 -10.8 15.2 -7.4 14.4" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+  </g>
+  <!-- daun mint kanan -->
+  <g transform="translate(94 24) rotate(18)" stroke-linejoin="round">
+    <path d="M0 0C2 3 4 5 5 8" fill="none" stroke="url(#st-mt)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf2-mt)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M5.6 8.4C9 7.4 13 7.6 16.6 11.4" fill="none" stroke="#14532D" stroke-width=".85" opacity=".45" stroke-linecap="round"/>
+    <path d="M5.6 7.4C9.6 5.9 14.8 6.2 17.6 9" fill="none" stroke="#BBF7D0" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>
+    <path d="M16.6 12.8C14.6 15.2 10 16.4 5.8 15.8" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+  </g>
+  <!-- daun kiri kedua -->
+  <g transform="translate(114 27) rotate(-36)" stroke-linejoin="round">
+    <path d="M0 0C-3 2 -6 4 -7 7" fill="none" stroke="url(#st-mt)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M-7 7C-12 5 -18 6 -20 10C-18 15 -12 16 -7 14C-5.4 11.6 -5.8 9 -7 7Z" fill="url(#lf-mt)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M-7.6 7.6C-11 6.6 -15 6.8 -18.6 10.6" fill="none" stroke="#14532D" stroke-width="1.15" opacity=".45" stroke-linecap="round"/>
+    <path d="M-19.6 9.4C-17.6 6 -13.2 4.8 -8.6 6.2" fill="none" stroke="#D9F99D" stroke-width="1.2" opacity=".55" stroke-linecap="round"/>
+    <path d="M-17.8 13.4C-15.4 14.9 -11.8 15.2 -8.4 14.4" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+  </g>
+  <!-- daun kanan kedua -->
+  <g transform="translate(126 38) rotate(16)" stroke-linejoin="round">
+    <path d="M0 0C2 3 4 5 5 8" fill="none" stroke="url(#st-mt)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf2-mt)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M5.6 8.4C9 7.4 13 7.6 16.6 11.4" fill="none" stroke="#14532D" stroke-width=".85" opacity=".45" stroke-linecap="round"/>
+    <path d="M5.6 7.4C9.6 5.9 14.8 6.2 17.6 9" fill="none" stroke="#BBF7D0" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>
+    <path d="M16.6 12.8C14.6 15.2 10 16.4 5.8 15.8" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+  </g>
+  <!-- daun besar ketiga dengan embun -->
+  <g transform="translate(146 50) rotate(-30) scale(1.12)" stroke-linejoin="round">
+    <path d="M0 0C-3 2 -6 4 -7 7" fill="none" stroke="url(#st-mt)" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M-7 7C-12 5 -18 6 -20 10C-18 15 -12 16 -7 14C-5.4 11.6 -5.8 9 -7 7Z" fill="url(#lf-mt)" stroke="#14532D" stroke-width=".75"/>
+    <path d="M-7.6 7.6C-11 6.6 -15 6.8 -18.6 10.6" fill="none" stroke="#14532D" stroke-width=".85" opacity=".45" stroke-linecap="round"/>
+    <path d="M-19.6 9.4C-17.6 6 -13.2 4.8 -8.6 6.2" fill="none" stroke="#D9F99D" stroke-width="1.2" opacity=".55" stroke-linecap="round"/>
+    <path d="M-17.8 13.4C-15.4 14.9 -11.8 15.2 -8.4 14.4" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+    <ellipse cx="-12" cy="10.6" rx="1.7" ry="2.3" fill="url(#dw-mt)" transform="rotate(-24 -12 10.6)"/>
+    <circle cx="-12.7" cy="9.6" r=".6" fill="#FFFFFF" opacity=".85"/>
+  </g>
+  <!-- daun kanan ketiga -->
+  <g transform="translate(159 65) rotate(14) scale(1.06)" stroke-linejoin="round">
+    <path d="M0 0C2 3 4 5 5 8" fill="none" stroke="url(#st-mt)" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf2-mt)" stroke="#14532D" stroke-width=".75"/>
+    <path d="M5.6 8.4C9 7.4 13 7.6 16.6 11.4" fill="none" stroke="#14532D" stroke-width=".85" opacity=".45" stroke-linecap="round"/>
+    <path d="M5.6 7.4C9.6 5.9 14.8 6.2 17.6 9" fill="none" stroke="#BBF7D0" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>
+    <path d="M16.6 12.8C14.6 15.2 10 16.4 5.8 15.8" fill="none" stroke="#14532D" stroke-width="1.5" opacity=".22" stroke-linecap="round"/>
+  </g>
+
+  <!-- tunas mint kecil bertangkai -->
+  <g transform="translate(169 92) rotate(10) scale(.55)" stroke-linejoin="round">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="url(#st-mt)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-mt)" stroke="#14532D" stroke-width="1.5"/>
+    <path d="M-5.6 6.6C-9 5.8 -13 6 -16.6 9.4" fill="none" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  </g>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="70" cy="14" r="6.4" fill="url(#cn-mt)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="70" cy="14" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M70 17.6C70.2 16.2 71 15.2 72.3 14.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M72.3 14.8C72 13.4 72.8 12.2 74.1 12.4C74.3 13.7 73.5 14.8 72.3 14.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M72.3 14.8C71.6 13.4 70.2 13 69.2 13.8C69.6 15.1 71 15.6 72.3 14.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M66.2 11.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="67.4" cy="11.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik kebun: titik berkilau -->
+  <g>
+    <circle cx="94" cy="44" r="2.6" fill="#FBBF24"/>
+    <circle cx="93.2" cy="43.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="88" cy="54" r="2.2" fill="#34D399" opacity=".9"/>
+    <circle cx="100" cy="34" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="100.6" cy="33.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M118 76l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="106" cy="62" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>

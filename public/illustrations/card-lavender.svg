@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · LAVENDER — vektor semi-realistis: malai ungu bergradasi dengan butir berkilau dan daun ramping -->
+  <defs>
+    <radialGradient id="w-lv" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#F5F3FF" stop-opacity=".52"/>
+      <stop offset=".45" stop-color="#FAF9FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FAF9FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sp-lv" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#DDD6FE"/>
+      <stop offset=".5" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="sp2-lv" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#C4B5FD"/>
+      <stop offset=".5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="lf-lv" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset=".5" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="st-lv" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="cn-lv" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-lv" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna ladang lavender di sudut -->
+  <rect width="180" height="170" fill="url(#w-lv)"/>
+
+  <!-- tangkai utama: batang meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#st-lv)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#BBF7D0" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+  <!-- cabang malai -->
+  <path d="M124 16C128 26 134 34 140 40" fill="none" stroke="url(#st-lv)" stroke-width="1.7" stroke-linecap="round" opacity=".78"/>
+
+  <!-- malai lavender utama: butir berselang menyempit ke puncak -->
+  <g transform="translate(141 48) rotate(18)">
+    <!-- tangkai malai bergradasi -->
+    <path d="M0 26C0 12 0 -4 0 -16" fill="none" stroke="url(#st-lv)" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- baris belakang butir, sedikit gelap -->
+    <g fill="url(#sp2-lv)" stroke="#6D28D9" stroke-width=".7" stroke-linejoin="round" opacity=".9">
+      <ellipse cx="-5.6" cy="8" rx="3" ry="4.8" transform="rotate(-26 -5.6 8)"/>
+      <ellipse cx="5.6" cy="5" rx="3" ry="4.8" transform="rotate(26 5.6 5)"/>
+      <ellipse cx="-5" cy="-8" rx="2.7" ry="4.2" transform="rotate(-26 -5 -8)"/>
+      <ellipse cx="5" cy="-11" rx="2.7" ry="4.2" transform="rotate(26 5 -11)"/>
+    </g>
+    <!-- baris depan butir -->
+    <g fill="url(#sp-lv)" stroke="#7C3AED" stroke-width=".8" stroke-linejoin="round">
+      <ellipse cx="-5" cy="12" rx="3.4" ry="5.4" transform="rotate(-26 -5 12)"/>
+      <ellipse cx="5" cy="9" rx="3.4" ry="5.4" transform="rotate(26 5 9)"/>
+      <ellipse cx="-5" cy="4" rx="3.2" ry="5" transform="rotate(-26 -5 4)"/>
+      <ellipse cx="5" cy="1" rx="3.2" ry="5" transform="rotate(26 5 1)"/>
+      <ellipse cx="-4.4" cy="-4" rx="3" ry="4.6" transform="rotate(-26 -4.4 -4)"/>
+      <ellipse cx="4.4" cy="-7" rx="3" ry="4.6" transform="rotate(26 4.4 -7)"/>
+      <ellipse cx="-3.4" cy="-11" rx="2.7" ry="4.2" transform="rotate(-26 -3.4 -11)"/>
+      <ellipse cx="3.4" cy="-14" rx="2.7" ry="4.2" transform="rotate(26 3.4 -14)"/>
+      <ellipse cx="0" cy="-18" rx="2.4" ry="4"/>
+      <ellipse cx="0" cy="22" rx="3" ry="4.6" transform="rotate(14 0 22)"/>
+    </g>
+    <!-- kilau butir -->
+    <g fill="#FFFFFF" opacity=".65">
+      <circle cx="-4.2" cy="10" r=".8"/>
+      <circle cx="5.8" cy="7" r=".8"/>
+      <circle cx="-4.4" cy="2" r=".75"/>
+      <circle cx="5.6" cy="-1" r=".7"/>
+      <circle cx="-.6" cy="-16.6" r=".7"/>
+    </g>
+    <!-- daun ramping lavender berurat -->
+    <g stroke-linejoin="round">
+      <path d="M0 24C-7 20 -13 21 -16 25C-11 28 -4 27 0 26Z" fill="url(#lf-lv)" stroke="#14532D" stroke-width=".9"/>
+      <path d="M0 18C7 14 13 15 16 19C11 22 4 21 0 20Z" fill="url(#lf-lv)" stroke="#14532D" stroke-width=".9"/>
+      <g fill="none" stroke="#14532D" stroke-width=".55" opacity=".4" stroke-linecap="round">
+        <path d="M-1 24.4C-6 22.4 -10.6 22.6 -13.6 24.6"/>
+        <path d="M1 18.4C6 16.6 10.6 17 13.6 18.8"/>
+      </g>
+    </g>
+    <!-- embun di daun -->
+    <ellipse cx="-11" cy="23.4" rx="1.3" ry="1.8" fill="url(#dw-lv)" transform="rotate(-24 -11 23.4)"/>
+    <circle cx="-11.6" cy="22.6" r=".5" fill="#FFFFFF" opacity=".85"/>
+  </g>
+
+  <!-- malai sahabat lebih muda -->
+  <g transform="translate(165 92) rotate(10) scale(.6)">
+    <path d="M0 26C0 12 0 -4 0 -16" fill="none" stroke="url(#st-lv)" stroke-width="2.6" stroke-linecap="round"/>
+    <g fill="url(#sp2-lv)" stroke="#7C3AED" stroke-width="1.2" stroke-linejoin="round">
+      <ellipse cx="-5" cy="10" rx="3.4" ry="5.4" transform="rotate(-26 -5 10)"/>
+      <ellipse cx="5" cy="7" rx="3.4" ry="5.4" transform="rotate(26 5 7)"/>
+      <ellipse cx="-4" cy="1" rx="3.2" ry="5" transform="rotate(-26 -4 1)"/>
+      <ellipse cx="4" cy="-2" rx="3.2" ry="5" transform="rotate(26 4 -2)"/>
+      <ellipse cx="0" cy="-8" rx="2.6" ry="4.2"/>
+    </g>
+    <circle cx="-4.2" cy="8" r=".8" fill="#FFFFFF" opacity=".6"/>
+  </g>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="70" cy="14" r="6.4" fill="url(#cn-lv)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="70" cy="14" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M70 17.6C70.2 16.2 71 15.2 72.3 14.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M72.3 14.8C72 13.4 72.8 12.2 74.1 12.4C74.3 13.7 73.5 14.8 72.3 14.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M72.3 14.8C71.6 13.4 70.2 13 69.2 13.8C69.6 15.1 71 15.6 72.3 14.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M66.2 11.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="67.4" cy="11.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik ladang: titik berkilau -->
+  <g>
+    <circle cx="94" cy="46" r="2.6" fill="#FBBF24"/>
+    <circle cx="93.2" cy="45.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="87" cy="56" r="2.2" fill="#34D399" opacity=".9"/>
+    <circle cx="101" cy="36" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="101.6" cy="35.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M108 78l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="112" cy="60" r="1.6" fill="#DDD6FE" opacity=".8"/>
+  </g>
+</svg>

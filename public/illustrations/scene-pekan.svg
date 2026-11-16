@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" fill="none" role="img" aria-label="Busur pekan dari mentari ke bulan dengan tujuh titik hari">
+  <!-- Rutina · busur pekan — vektor semi-realistis: mentari berhalo, rembulan sabit, tujuh tunas hari bergradasi -->
+  <defs>
+    <linearGradient id="spBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEF8"/><stop offset=".5" stop-color="#F7FEE7"/><stop offset="1" stop-color="#ECFDF5"/>
+    </linearGradient>
+    <linearGradient id="spArc" x1="24" y1="40" x2="336" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FCD34D"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#7DD3FC"/>
+    </linearGradient>
+    <radialGradient id="spSun" cx=".4" cy=".35" r=".65">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".55" stop-color="#FDE68A"/><stop offset=".85" stop-color="#FCD34D"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="spHalo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".4"/><stop offset=".55" stop-color="#FDE68A" stop-opacity=".16"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spHalo2" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".16"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spMoon" cx=".38" cy=".3" r=".9">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#F8FAFC"/><stop offset=".8" stop-color="#E0F2FE"/><stop offset="1" stop-color="#BAE6FD"/>
+    </radialGradient>
+    <radialGradient id="spMoonHalo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#E0F2FE" stop-opacity=".32"/><stop offset="1" stop-color="#E0F2FE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="spStem" x1="0" y1="1" x2=".12" y2="0">
+      <stop offset="0" stop-color="#14532D"/><stop offset=".5" stop-color="#22C55E"/><stop offset="1" stop-color="#86EFAC"/>
+    </linearGradient>
+    <linearGradient id="spLeafL" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".42" stop-color="#4ADE80"/><stop offset=".8" stop-color="#16A34A"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="spLeafR" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".42" stop-color="#34D399"/><stop offset=".8" stop-color="#15803D"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="spMeadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <radialGradient id="spShadow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#3E2723" stop-opacity=".28"/><stop offset=".6" stop-color="#3E2723" stop-opacity=".1"/><stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spPebble" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#EBDDD0"/><stop offset=".5" stop-color="#C9A57E"/><stop offset="1" stop-color="#8A6642"/>
+    </radialGradient>
+  </defs>
+  <rect width="360" height="110" fill="url(#spBg)"/>
+  <!-- busur pekan bergradasi -->
+  <path d="M24 62Q180 -34 336 62" stroke="url(#spArc)" stroke-width="7" stroke-linecap="round" opacity=".16"/>
+  <path d="M24 62Q180 -34 336 62" stroke="url(#spArc)" stroke-width="2.6" stroke-linecap="round" opacity=".7" stroke-dasharray="1 9"/>
+  <!-- mentari pagi dengan pancaran -->
+  <circle cx="28" cy="62" r="40" fill="url(#spHalo2)"/>
+  <circle cx="28" cy="62" r="27" fill="url(#spHalo)"/>
+  <g stroke-linecap="round">
+    <path d="M28 36v-9" stroke="#FCD34D" stroke-width="3.4" opacity=".85"/>
+    <path d="M2 62h-8" stroke="#FCD34D" stroke-width="3" opacity=".7"/>
+    <path d="M54 62h9" stroke="#FBBF24" stroke-width="3" opacity=".6"/>
+    <path d="M28 81v6" stroke="#D97706" stroke-width="2.8" opacity=".5"/>
+    <path d="M10 44l-6-6" stroke="#FCD34D" stroke-width="3" opacity=".75"/>
+    <path d="M46 44l6-6" stroke="#FBBF24" stroke-width="3" opacity=".6"/>
+    <path d="M10 80l-6 6" stroke="#D97706" stroke-width="2.6" opacity=".45"/>
+    <path d="M46 80l6 6" stroke="#D97706" stroke-width="2.6" opacity=".45"/>
+  </g>
+  <circle cx="28" cy="62" r="17" fill="url(#spSun)"/>
+  <path d="M28 62L45 62A17 17 0 0 1 28 79Z" fill="#D97706" opacity=".28"/>
+  <path d="M28 45A17 17 0 0 0 11 62L28 62Z" fill="#FFFBEB" opacity=".4"/>
+  <circle cx="23.5" cy="55.5" r="3" fill="#FFFFFF" opacity=".7"/>
+  <!-- rembulan sabit bercahaya lembut -->
+  <circle cx="344" cy="65" r="26" fill="url(#spMoonHalo)"/>
+  <path d="M344 48a17 17 0 1 0 8 27 14 14 0 0 1-8-27Z" fill="url(#spMoon)"/>
+  <path d="M333 51C328.6 55 326.8 61 328 67.5" stroke="#FFFFFF" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+  <ellipse cx="336" cy="57" rx="2.6" ry="2" fill="#94A3B8" opacity=".38"/>
+  <ellipse cx="333.6" cy="62.5" rx="1.3" ry="1" fill="#94A3B8" opacity=".3"/>
+  <ellipse cx="339.5" cy="67.5" rx="1.7" ry="1.3" fill="#94A3B8" opacity=".3"/>
+  <circle cx="356" cy="42" r="1.5" fill="#FDE68A" opacity=".6"/>
+  <circle cx="350" cy="30" r="1.1" fill="#FDE68A" opacity=".5"/>
+  <!-- tanah berumput -->
+  <path d="M0 88C70 82 150 84 210 87C270 90 330 84 360 87L360 110L0 110Z" fill="url(#spMeadow)" opacity=".3"/>
+  <path d="M14 91C80 85 150 86 208 89C266 92 322 87 346 91" stroke="url(#spMeadow)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+  <path d="M16 93C82 87 152 88 210 91C268 94 324 89 348 93" stroke="#14532D" stroke-width="1.2" opacity=".3" stroke-linecap="round"/>
+  <!-- tujuh tunas hari, bertambah rimbun ke tengah -->
+  <g transform="translate(66 86)">
+    <ellipse cy="2" rx="7.5" ry="2.6" fill="url(#spShadow)"/>
+    <ellipse rx="5" ry="2.2" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-20" stroke="url(#spStem)" stroke-width="2.6" stroke-linecap="round"/>
+    <g transform="translate(0 -13) scale(.8)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g transform="translate(105 86)">
+    <ellipse cy="2" rx="8" ry="2.8" fill="url(#spShadow)"/>
+    <ellipse rx="5.4" ry="2.4" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-26" stroke="url(#spStem)" stroke-width="2.8" stroke-linecap="round"/>
+    <g transform="translate(0 -19) scale(.9)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g transform="translate(144 86)">
+    <ellipse cy="2" rx="8.5" ry="3" fill="url(#spShadow)"/>
+    <ellipse rx="5.8" ry="2.6" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-32" stroke="url(#spStem)" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(0 -25)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>
+      <path d="M0 0C-6-3-9-8-7-13" stroke="#D9F99D" stroke-width="1.2" opacity=".45" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g transform="translate(183 86)">
+    <ellipse cy="2" rx="9.5" ry="3.2" fill="url(#spShadow)"/>
+    <ellipse rx="6.4" ry="2.8" fill="#22C55E" opacity=".55"/>
+    <path d="M0 0V-38" stroke="url(#spStem)" stroke-width="3.4" stroke-linecap="round"/>
+    <g transform="translate(0 -31) scale(1.15)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1.1" opacity=".42" stroke-linecap="round"/>
+      <ellipse cx="-4.6" cy="-8" rx="1.8" ry="2.4" fill="#BBF7D0" opacity=".6"/>
+      <circle cx="-4.9" cy="-8.8" r=".7" fill="#FFFFFF" opacity=".8"/>
+    </g>
+    <circle cx="11" cy="-36" r="6.5" fill="url(#spHalo)"/>
+    <circle cx="11" cy="-36" r="3.6" fill="url(#spSun)"/>
+    <circle cx="10" cy="-37" r="1" fill="#FFFFFF" opacity=".85"/>
+  </g>
+  <g transform="translate(222 86)">
+    <ellipse cy="2" rx="8.5" ry="3" fill="url(#spShadow)"/>
+    <ellipse rx="5.8" ry="2.6" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-32" stroke="url(#spStem)" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(0 -25)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>
+      <ellipse cx="4.6" cy="-8" rx="1.6" ry="2.2" fill="#A7F3D0" opacity=".55"/>
+      <circle cx="4.4" cy="-8.7" r=".6" fill="#FFFFFF" opacity=".75"/>
+    </g>
+  </g>
+  <g transform="translate(261 86)">
+    <ellipse cy="2" rx="8" ry="2.8" fill="url(#spShadow)"/>
+    <ellipse rx="5.4" ry="2.4" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-26" stroke="url(#spStem)" stroke-width="2.8" stroke-linecap="round"/>
+    <g transform="translate(0 -19) scale(.9)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g transform="translate(300 86)">
+    <ellipse cy="2" rx="7.5" ry="2.6" fill="url(#spShadow)"/>
+    <ellipse rx="5" ry="2.2" fill="#22C55E" opacity=".5"/>
+    <path d="M0 0V-20" stroke="url(#spStem)" stroke-width="2.6" stroke-linecap="round"/>
+    <g transform="translate(0 -13) scale(.8)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#spLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#spLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+  </g>
+  <!-- rerumputan halus -->
+  <g stroke-linecap="round">
+    <path d="M45 91C43 85 44 80 48 77" stroke="#4ADE80" stroke-width="2.2" opacity=".85"/>
+    <path d="M51 92C51 87 52 83 55 80" stroke="#22C55E" stroke-width="1.8" opacity=".8"/>
+    <path d="M124 90C122 84 123 79 127 76" stroke="#4ADE80" stroke-width="2.2" opacity=".85"/>
+    <path d="M130 91C129 86 130 82 133 79" stroke="#22C55E" stroke-width="1.8" opacity=".8"/>
+    <path d="M163 88C161 82 162 77 166 74" stroke="#34D399" stroke-width="1.9" opacity=".8"/>
+    <path d="M202 90C200 84 201 79 205 76" stroke="#4ADE80" stroke-width="2.2" opacity=".85"/>
+    <path d="M241 91C240 86 241 82 244 79" stroke="#22C55E" stroke-width="1.8" opacity=".8"/>
+    <path d="M280 90C278 84 279 79 283 76" stroke="#4ADE80" stroke-width="2.2" opacity=".85"/>
+    <path d="M286 92C285 87 286 83 289 80" stroke="#34D399" stroke-width="1.7" opacity=".75"/>
+    <path d="M318 91C318 86 319 82 322 79" stroke="#22C55E" stroke-width="1.8" opacity=".8"/>
+  </g>
+  <!-- kerikil dan butir tanah -->
+  <ellipse cx="52" cy="97" rx="6" ry="3.4" fill="url(#spPebble)"/>
+  <ellipse cx="50" cy="95.6" rx="2" ry="1" fill="#FFF7ED" opacity=".55"/>
+  <ellipse cx="206" cy="99" rx="4.4" ry="2.6" fill="url(#spPebble)" opacity=".95"/>
+  <ellipse cx="330" cy="96" rx="5" ry="3" fill="url(#spPebble)"/>
+  <ellipse cx="328.6" cy="94.8" rx="1.7" ry=".9" fill="#FFF7ED" opacity=".5"/>
+  <g fill="#431407" opacity=".3">
+    <circle cx="90" cy="94" r="1.3"/><circle cx="150" cy="97" r="1.5"/><circle cx="236" cy="95" r="1.2"/><circle cx="298" cy="99" r="1.3"/>
+  </g>
+  <path d="M100 96l1.8 4.4 4.4 1.8-4.4 1.8-1.8 4.4-1.8-4.4-4.4-1.8 4.4-1.8Z" fill="#FCD34D" opacity=".85"/>
+  <circle cx="252" cy="92" r="2.4" fill="#FBBF24" opacity=".8"/>
+  <!-- serbuk cahaya -->
+  <g fill="#FDE68A">
+    <circle cx="150" cy="30" r="1.8" opacity=".55"/><circle cx="212" cy="24" r="1.4" opacity=".45"/>
+    <circle cx="120" cy="18" r="1.2" opacity=".4"/><circle cx="330" cy="22" r="1.5" opacity=".5"/>
+  </g>
+</svg>

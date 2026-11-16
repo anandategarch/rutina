@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · LARI — vektor semi-realistis: sepatu bergradasi slate-madu dengan jejak langkah melengkung -->
+  <defs>
+    <radialGradient id="w-lr" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#E0F2FE" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#F0F9FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="up-lr" x1=".15" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#F8FAFC"/>
+      <stop offset=".5" stop-color="#CBD5E1"/>
+      <stop offset="1" stop-color="#64748B"/>
+    </linearGradient>
+    <linearGradient id="sol-lr" x1=".2" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset=".5" stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="lf-lr" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/>
+      <stop offset=".5" stop-color="#4ADE80"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="st-lr" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="cn-lr" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-lr" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci langit pagi di sudut -->
+  <rect width="180" height="170" fill="url(#w-lr)"/>
+
+  <!-- tangkai utama: batang meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#st-lr)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#BBF7D0" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+
+  <!-- jejak langkah melengkung halus di belakang sepatu -->
+  <g fill="none" stroke="#7DD3FC" stroke-width="2.2" stroke-linecap="round" opacity=".6">
+    <path d="M52 28C60 25.4 68 25.4 75 28.2"/>
+    <path d="M48 36C56 33.6 64 33.6 71 36.2"/>
+    <path d="M54 44C61 41.8 67 41.8 73 44.4"/>
+  </g>
+  <path d="M50 32C58 29.6 66 29.6 73 32.2" fill="none" stroke="#E0F2FE" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+
+  <!-- sepatu lari samping: sol madu + badan slate bergradasi -->
+  <g transform="translate(124 30) rotate(-8)" stroke-linejoin="round">
+    <!-- bayang lembut -->
+    <ellipse cx="0" cy="22.5" rx="25" ry="2.8" fill="#94A3B8" opacity=".2"/>
+    <!-- sol madu bergradasi -->
+    <path d="M-27 15C-27.8 17.8 -26 19.9 -22.6 20.3L23.6 20.9C25.9 20.9 27.1 19 26.4 16.6C17.6 11.4 7.6 9.6 -2.4 11.8C-11.8 13.8 -20.2 14.6 -27 15Z" fill="url(#sol-lr)" stroke="#92400E" stroke-width=".9"/>
+    <!-- gerigi sol -->
+    <g fill="none" stroke="#B45309" stroke-width="1.5" opacity=".65" stroke-linecap="round">
+      <path d="M-21 17.6L-18 19.4"/>
+      <path d="M-14 17L-11 18.8"/>
+      <path d="M-7 16.4L-4 18"/>
+      <path d="M0 16L3 17.6"/>
+      <path d="M7 16L10 17.4"/>
+      <path d="M14 16.4L17 17.8"/>
+    </g>
+    <!-- badan sepatu slate bergradasi -->
+    <path d="M-27 15C-28.2 6 -23.8 -2.6 -14 -6.2C-6.6 -8.6 1 -8 8 -5.6C15.6 -3.2 21.6 2 24 8.4C25.1 11.6 25.5 14.2 24.6 15.8C8 10.8 -10 11.8 -27 15Z" fill="url(#up-lr)" stroke="#475569" stroke-width=".9"/>
+    <!-- ujung kaki terang -->
+    <path d="M-27 15C-28 7 -24.4 -.4 -17.6 -4.2C-13.8 -2.2 -11.2 1 -10 4.8C-14.6 8.8 -21.2 12.2 -27 15Z" fill="#F8FAFC" opacity=".88" stroke="#CBD5E1" stroke-width=".5"/>
+    <!-- kilau spekular badan -->
+    <path d="M-20 4.2C-14 -1 -5 -3.8 3 -3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+    <!-- kilat madu di sisi sepatu -->
+    <path d="M-8 3.6C0 1 10 .8 18 3.6" fill="none" stroke="#F59E0B" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+    <!-- tali sepatu -->
+    <path d="M-12 -6.2C-6 -7.6 0 -7.2 5 -5.4" fill="none" stroke="#94A3B8" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+    <g fill="none" stroke="#F8FAFC" stroke-width="1.5" opacity=".9" stroke-linecap="round">
+      <path d="M-10 -4.6L-4 .4"/>
+      <path d="M-4 -5.6L1.8 -.6"/>
+      <path d="M1.6 -6.6L7.6 -1.6"/>
+    </g>
+    <circle cx="-11" cy="-5" r=".7" fill="#64748B" opacity=".7"/>
+    <circle cx="-5" cy="-6" r=".7" fill="#64748B" opacity=".7"/>
+    <circle cx="1" cy="-7" r=".7" fill="#64748B" opacity=".7"/>
+    <!-- embun kecil di ujung sepatu -->
+    <ellipse cx="-22" cy="8" rx="1.4" ry="1.9" fill="url(#dw-lr)" transform="rotate(-20 -22 8)"/>
+    <circle cx="-22.7" cy="7.2" r=".5" fill="#FFFFFF" opacity=".85"/>
+  </g>
+
+  <!-- daun angin di belakang sepatu -->
+  <g transform="translate(78 20) rotate(-30)" stroke-linejoin="round">
+    <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke="url(#st-lr)" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-lr)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M-6.6 7.6C-10 6.6 -14 6.8 -17.6 10.6" fill="none" stroke="#14532D" stroke-width=".8" opacity=".42" stroke-linecap="round"/>
+    <path d="M-18.6 9.4C-16.6 6 -12.2 4.8 -7.6 6.2" fill="none" stroke="#D9F99D" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(94 34) rotate(20) scale(.9)" stroke-linejoin="round">
+    <path d="M0 0C2 3 4 5 5 8" fill="none" stroke="url(#st-lr)" stroke-width="1" stroke-linecap="round"/>
+    <path d="M5 8C10 6 16 7 18 11C16 16 10 17 5 15C3.4 12.6 3.8 10 5 8Z" fill="url(#lf-lr)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M5.6 8.4C9 7.4 13 7.6 16.6 11.4" fill="none" stroke="#14532D" stroke-width=".8" opacity=".42" stroke-linecap="round"/>
+    <path d="M5.6 7.4C9.6 5.9 14.8 6.2 17.6 9" fill="none" stroke="#BBF7D0" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+  </g>
+
+  <!-- tunas lintasan di ujung ranting -->
+  <g transform="translate(170 96) rotate(10) scale(.6)" stroke-linejoin="round">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="url(#st-lr)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-lr)" stroke="#14532D" stroke-width="1.4"/>
+    <path d="M-5.6 6.6C-9 5.8 -13 6 -16.6 9.4" fill="none" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  </g>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="72" cy="12" r="6.4" fill="url(#cn-lr)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="72" cy="12" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M72 15.6C72.2 14.2 73 13.2 74.3 12.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M74.3 12.8C74 11.4 74.8 10.2 76.1 10.4C76.3 11.7 75.5 12.8 74.3 12.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M74.3 12.8C73.6 11.4 72.2 11 71.2 11.8C71.6 13.1 73 13.6 74.3 12.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M68.2 9.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="69.4" cy="9.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik langkah: titik berkilau -->
+  <g>
+    <circle cx="150" cy="12" r="2.6" fill="#FBBF24"/>
+    <circle cx="149.2" cy="11.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="104" cy="58" r="2.2" fill="#7DD3FC" opacity=".9"/>
+    <circle cx="160" cy="46" r="1.6" fill="#FDE68A" opacity=".7"/>
+    <path d="M160 46l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+  </g>
+</svg>

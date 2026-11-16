@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · SAKURA — vektor semi-realistis: cabang sakura meruncing, kelopak bergradasi bertekstur, embun pagi -->
+  <defs>
+    <radialGradient id="w-sk" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FDF2F8" stop-opacity=".72"/>
+      <stop offset=".45" stop-color="#FDE8F0" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#FDE8F0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="br-sk" x1="0" y1="0" x2=".5" y2=".95">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".52" stop-color="#22C55E"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <radialGradient id="pt-sk" cx=".5" cy=".3" r=".95">
+      <stop offset="0" stop-color="#FDF2F8"/><stop offset=".55" stop-color="#FECDD3"/><stop offset="1" stop-color="#FDA4AF"/>
+    </radialGradient>
+    <radialGradient id="cn-sk" cx=".38" cy=".32" r=".9">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".55" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/>
+    </radialGradient>
+    <linearGradient id="lf-sk" x1=".05" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lf2-sk" x1=".05" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <radialGradient id="ck-sk" cx=".4" cy=".35" r=".85">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <linearGradient id="fp-sk" x1=".3" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FDF2F8"/><stop offset=".6" stop-color="#FECDD3"/><stop offset="1" stop-color="#FDA4AF"/>
+    </linearGradient>
+  </defs>
+  <!-- cuci warna sakura muda di sudut -->
+  <rect width="180" height="170" fill="url(#w-sk)"/>
+  <!-- cabang meruncing bergradasi, urat kulit, dahan kecil -->
+  <path d="M57.5 .5C94 4.5 130 20 153 46C162.5 55 169 62.5 174.2 71L176.4 74.8C175.2 77.2 172.4 77.4 170.9 75.8C166 70 160 63 149.5 50.4C127.5 27.5 95 11.5 56.5 7.5C54.5 4 55.4 1.4 57.5 .5Z" fill="url(#br-sk)"/>
+  <path d="M60 2.6C95 6.4 129 21 151 44.8" fill="none" stroke="#D1FAE5" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>
+  <path d="M176.2 74.6C173.4 78.4 169.4 81.4 164.6 83.6L163.2 82C168.2 80 171.8 77 174.2 73.2Z" fill="url(#br-sk)"/>
+  <ellipse cx="98" cy="10.8" rx="2.6" ry="1.5" transform="rotate(24 98 10.8)" fill="#86EFAC" opacity=".5"/>
+  <!-- daun mint berurat: gradasi, urat samping, bayangan inti, rim cahaya, embun -->
+  <g transform="translate(70 14) rotate(-24) scale(.72)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-sk)" stroke="#15803D" stroke-width=".6" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>
+    <path d="M9.5-4C8.6-6.4 6.8-8.2 4.6-9" fill="none" stroke="#14532D" stroke-width=".8" opacity=".32" stroke-linecap="round"/>
+    <path d="M17-6.6C16.2-8.6 14.4-10 12.2-10.6" fill="none" stroke="#14532D" stroke-width=".8" opacity=".32" stroke-linecap="round"/>
+    <path d="M10-2.6C10 .8 8.6 3.2 6.2 4.4" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+    <path d="M4 .8C10.5 5 18.5 4.6 25-.6C19 3.6 11 5.4 4 .8Z" fill="#14532D" opacity=".25"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#D1FAE5" stroke-width="1.5" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(128 44) rotate(-58) scale(.6)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-sk)" stroke="#15803D" stroke-width=".7" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".4" stroke-linecap="round"/>
+    <path d="M9.5-4C8.6-6.4 6.8-8.2 4.6-9" fill="none" stroke="#14532D" stroke-width=".9" opacity=".32" stroke-linecap="round"/>
+    <path d="M4 .8C10.5 5 18.5 4.6 25-.6C19 3.6 11 5.4 4 .8Z" fill="#14532D" opacity=".24"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#D1FAE5" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="128.8" cy="36.2" rx="2.7" ry="3.6" transform="rotate(-58 128.8 36.2)" fill="#D1FAE5" opacity=".55"/>
+  <circle cx="128.2" cy="35.2" r=".8" fill="#FFFFFF" opacity=".8"/>
+  <g transform="translate(160 82) rotate(-14) scale(.5)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf2-sk)" stroke="#15803D" stroke-width=".8" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".35" stroke-linecap="round"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#A7F3D0" stroke-width="1.5" opacity=".45" stroke-linecap="round"/>
+  </g>
+  <!-- kuncup menghadap ke dalam kartu: kelopak tertutup + sepal -->
+  <g transform="translate(96 46) rotate(-38)">
+    <path d="M0 0C4.5-3 6-9 3.5-14C2-16.5-2-16.5-3.5-14C-6-9-4.5-3 0 0Z" fill="url(#fp-sk)" stroke="#FDA4AF" stroke-width=".9" stroke-opacity=".6"/>
+    <path d="M-1.8-2.5C-1-8.5.6-12.5 2.8-14" fill="none" stroke="#FDA4AF" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+    <path d="M0 .8C3-1.2 5.6-5.2 6-10C6.6-5.2 4.6-1.2 1 .8Z" fill="url(#lf2-sk)"/>
+    <path d="M0 .8C-3-1.2-5.6-5.2-6-10C-6.6-5.2-4.6-1.2-1 .8Z" fill="url(#lf-sk)"/>
+  </g>
+  <!-- bunga sedang di tengah cabang -->
+  <g transform="translate(97 22) scale(.72) rotate(18)">
+    <g fill="url(#pt-sk)" stroke="#FDA4AF" stroke-width=".8" stroke-opacity=".55">
+      <ellipse rx="8.2" ry="11" transform="rotate(0) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(72) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(144) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(216) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(288) translate(0 -8.5)"/>
+    </g>
+    <circle r="4" fill="url(#cn-sk)"/>
+    <g fill="#92400E" opacity=".8">
+      <circle cx="2.4" cy="-1.8" r=".8"/><circle cx="-2.2" cy="1.4" r=".8"/><circle cx="1.6" cy="2.6" r=".8"/><circle cx="2.9" cy="1" r=".7"/>
+    </g>
+  </g>
+  <!-- bunga utama: lima kelopak bergradasi, takik ujung, bayangan bawah, benang sari -->
+  <g transform="translate(150 88)">
+    <g fill="url(#pt-sk)" stroke="#FDA4AF" stroke-width=".7" stroke-opacity=".55">
+      <ellipse rx="8.2" ry="11" transform="rotate(0) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(72) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(144) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(216) translate(0 -8.5)"/>
+      <ellipse rx="8.2" ry="11" transform="rotate(288) translate(0 -8.5)"/>
+    </g>
+    <g fill="#BE185D">
+      <path d="M-7.4-12.6C-2.6-16.2 3.4-16 7.2-11.4C3.4-17.8-3.8-17.2-7.4-12.6Z" transform="rotate(144) translate(0 -8.5)" opacity=".22"/>
+      <path d="M-7.4-12.6C-2.6-16.2 3.4-16 7.2-11.4C3.4-17.8-3.8-17.2-7.4-12.6Z" transform="rotate(216) translate(0 -8.5)" opacity=".16"/>
+      <path d="M-7.4-12.6C-2.6-16.2 3.4-16 7.2-11.4C3.4-17.8-3.8-17.2-7.4-12.6Z" transform="rotate(72) translate(0 -8.5)" opacity=".1"/>
+    </g>
+    <circle r="7.2" fill="none" stroke="#FDA4AF" stroke-width="2.8" opacity=".26"/>
+    <g fill="none" stroke="#FDA4AF" stroke-width=".9" opacity=".55" stroke-linecap="round">
+      <path d="M-2.4-11C-.9-12.6.9-12.6 2.4-11" transform="rotate(72) translate(0 -8.5)"/>
+      <path d="M-2.4-11C-.9-12.6.9-12.6 2.4-11" transform="rotate(288) translate(0 -8.5)"/>
+    </g>
+    <g fill="none" stroke="#FFF1F2" stroke-linecap="round">
+      <path d="M7.2-3.8C6.6-7.2 4.8-10.4 1.4-12.2" stroke-width="1.3" opacity=".6" transform="rotate(288) translate(0 -8.5)"/>
+      <path d="M-7.2-3.8C-6.6-7.2-4.8-10.4-1.4-12.2" stroke-width="1.2" opacity=".5" transform="rotate(0) translate(0 -8.5)"/>
+    </g>
+    <circle r="4.6" fill="url(#cn-sk)"/>
+    <circle r="4.6" fill="none" stroke="#B45309" stroke-width=".6" opacity=".4"/>
+    <g fill="#92400E" opacity=".85">
+      <circle cx="2.6" cy="-1.9" r=".9"/><circle cx="-2.4" cy="1.5" r=".9"/><circle cx="1.7" cy="2.8" r=".8"/>
+      <circle cx="-2.8" cy="-2.4" r=".8"/><circle cx="3.1" cy="1.1" r=".8"/><circle cx=".2" cy="-3.1" r=".7"/>
+    </g>
+    <circle cx="-1" cy="-2.6" r=".5" fill="#FDE68A" opacity=".9"/>
+  </g>
+  <!-- koin amber timbul (gema ilustrasi hero) -->
+  <g transform="translate(78 16)">
+    <circle r="6.2" fill="#F59E0B"/>
+    <circle r="5.5" fill="url(#ck-sk)"/>
+    <circle r="3.8" fill="none" stroke="#F59E0B" stroke-width=".8" opacity=".55"/>
+    <path d="M0 2.6L0-.8" stroke="#D97706" stroke-width=".9" stroke-linecap="round" opacity=".9"/>
+    <path d="M0-.6C-1.3-1.4-2.1-2.7-2.3-4.1C-.5-3.6.4-2.3 0-.6Z" fill="#D97706" opacity=".85"/>
+    <path d="M0-.6C1.3-1.4 2.1-2.7 2.3-4.1C.5-3.6-.4-2.3 0-.6Z" fill="#B45309" opacity=".85"/>
+    <path d="M-4.7-2.3A5.3 5.3 0 0 1-.9-5.4" fill="none" stroke="#FFFBEB" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- kelopak gugur & percik -->
+  <g stroke-linejoin="round">
+    <path d="M0 0C3-4 8-5 12-2C9 3 3 4 0 0Z" transform="translate(60 34) rotate(24)" fill="url(#fp-sk)" stroke="#FDA4AF" stroke-width=".7" stroke-opacity=".55"/>
+    <path d="M1.6.4C4-2 7-3 10.4-1.6" transform="translate(60 34) rotate(24)" fill="none" stroke="#FDA4AF" stroke-width=".7" opacity=".45" stroke-linecap="round"/>
+    <path d="M0 0C3-4 8-5 12-2C9 3 3 4 0 0Z" transform="translate(46 22) rotate(-40)" fill="#FDF2F8" stroke="#FDA4AF" stroke-width=".7" stroke-opacity=".5" opacity=".85"/>
+    <path d="M0 0C3-4 8-5 12-2C9 3 3 4 0 0Z" transform="translate(150 96) rotate(60)" fill="url(#fp-sk)" stroke="#FDA4AF" stroke-width=".7" stroke-opacity=".55"/>
+  </g>
+  <circle cx="170" cy="92" r="3" fill="#FDA4AF" opacity=".9"/>
+  <circle cx="176" cy="86" r="2.4" fill="#34D399" opacity=".85"/>
+  <circle cx="148" cy="78" r="2.2" fill="#FCD34D"/>
+  <circle cx="103" cy="46" r="2" fill="#A7F3D0" opacity=".85"/>
+  <circle cx="120" cy="66" r="1.6" fill="#FDE68A" opacity=".7"/>
+  <path d="M132 92l1 2.7 2.7 1-2.7 1-1 2.7-1-2.7-2.7-1 2.7-1z" fill="#FBBF24" opacity=".9"/>
+</svg>

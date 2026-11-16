@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · WORTEL — vektor semi-realistis: wortel meruncing berurat, daun jela bergradasi, kumbang kecil -->
+  <defs>
+    <radialGradient id="w-wr" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FFEDD5" stop-opacity=".58"/>
+      <stop offset=".45" stop-color="#FFF7E3" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#FFF7E3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bd-wr" cx=".38" cy=".26" r="1">
+      <stop offset="0" stop-color="#FDBA74"/>
+      <stop offset=".55" stop-color="#FB923C"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </radialGradient>
+    <linearGradient id="bd2-wr" x1=".15" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FDBA74"/>
+      <stop offset=".6" stop-color="#FB923C"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="fr-wr" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset=".5" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="fr2-wr" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="st-wr" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="cn-wr" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-wr" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna kebun sayur di sudut -->
+  <rect width="180" height="170" fill="url(#w-wr)"/>
+
+  <!-- alur tanah tempat akar tumbuh: garis amber ganda + remah tanah -->
+  <path d="M64 8C96 12 124 28 146 50C156 60 164 68 170 76" fill="none" stroke="#FBBF24" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>
+  <path d="M64 10.6C96 14.6 124 30.4 146 52.4C156 62.4 164 70.4 170 78.4" fill="none" stroke="#D97706" stroke-width=".9" stroke-linecap="round" opacity=".32"/>
+  <circle cx="80" cy="15" r="1.1" fill="#B45309" opacity=".38"/>
+  <circle cx="128" cy="35" r="1.2" fill="#B45309" opacity=".3"/>
+  <circle cx="158" cy="59" r="1" fill="#B45309" opacity=".34"/>
+
+  <!-- wortel utama dari sudut kanan-atas, meruncing turun ke dalam kartu -->
+  <g transform="translate(137 45) rotate(26)">
+    <!-- rachis daun jela: garis bergradasi, meruncing -->
+    <g fill="none" stroke="url(#st-wr)" stroke-width="2" stroke-linecap="round">
+      <path d="M0 5C-2.5 -7 -7 -17 -15 -25"/>
+      <path d="M0 5C2.5 -8 7 -19 15 -27"/>
+      <path d="M0 5C0 -9 .5 -21 2 -31"/>
+    </g>
+    <!-- anak daun jela lapis depan + lapis belakang -->
+    <g stroke-linejoin="round">
+      <g fill="url(#fr2-wr)" stroke="#14532D" stroke-width=".7">
+        <path d="M-15 -25C-19 -29 -25 -29.5 -27.5 -25.5C-24 -21.5 -18.5 -21.8 -15 -25Z"/>
+        <path d="M-9.5 -19C-14 -22.5 -19.5 -22 -21.5 -17.5C-17.5 -14 -12 -14.5 -9.5 -19Z"/>
+        <path d="M-5 -13C-9.5 -16 -14.5 -15 -16 -10.5C-11.5 -8 -7 -9.5 -5 -13Z"/>
+        <path d="M15 -27C19 -31 25 -31.5 27.5 -27.5C24 -23.5 18.5 -23.8 15 -27Z"/>
+        <path d="M9.5 -20.5C14 -24 19.5 -23.5 21.5 -19C17.5 -15.5 12 -16 9.5 -20.5Z"/>
+        <path d="M5 -14.5C9.5 -17.5 14.5 -16.5 16 -12C11.5 -9.5 7 -11 5 -14.5Z"/>
+        <path d="M2 -31C-2 -35.5 -8 -36 -11 -31.5C-7.5 -27.5 -2 -27.5 2 -31Z"/>
+        <path d="M2 -31C6 -35 11.5 -34.5 13.5 -30C10 -27 5 -27.5 2 -31Z"/>
+      </g>
+      <g fill="url(#fr-wr)" stroke="#14532D" stroke-width=".6" opacity=".92">
+        <path d="M-6 -8C-9.5 -10.5 -13.5 -9.8 -14.8 -6C-11.5 -3.8 -7.6 -4.6 -6 -8Z"/>
+        <path d="M6 -9C9.5 -11.5 13.5 -10.8 14.8 -7C11.5 -4.8 7.6 -5.6 6 -9Z"/>
+      </g>
+      <!-- urat tengah anak daun, halus -->
+      <g fill="none" stroke="#14532D" stroke-width=".55" opacity=".38" stroke-linecap="round">
+        <path d="M-24.5 -26.6C-21.5 -24.8 -18.6 -23.8 -16 -24.4"/>
+        <path d="M-19.6 -18.8C-16.8 -17.4 -13.4 -16.9 -11 -17.4"/>
+        <path d="M-14.2 -12.2C-11.4 -11.2 -8.8 -11 -7 -11.8"/>
+        <path d="M24.5 -28.6C21.5 -26.8 18.6 -25.8 16 -26.4"/>
+        <path d="M19.6 -21.8C16.8 -20.4 13.4 -19.9 11 -20.4"/>
+        <path d="M14.2 -15.2C11.4 -14.2 8.8 -14 7 -14.8"/>
+        <path d="M-9.6 -31.4C-7 -29.6 -4 -29.4 -1.6 -30"/>
+        <path d="M9.6 -30.4C7 -28.8 4.4 -28.6 2 -29"/>
+      </g>
+      <!-- embun pagi di daun jela -->
+      <ellipse cx="-19" cy="-22" rx="1.7" ry="2.3" fill="url(#dw-wr)" transform="rotate(-32 -19 -22)"/>
+      <circle cx="-19.7" cy="-22.9" r=".6" fill="#FFFFFF" opacity=".85"/>
+    </g>
+    <!-- badan wortel: gradasi bola + bayang inti kanan-bawah + rim cahaya kiri-atas -->
+    <path d="M-7 6C-8 24 -7 48 -3 66C-1.5 73 1.5 73 3 66C7 48 8 24 7 6C4.6 2.2 -4.6 2.2 -7 6Z" fill="url(#bd-wr)" stroke="#C2410C" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M3.2 7C6.8 24 6 46 2 62C5.2 46 5 24 3.2 7Z" fill="#9A3412" opacity=".28"/>
+    <path d="M-5.4 8C-6.4 24 -5.8 44 -2.8 60C-4.2 44 -4.4 24 -3.8 8Z" fill="#FED7AA" opacity=".5"/>
+    <ellipse cx="-3.6" cy="15" rx="1.9" ry="3.4" fill="#FFFFFF" opacity=".5" transform="rotate(-10 -3.6 15)"/>
+    <circle cx="-2.4" cy="12.6" r=".7" fill="#FFFFFF" opacity=".65"/>
+    <!-- alur melintang wortel -->
+    <g fill="none" stroke="#C2410C" stroke-width=".9" stroke-linecap="round" opacity=".48">
+      <path d="M-6.4 20C-3 22.4 3 22.4 6.4 20"/>
+      <path d="M-6.2 34C-3 36.4 3 36.4 6.2 34"/>
+      <path d="M-5.2 48C-2.6 50.4 2.6 50.4 5.2 48"/>
+      <path d="M-3.8 60C-1.6 62 .2 62 1.6 60"/>
+      <path d="M-2.6 10.6C-.8 12.2 .8 12.2 2.6 10.6" opacity=".7"/>
+    </g>
+    <!-- serabut akar halus di ujung -->
+    <g fill="none" stroke="#FB923C" stroke-width=".8" stroke-linecap="round" opacity=".75">
+      <path d="M-1 71.4C-1.6 73.2 -2 74.4 -2.8 75.4"/>
+      <path d="M0 72C0 74 0 75.2 0 76.4"/>
+      <path d="M1 71.4C1.4 73.2 1.8 74.2 2.4 75.2"/>
+    </g>
+    <!-- kumbang kecil bertengger di pundak wortel -->
+    <g transform="translate(-4.8 9.4)">
+      <ellipse rx="2.5" ry="1.9" fill="#E11D48" stroke="#9F1239" stroke-width=".45"/>
+      <path d="M0 -1.9L0 1.9" stroke="#7F1D1D" stroke-width=".5" fill="none"/>
+      <circle cx="0" cy="-2.2" r=".95" fill="#7F1D1D"/>
+      <circle cx="-1.2" cy="-.4" r=".45" fill="#450A0A"/>
+      <circle cx="1" cy=".5" r=".4" fill="#450A0A"/>
+      <ellipse cx="-.9" cy="-1.1" rx=".8" ry=".4" fill="#FCA5A5" opacity=".65"/>
+    </g>
+  </g>
+
+  <!-- wortel kecil sahabat di bawahnya -->
+  <g transform="translate(112 54) rotate(34) scale(.5)">
+    <g fill="none" stroke="url(#st-wr)" stroke-width="2.6" stroke-linecap="round">
+      <path d="M0 6C-2 -8 -5 -16 -10 -20"/>
+      <path d="M0 6C2 -8 5 -16 10 -20"/>
+    </g>
+    <g fill="url(#fr-wr)" stroke="#14532D" stroke-width=".9" stroke-linejoin="round">
+      <path d="M-10 -20C-14 -23 -19 -22.5 -21 -18.5C-17.5 -15.5 -12.5 -16.2 -10 -20Z"/>
+      <path d="M10 -20C14 -23 19 -22.5 21 -18.5C17.5 -15.5 12.5 -16.2 10 -20Z"/>
+      <path d="M0 6C-3 3 -7 3 -9 5.5C-6.5 8 -2.5 7.5 0 6Z" opacity=".9"/>
+      <path d="M0 6C3 3 7 3 9 5.5C6.5 8 2.5 7.5 0 6Z" opacity=".9"/>
+    </g>
+    <path d="M-7 6C-8 24 -7 48 -3 66C-1.5 73 1.5 73 3 66C7 48 8 24 7 6C4.6 2.2 -4.6 2.2 -7 6Z" fill="url(#bd2-wr)" stroke="#C2410C" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M2.8 8C5.8 24 5 46 1.6 62C4.6 46 4.4 24 2.8 8Z" fill="#9A3412" opacity=".22"/>
+    <ellipse cx="-3" cy="14" rx="1.7" ry="3" fill="#FFFFFF" opacity=".4" transform="rotate(-10 -3 14)"/>
+    <g fill="none" stroke="#C2410C" stroke-width="1.4" stroke-linecap="round" opacity=".45">
+      <path d="M-6.4 24C-3 26.4 3 26.4 6.4 24"/>
+      <path d="M-5.4 44C-2.8 46.4 2.8 46.4 5.4 44"/>
+    </g>
+  </g>
+
+  <!-- koin amber: muka radial, cincin dalam, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="66" cy="12" r="6.4" fill="url(#cn-wr)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="66" cy="12" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M66 15.6C66.2 14.2 67 13.2 68.3 12.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M68.3 12.8C68 11.4 68.8 10.2 70.1 10.4C70.3 11.3 69.5 12.4 68.3 12.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M68.3 12.8C67.6 11.4 66.2 11 65.2 11.8C65.6 13.1 67 13.6 68.3 12.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M62.2 9.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="63.4" cy="9.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+
+  <g>
+    <circle cx="172" cy="94" r="2.6" fill="#FBBF24"/>
+    <circle cx="171.2" cy="93.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="176" cy="86" r="2.2" fill="#FB923C" opacity=".9"/>
+    <circle cx="165" cy="106" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="165.6" cy="105.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M96 44l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="104" cy="26" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>

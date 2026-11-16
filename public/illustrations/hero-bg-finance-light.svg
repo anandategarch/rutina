@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" fill="none" role="img" aria-label="Lembah botani bernuansa sage dengan taburan koin keemasan">
+  <!-- Rutina · hero keuangan (terang) — vektor semi-realistis: lembah sage ber-perspektif udara, mentari madu kanan, koin ber-relief tunas -->
+  <!-- motif utama zona tengah-bawah; sisi kiri senyap untuk teks; aman di-crop dari bawah -->
+  <defs>
+    <radialGradient id="fbl-sun" cx="0" cy="0" r="1">
+      <stop stop-color="#FDE68A" stop-opacity=".42"/>
+      <stop offset=".55" stop-color="#FDE68A" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fbl-sunCore" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".5" stop-color="#FDE68A"/><stop offset="1" stop-color="#FCD34D"/>
+    </radialGradient>
+    <linearGradient id="fbl-h1" x1="0" y1="150" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF7EF"/><stop offset=".5" stop-color="#D9F0E0"/><stop offset="1" stop-color="#C6E9D3"/>
+    </linearGradient>
+    <linearGradient id="fbl-h2" x1="0" y1="200" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CBECD9"/><stop offset=".55" stop-color="#ACDFC0"/><stop offset="1" stop-color="#8FD2AB"/>
+    </linearGradient>
+    <linearGradient id="fbl-h3" x1="0" y1="236" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B4E2C7"/><stop offset=".5" stop-color="#92D4AD"/><stop offset="1" stop-color="#74C295"/>
+    </linearGradient>
+    <radialGradient id="fbl-coin" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".35" stop-color="#FDE68A"/><stop offset=".7" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/>
+    </radialGradient>
+    <linearGradient id="fbl-coinEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FCD34D"/><stop offset=".5" stop-color="#D97706"/><stop offset="1" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="fbl-leafA" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <linearGradient id="fbl-leafB" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="fbl-mist" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#BBF7D0" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#BBF7D0" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#BBF7D0" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="fbl-whiteMist" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fbl-soft" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#3E2723" stop-opacity=".3"/><stop offset=".62" stop-color="#3E2723" stop-opacity=".12"/><stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- mentari madu dari kanan -->
+  <circle cx="836" cy="104" r="168" fill="url(#fbl-sun)"/>
+  <circle cx="836" cy="104" r="46" fill="url(#fbl-sunCore)" opacity=".45"/>
+  <circle cx="836" cy="104" r="20" fill="#FFFBEB" opacity=".5"/>
+
+  <!-- burung jauh -->
+  <path d="M300 62 q7 -8 14 0 q7 -8 14 0" stroke="#0F172A" stroke-width="2" fill="none" opacity=".14" stroke-linecap="round"/>
+  <path d="M640 92 q6 -7 12 0 q6 -7 12 0" stroke="#0F172A" stroke-width="1.8" fill="none" opacity=".12" stroke-linecap="round"/>
+
+  <!-- bukit belakang (paling terang, ber-kabut) -->
+  <path d="M-20 214 C60 158 150 150 226 184 C288 212 344 208 394 178 C452 144 522 148 580 186 C626 216 676 220 720 202 C760 186 800 176 840 192 C880 206 920 208 960 196 L960 300 L-20 300 Z" fill="url(#fbl-h1)"/>
+  <path d="M-20 214 C60 158 150 150 226 184 C288 212 344 208 394 178 C452 144 522 148 580 186 C626 216 676 220 720 202 C760 186 800 176 840 192 C880 206 920 208 960 196" fill="none" stroke="#FFFFFF" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+  <ellipse cx="480" cy="218" rx="480" ry="18" fill="url(#fbl-whiteMist)"/>
+  <ellipse cx="250" cy="188" rx="280" ry="34" fill="url(#fbl-mist)"/>
+  <g fill="#14532D" opacity=".13">
+    <path d="M180 206 C176 198 178 192 184 188 C186 196 185 202 182 207 Z"/>
+    <path d="M196 202 C193 195 195 190 200 187 C201 194 200 199 198 203 Z"/>
+    <path d="M700 208 C697 201 699 196 704 193 C705 200 704 205 702 209 Z"/>
+    <path d="M716 204 C713 198 715 193 720 190 C721 197 720 202 718 206 Z"/>
+  </g>
+
+  <!-- bukit tengah -->
+  <path d="M-20 246 C30 206 98 194 158 214 C204 230 236 228 274 210 C326 186 390 192 440 224 C480 250 530 256 570 242 C612 229 656 230 696 240 C736 250 786 254 826 240 C850 232 874 231 892 234 C912 237 940 240 960 242 L960 300 L-20 300 Z" fill="url(#fbl-h2)"/>
+  <path d="M-20 246 C30 206 98 194 158 214 C204 230 236 228 274 210 C326 186 390 192 440 224 C480 250 530 256 570 242 C612 229 656 230 696 240 C736 250 786 254 826 240 C850 232 874 231 892 234 C912 237 940 240 960 242" fill="none" stroke="#FFFFFF" stroke-width="3" opacity=".28" stroke-linecap="round"/>
+  <ellipse cx="480" cy="248" rx="470" ry="16" fill="url(#fbl-whiteMist)" opacity=".9"/>
+  <g fill="#14532D" opacity=".18">
+    <path d="M330 232 C325 223 327 216 334 211 C337 220 335 227 332 233 Z"/>
+    <path d="M350 228 C346 220 348 214 354 210 C356 218 354 224 352 229 Z"/>
+    <path d="M560 238 C556 230 558 224 564 220 C566 228 564 234 562 239 Z"/>
+    <path d="M580 234 C577 227 579 221 584 217 C586 224 584 230 582 235 Z"/>
+  </g>
+
+  <!-- bukit depan -->
+  <path d="M-20 276 C16 250 64 242 112 254 C152 264 178 262 208 248 C252 228 308 234 352 258 C386 276 428 280 460 268 C478 261 496 259 516 262 C560 272 616 276 660 264 C700 253 744 258 776 274 C800 286 836 290 868 282 C888 277 920 274 960 278 L960 300 L-20 300 Z" fill="url(#fbl-h3)"/>
+  <path d="M-20 276 C16 250 64 242 112 254 C152 264 178 262 208 248 C252 228 308 234 352 258 C386 276 428 280 460 268 C478 261 496 259 516 262 C560 272 616 276 660 264 C700 253 744 258 776 274 C800 286 836 290 868 282 C888 277 920 274 960 278" fill="none" stroke="#D1FAE5" stroke-width="3" opacity=".45" stroke-linecap="round"/>
+
+  <!-- garis lembah -->
+  <path d="M96 252 C140 226 188 220 234 234" stroke="#86EFAC" stroke-width="3" stroke-linecap="round" opacity=".45" fill="none"/>
+  <path d="M560 268 C612 246 668 244 716 262" stroke="#86EFAC" stroke-width="3" stroke-linecap="round" opacity=".4" fill="none"/>
+
+  <!-- rumput lereng -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M240 262 C238 254 240 248 245 244" stroke="#22C55E" stroke-width="2.4" opacity=".7"/>
+    <path d="M248 263 C247 256 249 251 253 247" stroke="#16A34A" stroke-width="2" opacity=".65"/>
+    <path d="M620 270 C618 262 620 256 625 252" stroke="#22C55E" stroke-width="2.4" opacity=".7"/>
+    <path d="M628 271 C627 264 629 259 633 255" stroke="#16A34A" stroke-width="2" opacity=".65"/>
+    <path d="M880 276 C878 268 880 262 885 258" stroke="#22C55E" stroke-width="2.2" opacity=".65"/>
+  </g>
+
+  <!-- kecambah di lereng -->
+  <g>
+    <ellipse cx="150" cy="254" rx="11" ry="2.5" fill="url(#fbl-soft)" opacity=".8"/>
+    <path d="M150 252 C150 246 150 241 150 236" stroke="#22C55E" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M150 240 C143 239 139 233 142 228 C148 229 151 234 150 240 Z" fill="url(#fbl-leafA)"/>
+    <path d="M149 238 C145 235 142 231 141 229" stroke="#14532D" stroke-width=".9" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M150 238 C150 232 154 228 159 229 C158 234 154 238 150 238 Z" fill="url(#fbl-leafB)"/>
+    <ellipse cx="468" cy="260" rx="11" ry="2.5" fill="url(#fbl-soft)" opacity=".8"/>
+    <path d="M468 258 C468 252 468 247 468 242" stroke="#22C55E" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M468 246 C461 245 457 239 460 234 C466 235 469 240 468 246 Z" fill="url(#fbl-leafA)"/>
+    <path d="M467 244 C463 241 460 237 459 235" stroke="#14532D" stroke-width=".9" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M468 244 C468 238 472 234 477 235 C476 240 472 244 468 244 Z" fill="url(#fbl-leafB)"/>
+    <ellipse cx="452" cy="238" rx="1.6" ry="2.2" fill="#BBF7D0" opacity=".7"/>
+    <circle cx="451.4" cy="237.4" r=".6" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="742" cy="264" rx="11" ry="2.5" fill="url(#fbl-soft)" opacity=".8"/>
+    <path d="M742 262 C742 256 742 251 742 246" stroke="#22C55E" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M742 250 C735 249 731 243 734 238 C740 239 743 244 742 250 Z" fill="url(#fbl-leafA)"/>
+    <path d="M741 248 C737 245 734 241 733 239" stroke="#14532D" stroke-width=".9" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M742 248 C742 242 746 238 751 239 C750 244 746 248 742 248 Z" fill="url(#fbl-leafB)"/>
+  </g>
+
+  <!-- koin keemasan ber-relief tunas -->
+  <g>
+    <ellipse cx="384" cy="252" rx="16" ry="3.5" fill="url(#fbl-soft)"/>
+    <circle cx="384" cy="239" r="14" fill="url(#fbl-coinEdge)"/>
+    <circle cx="384" cy="235" r="14" fill="url(#fbl-coin)"/>
+    <circle cx="384" cy="235" r="8.5" fill="none" stroke="#C9963F" stroke-width="1.6" opacity=".6"/>
+    <path d="M384 240 L384 232" stroke="#92400E" stroke-width="1.6" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M383.5 234 C378 232 376 227 379 224 C383 226 384.5 230 383.5 234 Z" fill="#B45309" opacity=".55"/>
+    <path d="M384.5 232 C389 229 391 225 388.5 222.5 C385 224.5 384 228 384.5 232 Z" fill="#B45309" opacity=".5"/>
+    <path d="M372 228 C374 222 379 218 385 217" stroke="#FFF7ED" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+    <path d="M390 224 C394 227 396 231 396 235 C396 241 392 246 386 248 C391 244 393 240 393 235 C393 231 392 227 390 224 Z" fill="#92400E" opacity=".22"/>
+    <circle cx="377" cy="226" r="1.6" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="664" cy="262" rx="14" ry="3" fill="url(#fbl-soft)"/>
+    <circle cx="664" cy="251" r="12" fill="url(#fbl-coinEdge)" opacity=".95"/>
+    <circle cx="664" cy="248" r="12" fill="url(#fbl-coin)" opacity=".95"/>
+    <circle cx="664" cy="248" r="7" fill="none" stroke="#C9963F" stroke-width="1.4" opacity=".6"/>
+    <path d="M664 252 L664 245.5" stroke="#92400E" stroke-width="1.4" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M663.5 247 C659.5 245.5 658 242 660 240 C663 241.5 664 244.5 663.5 247 Z" fill="#B45309" opacity=".5"/>
+    <path d="M664.5 245.5 C668 243.5 669.5 240.5 667.8 238.5 C664.8 240 664 242.8 664.5 245.5 Z" fill="#B45309" opacity=".45"/>
+    <path d="M654 242 C655.5 237.5 659.5 234.5 664.5 234" stroke="#FFF7ED" stroke-width="1.8" fill="none" opacity=".55" stroke-linecap="round"/>
+    <circle cx="658" cy="241" r="1.4" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="884" cy="244" rx="16" ry="3.5" fill="url(#fbl-soft)"/>
+    <circle cx="884" cy="231" r="14" fill="url(#fbl-coinEdge)"/>
+    <circle cx="884" cy="228" r="14" fill="url(#fbl-coin)"/>
+    <circle cx="884" cy="228" r="8.5" fill="none" stroke="#C9963F" stroke-width="1.6" opacity=".6"/>
+    <path d="M884 233 L884 225" stroke="#92400E" stroke-width="1.6" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M883.5 227 C878 225 876 220 879 217 C883 219 884.5 223 883.5 227 Z" fill="#B45309" opacity=".55"/>
+    <path d="M884.5 225 C889 222 891 218 888.5 215.5 C885 217.5 884 221 884.5 225 Z" fill="#B45309" opacity=".5"/>
+    <path d="M872 221 C874 215 879 211 885 210" stroke="#FFF7ED" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+    <circle cx="877" cy="219" r="1.6" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="566" cy="266" rx="7" ry="1.6" fill="url(#fbl-soft)" opacity=".7"/>
+    <circle cx="566" cy="260" r="6" fill="url(#fbl-coinEdge)"/>
+    <circle cx="566" cy="258" r="6" fill="url(#fbl-coin)" opacity=".95"/>
+    <circle cx="566" cy="258" r="3.5" fill="none" stroke="#C9963F" stroke-width="1" opacity=".55"/>
+    <circle cx="563.5" cy="255.5" r=".9" fill="#FFFFFF" opacity=".8"/>
+  </g>
+
+  <!-- kunang-kunang emas -->
+  <g fill="#FDE68A">
+    <path d="M228 112 l2.2 7 7 2.2 -7 2.2 -2.2 7 -2.2 -7 -7 -2.2 7 -2.2 Z" opacity=".8"/>
+    <path d="M902 172 l1.8 5.6 5.6 1.8 -5.6 1.8 -1.8 5.6 -1.8 -5.6 -5.6 -1.8 5.6 -1.8 Z" opacity=".7"/>
+    <circle cx="540" cy="96" r="4" opacity=".55"/>
+    <circle cx="748" cy="70" r="3.4" opacity=".5"/>
+    <circle cx="128" cy="84" r="3.2" opacity=".45"/>
+  </g>
+  <circle cx="540" cy="96" r="1" fill="#FFFBEB" opacity=".6"/>
+</svg>

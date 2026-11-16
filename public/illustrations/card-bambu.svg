@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · BAMBU — vektor semi-realistis: buluh bergradasi buku bertekstur, kipas daun lancip berurat, embun -->
+  <defs>
+    <radialGradient id="w-bb" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".62"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cl-bb" x1="0" y1="0" x2=".6" y2=".45">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="bk-bb" x1=".1" y1="0" x2=".6" y2=".8">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="lf-bb" x1=".1" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lf2-bb" x1=".1" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <radialGradient id="ck-bb" cx=".4" cy=".35" r=".85">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+  </defs>
+  <!-- cuci warna rumpun bambu di sudut -->
+  <rect width="180" height="170" fill="url(#w-bb)"/>
+  <!-- buluh belakang lebih pucat -->
+  <path d="M108 4C126 12 144 28 158 48" fill="none" stroke="url(#bk-bb)" stroke-width="5.5" stroke-linecap="round" opacity=".5"/>
+  <path d="M158 48C164 55 168 60 172 64" fill="none" stroke="url(#bk-bb)" stroke-width="4" stroke-linecap="round" opacity=".4"/>
+  <path d="M124 15C125.4 17.6 126.8 20 128.6 22" fill="none" stroke="#14532D" stroke-width="1.4" stroke-linecap="round" opacity=".3"/>
+  <path d="M146 34C147.4 36.4 148.8 38.6 150.8 40.4" fill="none" stroke="#14532D" stroke-width="1.2" stroke-linecap="round" opacity=".28"/>
+  <!-- buluh utama: pita meruncing bergradasi melintang -->
+  <path d="M63.2 -1.8C92 2.4 119 16.8 138.8 38.4C150.4 52.4 161.6 60.8 171.6 66.6L175.4 69.6C174.4 71.4 172 71.8 170.2 70.6C160.6 64.8 150 55.4 140.6 45.8C121.6 22.6 93.4 8.6 63.6 5.6C61.8 2.4 61.8 .2 63.2 -1.8Z" fill="url(#cl-bb)"/>
+  <path d="M66 2.6C93 6.6 119 20.4 138 41" fill="none" stroke="#D1FAE5" stroke-width="1.2" opacity=".45" stroke-linecap="round"/>
+  <!-- buku (node) bambu: cincin gelap, garis terang, tonjolan -->
+  <g stroke-linecap="round">
+    <path d="M89.6 3.6C90.8 6.6 92 9.6 93.6 12.4" fill="none" stroke="#14532D" stroke-width="2.4" opacity=".32"/>
+    <path d="M88.4 2.4C89.4 5 90.2 7.6 91.4 10" fill="none" stroke="#D1FAE5" stroke-width="1.1" opacity=".5"/>
+    <ellipse cx="92.6" cy="9.4" rx="2.2" ry="1.3" transform="rotate(22 92.6 9.4)" fill="#86EFAC" opacity=".45"/>
+    <path d="M115.6 17.6C116.8 20.6 118 23.6 119.6 26.4" fill="none" stroke="#14532D" stroke-width="2.4" opacity=".32"/>
+    <path d="M114.4 16.4C115.4 19 116.2 21.6 117.4 24" fill="none" stroke="#D1FAE5" stroke-width="1.1" opacity=".5"/>
+    <ellipse cx="118.6" cy="23.4" rx="2.2" ry="1.3" transform="rotate(26 118.6 23.4)" fill="#86EFAC" opacity=".45"/>
+    <path d="M139.6 37.6C140.8 40.6 142 43.6 143.6 46.4" fill="none" stroke="#14532D" stroke-width="2.4" opacity=".32"/>
+    <path d="M138.4 36.4C139.4 39 140.2 41.6 141.4 44" fill="none" stroke="#D1FAE5" stroke-width="1.1" opacity=".5"/>
+    <ellipse cx="142.6" cy="43.4" rx="2.2" ry="1.3" transform="rotate(30 142.6 43.4)" fill="#86EFAC" opacity=".45"/>
+    <path d="M159.6 53.6C160.8 56.6 162 59.6 163.6 62.4" fill="none" stroke="#14532D" stroke-width="2.2" opacity=".32"/>
+    <path d="M158.4 52.4C159.4 55 160.2 57.6 161.4 60" fill="none" stroke="#D1FAE5" stroke-width="1" opacity=".5"/>
+  </g>
+  <!-- pelepah kecil di buku -->
+  <path d="M143.6 44.6C147 43.4 150.6 43 154 43.6C151.4 45.6 147.6 46.6 143.6 46.8Z" fill="url(#lf2-bb)" opacity=".85"/>
+  <!-- kipas daun bambu: lancip berurat, rim cahaya -->
+  <g transform="translate(171 66)">
+    <path d="M0 0C-8-20 -4-38 8-48C14-34 12-12 0 0Z" fill="url(#lf-bb)" stroke="#15803D" stroke-width=".7" stroke-opacity=".5"/>
+    <path d="M0 0C-1-14 .5-30 7-43" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".4" stroke-linecap="round"/>
+    <path d="M-4-16C-6.4-18.4-8-21.6-8.8-25" fill="none" stroke="#14532D" stroke-width=".9" opacity=".32" stroke-linecap="round"/>
+    <path d="M-1-28C-2.4-31-2.6-34.4-1.6-37.6" fill="none" stroke="#14532D" stroke-width=".9" opacity=".3" stroke-linecap="round"/>
+    <path d="M5-14C6.6-19 7-24.6 6-30" fill="none" stroke="#14532D" stroke-width=".9" opacity=".3" stroke-linecap="round"/>
+    <path d="M4.6-4C7.2-13 9.6-24 8.6-42C5.6-27 2.6-13 -2.4-2" fill="#14532D" opacity=".2"/>
+    <path d="M-6.4-8C-8-17-5.8-30 5.6-44" fill="none" stroke="#D1FAE5" stroke-width="1.5" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="167" cy="52" rx="2.5" ry="3.4" transform="rotate(24 167 52)" fill="#D1FAE5" opacity=".5"/>
+  <circle cx="166.4" cy="51.2" r=".75" fill="#FFFFFF" opacity=".8"/>
+  <g transform="translate(138 30) rotate(30)">
+    <path d="M0 0C-7-16 -3-30 7-38C12-27 10-9 0 0Z" fill="url(#lf-bb)" stroke="#15803D" stroke-width=".7" stroke-opacity=".5"/>
+    <path d="M0 0C-.6-11 .4-22 6-34" fill="none" stroke="#14532D" stroke-width="1.1" opacity=".4" stroke-linecap="round"/>
+    <path d="M-4-12C-5.8-15.4-6.6-19.4-6.4-23.4" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+    <path d="M-5.6-6C-6.8-13-4.6-24 5.4-34" fill="none" stroke="#D1FAE5" stroke-width="1.4" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(102 10) rotate(-10)">
+    <path d="M0 0C-6-13 -2-24 6-31C10-22 8-8 0 0Z" fill="url(#lf2-bb)" stroke="#15803D" stroke-width=".7" stroke-opacity=".5"/>
+    <path d="M0 0C-.4-9 .4-18 5-28" fill="none" stroke="#14532D" stroke-width="1.1" opacity=".38" stroke-linecap="round"/>
+    <path d="M-4.4-5C-5.2-11-3.6-19 4.6-28" fill="none" stroke="#A7F3D0" stroke-width="1.3" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <!-- tunas muda di pangkal -->
+  <g transform="translate(64 12) rotate(-16) scale(.62)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-bb)" stroke="#15803D" stroke-width=".9" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".38" stroke-linecap="round"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#D1FAE5" stroke-width="1.5" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <!-- koin amber timbul (gema ilustrasi hero) -->
+  <g transform="translate(74 22)">
+    <circle r="6.2" fill="#F59E0B"/>
+    <circle r="5.5" fill="url(#ck-bb)"/>
+    <circle r="3.8" fill="none" stroke="#F59E0B" stroke-width=".8" opacity=".55"/>
+    <path d="M0 2.6L0-.8" stroke="#D97706" stroke-width=".9" stroke-linecap="round" opacity=".9"/>
+    <path d="M0-.6C-1.3-1.4-2.1-2.7-2.3-4.1C-.5-3.6.4-2.3 0-.6Z" fill="#D97706" opacity=".85"/>
+    <path d="M0-.6C1.3-1.4 2.1-2.7 2.3-4.1C.5-3.6-.4-2.3 0-.6Z" fill="#B45309" opacity=".85"/>
+    <path d="M-4.7-2.3A5.3 5.3 0 0 1-.9-5.4" fill="none" stroke="#FFFBEB" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- percik & tunas kecil lepas -->
+  <g>
+    <circle cx="168" cy="98" r="3" fill="#34D399" opacity=".85"/>
+    <circle cx="176" cy="90" r="2.4" fill="#4ADE80" opacity=".8"/>
+    <circle cx="150" cy="72" r="2.2" fill="#FCD34D" opacity=".9"/>
+    <circle cx="126" cy="52" r="2" fill="#A7F3D0" opacity=".9"/>
+    <circle cx="110" cy="70" r="1.6" fill="#FDE68A" opacity=".7"/>
+    <path d="M148 90l1 2.7 2.7 1-2.7 1-1 2.7-1-2.7-2.7-1 2.7-1z" fill="#FBBF24" opacity=".9"/>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(56 38) rotate(-30)" fill="#D1FAE5" stroke="#A7F3D0" stroke-width="1.2"/>
+  </g>
+</svg>

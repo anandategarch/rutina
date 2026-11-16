@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 100" preserveAspectRatio="xMinYMax meet">
+  <!-- Rutina · GANDUM-BL — vektor semi-realistis: bulir gandum bergradasi bertekstur, janggut halus, tangkai meruncing (versi halus) -->
+  <defs>
+    <radialGradient id="w-gdbl" cx="0" cy="1" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".55"/>
+      <stop offset=".5" stop-color="#F7F5E8" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#F7F5E8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="st-gdbl" x1=".1" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".52" stop-color="#22C55E"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="gr-gdbl" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="lf-gdbl" x1=".05" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <radialGradient id="ck-gdbl" cx=".4" cy=".35" r=".85">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+  </defs>
+  <!-- cuci lembut sudut kiri-bawah -->
+  <rect width="110" height="100" fill="url(#w-gdbl)"/>
+  <!-- dua tangkai: pita meruncing + goresan bergradasi -->
+  <path d="M3.4 97.2C10.4 78.6 22.4 62.8 38.2 52.9C44.1 49 50.1 46.1 56.6 43.9L58.2 45.9C51.9 48 46 50.8 40.3 54.6C24.9 64 13.7 79.4 7 98.4C5.2 99.6 3.4 98.8 3.4 97.2Z" fill="url(#st-gdbl)"/>
+  <path d="M5 96.4C11.6 79 23 63.6 38.6 54" fill="none" stroke="#D1FAE5" stroke-width=".8" opacity=".45" stroke-linecap="round"/>
+  <path d="M14 98C20 82 30 70 44 62" fill="none" stroke="url(#st-gdbl)" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
+  <!-- kepala bulir: butir bergradasi, urat, rim cahaya, janggut -->
+  <g transform="translate(58 44) rotate(-62)">
+    <path d="M0 3L-.8-26L.8-26Z" fill="url(#st-gdbl)"/>
+    <ellipse cx="0" cy="-13.5" rx="2.4" ry="1.8" fill="#B45309" opacity=".22"/>
+    <g stroke="#F59E0B" stroke-width=".6" stroke-opacity=".55">
+      <ellipse cx="-4.4" cy="-8" rx="4" ry="6.2" transform="rotate(24)" fill="url(#gr-gdbl)"/>
+      <ellipse cx="4.4" cy="-8" rx="4" ry="6.2" transform="rotate(-24)" fill="url(#gr-gdbl)"/>
+      <ellipse cx="-4" cy="-17.6" rx="3.6" ry="5.8" transform="rotate(24)" fill="url(#gr-gdbl)"/>
+      <ellipse cx="4" cy="-17.6" rx="3.6" ry="5.8" transform="rotate(-24)" fill="url(#gr-gdbl)"/>
+      <ellipse cx="0" cy="-23" rx="3" ry="4.8" fill="url(#gr-gdbl)"/>
+    </g>
+    <g fill="none" stroke="#D97706" stroke-width=".65" opacity=".42" stroke-linecap="round">
+      <path d="M-4.4-4C-4-6.8-3.9-9.8-4.4-12.6"/>
+      <path d="M4.4-4C4-6.8 3.9-9.8 4.4-12.6"/>
+      <path d="M-4-13.6C-3.7-16-3.6-18.4-4-20.6"/>
+      <path d="M0-20.4C0-21.8 0-23.2 0-24.6"/>
+    </g>
+    <path d="M-6.8-5.4C-6.2-8.2-5.5-10.8-4.5-13" fill="none" stroke="#FEF3C7" stroke-width=".9" opacity=".55" stroke-linecap="round"/>
+    <g fill="none" stroke="#D97706" stroke-linecap="round" opacity=".5">
+      <path d="M-2.2-24.6C-4.6-28.6-6-32-6.6-35.6" stroke-width=".8"/>
+      <path d="M2.2-24.6C4.6-28.6 6-32 6.6-35.6" stroke-width=".8"/>
+      <path d="M0-25.4L0-30.6" stroke-width=".9"/>
+    </g>
+    <g transform="translate(-12 2) rotate(-6) scale(.5)">
+      <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-gdbl)" stroke="#15803D" stroke-width=".9" stroke-opacity=".5"/>
+      <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".33" stroke-linecap="round"/>
+    </g>
+  </g>
+  <!-- daun kecil -->
+  <g transform="translate(21 73) rotate(-34) scale(.7)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-gdbl)" stroke="#15803D" stroke-width=".8" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1" opacity=".35" stroke-linecap="round"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#D1FAE5" stroke-width="1.3" opacity=".45" stroke-linecap="round"/>
+  </g>
+  <path d="M0 0C5-6 13-7 20-3C15 3 5 4 0 0Z" transform="translate(30 62) rotate(-20)" fill="url(#lf-gdbl)" stroke="#A7F3D0" stroke-width="1.2"/>
+  <!-- embun di tangkai -->
+  <ellipse cx="24" cy="70" rx="2" ry="2.6" transform="rotate(-40 24 70)" fill="#D1FAE5" opacity=".5"/>
+  <circle cx="23.5" cy="69.3" r=".55" fill="#FFFFFF" opacity=".8"/>
+  <!-- koin kecil timbul -->
+  <g transform="translate(12 68)">
+    <circle r="5" fill="#F59E0B"/>
+    <circle r="4.5" fill="url(#ck-gdbl)"/>
+    <circle r="2.9" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M0 2.2L0-.6" stroke="#D97706" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M0-.4C-1-1.1-1.7-2.2-1.9-3.4C-.4-3 .3-1.9 0-.4Z" fill="#D97706" opacity=".85"/>
+    <path d="M0-.4C1-1.1 1.7-2.2 1.9-3.4C.4-3-.3-1.9 0-.4Z" fill="#B45309" opacity=".85"/>
+    <path d="M-3.8-1.9A4.3 4.3 0 0 1-.7-4.4" fill="none" stroke="#FFFBEB" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- butir lepas & percik -->
+  <ellipse cx="38" cy="36" rx="2.6" ry="1.8" transform="rotate(-30 38 36)" fill="#FBBF24" opacity=".85"/>
+  <circle cx="66" cy="57" r="2.4" fill="#A7F3D0" opacity=".85"/>
+  <circle cx="76" cy="66" r="1.8" fill="#FDE68A" opacity=".7"/>
+  <path d="M45 72l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" fill="#FBBF24" opacity=".85"/>
+</svg>

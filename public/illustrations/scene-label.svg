@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" fill="none" role="img" aria-label="Label harga gantung di ranting: kategori belanja bertanda daun, koin, dan keranjang">
+  <!-- Rutina · label — vektor semi-realistis: label kertas bersegel di ranting berkayu, koin bergradasi, tunas berurat -->
+  <defs>
+    <linearGradient id="slbBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFEF8"/><stop offset=".5" stop-color="#F7FEE7"/><stop offset="1" stop-color="#F2FDF5"/>
+    </linearGradient>
+    <radialGradient id="slbGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".14"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="slbWood" x1="0" y1="0" x2="1" y2=".12">
+      <stop offset="0" stop-color="#D97706"/><stop offset=".5" stop-color="#B45309"/><stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="slbPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <radialGradient id="slbCoin" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".5" stop-color="#FDE68A"/><stop offset=".85" stop-color="#FBBF24"/><stop offset="1" stop-color="#D97706"/>
+    </radialGradient>
+    <linearGradient id="slbSlate" x1=".1" y1="0" x2=".7" y2="1">
+      <stop offset="0" stop-color="#F1F5F9"/><stop offset=".5" stop-color="#CBD5E1"/><stop offset="1" stop-color="#64748B"/>
+    </linearGradient>
+    <linearGradient id="slbString" x1="0" y1="0" x2=".3" y2="1">
+      <stop offset="0" stop-color="#B45309"/><stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="slbStem" x1="0" y1="1" x2=".12" y2="0">
+      <stop offset="0" stop-color="#14532D"/><stop offset=".5" stop-color="#22C55E"/><stop offset="1" stop-color="#86EFAC"/>
+    </linearGradient>
+    <linearGradient id="slbLeafL" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".42" stop-color="#4ADE80"/><stop offset=".8" stop-color="#16A34A"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="slbLeafR" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".42" stop-color="#34D399"/><stop offset=".8" stop-color="#15803D"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="slbMeadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <radialGradient id="slbShadow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#3E2723" stop-opacity=".24"/><stop offset=".6" stop-color="#3E2723" stop-opacity=".09"/><stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="slbPebble" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#EBDDD0"/><stop offset=".5" stop-color="#C9A57E"/><stop offset="1" stop-color="#8A6642"/>
+    </radialGradient>
+  </defs>
+  <rect width="360" height="96" rx="12" fill="url(#slbBg)"/>
+  <circle cx="40" cy="14" r="70" fill="url(#slbGlow)"/>
+  <!-- ranting berkayu dengan urat kulit -->
+  <path d="M0 30c40-4 74 6 108 2 40-5 78 4 116 0 50-5 90 2 136-2" stroke="url(#slbWood)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M14 27.6C64 23.6 116 28 168 26.6" stroke="#78350F" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  <path d="M18 31.4C70 28 124 32.6 178 30.2" stroke="#571F05" stroke-width=".9" opacity=".3" stroke-linecap="round"/>
+  <path d="M6 27.8C58 23.4 112 27.4 166 25.6" stroke="#FCD34D" stroke-width="1.2" opacity=".55" stroke-linecap="round"/>
+  <ellipse cx="205" cy="30" rx="2.2" ry="1.6" fill="#78350F" opacity=".55"/>
+  <ellipse cx="205" cy="30" rx="3.4" ry="2.6" fill="none" stroke="#B45309" stroke-width=".8" opacity=".45"/>
+  <path d="M64 26c3-6-2-8-1-13" stroke="url(#slbWood)" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M288 28c-3-6 2-8 1-13" stroke="url(#slbWood)" stroke-width="2.6" stroke-linecap="round"/>
+  <g transform="translate(62 15) rotate(-35) scale(.55)">
+    <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#slbLeafL)"/>
+    <path d="M0 0C-4-3-6-7-5-11" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(290 15) rotate(35) scale(.55)">
+    <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#slbLeafR)"/>
+    <path d="M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  </g>
+  <!-- tali label -->
+  <path d="M49.5 29C48.6 32.6 48.6 36.2 49.5 39.6" stroke="url(#slbString)" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M160.6 31.6C160.6 32.6 160.7 33.4 160.7 34" stroke="url(#slbString)" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M270.4 31.2C270.5 34.6 270.5 38 270.5 41.4" stroke="url(#slbString)" stroke-width="1.7" stroke-linecap="round"/>
+  <!-- label kategori makan: koin -->
+  <g transform="translate(48 28)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H42l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" transform="translate(1.4 2)" fill="#78350F" opacity=".16"/>
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H42l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbPaper)" stroke="#D97706" stroke-width="1.8"/>
+    <path d="M6 8.4H40L57 21" stroke="#FFFFFF" stroke-width="1.6" opacity=".7" stroke-linecap="round"/>
+    <path d="M8 38.6H40L56.6 24.4" stroke="#CBD5E1" stroke-width="1.4" opacity=".7" stroke-linecap="round"/>
+    <path d="M9 18c6-1 12-1 19 0M9 24c4-.8 8-.8 12 0M9 30c5-.9 10-.9 15 0" stroke="#CBD5E1" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+    <circle cx="41" cy="23.4" r="5.6" fill="url(#slbCoin)"/>
+    <circle cx="41" cy="23.4" r="5.6" fill="none" stroke="#B45309" stroke-width="1.2"/>
+    <circle cx="41" cy="23.4" r="3.4" fill="none" stroke="#FCD34D" stroke-width=".9" opacity=".75"/>
+    <path d="M37.6 21.4A5.2 5.2 0 0 1 40 19.4" stroke="#FFFBEB" stroke-width="1.2" opacity=".8" stroke-linecap="round"/>
+    <circle cx="38.8" cy="20.8" r=".7" fill="#FFFFFF" opacity=".8"/>
+    <circle cx="1.5" cy="12" r="4" fill="#CBD5E1" opacity=".9"/>
+    <circle cx="1.5" cy="12" r="2.9" fill="#F1F5F9"/>
+    <path d="M-1 10.4A4 4 0 0 1 3.4 9.6" stroke="#FFFFFF" stroke-width="1" opacity=".7" stroke-linecap="round"/>
+    <circle cx="1.5" cy="12.4" r="1.7" fill="#92400E"/>
+  </g>
+  <!-- label kategori transport: roda -->
+  <g transform="translate(160 22) rotate(4)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H46l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" transform="translate(1.4 2)" fill="#78350F" opacity=".16"/>
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H46l18 16-18 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbPaper)" stroke="#64748B" stroke-width="1.8"/>
+    <path d="M6 8.4H44L61 21" stroke="#FFFFFF" stroke-width="1.6" opacity=".7" stroke-linecap="round"/>
+    <path d="M8 38.6H44L60.6 24.4" stroke="#CBD5E1" stroke-width="1.4" opacity=".7" stroke-linecap="round"/>
+    <path d="M9 18c6-1 13-1 21 0M9 24c4-.8 8-.8 12 0M9 30c5-.9 11-.9 16 0" stroke="#CBD5E1" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+    <g transform="translate(41 23.4)">
+      <circle r="6.4" fill="none" stroke="url(#slbSlate)" stroke-width="2.4"/>
+      <path d="M0-6.4v3.2M0 3.2v3.2M-6.4 0h3.2M3.2 0h3.2" stroke="#64748B" stroke-width="1.7" stroke-linecap="round"/>
+      <circle r="1.8" fill="url(#slbSlate)"/>
+      <path d="M-5.2-2.6A6 6 0 0 1-2.4-5.4" stroke="#F8FAFC" stroke-width="1.2" opacity=".7" stroke-linecap="round"/>
+    </g>
+    <circle cx="1.5" cy="12" r="4" fill="#CBD5E1" opacity=".9"/>
+    <circle cx="1.5" cy="12" r="2.9" fill="#F1F5F9"/>
+    <circle cx="1.5" cy="12.4" r="1.5" fill="#92400E"/>
+  </g>
+  <!-- label kategori tanam: daun -->
+  <g transform="translate(268 30) rotate(-5)">
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H40l16 16-16 16H4.6C2 39.4 0 37.4 0 34.8Z" transform="translate(1.4 2)" fill="#78350F" opacity=".16"/>
+    <path d="M0 12c0-2.6 2-4.6 4.6-4.6H40l16 16-16 16H4.6C2 39.4 0 37.4 0 34.8Z" fill="url(#slbPaper)" stroke="#16A34A" stroke-width="1.8"/>
+    <path d="M6 8.4H38L54 21" stroke="#FFFFFF" stroke-width="1.6" opacity=".7" stroke-linecap="round"/>
+    <path d="M8 38.6H38L54.6 24.4" stroke="#CBD5E1" stroke-width="1.4" opacity=".7" stroke-linecap="round"/>
+    <path d="M9 18c5-1 11-1 17 0M9 24c4-.8 8-.8 11 0M9 30c4-.9 9-.9 13 0" stroke="#CBD5E1" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+    <path d="M38 30.6c0-5 4-8.6 9-8.6-.6 6-4 8.6-9 8.6Z" fill="url(#slbLeafR)"/>
+    <path d="M38 30.6c-5-1-7.6-4.6-6-8.4 5 .6 7.4 3.8 6 8.4Z" fill="url(#slbLeafL)"/>
+    <path d="M37.6 29.8C36.6 26 37.8 23 40.4 21" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+    <path d="M37.4 29.6c-3.2-.8-5-3-4-5.8" stroke="#14532D" stroke-width=".9" opacity=".38" stroke-linecap="round"/>
+    <circle cx="1.5" cy="12" r="4" fill="#CBD5E1" opacity=".9"/>
+    <circle cx="1.5" cy="12" r="2.9" fill="#F1F5F9"/>
+    <circle cx="1.5" cy="12.5" r="1.6" fill="#92400E"/>
+  </g>
+  <!-- koin jatuh bergradasi -->
+  <ellipse cx="130" cy="88" rx="5" ry="1.6" fill="url(#slbShadow)" opacity=".5"/>
+  <circle cx="130" cy="70" r="6.4" fill="url(#slbCoin)"/>
+  <circle cx="130" cy="70" r="6.4" fill="none" stroke="#B45309" stroke-width="1.2"/>
+  <circle cx="130" cy="70" r="4" fill="none" stroke="#FCD34D" stroke-width=".9" opacity=".7"/>
+  <path d="M126.4 67.2A5.8 5.8 0 0 1 129 65" stroke="#FFFBEB" stroke-width="1.3" opacity=".8" stroke-linecap="round"/>
+  <ellipse cx="318" cy="88" rx="4.4" ry="1.4" fill="url(#slbShadow)" opacity=".5"/>
+  <circle cx="318" cy="64" r="5.2" fill="url(#slbCoin)"/>
+  <circle cx="318" cy="64" r="5.2" fill="none" stroke="#B45309" stroke-width="1.1"/>
+  <circle cx="318" cy="64" r="3.2" fill="none" stroke="#FCD34D" stroke-width=".8" opacity=".7"/>
+  <path d="M314.8 61.8A5 5 0 0 1 317.2 60.2" stroke="#FFFBEB" stroke-width="1.1" opacity=".8" stroke-linecap="round"/>
+  <path d="M137 76c5 2 9 5 12 9" stroke="#D97706" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1 5" opacity=".6"/>
+  <!-- tunas kecil bertepi -->
+  <g transform="translate(334 86)">
+    <ellipse cy="1.6" rx="6" ry="2" fill="url(#slbShadow)"/>
+    <path d="M0 0V-14" stroke="url(#slbStem)" stroke-width="2.4" stroke-linecap="round"/>
+    <g transform="translate(0 -9) scale(.8)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#slbLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#slbLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+    <ellipse cx="4.4" cy="-16" rx="1.4" ry="1.9" fill="#BBF7D0" opacity=".6"/>
+    <circle cx="4.2" cy="-16.7" r=".5" fill="#FFFFFF" opacity=".8"/>
+  </g>
+  <!-- daun tersendiri berurat -->
+  <path d="M92 78c-6-1-8-5-4-8 5 .6 8 3.4 4 8Z" fill="url(#slbLeafR)"/>
+  <path d="M91.4 77C89.4 74.4 89 71.6 90.6 69.4" stroke="#14532D" stroke-width=".9" opacity=".4" stroke-linecap="round"/>
+  <path d="M236 76c6-1 8-5 4-8-5 .6-8 3.4-4 8Z" fill="url(#slbLeafL)"/>
+  <path d="M236.6 75C238.6 72.4 239 69.6 237.4 67.4" stroke="#14532D" stroke-width=".9" opacity=".4" stroke-linecap="round"/>
+  <!-- tanah dan rerumputan -->
+  <path d="M0 88C120 84 240 88 360 84L360 96L0 96Z" fill="url(#slbMeadow)" opacity=".35"/>
+  <path d="M0 88C120 84 240 88 360 84" stroke="#D9F99D" stroke-width="2" opacity=".4" stroke-linecap="round"/>
+  <g stroke="#047857" stroke-width="2.4" stroke-linecap="round" opacity=".75">
+    <path d="M20 92c-3-4 2-7 0-10"/>
+    <path d="M208 90c3-4-2-7 0-10"/>
+    <path d="M340 92c-3-4 2-7 0-10"/>
+    <path d="M120 94c-2.4-3.6 1.6-6.4 0-9.4"/>
+    <path d="M280 94c2.4-3.6-1.6-6.4 0-9.4"/>
+  </g>
+  <ellipse cx="114" cy="93" rx="5" ry="2.6" fill="url(#slbPebble)"/>
+  <ellipse cx="112.6" cy="91.8" rx="1.7" ry=".9" fill="#FFF7ED" opacity=".55"/>
+  <ellipse cx="242" cy="92" rx="4" ry="2.2" fill="url(#slbPebble)" opacity=".95"/>
+  <g fill="#431407" opacity=".28">
+    <circle cx="60" cy="92" r="1.1"/><circle cx="180" cy="94" r="1.2"/><circle cx="320" cy="92" r="1.1"/>
+  </g>
+  <!-- kilau dan serbuk -->
+  <circle cx="14" cy="22" r="4" fill="#FDE68A" opacity=".25"/>
+  <path d="M14 16l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2Z" fill="#FCD34D" opacity=".9"/>
+  <g fill="#FDE68A" opacity=".5">
+    <circle cx="180" cy="14" r="1.4"/><circle cx="250" cy="26" r="1.2"/><circle cx="90" cy="12" r="1.1"/>
+  </g>
+</svg>

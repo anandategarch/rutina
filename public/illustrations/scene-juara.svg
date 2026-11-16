@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <!-- Rutina · perayaan juara — vektor semi-realistis: podium tiga tingkat, piala madu berkilau, karangan laurel, konfeti -->
+  <defs>
+    <radialGradient id="latar" cx=".5" cy=".42" r=".9">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".5" stop-color="#F7FEE7"/><stop offset="1" stop-color="#ECFDF5"/>
+    </radialGradient>
+    <linearGradient id="podium" x1="0" y1="0" x2=".9" y2="1">
+      <stop offset="0" stop-color="#F1F5F9"/><stop offset=".4" stop-color="#CBD5E1"/><stop offset=".75" stop-color="#94A3B8"/><stop offset="1" stop-color="#64748B"/>
+    </linearGradient>
+    <linearGradient id="atap" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F5F9"/><stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="sisipodium" x1="0" y1="0" x2="1" y2=".8">
+      <stop offset="0" stop-color="#94A3B8"/><stop offset=".5" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="piring" x1=".1" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".5" stop-color="#FBBF24"/><stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="piala" x1="0" y1="0" x2="1" y2=".2">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".2" stop-color="#FDE68A"/><stop offset=".5" stop-color="#FBBF24"/><stop offset=".78" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="kaki" x1="0" y1="0" x2="1" y2=".3">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".45" stop-color="#F59E0B"/><stop offset="1" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="laurelA" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".45" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="laurelB" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="lantai" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <radialGradient id="lencana" cx=".4" cy=".35" r=".9">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="kilau" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".45"/><stop offset=".5" stop-color="#FDE68A" stop-opacity=".18"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bayang" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#052E16" stop-opacity=".28"/><stop offset=".62" stop-color="#052E16" stop-opacity=".11"/><stop offset="1" stop-color="#052E16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#latar)"/>
+  <g fill="#FDE68A" opacity=".07">
+    <path d="M240 40 L330 300 L150 300 Z"/>
+    <path d="M240 40 L120 300 L0 300 L0 200 Z"/>
+    <path d="M240 40 L360 300 L480 300 L480 200 Z"/>
+  </g>
+  <path d="M0 292 C90 284 170 288 240 290 C310 292 400 286 480 292 L480 360 L0 360 Z" fill="url(#lantai)"/>
+  <!-- konfeti latar belakang -->
+  <g opacity=".6">
+    <rect x="86" y="88" width="7" height="11" rx="1.4" fill="#FBBF24" transform="rotate(24 89 93)"/>
+    <rect x="150" y="60" width="6" height="10" rx="1.2" fill="#4ADE80" transform="rotate(-18 153 65)"/>
+    <rect x="300" y="74" width="7" height="10" rx="1.4" fill="#FDA4AF" transform="rotate(30 303 79)"/>
+    <rect x="356" y="120" width="6" height="10" rx="1.2" fill="#7DD3FC" transform="rotate(-22 359 125)"/>
+    <circle cx="122" cy="130" r="4" fill="#F59E0B" opacity=".8"/>
+    <circle cx="270" cy="52" r="3.6" fill="#22C55E" opacity=".8"/>
+    <circle cx="410" cy="88" r="3.4" fill="#FDA4AF" opacity=".75"/>
+    <circle cx="60" cy="150" r="3.2" fill="#7DD3FC" opacity=".7"/>
+  </g>
+  <ellipse cx="240" cy="310" rx="190" ry="12" fill="url(#bayang)"/>
+  <!-- podium tingkat dua -->
+  <ellipse cx="140" cy="310" rx="62" ry="8" fill="url(#bayang)"/>
+  <path d="M90 236 L102 224 L196 224 L184 236 Z" fill="url(#atap)"/>
+  <path d="M184 236 L196 224 L196 296 L184 308 Z" fill="url(#sisipodium)"/>
+  <rect x="90" y="236" width="94" height="72" fill="url(#podium)"/>
+  <path d="M156 236 L184 236 L184 308 L156 308 Z" fill="#475569" opacity=".18"/>
+  <path d="M102 236 L118 236 L110 308 L94 308 Z" fill="#FFFFFF" opacity=".12"/>
+  <path d="M90 236 L184 236" stroke="#FFFFFF" stroke-width="1.5" opacity=".5"/>
+  <path d="M90 306 L184 306" stroke="#475569" stroke-width="1.4" opacity=".4"/>
+  <rect x="128" y="256" width="22" height="18" rx="5" fill="#E2E8F0" opacity=".85" stroke="#CBD5E1" stroke-width=".8"/>
+  <!-- podium tingkat tiga -->
+  <ellipse cx="350" cy="310" rx="62" ry="8" fill="url(#bayang)"/>
+  <path d="M296 252 L308 240 L402 240 L390 252 Z" fill="url(#atap)"/>
+  <path d="M390 252 L402 240 L402 296 L390 308 Z" fill="url(#sisipodium)"/>
+  <rect x="296" y="252" width="94" height="56" fill="url(#podium)"/>
+  <path d="M362 252 L390 252 L390 308 L362 308 Z" fill="#475569" opacity=".18"/>
+  <path d="M308 252 L324 252 L316 308 L300 308 Z" fill="#FFFFFF" opacity=".12"/>
+  <path d="M296 252 L390 252" stroke="#FFFFFF" stroke-width="1.5" opacity=".5"/>
+  <path d="M296 306 L390 306" stroke="#475569" stroke-width="1.4" opacity=".4"/>
+  <rect x="332" y="270" width="22" height="18" rx="5" fill="#F8FAFC" opacity=".85" stroke="#E2E8F0" stroke-width=".8"/>
+  <!-- podium tingkat satu -->
+  <ellipse cx="240" cy="310" rx="76" ry="9" fill="url(#bayang)"/>
+  <path d="M184 206 L196 194 L308 194 L296 206 Z" fill="url(#atap)"/>
+  <path d="M296 206 L308 194 L308 296 L296 308 Z" fill="url(#sisipodium)"/>
+  <rect x="184" y="206" width="112" height="102" fill="url(#podium)"/>
+  <path d="M264 206 L296 206 L296 308 L264 308 Z" fill="#475569" opacity=".18"/>
+  <path d="M196 206 L212 206 L204 308 L188 308 Z" fill="#FFFFFF" opacity=".12"/>
+  <path d="M184 206 L296 206" stroke="#FFFFFF" stroke-width="1.5" opacity=".5"/>
+  <path d="M184 306 L296 306" stroke="#475569" stroke-width="1.4" opacity=".4"/>
+  <path d="M188 203 L198 195 L304 195 L292 203 Z" fill="url(#piring)"/>
+  <path d="M188 203 L198 195 L240 195" stroke="#FDE68A" stroke-width="1.6" opacity=".7" fill="none" stroke-linecap="round"/>
+  <path d="M304 195 L292 203" stroke="#B45309" stroke-width="1.4" opacity=".4" fill="none" stroke-linecap="round"/>
+  <rect x="220" y="230" width="40" height="30" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" opacity=".92"/>
+  <path d="M224 256 L256 256" stroke="#D97706" stroke-width="1.4" opacity=".35"/>
+  <path d="M240 236.5 L242 242.3 L248.1 242.4 L243.2 246.1 L245 251.9 L240 248.4 L235 251.9 L236.8 246.1 L231.9 242.4 L238 242.3 Z" fill="#B45309"/>
+  <path d="M232 235 A10 10 0 0 1 240 231.5" stroke="#FFFBEB" stroke-width="1.6" fill="none" opacity=".7" stroke-linecap="round"/>
+  <!-- piala juara -->
+  <g>
+    <ellipse cx="240" cy="132" rx="58" ry="64" fill="url(#kilau)"/>
+    <ellipse cx="240" cy="203" rx="34" ry="5" fill="url(#bayang)"/>
+    <path d="M204 98 C204 80 218 70 240 70 C262 70 276 80 276 98 L272 134 C272 146 258 152 240 152 C222 152 208 146 208 134 Z" fill="url(#piala)"/>
+    <path d="M214 84 C212 92 212 104 214 116 L220 116 C218 104 218 92 216 82 Z" fill="#FEF3C7" opacity=".75"/>
+    <path d="M220 82 C219 92 219 104 220 118" stroke="#FFFFFF" stroke-width="2.4" fill="none" opacity=".7" stroke-linecap="round"/>
+    <path d="M262 76 C268 84 271 92 271 100 L268 126 C268 136 262 142 254 145 C264 130 266 100 265 76 Z" fill="#92400E" opacity=".35"/>
+    <path d="M206 82 C188 80 172 88 168 102 C166 114 176 122 190 120 C198 119 204 114 206 108" fill="none" stroke="#B45309" stroke-width="7" stroke-linecap="round"/>
+    <path d="M274 82 C292 80 308 88 312 102 C314 114 304 122 290 120 C282 119 276 114 274 108" fill="none" stroke="#B45309" stroke-width="7" stroke-linecap="round"/>
+    <path d="M206 82 C194 81 183 85 177 92" fill="none" stroke="#FDE68A" stroke-width="2.2" opacity=".6" stroke-linecap="round"/>
+    <path d="M274 82 C286 81 297 85 303 92" fill="none" stroke="#FDE68A" stroke-width="2.2" opacity=".6" stroke-linecap="round"/>
+    <path d="M214 126 C226 133 254 133 266 126" stroke="#D97706" stroke-width="1.4" fill="none" opacity=".4"/>
+    <path d="M226 152 L254 152 L249 176 L231 176 Z" fill="url(#kaki)"/>
+    <path d="M228 156 L252 156" stroke="#FDE68A" stroke-width="1.2" opacity=".5"/>
+    <rect x="218" y="176" width="44" height="13" rx="4" fill="url(#kaki)"/>
+    <rect x="212" y="189" width="56" height="13" rx="4" fill="url(#kaki)"/>
+    <path d="M222 178 L258 178" stroke="#FDE68A" stroke-width="1.6" opacity=".6"/>
+    <path d="M216 191 L264 191" stroke="#FDE68A" stroke-width="1.8" opacity=".6"/>
+    <path d="M218 199 L262 199" stroke="#78350F" stroke-width="1.4" opacity=".45"/>
+    <circle cx="240" cy="111" r="14" fill="url(#lencana)" stroke="#D97706" stroke-width="1.5"/>
+    <path d="M240 101 L242.8 107.2 L249.6 108.1 L244.6 112.7 L245.9 119.4 L240 116.2 L234.1 119.4 L235.4 112.7 L230.4 108.1 L237.2 107.2 Z" fill="#B45309"/>
+    <circle cx="234" cy="104" r="2.4" fill="#FFFBEB" opacity=".7"/>
+  </g>
+  <!-- karangan laurel kiri -->
+  <g>
+    <path d="M40 140 C48 96 76 64 116 48" fill="none" stroke="#15803D" stroke-width="4" opacity=".6" stroke-linecap="round"/>
+    <g transform="rotate(-64 60 150)"><ellipse cx="60" cy="150" rx="9" ry="14" fill="url(#laurelA)"/><path d="M60 140 C60 145 60 155 60 160" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-48 80 120)"><ellipse cx="80" cy="120" rx="9" ry="14" fill="url(#laurelB)"/><path d="M80 110 C80 115 80 125 80 130" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-30 106 94)"><ellipse cx="106" cy="94" rx="9" ry="14" fill="url(#laurelA)"/><path d="M106 84 C106 89 106 99 106 104" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-12 136 74)"><ellipse cx="136" cy="74" rx="9" ry="14" fill="url(#laurelB)"/><path d="M136 64 C136 69 136 79 136 84" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(6 168 60)"><ellipse cx="168" cy="60" rx="9" ry="14" fill="url(#laurelA)"/><path d="M168 50 C168 55 168 65 168 70" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-84 54 188)"><ellipse cx="54" cy="188" rx="9" ry="14" fill="url(#laurelB)"/><path d="M54 178 C54 183 54 193 54 198" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-100 52 226)"><ellipse cx="52" cy="226" rx="9" ry="14" fill="url(#laurelA)"/><path d="M52 216 C52 221 52 231 52 236" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <circle cx="58" cy="120" r="2.4" fill="#F59E0B" opacity=".85"/>
+    <circle cx="92" cy="86" r="2.4" fill="#F59E0B" opacity=".8"/>
+    <circle cx="150" cy="62" r="2.4" fill="#F59E0B" opacity=".8"/>
+  </g>
+  <!-- karangan laurel kanan -->
+  <g>
+    <path d="M440 140 C432 96 404 64 364 48" fill="none" stroke="#15803D" stroke-width="4" opacity=".6" stroke-linecap="round"/>
+    <g transform="rotate(64 420 150)"><ellipse cx="420" cy="150" rx="9" ry="14" fill="url(#laurelA)"/><path d="M420 140 C420 145 420 155 420 160" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(48 400 120)"><ellipse cx="400" cy="120" rx="9" ry="14" fill="url(#laurelB)"/><path d="M400 110 C400 115 400 125 400 130" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(30 374 94)"><ellipse cx="374" cy="94" rx="9" ry="14" fill="url(#laurelA)"/><path d="M374 84 C374 89 374 99 374 104" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(12 344 74)"><ellipse cx="344" cy="74" rx="9" ry="14" fill="url(#laurelB)"/><path d="M344 64 C344 69 344 79 344 84" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(-6 312 60)"><ellipse cx="312" cy="60" rx="9" ry="14" fill="url(#laurelA)"/><path d="M312 50 C312 55 312 65 312 70" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(84 426 188)"><ellipse cx="426" cy="188" rx="9" ry="14" fill="url(#laurelB)"/><path d="M426 178 C426 183 426 193 426 198" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <g transform="rotate(100 428 226)"><ellipse cx="428" cy="226" rx="9" ry="14" fill="url(#laurelA)"/><path d="M428 216 C428 221 428 231 428 236" stroke="#14532D" stroke-width="1" fill="none" opacity=".5"/></g>
+    <circle cx="422" cy="120" r="2.4" fill="#F59E0B" opacity=".85"/>
+    <circle cx="388" cy="86" r="2.4" fill="#F59E0B" opacity=".8"/>
+    <circle cx="330" cy="62" r="2.4" fill="#F59E0B" opacity=".8"/>
+  </g>
+  <!-- konfeti depan -->
+  <g>
+    <rect x="96" y="252" width="9" height="13" rx="2" fill="#F59E0B" transform="rotate(-28 100 258)"/>
+    <rect x="352" y="268" width="9" height="13" rx="2" fill="#4ADE80" transform="rotate(22 356 274)"/>
+    <rect x="180" y="120" width="8" height="12" rx="2" fill="#FDA4AF" transform="rotate(40 184 126)"/>
+    <rect x="330" y="150" width="8" height="12" rx="2" fill="#7DD3FC" transform="rotate(-35 334 156)"/>
+    <rect x="240" y="88" width="7" height="11" rx="1.6" fill="#FBBF24" transform="rotate(12 243 93)"/>
+    <path d="M110 96 C116 104 112 112 118 120" stroke="#FBBF24" stroke-width="2.4" fill="none" opacity=".7" stroke-linecap="round"/>
+    <path d="M368 108 C362 116 366 124 360 132" stroke="#FDA4AF" stroke-width="2.4" fill="none" opacity=".7" stroke-linecap="round"/>
+    <circle cx="70" cy="290" r="4.5" fill="#FBBF24" opacity=".9"/>
+    <circle cx="416" cy="288" r="4" fill="#F59E0B" opacity=".85"/>
+    <circle cx="130" cy="182" r="3.6" fill="#FDE68A" opacity=".85"/>
+    <circle cx="366" cy="182" r="3.6" fill="#BBF7D0" opacity=".85"/>
+    <circle cx="150" cy="42" r="3.6" fill="#FBBF24" opacity=".85"/>
+    <circle cx="330" cy="42" r="3.6" fill="#4ADE80" opacity=".85"/>
+    <circle cx="240" cy="28" r="4" fill="#F59E0B" opacity=".9"/>
+    <circle cx="196" cy="26" r="3" fill="#38BDF8" opacity=".8"/>
+    <circle cx="284" cy="26" r="3" fill="#22C55E" opacity=".8"/>
+  </g>
+  <g stroke-linecap="round" fill="none">
+    <path d="M88 326 C86 318 88 312 93 308" stroke="#4ADE80" stroke-width="2.8" opacity=".85"/>
+    <path d="M98 330 C97 322 99 316 104 312" stroke="#22C55E" stroke-width="2.4" opacity=".8"/>
+    <path d="M402 328 C400 320 402 314 407 310" stroke="#4ADE80" stroke-width="2.8" opacity=".85"/>
+    <path d="M412 330 C411 322 413 316 418 312" stroke="#22C55E" stroke-width="2.4" opacity=".8"/>
+  </g>
+  <path d="M240 316 l5 14 14 5 -14 5 -5 14 -5 -14 -14 -5 14 -5 Z" fill="#FDE68A" opacity=".85"/>
+  <path d="M60 318 l3.5 9 9 3.5 -9 3.5 -3.5 9 -3.5 -9 -9 -3.5 9 -3.5 Z" fill="#FDE68A" opacity=".6"/>
+  <path d="M420 318 l3.5 9 9 3.5 -9 3.5 -3.5 9 -3.5 -9 -9 -3.5 9 -3.5 Z" fill="#FDE68A" opacity=".6"/>
+</svg>

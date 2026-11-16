@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · BONSAI — vektor semi-realistis: kanopi pad berlapis berbintik, batang berkulit meruncing, pot terakota -->
+  <defs>
+    <radialGradient id="w-bs" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#D1FAE5" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#ECFDF5" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pd1-bs" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="pd2-bs" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="pd3-bs" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#34D399"/><stop offset=".5" stop-color="#15803D"/><stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="pd4-bs" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#D9F99D"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="tk-bs" x1=".1" y1="0" x2=".9" y2=".6">
+      <stop offset="0" stop-color="#D97706"/><stop offset=".45" stop-color="#B45309"/><stop offset=".8" stop-color="#92400E"/><stop offset="1" stop-color="#6B3205"/>
+    </linearGradient>
+    <linearGradient id="pt-bs" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".55" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="ft-bs" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FBBF24"/><stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <radialGradient id="pb-bs" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#F1F5F9"/><stop offset=".55" stop-color="#CBD5E1"/><stop offset="1" stop-color="#94A3B8"/>
+    </radialGradient>
+    <radialGradient id="ck-bs" cx=".4" cy=".35" r=".85">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+  </defs>
+  <!-- cuci warna taman zen di sudut -->
+  <rect width="180" height="170" fill="url(#w-bs)"/>
+  <!-- kanopi awan: tiap pad bergradasi sendiri + bintik cahaya/bayangan -->
+  <path d="M104 32C100 14 116 2 134 6C150 10 154 26 146 34C136 40 110 42 104 32Z" fill="url(#pd1-bs)" stroke="#15803D" stroke-width=".6" stroke-opacity=".45"/>
+  <ellipse cx="126" cy="24" rx="22" ry="9" fill="#4ADE80" opacity=".22" transform="rotate(-6 126 24)"/>
+  <ellipse cx="138" cy="32" rx="16" ry="6" fill="#052E16" opacity=".32" transform="rotate(-4 138 32)"/>
+  <g fill="#BBF7D0" opacity=".75">
+    <circle cx="112" cy="14" r="2.2"/><circle cx="124" cy="9" r="1.8"/><circle cx="136" cy="13" r="2"/><circle cx="146" cy="21" r="1.7"/>
+  </g>
+  <g fill="#052E16" opacity=".38">
+    <circle cx="142" cy="28" r="2.2"/><circle cx="112" cy="28" r="1.9"/><circle cx="126" cy="34" r="1.8"/>
+  </g>
+  <path d="M108 28C106 18 114 10 126 8" fill="none" stroke="#ECFDF5" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+  <ellipse cx="116" cy="18" rx="2.6" ry="3.4" transform="rotate(-24 116 18)" fill="#BBF7D0" opacity=".55"/>
+  <circle cx="115.4" cy="17.2" r=".75" fill="#FFFFFF" opacity=".8"/>
+  <path d="M96 46C92 34 102 26 112 30C120 33 120 44 110 46C104 48 98 49 96 46Z" fill="url(#pd2-bs)" stroke="#15803D" stroke-width=".6" stroke-opacity=".45"/>
+  <ellipse cx="108" cy="42" rx="10" ry="4" fill="#052E16" opacity=".3"/>
+  <circle cx="103" cy="34" r="1.8" fill="#BBF7D0" opacity=".7"/>
+  <circle cx="112" cy="38" r="1.6" fill="#052E16" opacity=".35"/>
+  <path d="M140 22C136 12 146 4 158 8C168 11 168 22 160 24C152 26 144 27 140 22Z" fill="url(#pd3-bs)" stroke="#15803D" stroke-width=".6" stroke-opacity=".45"/>
+  <ellipse cx="152" cy="20" rx="12" ry="5" fill="#052E16" opacity=".3" transform="rotate(4 152 20)"/>
+  <circle cx="148" cy="12" r="1.8" fill="#86EFAC" opacity=".7"/>
+  <circle cx="158" cy="18" r="1.7" fill="#052E16" opacity=".38"/>
+  <path d="M144 19C143 13 148 8 156 8" fill="none" stroke="#A7F3D0" stroke-width="1.3" opacity=".5" stroke-linecap="round"/>
+  <path d="M124 12C122 4 130 0 138 3C144 5 144 12 138 13C132 14 126 15 124 12Z" fill="url(#pd4-bs)" stroke="#15803D" stroke-width=".6" stroke-opacity=".45"/>
+  <circle cx="130" cy="7" r="1.5" fill="#ECFDF5" opacity=".8"/>
+  <circle cx="136" cy="11" r="1.3" fill="#22C55E" opacity=".5"/>
+  <!-- batang berliku: pita meruncing berkulit -->
+  <path d="M128.4 42.6C124 52 131.6 56.6 125.6 64.6C121.6 70.2 123.6 76 119.8 81.4L117.2 82.6C120.6 77.6 119 71.6 122.6 65C128.2 57.4 122 51.8 123.2 43.6C124.6 41.4 127.4 41 128.4 42.6Z" fill="url(#tk-bs)"/>
+  <path d="M125.4 46C122.6 53 128.6 56.8 124 63.6" fill="none" stroke="#571F05" stroke-width="1.2" opacity=".4" stroke-linecap="round"/>
+  <path d="M122.6 68C121 72 121.6 76.4 119.8 80" fill="none" stroke="#571F05" stroke-width="1" opacity=".32" stroke-linecap="round"/>
+  <path d="M126.6 44.4C123.8 51 129.8 55 125.4 61.8" fill="none" stroke="#D97706" stroke-width="1" opacity=".35" stroke-linecap="round"/>
+  <!-- cabang kecil meruncing -->
+  <path d="M127 43C134 41 142 39 149 37L149.4 38.8C142.6 40.8 134.6 42.8 127.6 44.8Z" fill="url(#tk-bs)"/>
+  <path d="M124.5 63.5C132 63.6 139 62 145.4 60L145 58.2C138.8 60.2 132 61.8 124.8 61.6Z" fill="url(#tk-bs)"/>
+  <!-- pot bonsai terakota: bibir, badan, kaki, tanah -->
+  <path d="M98 88C116 84 134 84 150 88L144 104C132 108 114 108 104 104Z" fill="url(#pt-bs)" stroke="#B45309" stroke-width=".8" stroke-opacity=".5"/>
+  <path d="M138.4 90C132 93.4 116 93.4 110.4 90C116 91.6 132 91.6 138.4 90Z" fill="#92400E" opacity=".28"/>
+  <path d="M96 84C114 79 136 79 152 84L152 88C136 83 114 83 96 88Z" fill="#F59E0B"/>
+  <path d="M96 84C114 79 136 79 152 84" fill="none" stroke="#FFFBEB" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>
+  <path d="M104 104C114 108 132 108 144 104L140 116C132 119 114 119 106 116Z" fill="url(#ft-bs)" stroke="#92400E" stroke-width=".7" stroke-opacity=".5"/>
+  <ellipse cx="118" cy="100" rx="3" ry="1.8" fill="url(#pb-bs)"/>
+  <ellipse cx="117.2" cy="99.4" rx="1" ry=".6" fill="#FFFFFF" opacity=".6"/>
+  <ellipse cx="134" cy="102" rx="2.4" ry="1.5" fill="url(#pb-bs)" opacity=".95"/>
+  <g fill="#4ADE80" opacity=".55">
+    <circle cx="106" cy="107" r="1.3"/><circle cx="112" cy="109" r="1"/><circle cx="142" cy="108" r="1.2"/>
+  </g>
+  <!-- koin amber timbul (gema ilustrasi hero) -->
+  <g transform="translate(72 20)">
+    <circle r="6.2" fill="#F59E0B"/>
+    <circle r="5.5" fill="url(#ck-bs)"/>
+    <circle r="3.8" fill="none" stroke="#F59E0B" stroke-width=".8" opacity=".55"/>
+    <path d="M0 2.6L0-.8" stroke="#D97706" stroke-width=".9" stroke-linecap="round" opacity=".9"/>
+    <path d="M0-.6C-1.3-1.4-2.1-2.7-2.3-4.1C-.5-3.6.4-2.3 0-.6Z" fill="#D97706" opacity=".85"/>
+    <path d="M0-.6C1.3-1.4 2.1-2.7 2.3-4.1C.5-3.6-.4-2.3 0-.6Z" fill="#B45309" opacity=".85"/>
+    <path d="M-4.7-2.3A5.3 5.3 0 0 1-.9-5.4" fill="none" stroke="#FFFBEB" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- percik & daun lepas -->
+  <g>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(88 38) rotate(-30)" fill="url(#pd2-bs)" stroke="#A7F3D0" stroke-width="1.2"/>
+    <path d="M0 0C4-6 12-7 18-3C13 3 4 4 0 0Z" transform="translate(66 44) rotate(20)" fill="url(#pd1-bs)" stroke="#86EFAC" stroke-width="1.1"/>
+    <circle cx="168" cy="72" r="2.8" fill="#4ADE80" opacity=".85"/>
+    <circle cx="176" cy="82" r="2.2" fill="#34D399" opacity=".8"/>
+    <circle cx="164" cy="94" r="2" fill="#FCD34D" opacity=".9"/>
+    <circle cx="92" cy="64" r="2" fill="#A7F3D0" opacity=".9"/>
+    <path d="M104 68l1 2.7 2.7 1-2.7 1-1 2.7-1-2.7-2.7-1 2.7-1z" fill="#FBBF24" opacity=".9"/>
+  </g>
+</svg>

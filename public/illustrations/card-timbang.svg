@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · TIMBANG — vektor semi-realistis: timbangan slate metalik dengan pelat madu dan jarum daun -->
+  <defs>
+    <radialGradient id="w-tb" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FCE7F3" stop-opacity=".42"/>
+      <stop offset=".45" stop-color="#FDF2F8" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sc-tb" x1=".15" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#F1F5F9"/>
+      <stop offset=".5" stop-color="#CBD5E1"/>
+      <stop offset="1" stop-color="#64748B"/>
+    </linearGradient>
+    <linearGradient id="df-tb" x1=".2" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".6" stop-color="#FFFBEB"/>
+      <stop offset="1" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <radialGradient id="cn-tb" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <linearGradient id="lf-tb" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/>
+      <stop offset=".5" stop-color="#4ADE80"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="st-tb" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="br-tb" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#D97706"/>
+      <stop offset=".5" stop-color="#B45309"/>
+      <stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <radialGradient id="dw-tb" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cusi lembut di sudut -->
+  <rect width="180" height="170" fill="url(#w-tb)"/>
+
+  <!-- ranting kayu meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#br-tb)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#FCD34D" stroke-width=".8" opacity=".45" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#571F05" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+
+  <!-- timbangan kebun: badan slate + pelat madu + jarum daun -->
+  <g transform="translate(126 42) rotate(-10)" stroke-linejoin="round">
+    <!-- badan slate metalik -->
+    <path d="M-22 16L-17 -8C-16 -12 -12 -14 -8 -14L8 -14C12 -14 16 -12 17 -8L22 16C23 19 21 21 18 21L-18 21C-21 21 -23 19 -22 16Z" fill="url(#sc-tb)" stroke="#475569" stroke-width="1.1"/>
+    <!-- kilau spekular melintang badan -->
+    <path d="M-14.4 -5.4C-13 2 -11.6 10 -10.4 17.6" fill="none" stroke="#F8FAFC" stroke-width="1.6" opacity=".55" stroke-linecap="round"/>
+    <!-- bayang sisi kanan-bawah -->
+    <path d="M15.4 -7.6C16.6 -1 18 7 19.6 14.4" fill="none" stroke="#475569" stroke-width="2" opacity=".28" stroke-linecap="round"/>
+    <!-- garis madu di kaki badan -->
+    <path d="M-19 17.6C-10 19.4 10 19.4 19 17.6" fill="none" stroke="#F59E0B" stroke-width="1.4" opacity=".5" stroke-linecap="round"/>
+    <!-- emboss tepi atas -->
+    <path d="M-13 -12C-8 -13.4 8 -13.4 13 -12" fill="none" stroke="#E2E8F0" stroke-width="1" opacity=".6" stroke-linecap="round"/>
+    <!-- pelat madu di puncak -->
+    <ellipse cx="0" cy="-14" rx="9" ry="3.4" fill="url(#cn-tb)" stroke="#B45309" stroke-width=".9"/>
+    <path d="M-6.6 -15.4C-2 -16.6 2 -16.6 6.6 -15.4" fill="none" stroke="#FDE68A" stroke-width="1" opacity=".8" stroke-linecap="round"/>
+    <!-- muka dial krem + cincin -->
+    <circle cx="0" cy="4" r="7.6" fill="url(#df-tb)" stroke="#9A3412" stroke-width="1"/>
+    <circle cx="0" cy="4" r="6.2" fill="none" stroke="#D97706" stroke-width=".7" opacity=".5"/>
+    <!-- tik skala halus -->
+    <g fill="none" stroke="#B45309" stroke-width=".9" opacity=".55" stroke-linecap="round">
+      <path d="M0 1.2L0 2.6"/>
+      <path d="M-4.2 5.8L-3.2 6.6"/>
+      <path d="M4.2 5.8L3.2 6.6"/>
+    </g>
+    <!-- jarum daun bergradasi -->
+    <path d="M0 4C1.4 .4 3.4 -2 5.6 -3.2C6.4 -.4 5.2 2.4 2.4 4.6C1.4 5.2 .4 5 0 4Z" fill="url(#lf-tb)" stroke="#14532D" stroke-width=".7"/>
+    <path d="M1.4 3.6C2.6 1.6 4 -.4 5.2 -2.2" fill="none" stroke="#14532D" stroke-width=".6" opacity=".45" stroke-linecap="round"/>
+    <!-- pin tengah -->
+    <circle cx="0" cy="4" r="1.4" fill="#9A3412"/>
+    <circle cx="-.4" cy="3.6" r=".45" fill="#FDE68A" opacity=".8"/>
+    <!-- embun di pelat -->
+    <ellipse cx="-4.4" cy="-14.4" rx="1.2" ry="1.6" fill="url(#dw-tb)" transform="rotate(-20 -4.4 -14.4)"/>
+    <circle cx="-4.9" cy="-15.1" r=".45" fill="#FFFFFF" opacity=".85"/>
+  </g>
+
+  <!-- daun kecil di dekat pelat timbangan -->
+  <g transform="translate(80 24) rotate(-24) scale(.8)" stroke-linejoin="round">
+    <path d="M0 0C-3 2 -5 4 -6 7" fill="none" stroke="url(#st-tb)" stroke-width="1" stroke-linecap="round"/>
+    <path d="M-6 7C-11 5 -17 6 -19 10C-17 15 -11 16 -6 14C-4.4 11.6 -4.8 9 -6 7Z" fill="url(#lf-tb)" stroke="#14532D" stroke-width=".9"/>
+    <path d="M-6.6 7.6C-10 6.6 -14 6.8 -17.6 10.6" fill="none" stroke="#14532D" stroke-width=".9" opacity=".42" stroke-linecap="round"/>
+    <path d="M-18.6 9.4C-16.6 6 -12.2 4.8 -7.6 6.2" fill="none" stroke="#D9F99D" stroke-width="1.1" opacity=".5" stroke-linecap="round"/>
+  </g>
+
+  <!-- tunas di ujung ranting -->
+  <g transform="translate(168 92) rotate(10) scale(.6)" stroke-linejoin="round">
+    <path d="M0 0C-2 2 -4 4 -5 6" fill="none" stroke="url(#st-tb)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-5 6C-10 4 -16 5 -18 9C-16 14 -10 15 -5 13C-3.4 10.6 -3.8 8 -5 6Z" fill="url(#lf-tb)" stroke="#14532D" stroke-width="1.4"/>
+    <path d="M-5.6 6.6C-9 5.8 -13 6 -16.6 9.4" fill="none" stroke="#14532D" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+  </g>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="68" cy="12" r="6.4" fill="url(#cn-tb)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="68" cy="12" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M68 15.6C68.2 14.2 69 13.2 70.3 12.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M70.3 12.8C70 11.4 70.8 10.2 72.1 10.4C72.3 11.7 71.5 12.8 70.3 12.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M70.3 12.8C69.6 11.4 68.2 11 67.2 11.8C67.6 13.1 69 13.6 70.3 12.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M64.2 9.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="65.4" cy="9.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik ketimbang: titik berkilau -->
+  <g>
+    <circle cx="102" cy="10" r="2.6" fill="#FBBF24"/>
+    <circle cx="101.2" cy="9.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="96" cy="48" r="2.2" fill="#FDA4AF" opacity=".9"/>
+    <circle cx="158" cy="14" r="2" fill="#FDE68A" opacity=".9"/>
+    <circle cx="158.6" cy="13.4" r=".7" fill="#FFFBEB" opacity=".85"/>
+    <path d="M146 62l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="132" cy="76" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>

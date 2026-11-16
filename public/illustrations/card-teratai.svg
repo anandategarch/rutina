@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · TERATAI — vektor semi-realistis: kelopak berlapis bergradasi, bantal biji, daun kolam berurat -->
+  <defs>
+    <radialGradient id="w-tr" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#E0F2FE" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#F0F9FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#F0F9FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pt1-tr" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#FECDD3"/>
+      <stop offset="1" stop-color="#FDA4AF"/>
+    </linearGradient>
+    <linearGradient id="pt2-tr" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FFF1F2"/>
+      <stop offset=".55" stop-color="#FECDD3"/>
+      <stop offset="1" stop-color="#FDA4AF"/>
+    </linearGradient>
+    <linearGradient id="pt3-tr" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".6" stop-color="#FFF1F2"/>
+      <stop offset="1" stop-color="#FECDD3"/>
+    </linearGradient>
+    <radialGradient id="cn-tr" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </radialGradient>
+    <linearGradient id="pd-tr" x1=".15" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/>
+      <stop offset=".5" stop-color="#4ADE80"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="pd2-tr" x1=".15" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/>
+      <stop offset=".5" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <radialGradient id="dw-tr" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna kolam pagi di sudut -->
+  <rect width="180" height="170" fill="url(#w-tr)"/>
+
+  <!-- bayang lembut bunga di permukaan air -->
+  <ellipse cx="138" cy="80" rx="17" ry="3.2" fill="#7DD3FC" opacity=".18"/>
+
+  <!-- bunga teratai mekar di sudut: kelopak berlapis -->
+  <g transform="translate(141 52)" stroke-linejoin="round">
+    <!-- kelopak samping lebar -->
+    <path d="M0 -2C-12 -4 -24 2 -27 12C-17 18 -5 15 0 8Z" fill="url(#pt2-tr)" stroke="#FDA4AF" stroke-width="1"/>
+    <path d="M0 -2C12 -4 24 2 27 12C17 18 5 15 0 8Z" fill="url(#pt2-tr)" stroke="#FDA4AF" stroke-width="1"/>
+    <!-- kelopak tengah berdiri -->
+    <path d="M0 -2C-9 -8 -19 -8 -24 -2C-18 6 -7 8 0 4Z" fill="url(#pt3-tr)" stroke="#FDA4AF" stroke-width="1" opacity=".96"/>
+    <path d="M0 -2C9 -8 19 -8 24 -2C18 6 7 8 0 4Z" fill="url(#pt3-tr)" stroke="#FDA4AF" stroke-width="1" opacity=".96"/>
+    <!-- kelopak mahkota tegak -->
+    <path d="M-7 2C-7 -10 -3 -19 0 -23C3 -19 7 -10 7 2C4 6 -4 6 -7 2Z" fill="url(#pt1-tr)" stroke="#FDA4AF" stroke-width="1"/>
+    <!-- bayang inti kelopak kanan-bawah -->
+    <path d="M14 1C19 4 24 8 26 11.4C20.4 14.4 11 14.4 5.4 10.4C9 8 12 4.6 14 1Z" fill="#E11D48" opacity=".18"/>
+    <!-- rim cahaya kiri-atas -->
+    <path d="M-25.6 11.4C-21 4.4 -12 -1.8 -3 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity=".6" stroke-linecap="round"/>
+    <!-- urat tengah kelopak -->
+    <g fill="none" stroke="#FDA4AF" stroke-linecap="round">
+      <path d="M-2 0C-10 1 -18 5 -24 10" stroke-width=".9" opacity=".42"/>
+      <path d="M2 0C10 1 18 5 24 10" stroke-width=".9" opacity=".42"/>
+      <path d="M0 -21C0 -12 0 -2 .4 2" stroke-width=".8" opacity=".38"/>
+    </g>
+    <!-- pucuk kuning: bantal biji -->
+    <ellipse cx="0" cy="6" rx="5" ry="4" fill="url(#cn-tr)" stroke="#F59E0B" stroke-width=".9"/>
+    <circle cx="-2.2" cy="5.4" r=".9" fill="#D97706" opacity=".8"/>
+    <circle cx="2.2" cy="5.4" r=".9" fill="#D97706" opacity=".8"/>
+    <circle cx="0" cy="7.6" r=".9" fill="#D97706" opacity=".8"/>
+    <circle cx="-1" cy="4.6" r=".5" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- daun teratai (lily pad) besar: gradasi + urat + rim -->
+  <g>
+    <path d="M155 96a18 18 0 1 1 -18 -18L155 96Z" fill="url(#pd-tr)" stroke="#15803D" stroke-width="1" stroke-linejoin="round"/>
+    <g fill="none" stroke="#14532D" stroke-linecap="round" opacity=".38">
+      <path d="M137 96C144 93 150 88 154 83" stroke-width=".8"/>
+      <path d="M139 90C144 87 148 84 151 81" stroke-width=".7"/>
+      <path d="M141 94C147 93 152 91 155 88" stroke-width=".7"/>
+    </g>
+    <path d="M143 66a17.4 17.4 0 0 1 10 -5.4" fill="none" stroke="#D9F99D" stroke-width="1.2" opacity=".5" stroke-linecap="round"/>
+    <!-- embun di daun kolam -->
+    <ellipse cx="147" cy="88" rx="1.6" ry="2.2" fill="url(#dw-tr)" transform="rotate(-20 147 88)"/>
+    <circle cx="146.2" cy="87" r=".6" fill="#FFFFFF" opacity=".85"/>
+  </g>
+  <!-- daun kolam kecil sahabat -->
+  <g>
+    <path d="M118 118a12.5 12.5 0 1 1 -12.5 -12.5L118 118Z" fill="url(#pd2-tr)" stroke="#34D399" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M106.5 115.5C110 113 114 110 116.5 107" fill="none" stroke="#14532D" stroke-width=".7" opacity=".35" stroke-linecap="round"/>
+    <path d="M110 108.6a11.6 11.6 0 0 1 6.4 -3" fill="none" stroke="#D9F99D" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+  </g>
+
+  <!-- riak air: garis lengkung berlapis -->
+  <g fill="none" stroke="#7DD3FC" stroke-width="1.8" stroke-linecap="round" opacity=".7">
+    <path d="M84 132C100 138 120 138 136 132"/>
+    <path d="M104 144C114 147 126 147 136 144" opacity=".55"/>
+    <path d="M146 128C152 130 158 130 164 128" opacity=".5"/>
+  </g>
+  <path d="M86 130C102 136 122 136 138 130" fill="none" stroke="#E0F2FE" stroke-width=".8" opacity=".55" stroke-linecap="round"/>
+
+  <!-- kuncup teratai kecil sahabat -->
+  <g transform="translate(100 36) rotate(-18) scale(.6)">
+    <path d="M-7 2C-7 -10 -3 -19 0 -23C3 -19 7 -10 7 2C4 6 -4 6 -7 2Z" fill="url(#pt1-tr)" stroke="#FDA4AF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M0 -21C0 -12 0 -2 .4 2" fill="none" stroke="#FDA4AF" stroke-width="1.2" opacity=".4" stroke-linecap="round"/>
+    <ellipse cx="-2.4" cy="-6" rx="1.3" ry="2.4" fill="#FFFFFF" opacity=".5"/>
+  </g>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="70" cy="14" r="6.4" fill="url(#cn-tr)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="70" cy="14" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M70 17.6C70.2 16.2 71 15.2 72.3 14.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M72.3 14.8C72 13.4 72.8 12.2 74.1 12.4C74.3 13.7 73.5 14.8 72.3 14.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M72.3 14.8C71.6 13.4 70.2 13 69.2 13.8C69.6 15.1 71 15.6 72.3 14.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M66.2 11.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="67.4" cy="11.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik kolam: titik berkilau -->
+  <g>
+    <circle cx="92" cy="42" r="2.6" fill="#FBBF24"/>
+    <circle cx="91.2" cy="41.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="84" cy="52" r="2.2" fill="#34D399" opacity=".9"/>
+    <circle cx="99" cy="32" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="99.6" cy="31.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M168 132l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="120" cy="96" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>

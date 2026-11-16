@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none" role="img" aria-label="Rimbun daun bertunas dari dasar kartu dengan kilau">
+  <!-- Rutina · hero wawasan — vektor semi-realistis: rimbun daun berurat plus grafik batang yang bertunas -->
+  <defs>
+    <radialGradient id="hi-glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".32"/><stop offset=".55" stop-color="#FDE68A" stop-opacity=".12"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hi-mist" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".26"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hi-soft" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#3E2723" stop-opacity=".3"/><stop offset=".62" stop-color="#3E2723" stop-opacity=".12"/><stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hi-leafA" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".42" stop-color="#4ADE80"/><stop offset=".8" stop-color="#16A34A"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="hi-leafB" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".42" stop-color="#34D399"/><stop offset=".8" stop-color="#15803D"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="hi-bar1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <linearGradient id="hi-bar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".5" stop-color="#34D399"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="hi-bar3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".45" stop-color="#22C55E"/><stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="hi-coin" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".4" stop-color="#FDE68A"/><stop offset=".75" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/>
+    </radialGradient>
+    <radialGradient id="hi-pebble" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#EBDDD0"/><stop offset=".5" stop-color="#C9A57E"/><stop offset="1" stop-color="#8A6642"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cahaya lembut kiri-atas + kabut dasar -->
+  <ellipse cx="70" cy="36" rx="120" ry="96" fill="url(#hi-glow)"/>
+  <ellipse cx="190" cy="208" rx="168" ry="22" fill="url(#hi-mist)"/>
+  <ellipse cx="196" cy="221" rx="150" ry="9" fill="url(#hi-soft)"/>
+
+  <!-- daun belakang (perspektif udara) -->
+  <path d="M212 92 C226 78 244 76 254 88 C248 102 230 108 218 102 Z" fill="#86EFAC" opacity=".4"/>
+  <path d="M176 96 C168 84 154 82 146 92 C152 104 166 108 176 96 Z" fill="#86EFAC" opacity=".35"/>
+
+  <!-- batang induk & cabang -->
+  <path d="M196 216 C196 190 196 150 196 106" stroke="#22C55E" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M197 212 C197 186 197 148 197 112" stroke="#14532D" stroke-width="1.4" fill="none" opacity=".4" stroke-linecap="round"/>
+  <path d="M196 216 C178 176 184 134 208 110" stroke="#22C55E" stroke-width="3.5" fill="none" opacity=".85" stroke-linecap="round"/>
+  <path d="M196 216 C216 178 224 140 214 114" stroke="#34D399" stroke-width="3.5" fill="none" opacity=".85" stroke-linecap="round"/>
+
+  <!-- daun kipas berurat -->
+  <path d="M196 158 C162 155 150 131 168 113 C194 117 206 140 196 158 Z" fill="url(#hi-leafA)"/>
+  <path d="M194 154 C180 144 172 130 170 118" stroke="#14532D" stroke-width="1.6" fill="none" opacity=".5" stroke-linecap="round"/>
+  <path d="M186 144 C184 139 184 134 186 130" stroke="#14532D" stroke-width="1.1" fill="none" opacity=".35" stroke-linecap="round"/>
+  <path d="M178 134 C176 130 177 126 179 123" stroke="#14532D" stroke-width="1" fill="none" opacity=".3" stroke-linecap="round"/>
+  <path d="M192 148 C184 141 178 132 174 124" stroke="#D9F99D" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+  <path d="M198 132 C203 107 224 97 241 111 C239 132 219 143 198 132 Z" fill="url(#hi-leafB)"/>
+  <path d="M200 129 C212 122 226 114 238 111" stroke="#14532D" stroke-width="1.5" fill="none" opacity=".5" stroke-linecap="round"/>
+  <path d="M214 122 C216 118 219 115 222 113" stroke="#14532D" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>
+  <path d="M199 126 C210 120 222 114 232 111" stroke="#D9F99D" stroke-width="1.8" fill="none" opacity=".45" stroke-linecap="round"/>
+  <ellipse cx="224" cy="116" rx="2.6" ry="3.6" fill="#BBF7D0" opacity=".7"/>
+  <circle cx="223.2" cy="114.6" r=".9" fill="#FFFFFF" opacity=".8"/>
+  <path d="M118 196 C92 194 82 176 96 162 C116 165 125 182 118 196 Z" fill="url(#hi-leafA)"/>
+  <path d="M116 192 C104 186 96 176 92 168" stroke="#14532D" stroke-width="1.4" fill="none" opacity=".45" stroke-linecap="round"/>
+  <path d="M270 190 C294 188 304 172 292 158 C273 161 264 176 270 190 Z" fill="url(#hi-leafB)"/>
+  <path d="M268 186 C278 180 286 172 290 165" stroke="#14532D" stroke-width="1.4" fill="none" opacity=".45" stroke-linecap="round"/>
+  <path d="M144 214 C126 213 120 201 128 192 C142 194 148 204 144 214 Z" fill="url(#hi-leafB)"/>
+  <path d="M142 210 C136 206 132 200 130 196" stroke="#14532D" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>
+  <path d="M252 214 C270 213 276 201 268 192 C254 194 248 204 252 214 Z" fill="url(#hi-leafA)"/>
+  <path d="M254 210 C260 206 264 200 266 196" stroke="#14532D" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>
+
+  <!-- kumbang kecil di daun -->
+  <ellipse cx="186" cy="140" rx="5.4" ry="4.4" fill="#E11D48"/>
+  <path d="M186 136 C188 136 189.2 137.2 189.2 138.8 L189.2 141 C188 140.2 184 140.2 182.8 141 L182.8 138.8 C182.8 137.2 184 136 186 136 Z" fill="#7F1D1D"/>
+  <circle cx="184.5" cy="138.5" r=".9" fill="#450A0A"/><circle cx="188" cy="140" r=".8" fill="#450A0A"/><circle cx="183.5" cy="141" r=".7" fill="#450A0A"/>
+  <path d="M189 138.4 C190.4 137.6 191.8 137.4 192.8 138" stroke="#450A0A" stroke-width=".7" fill="none" opacity=".7" stroke-linecap="round"/>
+  <ellipse cx="184.8" cy="137.6" rx="1.6" ry=".9" fill="#FCA5A5" opacity=".7"/>
+
+  <!-- grafik batang sebagai tanaman yang bertunas -->
+  <g>
+    <rect x="30" y="168" width="16" height="44" rx="8" fill="url(#hi-bar1)"/>
+    <rect x="32.5" y="172" width="3" height="34" rx="1.5" fill="#D1FAE5" opacity=".65"/>
+    <rect x="41" y="176" width="2.5" height="30" rx="1.25" fill="#14532D" opacity=".3"/>
+    <path d="M38 168 C34 163 34 158 38 154 C41.5 158 41.5 163 38 168 Z" fill="#4ADE80"/>
+    <path d="M38 168 C42 164 44 160 42.5 157 C39.5 158.5 38 163 38 168 Z" fill="#34D399"/>
+    <rect x="54" y="142" width="16" height="70" rx="8" fill="url(#hi-bar2)"/>
+    <rect x="56.5" y="146" width="3" height="58" rx="1.5" fill="#BBF7D0" opacity=".6"/>
+    <rect x="65" y="152" width="2.5" height="52" rx="1.25" fill="#14532D" opacity=".3"/>
+    <path d="M62 142 C57.5 136.5 57.5 130.5 62 126.5 C66 130.5 66 136.5 62 142 Z" fill="#4ADE80"/>
+    <path d="M62 140 C66.5 135.5 68.5 130.5 67 127 C63.5 129 62 134 62 140 Z" fill="#34D399"/>
+    <path d="M62 139 C60.5 135 60.5 131 62 128" stroke="#14532D" stroke-width=".9" fill="none" opacity=".4" stroke-linecap="round"/>
+    <rect x="78" y="118" width="16" height="94" rx="8" fill="url(#hi-bar3)"/>
+    <rect x="80.5" y="122" width="3" height="82" rx="1.5" fill="#BBF7D0" opacity=".6"/>
+    <rect x="89" y="128" width="2.5" height="76" rx="1.25" fill="#14532D" opacity=".3"/>
+    <path d="M86 116 C80.5 109.5 80.5 102.5 86 98 C90.5 102.5 90.5 109.5 86 116 Z" fill="#4ADE80"/>
+    <path d="M86 114 C91.5 108.5 94 102.5 92 98 C87.5 100 86 106 86 114 Z" fill="#34D399"/>
+    <path d="M86 113 C84.5 108 84.5 103 86 100" stroke="#14532D" stroke-width="1" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M40 142 C62 124 80 118 96 116" stroke="#FBBF24" stroke-width="3.5" fill="none" opacity=".9" stroke-linecap="round" stroke-dasharray="1 9"/>
+    <circle cx="106" cy="116" r="11" fill="url(#hi-glow)"/>
+    <circle cx="106" cy="116" r="5.5" fill="url(#hi-coin)" stroke="#B45309" stroke-width="1.2"/>
+    <circle cx="104" cy="114" r="1.2" fill="#FFFFFF" opacity=".85"/>
+  </g>
+
+  <!-- dasar berumput -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M186 218 C183 208 186 200 193 194" stroke="#4ADE80" stroke-width="2.6" opacity=".85"/>
+    <path d="M196 219 C194 209 197 202 203 196" stroke="#22C55E" stroke-width="2.2" opacity=".8"/>
+    <path d="M246 216 C243 206 246 199 252 193" stroke="#34D399" stroke-width="2.2" opacity=".8"/>
+    <path d="M166 220 C163 211 165 205 170 200" stroke="#16A34A" stroke-width="2" opacity=".75"/>
+  </g>
+  <ellipse cx="150" cy="219" rx="6" ry="4" fill="url(#hi-pebble)"/>
+  <ellipse cx="147.8" cy="217.5" rx="1.8" ry="1" fill="#FFF7ED" opacity=".55"/>
+  <g fill="#431407" opacity=".28">
+    <circle cx="170" cy="222" r="1.2"/><circle cx="215" cy="224" r="1.4"/><circle cx="250" cy="221" r="1.1"/>
+  </g>
+
+  <!-- serbuk sari & kilau -->
+  <path d="M320 60 l2.2 7 7 2.2 -7 2.2 -2.2 7 -2.2 -7 -7 -2.2 7 -2.2 Z" fill="#FDE68A" opacity=".9"/>
+  <circle cx="52" cy="58" r="4" fill="#FDE68A" opacity=".8"/>
+  <circle cx="50.8" cy="56.8" r="1" fill="#FFFFFF" opacity=".8"/>
+  <circle cx="236" cy="38" r="3.5" fill="#FDE68A" opacity=".75"/>
+  <circle cx="235" cy="37" r=".9" fill="#FFFFFF" opacity=".75"/>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" fill="none" role="img" aria-label="Tumpukan koin keemasan dengan tunas yang bertumbuh">
+  <!-- Rutina · hero keuangan (lapisan depan) — vektor semi-realistis: tumpukan koin emas ber-relief tunas yang mengapung -->
+  <!-- alpha cutout tanpa latar; elemen berayun lewat sceneBob & bergeser mengikuti pointer (parallax) -->
+  <defs>
+    <radialGradient id="fgf-glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".7"/><stop offset=".5" stop-color="#FDE68A" stop-opacity=".25"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fgf-soft" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#14532D" stop-opacity=".3"/><stop offset=".6" stop-color="#14532D" stop-opacity=".12"/><stop offset="1" stop-color="#14532D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fgf-coin" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".32" stop-color="#FDE68A"/><stop offset=".68" stop-color="#FCD34D"/><stop offset="1" stop-color="#D97706"/>
+    </radialGradient>
+    <linearGradient id="fgf-coinEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCD34D"/><stop offset=".5" stop-color="#D97706"/><stop offset="1" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="fgf-leafL" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".42" stop-color="#4ADE80"/><stop offset=".8" stop-color="#16A34A"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="fgf-leafR" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".42" stop-color="#34D399"/><stop offset=".8" stop-color="#15803D"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- udara hangat di belakang tumpukan -->
+  <circle cx="252" cy="128" r="104" fill="url(#fgf-glow)"/>
+  <ellipse cx="248" cy="216" rx="86" ry="14" fill="url(#fgf-soft)"/>
+
+  <!-- tunas di atas koin -->
+  <g>
+    <path d="M252 126 C252 112 252 96 252 80" stroke="#22C55E" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M253 122 C253 108 253 92 253 86" stroke="#14532D" stroke-width="1.4" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M252 100 C234 98 226 86 230 74 C244 78 252 88 252 100 Z" fill="url(#fgf-leafL)"/>
+    <path d="M251 97 C242 90 235 82 232 76" stroke="#14532D" stroke-width="1.5" fill="none" opacity=".5" stroke-linecap="round"/>
+    <path d="M243 89 C242 85 242 81 244 78" stroke="#14532D" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>
+    <path d="M249 93 C243 87 238 81 235 78" stroke="#D9F99D" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+    <ellipse cx="240" cy="84" rx="2.6" ry="3.4" fill="#BBF7D0" opacity=".75"/>
+    <circle cx="239.2" cy="82.6" r=".9" fill="#FFFFFF" opacity=".85"/>
+    <path d="M254 86 C254 72 262 62 274 64 C274 76 266 86 254 86 Z" fill="url(#fgf-leafR)"/>
+    <path d="M256 83 C261 76 267 70 272 67" stroke="#14532D" stroke-width="1.4" fill="none" opacity=".5" stroke-linecap="round"/>
+    <path d="M264 76 C264 73 265 70 267 68" stroke="#14532D" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>
+    <path d="M255 80 C260 74 265 69 270 66" stroke="#D9F99D" stroke-width="1.8" fill="none" opacity=".45" stroke-linecap="round"/>
+  </g>
+
+  <!-- koin bertumpuk -->
+  <g>
+    <circle cx="252" cy="155" r="31" fill="url(#fgf-coinEdge)"/>
+    <circle cx="252" cy="148" r="31" fill="url(#fgf-coin)"/>
+    <circle cx="252" cy="148" r="19" fill="none" stroke="#B45309" stroke-width="2.2" opacity=".55"/>
+    <path d="M252 157 L252 143" stroke="#92400E" stroke-width="1.8" stroke-linecap="round" opacity=".6" fill="none"/>
+    <path d="M252 147 C244.8 144 242.2 137 245.4 133 C251.4 135.4 252.8 141.4 252 147 Z" fill="#B45309" opacity=".55"/>
+    <path d="M253.4 143 C259.6 138 263.2 132 260.8 127.2 C255.2 129.8 253 136.2 253.4 143 Z" fill="#B45309" opacity=".5"/>
+    <path d="M251.2 156.2 L251.2 142.2" stroke="#FEF3C7" stroke-width="1.4" stroke-linecap="round" opacity=".4" fill="none"/>
+    <path d="M225 136 C228 126 236 119 246 118" stroke="#FFF7ED" stroke-width="2.6" fill="none" opacity=".6" stroke-linecap="round"/>
+    <path d="M283 148 C283 158 278 167 270 172 C277 166 280 158 280 148 C280 141 277 134 271 129 C279 133 283 140 283 148 Z" fill="#92400E" opacity=".25"/>
+    <circle cx="238" cy="134" r="2.4" fill="#FFFFFF" opacity=".85"/>
+    <circle cx="236" cy="190" r="26" fill="url(#fgf-coinEdge)"/>
+    <circle cx="236" cy="183" r="26" fill="url(#fgf-coin)" opacity=".97"/>
+    <circle cx="236" cy="183" r="15.5" fill="none" stroke="#B45309" stroke-width="1.8" opacity=".5"/>
+    <path d="M236 190 L236 180" stroke="#92400E" stroke-width="1.5" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M236 183 C230.5 181 228.5 176 231 173 C235 175 236.5 179 236 183 Z" fill="#B45309" opacity=".5"/>
+    <path d="M236 180 C240.5 176.5 242.5 172.5 240.5 169.5 C236.5 171.5 235.5 176 236 180 Z" fill="#B45309" opacity=".45"/>
+    <path d="M214 172 C216.5 164 222 158 230 156.5" stroke="#FFF7ED" stroke-width="2.2" fill="none" opacity=".55" stroke-linecap="round"/>
+    <path d="M261 186 C261 194 256 201 249 205 C255 200 258 193 258 186 C258 181 256 176 252 172 C258 175 261 180 261 186 Z" fill="#92400E" opacity=".22"/>
+    <circle cx="224" cy="170" r="2" fill="#FFFFFF" opacity=".8"/>
+    <circle cx="274" cy="195" r="23" fill="url(#fgf-coinEdge)"/>
+    <circle cx="274" cy="188" r="23" fill="url(#fgf-coin)" opacity=".97"/>
+    <circle cx="274" cy="188" r="13.5" fill="none" stroke="#B45309" stroke-width="1.6" opacity=".5"/>
+    <path d="M274 195 L274 186" stroke="#92400E" stroke-width="1.4" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M274 189 C269 187 267 183 269 180 C273 182 274.5 185.5 274 189 Z" fill="#B45309" opacity=".5"/>
+    <path d="M274 186 C278 183 280 179.5 278.5 177 C275 178.5 274 182 274 186 Z" fill="#B45309" opacity=".45"/>
+    <path d="M254 177 C256 170 261 165 268 163.5" stroke="#FFF7ED" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round"/>
+    <circle cx="263" cy="174" r="1.8" fill="#FFFFFF" opacity=".8"/>
+  </g>
+
+  <!-- koin miring berdiri -->
+  <g>
+    <ellipse cx="322" cy="199" rx="10" ry="3" fill="url(#fgf-soft)" opacity=".7"/>
+    <circle cx="322" cy="175" r="17" fill="url(#fgf-coinEdge)"/>
+    <circle cx="322" cy="170" r="17" fill="url(#fgf-coin)"/>
+    <circle cx="322" cy="170" r="10" fill="none" stroke="#B45309" stroke-width="1.3" opacity=".5"/>
+    <path d="M322 176 L322 169" stroke="#92400E" stroke-width="1.2" stroke-linecap="round" opacity=".55" fill="none"/>
+    <path d="M322 173 C318 171.5 316.6 168.4 318.4 166.2 C321.4 167.8 322.4 170.4 322 173 Z" fill="#B45309" opacity=".5"/>
+    <path d="M322 170 C325.4 167.4 326.8 164.6 325.4 162.6 C322.6 164.4 321.8 167.2 322 170 Z" fill="#B45309" opacity=".45"/>
+    <path d="M308 162 C309.6 156 313.6 152 319 151" stroke="#FFF7ED" stroke-width="1.8" fill="none" opacity=".55" stroke-linecap="round"/>
+    <circle cx="312" cy="160" r="1.4" fill="#FFFFFF" opacity=".8"/>
+  </g>
+
+  <!-- koin kecil & titik embun yang mengapung -->
+  <g>
+    <circle cx="150" cy="66.5" r="9" fill="url(#fgf-coinEdge)"/>
+    <circle cx="150" cy="63.5" r="9" fill="url(#fgf-coin)"/>
+    <circle cx="150" cy="63.5" r="5.4" fill="none" stroke="#B45309" stroke-width="1.1" opacity=".5"/>
+    <path d="M150 67 L150 62.5" stroke="#92400E" stroke-width="1.1" stroke-linecap="round" opacity=".5" fill="none"/>
+    <path d="M150 65 C146.5 63.8 145.4 61 147.4 59.2 C150 60.6 150.6 62.8 150 65 Z" fill="#B45309" opacity=".5"/>
+    <path d="M150 62.5 C153 60.5 154.2 58 152.8 56.6 C150.4 58 149.6 60.4 150 62.5 Z" fill="#B45309" opacity=".45"/>
+    <path d="M142.5 59 C143.6 55 146.2 52.2 149.6 51.6" stroke="#FFF7ED" stroke-width="1.4" fill="none" opacity=".55" stroke-linecap="round"/>
+    <circle cx="143.5" cy="57" r="1" fill="#FFFFFF" opacity=".8"/>
+    <circle cx="368" cy="85.5" r="6" fill="url(#fgf-coinEdge)"/>
+    <circle cx="368" cy="83.5" r="6" fill="url(#fgf-coin)" opacity=".95"/>
+    <circle cx="368" cy="83.5" r="3.6" fill="none" stroke="#B45309" stroke-width=".9" opacity=".5"/>
+    <circle cx="365.5" cy="81.5" r=".9" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="204" cy="58" rx="2" ry="2.8" fill="#FDE68A" opacity=".7"/>
+    <circle cx="203.4" cy="57.2" r=".7" fill="#FFFFFF" opacity=".8"/>
+    <ellipse cx="306" cy="44" rx="1.6" ry="2.2" fill="#FDE68A" opacity=".6"/>
+    <circle cx="305.6" cy="43.4" r=".6" fill="#FFFFFF" opacity=".7"/>
+  </g>
+
+  <!-- daun botani yang berputar lembut -->
+  <g>
+    <path d="M96 92 C84 90 78 82 83 73 C93 76 99 84 96 92 Z" fill="url(#fgf-leafL)" opacity=".9"/>
+    <path d="M95 89 C89 85 85 80 84 76" stroke="#14532D" stroke-width="1" fill="none" opacity=".4" stroke-linecap="round"/>
+    <path d="M120 168 C130 160 142 162 143 172 C135 179 124 177 120 168 Z" fill="url(#fgf-leafR)" opacity=".85"/>
+    <path d="M122 168 C128 166 134 167 138 171" stroke="#14532D" stroke-width="1" fill="none" opacity=".4" stroke-linecap="round"/>
+  </g>
+
+  <!-- kunang-kunang emas -->
+  <g fill="#FDE68A">
+    <path d="M354 106 l2.4 7.6 7.6 2.4 -7.6 2.4 -2.4 7.6 -2.4 -7.6 -7.6 -2.4 7.6 -2.4 Z" opacity=".85"/>
+    <path d="M152 138 l1.8 5.8 5.8 1.8 -5.8 1.8 -1.8 5.8 -1.8 -5.8 -5.8 -1.8 5.8 -1.8 Z" opacity=".7"/>
+    <circle cx="196" cy="72" r="4.6" opacity=".6"/>
+    <circle cx="378" cy="216" r="4" opacity=".5"/>
+    <circle cx="112" cy="216" r="3.6" opacity=".45"/>
+  </g>
+  <circle cx="196" cy="72" r="1.2" fill="#FFFBEB" opacity=".6"/>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · JAMUR — vektor semi-realistis: rumpung jamur bertudung bergradasi, insang halus, tangkai bercincin -->
+  <defs>
+    <radialGradient id="w-jm" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#FEF3C7" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#F0FDF4" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#F0FDF4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cap-jm" cx=".34" cy=".28" r="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".55" stop-color="#FBBF24"/><stop offset="1" stop-color="#D97706"/>
+    </radialGradient>
+    <radialGradient id="cap2-jm" cx=".34" cy=".28" r="1">
+      <stop offset="0" stop-color="#FCD34D"/><stop offset=".55" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/>
+    </radialGradient>
+    <linearGradient id="st-jm" x1=".25" y1="0" x2=".75" y2=".4">
+      <stop offset="0" stop-color="#FEFCEC"/><stop offset=".55" stop-color="#FDF6E3"/><stop offset="1" stop-color="#E7D8B1"/>
+    </linearGradient>
+    <linearGradient id="gr-jm" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lf-jm" x1=".05" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#D1FAE5"/><stop offset=".5" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <radialGradient id="ck-jm" cx=".4" cy=".35" r=".85">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+  </defs>
+  <!-- cuci warna hutan lembap di sudut -->
+  <rect width="180" height="170" fill="url(#w-jm)"/>
+  <!-- helai rumput utama: pita meruncing bergradasi -->
+  <path d="M59.6 1C87.6 7 115.6 21 137.6 43L139 44.5C137.7 46.2 135.6 46.3 134.4 45C112.5 24 85.6 10.2 59.8 5.4C58 3 58.7 .6 59.6 1Z" fill="url(#gr-jm)"/>
+  <path d="M61.6 3.2C88 9 114 22.6 135 42.6" fill="none" stroke="#A7F3D0" stroke-width=".9" opacity=".4" stroke-linecap="round"/>
+  <!-- rumput lain: goresan bergradasi -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M168 40C170 52 172 64 172 78" stroke="url(#gr-jm)" stroke-width="2.4" opacity=".7"/>
+    <path d="M176 56C177 66 177 76 176 86" stroke="url(#gr-jm)" stroke-width="1.8" opacity=".55"/>
+    <path d="M84 6C104 14 122 30 136 50" stroke="url(#gr-jm)" stroke-width="1.6" opacity=".45"/>
+  </g>
+  <!-- jamur besar: tudung bergradasi, insang, bintik, tangkai bercincin -->
+  <g transform="translate(139 78)">
+    <path d="M-5 0C-5 14 -3 26 0 34C3 26 5 14 5 0Z" fill="url(#st-jm)" stroke="#E7D8B1" stroke-width=".7"/>
+    <path d="M2 .5C3.6 10 3 22 1 32C4.4 22 4.8 10 2 .5Z" fill="#B45309" opacity=".2"/>
+    <ellipse cx="0" cy="9" rx="4.6" ry="1.4" fill="#FDF6E3" stroke="#E7D8B1" stroke-width=".6"/>
+    <path d="M-30-8C-30-26 -12-38 0-38C12-38 30-26 30-8C18-2 -18-2 -30-8Z" fill="url(#cap-jm)" stroke="#B45309" stroke-width="1" stroke-opacity=".55"/>
+    <path d="M12-6C19-8 25-13 27-19C27-11 21-5 12-6Z" fill="#92400E" opacity=".25"/>
+    <path d="M-22-10C-22-25 -10-33.4 0-33.4" fill="none" stroke="#FFFBEB" stroke-width="2.2" stroke-linecap="round" opacity=".6"/>
+    <g fill="none" stroke="#B45309" stroke-width=".8" opacity=".42" stroke-linecap="round">
+      <path d="M0-4C-6-3.6-12-4.6-18-7"/>
+      <path d="M0-4C-3.4-3.4-6.6-2.6-9.6-1.6"/>
+      <path d="M0-4C3.4-3.4 6.6-2.6 9.6-1.6"/>
+      <path d="M0-4C6-3.6 12-4.6 18-7"/>
+    </g>
+    <g>
+      <circle cx="-12" cy="-22" r="3.2" fill="#FB923C" opacity=".75"/>
+      <circle cx="-12.9" cy="-22.9" r="1.1" fill="#FED7AA" opacity=".7"/>
+      <circle cx="9" cy="-26" r="2.6" fill="#FB923C" opacity=".7"/>
+      <circle cx="8.2" cy="-26.8" r=".9" fill="#FED7AA" opacity=".7"/>
+      <circle cx="17" cy="-14" r="2.2" fill="#FB923C" opacity=".7"/>
+      <circle cx="16.3" cy="-14.7" r=".8" fill="#FED7AA" opacity=".7"/>
+    </g>
+    <ellipse cx="-14" cy="-19" rx="1.9" ry="2.6" transform="rotate(-30 -14 -19)" fill="#FFFBEB" opacity=".5"/>
+    <circle cx="-14.6" cy="-20" r=".6" fill="#FFFFFF" opacity=".8"/>
+  </g>
+  <!-- jamur sedang -->
+  <g transform="translate(96 92) scale(.66) rotate(-10)">
+    <path d="M-5 0C-5 14 -3 26 0 34C3 26 5 14 5 0Z" fill="url(#st-jm)" stroke="#E7D8B1" stroke-width=".8"/>
+    <path d="M2 .5C3.6 10 3 22 1 32C4.4 22 4.8 10 2 .5Z" fill="#B45309" opacity=".18"/>
+    <ellipse cx="0" cy="9" rx="4.6" ry="1.4" fill="#FDF6E3" stroke="#E7D8B1" stroke-width=".6"/>
+    <path d="M-30-8C-30-26 -12-38 0-38C12-38 30-26 30-8C18-2 -18-2 -30-8Z" fill="url(#cap2-jm)" stroke="#B45309" stroke-width="1" stroke-opacity=".55"/>
+    <path d="M-21-11C-21-24 -10-32.6 0-32.6" fill="none" stroke="#FFFBEB" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+    <g fill="none" stroke="#B45309" stroke-width=".9" opacity=".4" stroke-linecap="round">
+      <path d="M0-4C-6-3.6-11-4.4-16-6.6"/>
+      <path d="M0-4C3.4-3.4 6.4-2.6 9.4-1.8"/>
+      <path d="M0-4C6-3.6 11-4.4 16-6.6"/>
+    </g>
+    <circle cx="-11" cy="-21" r="2.6" fill="#FB923C" opacity=".7"/>
+    <circle cx="8" cy="-24" r="2.2" fill="#FB923C" opacity=".65"/>
+    <circle cx="8.7" cy="-24.7" r=".8" fill="#FED7AA" opacity=".7"/>
+  </g>
+  <!-- tombol muda -->
+  <g transform="translate(120 58) scale(.38) rotate(8)">
+    <path d="M-5 0C-5 14 -3 26 0 34C3 26 5 14 5 0Z" fill="url(#st-jm)" stroke="#E7D8B1" stroke-width="1"/>
+    <path d="M-30-8C-30-26 -12-38 0-38C12-38 30-26 30-8C18-2 -18-2 -30-8Z" fill="url(#cap-jm)" stroke="#D97706" stroke-width="1.4" stroke-opacity=".5"/>
+    <path d="M-20-13C-20-23 -9-31 0-31" fill="none" stroke="#FFFBEB" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+  </g>
+  <!-- humus & kerikil halus -->
+  <g fill="#78350F" opacity=".3">
+    <circle cx="118" cy="112" r="1.8"/><circle cx="136" cy="114" r="1.4"/><circle cx="154" cy="92" r="1.4"/>
+    <circle cx="102" cy="118" r="1.6"/><circle cx="124" cy="42" r="1.2"/>
+  </g>
+  <!-- daun kecil berurat -->
+  <g transform="translate(64 12) rotate(-18) scale(.6)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-jm)" stroke="#15803D" stroke-width=".8" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".38" stroke-linecap="round"/>
+    <path d="M3-2.2C9.5-8 18.5-9.6 26.5-6.4" fill="none" stroke="#D1FAE5" stroke-width="1.5" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(160 36) rotate(-52) scale(.48)">
+    <path d="M0 0C7-9 20-11 30-4C23 6 8 7 0 0Z" fill="url(#lf-jm)" stroke="#15803D" stroke-width=".9" stroke-opacity=".5"/>
+    <path d="M2-1C9.5-5.5 19.5-7.5 27.5-6" fill="none" stroke="#14532D" stroke-width="1.2" opacity=".35" stroke-linecap="round"/>
+  </g>
+  <!-- koin amber timbul (gema ilustrasi hero) -->
+  <g transform="translate(72 26)">
+    <circle r="6.2" fill="#F59E0B"/>
+    <circle r="5.5" fill="url(#ck-jm)"/>
+    <circle r="3.8" fill="none" stroke="#F59E0B" stroke-width=".8" opacity=".55"/>
+    <path d="M0 2.6L0-.8" stroke="#D97706" stroke-width=".9" stroke-linecap="round" opacity=".9"/>
+    <path d="M0-.6C-1.3-1.4-2.1-2.7-2.3-4.1C-.5-3.6.4-2.3 0-.6Z" fill="#D97706" opacity=".85"/>
+    <path d="M0-.6C1.3-1.4 2.1-2.7 2.3-4.1C.5-3.6-.4-2.3 0-.6Z" fill="#B45309" opacity=".85"/>
+    <path d="M-4.7-2.3A5.3 5.3 0 0 1-.9-5.4" fill="none" stroke="#FFFBEB" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- spora & percik -->
+  <g>
+    <circle cx="170" cy="98" r="2.8" fill="#FB923C" opacity=".85"/>
+    <circle cx="176" cy="88" r="2.2" fill="#FBBF24" opacity=".85"/>
+    <circle cx="162" cy="112" r="2" fill="#A7F3D0" opacity=".9"/>
+    <circle cx="106" cy="40" r="2" fill="#A7F3D0" opacity=".85"/>
+    <circle cx="88" cy="52" r="1.6" fill="#FDE68A" opacity=".7"/>
+    <circle cx="150" cy="30" r="1.4" fill="#FDE68A" opacity=".6"/>
+    <path d="M112 58l1 2.7 2.7 1-2.7 1-1 2.7-1-2.7-2.7-1 2.7-1z" fill="#FBBF24" opacity=".9"/>
+  </g>
+</svg>

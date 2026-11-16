@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · PINUS — vektor semi-realistis: jarum meruncing bergradasi, kerucut bersisik dengan kilau -->
+  <defs>
+    <radialGradient id="w-pn" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#F0FDF4" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#F7FEF9" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#F7FEF9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="nd-pn" x1=".2" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="nd2-pn" x1=".2" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#16A34A"/>
+      <stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <radialGradient id="cn2-pn" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset=".55" stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#B45309"/>
+    </radialGradient>
+    <linearGradient id="br-pn" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#D97706"/>
+      <stop offset=".5" stop-color="#B45309"/>
+      <stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <radialGradient id="cn-pn" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-pn" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna hutan pinus di sudut -->
+  <rect width="180" height="170" fill="url(#w-pn)"/>
+
+  <!-- ranting kayu meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#br-pn)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#FCD34D" stroke-width=".8" opacity=".45" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#571F05" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+
+  <!-- jarum pinus berpasangan: bilah meruncing bergradasi -->
+  <g fill="url(#nd-pn)">
+    <path d="M70 5C68.2 8.8 66.4 11.8 63.4 14.9L62.7 14.3C65.3 11.5 66.9 8.7 68.7 4.9Z"/>
+    <path d="M70 5C71.6 9 72.8 12.2 74.2 16.1L73.4 16.5C71.9 12.8 70.7 9.3 69.4 5.9Z"/>
+    <path d="M88 9C86.2 12.8 84.4 15.8 81.4 18.9L80.7 18.3C83.3 15.5 84.9 12.7 86.7 8.9Z"/>
+    <path d="M88 9C89.6 13 90.8 16.2 92.2 20.1L91.4 20.5C89.9 16.8 88.7 13.3 87.4 9.9Z"/>
+    <path d="M106 15C104.2 18.8 102.4 21.8 99.4 24.9L98.7 24.3C101.3 21.5 102.9 18.7 104.7 14.9Z"/>
+    <path d="M106 15C107.6 19 108.8 22.2 110.2 26.1L109.4 26.5C107.9 22.8 106.7 19.3 105.4 15.9Z"/>
+    <path d="M124 23C122.2 26.8 120.4 29.8 117.4 32.9L116.7 32.3C119.3 29.5 120.9 26.7 122.7 22.9Z"/>
+    <path d="M124 23C125.6 27 126.8 30.2 128.2 34.1L127.4 34.5C125.9 30.8 124.7 27.3 123.4 23.9Z"/>
+  </g>
+  <g fill="url(#nd2-pn)" opacity=".88">
+    <path d="M140 34C138.2 37.8 136.4 40.8 133.4 43.9L132.7 43.3C135.3 40.5 136.9 37.7 138.7 33.9Z"/>
+    <path d="M140 34C141.6 38 142.8 41.2 144.2 45.1L143.4 45.5C141.9 41.8 140.7 38.3 139.4 34.9Z"/>
+    <path d="M154 46C152.2 49.6 150.4 52.4 147.6 55.3L146.9 54.7C149.3 52.1 150.7 49.5 152.7 45.9Z"/>
+    <path d="M154 46C155.6 49.6 156.6 52.6 157.8 56.3L157 56.7C155.6 53.2 154.6 50.1 153.4 46.9Z"/>
+    <path d="M165 59C163.4 62.4 161.8 65 159.2 67.7L158.5 67.1C160.7 64.7 162.1 62.3 163.7 58.9Z"/>
+    <path d="M165 59C166.4 62.4 167.2 65 168 68.5L167.2 68.7C166.2 65.4 165.6 62.9 164.4 59.9Z"/>
+  </g>
+  <!-- embun di jarum -->
+  <ellipse cx="86" cy="14" rx="1.4" ry="2" fill="url(#dw-pn)" transform="rotate(-30 86 14)"/>
+  <circle cx="85.3" cy="13.2" r=".5" fill="#FFFFFF" opacity=".85"/>
+
+  <!-- kerucut pinus utama: gradasi + sisik + kilau -->
+  <g transform="translate(140 62) rotate(-10)" stroke-linejoin="round">
+    <path d="M0 -9C-1 -14 -2 -18 -4 -21" fill="none" stroke="url(#br-pn)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M-9 -8C-11 -2 -11 8 -7 15C-4 18 4 18 7 15C11 8 11 -2 9 -8C4 -11 -4 -11 -9 -8Z" fill="url(#cn2-pn)" stroke="#92400E" stroke-width="1.1"/>
+    <path d="M5.6 -7.4C8.8 -1.6 8.6 6.4 4.6 13.6C7.4 6.6 8 -1.4 5.6 -7.4Z" fill="#78350F" opacity=".28"/>
+    <path d="M-7.4 -6.4C-9.4 -2 -9.4 6 -6.6 12.4" fill="none" stroke="#FDE68A" stroke-width="1.2" opacity=".55" stroke-linecap="round"/>
+    <ellipse cx="-3.4" cy="-4.4" rx="1.6" ry="2.4" fill="#FFFFFF" opacity=".45" transform="rotate(-14 -3.4 -4.4)"/>
+    <!-- baris sisik melengkung -->
+    <g fill="none" stroke="#78350F" stroke-width=".9" opacity=".6" stroke-linecap="round">
+      <path d="M-7.5 -3C-3 0 3 0 7.5 -3"/>
+      <path d="M-7 4C-3 7 3 7 7 4"/>
+      <path d="M-4.5 10.5C-1.5 12.5 1.5 12.5 4.5 10.5"/>
+      <path d="M-5.6 -7C-2.4 -5 2.4 -5 5.6 -7" opacity=".5"/>
+    </g>
+    <!-- kilau sisik atas -->
+    <g fill="#FDE68A" opacity=".7">
+      <circle cx="-4.6" cy="-2" r=".7"/>
+      <circle cx="-4.2" cy="5" r=".6"/>
+      <circle cx="-2.6" cy="11" r=".55"/>
+    </g>
+  </g>
+  <!-- kerucut sahabat -->
+  <g transform="translate(171 96) rotate(8) scale(.62)" stroke-linejoin="round">
+    <path d="M-9 -8C-11 -2 -11 8 -7 15C-4 18 4 18 7 15C11 8 11 -2 9 -8C4 -11 -4 -11 -9 -8Z" fill="url(#cn2-pn)" stroke="#92400E" stroke-width="1.6"/>
+    <g fill="none" stroke="#78350F" stroke-width="1.3" opacity=".6" stroke-linecap="round">
+      <path d="M-7.5 -3C-3 0 3 0 7.5 -3"/>
+      <path d="M-7 4C-3 7 3 7 7 4"/>
+    </g>
+    <ellipse cx="-4" cy="-4" rx="1.8" ry="2.6" fill="#FFFFFF" opacity=".4" transform="rotate(-14 -4 -4)"/>
+  </g>
+
+  <!-- serpih salut embun beku -->
+  <g fill="#FFFFFF" stroke="#BAE6FD" stroke-width=".7">
+    <circle cx="103" cy="34" r="2.4"/>
+    <circle cx="120" cy="47" r="1.8"/>
+    <circle cx="89" cy="23" r="1.5"/>
+  </g>
+  <circle cx="103" cy="33.4" r=".8" fill="#E0F2FE" opacity=".8"/>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="70" cy="14" r="6.4" fill="url(#cn-pn)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="70" cy="14" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M70 17.6C70.2 16.2 71 15.2 72.3 14.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M72.3 14.8C72 13.4 72.8 12.2 74.1 12.4C74.3 13.7 73.5 14.8 72.3 14.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M72.3 14.8C71.6 13.4 70.2 13 69.2 13.8C69.6 15.1 71 15.6 72.3 14.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M66.2 11.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="67.4" cy="11.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik hutan: titik berkilau -->
+  <g>
+    <circle cx="94" cy="60" r="2.6" fill="#FBBF24"/>
+    <circle cx="93.2" cy="59.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="87" cy="70" r="2.2" fill="#34D399" opacity=".9"/>
+    <circle cx="101" cy="50" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="101.6" cy="49.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M118 84l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="108" cy="68" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>

@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 130" fill="none" role="img" aria-label="Jurnal terbuka dengan penanda daun, pena, dan secangkir teh di bawah rembulan">
+  <!-- Rutina · refleksi — vektor semi-realistis: jurnal berhalaman berlapis, pita penanda, pena amber, teh mengepul di bawah rembulan -->
+  <defs>
+    <linearGradient id="srBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E0F2FE"/><stop offset=".4" stop-color="#F0FDF4"/><stop offset=".75" stop-color="#FEF9EC"/><stop offset="1" stop-color="#FDF6E3"/>
+    </linearGradient>
+    <radialGradient id="srMoon" cx=".38" cy=".3" r=".9">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".5" stop-color="#FDE68A"/><stop offset=".85" stop-color="#FCD34D"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="srMoonHalo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".3"/><stop offset=".55" stop-color="#FDE68A" stop-opacity=".12"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="srMoonHalo2" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".13"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="srBack" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#065F46"/><stop offset="1" stop-color="#052E16"/>
+    </linearGradient>
+    <linearGradient id="srCoverL" x1="0" y1="0" x2=".8" y2=".9">
+      <stop offset="0" stop-color="#34D399"/><stop offset=".5" stop-color="#059669"/><stop offset="1" stop-color="#064E3B"/>
+    </linearGradient>
+    <linearGradient id="srCoverR" x1="1" y1="0" x2=".2" y2=".9">
+      <stop offset="0" stop-color="#34D399"/><stop offset=".5" stop-color="#059669"/><stop offset="1" stop-color="#064E3B"/>
+    </linearGradient>
+    <linearGradient id="srPageL" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="srPageR" x1="1" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="srRibbon" x1="0" y1="0" x2=".25" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".5" stop-color="#FBBF24"/><stop offset="1" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="srPen" x1="0" y1="0" x2="1" y2=".2">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset=".45" stop-color="#FBBF24"/><stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="srCup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <radialGradient id="srTea" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <linearGradient id="srStem" x1="0" y1="1" x2=".12" y2="0">
+      <stop offset="0" stop-color="#14532D"/><stop offset=".5" stop-color="#22C55E"/><stop offset="1" stop-color="#86EFAC"/>
+    </linearGradient>
+    <linearGradient id="srLeafL" x1=".15" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/><stop offset=".42" stop-color="#4ADE80"/><stop offset=".8" stop-color="#16A34A"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="srLeafR" x1=".85" y1="0" x2=".45" y2="1">
+      <stop offset="0" stop-color="#A7F3D0"/><stop offset=".42" stop-color="#34D399"/><stop offset=".8" stop-color="#15803D"/><stop offset="1" stop-color="#14532D"/>
+    </linearGradient>
+    <radialGradient id="srShadow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#052E16" stop-opacity=".26"/><stop offset=".62" stop-color="#052E16" stop-opacity=".1"/><stop offset="1" stop-color="#052E16" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="srPebble" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#EBDDD0"/><stop offset=".5" stop-color="#C9A57E"/><stop offset="1" stop-color="#8A6642"/>
+    </radialGradient>
+  </defs>
+  <rect width="220" height="130" rx="14" fill="url(#srBg)"/>
+  <!-- rembulan dan bintang -->
+  <circle cx="188" cy="41" r="32" fill="url(#srMoonHalo2)"/>
+  <circle cx="188" cy="41" r="22" fill="url(#srMoonHalo)"/>
+  <path d="M188 26a15 15 0 1 0 7 24 12.5 12.5 0 0 1-7-24Z" fill="url(#srMoon)"/>
+  <path d="M178 31C174.4 35 173 40 174.4 45.4" stroke="#FFF7ED" stroke-width="1.5" opacity=".55" stroke-linecap="round"/>
+  <circle cx="181" cy="34" r="2.2" fill="#D97706" opacity=".3"/>
+  <circle cx="184" cy="46" r="1.6" fill="#D97706" opacity=".26"/>
+  <circle cx="179.4" cy="40" r="1.2" fill="#D97706" opacity=".24"/>
+  <path d="M30 22l2.4 5.2 5.2 2.4-5.2 2.4L30 37.2l-2.4-5.2-5.2-2.4 5.2-2.4Z" fill="#FCD34D"/>
+  <path d="M160 16l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8Z" fill="#FCD34D" opacity=".85"/>
+  <path d="M204 26l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1Z" fill="#FDE68A" opacity=".8"/>
+  <circle cx="18" cy="52" r="1.8" fill="#FDE68A" opacity=".7"/>
+  <circle cx="206" cy="70" r="1.6" fill="#FDE68A" opacity=".6"/>
+  <circle cx="52" cy="30" r="1.2" fill="#FDE68A" opacity=".5"/>
+  <circle cx="140" cy="22" r="1.4" fill="#FDE68A" opacity=".55"/>
+  <!-- jurnal terbuka -->
+  <ellipse cx="110" cy="114" rx="80" ry="8" fill="url(#srShadow)"/>
+  <path d="M42 45C64 36 94 37 110 46V109C94 101 64 100 42 106Z" fill="url(#srBack)"/>
+  <path d="M178 45C156 36 126 37 110 46V109C126 101 156 100 178 106Z" fill="url(#srBack)"/>
+  <path d="M46 48c20-6 42-5 62 2v56c-20-7-42-8-62-2Z" fill="url(#srCoverL)"/>
+  <path d="M174 48c-20-6-42-5-62 2v56c20-7 42-8 62-2Z" fill="url(#srCoverR)"/>
+  <path d="M48 48.6C68 42.6 90 43 106 49.4" stroke="#86EFAC" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+  <path d="M172 48.6C152 42.6 130 43 114 49.4" stroke="#86EFAC" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+  <path d="M52 56c17-5 35-5 51 1v44c-16-6-34-6-51-1Z" fill="url(#srPageL)"/>
+  <path d="M168 56c-17-5-35-5-51 1v44c16-6 34-6 51-1Z" fill="url(#srPageR)"/>
+  <!-- tepi tumpukan halaman -->
+  <path d="M50 58C48.5 72 48.5 86 50 99" stroke="#E2E8F0" stroke-width="1.2" opacity=".65"/>
+  <path d="M48 60C46.5 72 46.5 86 48 97" stroke="#CBD5E1" stroke-width="1" opacity=".45"/>
+  <path d="M170 58C171.5 72 171.5 86 170 99" stroke="#E2E8F0" stroke-width="1.2" opacity=".65"/>
+  <path d="M172 60C173.5 72 173.5 86 172 97" stroke="#CBD5E1" stroke-width="1" opacity=".45"/>
+  <path d="M54 101.6C70 100.8 88 101.2 101 102.6" stroke="#E2E8F0" stroke-width="1.1" opacity=".6"/>
+  <path d="M166 101.6C150 100.8 132 101.2 119 102.6" stroke="#E2E8F0" stroke-width="1.1" opacity=".6"/>
+  <!-- lipatan tengah -->
+  <path d="M110 51V105" stroke="#E2E8F0" stroke-width="4" opacity=".6"/>
+  <path d="M110 51V105" stroke="#94A3B8" stroke-width="1" opacity=".4"/>
+  <!-- garis tulisan melengkung -->
+  <path d="M60 58c12-3 24-3 34 0" stroke="#10B981" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M160 58c-12-3-24-3-34 0" stroke="#10B981" stroke-width="2.6" stroke-linecap="round"/>
+  <g stroke="#A7F3D0" stroke-width="2.2" stroke-linecap="round" opacity=".8">
+    <path d="M60 66c12-3 24-3 34 0M60 74c12-3 24-3 34 0M60 82c12-3 24-3 34 0M60 90c9-2 18-3 26-1"/>
+    <path d="M160 66c-12-3-24-3-34 0M160 74c-12-3-24-3-34 0M160 82c-12-3-24-3-34 0M160 90c-9-2-18-3-26-1"/>
+  </g>
+  <!-- pita penanda bertajuk swallow -->
+  <path d="M112 49C113 60 112 72 115 84C116 89 116 94 117 98" stroke="url(#srRibbon)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M113.8 96.4L120.2 97.2 117 103.4Z" fill="#B45309"/>
+  <path d="M113 50C114 61 113 73 115.6 85" stroke="#FEF3C7" stroke-width="1" opacity=".6" stroke-linecap="round"/>
+  <!-- penanda daun -->
+  <g transform="translate(126 38) rotate(14)">
+    <path d="M0 16c-9-1-13-8-6-13 8 1 13 7 6 13Z" fill="url(#srLeafR)"/>
+    <path d="M-1 14C-4 10-4 7-2 4" stroke="#14532D" stroke-width=".9" opacity=".45" stroke-linecap="round"/>
+    <path d="M-5.6 4.8C-7.8 7.4-8.2 10.6-6.2 13.4" stroke="#D9F99D" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <!-- pena amber -->
+  <g transform="translate(178 72) rotate(28)">
+    <ellipse cx="3.5" cy="37" rx="7" ry="2.2" fill="#052E16" opacity=".14"/>
+    <rect width="7" height="34" rx="3.5" fill="url(#srPen)"/>
+    <rect width="7" height="9" rx="3.5" fill="#B45309"/>
+    <rect x="1" y="9" width="5" height="1.4" fill="#92400E" opacity=".6"/>
+    <rect x=".9" y="11" width="1.6" height="17" fill="#FEF3C7" opacity=".55"/>
+    <path d="M3.5 34 1 40l5-2Z" fill="#065F46"/>
+    <path d="M3.5 34.6V39" stroke="#052E16" stroke-width=".7" opacity=".6"/>
+    <circle cx="2.4" cy="4" r=".8" fill="#FEF3C7" opacity=".7"/>
+  </g>
+  <!-- cangkir teh mengepul -->
+  <g transform="translate(24 76)">
+    <ellipse cx="12" cy="30.6" rx="14" ry="3.4" fill="url(#srShadow)"/>
+    <path d="M0 12h24l-3 13c-.6 2.6-2 4-4.6 4h-8.8c-2.6 0-4-1.4-4.6-4Z" fill="url(#srCup)"/>
+    <ellipse cx="12" cy="12" rx="12" ry="2.8" fill="url(#srTea)"/>
+    <path d="M1.6 11.2C5 9.6 19 9.6 22.4 11.2" stroke="#FFFBEB" stroke-width="1.2" opacity=".7" stroke-linecap="round"/>
+    <path d="M1.6 13.6l2.4 10.2" stroke="#FFFFFF" stroke-width="1.6" opacity=".55" stroke-linecap="round"/>
+    <path d="M21.6 13.8l-2.2 9.4" stroke="#94A3B8" stroke-width="1.8" opacity=".4" stroke-linecap="round"/>
+    <path d="M24 15c4.6-1 7 2 6 5.4-.9 3-3.4 4-6 3.4" stroke="#64748B" stroke-width="2.3" stroke-linecap="round"/>
+    <path d="M24 15.8c3.4-.6 5.4 1.6 4.6 4.4" stroke="#F8FAFC" stroke-width=".9" opacity=".55" stroke-linecap="round"/>
+    <g stroke="#E0F2FE" stroke-width="2.1" stroke-linecap="round" opacity=".85">
+      <path d="M8 10c-1.6-2.6 1.6-4 0-6.6"/>
+      <path d="M16 9c-1.6-2.6 1.6-4 0-6.6"/>
+    </g>
+  </g>
+  <!-- tanaman sekitar -->
+  <g transform="translate(200 100)">
+    <ellipse cy="2" rx="6" ry="2.2" fill="url(#srShadow)"/>
+    <path d="M0 0V-12" stroke="url(#srStem)" stroke-width="2.4" stroke-linecap="round"/>
+    <g transform="translate(0 -8) scale(.8)">
+      <path d="M0 0C-8-2-13-8-7-13C-2-10-2-5 0 0Z" fill="url(#srLeafL)"/>
+      <path d="M0 0C8-2 13-8 7-13C2-10 2-5 0 0Z" fill="url(#srLeafR)"/>
+      <path d="M0 0C-4-3-6-7-5-11M0 0C4-3 6-7 5-11" stroke="#14532D" stroke-width="1" opacity=".38" stroke-linecap="round"/>
+    </g>
+  </g>
+  <path d="M36 112c-6-1-8-5-4-8 5 .6 8 3.4 4 8Z" fill="url(#srLeafR)"/>
+  <path d="M35.4 111C33 108 32.6 105 34.4 102.6" stroke="#14532D" stroke-width=".9" opacity=".4" stroke-linecap="round"/>
+  <g stroke-linecap="round">
+    <path d="M18 118c-2-4 2-7 0-11" stroke="#4ADE80" stroke-width="2" opacity=".8"/>
+    <path d="M60 118c2-4-2-7 0-11" stroke="#22C55E" stroke-width="1.8" opacity=".75"/>
+    <path d="M96 120c-2-4 2-7 0-11" stroke="#34D399" stroke-width="1.8" opacity=".7"/>
+    <path d="M196 118c-2-4 2-7 0-11" stroke="#4ADE80" stroke-width="2" opacity=".8"/>
+    <path d="M208 114c2-3-2-6 0-9" stroke="#22C55E" stroke-width="1.6" opacity=".7"/>
+  </g>
+  <ellipse cx="78" cy="121" rx="5" ry="2.8" fill="url(#srPebble)"/>
+  <ellipse cx="76.6" cy="119.8" rx="1.7" ry=".9" fill="#FFF7ED" opacity=".55"/>
+  <g fill="#431407" opacity=".28">
+    <circle cx="40" cy="122" r="1.1"/><circle cx="130" cy="124" r="1.2"/><circle cx="176" cy="122" r="1"/>
+  </g>
+  <g fill="#FDE68A" opacity=".5">
+    <circle cx="70" cy="20" r="1.3"/><circle cx="124" cy="26" r="1.1"/>
+  </g>
+</svg>

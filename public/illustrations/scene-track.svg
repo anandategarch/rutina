@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" width="360" height="180">
+  <!-- Rutina · lintasan lari — vektor semi-realistis: trek tanah liat lengkung dengan sepatu lari, stopwatch, dan bendera finis -->
+  <defs>
+    <linearGradient id="langit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7FEE7"/><stop offset=".55" stop-color="#ECFDF5"/><stop offset="1" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <linearGradient id="lapangan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/><stop offset=".45" stop-color="#4ADE80"/><stop offset=".8" stop-color="#22C55E"/><stop offset="1" stop-color="#16A34A"/>
+    </linearGradient>
+    <linearGradient id="tanah" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D97706"/><stop offset=".4" stop-color="#B45309"/><stop offset=".75" stop-color="#92400E"/><stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="trotoar" x1="0" y1="0" x2=".1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#FEF3C7"/><stop offset="1" stop-color="#FCD34D"/>
+    </linearGradient>
+    <linearGradient id="sepatu" x1=".1" y1="0" x2=".7" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="ujung" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#4ADE80"/><stop offset=".55" stop-color="#22C55E"/><stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lidah" x1="0" y1="0" x2=".3" y2="1">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset="1" stop-color="#FDE68A"/>
+    </linearGradient>
+    <linearGradient id="sol" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#E2E8F0"/><stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="telapak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#64748B"/><stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="logam" x1="0" y1="0" x2="1" y2=".6">
+      <stop offset="0" stop-color="#F1F5F9"/><stop offset=".45" stop-color="#CBD5E1"/><stop offset=".8" stop-color="#94A3B8"/><stop offset="1" stop-color="#64748B"/>
+    </linearGradient>
+    <linearGradient id="kaca" x1=".2" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset=".55" stop-color="#E0F2FE" stop-opacity=".88"/><stop offset="1" stop-color="#BAE6FD" stop-opacity=".78"/>
+    </linearGradient>
+    <linearGradient id="mahkota" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="tiang" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CBD5E1"/><stop offset=".5" stop-color="#94A3B8"/><stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="kain" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8FAFC"/><stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="awan" x1=".2" y1="0" x2=".6" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8FAFC"/><stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <radialGradient id="matahari" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFFBEB"/><stop offset=".55" stop-color="#FDE68A"/><stop offset="1" stop-color="#FCD34D"/>
+    </radialGradient>
+    <radialGradient id="halo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FDE68A" stop-opacity=".5"/><stop offset=".45" stop-color="#FDE68A" stop-opacity=".2"/><stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="koin" cx=".42" cy=".36" r=".8">
+      <stop offset="0" stop-color="#FEF3C7"/><stop offset=".5" stop-color="#FDE68A"/><stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="bayang" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#052E16" stop-opacity=".3"/><stop offset=".62" stop-color="#052E16" stop-opacity=".12"/><stop offset="1" stop-color="#052E16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="360" height="92" fill="url(#langit)"/>
+  <rect y="92" width="360" height="88" fill="url(#lapangan)"/>
+  <circle cx="46" cy="34" r="23" fill="url(#halo)" opacity=".5"/>
+  <circle cx="46" cy="34" r="16" fill="url(#matahari)"/>
+  <circle cx="41" cy="29" r="3.6" fill="#FFFBEB" opacity=".7"/>
+  <path d="M120 30 C120 22 128 18 136 20 C138 12 148 10 154 16 C160 10 170 12 174 20 C182 20 188 26 186 32 C184 36 180 38 176 38 L126 38 C122 38 120 36 120 30 Z" fill="url(#awan)"/>
+  <path d="M136 34 C142 28 152 26 158 30 C156 36 148 38 142 36 Z" fill="#E2E8F0" opacity=".55"/>
+  <path d="M250 26 C250 20 256 17 262 19 C264 13 272 12 276 17 C280 14 286 16 286 21 C286 25 283 27 279 27 L255 27 C252 27 250 26 250 26 Z" fill="#FFFFFF" opacity=".7"/>
+  <path d="M240 22 q6 -7 12 0 q6 -7 12 0" stroke="#0F172A" stroke-width="2" fill="none" opacity=".18" stroke-linecap="round"/>
+  <!-- pagar hijau jauh -->
+  <ellipse cx="70" cy="88" rx="26" ry="8" fill="#4ADE80" opacity=".5"/>
+  <ellipse cx="200" cy="86" rx="30" ry="8" fill="#4ADE80" opacity=".45"/>
+  <ellipse cx="330" cy="90" rx="24" ry="7" fill="#4ADE80" opacity=".45"/>
+  <path d="M120 88 C160 84 200 84 240 87" stroke="#FFFFFF" stroke-width="2" fill="none" opacity=".18" stroke-linecap="round"/>
+  <!-- tepi trek dan tanah liat -->
+  <path d="M-4 146 C40 96 98 74 158 70 C234 64 312 76 364 98 L364 110 C312 88 234 76 158 82 C98 86 40 108 -4 158 Z" fill="url(#trotoar)"/>
+  <path d="M-4 146 C40 96 98 74 158 70 C234 64 312 76 364 98 L364 110 C312 88 234 76 158 82 C98 86 40 108 -4 158" fill="none" stroke="#F59E0B" stroke-width="1.4" opacity=".5"/>
+  <path d="M-4 158 C40 108 98 86 158 82 C234 76 312 88 364 110 L364 190 L-4 190 Z" fill="url(#tanah)"/>
+  <path d="M-4 158 C40 108 98 86 158 82 C234 76 312 88 364 110" fill="none" stroke="#FCD34D" stroke-width="2.6" opacity=".55"/>
+  <g stroke="#FFFFFF" stroke-width="2.4" fill="none" opacity=".8" stroke-linecap="round" stroke-dasharray="12 9">
+    <path d="M-4 180 C40 130 98 110 158 104 C234 98 310 110 364 132"/>
+    <path d="M-4 202 C40 152 98 132 158 126 C234 120 308 132 362 154" opacity=".7"/>
+    <path d="M-4 224 C40 174 98 154 158 148 C234 142 306 154 358 176" opacity=".6"/>
+    <path d="M-4 246 C40 196 98 176 158 170 C234 164 304 176 356 198" opacity=".5"/>
+  </g>
+  <g fill="#78350F" opacity=".35">
+    <circle cx="60" cy="150" r="1.6"/><circle cx="110" cy="140" r="1.4"/><circle cx="200" cy="120" r="1.5"/>
+    <circle cx="260" cy="150" r="1.5"/><circle cx="300" cy="168" r="1.3"/><circle cx="150" cy="170" r="1.5"/>
+    <circle cx="230" cy="168" r="1.3"/><circle cx="90" cy="172" r="1.4"/>
+  </g>
+  <circle cx="180" cy="146" r="1.2" fill="#FCD34D" opacity=".5"/>
+  <circle cx="330" cy="140" r="1.2" fill="#FCD34D" opacity=".5"/>
+  <!-- patok jarak -->
+  <g>
+    <ellipse cx="55" cy="124" rx="8" ry="2" fill="#78350F" opacity=".3"/>
+    <rect x="52.5" y="104" width="5" height="20" rx="2.5" fill="url(#logam)"/>
+    <circle cx="55" cy="98" r="10.5" fill="#F59E0B"/>
+    <circle cx="55" cy="98" r="9" fill="url(#koin)"/>
+    <circle cx="55" cy="98" r="6.4" fill="none" stroke="#B45309" stroke-width="1" opacity=".5"/>
+    <path d="M55 101.5 L55 95.5" stroke="#B45309" stroke-width="1" opacity=".6" stroke-linecap="round"/>
+    <path d="M55 97.5 C53.6 97.2 52.9 96 53.8 95.2 C55 95.5 55.4 96.6 55 97.5 Z" fill="#B45309" opacity=".6"/>
+    <path d="M48.8 94.4 C49.9 92.8 51.8 91.9 54 92 C51.9 93.2 50.2 95 49.3 97.2 Z" fill="#FFFBEB" opacity=".7"/>
+    <path d="M61.2 101.6 C60.1 103.2 58.2 104.1 56 104 C58.1 102.8 59.8 101 60.7 98.8 Z" fill="#92400E" opacity=".4"/>
+  </g>
+  <g>
+    <ellipse cx="95" cy="132" rx="7" ry="1.8" fill="#78350F" opacity=".3"/>
+    <rect x="92.5" y="114" width="5" height="18" rx="2.5" fill="url(#logam)"/>
+    <circle cx="95" cy="109" r="8.5" fill="#F59E0B"/>
+    <circle cx="95" cy="109" r="7.3" fill="url(#koin)"/>
+    <circle cx="95" cy="109" r="5.2" fill="none" stroke="#B45309" stroke-width="1" opacity=".5"/>
+    <path d="M95 111.8 L95 106.8" stroke="#B45309" stroke-width="1" opacity=".6" stroke-linecap="round"/>
+    <path d="M95 108 C93.8 107.7 93.2 106.7 94 106 C95 106.3 95.4 107.2 95 108 Z" fill="#B45309" opacity=".6"/>
+    <path d="M89.8 105.6 C90.7 104.3 92.2 103.6 94 103.7 C92.3 104.7 91 106.1 90.3 107.9 Z" fill="#FFFBEB" opacity=".7"/>
+  </g>
+  <!-- sepatu pelari pertama -->
+  <g>
+    <ellipse cx="176" cy="155" rx="36" ry="6" fill="url(#bayang)"/>
+    <path d="M148 128 C148 116 158 112 170 114 L198 120 C206 122 210 128 208 136 L204 146 L146 146 Z" fill="url(#sepatu)"/>
+    <path d="M160 114 C158 108 166 104 174 106 L178 112 L162 118 Z" fill="url(#ujung)"/>
+    <path d="M170 107 C178 103 190 103 198 107 L196 113 L172 113 Z" fill="url(#lidah)"/>
+    <path d="M172 112 L184 116 M176 108 L190 112 M180 116 L192 120" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+    <path d="M152 138 C168 136 186 136 202 138" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3 3" opacity=".6" fill="none"/>
+    <path d="M149 130 C150 124 152 119 156 115" stroke="#FFFFFF" stroke-width="2" opacity=".6" fill="none" stroke-linecap="round"/>
+    <path d="M146 140 L206 146 L204 152 L144 152 Z" fill="url(#sol)"/>
+    <path d="M148 146 C148 142 152 138 156 138 C158 142 162 143 166 141 C170 143 174 143 178 141 C182 143 186 144 190 142 C194 144 200 144 204 146 Z" fill="url(#telapak)"/>
+    <g fill="#475569">
+      <path d="M158 152 l2.5 4 2.5 -4 Z"/><path d="M170 152 l2.5 4 2.5 -4 Z"/><path d="M182 152 l2.5 4 2.5 -4 Z"/><path d="M194 152 l2.5 4 2.5 -4 Z"/>
+    </g>
+  </g>
+  <!-- sepatu pelari kedua -->
+  <g transform="rotate(3 266 133)">
+    <ellipse cx="266" cy="157" rx="36" ry="6" fill="url(#bayang)"/>
+    <path d="M238 130 C238 118 248 114 260 116 L288 122 C296 124 300 130 298 138 L294 148 L236 148 Z" fill="url(#sepatu)"/>
+    <path d="M250 116 C248 110 256 106 264 108 L268 114 L252 120 Z" fill="url(#ujung)"/>
+    <path d="M260 109 C268 105 280 105 288 109 L286 115 L262 115 Z" fill="url(#lidah)"/>
+    <path d="M262 114 L274 118 M266 110 L280 114 M270 118 L282 122" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+    <path d="M242 140 C258 138 276 138 292 140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3 3" opacity=".6" fill="none"/>
+    <path d="M239 132 C240 126 242 121 246 117" stroke="#FFFFFF" stroke-width="2" opacity=".6" fill="none" stroke-linecap="round"/>
+    <path d="M236 142 L296 148 L294 154 L234 154 Z" fill="url(#sol)"/>
+    <path d="M238 148 C238 144 242 140 246 140 C248 144 252 145 256 143 C260 145 264 145 268 143 C272 145 276 146 280 144 C284 146 290 146 294 148 Z" fill="url(#telapak)"/>
+    <g fill="#475569">
+      <path d="M248 154 l2.5 4 2.5 -4 Z"/><path d="M260 154 l2.5 4 2.5 -4 Z"/><path d="M272 154 l2.5 4 2.5 -4 Z"/><path d="M284 154 l2.5 4 2.5 -4 Z"/>
+    </g>
+  </g>
+  <g stroke="#475569" stroke-width="2.2" stroke-linecap="round" opacity=".25">
+    <path d="M136 122 L120 118"/>
+    <path d="M138 134 L122 132"/>
+    <path d="M134 146 L118 146"/>
+  </g>
+  <!-- stopwatch -->
+  <g>
+    <rect x="281" y="31" width="10" height="8" rx="2.5" fill="url(#mahkota)"/>
+    <path d="M283 33 H289 M283 36 H289" stroke="#92400E" stroke-width="1" opacity=".5"/>
+    <rect x="262" y="53" width="7" height="9" rx="2" fill="url(#logam)"/>
+    <rect x="303" y="53" width="7" height="9" rx="2" fill="url(#logam)"/>
+    <circle cx="286" cy="58" r="21" fill="url(#logam)" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="286" cy="58" r="16.5" fill="url(#kaca)" stroke="#64748B" stroke-width="2"/>
+    <g stroke="#475569" stroke-width="1.6" stroke-linecap="round" opacity=".8">
+      <path d="M286 44 L286 47"/><path d="M286 69 L286 72"/>
+      <path d="M272 58 L275 58"/><path d="M297 58 L300 58"/>
+      <path d="M276.5 48.5 L278.6 50.6"/><path d="M293.5 65.4 L295.6 67.5"/>
+      <path d="M276.5 67.5 L278.6 65.4"/><path d="M293.5 50.6 L295.6 48.5"/>
+    </g>
+    <path d="M286 58 L286 46" stroke="#475569" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M286 58 L293 62" stroke="#B45309" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+    <circle cx="286" cy="58" r="2.4" fill="#B45309"/>
+    <circle cx="284.6" cy="56.6" r=".9" fill="#F59E0B"/>
+    <path d="M276 50 C277 45 281 41.5 286 41" stroke="#FFFFFF" stroke-width="3.2" fill="none" opacity=".85" stroke-linecap="round"/>
+    <path d="M295 66 C293 70 288 72 283 71" stroke="#BAE6FD" stroke-width="2.6" fill="none" opacity=".5" stroke-linecap="round"/>
+  </g>
+  <!-- bendera finis -->
+  <g>
+    <rect x="314" y="26" width="5" height="62" rx="2.5" fill="url(#tiang)"/>
+    <path d="M315.5 30 L315.5 84" stroke="#F1F5F9" stroke-width="1.2" opacity=".6"/>
+    <circle cx="316.5" cy="24.5" r="3" fill="url(#logam)"/>
+    <ellipse cx="316" cy="88" rx="7" ry="2.2" fill="#78350F" opacity=".3"/>
+    <path d="M316 27 C326 25 338 25.5 348 28 L348 44 C338 41.5 326 42 316 44.5 Z" fill="url(#kain)" stroke="#94A3B8" stroke-width=".8"/>
+    <g fill="#475569">
+      <rect x="317" y="27.5" width="10.5" height="8.5" rx="1"/>
+      <rect x="337.5" y="28" width="10.5" height="8.5" rx="1"/>
+      <rect x="327" y="36" width="10.5" height="8" rx="1"/>
+    </g>
+    <path d="M316 35.5 C326 33.5 338 34 348 36.5" stroke="#94A3B8" stroke-width="1.4" fill="none" opacity=".4"/>
+    <path d="M317 27.5 C321 26.8 326 26.6 330 27" stroke="#FFFFFF" stroke-width="1.6" fill="none" opacity=".7"/>
+  </g>
+  <path d="M214 76 l2.6 7.4 7.4 2.6 -7.4 2.6 -2.6 7.4 -2.6 -7.4 -7.4 -2.6 7.4 -2.6 Z" fill="#FDE68A" opacity=".65"/>
+  <circle cx="330" cy="64" r="2" fill="#FFFFFF" opacity=".6"/>
+  <circle cx="230" cy="60" r="1.8" fill="#FDE68A" opacity=".6"/>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" preserveAspectRatio="xMaxYMin meet">
+  <!-- Rutina · ANGGUR — vektor semi-realistis: gugus butir bergradasi berlapis, daun berurat, sulur melingkar -->
+  <defs>
+    <radialGradient id="w-ag" cx="1" cy="0" r="1">
+      <stop offset="0" stop-color="#EDE9FE" stop-opacity=".5"/>
+      <stop offset=".45" stop-color="#F5F3FF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#F5F3FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bb-ag" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#DDD6FE"/>
+      <stop offset=".55" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </radialGradient>
+    <radialGradient id="bb2-ag" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset=".6" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </radialGradient>
+    <linearGradient id="lf-ag" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#BBF7D0"/>
+      <stop offset=".5" stop-color="#4ADE80"/>
+      <stop offset="1" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="lf2-ag" x1=".2" y1="0" x2=".55" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="st-ag" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#86EFAC"/>
+      <stop offset=".5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="sk-ag" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#D97706"/>
+      <stop offset=".6" stop-color="#B45309"/>
+      <stop offset="1" stop-color="#78350F"/>
+    </linearGradient>
+    <radialGradient id="cn-ag" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#FEF3C7"/>
+      <stop offset=".55" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </radialGradient>
+    <radialGradient id="dw-ag" cx=".35" cy=".3" r="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset=".55" stop-color="#BAE6FD"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cuci warna kebun anggur di sudut -->
+  <rect width="180" height="170" fill="url(#w-ag)"/>
+
+  <!-- sulur anggur: batang meruncing bergradasi -->
+  <path d="M57.4 1.2C95.8 3 132.2 18.8 155.6 45.2C164.2 54.8 170.6 62.6 174.7 70.5L177.3 73.7C170.9 65.8 163.5 57.5 154.2 47.6C133 22 96.2 5.7 56.8 3.4Z" fill="url(#st-ag)"/>
+  <path d="M58.4 2C96.6 3.8 132.6 19.6 156 46C164.6 55.6 170.8 63.2 174.6 70.6" fill="none" stroke="#BBF7D0" stroke-width=".8" opacity=".5" stroke-linecap="round"/>
+  <path d="M155 48.6C134.2 23.4 97.4 7 57.4 4.8" fill="none" stroke="#14532D" stroke-width=".8" opacity=".3" stroke-linecap="round"/>
+  <!-- cabang penggantung gugus -->
+  <path d="M118 16C122.6 25.4 129.8 33.4 137.6 39.6" fill="none" stroke="url(#st-ag)" stroke-width="1.7" stroke-linecap="round" opacity=".8"/>
+
+  <!-- daun anggur besar: gradasi + urat + rim + bayang inti -->
+  <g transform="translate(92 18) rotate(-18)" stroke-linejoin="round">
+    <path d="M0 0C-10 -4 -22 -3 -27 4C-21 12 -9 12 -2 8C-.4 5.4 -.4 2.6 0 0Z" fill="url(#lf-ag)" stroke="#14532D" stroke-width=".8"/>
+    <path d="M-4.6 8.6C-11 10.6 -18 10 -23.6 6.4C-18 11.4 -9.6 11.6 -3.6 9Z" fill="#14532D" opacity=".2"/>
+    <path d="M-25.8 4.4C-20 -3.4 -9 -4.6 -2 -.8" fill="none" stroke="#D9F99D" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+    <g fill="none" stroke="#14532D" stroke-linecap="round">
+      <path d="M-1.6 .8C-9 .8 -17 2.8 -24.6 6.2" stroke-width=".9" opacity=".45"/>
+      <path d="M-10 1.4C-11.6 -1 -14 -2.6 -17 -3" stroke-width=".7" opacity=".32"/>
+      <path d="M-10 2C-11 4.8 -13.4 6.6 -16.4 7.4" stroke-width=".7" opacity=".32"/>
+    </g>
+    <!-- embun di daun -->
+    <ellipse cx="-16" cy="-1.6" rx="1.6" ry="2.2" fill="url(#dw-ag)" transform="rotate(-24 -16 -1.6)"/>
+    <circle cx="-16.7" cy="-2.5" r=".55" fill="#FFFFFF" opacity=".85"/>
+  </g>
+  <!-- daun anggur belakang, lebih gelap -->
+  <g transform="translate(160 44) rotate(24) scale(.8)" stroke-linejoin="round">
+    <path d="M0 0C-10 -4 -22 -3 -27 4C-21 12 -9 12 -2 8C-.4 5.4 -.4 2.6 0 0Z" fill="url(#lf2-ag)" stroke="#14532D" stroke-width=".9"/>
+    <path d="M-1.6 .8C-9 .8 -17 2.8 -24.6 6.2" fill="none" stroke="#14532D" stroke-width=".8" opacity=".4" stroke-linecap="round"/>
+  </g>
+
+  <!-- sulur spiral khas anggur -->
+  <path d="M170 92C176 88 180 92 176 96C172 100 167 97 169 92C171 88 166 87 165 91" fill="none" stroke="url(#st-ag)" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+  <path d="M152 104C155 101.6 158 103 156.6 105.8C155.6 107.6 152.8 107 153.4 105" fill="none" stroke="url(#st-ag)" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
+
+  <!-- tangkai gugus bergradasi -->
+  <path d="M140 46C139 40 137 34 133 29" fill="none" stroke="url(#sk-ag)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M138.8 45.4C138 40.4 136.4 35.4 133.6 31" fill="none" stroke="#FCD34D" stroke-width=".8" stroke-linecap="round" opacity=".5"/>
+
+  <!-- gugus anggur: baris belakang lebih gelap dulu -->
+  <g stroke="#6D28D9" stroke-width=".7">
+    <circle cx="132" cy="58" r="6.6" fill="url(#bb2-ag)"/>
+    <circle cx="147" cy="71" r="6.4" fill="url(#bb2-ag)"/>
+    <circle cx="137" cy="84" r="6" fill="url(#bb2-ag)"/>
+  </g>
+  <!-- baris depan: butir bola bergradasi -->
+  <g fill="url(#bb-ag)" stroke="#7C3AED" stroke-width=".8">
+    <circle cx="140" cy="52" r="7.4"/>
+    <circle cx="127" cy="60" r="7.2"/><circle cx="153" cy="60" r="7.2"/>
+    <circle cx="134" cy="73" r="7"/><circle cx="146" cy="73" r="7"/><circle cx="121" cy="72" r="6.4"/>
+    <circle cx="129" cy="86" r="6.6"/><circle cx="140" cy="87" r="6.6"/>
+    <circle cx="134.5" cy="99" r="6.2"/>
+  </g>
+  <!-- kilau spekular tiap butir sisi kiri-atas -->
+  <g fill="#FFFFFF" opacity=".72">
+    <circle cx="137.6" cy="49.6" r="1.7"/>
+    <circle cx="124.6" cy="57.8" r="1.5"/>
+    <circle cx="150.6" cy="57.8" r="1.5"/>
+    <circle cx="131.6" cy="70.6" r="1.4"/>
+    <circle cx="143.6" cy="70.6" r="1.4"/>
+    <circle cx="118.6" cy="69.8" r="1.3"/>
+    <circle cx="127" cy="83.6" r="1.3"/>
+    <circle cx="137.6" cy="84.6" r="1.3"/>
+    <circle cx="132.4" cy="96.6" r="1.2"/>
+  </g>
+
+  <!-- gugus muda sahabat -->
+  <g fill="url(#bb-ag)" stroke="#7C3AED" stroke-width=".9">
+    <circle cx="164" cy="112" r="4.6"/>
+    <circle cx="156" cy="118" r="4.2"/><circle cx="170" cy="118" r="4.2"/>
+    <circle cx="161" cy="125" r="3.8"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".7">
+    <circle cx="162.6" cy="110.6" r="1"/>
+    <circle cx="154.6" cy="116.6" r=".9"/>
+    <circle cx="168.6" cy="116.6" r=".9"/>
+  </g>
+  <path d="M164 108C163.6 105 162.8 102 161.4 99.6" fill="none" stroke="url(#sk-ag)" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- koin amber: muka radial, cincin, kecambah timbul, kilau sabit -->
+  <g>
+    <circle cx="68" cy="14" r="6.4" fill="url(#cn-ag)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="68" cy="14" r="4.7" fill="none" stroke="#F59E0B" stroke-width=".7" opacity=".55"/>
+    <path d="M68 17.6C68.2 16.2 69 15.2 70.3 14.8" fill="none" stroke="#B45309" stroke-width=".8" stroke-linecap="round" opacity=".9"/>
+    <path d="M70.3 14.8C70 13.4 70.8 12.2 72.1 12.4C72.3 13.7 71.5 14.8 70.3 14.8Z" fill="#D97706" opacity=".9"/>
+    <path d="M70.3 14.8C69.6 13.4 68.2 13 67.2 13.8C67.6 15.1 69 15.6 70.3 14.8Z" fill="#B45309" opacity=".9"/>
+    <path d="M64.2 11.2a5.6 5.6 0 0 1 3.8 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+    <circle cx="65.4" cy="11.4" r=".8" fill="#FFFBEB" opacity=".85"/>
+  </g>
+
+  <!-- percik kebun: titik berkilau -->
+  <g>
+    <circle cx="104" cy="48" r="2.6" fill="#FBBF24"/>
+    <circle cx="103.2" cy="47.2" r=".9" fill="#FEF3C7" opacity=".8"/>
+    <circle cx="112" cy="40" r="2.2" fill="#34D399" opacity=".9"/>
+    <circle cx="97" cy="58" r="2" fill="#86EFAC" opacity=".9"/>
+    <circle cx="97.6" cy="57.4" r=".7" fill="#D9F99D" opacity=".8"/>
+    <path d="M150 120l1.1 2.9 2.9 1.1 -2.9 1.1 -1.1 2.9 -1.1 -2.9 -2.9 -1.1 2.9 -1.1z" fill="#FBBF24" opacity=".9"/>
+    <circle cx="110" cy="72" r="1.6" fill="#FDE68A" opacity=".7"/>
+  </g>
+</svg>
