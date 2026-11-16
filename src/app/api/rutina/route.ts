@@ -24,6 +24,7 @@ export const dynamic = "force-dynamic";
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 const MAX_BODY_BYTES = 2 * 1024 * 1024;
 const LOCAL_DB = resolve(process.cwd(), "db", "rutina-preview.db");
+const TMP_DB = resolve("/tmp", "rutina-preview.db"); /* v3.02 · tangga darurat lambda read-only */
 const HTML_SNAPSHOT = resolve(process.cwd(), "public", "rutina.html");
 /* v2.64 · ETag — GET kini bisa menjawab 304 saat data tak berubah: payload
    penuh (73 KB terukur, ~192 B per transaksi baru) tak diunduh ulang di
@@ -55,11 +56,27 @@ const inVal = (v: unknown): InValue => {
 
 /* pemilihan klien */
 
-type DbTarget = { client: Client; source: "turso" | "local" };
+/* v3.02 · "database per 9 November selalu minta dihubungkan" — akar
+   masalahnya ada dua, keduanya kini ditangani:
+   (1) Turso terpasang tapi mati (DB di-pause/hapus, token kedaluwarsa):
+        dulu DDL di-bungkam per-pernyataan sehingga klien mati baru
+        ketahuan saat query pertama → 502 → klien selalu fallback ke
+        snapshot tertanam (beku di tanggal snapshot itu). Kini ada PROBE
+        SELECT 1 dengan alasan tersimpan; Turso mati → fallback ke
+        SQLite lokal + alasan dilaporkan ke klien.
+   (2) Tanpa env Turso di Vercel: filesystem lambda READ-ONLY →
+        mkdirSync(cwd/db) melempar EROFS → 503 selamanya. Kini jatuh ke
+        /tmp/rutina-preview.db (ditulis-boleh di Vercel) dengan flag
+        `volatile` — klien diberi tahu & menjaga jurnalnya (lihat
+        syncFlush di shell) sehingga tidak ada data hilang saat
+        instance dingin; data tetap permanen begitu Turso tersambung. */
+type DbTarget = { client: Client; source: "turso" | "local"; volatile?: boolean; reason?: string };
 
 let cachedTurso: Client | null = null;
 let tursoMigrated = false; /* v2.35 · migrasi kolom Atomic Habits sekali per proses */
-let cachedLocal: { client: Client; ready: Promise<void> } | null = null;
+let cachedLocal: { client: Client; ready: Promise<void>; volatile: boolean } | null = null;
+let tursoDownReason: string | null = null;
+let tursoProbeAt = 0; /* probe ulang tiap 10 menit — DB yang di-resume dipulihkan tanpa restart server */
 
 function tursoClient(): Client | null {
   const url = process.env.RUTINA_TURSO_URL?.trim();
@@ -69,9 +86,29 @@ function tursoClient(): Client | null {
   return cachedTurso;
 }
 
+function errText(error: unknown): string {
+  return String((error as Error)?.message ?? error).slice(0, 160);
+}
+
 async function getTarget(): Promise<DbTarget> {
   const turso = tursoClient();
   if (turso) {
+    const fresh = Date.now() - tursoProbeAt > 600_000;
+    if (tursoMigrated && !fresh) {
+      return { client: turso, source: "turso" };
+    }
+    /* v3.02 · PROBE — SELECT 1 murah; gagal berarti kredensial/DB bermasalah.
+       Alasan disimpan agar GET/POST bisa melaporkan APA yang salah
+       (401 = token, 404 = DB terhapus, jaringan, dst.) alih-alih 502 bisu. */
+    try {
+      await turso.execute("SELECT 1 AS ok");
+    } catch (error) {
+      tursoDownReason = errText(error);
+      console.error("[/api/rutina] Turso tak terjangkau — fallback lokal:", tursoDownReason);
+      return localTarget(tursoDownReason);
+    }
+    tursoDownReason = null;
+    tursoProbeAt = Date.now();
     /* v2.35 · pastikan kolom Atomic Habits hadir di database produksi.
        v2.58 · tabel Bugar juga dibuat idempoten di Turso (CREATE IF NOT
        EXISTS aman diputar ulang tiap boot proses). */
@@ -84,18 +121,47 @@ async function getTarget(): Promise<DbTarget> {
     }
     return { client: turso, source: "turso" };
   }
+  return localTarget(null);
+}
+
+/* v3.02 · SQLite lokal — dua anak tangga: direktori kerja (server biasa,
+   data abadi) lalu /tmp (lambda Vercel read-only, data per-instance).
+   `volatile` memberi tahu klien bahwa penyimpanan ini bisa menguap saat
+   instance dingin — klien lalu TIDAK membersihkan jurnalnya sehingga
+   seluruh riwayat tetap terdorong ulang ke server berikutnya. */
+async function localTarget(reason: string | null): Promise<DbTarget> {
   if (!cachedLocal) {
-    mkdirSync(dirname(LOCAL_DB), { recursive: true });
-    const client = createClient({ url: `file:${LOCAL_DB}` });
-    const ready = ensureLocalSchema(client).catch((error) => {
-      console.error("[/api/rutina] gagal menyiapkan database lokal:", error);
-      cachedLocal = null;
-      throw error;
-    });
-    cachedLocal = { client, ready };
+    const dirs: [string, boolean][] = [
+      [LOCAL_DB, false],
+      [TMP_DB, true],
+    ];
+    let lastError: unknown = null;
+    for (const [path, volatile] of dirs) {
+      try {
+        mkdirSync(dirname(path), { recursive: true });
+        const client = createClient({ url: `file:${path}` });
+        const ready = ensureLocalSchema(client).catch((error) => {
+          console.error("[/api/rutina] gagal menyiapkan database lokal:", error);
+          cachedLocal = null;
+          throw error;
+        });
+        cachedLocal = { client, ready, volatile };
+        break;
+      } catch (error) {
+        lastError = error; /* read-only/EROFS → coba anak tangga berikutnya */
+      }
+    }
+    if (!cachedLocal) {
+      throw lastError ?? new Error("Tak ada penyimpanan lokal yang tersedia.");
+    }
   }
-  await cachedLocal.ready;
-  return { client: cachedLocal.client, source: "local" };
+  await cachedLocal.ready; /* DDL & seed selesai SEBELUM klien dipakai — tanpa ini query pertama berlomba dengan pembuatan tabel */
+  return {
+    client: cachedLocal.client,
+    source: "local",
+    volatile: cachedLocal.volatile,
+    reason: reason ?? undefined,
+  };
 }
 
 /* skema lokal (pratinjau) */
@@ -128,6 +194,11 @@ const DDL: string[] = [
   `CREATE INDEX IF NOT EXISTS "idx_wset_workout" ON "WorkoutSet"("workoutId")`,
   `CREATE INDEX IF NOT EXISTS "idx_workout_date" ON "Workout"("date" DESC)`,
   `CREATE INDEX IF NOT EXISTS "idx_food_date" ON "FoodLog"("date" DESC)`,
+  /* v3.02 · COACH BUGAR — kesiapan harian (kunci tanggal, upsert idempoten
+     ala DailyLog) & target latihan per gerakan (kunci nama gerakan) yang
+     digerakkan mesin double-progression di shell. */
+  `CREATE TABLE IF NOT EXISTS "ReadinessLog"("date" TEXT PRIMARY KEY,"sleep" REAL,"doms" INTEGER,"stress" INTEGER,"energy" INTEGER)`,
+  `CREATE TABLE IF NOT EXISTS "ExTarget"("exercise" TEXT PRIMARY KEY,"weight" REAL,"reps" INTEGER)`,
 ];
 
 /* v2.35 · migrasi kolom Atomic Habits — ALTER per kolom; gagal "duplicate
@@ -369,7 +440,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings, workouts, wsets, foods, body] =
+    const [habits, groups, logs, options, finCats, txs, budgets, sources, daily, settings, workouts, wsets, foods, body, readiness, exTargets] =
       await Promise.all([
         target.client.execute(
           `SELECT "id","name","emoji","category","priority","difficulty","habitType","target","unit","reminder","groupId","mini","afterId","restDays" FROM "Habit" WHERE "isActive"=1 AND "isArchived"=0`,
@@ -396,6 +467,9 @@ export async function GET(request: Request) {
         target.client.execute(`SELECT "id","workoutId","exercise","reps","weight" FROM "WorkoutSet" ORDER BY "rowid"`),
         target.client.execute(`SELECT "id","date","meal","name","kcal","protein","carb","fat" FROM "FoodLog" ORDER BY "date" DESC`),
         target.client.execute(`SELECT "date","water","weight","recover" FROM "BodyLog"`),
+        /* v3.02 · coach Bugar — kesiapan harian & target per gerakan */
+        target.client.execute(`SELECT "date","sleep","doms","stress","energy" FROM "ReadinessLog"`),
+        target.client.execute(`SELECT "exercise","weight","reps" FROM "ExTarget"`),
       ]);
 
     const data = {
@@ -513,16 +587,29 @@ export async function GET(request: Request) {
         weight: r.weight == null ? null : num(r.weight),
         recover: Math.round(num(r.recover)),
       })),
+      /* v3.02 · coach Bugar */
+      readiness: readiness.rows.map((r) => ({
+        date: dpart(r.date),
+        sleep: num(r.sleep),
+        doms: Math.round(num(r.doms)),
+        stress: Math.round(num(r.stress)),
+        energy: Math.round(num(r.energy)),
+      })),
+      exTargets: exTargets.rows.map((r) => ({
+        exercise: str(r.exercise),
+        weight: num(r.weight),
+        reps: Math.round(num(r.reps)),
+      })),
     };
 
     return NextResponse.json(
-      { ok: true, source: target.source, fetchedAt: new Date().toISOString(), data },
+      { ok: true, source: target.source, volatile: target.volatile === true, reason: target.reason ?? null, fetchedAt: new Date().toISOString(), data },
       { headers: { "Cache-Control": "no-cache", ETag: etag } }, /* v2.64 · boleh tersimpan, WAJIB divalidasi ulang (ETag) */
     );
   } catch (error) {
     console.error("[/api/rutina] gagal membaca database:", error);
     return NextResponse.json(
-      { ok: false, error: "Gagal membaca database." },
+      { ok: false, error: "Gagal membaca database.", reason: errText(error) },
       { status: 502, headers: NO_STORE },
     );
   }
@@ -548,6 +635,9 @@ interface SetRow { id: string; exercise: string; reps: number; weight: number }
 interface WorkoutRow { id: string; date: string; kind: string; duration: number; distance: number | null; note: string; sets: SetRow[] }
 interface FoodRow { id: string; date: string; meal: string; name: string; kcal: number; protein: number; carb: number; fat: number }
 interface BodyRow { date: string; water: number; weight: number | null; recover: number }
+/* v3.02 · coach Bugar — kesiapan harian & target per gerakan */
+interface ReadinessRow { date: string; sleep: number; doms: number; stress: number; energy: number }
+interface ExTargetRow { exercise: string; weight: number; reps: number }
 interface Overlay {
   txAdd: TxRow[]; txEdit: Record<string, TxRow>; txDel: string[];
   budAdd: BudRow[]; budEdit: Record<string, BudRow>; budDel: string[];
@@ -561,6 +651,8 @@ interface Overlay {
   fitFAdd: FoodRow[]; fitFDel: string[]; /* v2.58 · asupan */
   bodyLog: Record<string, BodyRow>; /* v2.58 · tubuh per tanggal */
   fitness: string | null; /* v2.58 · sasaran Bugar (JSON teks, null = belum tersentuh) */
+  readiness: Record<string, ReadinessRow>; /* v3.02 · kesiapan (kunci = tanggal) */
+  fitTgt: Record<string, ExTargetRow>; /* v3.02 · target gerakan (kunci = nama gerakan) */
 }
 
 function asRecord(v: unknown): Record<string, unknown> {
@@ -783,6 +875,36 @@ function sanitizeOverlay(input: unknown): Overlay | null {
       return m;
     })(),
     fitness: typeof o.fitness === "string" && o.fitness.trim().startsWith("{") ? o.fitness.slice(0, 2000) : null,
+    /* v3.02 · coach Bugar — kesiapan (tanggal → nilai diklem) & target
+       gerakan (nama → beban/reps); keduanya upsert idempoten by key. */
+    readiness: (() => {
+      const m: Record<string, ReadinessRow> = {};
+      for (const [k, v] of Object.entries(asRecord(o.readiness))) {
+        const date = k.slice(0, 10);
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+        const r = asRecord(v);
+        m[date] = {
+          date,
+          sleep: clamp(num(r.sleep), 0, 16),
+          doms: Math.round(clamp(num(r.doms), 0, 5)),
+          stress: Math.round(clamp(num(r.stress), 0, 5)),
+          energy: Math.round(clamp(num(r.energy), 0, 5)),
+        };
+      }
+      return m;
+    })(),
+    fitTgt: (() => {
+      const m: Record<string, ExTargetRow> = {};
+      for (const [k, v] of Object.entries(asRecord(o.fitTgt))) {
+        const exercise = str(k).slice(0, 60);
+        if (!exercise) continue;
+        const r = asRecord(v);
+        const weight = clamp(num(r.weight), 1, 1000);
+        const reps = Math.round(clamp(num(r.reps), 1, 500));
+        if (weight > 0 && reps > 0) m[exercise] = { exercise, weight, reps };
+      }
+      return m;
+    })(),
   };
 }
 
@@ -829,7 +951,7 @@ export async function POST(request: Request) {
     if (target.source === "local") {
       try { await target.client.execute("PRAGMA wal_checkpoint(TRUNCATE)"); } catch { /* pembaca aktif — nanti saja */ }
     }
-    return NextResponse.json({ ok: true, source: target.source, ...result }, { headers: NO_STORE });
+    return NextResponse.json({ ok: true, source: target.source, volatile: target.volatile === true, reason: target.reason ?? null, ...result }, { headers: NO_STORE });
   } catch (error) {
     console.error("[/api/rutina] gagal menerapkan catatan:", error);
     return NextResponse.json({ ok: false, error: "Gagal menyimpan ke database." }, { status: 502, headers: NO_STORE });
@@ -1121,6 +1243,28 @@ async function applyOverlay(
       }
     });
   }
+
+  /* 14 · v3.02 · COACH — kesiapan harian: PRIMARY KEY tanggal = upsert
+         idempoten ala dailyLog/bodyLog (nilai terakhir menang). */
+  await batchRun("readiness", (S) => {
+    for (const r of Object.values(ov.readiness)) {
+      S.push({
+        sql: `INSERT OR REPLACE INTO "ReadinessLog"("date","sleep","doms","stress","energy") VALUES (?,?,?,?,?)`,
+        args: [r.date, r.sleep, r.doms, r.stress, r.energy],
+      });
+    }
+  });
+
+  /* 15 · v3.02 · COACH — target gerakan (double progression): PRIMARY KEY
+         nama gerakan = upsert; baris terakhir dari jurnal selalu menang. */
+  await batchRun("fitTgt", (S) => {
+    for (const t of Object.values(ov.fitTgt)) {
+      S.push({
+        sql: `INSERT OR REPLACE INTO "ExTarget"("exercise","weight","reps") VALUES (?,?,?)`,
+        args: [t.exercise, t.weight, t.reps],
+      });
+    }
+  });
 
   return { applied, failed };
 }

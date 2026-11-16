@@ -10,6 +10,21 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v3.02 COACH BUGAR + PERBAIKAN KONEKSI DATABASE: (1) AKAR "database per
+     9 November selalu minta dihubungkan": /api/rutina gagal senyap (Turso
+     mati tak terprose ATAU filesystem lambda read-only menolak db lokal)
+     → shell selalu jatuh ke snapshot tertanam yang beku 9 Nov; kini API
+     mem-probe Turso (alasan tersimpan), fallback /tmp ber-flag volatile,
+     shell 8-dtk timeout + alasan dipajang di pita data basi + jurnal TIDAK
+     dibersihkan saat volatile (nol data hilang). (2) FITUR COACH masuk tab
+     Bugar: kartu Kesiapan (tidur/DOMS/stres/energi → skor 0-100 → target
+     −15%/−30% otomatis), double progression per gerakan (target tersimpan,
+     pra-isi form latihan, naik 2,5 kg saat semua set tercapai, turun 10%
+     saat repetisi jauh tertinggal), PR e1RM Epley berlencana + hujan
+     botani, deteksi plateau 3 sesi → saran deload 7 hari 50% (satu ketuk),
+     guard latihan silang (kardio 4+/7 hari atau lari 3 hari berturut,
+     anti-spam mingguan), timer istirahat 90 dtk (cincin + bip 3-2-1 +
+     suara). Tabel baru ReadinessLog & ExTarget — jurnal overlay idempoten. -->
 <!-- v2.90 ANGGARAN ILUSTRASI (audit desainer mobile profesional): ya,
      ilustrasinya KEBANYAKAN — 8-9 lapisan dekor per layar menyaingi data.
      Anggaran baru: 1 MOMEN per layar (hero + splash + empty state),
@@ -426,6 +441,45 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 
 /* grafik & target bugar */
 .fit-chart-note{margin-top:10px;font-size:12px;color:var(--ink-3)}
+/* ===== v3.02 · COACH BUGAR — kesiapan, pesan coach, timer istirahat ===== */
+@media (max-width:640px){.hide-sm{display:none}}
+/* kesiapan: baris pertanyaan (label + skala 1–5 / jam tidur) ala form app */
+.rd-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line-soft)}
+.rd-row:first-child{border-top:none}
+.rd-lab{font-size:13px;font-weight:600;color:var(--ink);flex:1;min-width:0}
+.rd-lab small{display:block;font-weight:500;font-size:11.5px;color:var(--ink-3);margin-top:1px}
+.rd-scale{display:flex;gap:4px;flex:none}
+.rd-opt{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font:inherit;font-size:13px;font-weight:700;color:var(--ink-3);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .15s,color .15s,background .15s,transform .15s;padding:0}
+.rd-opt:hover{border-color:var(--terra);color:var(--terra-deep)}
+.rd-opt[aria-pressed="true"]{background:var(--terra-strong);border-color:var(--terra-strong);color:#fff;transform:scale(1.06)}
+.rd-num{width:88px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font:inherit;font-size:13px;font-weight:700;color:var(--ink);text-align:center;padding:0 6px}
+.rd-num:focus{outline:none;border-color:var(--terra);box-shadow:0 0 0 3px rgba(16,185,129,.18)}
+.rd-note{margin-top:10px;padding:10px 12px;border-radius:var(--r-md);background:var(--terra-softer);border:1px solid rgba(5,150,105,.16);font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.rd-note b{color:var(--terra-deep)}
+/* pesan coach: baris ikon-teks + tombol aksi */
+.coach-msg{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--line-soft)}
+.coach-msg:first-child{border-top:none;padding-top:2px}
+.coach-msg .cm-art{flex:none;width:38px;height:38px;border-radius:12px;background:var(--surface-2);display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2)}
+.coach-msg .cm-art.sage{background:var(--terra-softer);color:var(--terra-deep)}
+.coach-msg .cm-art.honey{background:var(--honey-soft);color:var(--honey-deep)}
+.coach-msg .cm-art.rose{background:var(--rose-softer);color:var(--rose-deep)}
+.coach-msg .cm-art.sky{background:var(--sky-soft);color:var(--sky-deep)}
+.coach-msg .cm-txt{flex:1;min-width:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.coach-msg .cm-txt b{color:var(--ink);font-weight:700}
+.coach-msg .cm-act{flex:none;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+/* timer istirahat */
+.sheet-rest{max-width:380px}
+.rest-body{display:flex;flex-direction:column;gap:14px;align-items:center}
+.rest-ring-wrap{position:relative;width:168px;height:168px;margin-top:6px}
+.rest-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.rest-ring .rr-bg{fill:none;stroke:var(--line-soft);stroke-width:9}
+.rest-ring .rr-fg{fill:none;stroke:var(--terra);stroke-width:9;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:0;transition:stroke-dashoffset .95s linear,stroke .3s}
+.rest-ring.rr-hot .rr-fg{stroke:var(--honey)}
+.rest-ring-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rest-ring-num .t-num{font-size:44px;font-weight:700;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.rest-ring-num small{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.rest-ctl{display:flex;gap:8px;width:100%}
+.rest-ctl .btn{flex:1}
 .tg-row{margin-bottom:12px}
 .tg-lab{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;margin-bottom:5px}
 .tg-lab small{color:var(--ink-3);font-weight:600}
@@ -3116,7 +3170,10 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <p class="t-sub" id="bugarSub" aria-live="polite">Latihan beban &amp; kardio, asupan kalori, dan tubuhmu.</p>
       </div>
     </div>
-    <button class="btn btn-primary" data-open-modal="modalWorkout"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat latihan</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="btn btn-ghost" data-open-modal="modalRest" aria-label="Timer istirahat antar set"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span class="hide-sm">Timer</span></button>
+      <button class="btn btn-primary" data-open-modal="modalWorkout"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat latihan</button>
+    </div>
   </div>
 
   <!-- ANAK TAB BUGAR — pola .fin-tab dipakai ulang (kontrol segmen tab) -->
@@ -3163,6 +3220,41 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <span class="spot"><svg class="ill" aria-hidden="true"><use href="#i-flame"/></svg></span>
       <div><div class="num t-num" id="bgKcal">–</div><div class="lbl" id="bgKcalLbl">Kkal terbakar pekan ini</div></div>
     </div>
+  </div>
+
+  <!-- PESAN COACH (v3.02) — kumpulan keputusan mesin coach: naik beban,
+       PR baru, plateau & deload, saran latihan silang. Baris pesan bisa
+       beraksi (mulai/akhiri deload). -->
+  <div class="card card-pad" id="coachStrip" hidden>
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+        <div>
+          <div class="eyebrow">Coach bugar</div>
+          <h3 class="h-serif">Pesan coach</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="coachStripPill">–</span>
+    </div>
+    <div id="coachStripBody"></div>
+  </div>
+
+  <!-- KESIAPAN LATIHAN (v3.02) — check-in 4 pertanyaan → skor 0–100 →
+       target hari ini menyesuaikan (moderat: beban −15% & −1 set;
+       rendah: −30% & saran sesi ringan). Disimpan per tanggal. -->
+  <div class="card card-pad" id="readinessCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art sage"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span>
+        <div>
+          <div class="eyebrow">Coach bugar</div>
+          <h3 class="h-serif">Kesiapan latihan</h3>
+        </div>
+      </div>
+      <span class="pill" id="rdPill" style="background:var(--surface-2);color:var(--ink-2)">–</span>
+    </div>
+    <p class="t-sub" id="rdSub" style="margin-bottom:10px">Check-in singkat sebelum latihan — coach menyesuaikan targetmu dari sini.</p>
+    <div id="rdBody"></div>
   </div>
 
   <!-- BUKU BEBAN (v2.58) — sesi terakhir per gerakan: set × rep × kg,
@@ -4082,6 +4174,37 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 </div>
 
+<!-- MODAL: TIMER ISTIRAHAT (v3.02 · coach) — cincin hitung mundur antar
+     set; bunyi bip pada 3 detik terakhir + suara "Ayo, set berikutnya!". -->
+<div class="modal" id="modalRest" role="dialog" aria-modal="true" aria-labelledby="restTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet sheet-rest">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Coach bugar</div><h3 class="h-serif" id="restTitle">Timer istirahat</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sheet-body rest-body">
+      <div class="rest-ring-wrap">
+        <svg class="rest-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="rr-bg" cx="60" cy="60" r="52"/>
+          <circle class="rr-fg" id="restRingFg" cx="60" cy="60" r="52"/>
+        </svg>
+        <div class="rest-ring-num"><span class="t-num" id="restNum">90</span><small>detik</small></div>
+      </div>
+      <p class="t-sub" id="restHint" style="text-align:center">Tarik napas — catat setmu, cincin ini yang menjaga ritmemu.</p>
+      <div class="rest-ctl">
+        <button type="button" class="btn btn-ghost" id="restMinus">−15 dtk</button>
+        <button type="button" class="btn btn-ghost" id="restPlus">+15 dtk</button>
+      </div>
+      <div class="rest-ctl">
+        <button type="button" class="btn btn-primary" id="restRestart"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Ulangi 90 dtk</button>
+        <button type="button" class="btn btn-ghost" id="restSkip">Selesai</button>
+      </div>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Bunyi bip pada 3 detik terakhir, lalu suara coach memanggilmu kembali.</p>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL: ASUPAN (v2.58) -->
 <div class="modal" id="modalFood" role="dialog" aria-modal="true" aria-labelledby="fdTitle">
   <div class="modal-backdrop" data-close></div>
@@ -4662,7 +4785,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
    tab Pengaturan. v3.01: audit gradasi & tema — ramp bahaya pink disatukan
    ke merah, kepala kartu arus kas pindah keluarga cream-sage, indigo & pink
    pensiun dari seluruh permukaan. */
-const APP_VERSION='v3.01';
+const APP_VERSION='v3.02';
 $$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -4718,16 +4841,24 @@ let snapshot=null;
 let RAW_LIVE=''; /* v2.42 · sidik karakt data hidup (JSON.stringify payload) — dibandingkan dengan snapshot tertanam untuk memutuskan perlu repaint */
 try{snapshot=snapEl?JSON.parse(snapEl.textContent):null}catch(_){}
 let DB=null, LIVE=false, DBAT='', DBSRC='';
+/* v3.02 · DBVOL = server memakai penyimpanan sesi (/tmp lambda) yang bisa
+   menguap saat instance dingin — jurnal klien TIDAK dibersihkan supaya
+   seluruh riwayat terdorong ulang; DBERR = alasan koneksi gagal (dipajang
+   di pita data basi supaya "kenapa selalu minta dihubungkan" terjawab). */
+let DBVOL=false, DBERR='';
 async function loadData(){
   try{
-    const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),4500);
+    const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),8000); /* v3.02 · 4,5→8 dtk: lambda dingin + jabat tangan Turso kerap menembus 4,5 dtk */
     /* v2.64 · 'no-cache' + ETag server: data tersimpan di HTTP cache tapi
        WAJIB divalidasi ulang tiap muat — 304 = nol byte body diundul ulang
        (73 KB terukur) saat isinya tak berubah sejak POST terakhir. */
     const r=await fetch('/api/rutina',{cache:'no-cache',signal:ctl.signal});
     clearTimeout(t);
-    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}}
-  }catch(err){}
+    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';DBVOL=j.volatile===true;DBERR=j.reason?String(j.reason):'';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}}
+    /* v3.02 · respons ok:false membawa alasan (mis. "Turso: 401") —
+       disimpan untuk pita data basi, bukan ditelan diam-diam. */
+    if(r.ok){try{const j=await r.json();if(j&&j.error)DBERR=String(j.error).slice(0,120)}catch(_){}}
+  }catch(err){if(String(err).includes('abort'))DBERR='Server tidak menjawab dalam 8 detik'}
   if(snapshot&&snapshot.ok){DB=snapshot.data;DBAT=snapshot.fetchedAt||''}
 }
 
@@ -4739,7 +4870,7 @@ let OV=null;
 const isLocalId=id=>String(id||'').startsWith('local-');
 const budKey=(c,m)=>c+'|'+m;
 const logKey=(h,d)=>h+'|'+d;
-function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[],identityText:null,habitMeta:{},dailyLog:{},fitWAdd:[],fitWDel:[],fitFAdd:[],fitFDel:[],bodyLog:{},fitness:null}}
+function ovBlank(){return{v:1,txAdd:[],txEdit:{},txDel:[],budAdd:[],budEdit:{},budDel:[],habitAdd:[],habitDel:[],logAdd:{},logDel:{},srcAdd:[],srcEdit:{},srcDel:[],catRename:{},catDel:[],identityText:null,habitMeta:{},dailyLog:{},fitWAdd:[],fitWDel:[],fitFAdd:[],fitFDel:[],bodyLog:{},fitness:null,readiness:{},fitTgt:{}}}
 function ovLoad(){
   let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
@@ -4759,6 +4890,7 @@ function ovCount(){if(!OV)return 0;
     +(OV.identityText!=null?1:0)+Object.keys(OV.habitMeta||{}).length /* v2.35 */
   +Object.keys(OV.dailyLog||{}).length /* v2.39 · check-in harian */
   +OV.fitWAdd.length+OV.fitWDel.length+OV.fitFAdd.length+OV.fitFDel.length /* v2.58 · latihan & asupan */
+  +Object.keys(OV.readiness||{}).length+Object.keys(OV.fitTgt||{}).length /* v3.02 · coach */
   +Object.keys(OV.bodyLog||{}).length+(OV.fitness!=null?1:0) /* v2.58 · tubuh & sasaran */
 }
 /* terapkan lapisan lokal di atas data yang baru dimuat — gabung BY-ID supaya
@@ -4867,6 +4999,20 @@ function ovApply(){
     DB.bodyLogs=[...bMap.values()];
   }
   if(typeof OV.fitness==='string'&&DB.settings)DB.settings={...DB.settings,fitness:OV.fitness};
+  /* v3.02 · COACH — kesiapan (kunci tanggal) & target gerakan (kunci nama):
+     peta jurnal menimpa baris server, pola bodyLog/dailyLog. */
+  const rj=OV.readiness||{};
+  if(Object.keys(rj).length){
+    const rMap=new Map((DB.readiness||[]).map(r=>[r.date,r]));
+    Object.entries(rj).forEach(([k,v])=>rMap.set(k,{date:k,...v}));
+    DB.readiness=[...rMap.values()];
+  }
+  const tj=OV.fitTgt||{};
+  if(Object.keys(tj).length){
+    const tMap=new Map((DB.exTargets||[]).map(t=>[t.exercise,t]));
+    Object.entries(tj).forEach(([k,v])=>tMap.set(k,{exercise:k,...v}));
+    DB.exTargets=[...tMap.values()];
+  }
   /* v2.27 · rapikan spasi ganda pada nama (audit: kategori "🛠️  Servis
      Motor"). Dilakukan SETELAH pemetaan jurnal supaya kunci jurnal lama
      (memakai nama asli) tetap cocok; dimensi berbasis nama (kategori,
@@ -4935,14 +5081,20 @@ async function syncFlush(){
     const j=await r.json();
     if(j&&j.ok){
       if(j.source)DBSRC=j.source;
+      DBVOL=j.volatile===true; /* v3.02 */
       if(!j.failed||!j.failed.length){
         finMetaDirty=false; /* v2.64 · daftar anggaran/kategori tersimpan — tak perlu dikirim ulang sampai berubah */
-        if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
+        /* v3.02 · penyimpanan sesi (volatile): jurnal TIDAK dibersihkan —
+           instance dingin bisa menguapkan data server; jurnal penuh yang
+           menjamin riwayat terdorong ulang & tetap utuh di perangkat. */
+        if(DBVOL){persistRaw();scheduleSync()}
+        else if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
         else scheduleSync(); /* ada edit selama pengiriman — antre ulang (idempoten) */
         paintSyncRow();
         if(syncToastAt&&Date.now()-syncToastAt<4500){
           syncToastAt=0;
-          toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database'),'Catatanmu kini permanen di database; aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
+          if(DBVOL)toast('Tersimpan di penyimpanan sesi','Server memakai penyimpanan sementara (Turso belum tersambung). Data tetap aman lengkap di perangkat ini dan akan dipindah otomatis begitu database permanen tersambung.','i-leaf','honey');
+          else toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database'),'Catatanmu kini permanen di database; aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
         }
       }else paintSyncRow();
     }else paintSyncRow();
@@ -4953,6 +5105,12 @@ function paintSyncRow(){
   const el=$('#setSyncNote');if(!el||!DB)return;
   const n=ovCount();
   if(!LIVE){el.innerHTML='<b style="color:var(--honey-deep)">Offline</b> · '+(n?n+' catatan aman di perangkat, ':'')+'menunggu server tersambung untuk disinkronkan.';return}
+  if(DBVOL){ /* v3.02 · mode penyimpanan sesi — jujur soal sifatnya */
+    el.innerHTML=n
+      ?`Mengirim ke <b>penyimpanan sesi server</b>… <b style="color:var(--honey-deep)">${n} catatan</b> juga tersimpan aman di perangkat.`
+      :`<b style="color:var(--honey-deep)">Penyimpanan sesi</b> — data lengkap tersimpan di perangkat ini; atur <b>RUTINA_TURSO_URL</b> + <b>RUTINA_TURSO_TOKEN</b> agar permanen di cloud.`;
+    return
+  }
   const tujuan=DBSRC==='turso'?'Turso':'database server';
   el.innerHTML=n
     ?`Mengirim ke <b>${tujuan}</b>… <b style="color:var(--honey-deep)">${n} catatan</b> menunggu terkirim.`
@@ -5418,6 +5576,7 @@ const inited={heatmap:false,cal:false,wawasan:false,set:false,bugar:false};
 const TITLES={ringkasan:'Ringkasan',kebiasaan:'Kebiasaan',bugar:'Bugar',keuangan:'Keuangan',kalender:'Kalender',wawasan:'Analisis',pengaturan:'Pengaturan'};
 let HABITS=[],GROUPS=[],HCAT={},FINCATS=[],SOURCES=[],TXS=[],BUDGETS=[],DAILY={},SETTINGS=null;
 let WORKOUTS=[],FOODS=[],BODY={},FIT=null; /* v2.58 · tab Bugar: latihan, asupan, tubuh & sasaran */
+let READINESS={},EXTGT={}; /* v3.02 · coach: kesiapan per tanggal & target per gerakan */
 let logsByDate={},doneToday={},valueToday={},months=[],WS=1;
 let DOWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
 
@@ -5489,6 +5648,9 @@ function prepData(){
   FOODS=(DB.foodLogs||[]).map(f=>({...f})).sort(byDateDesc);
   BODY={};(DB.bodyLogs||[]).forEach(b=>BODY[b.date]=b);
   FIT=fitParse(DB.settings&&DB.settings.fitness);
+  /* v3.02 · COACH — indeks kesiapan & target gerakan */
+  READINESS={};(DB.readiness||[]).forEach(r=>READINESS[r.date]=r);
+  EXTGT={};(DB.exTargets||[]).forEach(t=>EXTGT[t.exercise]=t);
   months=[...new Set(TXS.map(t=>t.date.slice(0,7)))].sort();
   finDirty(); /* v2.64 · data segar dimuat → agregat lama tidak berlaku */
   state.finMonth=months[months.length-1]||'ALL';
@@ -6336,6 +6498,10 @@ function fitParse(s){
     Object.keys(FIT_CAPS).forEach(k=>{
       const v=Math.round(+j[k]);if(v>0)o[k]=Math.min(v,FIT_CAPS[k])});
     const g=+j.weightGoal;if(g>=20&&g<=400)o.weightGoal=g;else if(g===0)o.weightGoal=null;
+    /* v3.02 · COACH — deload mingguan: tanggal berakhir YYYY-MM-DD (atau
+       null saat tak aktif). Pelepasan kunci (delete) saat diakhiri. */
+    const du=String(j.deloadUntil||'');
+    if(/^\d{4}-\d{2}-\d{2}$/.test(du))o.deloadUntil=du;else delete o.deloadUntil;
   }}catch(_){}
   return o;
 }
@@ -6343,6 +6509,289 @@ function fitParse(s){
    terbaru, jatuh ke 65 kg bila belum pernah menimbang */
 const KCAL_MET={beban:5,jalan:3.5,lari:9.8,kombinasi:6};
 const bodyWeight=()=>{const ws=Object.entries(BODY).filter(([k,b])=>b.weight>0).sort((a,b)=>b[0].localeCompare(a[0]));return ws.length?ws[0][1].weight:65};
+
+/* =====================================================================
+   v3.02 · MESIN COACH BUGAR — kesiapan harian, double progression,
+   PR e1RM (Epley), deteksi plateau & deload, guard latihan silang.
+   Semua keputusan dihitung dari data latihan sendiri (WORKOUTS/READINESS/
+   EXTGT) dan ditulis lewat jurnal overlay idempoten — pola sinkronisasi
+   aplikasi tidak berubah.
+   ===================================================================== */
+/* e1RM Epley: beban × (1 + reps/30) — estimasi kekuatan lintas rep-range */
+const e1rmWR=(kg,reps)=>kg*(1+reps/30);
+const roundKg=kg=>Math.max(1,Math.round(kg/2.5)*2.5); /* anak tangga lempeng 2,5 kg */
+/* kesiapan: skor 0–100 — tidur 30%, energi 30%, pegal 20% (dibalik), stres 20% (dibalik) */
+function readinessScore(r){
+  if(!r)return null;
+  const sleep=Math.max(0,Math.min(100,(r.sleep||0)/9*100));        /* 0–9+ jam */
+  const energy=Math.max(0,Math.min(100,((r.energy||3)-1)/4*100)); /* 1–5 */
+  const doms=Math.max(0,Math.min(100,100-((r.doms||3)-1)/4*100));  /* 1=segar */
+  const stress=Math.max(0,Math.min(100,100-((r.stress||3)-1)/4*100));
+  return Math.round(sleep*.3+energy*.3+doms*.2+stress*.2);
+}
+const RD_LEVELS=[{min:80,key:'PRIME',lbl:'Prime',note:'Tubuhmu siap — saatnya mengejar target penuh!'},{min:60,key:'GOOD',lbl:'Siap',note:'Kondisi baik — jalankan target seperti biasa.'},{min:40,key:'MODERAT',lbl:'Moderat',note:'Beban hari ini kuturunkan 15% — fokus kualitas gerakan.'},{min:0,key:'LOW',lbl:'Pemulihan',note:'Tubuhmu minta istirahat — sarananku sesi ringan, beban −30%.'}];
+function readinessLevel(score){return score==null?null:RD_LEVELS.find(l=>score>=l.min)}
+/* penyesuaian target hari ini: kesiapan moderat −15%, rendah −30%,
+   deload mingguan aktif −50%; hasil = beban dibulatkan ke lempeng 2,5 kg */
+function coachAdjust(){
+  const sc=readinessScore(READINESS[dayKey(TODAY)]);
+  const lvl=sc==null?null:readinessLevel(sc);
+  const deloadOn=FIT&&FIT.deloadUntil&&FIT.deloadUntil>=dayKey(TODAY);
+  let mult=1,sets=0,why=[];
+  if(lvl&&lvl.key==='MODERATE'){mult*=.85;sets=1;why.push('kesiapan moderat: beban −15%, −1 set')}
+  if(lvl&&lvl.key==='LOW'){mult*=.70;sets=1;why.push('kesiapan rendah: beban −30%, −1 set')}
+  if(deloadOn){mult*=.5;why.push('deload: intensitas 50%')}
+  return{score:sc,lvl,deloadOn,mult,sets,why};
+}
+/* target tampil hari ini untuk satu gerakan (dengan penyesuaian) */
+function coachTargetFor(name){
+  const t=EXTGT[name];
+  if(!t)return null;
+  const a=coachAdjust();
+  const w=roundKg(t.weight*a.mult);
+  const r=Math.max(1,t.reps-(a.sets?1:0));
+  return{weight:w,reps:r,base:t,adj:a};
+}
+/* histori per gerakan: sesi yang memuat gerakan itu, terbaru dulu */
+const sessionsOf=name=>WORKOUTS.filter(w=>w.kind==='beban'&&(w.sets||[]).some(s=>s.exercise===name));
+const bestE1rmOf=(name,excludeId)=>{
+  let best=0;
+  WORKOUTS.forEach(w=>{if(w.id===excludeId||w.kind!=='beban')return;(w.sets||[]).forEach(s=>{if(s.exercise===name){const e=e1rmWR(s.weight,s.reps);if(e>best)best=e}})});
+  return best;
+};
+/* plateau: e1RM terbaik 3 sesi terakhir bergerak ≤2% (atau menurun terus) */
+function plateauOf(name){
+  const ss=sessionsOf(name).slice(0,3);
+  if(ss.length<3)return null;
+  const es=ss.map(w=>Math.max(...w.sets.filter(s=>s.exercise===name).map(s=>e1rmWR(s.weight,s.reps))));
+  const mx=Math.max(...es),mn=Math.min(...es);
+  const flat=(mx-mn)<=mx*.02;
+  const down=es[0]<es[1]&&es[1]<es[2];
+  return flat||down?{name,es,flat}:null;
+}
+/* DELOAD — simpan tanggal berakhir di sasaran (JSON), jurnal fitness */
+function deloadSet(on){
+  if(!FIT)FIT=fitParse(DB.settings&&DB.settings.fitness);
+  const o={...FIT};
+  if(on)o.deloadUntil=dayKey(addDays(new Date(TODAY),7));
+  else delete o.deloadUntil;
+  FIT=o;
+  OV.fitness=JSON.stringify(o);
+  ovPersist();armSyncToast();refit();
+  toast(on?'Deload 7 hari dimulai':'Deload diakhiri',on?'Semua target beban dipangkas 50% selama seminggu ke depan — pemulihan adalah latihan juga.':'Target kembali penuh — selamat latihan kembali!','i-leaf',on?'honey':'sage');
+}
+/* GUARD LATIHAN SILANG — kardio ≥4×/7 hari ATAU lari 3 hari berturut;
+   saran maksimal 1×/minggu (stempel minggu di localStorage) */
+function crossTrainingAdvice(){
+  const wk=dayKey(TODAY);
+  const seven=WORKOUTS.filter(w=>w.kind!=='beban'&&w.date&&wk>=w.date&&w.date>dayKey(addDays(new Date(TODAY),-7)));
+  if(seven.length<4)return null;
+  let run=0,maxRun=0,prev=null;
+  [...seven].reverse().forEach(w=>{if(w.kind==='lari'){run=prev&&dayKey(addDays(new Date(prev+'T00:00:00'),1))===w.date?run+1:1;maxRun=Math.max(maxRun,run);prev=w.date}});
+  if(maxRun<3&&seven.length<5)return null;
+  return{count:seven.length,maxRun};
+}
+function crossAdviceDue(){
+  try{
+    const stamp='rutina.xfit.'+dayKey(TODAY).slice(0,7);
+    return localStorage.getItem(stamp)!=='1';
+  }catch(_){return true}
+}
+function crossAdviceStamp(){try{localStorage.setItem('rutina.xfit.'+dayKey(TODAY).slice(0,7),'1')}catch(_){}}
+/* PROGRESSION — dipanggil setelah sesi beban tersimpan; bandingkan
+   performa vs target: semua set mencapai reps target pada beban target
+   → naik 2,5 kg; semua set jauh di bawah (−2 rep) → turun 10% (kualitas
+   dulu); sisanya tahan. Keputusan masuk jurnal fitTgt (idempoten by nama). */
+function coachProgress(w){
+  const byEx={};
+  (w.sets||[]).forEach(s=>{(byEx[s.exercise]=byEx[s.exercise]||[]).push(s)});
+  const ups=[],downs=[],keeps=[];
+  Object.entries(byEx).forEach(([name,sets])=>{
+    if(!sets.length)return;
+    const tgt=EXTGT[name];
+    const topW=Math.max(...sets.map(s=>s.weight));
+    const minTop=Math.min(...sets.filter(s=>s.weight>=topW).map(s=>s.reps));
+    if(!tgt){
+      /* gerakan baru: baseline = set terberat hari ini */
+      EXTGT[name]={exercise:name,weight:roundKg(topW),reps:Math.max(1,minTop)};
+      OV.fitTgt[name]={...EXTGT[name]};keeps.push(name);
+      return;
+    }
+    if(minTop>=tgt.reps&&topW>=tgt.weight){
+      const nw=roundKg(tgt.weight+2.5);
+      EXTGT[name]={exercise:name,weight:nw,reps:tgt.reps};
+      OV.fitTgt[name]={...EXTGT[name]};
+      ups.push({name,from:tgt.weight,to:nw,reps:tgt.reps});
+    }else if(minTop<=tgt.reps-2&&topW<=tgt.weight){
+      const nw=roundKg(tgt.weight*.9);
+      EXTGT[name]={exercise:name,weight:nw,reps:tgt.reps};
+      OV.fitTgt[name]={...EXTGT[name]};
+      downs.push({name,from:tgt.weight,to:nw,why:'repetisi jauh di bawah target — turunkan beban, fokus teknik'});
+    }else keeps.push(name);
+  });
+  return{ups,downs,keeps};
+}
+
+/* ---- render kesiapan ---- */
+const RD_ROWS=[
+  {k:'sleep',lab:'Tidur semalam',sub:'jam',type:'num'},
+  {k:'doms',lab:'Pegal / DOMS',sub:'1 segar · 5 sekali banget',type:'scale',lo:'segar',hi:'parah'},
+  {k:'stress',lab:'Stres',sub:'1 tenang · 5 terbebani',type:'scale',lo:'tenang',hi:'tekanan'},
+  {k:'energy',lab:'Energi',sub:'1 lemas · 5 penuh',type:'scale',lo:'lemas',hi:'penuh'},
+];
+function renderReadiness(){
+  const body=$('#rdBody'),pill=$('#rdPill');
+  if(!body||!pill)return;
+  const tk=dayKey(TODAY);
+  const r=READINESS[tk]||{sleep:7,doms:1,stress:1,energy:4};
+  const sc=readinessScore(READINESS[tk]);
+  const lvl=sc==null?null:readinessLevel(sc);
+  pill.textContent=sc==null?'Belum check-in':'Skor '+sc+(lvl?' · '+lvl.lbl:'');
+  pill.style.background=sc==null?'var(--surface-2)':'var(--terra-softer)';
+  pill.style.color=sc==null?'var(--ink-2)':'var(--terra-deep)';
+  body.innerHTML=RD_ROWS.map(row=>{
+    const v=row.type==='num'?(r[row.k]??7):(r[row.k]??3);
+    if(row.type==='num')return`<div class="rd-row" data-rd-row="${row.k}">
+      <span class="rd-lab">${row.lab}<small>${row.sub}</small></span>
+      <div class="rd-scale"><input type="text" class="rd-num" inputmode="decimal" data-rd-num="${row.k}" value="${v}" aria-label="${row.lab} (jam)"></div>
+    </div>`;
+    return`<div class="rd-row" data-rd-row="${row.k}">
+      <span class="rd-lab">${row.lab}<small>${row.sub}</small></span>
+      <div class="rd-scale" role="group" aria-label="${row.lab} (1 sampai 5)">
+        ${[1,2,3,4,5].map(n=>`<button type="button" class="rd-opt" data-rd-scale="${row.k}" data-rd-val="${n}" aria-pressed="${v===n?'true':'false'}" aria-label="${row.lab} ${n} dari 5">${n}</button>`).join('')}
+      </div>
+    </div>`;
+  }).join('')+(sc==null?'':`<div class="rd-note"><b>${lvl?lvl.lbl:'—'} — </b>${sc&&lvl?lvl.note:''}</div>`);
+}
+function readinessSave(k,v){
+  const tk=dayKey(TODAY);
+  const r={sleep:7,doms:1,stress:1,energy:4,...(READINESS[tk]||{}),[k]:v};
+  READINESS[tk]=r;
+  OV.readiness[tk]={...r};
+  ovPersist();armSyncToast();
+  renderReadiness();renderCoachStrip();
+}
+function readinessBind(){
+  const body=$('#rdBody');if(!body)return;
+  body.querySelectorAll('[data-rd-scale]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      readinessSave(b.dataset.rdScale,Math.round(+b.dataset.rdVal));
+      haptic(8);
+    });
+  });
+  body.querySelectorAll('[data-rd-num]').forEach(inp=>{
+    inp.addEventListener('change',()=>{
+      const v=parseFloat(String(inp.value).replace(',','.'));
+      readinessSave(inp.dataset.rdNum,isNaN(v)||v<0?0:Math.min(24,v));
+    });
+  });
+}
+
+/* ---- render strip pesan coach ---- */
+function coachMsgHTML(icon,tint,html,act){
+  return`<div class="coach-msg">
+    <span class="cm-art ${tint||''}"><svg class="ic" aria-hidden="true"><use href="#${icon}"/></svg></span>
+    <p class="cm-txt">${html}</p>
+    ${act?`<span class="cm-act">${act}</span>`:''}
+  </div>`;
+}
+function renderCoachStrip(){
+  const strip=$('#coachStrip'),body=$('#coachStripBody'),pill=$('#coachStripPill');
+  if(!strip||!body||!pill)return;
+  const msgs=[];
+  const a=coachAdjust();
+  const tk=dayKey(TODAY);
+  /* deload aktif → baris status */
+  if(a.deloadOn){
+    const left=Math.round((new Date(FIT.deloadUntil+'T00:00:00')-new Date(tk+'T00:00:00'))/86400000);
+    msgs.push(coachMsgHTML('i-clock','honey',`<b>Deload aktif</b> — intensitas 50% · sisa ${left<0?0:left} hari. Kejar teknik, bukan angka.`,`<button type="button" class="btn btn-ghost btn-sm" data-coach-deload="off">Akhiri sekarang</button>`));
+  }
+  /* kesiapan hari ini */
+  if(a.score!=null&&a.lvl)msgs.push(coachMsgHTML('i-heart',a.lvl.key==='LOW'?'rose':a.lvl.key==='MODERATE'?'honey':'sage',`<b>Kesiapan ${a.score} · ${a.lvl.lbl}.</b> ${a.why.length?a.why.join('; ')+'.':a.lvl.note}`,a.lvl.key==='LOW'&&!a.deloadOn?`<button type="button" class="btn btn-ghost btn-sm" data-coach-deload="on">Sarankan deload</button>`:''));
+  else msgs.push(coachMsgHTML('i-heart','',`Belum check-in hari ini — jawab empat pertanyaan di kartu Kesiapan dan target latihanmu akan kusesuaikan.`));
+  /* plateau → saran deload */
+  const plats=[];
+  Object.keys(EXTGT).forEach(n=>{const p=plateauOf(n);if(p)plats.push(p)});
+  if(plats.length&&!a.deloadOn){
+    const names=plats.slice(0,2).map(p=>`<b>${p.name}</b>`).join(' & ');
+    msgs.push(coachMsgHTML('i-chart','honey',`Performa ${names}${plats.length>2?' (+lainnya)':''} stagnan 3 sesi terakhir. Minggu deload 50% bisa memecah kebuntuan.`,`<button type="button" class="btn btn-ghost btn-sm" data-coach-deload="on">Mulai deload 7 hari</button>`));
+  }
+  /* PR terbaru */
+  const prEx=Object.keys(EXTGT).map(n=>({n,e:bestE1rmOf(n)})).filter(x=>x.e>0).sort((x,y)=>y.e-x.e)[0];
+  if(prEx)msgs.push(coachMsgHTML('i-sparkle','sage',`Rekor e1RM tertinggi: <b>${prEx.n} ≈ ${Math.round(prEx.e*10)/10} kg</b> — pecahkan lagi kapan pun kamu siap.`));
+  /* guard latihan silang */
+  const xt=crossTrainingAdvice();
+  if(xt&&crossAdviceDue()){
+    msgs.push(coachMsgHTML('i-target','sky',`<b>${xt.count} sesi kardio dalam 7 hari</b>${xt.maxRun>=3?' termasuk lari '+xt.maxRun+' hari berturut':''} — badan butuh variasi. Campur latihan kekuatan atau jalan santai agar lutut & tumit terlindungi.`));
+  }
+  strip.hidden=!msgs.length;
+  pill.textContent=msgs.length?msgs.length+' pesan':'–';
+  body.innerHTML=msgs.join('');
+}
+function coachStripBind(){
+  const strip=$('#coachStrip');if(!strip)return;
+  strip.querySelectorAll('[data-coach-deload]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      crossAdviceStamp();
+      deloadSet(b.dataset.coachDeload==='on');
+    });
+  });
+}
+
+/* ---- timer istirahat ---- */
+let restTimer=null;
+function restBeep(){
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;
+    restTimer.ac=restTimer.ac||new C();
+    const ac=restTimer.ac,o=ac.createOscillator(),g=ac.createGain();
+    o.type='sine';o.frequency.value=880;
+    g.gain.setValueAtTime(.12,ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.18);
+    o.connect(g);g.connect(ac.destination);
+    o.start();o.stop(ac.currentTime+.2);
+  }catch(_){}
+}
+function restSpeak(){
+  try{
+    const u=new SpeechSynthesisUtterance('Ayo, set berikutnya!');
+    u.lang='id-ID';u.rate=1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }catch(_){}
+}
+function restStop(){
+  if(restTimer&&restTimer.tick){clearInterval(restTimer.tick);restTimer.tick=null}
+}
+function restStart(sec){
+  const num=$('#restNum'),fg=$('#restRingFg'),svg=document.querySelector('.rest-ring');
+  if(!num||!fg)return;
+  restStop();
+  restTimer={left:sec,total:sec,tick:null,ac:restTimer?restTimer.ac:null};
+  num.textContent=Math.ceil(sec);
+  const CIRC=2*Math.PI*52;
+  fg.style.strokeDasharray=String(CIRC);
+  fg.style.strokeDashoffset='0';
+  if(svg)svg.classList.remove('rr-hot');
+  restTimer.tick=setInterval(()=>{
+    restTimer.left--;
+    if(restTimer.left<=0){
+      num.textContent='0';
+      fg.style.strokeDashoffset=String(CIRC);
+      restStop();restBeep();setTimeout(restBeep,180);restSpeak();
+      toast('Waktunya!','Istirahat selesai — ayo, set berikutnya!','i-flame','sage');
+      return;
+    }
+    num.textContent=String(restTimer.left);
+    fg.style.strokeDashoffset=String(CIRC*(1-restTimer.left/restTimer.total));
+    if(svg&&restTimer.left<=3){svg.classList.add('rr-hot');restBeep()}
+  },1000);
+}
+function restAdjust(d){
+  const cur=Math.max(5,(restTimer?restTimer.left:90)+d);
+  restStart(cur);
+}
+
 const kcalOf=w=>Math.round((KCAL_MET[w.kind]||5)*bodyWeight()*(w.duration||0)/60);
 const paceMinOf=w=>w.distance>0&&w.duration>0?w.duration/w.distance:0;
 const paceStr=m=>{if(!m)return '–';const t=Math.round(m*60);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
@@ -6445,13 +6894,18 @@ function renderBebanCard(){
       const cmp=exCompare(ex,w,prev);
       const pv=cur.reduce((a,s)=>a+s.reps*s.weight,0);
       const e1=Math.max(...cur.map(e1rmOf));
+      /* v3.02 · coach — lencana PR (e1RM sesi terakhir = rekor sepanjang
+         waktu) + target berikutnya dari mesin progression */
+      const best=bestE1rmOf(ex);
+      const isPr=e1>=best-0.001&&best>0;
+      const tgt=EXTGT[ex];
       return `<div class="wk-ex">
         <div class="wk-ex-head">
           <div class="wk-ex-name"><svg class="ic" aria-hidden="true" style="color:${KIND_TINT.beban}"><use href="#i-bugar"/></svg>${esc(ex)}</div>
-          <div class="wk-vol">${Math.round(pv)} kg tonase</div>
+          <div class="wk-vol">${isPr?`<span class="pill" style="background:var(--terra-softer);color:var(--terra-deep);margin-right:6px">PR</span>`:''}${Math.round(pv)} kg tonase</div>
         </div>
         <div class="wk-sets">${cur.map((s,i)=>`<span class="wk-set">${i+1}× <b>${s.reps}</b> rep · <b>${s.weight}</b> kg</span>`).join('')}</div>
-        ${cmp?cmpChip(cmp.dv)+`<span class="wk-cmp" style="display:flex;margin-top:3px;font-size:11.5px;color:var(--ink-3)">set terberat ${cmp.ct} kg${cmp.ct!==cmp.pt?` (${cmp.ct>cmp.pt?'naik':'turun'} dari ${cmp.pt} kg)`:' · sama'} · e1RM ~${Math.round(e1)} kg</span>`:`<span class="wk-cmp"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span>gerakan baru; sesi berikutnya dibandingkan otomatis</span></span>`}
+        ${cmp?cmpChip(cmp.dv)+`<span class="wk-cmp" style="display:flex;margin-top:3px;font-size:11.5px;color:var(--ink-3)">set terberat ${cmp.ct} kg${cmp.ct!==cmp.pt?` (${cmp.ct>cmp.pt?'naik':'turun'} dari ${cmp.pt} kg)`:' · sama'} · e1RM ~${Math.round(e1)} kg${tgt?` · target berikutnya ${tgt.weight} kg × ${tgt.reps}`:''}</span>`:`<span class="wk-cmp"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span>gerakan baru; sesi berikutnya dibandingkan otomatis${tgt?` · target ${tgt.weight} kg × ${tgt.reps}`:''}</span></span>`}
       </div>`;
     }).join('')}
     <div class="hy-act" style="margin-top:6px">
@@ -6754,6 +7208,8 @@ function renderBugar(){
   renderFitCharts();renderFitTarget();
   renderKaloriCard();renderMutasiKal();
   renderHidrasiCard();renderBeratCard();renderPulihCard();fillSasaran();
+  renderReadiness();readinessBind(); /* v3.02 · coach — kesiapan + strip pesan */
+  renderCoachStrip();coachStripBind();
 }
 function refit(){if(inited.bugar)quietPaint(renderBugar)} /* v2.64 · refit hanya dipanggil dari jalur data (simpan/hapus bugar) → hening */
 function goBugarSection(sec){
@@ -6816,7 +7272,15 @@ function addExBlock(name){
     <div class="ex-sets"></div>
     <button type="button" class="btn btn-ghost btn-sm" data-set-add><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Set</button>`;
   list.appendChild(div);
-  addSetRow(div);
+  /* v3.02 · COACH — praisi set pertama dari target hari ini (kesiapan &
+     deload sudah ikut dihitung), hint menjelaskan asal angka */
+  const tgt=nm?coachTargetFor(nm):null;
+  addSetRow(div,tgt?{reps:tgt.reps,kg:tgt.weight}:null);
+  if(tgt&&tgt.base){
+    const h=div.querySelector('[data-ex-hint]');
+    const naik=tgt.base.weight>tgt.weight?` (dipangkas: ${tgt.adj.why.join('; ')})`:(tgt.base.weight<tgt.weight?` (dinaikkan progresi)`:'');
+    h.textContent=`${hint?hint+' · ':''}target coach hari ini ${tgt.weight} kg × ${tgt.reps}${naik}`;
+  }
   const nameInput=div.querySelector('.ex-name');
   nameInput.addEventListener('change',()=>{
     const v=nameInput.value.trim();
@@ -6826,18 +7290,30 @@ function addExBlock(name){
       const prevW=WORKOUTS.find(w=>w.kind==='beban'&&w.sets&&w.sets.some(s=>s.exercise===v));
       if(prevW){const sets=prevW.sets.filter(s=>s.exercise===v);t=`terakhir ${tglPendek(prevW.date)}: ${sets.map(s=>s.weight+'kg×'+s.reps).join(' · ')} (${Math.round(sets.reduce((a,s)=>a+s.reps*s.weight,0))} kg tonase)`}
     }
-    h.textContent=t;
+    /* v3.02 · COACH — nama gerakan dikenali → pra-isi set yang masih kosong
+       dengan target hari ini (kesiapan & deload sudah dihitung) + jelaskan
+       asal angkanya; set yang sudah diisi pengguna tak disentuh. */
+    const tgt=v?coachTargetFor(v):null;
+    if(tgt&&tgt.base){
+      const naik=tgt.base.weight>tgt.weight?` (dipangkas: ${tgt.adj.why.join('; ')})`:(tgt.base.weight<tgt.weight?` (dinaikkan progresi)`:'');
+      h.textContent=`${t?t+' · ':''}target coach hari ini ${tgt.weight} kg × ${tgt.reps}${naik}`;
+      div.querySelectorAll('.set-row').forEach(r=>{
+        const ri=r.querySelector('.set-reps'),ki=r.querySelector('.set-kg');
+        if(ri&&!ri.value)ri.value=tgt.reps;
+        if(ki&&!ki.value)ki.value=tgt.weight;
+      });
+    }else h.textContent=t;
   });
 }
-function addSetRow(block){
+function addSetRow(block,pre){
   const sets=block.querySelector('.ex-sets');if(!sets)return;
   const div=document.createElement('div');
   div.className='set-row';
   const i=sets.children.length+1;
   div.innerHTML=`
     <span class="set-no">${i}</span>
-    <div class="field" style="margin:0"><div class="money"><span>rep</span><input type="text" class="set-reps" inputmode="numeric" autocomplete="off" placeholder="8"></div></div>
-    <div class="field" style="margin:0"><div class="money"><span>kg</span><input type="text" class="set-kg" inputmode="decimal" autocomplete="off" placeholder="40"></div></div>
+    <div class="field" style="margin:0"><div class="money"><span>rep</span><input type="text" class="set-reps" inputmode="numeric" autocomplete="off" placeholder="8" value="${pre&&pre.reps?pre.reps:''}"></div></div>
+    <div class="field" style="margin:0"><div class="money"><span>kg</span><input type="text" class="set-kg" inputmode="decimal" autocomplete="off" placeholder="40" value="${pre&&pre.kg?pre.kg:''}"></div></div>
     <button type="button" class="set-del" data-set-del aria-label="Buang set"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>`;
   sets.appendChild(div);
 }
@@ -6868,6 +7344,19 @@ function saveWorkout(e){
   WORKOUTS.unshift(w);
   WORKOUTS.sort(byDateDesc);
   OV.fitWAdd.push({id:w.id,date,kind,duration:dur,distance:dist,note:w.note,sets:sets.map(s=>({...s}))});
+  /* v3.02 · COACH — keputusan progresi (double progression) + deteksi PR
+     dihitung SETELAH sesi masuk deret; PR membandingkan e1RM sesi baru vs
+     seluruh histori (sesi baru dikecualikan lewat id). */
+  let coach=null,prs=[];
+  if(kind==='beban'&&sets.length){
+    const preBest={};
+    [...new Set(sets.map(s=>s.exercise))].forEach(n=>preBest[n]=bestE1rmOf(n,w.id));
+    coach=coachProgress(w);
+    [...new Set(sets.map(s=>s.exercise))].forEach(n=>{
+      const nb=Math.max(...sets.filter(s=>s.exercise===n).map(s=>e1rmWR(s.weight,s.reps)));
+      if(nb>(preBest[n]||0)+.25)prs.push({name:n,e1rm:nb});
+    });
+  }
   ovPersist();armSyncToast();
   closeModals();
   /* v2.61 · render bugar (~12 renderer) satu frame kemudian — pola simpan transaksi */
@@ -6875,6 +7364,20 @@ function saveWorkout(e){
   haptic(14);
   if(!reduced)botaniRain({kinds:['leaf','sparkle'],n:9});
   toast('Latihan tersimpan',kind==='beban'?`${sets.length} set tercatat · ${Math.round(volOf(w))} kg tonase; sesi berikutnya akan dibandingkan.`:(dist?`${dist} km · ${dur} menit · pace ${paceStr(paceMinOf(w))}/km.`:`${dur} menit tercatat.`),'i-check','sage');
+  /* v3.02 · COACH — umpan balik progresi & PR (toast susul); kardio →
+     guard latihan silang (maks 1×/minggu). */
+  if(coach){
+    if(coach.ups.length)setTimeout(()=>toast('Beban naik — progresi!',coach.ups.map(u=>`${u.name}: ${u.from} → ${u.to} kg × ${u.reps} (semua set tercapai)`).join(' · ')+'. Kerja bagus!','i-sparkle','sage'),650);
+    if(coach.downs.length)setTimeout(()=>toast('Beban diturunkan sementara',coach.downs.map(d=>`${d.name}: ${d.from} → ${d.to} kg`).join(' · ')+' — fokus kualitas gerakan, naik lagi setelah repetisi kembali tercapai.','i-leaf','honey'),coach.ups.length?1400:650);
+    if(prs.length)setTimeout(()=>{if(!reduced)botaniRain({kinds:['sparkle','leaf'],n:16});toast('Rekor baru!',prs.map(p=>`${p.name} — e1RM ≈ ${Math.round(p.e1rm*10)/10} kg`).join(' · ')+'. Kamu lebih kuat dari sebelumnya!','i-sparkle','sage')},coach.ups.length?coach.downs.length?2150:1400:650);
+  }
+  if(kind!=='beban'){
+    const xt=crossTrainingAdvice();
+    if(xt&&crossAdviceDue()){
+      crossAdviceStamp();
+      setTimeout(()=>toast('Variasikan gerakan',`${xt.count} sesi kardio dalam 7 hari${xt.maxRun>=3?' (lari '+xt.maxRun+' hari berturut)':''} — campur latihan kekuatan atau jalan santai agar lutut & tumit terlindungi.`,'i-target','sky'),900);
+    }
+  }
 }
 function delWorkout(id){
   const w=WORKOUTS.find(x=>x.id===id);if(!w)return;
@@ -6973,7 +7476,13 @@ document.addEventListener('click',e=>{
   const setdel=e.target.closest('[data-set-del]');
   if(setdel){const r=setdel.closest('.set-row');if(r)r.remove();return}
   const setadd=e.target.closest('[data-set-add]');
-  if(setadd){const bl=setadd.closest('.ex-block');if(bl)addSetRow(bl);return}
+  if(setadd){const bl=setadd.closest('.ex-block');if(bl){
+    /* v3.02 · coach — set berikutnya mengikuti angka set pertama blok ini */
+    const first=bl.querySelector('.set-row .set-reps'),firstKg=bl.querySelector('.set-row .set-kg');
+    const pr=first?parseInt(String(first.value).replace(/[^\d]/g,''),10):0;
+    const pk=firstKg?parseFloat(String(firstKg.value).replace(',','.')):0;
+    addSetRow(bl,pr>0||pk>0?{reps:pr||null,kg:pk||null}:null);
+  }return}
   const exadd=e.target.closest('#wkAddEx');
   if(exadd){addExBlock('');return}
   if(e.target.closest('#bwSave')){
@@ -6998,6 +7507,12 @@ document.addEventListener('change',e=>{
   }
 });
 if($('#formWorkout'))$('#formWorkout').addEventListener('submit',saveWorkout);
+/* v3.02 · COACH — tombol timer istirahat (modalRest); interval berhenti
+   sendiri di nol, atau diganti saat timer dijalankan ulang/diatur. */
+if($('#restMinus'))$('#restMinus').addEventListener('click',()=>restAdjust(-15));
+if($('#restPlus'))$('#restPlus').addEventListener('click',()=>restAdjust(15));
+if($('#restRestart'))$('#restRestart').addEventListener('click',()=>restStart(90));
+if($('#restSkip'))$('#restSkip').addEventListener('click',()=>{restStop();closeModals();toast('Istirahat selesai','Kamu yang pegang kendali — kembali latihan kapan pun siap.','i-check','sage')});
 if($('#formFood'))$('#formFood').addEventListener('submit',saveFood);
 if($('#bugarTabs'))$('#bugarTabs').addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
@@ -8925,6 +9440,7 @@ document.addEventListener('click',e=>{
     else if(mid==='modalBudget')resetBudgetModal();
     else if(mid==='modalSource')resetSourceModal();
     else if(mid==='modalWorkout')resetWorkoutModal(opener.dataset.wkKind); /* v2.58 · preselect jenis dari kartu asal */
+    else if(mid==='modalRest')restStart(90); /* v3.02 · coach — timer istirahat selalu mulai segar 90 dtk */
     else if(mid==='modalFood')resetFoodModal();
     else if(mid==='modalHabit'){$('#formHabit').reset();resetHabitModal();pickedIcon='ill-bangun';renderIconPicker();fillHabitSelects()}
     openModal(mid,opener);return}
@@ -10295,7 +10811,9 @@ let staleTries=0;
 function staleDate(){try{return new Date(DBAT).toLocaleDateString('id-ID',{day:'numeric',month:'short'})}catch(_){return 'terakhir tersimpan'}}
 function staleArm(){
   const bar=$('#staleBar');if(!bar||!bar.hidden)return;
-  $('#staleTxt').textContent=`Data per ${staleDate()}; koneksi database belum terjangkau.`;
+  /* v3.02 · alasan kegagalan dipajang — "selalu minta dihubungkan" kini
+     menjelaskan dirinya (token ditolak / DB terhapus / server lambat). */
+  $('#staleTxt').textContent=`Data per ${staleDate()}; koneksi database belum terjangkau.`+(DBERR?` (${DBERR})`:'');
   bar.hidden=false;
   staleTries=0;
   setTimeout(staleRetry,9000); /* v2.42 · coba ulang otomatis (backoff 9/18/27 dtk) */
