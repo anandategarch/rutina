@@ -10,6 +10,12 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v3.02.1 PERBAIKAN IKATAN PENDENGAR KOACH: renderReadiness/renderCoachStrip
+     mengganti innerHTML wadah tiap simpan → tombol skala Kesiapan & tombol
+     deload di strip Pesan coach lahir ulang TANPA pendengar setelah klik
+     pertama (gejala: satu input jalan, sisanya mati). Kini readinessBind &
+     coachStripBind memakai DELEGASI ke wadah kekal (#rdBody, #coachStrip)
+     dengan penjaga data-bound — ikatan tak putus lagi oleh render ulang. -->
 <!-- v3.02 COACH BUGAR + PERBAIKAN KONEKSI DATABASE: (1) AKAR "database per
      9 November selalu minta dihubungkan": /api/rutina gagal senyap (Turso
      mati tak terprose ATAU filesystem lambda read-only menolak db lokal)
@@ -4785,7 +4791,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
    tab Pengaturan. v3.01: audit gradasi & tema — ramp bahaya pink disatukan
    ke merah, kepala kartu arus kas pindah keluarga cream-sage, indigo & pink
    pensiun dari seluruh permukaan. */
-const APP_VERSION='v3.02';
+const APP_VERSION='v3.02.1';
 $$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -6672,18 +6678,23 @@ function readinessSave(k,v){
   renderReadiness();renderCoachStrip();
 }
 function readinessBind(){
+  /* v3.02.1 · DELEGASI: renderReadiness mengganti innerHTML #rdBody tiap
+     simpan — ikatan langsung ke tombol putus setelah klik pertama (tombol
+     baru lahir tanpa pendengar). Ikat sekali ke wadah yang kekal;
+     penjaga data-bound mencegah tumpuk pendengar saat renderBugar ulang. */
   const body=$('#rdBody');if(!body)return;
-  body.querySelectorAll('[data-rd-scale]').forEach(b=>{
-    b.addEventListener('click',()=>{
-      readinessSave(b.dataset.rdScale,Math.round(+b.dataset.rdVal));
-      haptic(8);
-    });
+  if(body.dataset.bound)return;body.dataset.bound='1';
+  body.addEventListener('click',e=>{
+    const b=e.target.closest('[data-rd-scale]');
+    if(!b)return;
+    readinessSave(b.dataset.rdScale,Math.round(+b.dataset.rdVal));
+    haptic(8);
   });
-  body.querySelectorAll('[data-rd-num]').forEach(inp=>{
-    inp.addEventListener('change',()=>{
-      const v=parseFloat(String(inp.value).replace(',','.'));
-      readinessSave(inp.dataset.rdNum,isNaN(v)||v<0?0:Math.min(24,v));
-    });
+  body.addEventListener('change',e=>{
+    const inp=e.target.closest('[data-rd-num]');
+    if(!inp)return;
+    const v=parseFloat(String(inp.value).replace(',','.'));
+    readinessSave(inp.dataset.rdNum,isNaN(v)||v<0?0:Math.min(24,v));
   });
 }
 
@@ -6729,12 +6740,16 @@ function renderCoachStrip(){
   body.innerHTML=msgs.join('');
 }
 function coachStripBind(){
+  /* v3.02.1 · DELEGASI: renderCoachStrip juga mengganti isi strip pada
+     tiap readinessSave/renderBugar — tombol deload lahir ulang tanpa
+     pendengar. Ikat sekali ke #coachStrip yang kekal. */
   const strip=$('#coachStrip');if(!strip)return;
-  strip.querySelectorAll('[data-coach-deload]').forEach(b=>{
-    b.addEventListener('click',()=>{
-      crossAdviceStamp();
-      deloadSet(b.dataset.coachDeload==='on');
-    });
+  if(strip.dataset.bound)return;strip.dataset.bound='1';
+  strip.addEventListener('click',e=>{
+    const b=e.target.closest('[data-coach-deload]');
+    if(!b)return;
+    crossAdviceStamp();
+    deloadSet(b.dataset.coachDeload==='on');
   });
 }
 
