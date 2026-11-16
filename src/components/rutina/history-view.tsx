@@ -97,7 +97,7 @@ function SessionCard({ session }: { session: SessionDTO }) {
   const TypeIcon = meta.icon;
 
   return (
-    <Card className="volt-edge gap-0 py-4">
+    <Card className="terra-edge gap-0 py-4">
       <CardContent className="px-4 sm:px-5">
         {/* Baris judul */}
         <button

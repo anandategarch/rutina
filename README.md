@@ -24,12 +24,12 @@ mengetahui seluruh data latihanmu. Seluruh antarmuka dalam Bahasa Indonesia.
 ## Tech Stack
 
 - **Next.js 16** (App Router) + **TypeScript** + **React 19**
-- **Tailwind CSS 4** + **shadcn/ui** (tema kustom "Volt Dark": hitam atletik + aksen lime)
+- **Tailwind CSS 4** + **shadcn/ui** (tema kustom **"Evergreen"**: terang & tenang, utama terra `#10B981`/`#047857`, tinta `#0F172A`, latar `#F8FAFC` — satu keluarga desain dengan Rutina PWA utama; mode gelap opsional "Evergreen Night")
 - **Prisma ORM** + SQLite (`db/custom.db`, auto-seed 5 minggu data demo saat pertama kali dijalankan)
 - **TanStack Query** (server state) + **Zustand** (UI state)
 - **recharts** (grafik) + **framer-motion** (animasi) + **lucide-react** (ikon)
 - **z-ai-web-dev-sdk** (LLM, hanya di backend) untuk AI Coach
-- Font: **Archivo** (display) + **Geist** (body/mono)
+- Font: **Geist** (display + body) + **Geist Mono**
 
 ## Menjalankan Secara Lokal
 
@@ -89,5 +89,7 @@ src/components/rutina/      # Today, Readiness, Alerts, Session, RestTimer,
 
 - Zona waktu semua logika "hari" mengikuti **Asia/Jakarta (WIB)**.
 - UI bilingual tidak diperlukan — full Bahasa Indonesia.
-- Tema gelap default (bisa toggle terang), responsif mobile-first dengan
-  bottom navigation & sidebar desktop.
+- Tema terang default "Evergreen" (bisa toggle ke "Evergreen Night"), responsif
+  mobile-first dengan bottom navigation & sidebar desktop.
+- Token tema diambil langsung dari design system Rutina PWA: `--terra-strong` untuk
+  tombol utama, gradasi hero `#F0FDF4 → #ECFDF5 → #D1FAE5`, radius kartu 12/16/20 px.

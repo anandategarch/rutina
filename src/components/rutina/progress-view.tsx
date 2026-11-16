@@ -207,7 +207,7 @@ export function ProgressView() {
       </div>
 
       {/* ===== Target mingguan ===== */}
-      <Card className="volt-edge gap-0 py-4">
+      <Card className="terra-edge gap-0 py-4">
         <CardContent className="px-4 sm:px-6">
           <div className="flex items-end justify-between gap-3">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -371,7 +371,7 @@ export function ProgressView() {
                   </span>
                 </p>
                 {selected.plateau ? (
-                  <p className="flex items-start gap-1.5 text-xs font-medium text-amber-400">
+                  <p className="flex items-start gap-1.5 text-xs font-medium text-amber-600 dark:text-amber-400">
                     <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                     {selectedPlateau?.detail ?? "e1RM stagnan pada beberapa sesi terakhir."}
                   </p>
@@ -389,14 +389,14 @@ export function ProgressView() {
       />
 
       {data.deload.active ? (
-        <Card className="border-amber-400/30 bg-amber-400/5 gap-0 py-4">
+        <Card className="border-amber-500/30 bg-amber-100/60 gap-0 py-4 dark:bg-amber-400/10">
           <CardContent className="flex flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-400/15">
-                <BatteryCharging className="h-5 w-5 text-amber-400" />
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15">
+                <BatteryCharging className="h-5 w-5 text-amber-600 dark:text-amber-400" />
               </span>
               <div>
-                <p className="font-display text-sm font-extrabold uppercase tracking-tight text-amber-400">
+                <p className="font-display text-sm font-extrabold uppercase tracking-tight text-amber-700 dark:text-amber-400">
                   Deload Week aktif
                 </p>
                 <p className="mt-0.5 text-sm text-muted-foreground">
@@ -477,7 +477,7 @@ export function ProgressView() {
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.prs.map((pr) => (
-            <Card key={pr.id} className="volt-edge gap-0 py-4">
+            <Card key={pr.id} className="terra-edge gap-0 py-4">
               <CardContent className="px-4 sm:px-5">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex min-w-0 items-center gap-2">

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 
-// ---- Header judul section (Archivo uppercase, gaya atletik) ----
+// ---- Header judul section (Geist uppercase, gaya atletik) ----
 export function SectionHeader({
   title,
   subtitle,

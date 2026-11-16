@@ -6,8 +6,8 @@ import {
   Dumbbell,
   Flame,
   MessageCircle,
+  Sprout,
   TrendingUp,
-  Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/rutina/shared";
@@ -52,7 +52,7 @@ export default function Home() {
             aria-label="Rutina — kembali ke Hari Ini"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <Zap className="h-4.5 w-4.5 text-primary-foreground" strokeWidth={2.5} />
+              <Sprout className="h-4.5 w-4.5 text-primary-foreground" strokeWidth={2.5} />
             </span>
             <span className="font-display text-lg font-black uppercase tracking-tight">
               Rutina

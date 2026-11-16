@@ -100,7 +100,7 @@ function PlanItemCard({ item, index }: { item: PlanItemDTO; index: number }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.05, 0.3) }}
-      className="volt-edge rounded-xl border border-border/70 bg-card p-4 pl-5 sm:p-5 sm:pl-6"
+      className="terra-edge rounded-xl border border-border/70 bg-card p-4 pl-5 sm:p-5 sm:pl-6"
     >
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
         <h3 className="font-display text-base font-extrabold uppercase tracking-tight sm:text-lg">
@@ -252,7 +252,7 @@ export function TodayView() {
       {/* ===== HERO ===== */}
       <section
         aria-label="Ringkasan hari ini"
-        className="relative overflow-hidden rounded-xl border border-border/70 bg-card bg-volt-grid p-5 sm:p-6"
+        className="hero-evergreen relative overflow-hidden rounded-xl p-5 sm:p-6"
       >
         <p className="text-xs font-bold uppercase tracking-widest text-primary">
           {greetingText()}

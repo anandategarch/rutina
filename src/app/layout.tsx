@@ -1,14 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/rutina/providers";
 import { Toaster } from "@/components/ui/sonner";
-
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
-});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,9 +30,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0C0E",
+  themeColor: "#F8FAFC",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -47,9 +42,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="dark" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body
-        className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
       >
         <Providers>{children}</Providers>
         <Toaster position="top-center" richColors closeButton />

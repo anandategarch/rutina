@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Loader2, Send, Trash2, Zap } from "lucide-react";
+import { Loader2, Send, Sprout, Trash2 } from "lucide-react";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
 import {
@@ -71,7 +71,7 @@ function CoachAvatar({ size = "sm" }: { size?: "sm" | "lg" }) {
       }
       aria-hidden="true"
     >
-      <Zap
+      <Sprout
         className={size === "lg" ? "h-7 w-7 text-primary-foreground" : "h-3.5 w-3.5 text-primary"}
         strokeWidth={2.5}
       />
@@ -273,7 +273,7 @@ export function CoachChatView() {
       <CardHeader className="flex-row items-center justify-between gap-3 border-b border-border/60 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary">
-            <Zap className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
+            <Sprout className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
           </span>
           <div className="min-w-0">
             <CardTitle className="font-display text-base font-extrabold uppercase tracking-tight">
