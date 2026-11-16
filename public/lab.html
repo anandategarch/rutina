@@ -1,0 +1,2309 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rutina CSS Lab — Kebun Efek CSS</title>
+<meta name="description" content="Kebun efek CSS murni untuk Rutina: 39 efek dengan demo langsung dan kode siap salin — tombol, loader, teks, latar, kartu, input, toggle, dan animasi. Tanpa JavaScript pada tiap efek.">
+<meta name="theme-color" content="#F8FAFC">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* ============================================================
+   RUTINA CSS LAB — kebun efek CSS (satu berkas, tanpa build)
+   Mengikuti sistem desain Evergreen Rutina: Geist, terra/sage/
+   honey, bayangan berlapis, radius 12/16/20, ease "tunas".
+   Seluruh CSS efek disuntikkan runtime dari data FX di bawah —
+   kode yang tampil di dialog = kode yang menjalankan demo.
+   ============================================================ */
+@font-face{font-family:"Geist";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/geist-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/geist-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:light;
+  accent-color:#10B981;
+  scrollbar-gutter:stable;
+  --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F1F5F9;
+  --line:#E2E8F0; --line-soft:#EEF2F6;
+  --ink:#0F172A; --ink-2:#475569; --ink-3:#64748B;
+  --terra:#10B981; --terra-deep:#047857; --terra-soft:#D1FAE5; --terra-softer:#ECFDF5;
+  --honey:#F59E0B; --honey-soft:#FEF3C7; --honey-deep:#B45309;
+  --rose:#EF4444; --rose-soft:#FEE2E2;
+  --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --shadow-sm:0 0 0 1px rgba(16,24,40,.035),0 1px 2px rgba(16,24,40,.04),0 3px 8px -2px rgba(16,24,40,.05),0 8px 20px -6px rgba(16,24,40,.05);
+  --shadow-md:0 0 0 1px rgba(16,24,40,.05),0 2px 4px -1px rgba(16,24,40,.05),0 6px 12px -3px rgba(16,24,40,.07),0 16px 32px -8px rgba(16,24,40,.09);
+  --shadow-lg:0 0 0 1px rgba(16,24,40,.05),0 2px 4px -1px rgba(16,24,40,.03),0 8px 16px -4px rgba(16,24,40,.05),0 20px 40px -8px rgba(16,24,40,.07),0 40px 80px -16px rgba(16,24,40,.09);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Geist","Segoe UI",system-ui,-apple-system,sans-serif;
+  color:var(--ink);background-color:var(--bg);
+  background-image:radial-gradient(var(--line-soft) 1px,transparent 1.2px);
+  background-size:22px 22px;
+  -webkit-font-smoothing:antialiased;
+  font-size-adjust:from-font;
+}
+.shell{min-height:100dvh;display:flex;flex-direction:column}
+::selection{background:var(--terra-soft);color:var(--terra-deep)}
+
+/* ---------- HEADER ---------- */
+.lab-top{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--bg) 88%,#fff);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-soft);
+}
+.lab-top-in{
+  max-width:1240px;margin:0 auto;padding:12px clamp(16px,4vw,28px);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;flex:none}
+.brand-mark{
+  width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:none;
+  background:linear-gradient(135deg,#10B981,#047857);color:#ECFDF5;
+  box-shadow:0 6px 14px -6px rgba(16,185,129,.55),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.brand-mark svg{width:21px;height:21px}
+.brand b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.015em;line-height:1.1}
+.brand small{display:block;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+.search{
+  flex:1;min-width:0;max-width:430px;margin-inline:auto;
+  display:flex;align-items:center;gap:9px;
+  height:44px;padding:0 15px;border-radius:999px;
+  background:var(--surface);border:1.5px solid var(--line);
+  transition:border-color .2s,box-shadow .2s;
+  order:2;
+}
+.search:focus-within{border-color:var(--terra);box-shadow:0 0 0 3px rgba(16,185,129,.16)}
+.search svg{width:17px;height:17px;color:var(--ink-3);flex:none}
+.search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font:500 14px/1 inherit;color:var(--ink)}
+.search input::placeholder{color:#94A3B8}
+.search kbd{
+  flex:none;font:600 10.5px/1 inherit;color:var(--ink-3);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:4px 7px;background:var(--surface-2);
+}
+.open-app{
+  flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  height:44px;padding:0 18px;border-radius:999px;
+  background:var(--surface);border:1.5px solid var(--line);
+  font:600 13.5px/1 inherit;color:var(--ink-2);
+  transition:border-color .2s,color .2s,transform .2s,box-shadow .2s;
+  order:3;
+}
+.open-app svg{width:15px;height:15px}
+.open-app:hover{border-color:var(--terra);color:var(--terra-deep);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+@media (max-width:719px){
+  .search{order:4;flex-basis:100%;max-width:none}
+  .search kbd{display:none}
+  .open-app span{display:none}
+  .open-app{padding:0 14px}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;text-align:center;padding:clamp(44px,7vw,76px) 20px 34px}
+.hero::before,.hero::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(52px);pointer-events:none;
+}
+.hero::before{width:420px;height:420px;top:-220px;left:-120px;background:radial-gradient(circle,rgba(52,211,153,.4),transparent 70%)}
+.hero::after{width:460px;height:460px;top:-180px;right:-160px;background:radial-gradient(circle,rgba(252,211,77,.32),transparent 70%)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--terra-deep);background:var(--terra-softer);
+  border:1px solid var(--terra-soft);border-radius:999px;padding:7px 14px;
+}
+.eyebrow svg{width:12px;height:12px}
+.hero h1{
+  position:relative;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:-.025em;
+  line-height:1.08;margin:18px auto 12px;max-width:640px;text-wrap:balance;
+}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,#047857,#10B981 55%,#65A30D);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{
+  position:relative;color:var(--ink-2);font-size:clamp(13.5px,1.6vw,15px);line-height:1.65;
+  max-width:560px;margin:0 auto;text-wrap:balance;
+}
+.stats{position:relative;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.stat{
+  display:flex;align-items:baseline;gap:8px;
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;
+  padding:10px 16px;box-shadow:var(--shadow-sm);
+}
+.stat b{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--terra-deep)}
+.stat span{font-size:11.5px;font-weight:600;color:var(--ink-3)}
+.hero .kbd-hint{position:relative;margin-top:18px;font-size:12px;color:var(--ink-3);font-weight:500}
+.hero .kbd-hint kbd{
+  font:600 10.5px/1 inherit;border:1px solid var(--line);border-bottom-width:2px;
+  border-radius:6px;padding:3px 6px;background:var(--surface);color:var(--ink-2);margin:0 2px;
+}
+
+/* ---------- FILTER CHIP ---------- */
+.chips-wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+.chips{
+  display:flex;gap:8px;overflow-x:auto;padding:6px 2px 14px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:none;display:inline-flex;align-items:center;gap:7px;
+  height:38px;padding:0 16px;border-radius:999px;cursor:pointer;
+  background:var(--surface);border:1.5px solid var(--line);
+  font:600 13px/1 inherit;color:var(--ink-2);white-space:nowrap;
+  transition:border-color .18s,color .18s,background .18s,transform .18s;
+}
+.chip:hover{border-color:var(--terra);color:var(--terra-deep)}
+.chip:active{transform:scale(.96)}
+.chip.active{
+  background:linear-gradient(135deg,#059669,#047857);border-color:transparent;color:#fff;
+  box-shadow:0 8px 18px -8px rgba(4,120,87,.55);
+}
+.chip .n{
+  font-size:10.5px;font-weight:700;padding:2.5px 7px;border-radius:99px;
+  background:var(--surface-2);color:var(--ink-3);
+}
+.chip.active .n{background:rgba(255,255,255,.22);color:#fff}
+.result-count{
+  font-size:12px;font-weight:600;color:var(--ink-3);
+  padding:0 2px 14px;
+}
+.result-count b{color:var(--terra-deep)}
+
+/* ---------- GRID & CARD ---------- */
+.grid{
+  width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,28px) 40px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:18px;
+}
+.fx-card{
+  display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-sm);overflow:hidden;
+  transition:transform .28s var(--ease),box-shadow .28s,border-color .28s;
+}
+.fx-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--line)}
+.stage{
+  position:relative;min-height:196px;display:grid;place-items:center;
+  padding:20px;border-bottom:1px solid var(--line-soft);
+  background:
+    radial-gradient(rgba(15,23,42,.05) 1px,transparent 1.2px) 0 0/16px 16px,
+    linear-gradient(180deg,#FDFEFE,#F8FAFC);
+}
+.stage-dark{
+  background:
+    radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px) 0 0/16px 16px,
+    linear-gradient(180deg,#0B1220,#020617);
+}
+.fx-body{display:flex;flex-direction:column;gap:7px;padding:16px 18px 18px;flex:1}
+.fx-meta{display:flex;align-items:center;gap:7px}
+.cat-pill{
+  font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 10px;border-radius:99px;
+  background:var(--ps,#ECFDF5);color:var(--pc,#047857);
+}
+.hint-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:99px;
+  background:var(--surface-2);color:var(--ink-3);
+}
+.hint-pill svg{width:10px;height:10px}
+.fx-body h3{font-size:15.5px;font-weight:600;letter-spacing:-.012em}
+.fx-body p{font-size:12.5px;line-height:1.55;color:var(--ink-3);flex:1}
+.fx-code-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:40px;margin-top:6px;padding:0 14px;border-radius:12px;cursor:pointer;
+  background:var(--terra-softer);border:1.5px solid var(--terra-soft);
+  font:600 13px/1 inherit;color:var(--terra-deep);
+  transition:border-color .18s,background .18s,transform .18s,box-shadow .18s;
+}
+.fx-code-btn svg{width:14px;height:14px}
+.fx-code-btn:hover{background:var(--terra-soft);border-color:var(--terra)}
+.fx-code-btn:active{transform:scale(.97)}
+.empty{
+  grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);
+}
+.empty svg{width:44px;height:44px;color:#94A3B8;margin-bottom:14px}
+.empty b{display:block;font-size:16px;color:var(--ink);margin-bottom:5px}
+.empty p{font-size:13px}
+
+/* ---------- DIALOG KODE ---------- */
+dialog#dlg{
+  border:none;border-radius:var(--r-xl);padding:0;
+  width:min(760px,calc(100vw - 32px));max-height:min(86dvh,860px);
+  background:var(--surface);color:var(--ink);
+  box-shadow:var(--shadow-lg);
+  overflow:visible;
+}
+dialog#dlg::backdrop{background:rgba(15,23,42,.5);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
+@keyframes dlgIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.dlg-sheet{display:flex;flex-direction:column;max-height:min(86dvh,860px);overflow:auto;border-radius:var(--r-xl);scrollbar-width:thin}
+.dlg-head{
+  position:sticky;top:0;z-index:2;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:16px 18px 13px;background:color-mix(in srgb,var(--surface) 92%,var(--bg));
+  border-bottom:1px solid var(--line-soft);
+}
+.dlg-head h3{font-size:16.5px;font-weight:700;letter-spacing:-.015em;margin-right:auto}
+.iconbtn{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;
+  background:var(--surface);border:1.5px solid var(--line);color:var(--ink-2);
+  transition:border-color .18s,color .18s,transform .18s;
+}
+.iconbtn svg{width:16px;height:16px}
+.iconbtn:hover{border-color:var(--terra);color:var(--terra-deep)}
+.iconbtn:active{transform:scale(.92)}
+.dlg-copy{
+  display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;
+  border-radius:12px;cursor:pointer;
+  background:linear-gradient(135deg,#059669,#047857);border:none;color:#fff;
+  font:600 13px/1 inherit;
+  box-shadow:0 6px 14px -6px rgba(4,120,87,.5);
+  transition:transform .18s,box-shadow .18s;
+}
+.dlg-copy svg{width:14px;height:14px}
+.dlg-copy:hover{transform:translateY(-1px);box-shadow:0 10px 20px -8px rgba(4,120,87,.6)}
+.dlg-copy:active{transform:scale(.97)}
+.dlg-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:14px}
+.dlg-body .stage{border:1px solid var(--line-soft);border-radius:var(--r-lg);min-height:158px}
+.dlg-tabs{display:flex;gap:6px;background:var(--surface-2);border-radius:12px;padding:4px;width:max-content}
+.dlg-tabs button{
+  border:none;cursor:pointer;background:transparent;color:var(--ink-3);
+  font:600 12.5px/1 inherit;padding:9px 18px;border-radius:9px;
+  transition:background .18s,color .18s,box-shadow .18s;
+}
+.dlg-tabs button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
+.codebox{
+  background:#0F172A;border-radius:var(--r-lg);padding:16px 18px;
+  overflow:auto;max-height:min(42dvh,380px);
+  scrollbar-width:thin;scrollbar-color:#334155 transparent;
+}
+.codebox::-webkit-scrollbar{width:9px;height:9px}
+.codebox::-webkit-scrollbar-thumb{background:#334155;border-radius:99px;border:2px solid #0F172A}
+.codebox code{
+  font-family:ui-monospace,"Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.7;color:#E2E8F0;white-space:pre;tab-size:2;
+  display:block;min-width:max-content;
+}
+.tok-com{color:#64748B;font-style:italic}
+.tok-kw{color:#C4B5FD}
+.tok-sel{color:#6EE7B7}
+.tok-prop{color:#FDE68A}
+.tok-pun{color:#94A3B8}
+.tok-str{color:#FCA5A5}
+.tok-num{color:#Fdba74}
+.tok-tag{color:#6EE7B7}
+.tok-attr{color:#FDE68A}
+.dlg-tip{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.dlg-tip b{color:var(--terra-deep)}
+
+/* ---------- TOAST ---------- */
+.toast{
+  position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:120;
+  transform:translateX(-50%) translateY(16px);
+  display:flex;align-items:center;gap:9px;
+  background:rgba(6,78,59,.94);color:#ECFDF5;
+  font:600 13px/1 inherit;padding:13px 19px;border-radius:999px;
+  box-shadow:0 12px 32px rgba(15,23,42,.3),inset 0 0 0 1px rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .24s,transform .24s;
+  max-width:calc(100vw - 40px);text-align:center;
+}
+.toast svg{width:15px;height:15px;flex:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- FOOTER (lengket bawah) ---------- */
+.lab-foot{
+  margin-top:auto;border-top:1px solid var(--line-soft);
+  background:color-mix(in srgb,var(--surface) 75%,var(--bg));
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  padding:18px clamp(16px,4vw,28px) calc(18px + env(safe-area-inset-bottom,0px));
+}
+.lab-foot-in{
+  max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:center;
+  gap:8px 18px;flex-wrap:wrap;text-align:center;
+  font-size:12px;color:var(--ink-3);font-weight:500;
+}
+.lab-foot a{color:var(--terra-deep);font-weight:600;text-decoration:none;border-bottom:1px solid var(--terra-soft)}
+.lab-foot a:hover{border-color:var(--terra)}
+.lab-foot .sep{color:var(--line)}
+:focus-visible{outline:2.5px solid var(--terra);outline-offset:2px;border-radius:6px}
+
+/* ---------- gerak minimal: hormati preferensi pengguna ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HEADER -->
+  <header class="lab-top">
+    <div class="lab-top-in">
+      <a class="brand" href="/" aria-label="Rutina CSS Lab">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+        </span>
+        <span>
+          <b>Rutina CSS Lab</b>
+          <small>Kebun efek CSS</small>
+        </span>
+      </a>
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Cari efek: neon, glitch, gradien, flip…" aria-label="Cari efek CSS" autocomplete="off">
+        <kbd aria-hidden="true">/</kbd>
+      </div>
+      <a class="open-app" href="/rutina.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+        <span>Buka Rutina</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 5.4L19.3 10l-5.4 1.9L12 17.3l-1.9-5.4L4.7 10l5.4-1.6zM19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>
+      Evergreen CSS Lab
+    </span>
+    <h1>Kebun <em>Efek CSS</em> Rutina</h1>
+    <p class="sub">Perpustakaan efek CSS murni bertema taman botani — setiap kartu adalah demo hidup, dan setiap kode bisa langsung disalin-tempel. Tanpa JavaScript pada tiap efek.</p>
+    <div class="stats">
+      <div class="stat"><b id="stFx">39</b><span>efek siap pakai</span></div>
+      <div class="stat"><b id="stCat">8</b><span>kategori</span></div>
+      <div class="stat"><b>0</b><span>baris JS per efek</span></div>
+      <div class="stat"><b>100%</b><span>salin-tempel</span></div>
+    </div>
+    <p class="kbd-hint">Tekan <kbd>/</kbd> untuk mencari · arahkan kursor atau sentuh demo untuk mencoba</p>
+  </section>
+
+  <!-- FILTER -->
+  <div class="chips-wrap" role="toolbar" aria-label="Filter kategori">
+    <div class="chips" id="chips"></div>
+    <p class="result-count" id="resultCount" aria-live="polite"></p>
+  </div>
+
+  <!-- GRID EFEK -->
+  <main class="grid" id="grid"></main>
+
+  <!-- FOOTER -->
+  <footer class="lab-foot">
+    <div class="lab-foot-in">
+      <span>Rutina CSS Lab — kebun efek CSS murni, satu berkas tanpa framework</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="/rutina.html" target="_blank" rel="noopener">Buka aplikasi Rutina</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>Dirawat di repo <b style="color:var(--ink-2)">anandategarch/rutina</b></span>
+    </div>
+  </footer>
+</div>
+
+<!-- DIALOG KODE -->
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg-sheet">
+    <div class="dlg-head">
+      <h3 id="dlgTitle">Efek</h3>
+      <button class="dlg-copy" id="dlgCopy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Salin
+      </button>
+      <button class="iconbtn" data-close aria-label="Tutup dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="dlg-body">
+      <div class="stage" id="dlgStage"></div>
+      <div class="dlg-tabs" role="tablist" aria-label="Jenis kode">
+        <button id="tabCss" class="active" role="tab" aria-selected="true">CSS</button>
+        <button id="tabHtml" role="tab" aria-selected="false">HTML</button>
+      </div>
+      <pre class="codebox"><code id="dlgCode"></code></pre>
+      <p class="dlg-tip">Tempel bagian <b>CSS</b> ke stylesheet dan <b>HTML</b> ke markup-mu. Nama kelas diawali <b>fx-</b> agar aman berdampingan dengan kode lain. Semua efek berjalan tanpa JavaScript.</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+  <span id="toastMsg">Kode tersalin</span>
+</div>
+
+<noscript><p style="text-align:center;padding:30px;font-size:14px">Lab ini membutuhkan JavaScript untuk menampilkan daftar efek. Efeknya sendiri murni CSS.</p></noscript>
+
+<style id="fx-styles"></style>
+<script>
+/* ============================================================
+   DATA EFEK — css & html inilah yang menyuplai <style> dan
+   demo sekaligus: apa yang tampil = apa yang berjalan.
+   ============================================================ */
+const CATS = {
+  tombol:{label:'Tombol',color:'#047857',soft:'#D1FAE5'},
+  loader:{label:'Loader',color:'#0F766E',soft:'#CCFBF1'},
+  teks:{label:'Teks',color:'#B45309',soft:'#FEF3C7'},
+  latar:{label:'Latar',color:'#4D7C0F',soft:'#ECFCCB'},
+  kartu:{label:'Kartu',color:'#0369A1',soft:'#E0F2FE'},
+  input:{label:'Input',color:'#BE185D',soft:'#FCE7F3'},
+  toggle:{label:'Toggle',color:'#7E22CE',soft:'#F3E8FF'},
+  animasi:{label:'Animasi',color:'#334155',soft:'#E2E8F0'}
+};
+
+const FX = [
+
+/* ---------------- TOMBOL ---------------- */
+{
+  id:'fx-grad-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Gradien Mengalir',
+  desc:'Gradien terra-sage-lime mengalir perlahan di latar tombol; kursor mengangkatnya.',
+  css:
+`.fx-grad-btn{
+  border:none;
+  cursor:pointer;
+  padding:15px 32px;
+  border-radius:14px;
+  font:600 15px/1 inherit;
+  color:#FFFFFF;
+  background:linear-gradient(120deg,#10B981,#22C55E,#84CC16,#10B981);
+  background-size:300% 100%;
+  box-shadow:0 8px 20px -8px rgba(16,185,129,.6);
+  animation:fxGradFlow 6s linear infinite;
+  transition:transform .2s,box-shadow .2s;
+}
+.fx-grad-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 28px -10px rgba(16,185,129,.7);
+}
+.fx-grad-btn:active{
+  transform:translateY(0) scale(.97);
+}
+@keyframes fxGradFlow{
+  to{background-position:300% 0}
+}`,
+  html:
+`<button class="fx-grad-btn">Mulai Kebiasaan</button>`
+},
+{
+  id:'fx-shine-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Kilau Menyapu',
+  desc:'Seberat cahaya putih menyapu permukaan tombol setiap kali kursor menyentuhnya.',
+  css:
+`.fx-shine-btn{
+  position:relative;
+  overflow:hidden;
+  border:none;
+  cursor:pointer;
+  padding:15px 32px;
+  border-radius:14px;
+  font:600 15px/1 inherit;
+  color:#ECFDF5;
+  background:#064E3B;
+  transition:transform .2s;
+}
+.fx-shine-btn:hover{
+  transform:translateY(-2px);
+}
+.fx-shine-btn::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-80%;
+  width:45%;
+  height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);
+  transform:skewX(-20deg);
+  transition:left .55s ease;
+}
+.fx-shine-btn:hover::after{
+  left:135%;
+}`,
+  html:
+`<button class="fx-shine-btn">Simpan Rutinitas</button>`
+},
+{
+  id:'fx-neon-btn', cat:'tombol', hint:'otomatis', dark:false,
+  title:'Pendar Neon',
+  desc:'Pendar hijau neon berdenyut pelan dengan bayangan berlapis — aksi utama di latar gelap.',
+  css:
+`.fx-neon-btn{
+  border:1px solid #10B981;
+  cursor:pointer;
+  padding:15px 32px;
+  border-radius:14px;
+  font:700 15px/1 inherit;
+  letter-spacing:.02em;
+  color:#6EE7B7;
+  background:#052E22;
+  animation:fxNeonPulse 2.4s ease-in-out infinite;
+  transition:color .2s;
+}
+.fx-neon-btn:hover{
+  color:#A7F3D0;
+  border-color:#34D399;
+}
+@keyframes fxNeonPulse{
+  0%,100%{
+    box-shadow:0 0 10px rgba(16,185,129,.55),0 0 30px rgba(16,185,129,.3),inset 0 0 8px rgba(16,185,129,.25);
+  }
+  50%{
+    box-shadow:0 0 4px rgba(16,185,129,.25),0 0 12px rgba(16,185,129,.12),inset 0 0 4px rgba(16,185,129,.1);
+  }
+}`,
+  html:
+`<button class="fx-neon-btn">Mode Fokus</button>`
+},
+{
+  id:'fx-press-btn', cat:'tombol', hint:'klik', dark:false,
+  title:'Tekan 3D',
+  desc:'Tombol bermassa nyata: menekan membuatnya turun dan bayangan bawahnya menyusut.',
+  css:
+`.fx-press-btn{
+  border:none;
+  cursor:pointer;
+  padding:15px 32px;
+  border-radius:14px;
+  font:600 15px/1 inherit;
+  color:#FFFFFF;
+  background:#047857;
+  box-shadow:0 6px 0 #065F46,0 16px 22px -10px rgba(4,120,87,.55);
+  transition:transform .1s,box-shadow .1s;
+}
+.fx-press-btn:hover{
+  background:#059669;
+}
+.fx-press-btn:active{
+  transform:translateY(5px);
+  box-shadow:0 1px 0 #065F46,0 5px 9px -6px rgba(4,120,87,.5);
+}`,
+  html:
+`<button class="fx-press-btn">Catat Progress</button>`
+},
+{
+  id:'fx-conic-btn', cat:'tombol', hint:'otomatis', dark:false,
+  title:'Bingkai Conic',
+  desc:'Bingkai gradien conic berputar memakai @property plus mask — teknik modern tanpa JS.',
+  css:
+`@property --fx-conic-a{
+  syntax:"<angle>";
+  initial-value:0deg;
+  inherits:false;
+}
+.fx-conic-btn{
+  position:relative;
+  border:none;
+  background:none;
+  padding:2px;
+  border-radius:16px;
+  cursor:pointer;
+}
+.fx-conic-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(from var(--fx-conic-a),#10B981,#F59E0B,#22C55E,#10B981);
+  animation:fxConicSpin 3s linear infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+}
+.fx-conic-btn span{
+  display:block;
+  background:#FFFFFF;
+  border-radius:14px;
+  padding:14px 30px;
+  font:600 15px/1 inherit;
+  color:#0F172A;
+}
+@keyframes fxConicSpin{
+  to{--fx-conic-a:360deg}
+}`,
+  html:
+`<button class="fx-conic-btn"><span>Watering Baru</span></button>`
+},
+{
+  id:'fx-ripple-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Riak dari Tengah',
+  desc:'Riak cahaya mekar dari tengah tombol saat kursor masuk, lalu memudar saat pergi.',
+  css:
+`.fx-ripple-btn{
+  position:relative;
+  overflow:hidden;
+  border:none;
+  cursor:pointer;
+  padding:15px 32px;
+  border-radius:14px;
+  font:600 15px/1 inherit;
+  color:#FFFFFF;
+  background:#0F766E;
+  transition:background .2s;
+}
+.fx-ripple-btn:hover{
+  background:#0D9488;
+}
+.fx-ripple-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center,rgba(255,255,255,.5),transparent 62%);
+  transform:scale(0);
+  opacity:0;
+  transition:transform .5s ease,opacity .55s ease;
+}
+.fx-ripple-btn:hover::after{
+  transform:scale(1.7);
+  opacity:1;
+  transition:transform .5s ease,opacity .06s ease;
+}`,
+  html:
+`<button class="fx-ripple-btn">Tandai Selesai</button>`
+},
+{
+  id:'fx-fill-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Isi Meluap',
+  desc:'Warna terra naik memenuhi tombol dari bawah; teks berbalik putih seperti tanah tersiram.',
+  css:
+`.fx-fill-btn{
+  position:relative;
+  z-index:0;
+  overflow:hidden;
+  border:2px solid #047857;
+  cursor:pointer;
+  padding:13px 30px;
+  border-radius:14px;
+  font:600 15px/1 inherit;
+  color:#047857;
+  background:transparent;
+  transition:color .3s;
+}
+.fx-fill-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:#047857;
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+}
+.fx-fill-btn:hover{
+  color:#FFFFFF;
+}
+.fx-fill-btn:hover::before{
+  transform:scaleY(1);
+}`,
+  html:
+`<button class="fx-fill-btn">Tambah Kebiasaan</button>`
+},
+
+/* ---------------- LOADER ---------------- */
+{
+  id:'fx-ring', cat:'loader', hint:'otomatis', dark:false,
+  title:'Cincin Berputar',
+  desc:'Klasik abadi: satu sisi border diberi warna berbeda lalu diputar tanpa henti.',
+  css:
+`.fx-ring{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:5px solid #D1FAE5;
+  border-top-color:#10B981;
+  animation:fxRingRot 1s linear infinite;
+}
+@keyframes fxRingRot{
+  to{transform:rotate(360deg)}
+}`,
+  html:
+`<div class="fx-ring"></div>`
+},
+{
+  id:'fx-dots', cat:'loader', hint:'otomatis', dark:false,
+  title:'Tiga Titik',
+  desc:'Tiga titik melompat beriringan dengan jeda 150ms — bahasa universal untuk "tunggu".',
+  css:
+`.fx-dots{
+  display:flex;
+  gap:10px;
+}
+.fx-dots i{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#10B981;
+  animation:fxDotsJump 1.2s ease-in-out infinite;
+}
+.fx-dots i:nth-child(2){
+  animation-delay:.15s;
+}
+.fx-dots i:nth-child(3){
+  animation-delay:.3s;
+}
+@keyframes fxDotsJump{
+  0%,60%,100%{transform:translateY(0)}
+  30%{transform:translateY(-16px)}
+}`,
+  html:
+`<div class="fx-dots"><i></i><i></i><i></i></div>`
+},
+{
+  id:'fx-skel', cat:'loader', hint:'otomatis', dark:false,
+  title:'Kerangka Shimmer',
+  desc:'Kerangka konten berkilau menyapu — placeholder elegan saat data sedang termuat.',
+  css:
+`.fx-skel{
+  width:220px;
+  display:grid;
+  gap:10px;
+}
+.fx-skel .row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.fx-skel .av{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  flex:none;
+}
+.fx-skel .lines{
+  flex:1;
+  display:grid;
+  gap:8px;
+}
+.fx-skel i,.fx-skel .av{
+  height:12px;
+  border-radius:6px;
+  background:linear-gradient(100deg,#EEF2F6 30%,#F8FAFC 50%,#EEF2F6 70%);
+  background-size:200% 100%;
+  animation:fxSkelWave 1.3s linear infinite;
+}
+.fx-skel .lines i:last-child{
+  width:62%;
+}
+@keyframes fxSkelWave{
+  to{background-position:-200% 0}
+}`,
+  html:
+`<div class="fx-skel">
+  <div class="row">
+    <span class="av"></span>
+    <div class="lines"><i></i><i></i></div>
+  </div>
+  <i></i>
+  <i style="width:76%"></i>
+</div>`
+},
+{
+  id:'fx-eq', cat:'loader', hint:'otomatis', dark:false,
+  title:'Equalizer',
+  desc:'Lima batang equalizer menari dengan delay berjenjang — menandakan audio sedang hidup.',
+  css:
+`.fx-eq{
+  display:flex;
+  align-items:flex-end;
+  gap:6px;
+  height:46px;
+}
+.fx-eq i{
+  width:8px;
+  height:46px;
+  border-radius:5px;
+  background:linear-gradient(180deg,#34D399,#059669);
+  transform-origin:bottom;
+  animation:fxEqBounce .9s ease-in-out infinite alternate;
+}
+.fx-eq i:nth-child(2){animation-delay:.12s}
+.fx-eq i:nth-child(3){animation-delay:.24s}
+.fx-eq i:nth-child(4){animation-delay:.06s}
+.fx-eq i:nth-child(5){animation-delay:.18s}
+@keyframes fxEqBounce{
+  from{transform:scaleY(.22)}
+  to{transform:scaleY(1)}
+}`,
+  html:
+`<div class="fx-eq"><i></i><i></i><i></i><i></i><i></i></div>`
+},
+{
+  id:'fx-orbit', cat:'loader', hint:'otomatis', dark:false,
+  title:'Orbit Satelit',
+  desc:'Satelit honey mengorbit inti terra; garis putus-putus menandai jalur edarnya.',
+  css:
+`.fx-orbit{
+  position:relative;
+  width:60px;
+  height:60px;
+}
+.fx-orbit::before{
+  content:"";
+  position:absolute;
+  inset:23px;
+  border-radius:50%;
+  background:#10B981;
+  box-shadow:0 0 0 5px #D1FAE5;
+}
+.fx-orbit::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px dashed #A7F3D0;
+}
+.fx-orbit i{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:12px;
+  height:12px;
+  margin-left:-6px;
+  border-radius:50%;
+  background:#F59E0B;
+  transform-origin:50% 30px;
+  animation:fxOrbitRot 1.7s linear infinite;
+}
+@keyframes fxOrbitRot{
+  to{transform:rotate(360deg)}
+}`,
+  html:
+`<div class="fx-orbit"><i></i></div>`
+},
+{
+  id:'fx-radar', cat:'loader', hint:'otomatis', dark:false,
+  title:'Denyut Radar',
+  desc:'Gelombang radar mengembang dari titik pusat — dua denyut berselang satu detik.',
+  css:
+`.fx-radar{
+  position:relative;
+  width:64px;
+  height:64px;
+}
+.fx-radar::before,.fx-radar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid #10B981;
+  animation:fxRadarPing 2s cubic-bezier(0,.6,.4,1) infinite;
+}
+.fx-radar::after{
+  animation-delay:1s;
+}
+.fx-radar i{
+  position:absolute;
+  inset:25px;
+  border-radius:50%;
+  background:#047857;
+}
+@keyframes fxRadarPing{
+  from{transform:scale(.32);opacity:1}
+  to{transform:scale(1);opacity:0}
+}`,
+  html:
+`<div class="fx-radar"><i></i></div>`
+},
+
+/* ---------------- TEKS ---------------- */
+{
+  id:'fx-grad-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Teks Gradien',
+  desc:'Teks diisi gradien bergerak lewat background-clip: text — judul yang hidup.',
+  css:
+`.fx-grad-txt{
+  font-size:34px;
+  font-weight:800;
+  letter-spacing:-.02em;
+  background:linear-gradient(90deg,#047857,#10B981,#F59E0B,#047857);
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:fxTxtFlow 5s linear infinite;
+}
+@keyframes fxTxtFlow{
+  to{background-position:300% 0}
+}`,
+  html:
+`<span class="fx-grad-txt">Konsistensi Berbunga</span>`
+},
+{
+  id:'fx-type', cat:'teks', hint:'otomatis', dark:false,
+  title:'Mesin Tik',
+  desc:'Mesin tik murni CSS: animasi width dengan steps() plus kursor yang berkedip.',
+  css:
+`.fx-type{
+  font-size:19px;
+  font-weight:600;
+  color:#0F172A;
+  white-space:nowrap;
+  overflow:hidden;
+  width:18ch;
+  border-right:3px solid #10B981;
+  animation:fxTyping 3.6s steps(18) infinite alternate,fxCaret .75s step-end infinite;
+}
+@keyframes fxTyping{
+  from{width:0}
+  to{width:18ch}
+}
+@keyframes fxCaret{
+  50%{border-color:transparent}
+}`,
+  html:
+`<p class="fx-type">Menyiram rutinitas</p>`
+},
+{
+  id:'fx-glitch', cat:'teks', hint:'otomatis', dark:false,
+  title:'Glitch Digital',
+  desc:'Dua lapis pseudo-element bergeser dan terpotong clip-path sesaat — gangguan sinyal.',
+  css:
+`.fx-glitch{
+  position:relative;
+  font-size:32px;
+  font-weight:800;
+  letter-spacing:.03em;
+  color:#0F172A;
+}
+.fx-glitch::before,.fx-glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  inset:0;
+  opacity:0;
+}
+.fx-glitch::before{
+  left:-2px;
+  color:#10B981;
+  animation:fxGlitchA 2.8s infinite;
+}
+.fx-glitch::after{
+  left:2px;
+  color:#F59E0B;
+  animation:fxGlitchB 2.8s infinite;
+}
+@keyframes fxGlitchA{
+  0%,84%,100%{opacity:0;transform:none;clip-path:none}
+  86%{opacity:.85;transform:translate(-3px,2px);clip-path:inset(8% 0 58% 0)}
+  90%{opacity:.85;transform:translate(3px,-1px);clip-path:inset(55% 0 12% 0)}
+  94%{opacity:.85;transform:translate(-2px,1px);clip-path:inset(30% 0 45% 0)}
+}
+@keyframes fxGlitchB{
+  0%,84%,100%{opacity:0;transform:none;clip-path:none}
+  87%{opacity:.85;transform:translate(3px,-2px);clip-path:inset(48% 0 22% 0)}
+  91%{opacity:.85;transform:translate(-3px,1px);clip-path:inset(12% 0 66% 0)}
+  95%{opacity:.85;transform:translate(2px,-1px);clip-path:inset(62% 0 8% 0)}
+}`,
+  html:
+`<span class="fx-glitch" data-text="RUTINA">RUTINA</span>`
+},
+{
+  id:'fx-neon-txt', cat:'teks', hint:'otomatis', dark:true,
+  title:'Neon Taman',
+  desc:'Pendar neon hangat dengan animasi kedip ala lampu taman malam — butuh latar gelap.',
+  css:
+`.fx-neon-txt{
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:.06em;
+  color:#D1FAE5;
+  text-shadow:0 0 6px rgba(52,211,153,.9),0 0 18px rgba(16,185,129,.65),0 0 44px rgba(16,185,129,.45);
+  animation:fxNeonFlick 3.4s infinite;
+}
+@keyframes fxNeonFlick{
+  0%,100%{opacity:1}
+  3%{opacity:.4}
+  5%{opacity:1}
+  42%{opacity:1}
+  44%{opacity:.6}
+  46%{opacity:1}
+  78%{opacity:.75}
+  80%{opacity:1}
+}`,
+  html:
+`<span class="fx-neon-txt">TUMBUH</span>`
+},
+{
+  id:'fx-wave', cat:'teks', hint:'otomatis', dark:false,
+  title:'Gelombang Huruf',
+  desc:'Tiap huruf bergelombang naik-turun dengan delay berjenjang 60ms — teks yang bernapas.',
+  css:
+`.fx-wave{
+  display:flex;
+  gap:2px;
+  font-size:32px;
+  font-weight:800;
+  color:#0F172A;
+}
+.fx-wave span{
+  display:inline-block;
+  animation:fxLetterWave 1.8s ease-in-out infinite;
+}
+.fx-wave span:nth-child(2){animation-delay:.06s}
+.fx-wave span:nth-child(3){animation-delay:.12s}
+.fx-wave span:nth-child(4){animation-delay:.18s}
+.fx-wave span:nth-child(5){animation-delay:.24s}
+.fx-wave span:nth-child(6){animation-delay:.3s}
+.fx-wave span:nth-child(7){animation-delay:.36s}
+@keyframes fxLetterWave{
+  0%,100%{transform:translateY(0)}
+  30%{transform:translateY(-10px)}
+}`,
+  html:
+`<div class="fx-wave">
+  <span>T</span><span>u</span><span>m</span><span>b</span><span>u</span><span>h</span><span>!</span>
+</div>`
+},
+{
+  id:'fx-highlight', cat:'teks', hint:'hover', dark:false,
+  title:'Stabilo Menyapu',
+  desc:'Sapuan stabilo kuning memanjang dari kiri saat kursor menyentuh teksnya.',
+  css:
+`.fx-highlight{
+  display:inline;
+  font-size:22px;
+  font-weight:600;
+  color:#0F172A;
+  padding:2px 4px;
+  background:linear-gradient(120deg,#FDE68A,#FCD34D) no-repeat 0 68%/0% 52%;
+  transition:background-size .45s cubic-bezier(.22,1,.36,1);
+  cursor:default;
+}
+.fx-highlight:hover{
+  background-size:100% 52%;
+}`,
+  html:
+`<p>Semua berawal dari <span class="fx-highlight">satu benih kecil</span> yang dirawat.</p>`
+},
+
+/* ---------------- LATAR ---------------- */
+{
+  id:'fx-aurora', cat:'latar', hint:'otomatis', dark:false,
+  title:'Aurora Mint',
+  desc:'Dua gumpalan cahaya blur besar melayang lambat di atas kain mint — latar yang menenangkan.',
+  css:
+`.fx-aurora{
+  position:relative;
+  width:300px;
+  height:170px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#ECFDF5;
+}
+.fx-aurora::before,.fx-aurora::after{
+  content:"";
+  position:absolute;
+  width:65%;
+  aspect-ratio:1;
+  border-radius:50%;
+  filter:blur(36px);
+}
+.fx-aurora::before{
+  top:-18%;
+  left:-8%;
+  background:radial-gradient(circle,rgba(52,211,153,.85),transparent 70%);
+  animation:fxAuroraA 9s ease-in-out infinite alternate;
+}
+.fx-aurora::after{
+  bottom:-22%;
+  right:-8%;
+  background:radial-gradient(circle,rgba(252,211,77,.75),transparent 70%);
+  animation:fxAuroraB 11s ease-in-out infinite alternate;
+}
+@keyframes fxAuroraA{
+  to{transform:translate(28%,18%) scale(1.2)}
+}
+@keyframes fxAuroraB{
+  to{transform:translate(-24%,-14%) scale(.9)}
+}`,
+  html:
+`<div class="fx-aurora"></div>`
+},
+{
+  id:'fx-stars', cat:'latar', hint:'otomatis', dark:false,
+  title:'Langit Berbintang',
+  desc:'Langit malam dari box-shadow: bintang-bintang kecil berkelip dalam dua lapis denyut.',
+  css:
+`.fx-stars{
+  position:relative;
+  width:300px;
+  height:170px;
+  border-radius:16px;
+  overflow:hidden;
+  background:radial-gradient(ellipse at top,#1E293B,#020617);
+}
+.fx-stars::before,.fx-stars::after{
+  content:"";
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#FFFFFF;
+}
+.fx-stars::before{
+  box-shadow:30px 24px #FFF,74px 60px #FFF,120px 18px #FFF,165px 82px #FFF,210px 40px #FFF,258px 96px #FFF,48px 120px #FFF,138px 132px #FFF,232px 128px #FFF,96px 96px #FFF,285px 60px #FFF,12px 70px #FFF;
+  animation:fxStarsTwinkle 2.6s ease-in-out infinite;
+}
+.fx-stars::after{
+  box-shadow:54px 36px rgba(255,255,255,.65),100px 54px rgba(255,255,255,.65),148px 24px rgba(255,255,255,.65),196px 66px rgba(255,255,255,.65),244px 24px rgba(255,255,255,.65),76px 104px rgba(255,255,255,.65),178px 118px rgba(255,255,255,.65),268px 108px rgba(255,255,255,.65),22px 148px rgba(255,255,255,.65),130px 154px rgba(255,255,255,.65);
+  animation:fxStarsTwinkle 3.4s ease-in-out .8s infinite;
+}
+@keyframes fxStarsTwinkle{
+  0%,100%{opacity:1}
+  50%{opacity:.25}
+}`,
+  html:
+`<div class="fx-stars"></div>`
+},
+{
+  id:'fx-grid', cat:'latar', hint:'otomatis', dark:false,
+  title:'Kisi Memudar',
+  desc:'Kisi garis mint memudar di tepi lewat mask-image dan bergeser pelan — latar panel data.',
+  css:
+`.fx-grid{
+  width:300px;
+  height:170px;
+  border-radius:16px;
+  overflow:hidden;
+  background-color:#F8FAFC;
+  background-image:linear-gradient(#D1FAE5 1px,transparent 1px),linear-gradient(90deg,#D1FAE5 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 92% 92% at 50% 50%,#000 42%,transparent 100%);
+  mask-image:radial-gradient(ellipse 92% 92% at 50% 50%,#000 42%,transparent 100%);
+  animation:fxGridPan 14s linear infinite;
+}
+@keyframes fxGridPan{
+  to{background-position:26px 26px,26px 26px}
+}`,
+  html:
+`<div class="fx-grid"></div>`
+},
+{
+  id:'fx-blob', cat:'latar', hint:'otomatis', dark:false,
+  title:'Blob Morfing',
+  desc:'Gumpalan hijau morfing tanpa henti lewat animasi border-radius — bentuk tak pernah repetition.',
+  css:
+`.fx-blob{
+  width:150px;
+  height:150px;
+  background:linear-gradient(135deg,#10B981,#84CC16);
+  box-shadow:0 18px 44px -16px rgba(16,185,129,.55);
+  animation:fxBlobMorph 8s ease-in-out infinite;
+}
+@keyframes fxBlobMorph{
+  0%,100%{
+    border-radius:58% 42% 55% 45%/45% 55% 42% 58%;
+    transform:rotate(0deg);
+  }
+  33%{
+    border-radius:45% 55% 48% 52%/58% 42% 60% 40%;
+    transform:rotate(6deg);
+  }
+  66%{
+    border-radius:52% 48% 60% 40%/42% 58% 45% 55%;
+    transform:rotate(-5deg);
+  }
+}`,
+  html:
+`<div class="fx-blob"></div>`
+},
+{
+  id:'fx-disk', cat:'latar', hint:'otomatis', dark:false,
+  title:'Piringan Conic',
+  desc:'Piringan conic berputar dengan lubang tengah — pas untuk indikator progres atau pemilih warna.',
+  css:
+`.fx-disk{
+  position:relative;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,#ECFDF5,#A7F3D0,#6EE7B7,#ECFDF5);
+  animation:fxDiskRot 6s linear infinite;
+}
+.fx-disk::after{
+  content:"";
+  position:absolute;
+  inset:24%;
+  border-radius:50%;
+  background:#F8FAFC;
+  border:1px solid #E2E8F0;
+  box-shadow:inset 0 2px 8px rgba(15,23,42,.08);
+}
+@keyframes fxDiskRot{
+  to{transform:rotate(360deg)}
+}`,
+  html:
+`<div class="fx-disk"></div>`
+},
+
+/* ---------------- KARTU ---------------- */
+{
+  id:'fx-lift-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Kartu Melayang',
+  desc:'Kartu terangkat 8px dengan bayangan terra melebar dan tepi yang perlahan menyala.',
+  css:
+`.fx-lift-card{
+  width:230px;
+  padding:18px;
+  border-radius:16px;
+  background:#FFFFFF;
+  border:1px solid #E2E8F0;
+  box-shadow:0 1px 2px rgba(16,24,40,.05);
+  transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s,border-color .28s;
+}
+.fx-lift-card:hover{
+  transform:translateY(-8px);
+  border-color:#A7F3D0;
+  box-shadow:0 0 0 1px rgba(16,185,129,.12),0 20px 38px -14px rgba(16,185,129,.32);
+}
+.fx-lift-card .art{
+  height:84px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ECFDF5,#D1FAE5);
+  display:grid;
+  place-items:center;
+  color:#047857;
+}
+.fx-lift-card .art svg{
+  width:36px;
+  height:36px;
+}
+.fx-lift-card h4{
+  margin:12px 0 4px;
+  font-size:15px;
+  font-weight:600;
+}
+.fx-lift-card p{
+  font-size:12.5px;
+  line-height:1.5;
+  color:#64748B;
+}`,
+  html:
+`<div class="fx-lift-card">
+  <div class="art">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+  </div>
+  <h4>Kebiasaan Baru</h4>
+  <p>Satu kebiasaan kecil, dirawat setiap pagi.</p>
+</div>`
+},
+{
+  id:'fx-flip-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Kartu Terbalik',
+  desc:'Kartu berputar 180 derajat pada sumbu Y memakai preserve-3d dan backface-visibility.',
+  css:
+`.fx-flip-card{
+  width:212px;
+  height:132px;
+  perspective:900px;
+}
+.fx-flip-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.fx-flip-card:hover .fx-flip-inner{
+  transform:rotateY(180deg);
+}
+.fx-flip-card .face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:14px;
+  text-align:center;
+}
+.fx-flip-card .face b{
+  font-size:15px;
+}
+.fx-flip-card .face small{
+  font-size:11.5px;
+  opacity:.8;
+}
+.fx-flip-card .front{
+  background:linear-gradient(135deg,#059669,#10B981);
+  color:#FFFFFF;
+}
+.fx-flip-card .back{
+  background:#0F172A;
+  color:#6EE7B7;
+  transform:rotateY(180deg);
+}`,
+  html:
+`<div class="fx-flip-card">
+  <div class="fx-flip-inner">
+    <div class="face front">
+      <b>Rahasia Taman</b>
+      <small>arahkan kursor untuk membuka</small>
+    </div>
+    <div class="face back">
+      <b>Konsistensi</b>
+      <small>kecil tapi setiap hari</small>
+    </div>
+  </div>
+</div>`
+},
+{
+  id:'fx-beam-card', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Sinar Tepi',
+  desc:'Sinar jade berputar mengelilingi tepi kartu — conic-gradient plus mask-composite.',
+  css:
+`@property --fx-beam-a{
+  syntax:"<angle>";
+  initial-value:0deg;
+  inherits:false;
+}
+.fx-beam-card{
+  position:relative;
+  border-radius:16px;
+  padding:2px;
+  background:conic-gradient(from var(--fx-beam-a),transparent 0 72%,#10B981 86%,#6EE7B7 94%,transparent);
+  animation:fxBeamSpin 2.8s linear infinite;
+}
+.fx-beam-card .in{
+  border-radius:14px;
+  background:#FFFFFF;
+  padding:16px 20px;
+  min-width:190px;
+}
+.fx-beam-card .in b{
+  display:block;
+  font-size:14.5px;
+  margin-bottom:3px;
+}
+.fx-beam-card .in span{
+  font-size:12px;
+  color:#64748B;
+}
+@keyframes fxBeamSpin{
+  to{--fx-beam-a:360deg}
+}`,
+  html:
+`<div class="fx-beam-card">
+  <div class="in">
+    <b>Runtun 12 hari</b>
+    <span>Terpanjang musim ini — jangan putus!</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-tilt-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Tilt 3D',
+  desc:'Kartu miring dalam ruang 3D; label kecil melayang keluar dari sumbu Z saat disentuh.',
+  css:
+`.fx-tilt-card{
+  perspective:800px;
+  width:230px;
+}
+.fx-tilt-card .in{
+  position:relative;
+  border-radius:16px;
+  background:#FFFFFF;
+  border:1px solid #E2E8F0;
+  padding:20px;
+  transform-style:preserve-3d;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+}
+.fx-tilt-card:hover .in{
+  transform:rotateX(9deg) rotateY(-11deg);
+  box-shadow:-16px 20px 38px -18px rgba(16,24,40,.3);
+}
+.fx-tilt-card .chip3d{
+  display:inline-block;
+  margin-top:12px;
+  padding:6px 12px;
+  border-radius:99px;
+  background:#ECFDF5;
+  border:1px solid #A7F3D0;
+  color:#047857;
+  font-size:11.5px;
+  font-weight:700;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fx-tilt-card:hover .chip3d{
+  transform:translateZ(36px);
+}
+.fx-tilt-card .in b{
+  font-size:15px;
+}
+.fx-tilt-card .in p{
+  margin-top:4px;
+  font-size:12.5px;
+  line-height:1.5;
+  color:#64748B;
+}`,
+  html:
+`<div class="fx-tilt-card">
+  <div class="in">
+    <b>Kartu Perspektif</b>
+    <p>Dekorasi kecil melompat keluar dari bidang kartu.</p>
+    <span class="chip3d">translateZ(36px)</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-glass', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Kaca Embun',
+  desc:'Panel kaca di atas gradien bergerak — backdrop-filter: blur dengan tepi bercahaya.',
+  css:
+`.fx-glass-scene{
+  position:relative;
+  width:300px;
+  height:170px;
+  border-radius:16px;
+  overflow:hidden;
+  background:linear-gradient(130deg,#059669,#10B981 45%,#65A30D 120%);
+}
+.fx-glass-scene i{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+}
+.fx-glass-scene i:nth-child(1){
+  width:90px;
+  height:90px;
+  top:-24px;
+  left:-16px;
+  animation:fxGlassFloat 7s ease-in-out infinite alternate;
+}
+.fx-glass-scene i:nth-child(2){
+  width:58px;
+  height:58px;
+  bottom:-18px;
+  right:44px;
+  animation:fxGlassFloat 9s ease-in-out infinite alternate-reverse;
+}
+.fx-glass{
+  position:relative;
+  z-index:1;
+  width:206px;
+  margin:36px auto 0;
+  padding:16px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.5);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 10px 26px -14px rgba(6,95,70,.5);
+  color:#FFFFFF;
+}
+.fx-glass b{
+  display:block;
+  font-size:14px;
+}
+.fx-glass span{
+  font-size:12px;
+  opacity:.85;
+}
+@keyframes fxGlassFloat{
+  to{transform:translate(18px,10px)}
+}`,
+  html:
+`<div class="fx-glass-scene">
+  <i></i><i></i>
+  <div class="fx-glass">
+    <b>Kartu Kaca</b>
+    <span>backdrop-filter: blur(10px)</span>
+  </div>
+</div>`
+},
+
+/* ---------------- INPUT ---------------- */
+{
+  id:'fx-float-field', cat:'input', hint:'fokus', dark:false,
+  title:'Label Mengambang',
+  desc:'Label mengambang naik saat input menerima fokus atau terisi — trik :placeholder-shown.',
+  css:
+`.fx-float-field{
+  position:relative;
+  display:block;
+  width:232px;
+}
+.fx-float-field input{
+  width:100%;
+  height:56px;
+  padding:20px 14px 6px;
+  border:1.5px solid #E2E8F0;
+  border-radius:14px;
+  background:#FFFFFF;
+  font-family:inherit;
+  font-size:14.5px;
+  color:#0F172A;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.fx-float-field span{
+  position:absolute;
+  left:14.5px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#94A3B8;
+  font-size:14px;
+  pointer-events:none;
+  transition:all .18s cubic-bezier(.22,1,.36,1);
+}
+.fx-float-field input:focus{
+  border-color:#10B981;
+  box-shadow:0 0 0 3px rgba(16,185,129,.16);
+}
+.fx-float-field input:focus + span,
+.fx-float-field input:not(:placeholder-shown) + span{
+  top:16px;
+  transform:none;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:#047857;
+}`,
+  html:
+`<label class="fx-float-field">
+  <input type="text" placeholder=" ">
+  <span>Nama kebiasaan</span>
+</label>`
+},
+{
+  id:'fx-line-field', cat:'input', hint:'fokus', dark:false,
+  title:'Garis Fokus',
+  desc:'Garis bawah gradien tumbuh dari tengah saat input menerima fokus — form yang tenang.',
+  css:
+`.fx-line-field{
+  position:relative;
+  display:block;
+  width:236px;
+}
+.fx-line-field span{
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:#94A3B8;
+  transition:color .2s;
+}
+.fx-line-field input{
+  width:100%;
+  border:none;
+  border-bottom:2px solid #CBD5E1;
+  background:transparent;
+  padding:8px 2px 10px;
+  font-family:inherit;
+  font-size:15px;
+  color:#0F172A;
+  outline:none;
+}
+.fx-line-field::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,#10B981,#34D399);
+  transform:scaleX(0);
+  transform-origin:50% 50%;
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+}
+.fx-line-field:focus-within::after{
+  transform:scaleX(1);
+}
+.fx-line-field:focus-within span{
+  color:#047857;
+}`,
+  html:
+`<label class="fx-line-field">
+  <span>Email</span>
+  <input type="email" placeholder="nama@taman.id">
+</label>`
+},
+{
+  id:'fx-search', cat:'input', hint:'fokus', dark:false,
+  title:'Pencarian Mekar',
+  desc:'Lingkaran pencarian kecil mekar memanjang menjadi field penuh saat menerima fokus.',
+  css:
+`.fx-search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:48px;
+  width:48px;
+  border-radius:999px;
+  border:1.5px solid #E2E8F0;
+  background:#FFFFFF;
+  overflow:hidden;
+  cursor:pointer;
+  transition:width .42s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s;
+}
+.fx-search svg{
+  flex:none;
+  width:20px;
+  height:20px;
+  margin-left:14px;
+  color:#64748B;
+}
+.fx-search input{
+  flex:1;
+  min-width:0;
+  border:none;
+  outline:none;
+  background:transparent;
+  font-family:inherit;
+  font-size:14px;
+  color:#0F172A;
+  opacity:0;
+  transition:opacity .25s .12s;
+}
+.fx-search:focus-within{
+  width:252px;
+  border-color:#10B981;
+  box-shadow:0 0 0 3px rgba(16,185,129,.16);
+}
+.fx-search:focus-within input{
+  opacity:1;
+}`,
+  html:
+`<label class="fx-search">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+  <input type="search" placeholder="Cari di taman…">
+</label>`
+},
+
+/* ---------------- TOGGLE ---------------- */
+{
+  id:'fx-daynight', cat:'toggle', hint:'klik', dark:false,
+  title:'Siang ke Malam',
+  desc:'Saklar siang-malam: matahari bergeser menjadi bulan dan bintang-bintang meredup masuk.',
+  css:
+`.fx-daynight{
+  position:relative;
+  display:inline-block;
+  width:88px;
+  height:46px;
+  cursor:pointer;
+}
+.fx-daynight input{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  margin:0;
+  cursor:pointer;
+  z-index:2;
+}
+.fx-daynight .track{
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:linear-gradient(120deg,#7DD3FC,#38BDF8);
+  box-shadow:inset 0 2px 6px rgba(2,132,199,.35);
+  transition:background .4s;
+}
+.fx-daynight .track::before{
+  content:"";
+  position:absolute;
+  top:10px;
+  left:52px;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#FFFFFF;
+  box-shadow:10px 8px #FFF,22px -2px #FFF,4px 20px #FFF,26px 16px #FFF;
+  opacity:0;
+  transition:opacity .4s;
+}
+.fx-daynight .knob{
+  position:absolute;
+  top:4px;
+  left:4px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#FEF3C7;
+  box-shadow:0 2px 7px rgba(0,0,0,.25);
+  display:grid;
+  place-items:center;
+  transition:transform .4s cubic-bezier(.22,1,.36,1),background .4s;
+}
+.fx-daynight .knob::before{
+  content:"";
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#F59E0B;
+  box-shadow:0 0 12px 2px rgba(245,158,11,.6);
+  transition:all .4s;
+}
+.fx-daynight .knob::after{
+  content:"";
+  position:absolute;
+  left:12px;
+  top:10px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#94A3B8;
+  transform:scale(0);
+  transition:transform .3s .15s;
+}
+.fx-daynight input:checked ~ .track{
+  background:linear-gradient(120deg,#1E293B,#0F172A);
+}
+.fx-daynight input:checked ~ .track::before{
+  opacity:1;
+}
+.fx-daynight input:checked ~ .knob{
+  transform:translateX(42px);
+  background:#E2E8F0;
+}
+.fx-daynight input:checked ~ .knob::before{
+  background:#CBD5E1;
+  box-shadow:none;
+}
+.fx-daynight input:checked ~ .knob::after{
+  transform:scale(1);
+}`,
+  html:
+`<label class="fx-daynight">
+  <input type="checkbox">
+  <span class="track"></span>
+  <span class="knob"></span>
+</label>`
+},
+{
+  id:'fx-heart', cat:'toggle', hint:'klik', dark:false,
+  title:'Suka Bersemi',
+  desc:'Hati terisi merah dengan semburan dua cincin — umpan balik untuk momen "aku suka ini".',
+  css:
+`.fx-heart{
+  position:relative;
+  width:56px;
+  height:56px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.fx-heart input{
+  position:absolute;
+  opacity:0;
+  width:100%;
+  height:100%;
+  margin:0;
+  cursor:pointer;
+}
+.fx-heart svg{
+  width:34px;
+  height:34px;
+  color:#CBD5E1;
+  transition:color .2s;
+}
+.fx-heart svg path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linejoin:round;
+  transition:fill .2s,stroke .2s;
+}
+.fx-heart input:checked ~ svg{
+  color:#EF4444;
+  animation:fxHeartPop .45s cubic-bezier(.3,1.6,.5,1);
+}
+.fx-heart input:checked ~ svg path{
+  fill:currentColor;
+}
+.fx-heart .burst{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.fx-heart .burst::before,.fx-heart .burst::after{
+  content:"";
+  position:absolute;
+  inset:11px;
+  border-radius:50%;
+  border:2px solid #FCA5A5;
+  opacity:0;
+}
+.fx-heart input:checked ~ .burst::before{
+  animation:fxHeartRing .6s ease-out;
+}
+.fx-heart input:checked ~ .burst::after{
+  animation:fxHeartRing .6s .12s ease-out;
+}
+@keyframes fxHeartPop{
+  0%{transform:scale(.6)}
+  55%{transform:scale(1.25)}
+  100%{transform:scale(1)}
+}
+@keyframes fxHeartRing{
+  from{transform:scale(.4);opacity:1}
+  to{transform:scale(1.7);opacity:0}
+}`,
+  html:
+`<label class="fx-heart">
+  <input type="checkbox">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5S3.5 15.5 3.5 9.6C3.5 6.5 5.9 4.5 8.4 4.5c1.6 0 3 .9 3.6 2.2.6-1.3 2-2.2 3.6-2.2 2.5 0 4.9 2 4.9 5.1 0 5.9-8.5 10.9-8.5 10.9z"/></svg>
+  <i class="burst"></i>
+</label>`
+},
+{
+  id:'fx-check', cat:'toggle', hint:'klik', dark:false,
+  title:'Centang Riak',
+  desc:'Centang digambar dengan stroke-dashoffset lalu riak tepi melebar — selesai dengan gaya.',
+  css:
+`.fx-check{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:14.5px;
+  font-weight:600;
+  color:#475569;
+}
+.fx-check input{
+  position:absolute;
+  opacity:0;
+  width:0;
+  height:0;
+}
+.fx-check .box{
+  position:relative;
+  width:26px;
+  height:26px;
+  border-radius:9px;
+  border:2px solid #CBD5E1;
+  background:#FFFFFF;
+  display:grid;
+  place-items:center;
+  transition:background .2s,border-color .2s;
+}
+.fx-check .box svg{
+  width:14px;
+  height:14px;
+  color:#FFFFFF;
+}
+.fx-check .box svg path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:22;
+  stroke-dashoffset:22;
+  transition:stroke-dashoffset .25s .05s ease;
+}
+.fx-check .box::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:11px;
+  border:2px solid rgba(16,185,129,.5);
+  opacity:0;
+}
+.fx-check input:checked ~ .box{
+  background:#10B981;
+  border-color:#10B981;
+}
+.fx-check input:checked ~ .box svg path{
+  stroke-dashoffset:0;
+}
+.fx-check input:checked ~ .box::after{
+  animation:fxCheckRipple .5s ease-out;
+}
+.fx-check input:checked ~ .txt{
+  color:#047857;
+}
+@keyframes fxCheckRipple{
+  from{transform:scale(.6);opacity:1}
+  to{transform:scale(1.45);opacity:0}
+}`,
+  html:
+`<label class="fx-check">
+  <input type="checkbox">
+  <span class="box">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+  </span>
+  <span class="txt">Menyiram tanaman</span>
+</label>`
+},
+
+/* ---------------- ANIMASI ---------------- */
+{
+  id:'fx-ping', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Lencana Denyut',
+  desc:'Lencana merah dengan gelombang denyut terus-menerus — penanda notifikasi klasik.',
+  css:
+`.fx-ping{
+  position:relative;
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  background:#FFFFFF;
+  border:1px solid #E2E8F0;
+  display:grid;
+  place-items:center;
+  color:#475569;
+}
+.fx-ping svg{
+  width:22px;
+  height:22px;
+}
+.fx-ping .dot{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#EF4444;
+  border:2.5px solid #FFFFFF;
+}
+.fx-ping .dot::before{
+  content:"";
+  position:absolute;
+  inset:-2.5px;
+  border-radius:50%;
+  background:rgba(239,68,68,.5);
+  animation:fxPingWave 1.8s cubic-bezier(0,.6,.4,1) infinite;
+}
+@keyframes fxPingWave{
+  from{transform:scale(1);opacity:1}
+  to{transform:scale(2.5);opacity:0}
+}`,
+  html:
+`<div class="fx-ping">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5a6 6 0 0 1 12 0c0 4.8 1.8 5.8 1.8 5.8H4.2S6 14.3 6 9.5"/><path d="M10 18.8a2.2 2.2 0 0 0 4 0"/></svg>
+  <span class="dot"></span>
+</div>`
+},
+{
+  id:'fx-progress', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Progres Bergaris',
+  desc:'Progres hijau dengan garis-garis miring berjalan — repeating-gradient yang bergerak.',
+  css:
+`.fx-progress{
+  width:240px;
+  height:14px;
+  border-radius:99px;
+  background:#EEF2F6;
+  overflow:hidden;
+}
+.fx-progress i{
+  position:relative;
+  display:block;
+  height:100%;
+  width:68%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#059669,#34D399);
+}
+.fx-progress i::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:repeating-linear-gradient(-45deg,rgba(255,255,255,.3) 0 10px,transparent 10px 20px);
+  animation:fxStripeMove 1s linear infinite;
+}
+@keyframes fxStripeMove{
+  to{background-position:28.28px 0}
+}`,
+  html:
+`<div class="fx-progress"><i></i></div>`
+},
+{
+  id:'fx-bounce', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Panah Melenting',
+  desc:'Panah melenting pelan di ujung layar — ajakan halus untuk menggulir ke bawah.',
+  css:
+`.fx-bounce{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:2px solid #A7F3D0;
+  background:#ECFDF5;
+  color:#047857;
+  display:grid;
+  place-items:center;
+  animation:fxBounceHop 1.6s ease-in-out infinite;
+}
+.fx-bounce svg{
+  width:18px;
+  height:18px;
+}
+@keyframes fxBounceHop{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}`,
+  html:
+`<div class="fx-bounce">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+</div>`
+},
+{
+  id:'fx-leaf', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Daun Bergoyang',
+  desc:'Daun bersendi di pangkal, bergoyang ditiup angin taman — sentuhan botani yang hidup.',
+  css:
+`.fx-leaf-scene{
+  display:grid;
+  place-items:center;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#D1FAE5,#F0FDF9);
+}
+.fx-leaf{
+  position:relative;
+  width:54px;
+  height:54px;
+  background:linear-gradient(135deg,#34D399,#059669);
+  border-radius:0 100% 0 100%;
+  transform-origin:0 100%;
+  animation:fxLeafSway 3.2s ease-in-out infinite;
+}
+.fx-leaf::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(135deg,rgba(255,255,255,.4),transparent 55%);
+}
+.fx-leaf::after{
+  content:"";
+  position:absolute;
+  left:10%;
+  right:10%;
+  top:47%;
+  height:2px;
+  border-radius:2px;
+  background:rgba(6,78,59,.4);
+  transform:rotate(-45deg);
+}
+@keyframes fxLeafSway{
+  0%,100%{transform:rotate(-9deg)}
+  50%{transform:rotate(11deg)}
+}`,
+  html:
+`<div class="fx-leaf-scene"><i class="fx-leaf"></i></div>`
+}
+];
+
+/* ============================================================
+   MESIN LAB — suntik CSS, render kartu, filter, dialog, salin
+   ============================================================ */
+const $=s=>document.querySelector(s);
+const grid=$('#grid'),chipsBox=$('#chips'),qInput=$('#q'),dlg=$('#dlg'),
+      dlgStage=$('#dlgStage'),dlgCode=$('#dlgCode'),dlgTitle=$('#dlgTitle'),
+      dlgCopy=$('#dlgCopy'),toast=$('#toast'),toastMsg=$('#toastMsg'),
+      tabCss=$('#tabCss'),tabHtml=$('#tabHtml');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* suntik CSS semua efek — demo & kode bersumber sama */
+$('#fx-styles').textContent=FX.map(f=>f.css).join('\n');
+
+const HINT_ICON={
+  'hover':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3l7 17 2.5-6.5L20 11z"/></svg>',
+  'klik':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3.5v6M15 3.5v6M6 9.5h12v3a6 6 0 0 1-12 0z"/><path d="M12 18.5v2"/></svg>',
+  'fokus':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22"/></svg>',
+  'otomatis':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v5h-5"/></svg>'
+};
+
+function cardHtml(f){
+  const c=CATS[f.cat];
+  return '<article class="fx-card" data-id="'+f.id+'" data-cat="'+f.cat+'">'
+    +'<div class="stage'+(f.dark?' stage-dark':'')+'">'+f.html+'</div>'
+    +'<div class="fx-body">'
+    +'<div class="fx-meta">'
+    +'<span class="cat-pill" style="--pc:'+c.color+';--ps:'+c.soft+'">'+c.label+'</span>'
+    +'<span class="hint-pill">'+(HINT_ICON[f.hint]||'')+f.hint+'</span>'
+    +'</div>'
+    +'<h3>'+f.title+'</h3>'
+    +'<p>'+f.desc+'</p>'
+    +'<button class="fx-code-btn" data-code="'+f.id+'">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>'
+    +'Lihat kode</button>'
+    +'</div></article>';
+}
+
+const EMPTY='<div class="empty" id="emptyState" hidden>'
+  +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13C12 9.5 9.4 7 5.8 6.8 5.6 10.4 8.2 13 12 13z"/><path d="M12 11c0-3 2.3-5.2 5.4-5.4C17.4 8.7 15 11 12 11z"/></svg>'
+  +'<b>Tidak ada efek yang cocok</b>'
+  +'<p>Coba kata kunci lain, atau pilih kategori yang berbeda.</p>'
+  +'</div>';
+
+grid.innerHTML=FX.map(cardHtml).join('')+EMPTY;
+
+/* statistik hero */
+$('#stFx').textContent=FX.length;
+$('#stCat').textContent=Object.keys(CATS).length;
+
+/* chip kategori */
+let activeCat='semua',query='';
+function buildChips(){
+  const counts={};
+  FX.forEach(f=>counts[f.cat]=(counts[f.cat]||0)+1);
+  let html='<button class="chip active" data-cat="semua">Semua <span class="n">'+FX.length+'</span></button>';
+  for(const k in CATS){
+    html+='<button class="chip" data-cat="'+k+'">'+CATS[k].label+' <span class="n">'+(counts[k]||0)+'</span></button>';
+  }
+  chipsBox.innerHTML=html;
+}
+buildChips();
+
+function applyFilter(){
+  const cards=grid.querySelectorAll('.fx-card');
+  let shown=0;
+  cards.forEach(el=>{
+    const f=FX.find(x=>x.id===el.dataset.id);
+    const hay=(f.title+' '+f.desc+' '+f.cat+' '+CATS[f.cat].label).toLowerCase();
+    const ok=(activeCat==='semua'||f.cat===activeCat)&&(!query||hay.includes(query));
+    el.style.display=ok?'':'none';
+    if(ok)shown++;
+  });
+  $('#emptyState').hidden=shown>0;
+  $('#resultCount').innerHTML='Menampilkan <b>'+shown+'</b> dari '+FX.length+' efek';
+}
+applyFilter();
+
+chipsBox.addEventListener('click',e=>{
+  const chip=e.target.closest('.chip');
+  if(!chip)return;
+  activeCat=chip.dataset.cat;
+  chipsBox.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c===chip));
+  applyFilter();
+});
+qInput.addEventListener('input',()=>{query=qInput.value.trim().toLowerCase();applyFilter()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement!==qInput&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    e.preventDefault();qInput.focus();
+  }
+});
+
+/* ---------- penyorot sintaks (ringan, tanpa dependensi) ---------- */
+function hlValue(v){
+  return v.replace(/("[^"]*")|(#[0-9a-fA-F]{3,8}\b)|(-?\d+(?:\.\d+)?(?:px|em|rem|%|s|ms|deg|vw|vh|ch|fr)?\b)/g,
+    function(m,str){
+      if(str)return '<span class="tok-str">'+str+'</span>';
+      return '<span class="tok-num">'+m+'</span>';
+    });
+}
+function hlDecls(inner){
+  return inner.split(';').map(function(part){
+    const t=part.trim();
+    if(!t)return '';
+    const i=t.indexOf(':');
+    if(i<0)return esc(t);
+    return '<span class="tok-prop">'+esc(t.slice(0,i))+'</span><span class="tok-pun">:</span>'+hlValue(esc(t.slice(i+1)));
+  }).join('<span class="tok-pun">;</span>');
+}
+function hlCss(src){
+  return src.split('\n').map(function(line){
+    const t=line.trim();
+    if(!t)return '';
+    if(t.startsWith('/*'))return '<span class="tok-com">'+esc(line)+'</span>';
+    const bi=line.indexOf('{');
+    if(bi>-1){
+      const head=line.slice(0,bi),rest=line.slice(bi+1).trim();
+      const headHtml=t.startsWith('@')?'<span class="tok-kw">'+esc(head)+'</span>':'<span class="tok-sel">'+esc(head)+'</span>';
+      let body='';
+      if(rest.endsWith('}')){
+        const inner=rest.slice(0,-1);
+        body=inner.trim()?hlDecls(inner):'';
+        body+='<span class="tok-pun">}</span>';
+      }else{
+        body='<span class="tok-pun">{</span>';
+      }
+      return headHtml+body;
+    }
+    if(t==='}')return '<span class="tok-pun">}</span>';
+    if(t.endsWith(','))return '<span class="tok-sel">'+esc(line)+'</span>';
+    const ci=line.indexOf(':');
+    if(ci>-1){
+      return '<span class="tok-prop">'+esc(line.slice(0,ci))+'</span><span class="tok-pun">:</span>'+hlValue(esc(line.slice(ci+1)));
+    }
+    return esc(line);
+  }).join('\n');
+}
+function hlHtml(src){
+  let s=esc(src);
+  s=s.replace(/([\w-]+)=("[^"]*")/g,'<span class="tok-attr">$1</span><span class="tok-pun">=</span><span class="tok-str">$2</span>');
+  s=s.replace(/(&lt;\/?)([\w-]+)/g,'<span class="tok-pun">$1</span><span class="tok-tag">$2</span>');
+  s=s.replace(/(\/?&gt;)/g,'<span class="tok-pun">$1</span>');
+  return s;
+}
+
+/* ---------- dialog kode ---------- */
+let current=null,activeTab='css';
+function openDialog(id){
+  const f=FX.find(x=>x.id===id);
+  if(!f)return;
+  current=f;activeTab='css';
+  const c=CATS[f.cat];
+  dlgTitle.innerHTML=f.title+' <span class="cat-pill" style="--pc:'+c.color+';--ps:'+c.soft+';margin-left:6px;vertical-align:2px">'+c.label+'</span>';
+  dlgStage.className='stage'+(f.dark?' stage-dark':'');
+  dlgStage.innerHTML=f.html;
+  setTab('css');
+  dlg.showModal();
+}
+function setTab(tab){
+  activeTab=tab;
+  tabCss.classList.toggle('active',tab==='css');
+  tabHtml.classList.toggle('active',tab==='html');
+  tabCss.setAttribute('aria-selected',tab==='css');
+  tabHtml.setAttribute('aria-selected',tab==='html');
+  dlgCode.innerHTML=tab==='css'?hlCss(current.css):hlHtml(current.html);
+}
+grid.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-code]');
+  if(btn)openDialog(btn.dataset.code);
+});
+tabCss.addEventListener('click',()=>setTab('css'));
+tabHtml.addEventListener('click',()=>setTab('html'));
+dlg.addEventListener('click',e=>{
+  if(e.target===dlg||e.target.closest('[data-close]'))dlg.close();
+});
+dlg.addEventListener('close',()=>{dlgStage.innerHTML=''});
+dlgCopy.addEventListener('click',()=>{
+  if(!current)return;
+  const txt=activeTab==='css'?current.css:current.html;
+  copyText(txt,activeTab.toUpperCase());
+});
+
+/* ---------- salin + toast ---------- */
+function showToast(msg){
+  toastMsg.textContent=msg;
+  toast.classList.add('show');
+  clearTimeout(showToast.t);
+  showToast.t=setTimeout(()=>toast.classList.remove('show'),2200);
+}
+async function copyText(txt,label){
+  let ok=false;
+  try{
+    await navigator.clipboard.writeText(txt);
+    ok=true;
+  }catch(err){
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=txt;
+      ta.style.cssText='position:fixed;top:-999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ok=document.execCommand('copy');
+      ta.remove();
+    }catch(err2){ok=false}
+  }
+  showToast(ok?('Kode '+label+' tersalin ke papan klip'):'Gagal menyalin — salin manual dari kotak kode');
+}
+</script>
+</body>
+</html>
