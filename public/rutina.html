@@ -10,6 +10,17 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v3.03 MASTER MAKANAN INDONESIA (179 item) + NERACA HARIAN: (1) tab
+     Asupan kini mencari dari master makanan milik pengguna (140 item,
+     sumber penuh: public/data/master-makanan-indonesia.json) + 39 kopi &
+     minuman kekinian (Kopi Kenangan, Kopi Point & Kopi Domar Indomaret,
+     Janji Jiwa, Tuku, Toko Djawa, Titik Temu, Fore, Nako, Starbucks,
+     sachet/instan & resep umum) — panel hasil di bawah isian, satu ketuk
+     mengisi kalori + makro (delegasi pointerdown, tetap bisa diedit);
+     datalist 20 item lama dipensiunkan. (2) kartu Asupan menampilkan
+     NERACA HARIAN eksplisit: defisit/surplus = jatah + terbakar − asupan,
+     tiga angka (masuk/terbakar/net) + pesan coaching; toast simpan
+     menyebut sisa jatah. -->
 <!-- v3.02.1 PERBAIKAN IKATAN PENDENGAR KOACH: renderReadiness/renderCoachStrip
      mengganti innerHTML wadah tiap simpan → tombol skala Kesiapan & tombol
      deload di strip Pesan coach lahir ulang TANPA pendengar setelah klik
@@ -499,6 +510,23 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .fd-name{font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fd-sub{font-size:11px;color:var(--ink-3);font-weight:600;font-variant-numeric:tabular-nums}
 .fd-kcal{font-weight:800;font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* v3.03 · pencarian master makanan (179 item) — panel hasil di bawah isian */
+.fd-db-note{display:block;font-size:11px;color:var(--ink-3);font-weight:600;margin-top:6px}
+.fd-search{margin-top:8px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow-sm)}
+.fd-search-empty{padding:12px 14px;font-size:12px;color:var(--ink-3);font-weight:600}
+.fd-hit{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;background:none;border:0;border-bottom:1px solid var(--line-soft);cursor:pointer;min-height:44px} /* v2.65 · target ketuk 44px */
+.fd-hit:last-child{border-bottom:none}
+.fd-hit:hover,.fd-hit:focus-visible{background:var(--surface-2);outline:none}
+.fd-hit-main{flex:1;min-width:0}
+.fd-hit-name{font-weight:700;font-size:12.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fd-hit-sub{font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:1px}
+.fd-hit-kcal{font-weight:800;font-size:13px;color:var(--terra-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fd-scroll{max-height:248px;overflow-y:auto;overscroll-behavior:contain}
+.fd-verdict{display:flex;align-items:center;gap:8px;margin-top:10px;padding:9px 12px;border-radius:12px;font-size:12px;font-weight:700}
+.fd-verdict .ic{flex:none}
+.fd-verdict.defisit{background:var(--sage-soft);color:var(--terra-deep)}
+.fd-verdict.surplus{background:var(--honey-soft);color:var(--honey-deep)}
+.fd-verdict.pas{background:var(--surface-2);color:var(--ink-2)}
 .macro-bars{display:grid;gap:8px;margin-top:12px}
 .macro-lab{display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;margin-bottom:3px}
 .macro-lab small{color:var(--ink-3);font-weight:600}
@@ -4229,29 +4257,9 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <input type="hidden" id="fdMeal" value="pagi">
       <div class="field">
         <label for="fdName">Makanan / minuman</label>
-        <input type="text" id="fdName" list="fdNameOpts" autocomplete="off" placeholder="cth: nasi + ayam goreng" required>
-        <datalist id="fdNameOpts">
-          <option value="Nasi putih 1 porsi (180 kkal)"></option>
-          <option value="Nasi goreng 1 porsi (520 kkal)"></option>
-          <option value="Ayam goreng 1 potong (280 kkal)"></option>
-          <option value="Telur dadar 1 butir (110 kkal)"></option>
-          <option value="Mie instan 1 bungkus (400 kkal)"></option>
-          <option value="Roti tawar 2 lembar (140 kkal)"></option>
-          <option value="Oatmeal 40 g (150 kkal)"></option>
-          <option value="Pisang 1 buah (90 kkal)"></option>
-          <option value="Apel 1 buah (80 kkal)"></option>
-          <option value="Susu rendah lemak 250 ml (120 kkal)"></option>
-          <option value="Kopi susu 1 gelas (180 kkal)"></option>
-          <option value="Teh manis 1 gelas (70 kkal)"></option>
-          <option value="Es krim 1 scoop (140 kkal)"></option>
-          <option value="Sate ayam 5 tusuk (330 kkal)"></option>
-          <option value="Gado-gado 1 porsi (310 kkal)"></option>
-          <option value="Sayur asem 1 mangkuk (120 kkal)"></option>
-          <option value="Tempe goreng 3 buah (180 kkal)"></option>
-          <option value="Ikan bakar 1 ekor kecil (260 kkal)"></option>
-          <option value="Sup ayam 1 mangkuk (180 kkal)"></option>
-          <option value="Yogurt 100 g (70 kkal)"></option>
-        </datalist>
+        <input type="text" id="fdName" autocomplete="off" placeholder="Cari master: nasi goreng, kopi kenangan…" required aria-describedby="fdDbNote">
+        <small class="fd-db-note" id="fdDbNote">Master 179 makanan &amp; minuman Indonesia — ketik ≥2 huruf, pilih hasilnya; kalori &amp; makro terisi otomatis (tetap bisa diedit).</small>
+        <div id="fdSearch" class="fd-search" hidden><div class="fd-scroll" id="fdSearchScroll"></div></div>
       </div>
       <div class="field">
         <label for="fdKcal">Kalori (kkal)</label>
@@ -4279,7 +4287,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
         <button type="button" class="btn btn-ghost" data-close>Batal</button>
         <button type="submit" class="btn btn-primary" id="fdSubmitBtn"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Simpan asupan</button>
       </div>
-      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Makro boleh kosong; kalori tetap tercatat ke neraca harianmu.</p>
+      <p class="konsep-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Master 179 item (makanan &amp; kopi kekinian) — nilai estimasi referensi porsi; makro boleh kosong, kalori tetap tercatat ke neraca harian.</p>
     </form>
   </div>
 </div>
@@ -4791,7 +4799,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
    tab Pengaturan. v3.01: audit gradasi & tema — ramp bahaya pink disatukan
    ke merah, kepala kartu arus kas pindah keluarga cream-sage, indigo & pink
    pensiun dari seluruh permukaan. */
-const APP_VERSION='v3.02.1';
+const APP_VERSION='v3.03';
 $$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -7051,13 +7059,28 @@ function renderKaloriCard(){
   const today=FOODS.filter(f=>f.date===tk);
   const kc=today.reduce((a,f)=>a+f.kcal,0);
   const prot=today.reduce((a,f)=>a+f.protein,0),carb=today.reduce((a,f)=>a+f.carb,0),fat=today.reduce((a,f)=>a+f.fat,0);
+  /* v3.03 · NERACA HARIAN: sisa = jatah + terbakar − asupan;
+     positif = defisit (jatah belum habis), negatif = surplus */
+  const burned=WORKOUTS.filter(w=>w.date===tk).reduce((a,w)=>a+kcalOf(w),0);
+  const sisa=FIT.kcal+burned-kc;
   const pct=Math.min(100,Math.round(kc/FIT.kcal*100));
   $('#kaloriTitle').textContent=`Asupan hari ini · ${kc} kkal`;
   const order=['pagi','siang','malam','camilan'];
+  const verdict=sisa>0
+    ?`<div class="fd-verdict defisit"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Defisit ${sisa} kkal — jatah ${FIT.kcal} + terbakar ${burned} − asupan ${kc}. ${sisa<FIT.kcal*.2?'Jangan terlalu dalam, asup nutrisi cukup.':'Konsisten di jalur ini.'}</span></div>`
+    :sisa<0
+    ?`<div class="fd-verdict surplus"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span>Surplus ${Math.abs(sisa)} kkal — asupan ${kc} melewati jatah ${FIT.kcal} + terbakar ${burned}. Gerak ekstra atau sesuaikan porsi berikutnya.</span></div>`
+    :`<div class="fd-verdict pas"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Pas di jatah — ${FIT.kcal} + ${burned} − ${kc} = 0 kkal.</span></div>`;
   body.innerHTML=`
     <div class="tg-row" style="margin-bottom:12px">
       <div class="tg-lab"><span>Jatah kalori</span><small>${kc}/${FIT.kcal} kkal · ${pct}%</small></div>
       <div class="bar"><i data-w="${pct}%" style="background:${pct>100?'var(--rose)':'var(--terra)'}"></i></div>
+    </div>
+    ${verdict}
+    <div class="cr-sum" style="grid-template-columns:repeat(3,1fr);margin-top:10px">
+      <div><b>${kc}</b><small>kkal masuk</small></div>
+      <div><b>${burned}</b><small>kkal terbakar</small></div>
+      <div><b>${kc-burned>=0?'+':''}${kc-burned}</b><small>net hari ini</small></div>
     </div>
     <div class="macro-bars">
       <div><div class="macro-lab"><span>Protein</span><small>${Math.round(prot)}/${FIT.protein} g</small></div><div class="bar"><i data-w="${Math.min(100,Math.round(prot/FIT.protein*100))}%" style="background:#0EA5E9"></i></div></div>
@@ -7409,12 +7432,267 @@ function delWorkout(id){
 }
 
 /* modal: asupan */
+/* =====================================================================
+   v3.03 · MASTER MAKANAN INDONESIA — 179 item (140 master milik pengguna
+   + 39 kopi/minuman kekinian: Kenangan, Kopi Point, Kopi Domar, Janji
+   Jiwa, Tuku, Toko Djawa, Titik Temu, Fore, Nako, Starbucks, sachet/
+   instan & resep umum). Sumber penuh: public/data/master-makanan-
+   indonesia.json; array kompak di bawah adalah salinan embed agar shell
+   satu file tetap offline-first (nilai = estimasi referensi porsi).
+   Baris: [nama, kategori, satuan, kkal, protein g, karbo g, lemak g]
+   ===================================================================== */
+const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21.0],
+["Mie goreng warung","Nasi & makanan pokok","1 porsi",424,null,null,null],
+["Kwetiau goreng","Nasi & makanan pokok","1 porsi",361,null,null,null],
+["Bihun goreng","Nasi & makanan pokok","1 porsi",448,null,null,null],
+["Bubur ayam","Nasi & makanan pokok","1 porsi",367,null,null,null],
+["Nasi putih","Nasi & makanan pokok","1 centong kayu",126,2.1,27.9,0.2],
+["Nasi putih - centong rice cooker","Nasi & makanan pokok","1 centong",90,null,null,null],
+["Nasi putih - centong plastik","Nasi & makanan pokok","1 centong",108,null,null,null],
+["Nasi merah","Nasi & makanan pokok","1 centong",149,null,null,null],
+["Nasi tim","Nasi & makanan pokok","1 mangkuk besar",240,null,null,null],
+["Nasi gurih","Nasi & makanan pokok","1 porsi",380,null,null,null],
+["Nasi gemuk","Nasi & makanan pokok","1 porsi",192,null,null,null],
+["Nasi jagung","Nasi & makanan pokok","1 porsi",357,null,null,null],
+["Nasi minyak","Nasi & makanan pokok","1 sendok makan",27,null,null,null],
+["Nasi rames","Nasi & makanan pokok","1 porsi",465,null,null,null],
+["Mie bakso","Nasi & makanan pokok","1 porsi",456,null,null,null],
+["Mie ayam","Nasi & makanan pokok","1 mangkuk",408,null,null,null],
+["Ketoprak","Nasi & makanan pokok","1 porsi",459,null,null,null],
+["Ketupat kandangan","Nasi & makanan pokok","1 porsi",109,null,null,null],
+["Ketupat ketan","Nasi & makanan pokok","1 porsi",212,null,null,null],
+["Jagung muda rebus","Nasi & makanan pokok","1 potong",50,null,null,null],
+["Jagung gerontol","Nasi & makanan pokok","1 porsi",156,null,null,null],
+["Jagung pipil rebus","Nasi & makanan pokok","1 porsi",154,null,null,null],
+["Jagung titi","Nasi & makanan pokok","1 porsi",374,null,null,null],
+["Bubur tinotuan Manado","Nasi & makanan pokok","1 mangkuk",468,null,null,null],
+["Bubur sagu","Nasi & makanan pokok","1 porsi",167,null,null,null],
+["Singkong kukus","Umbi & olahan","1 potong",122,null,null,null],
+["Getuk singkong","Umbi & olahan","1 potong",204,null,null,null],
+["Tapai singkong","Umbi & olahan","1 potong",169,null,null,null],
+["Ubi Cilembu","Umbi & olahan","1 potong",186,null,null,null],
+["Ubi jalar kuning kukus","Umbi & olahan","1 potong",100,null,null,null],
+["Kentang","Umbi & olahan","1 potong",62,null,null,null],
+["Gembili","Umbi & olahan","1 potong",131,null,null,null],
+["Pastel","Jajanan & kue","1 buah",154,null,null,null],
+["Bika ambon","Jajanan & kue","1 buah",100,null,null,null],
+["Kelepon","Jajanan & kue","1 porsi",215,null,null,null],
+["Onde-onde","Jajanan & kue","1 porsi",336,null,null,null],
+["Martabak manis","Jajanan & kue","1 potong",290,null,null,null],
+["Martabak mesir","Jajanan & kue","1 potong",111,null,null,null],
+["Martabak india","Jajanan & kue","1 porsi",153,null,null,null],
+["Lapis legit","Jajanan & kue","1 porsi",389,null,null,null],
+["Putu mayang","Jajanan & kue","1 porsi",121,null,null,null],
+["Kue putu cangkir","Jajanan & kue","1 porsi",304,null,null,null],
+["Kerupuk udang goreng","Jajanan & kue","1 buah",24,null,null,null],
+["Keripik singkong","Jajanan & kue","1 genggam",143,null,null,null],
+["Keripik kentang","Jajanan & kue","1 genggam",134,null,null,null],
+["Bakwan","Jajanan & kue","1 buah",112,null,null,null],
+["Pisang goreng tepung","Jajanan & kue","1 buah",152,null,null,null],
+["Tempe goreng tepung","Jajanan & kue","1 potong",126,null,null,null],
+["Roti putih","Jajanan & kue","1 lembar",87,null,null,null],
+["Sate ayam bumbu kacang","Lauk & protein","5 tusuk + bumbu",232,null,null,null],
+["Ayam goreng tepung paha","Lauk & protein","1 potong paha",350,null,null,null],
+["Ayam goreng Sukabumi dada","Lauk & protein","1 potong dada atas",146,22.0,0.6,5.5],
+["Ayam goreng Kalasan paha","Lauk & protein","1 potong paha",220,null,null,null],
+["Ayam goreng Pasundan dada","Lauk & protein","1 potong",123,null,null,null],
+["Ayam goreng Pasundan paha","Lauk & protein","1 potong",123,null,null,null],
+["Ayam goreng Sukabumi paha","Lauk & protein","1 potong paha",142,null,null,null],
+["Ayam geprek tanpa nasi","Lauk & protein","1 potong + sambal",597,null,null,null],
+["Opor ayam","Lauk & protein","1 potong + kuah",453,null,null,null],
+["Rendang sapi","Lauk & protein","1 potong daging",77,9.0,3.1,3.2],
+["Semur daging sapi","Lauk & protein","1 potong",131,null,null,null],
+["Gulai kambing","Lauk & protein","1 porsi",189,null,null,null],
+["Dendeng belut goreng","Lauk & protein","1 potong",115,null,null,null],
+["Dendeng mujair goreng","Lauk & protein","1 potong",179,null,null,null],
+["Pepes ikan mas","Lauk & protein","1 ekor sedang",272,null,null,null],
+["Pepes ikan mujair","Lauk & protein","1 potong",61,null,null,null],
+["Gulai ikan","Lauk & protein","1 porsi",159,null,null,null],
+["Gulai ikan paya","Lauk & protein","1 porsi",222,null,null,null],
+["Gulai keumamah","Lauk & protein","1 porsi",165,null,null,null],
+["Gulai tiram","Lauk & protein","1 porsi",198,null,null,null],
+["Sate bandeng","Lauk & protein","1 potong",142,null,null,null],
+["Sate pusut","Lauk & protein","1 potong",137,null,null,null],
+["Pempek kapal selam","Lauk & protein","1 buah",304,null,null,null],
+["Pempek adaan","Lauk & protein","1 buah",97,null,null,null],
+["Pempek belida","Lauk & protein","1 potong",78,null,null,null],
+["Pempek kelesan","Lauk & protein","1 potong",106,null,null,null],
+["Pempek telur","Lauk & protein","1 potong",78,null,null,null],
+["Pempek tenggiri","Lauk & protein","1 potong",87,null,null,null],
+["Perkedel kentang","Lauk & protein","1 buah",85,null,null,null],
+["Orek tempe kecap","Lauk & protein","1 sendok makan",38,null,null,null],
+["Tahu goreng","Lauk & protein","1 buah sedang",46,null,null,null],
+["Tempe goreng","Lauk & protein","1 buah segitiga",105,null,null,null],
+["Telur dadar ayam","Lauk & protein","1 butir",151,null,null,null],
+["Telur bebek dadar","Lauk & protein","1 butir",166,null,null,null],
+["Telur ayam kampung","Lauk & protein","1 butir",96,null,null,null],
+["Telur ayam ras","Lauk & protein","1 butir",85,null,null,null],
+["Telur puyuh","Lauk & protein","1 butir",64,null,null,null],
+["Telur ayam ras - putih","Lauk & protein","1 butir",28,null,null,null],
+["Rawon","Lauk & protein","1 mangkuk",180,null,null,null],
+["Soto Betawi","Lauk & protein","1 mangkuk",405,null,null,null],
+["Soto Madura","Lauk & protein","1 mangkuk",180,null,null,null],
+["Soto Bandung","Lauk & protein","1 mangkuk",126,null,null,null],
+["Soto Banjar","Lauk & protein","1 mangkuk",330,null,null,null],
+["Soto Kudus","Lauk & protein","1 mangkuk",114,null,null,null],
+["Soto Padang","Lauk & protein","1 mangkuk",381,null,null,null],
+["Soto Pekalongan","Lauk & protein","1 mangkuk",282,null,null,null],
+["Soto Pemalang","Lauk & protein","1 mangkuk",225,null,null,null],
+["Soto Sukaraja","Lauk & protein","1 mangkuk",240,null,null,null],
+["Soto Sulung","Lauk & protein","1 mangkuk",258,null,null,null],
+["Bakso","Lauk & protein","1 mangkuk",329,null,null,null],
+["Seblak","Lauk & protein","1 mangkuk",329,null,null,null],
+["Gado-gado","Sayur & makanan campuran","1 porsi",411,null,null,null],
+["Sayur asem","Sayur & makanan campuran","1 mangkuk",73,null,null,null],
+["Sayur sop","Sayur & makanan campuran","1 mangkuk kecil",41,null,null,null],
+["Gudeg sayur","Sayur & makanan campuran","1 porsi",240,null,null,null],
+["Kangkung rebus","Sayur & makanan campuran","1 porsi",22,null,null,null],
+["Pelecing kangkung","Sayur & makanan campuran","1 porsi",75,null,null,null],
+["Anyang sayur","Sayur & makanan campuran","1 porsi",126,null,null,null],
+["Asinan Bogor sayuran","Sayur & makanan campuran","1 porsi",98,null,null,null],
+["Bayam rebus","Sayur & makanan campuran","1 porsi",23,null,null,null],
+["Capcay sayur","Sayur & makanan campuran","1 porsi",97,null,null,null],
+["Karedok","Sayur & makanan campuran","1 porsi",92,null,null,null],
+["Gulai pakis","Sayur & makanan campuran","1 porsi",215,null,null,null],
+["Gulai pliek","Sayur & makanan campuran","1 porsi",264,null,null,null],
+["Sayur kohu-kohu","Sayur & makanan campuran","1 porsi",133,null,null,null],
+["Tumis bayam bersantan","Sayur & makanan campuran","1 porsi",48,null,null,null],
+["Alpukat","Buah","1 buah besar",145,null,null,null],
+["Pisang Ambon","Buah","1 buah",108,null,null,null],
+["Apel Malang","Buah","1 buah",57,null,null,null],
+["Apel","Buah","1 buah",58,null,null,null],
+["Duku","Buah","1 buah",63,null,null,null],
+["Durian","Buah","1 buah",134,null,null,null],
+["Jambu air","Buah","1 gelas",115,null,null,null],
+["Jambu bol","Buah","1 buah",49,null,null,null],
+["Jeruk manis","Buah","1 buah",45,null,null,null],
+["Mangga","Buah","1 buah",52,null,null,null],
+["Melon","Buah","1 porsi",37,null,null,null],
+["Nanas","Buah","1 porsi",40,null,null,null],
+["Pepaya","Buah","1 porsi",46,null,null,null],
+["Pisang kepok","Buah","1 buah",109,null,null,null],
+["Pisang raja","Buah","1 buah",120,null,null,null],
+["Rambutan","Buah","1 buah",69,null,null,null],
+["Salak","Buah","1 buah",77,null,null,null],
+["Semangka","Buah","1 porsi",28,null,null,null],
+["Kopi susu","Minuman","1 gelas",139,3.3,24.9,3.1],
+["Es teh manis","Minuman","1 gelas",85,null,null,null],
+["Kerupuk udang","Camilan","1 buah",24,null,null,null],
+["Emping melinjo","Camilan","1 keping",28,null,null,null],
+["Rempeyek kacang tanah","Camilan","1 keping",51,null,null,null],
+["Rempeyek kacang uci","Camilan","1 buah",75,null,null,null],
+["Kopi Kenangan — Kenangan Latte (reguler)","Minuman","1 gelas reguler",155,5,21,5],
+["Kopi Kenangan — Kopi Susu Kenangan (reguler)","Minuman","1 gelas reguler",119,3,18,4],
+["Kopi Kenangan — Pandan Latte","Minuman","1 gelas reguler",180,4,28,5],
+["Kopi Kenangan — Butterscotch Latte","Minuman","1 gelas reguler",220,5,32,7],
+["Kopi Kenangan — Kopi Hitam (American style)","Minuman","1 gelas reguler",8,0,1,0],
+["Kopi Point — Es Kopi Susu","Minuman","1 gelas",115,2,17,4],
+["Kopi Point — Kopi Susu Gula Aren","Minuman","1 gelas",130,2,21,4],
+["Kopi Point — Latte","Minuman","1 gelas",110,4,14,4],
+["Kopi Point — Americano","Minuman","1 gelas",10,0,2,0],
+["Kopi Point — Mocha","Minuman","1 gelas",185,4,28,6],
+["Kopi Domar — Es Kopi Susu","Minuman","1 gelas",110,2,16,4],
+["Kopi Domar — Kopi Susu Gula Aren","Minuman","1 gelas",125,2,20,4],
+["Kopi Domar — Americano","Minuman","1 gelas",10,0,2,0],
+["Kopi Domar — Latte","Minuman","1 gelas",105,3,14,4],
+["Janji Jiwa — Es Kopi Susu Jiwa","Minuman","1 gelas",140,3,21,5],
+["Janji Jiwa — Jiwa Latte","Minuman","1 gelas",150,5,20,5],
+["Kopi Tuku — Kopi Susu Tetangga","Minuman","1 gelas",180,4,27,6],
+["Kopi Toko Djawa — Es Kopi Susu Djawa","Minuman","1 gelas",160,3,24,5],
+["Titik Temu — Es Kopi Susu","Minuman","1 gelas",170,3,26,5],
+["Fore — Es Kopi Susu Fore","Minuman","1 gelas",130,2,19,5],
+["Kopi Nako — Es Kopi Susu Nako","Minuman","1 gelas",120,2,18,4],
+["Starbucks — Caffè Americano (grande)","Minuman","1 cup grande",15,1,3,0],
+["Starbucks — Caffè Latte (grande)","Minuman","1 cup grande",190,13,19,7],
+["Starbucks — Caramel Macchiato (grande)","Minuman","1 cup grande",250,10,35,7],
+["Starbucks — Matcha Latte (grande)","Minuman","1 cup grande",240,12,34,7],
+["Kopi Kapal Api sachet diseduh manis","Minuman","1 gelas",60,0.5,14,0],
+["Good Day kopi sachet (mocha)","Minuman","1 sachet",105,1,22,1],
+["Torabika Duo kopi susu sachet","Minuman","1 sachet",80,1,15,2],
+["ABC White Coffee sachet","Minuman","1 sachet",90,1,18,1.5],
+["Luwak White Koffie sachet","Minuman","1 sachet",85,1,17,1],
+["Nescafé Classic hitam tanpa gula","Minuman","1 gelas",5,0,1,0],
+["Kopi tubruk hitam tanpa gula","Minuman","1 gelas",5,0,1,0],
+["Kopi tubruk manis (1 sdt gula)","Minuman","1 gelas",25,0,6,0],
+["Es kopi susu gula aren (umum)","Minuman","1 gelas",180,3,28,5],
+["Es kopi susu pandan (umum)","Minuman","1 gelas",200,3,30,6],
+["Kopi Vietnam susu kental manis","Minuman","1 gelas",190,4,29,6],
+["Kopi oat milk latte (umum)","Minuman","1 gelas",140,3,20,5],
+["Es kopi coklat (umum)","Minuman","1 gelas",210,4,33,6],
+["Kopi jahe (wedang kopi jahe)","Minuman","1 gelas",80,0,20,0]];
+/* v3.03 · cari master: skor awal-kata > awal-token > substring; hasil 6 teratas */
+function foodDbMatch(q){
+  q=String(q||'').trim().toLowerCase();
+  if(q.length<2)return[];
+  const out=[];
+  for(const f of FOOD_DB){
+    if(!f||!f.length)continue;
+    const n=String(f[0]).toLowerCase();
+    let s=-1;
+    if(n.startsWith(q))s=0;
+    else if(n.split(/[\s—-]+/).some(w=>w.startsWith(q)))s=1;
+    else if(n.includes(q))s=2;
+    else continue;
+    out.push({f,s});
+  }
+  out.sort((a,b)=>a.s-b.s||String(a.f[0]).localeCompare(String(b.f[0]),'id'));
+  return out.slice(0,6).map(x=>x.f);
+}
+/* v3.03 · isi isian dari item master (kalori + makro bila tersedia) */
+function foodDbFill(f){
+  $('#fdName').value=f[0];
+  $('#fdKcal').value=f[3];
+  $('#fdProt').value=f[4]==null?'':f[4];
+  $('#fdCarb').value=f[5]==null?'':f[5];
+  $('#fdFat').value=f[6]==null?'':f[6];
+  const note=$('#fdDbNote');
+  if(note)note.innerHTML=`<b style="color:var(--terra-deep)">Terpilih:</b> ${esc(f[0])} · ${esc(f[2])} · ${esc(f[1])} — angka bisa kamu sesuaikan.`;
+  fdSearchHide();
+}
+function fdSearchHide(){const p=$('#fdSearch');if(p)p.hidden=true}
+function fdSearchRender(){
+  const p=$('#fdSearch'),box=$('#fdSearchScroll'),inp=$('#fdName');
+  if(!p||!box||!inp)return;
+  const hits=foodDbMatch(inp.value);
+  if(inp.value.trim().length<2){fdSearchHide();return}
+  p.hidden=false;
+  if(!hits.length){
+    box.innerHTML=`<div class="fd-search-empty">Tidak ada di master — tulis bebas &amp; isi kalori sendiri; tetap tercatat.</div>`;
+    return;
+  }
+  box.innerHTML=hits.map((f,i)=>`<button type="button" class="fd-hit" data-fd-hit="${i}">
+    <span class="fd-hit-main"><span class="fd-hit-name">${esc(f[0])}</span><span class="fd-hit-sub">${esc(f[2])} · ${esc(f[1])}</span></span>
+    <span class="fd-hit-kcal">${f[3]}<small style="font-size:9.5px;color:var(--ink-3);font-weight:600"> kkal</small></span>
+  </button>`).join('');
+  box._hits=hits;
+}
+/* v3.03 · pasang pencari sekali (delegasi — panel dirender ulang tiap ketikan) */
+function fdSearchBind(){
+  const inp=$('#fdName'),box=$('#fdSearchScroll');
+  if(!inp||!box)return;
+  if(inp.dataset.dbBound)return;inp.dataset.dbBound='1';
+  inp.addEventListener('input',fdSearchRender);
+  inp.addEventListener('focus',fdSearchRender);
+  inp.addEventListener('blur',()=>setTimeout(fdSearchHide,180));
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape')fdSearchHide()});
+  box.addEventListener('pointerdown',e=>{
+    const b=e.target.closest('[data-fd-hit]');
+    if(!b)return;
+    e.preventDefault(); /* jangan biarkan blur menelan ketukan */
+    const hits=box._hits||[];
+    if(hits[+b.dataset.fdHit])foodDbFill(hits[+b.dataset.fdHit]);
+  });
+}
 let fdMealSel='pagi';
 function resetFoodModal(){
   $('#formFood').reset();
   fdMealSel='pagi';
   fillFdMeal('pagi');
   $('#fdDate').value=dayKey(TODAY);
+  /* v3.03 · master makanan — pulihkan catatan & tutup panel pencarian */
+  fdSearchHide();
+  const note=$('#fdDbNote');
+  if(note)note.innerHTML='Master 179 makanan &amp; minuman Indonesia — ketik ≥2 huruf, pilih hasilnya; kalori &amp; makro terisi otomatis (tetap bisa diedit).';
 }
 function fillFdMeal(t){
   fdMealSel=t;
@@ -7438,7 +7716,13 @@ function saveFood(e){
   /* v2.61 · render asupan satu frame kemudian — pola simpan transaksi */
   requestAnimationFrame(()=>{refit()});
   haptic(12);
-  toast('Asupan tersimpan',`${name} · ${kcal} kkal tercatat ke neraca hari ini.`,'i-check','honey');
+  /* v3.03 · neraca harian pada toast: sisa jatah = jatah + terbakar − asupan
+     (defisit = sisa positif, surplus = sisa negatif) */
+  const tk=f.date;
+  const burned=WORKOUTS.filter(w=>w.date===tk).reduce((a,w)=>a+kcalOf(w),0);
+  const sisa=FIT.kcal+burned-FOODS.filter(x=>x.date===tk).reduce((a,x)=>a+x.kcal,0);
+  const neraca=sisa>0?`Sisa jatah hari ini ±${sisa} kkal (defisit).`:sisa<0?`Hari ini surplus ${Math.abs(sisa)} kkal dari jatah.`:`Pas di jatah hari ini.`;
+  toast('Asupan tersimpan',`${name} · ${kcal} kkal tercatat. ${neraca}`,'i-check','honey');
 }
 function delFood(id){
   const f=FOODS.find(x=>x.id===id);if(!f)return;
@@ -7517,6 +7801,11 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
   if(e.target&&e.target.id==='fdName'){
+    /* v3.03 · master makanan: nama persis di master → isi kalori + makro;
+       fallback lama: pola "(X kkal)" pada teks tetap dihormati */
+    const v=String(e.target.value).trim().toLowerCase();
+    const hit=FOOD_DB.find(f=>f&&String(f[0]).toLowerCase()===v);
+    if(hit){foodDbFill(hit);return}
     const m=String(e.target.value).match(/\((\d+)\s*kkal\)/i);
     if(m&&$('#fdKcal'))$('#fdKcal').value=m[1];
   }
@@ -7529,6 +7818,7 @@ if($('#restPlus'))$('#restPlus').addEventListener('click',()=>restAdjust(15));
 if($('#restRestart'))$('#restRestart').addEventListener('click',()=>restStart(90));
 if($('#restSkip'))$('#restSkip').addEventListener('click',()=>{restStop();closeModals();toast('Istirahat selesai','Kamu yang pegang kendali — kembali latihan kapan pun siap.','i-check','sage')});
 if($('#formFood'))$('#formFood').addEventListener('submit',saveFood);
+fdSearchBind(); /* v3.03 · master makanan — pencari asupan (delegasi, sekali pasang) */
 if($('#bugarTabs'))$('#bugarTabs').addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
     const tabs=$$('#bugarTabs .fin-tab');
