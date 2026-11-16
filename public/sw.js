@@ -1,4 +1,4 @@
-const STATIC_CACHE = "rutina-static-v94"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v3.03: master makanan Indonesia 179 item + neraca defisit/surplus harian tab Asupan)
+const STATIC_CACHE = "rutina-static-v95"; // cache statis aplikasi; bump saat aset atau perilaku berubah (v3.04.1: audit menyeluruh — fix bar scaleX, [hidden], jurnal sync & backoff volatile, guard kardio, neraca kalori, master makanan per-100 g)
 const STATIC_PREFIX = "/_next/static/";
 // Aset publik yang bisa berubah antar deploy — jangan cache-first.
 const PUBLIC_ASSET = /^\/(?:icons\/|tree\/|illustrations\/|fonts\/|favicon\.ico$|apple-touch-icon|logo\.svg$|manifest\.json$)/;

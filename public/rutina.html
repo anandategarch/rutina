@@ -10,6 +10,38 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v3.04.1 AUDIT MENYELURUH (5 agen paralel: logika JS · matematika/data ·
+     backend · markup/PWA · persistensi) — 2 P0 + 14 P1 + ~20 P2 dibetulkan:
+     (1) P0 SUNTING local-: ovTxEdit/ovSrcEdit ber-fallback txEdit/srcEdit
+     saat baris ber-id local- sudah tersinkron (dulu edit hilang senyap
+     setelah sync pertama ±700 mdtk); (2) P0 ANGGARAN OUTAGE: server
+     applyOverlay kini menerapkan budAdd/budEdit/budDel/catDel (jalur
+     pemulihan volatile) + klien tak mereset flag daftar-final saat volatile;
+     (3) loop POST volatile → backoff 60 dtk→5 mnt, penanganan 413 & kuota
+     localStorage, failed[] dijadwalkan ulang & diberitahu; (4) dua tab tak
+     lagi saling menimpa jurnal (union via storage event); (5) DBERR kini
+     terisi benar (body dibaca sekali) + sesi offline pulih otomatis saat
+     kembali online; (6) check-in: kunci energi/energy disatukan; (7) XSS
+     nama gerakan di strip coach di-escape; (8) bar hero Bugar/hidrasi/drill
+     pakai animateBars (scaleX) — dulu kosong selamanya; (9) [hidden] kini
+     menang atas display:flex (pace-live, streak-guard, ph-progress,
+     miniJatah, drill-actions); (10) guard kardio ATAU bener + stempel per
+     PEKAN (dulu kunci bulanan → saran teredam 31 hari); (11) deload genap
+     7 hari (+6, dulu 8); (12) progression turun pakai rep TERBAIK set
+     terberat (dulu satu set buruk langsung −10%); (13) badge PR mengecuali
+     sesi sendiri; (14) alat barbel: opsi barbel 15 kg, piring >4/sisi
+     diingatkan, pemanasan tak pernah melebihi beban kerja; (15) neraca:
+     pesan defisit tak terbalik, surplus diukur terhadap JATAH; (16) kalori
+     desimal "150,5" tak lagi jadi 1505; (17) transaksi tanpa deskripsi
+     tampil kategori (bukan "null"); (18) label hari hormati weekStart
+     Minggu; (19) timer istirahat berhenti saat modal ditutup; (20) ETag
+     revisi pindah ke tabel AppMeta di database (304 benar lintas instance
+     serverless); (21) master makanan: Duku/Rambutan/Salak/Telur puyuh kini
+     per 100 g (dulu nilai per-100 g dilabeli per buah — 4–30× kelewat
+     besar), 5 kopi hitam kalori↔karbo selaras; (22) server: tangga lokal
+     lanjut ke /tmp saat db korup, batas POST pada ISI body, kegagalan DDL
+     tercatat, klem sleep 0–24, fitTgt weight 0 dilewati, meal fallback
+     "camilan"; (23) combobox custom ber-nama aksesibel, sw cache v95. -->
 <!-- v3.04 PULAU BARBEL — tab Bugar · pane Latihan kini selengkap aplikasi
      fitness profesional untuk GYM RUMAH PAKAI BARBEL: (1) PROGRAM LATIHAN —
      4 template terpandu (Barbel 5×5 A/B, Atas-Bawah 4×/pekan, Dorong-Tarik-
@@ -195,7 +227,7 @@
      honey 5.02/4.51, sky 5.93/5.17) — karakter botani tak berubah */
   --terra:#10B981; --terra-deep:#047857; --terra-strong:#047857; --terra-soft:#D1FAE5; --terra-softer:#ECFDF5;
   --sage:#22C55E; --sage-deep:#15803D; --sage-soft:#DCFCE7;
-  --honey:#F59E0B; --honey-deep:#B45309; --honey-soft:#FEF3C7;
+  --honey:#F59E0B; --honey-deep:#B45309; --honey-soft:#FEF3C7; --honey-line:#FDE68A; /* v3.04.1 · token --honey-line didefinisikan — dipakai .tc-net, dulu hanya hidup lewat fallback */
   --blue-deep:#2563EB; --blue-soft:#DBEAFE;
   --sky:#0EA5E9; --sky-deep:#0369A1; --sky-soft:#E0F2FE;
   --rose:#EF4444; --rose-deep:#DC2626; --rose-soft:#FEE2E2; --rose-softer:#FEF2F2; --rose-line:#FECACA; /* v3.01 · ramp bahaya disatukan ke KELUARGA MERAH (dulu #FFF1F2/#FECDD3 = skala PINK Tailwind — "merah muda" di panel Keluar & net negatif tak senada dgn konvensi --rose merah; audit tema: satu ramp, satu hue) */
@@ -232,6 +264,12 @@ body{
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2.5px solid var(--terra);outline-offset:2px}
+/* v3.04.1 · atribut hidden HARUS menang — display:flex/inline-flex pada kelas
+   spesifik (.pace-live, .streak-guard, .ph-progress, #miniJatah, .drill-actions)
+   selama ini mengalahkan [hidden] bawaan UA sehingga elemen "disembunyikan"
+   tetap tampil: baris pace "–" di form latihan, chip runtun basi di hero
+   Kebiasaan, bar hero Analisis kosong, chip jatah kosong di Ringkasan. */
+[hidden]{display:none!important}
 /* v2.65 · R-39 anti-slop: kontrol nonaktif menunjukkan afordans larangan (
    sel hari-masa-depan kalender panas & pilihan kategori saat dimuat) */
 button:disabled{cursor:not-allowed}
@@ -296,8 +334,8 @@ b,strong{font-weight:600}
 .sp-leaf-l{transform-origin:60px 62px;transform:scale(0) rotate(-24deg);animation:spLeaf .55s cubic-bezier(.3,1.4,.45,1) .58s forwards}
 .sp-leaf-r{transform-origin:60px 56px;transform:scale(0) rotate(24deg);animation:spLeaf .55s cubic-bezier(.3,1.4,.45,1) .76s forwards}
 .sp-bud{fill:#F59E0B;transform-origin:60px 52px;transform:scale(0);animation:spLeaf .5s cubic-bezier(.3,1.5,.45,1) .94s forwards}
-.sp-word{position:relative;font-size:clamp(30px,8vw,38px);letter-spacing:.01em;color:var(--ink-1);opacity:0;transform:translateY(10px);animation:spRise .5s var(--ease-tunas) .3s forwards}
-.sp-tag{position:relative;font-size:13px;font-weight:600;color:var(--ink-3);opacity:0;transform:translateY(8px);animation:spRise .5s var(--ease-tunas) .42s forwards}
+.sp-word{position:relative;font-size:clamp(30px,8vw,38px);letter-spacing:.01em;color:var(--ink);opacity:0;transform:translateY(10px);animation:spRise .5s var(--ease-tunas) .3s forwards}
+.sp-tag{position:relative;font-size:13px;font-weight:600;color:var(--ink-2);opacity:0;transform:translateY(8px);animation:spRise .5s var(--ease-tunas) .42s forwards} /* v3.04.1 · ink-2 (4.9:1) — ink-3 hanya 4.2:1 di latar splash */
 .sp-dots{position:absolute;inset:0;pointer-events:none}
 .sp-dots i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--honey);opacity:0;animation:spDot 2.3s ease-in-out infinite}
 .sp-dots i:nth-child(1){left:12%;bottom:18%;animation-delay:.2s}
@@ -3397,7 +3435,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 
   <!-- KESIAPAN LATIHAN (v3.02) — check-in 4 pertanyaan → skor 0–100 →
-       target hari ini menyesuaikan (moderat: beban −15% & −1 set;
+       target hari ini menyesuaikan (moderat: beban −15% & −1 repetisi target;
        rendah: −30% & saran sesi ringan). Disimpan per tanggal. -->
   <div class="card card-pad" id="readinessCard">
     <div class="card-head">
@@ -3516,6 +3554,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
           <label for="plateBar">Barbelmu</label>
           <select id="plateBar">
             <option value="20" selected>Barbel Olimpiade 20 kg</option>
+            <option value="15">Barbel Olimpiade 15 kg</option>
             <option value="10">Barbel 10 kg</option>
             <option value="7">Barbel 7 kg</option>
             <option value="5">Barbel mini 5 kg</option>
@@ -4888,7 +4927,7 @@ body.no-amb .mut-bank::after,body.ov-open .mut-bank::after{animation:none}
 .tc-p-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 .tc-p-lbl{font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;line-height:1.3}
 .tc-in .tc-p-lbl{color:var(--sage-deep)}
-.tc-out .tc-p-lbl{color:var(--rose-deep)}
+.tc-out .tc-p-lbl{color:#B91C1C} /* v3.04.1 · 9.5px uppercase butuh 4.5:1 — --rose-deep #DC2626 hanya 4.41:1 */
 .tc-p-num{font-size:16px;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tc-p-sub{font-size:10px;font-weight:600;color:var(--ink-3);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tc-p-pct{position:absolute;top:7px;right:8px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:99px;background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(15,23,42,.05)}
@@ -5053,7 +5092,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
    tab Pengaturan. v3.01: audit gradasi & tema — ramp bahaya pink disatukan
    ke merah, kepala kartu arus kas pindah keluarga cream-sage, indigo & pink
    pensiun dari seluruh permukaan. */
-const APP_VERSION='v3.04';
+const APP_VERSION='v3.04.1';
 $$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -5122,10 +5161,13 @@ async function loadData(){
        (73 KB terukur) saat isinya tak berubah sejak POST terakhir. */
     const r=await fetch('/api/rutina',{cache:'no-cache',signal:ctl.signal});
     clearTimeout(t);
-    if(r.ok){const j=await r.json();if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';DBVOL=j.volatile===true;DBERR=j.reason?String(j.reason):'';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}}
-    /* v3.02 · respons ok:false membawa alasan (mis. "Turso: 401") —
-       disimpan untuk pita data basi, bukan ditelan diam-diam. */
-    if(r.ok){try{const j=await r.json();if(j&&j.error)DBERR=String(j.error).slice(0,120)}catch(_){}}
+    /* v3.04.1 · body dibaca SEKALI lalu dicabang — dulu cabang kedua
+       memanggil r.json() lagi pada body yang sudah habis (TypeError
+       tertelan) sehingga alasan ok:false tak pernah sampai ke pita. */
+    let j=null;try{j=await r.json()}catch(_){}
+    if(j&&j.ok&&j.data){DB=j.data;LIVE=true;DBAT=j.fetchedAt;DBSRC=j.source||'turso';DBVOL=j.volatile===true;DBERR=j.reason?String(j.reason):'';try{RAW_LIVE=JSON.stringify(j.data)}catch(_){RAW_LIVE=''}return}
+    if(j&&j.error)DBERR=String(j.error).slice(0,120);
+    else if(!r.ok)DBERR='Server menjawab '+r.status;
   }catch(err){if(String(err).includes('abort'))DBERR='Server tidak menjawab dalam 8 detik'}
   if(snapshot&&snapshot.ok){DB=snapshot.data;DBAT=snapshot.fetchedAt||''}
 }
@@ -5143,11 +5185,38 @@ function ovLoad(){
   let raw=null;try{raw=JSON.parse(localStorage.getItem(LS_KEY)||'null')}catch(_){}
   return raw&&typeof raw==='object'&&raw.v===1?Object.assign(ovBlank(),raw):null;
 }
+let ovQuotaWarned=false;
 function ovPersist(){
   finDirty(); /* v2.64 · titik perubahan tunggal: semua mutasi data lewat sini → agregat dihitung ulang saat dibutuhkan berikutnya */
-  try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(_){/* penyimpanan penuh/diblokir — sesi ini saja */}
+  /* v3.04.1 · ringkas jurnal sebelum disimpan: entri Add by-id terakhir
+     menang (server idempoten by id — duplikat tak menambah apa pun),
+     budAdd by kategori|bulan pun demikian; mencegah jurnal membengkak
+     tanpa batas saat mode volatile panjang (kuota localStorage / batas POST). */
+  const uniqById=a=>{const m=new Map();a.forEach(x=>{if(x&&x.id)m.set(x.id,x)});return[...m.values()]};
+  OV.txAdd=uniqById(OV.txAdd);OV.srcAdd=uniqById(OV.srcAdd);
+  OV.habitAdd=uniqById(OV.habitAdd);OV.fitWAdd=uniqById(OV.fitWAdd);OV.fitFAdd=uniqById(OV.fitFAdd);
+  {const m=new Map();OV.budAdd.forEach(b=>{if(b&&b.category&&b.month)m.set(budKey(b.category,b.month),b)});OV.budAdd=[...m.values()]}
+  syncBackoffMs=0; /* tulisan baru = aktivitas pengguna → dorongan cepat sekali, backoff idle tak menahan write-through */
+  try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}
+  catch(_){ /* v3.04.1 · kuota penuh kini TERLIHAT — dulu ditelan diam-diam dan
+     tulisan baru hanya hidup di memori (hilang saat reload tanpa penjelasan) */
+    if(!ovQuotaWarned){ovQuotaWarned=true;toast('Penyimpanan perangkat penuh','Jurnal lokal tak bisa disimpan — catatan sesi ini berisiko hilang saat aplikasi ditutup. Kosongkan data lama atau hubungkan database.','i-x','rose')}}
   OVREV++;scheduleSync(); /* v2.22 · jurnal berubah → antre dorong ke database */
 }
+/* v3.04.1 · DUA TAB SATU JURNAL — tab lain menulis jurnal lewat storage
+   event; tanpa ini tab yang lebih lama menimpa tulisan tab baru (last
+   writer wins untuk seluruh objek). Union: array by-id (memori menang),
+   peta digabung (memori menang), daftar hapus diunion. */
+window.addEventListener('storage',e=>{
+  if(!e||e.key!==LS_KEY||!e.newValue||!OV)return;
+  let d=null;try{d=JSON.parse(e.newValue)}catch(_){}
+  if(!d||d.v!==1)return;
+  const uni=(a,b)=>{const m=new Map();[].concat(b||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});[].concat(a||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});return[...m.values()]};
+  OV.txAdd=uni(OV.txAdd,d.txAdd);OV.srcAdd=uni(OV.srcAdd,d.srcAdd);
+  OV.habitAdd=uni(OV.habitAdd,d.habitAdd);OV.fitWAdd=uni(OV.fitWAdd,d.fitWAdd);OV.fitFAdd=uni(OV.fitFAdd,d.fitFAdd);
+  ['txDel','srcDel','habitDel','fitWDel','fitFDel','catDel','budDel'].forEach(k=>{OV[k]=[...new Set([...(OV[k]||[]),...(d[k]||[])])]});
+  ['txEdit','srcEdit','budEdit','catRename','habitMeta','logAdd','logDel','dailyLog','bodyLog','readiness','fitTgt'].forEach(k=>{OV[k]=Object.assign({},d[k]||{},OV[k]||{})});
+});
 function ovCount(){if(!OV)return 0;
   return OV.txAdd.length+Object.keys(OV.txEdit).length+OV.txDel.length
     +OV.budAdd.length+Object.keys(OV.budEdit).length+OV.budDel.length
@@ -5298,6 +5367,7 @@ function ovTxEdit(t){
   if(isLocalId(t.id)){
     const i=OV.txAdd.findIndex(x=>x.id===t.id);
     if(i>=0)OV.txAdd[i]={...t};
+    else OV.txEdit[t.id]={...t}; /* v3.04.1 · baris local- yang SUDAH tersinkron (jurnal bersih pasca-sync) tak lagi hilang dari jurnal — UPDATE by id di server menerima id apa pun */
   }else OV.txEdit[t.id]={...t};
 }
 function ovSrcEdit(s){
@@ -5305,6 +5375,7 @@ function ovSrcEdit(s){
   if(isLocalId(s.id)){
     const i=OV.srcAdd.findIndex(x=>x.id===s.id);
     if(i>=0)OV.srcAdd[i]={...s};
+    else OV.srcEdit[s.id]={...s}; /* v3.04.1 · idem dompet */
   }else OV.srcEdit[s.id]={...s};
 }
 function ovBudEdit(oC,oM,cat,mk,amount){
@@ -5322,6 +5393,12 @@ function ovBudEdit(oC,oM,cat,mk,amount){
    Gagal/offline → jurnal tetap di perangkat & dicoba lagi. Nomor revisi
    (OVREV) mencegah mutasi baru hilang saat pengiriman sedang berlangsung. */
 let OVREV=0, syncTimer=null, syncInflight=false, syncToastAt=0;
+/* v3.04.1 · backoff sinkronisasi: mode volatile & kegagalan per-seksi tak
+   lagi memicu loop POST tiap 700 mdtk selamanya (boros baterai/kuota,
+   memukul API & membuat klien lain terus mengunduh ulang). 60 dtk → ×2 →
+   maks 5 menit; pulih ke 700 mdtk saat sinkron penuh berhasil. Mutasi
+   baru me-reset backoff (write-through tetap gesit saat pengguna aktif). */
+let syncBackoffMs=0, syncFailToastAt=0;
 /* daftar anggaran/kategori hanya dikirim saat BERUBAH (pertama sesi atau
    pasca-mutasi): server tak lagi menulis ulang penuh dua tabel tiap sinkron;
    klien lain tetap segar lewat GET. */
@@ -5331,8 +5408,9 @@ function persistRaw(){try{localStorage.setItem(LS_KEY,JSON.stringify(OV))}catch(
 function scheduleSync(){
   if(!LIVE)return; /* server tak terjangkau — jurnal aman di perangkat */
   if(syncTimer)clearTimeout(syncTimer);
-  syncTimer=setTimeout(syncFlush,700);
+  syncTimer=setTimeout(syncFlush,syncBackoffMs||700);
 }
+function bumpSyncBackoff(){syncBackoffMs=syncBackoffMs?Math.min(syncBackoffMs*2,300000):60000}
 function armSyncToast(){syncToastAt=Date.now()}
 async function syncFlush(){
   if(syncTimer){clearTimeout(syncTimer);syncTimer=null}
@@ -5346,25 +5424,44 @@ async function syncFlush(){
     const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),9000);
     const r=await fetch('/api/rutina',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctl.signal});
     clearTimeout(t);
+    if(r.status===413){ /* v3.04.1 · jurnal melampaui batas POST — beri tahu, jangan ulang tanpa akhir */
+      paintSyncRow();
+      if(Date.now()-syncFailToastAt>60000){syncFailToastAt=Date.now();toast('Jurnal perangkat terlalu besar','Tumpukan catatan offline melampaui batas kirim. Sinkronkan saat koneksi stabil atau muat ulang aplikasi untuk memadatkan jurnal.','i-x','rose')}
+      return;
+    }
     const j=await r.json();
     if(j&&j.ok){
       if(j.source)DBSRC=j.source;
       DBVOL=j.volatile===true; /* v3.02 */
       if(!j.failed||!j.failed.length){
-        finMetaDirty=false; /* v2.64 · daftar anggaran/kategori tersimpan — tak perlu dikirim ulang sampai berubah */
         /* v3.02 · penyimpanan sesi (volatile): jurnal TIDAK dibersihkan —
            instance dingin bisa menguapkan data server; jurnal penuh yang
-           menjamin riwayat terdorong ulang & tetap utuh di perangkat. */
-        if(DBVOL){persistRaw();scheduleSync()}
-        else if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
-        else scheduleSync(); /* ada edit selama pengiriman — antre ulang (idempoten) */
+           menjamin riwayat terdorong ulang & tetap utuh di perangkat.
+           v3.04.1 · flag daftar-final anggaran/kategori juga TIDAK direset
+           saat volatile — begitu server pulih, replay jurnal (kini termasuk
+           seksi budAdd/budEdit/budDel/catDel di server) tetap membawa
+           perubahan anggaran selama outage; reset flag hanya saat
+           benar-benar tersimpan. */
+        if(DBVOL){persistRaw();bumpSyncBackoff();scheduleSync()}
+        else{
+          syncBackoffMs=0;
+          finMetaDirty=false; /* v2.64 · daftar anggaran/kategori tersimpan — tak perlu dikirim ulang sampai berubah */
+          if(OVREV===rev){OV=ovBlank();persistRaw()} /* semua terkirim & tak ada mutasi baru — jurnal bersih */
+          else scheduleSync(); /* ada edit selama pengiriman — antre ulang (idempoten) */
+        }
         paintSyncRow();
         if(syncToastAt&&Date.now()-syncToastAt<4500){
           syncToastAt=0;
           if(DBVOL)toast('Tersimpan di penyimpanan sesi','Server memakai penyimpanan sementara (Turso belum tersambung). Data tetap aman lengkap di perangkat ini dan akan dipindah otomatis begitu database permanen tersambung.','i-leaf','honey');
           else toast('Tersimpan di '+(DBSRC==='turso'?'Turso':'database'),'Catatanmu kini permanen di database; aman walau aplikasi ditutup atau dibuka ulang.','i-leaf','sage');
         }
-      }else paintSyncRow();
+      }else{
+        /* v3.04.1 · sebagian seksi gagal (200 ok:true + failed[]): dulu
+           dipantek diam-diam — kini dijadwalkan ulang dengan backoff +
+           diberitahu maksimal sekali per menit; jurnal tetap utuh. */
+        bumpSyncBackoff();scheduleSync();paintSyncRow();
+        if(Date.now()-syncFailToastAt>60000){syncFailToastAt=Date.now();toast('Sebagian catatan belum tersinkron',(j.failed.length)+' bagian gagal dikirim; akan dicoba lagi otomatis. Jurnal aman di perangkat.','i-leaf','honey')}
+      }
     }else paintSyncRow();
   }catch(_){paintSyncRow()} /* offline: jurnal tetap di perangkat, dicoba lagi nanti */
   finally{syncInflight=false}
@@ -5384,8 +5481,13 @@ function paintSyncRow(){
     ?`Mengirim ke <b>${tujuan}</b>… <b style="color:var(--honey-deep)">${n} catatan</b> menunggu terkirim.`
     :`Sinkron penuh dengan <b>${tujuan}</b>: semua catatan tersimpan permanen di database.`;
 }
-/* kembali online di tengah sesi: dorong jurnal yang menumpuk */
-window.addEventListener('online',()=>{if(LIVE)scheduleSync()});
+/* kembali online di tengah sesi: dorong jurnal yang menumpuk;
+   v3.04.1 · sesi yang lahir saat offline kini pulih otomatis — dulu
+   menunggu tombol "Coba lagi" / reload manual. */
+window.addEventListener('online',()=>{
+  if(LIVE){scheduleSync();return}
+  loadData().then(()=>{applyLive();paintSyncRow();if(LIVE){const b=$('#staleBar');if(b)b.hidden=true;toast('Kembali daring','Data terbaru berhasil dimuat dari database.','i-check','sage')}})
+});
 
 /* v2.22 · MESIN DRILL-DOWN — bedah lapisan data di semua tab
    Ketuk kartu statistik (Ringkasan), kategori/anggaran/dompet/transaksi
@@ -5412,6 +5514,7 @@ function openDrill(cfg,trigger){
   haptic(10);
   openModal('modalDrill',trigger);
   fitDrillStats();
+  animateBars($('#drillBody')); /* v3.04.1 · bar "terpakai" sheet anggaran kini terisi — dulu scaleX(0) selamanya karena openDrill tak pernah memanggil animateBars */
   /* v2.31 · isi drill masuk bergelombang — statistik dulu, lalu daftar;
      sheet terasa "hidup" setiap dibuka, bukan sekadar muncul */
   if(!reduced){
@@ -6713,7 +6816,7 @@ function renderCheckinCard(){
   const sleepOpts=sleepHrs.map(h=>`<option value="${h}" ${ciDraft.sleep===h?'selected':''}>${h} jam</option>`).join('');
   body.innerHTML=`
     <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Mood</span><div class="ci-scale" role="group" aria-label="Skala mood 1 sampai 5">${dots(CI_MOOD,ciDraft.mood,'mood')}</div></div>
-    <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>Energi</span><div class="ci-scale" role="group" aria-label="Skala energi 1 sampai 5">${dots(CI_ENERGI,ciDraft.energy,'energi')}</div></div>
+    <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg>Energi</span><div class="ci-scale" role="group" aria-label="Skala energi 1 sampai 5">${dots(CI_ENERGI,ciDraft.energy,'energy')}</div></div>
     <div class="ci-row"><span class="ci-lab"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Tidur</span><div class="field ci-sel"><select id="ciSleep" aria-label="Lama tidur semalam">${sleepOpts}</select></div></div>
     <div class="ci-actions">
       ${dl?'<button type="button" class="btn btn-ghost" data-ci-act="cancel">Batal</button>':''}
@@ -6721,17 +6824,17 @@ function renderCheckinCard(){
     </div>`;
 }
 function saveCheckin(){
-  if(!ciDraft.mood||!ciDraft.energi){toast('Pilih dulu skalanya','Sentuh satu titik mood dan satu titik energi; keduanya masing-masing lima detik.','i-x','rose');return}
+  if(!ciDraft.mood||!ciDraft.energy){toast('Pilih dulu skalanya','Sentuh satu titik mood dan satu titik energi; keduanya masing-masing lima detik.','i-x','rose');return} /* v3.04.1 · kunci draft disatukan ke 'energy' — dulu klik menulis .energi tapi tampilan/validasi membaca .energy sehingga titik energi tak pernah tampak terpilih & tombol Ubah check-in selalu ditolak */
   const k=dayKey(TODAY);
-  DAILY[k]={date:k,mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
-  OV.dailyLog[k]={mood:ciDraft.mood,energy:ciDraft.energi,sleep:ciDraft.sleep};
+  DAILY[k]={date:k,mood:ciDraft.mood,energy:ciDraft.energy,sleep:ciDraft.sleep};
+  OV.dailyLog[k]={mood:ciDraft.mood,energy:ciDraft.energy,sleep:ciDraft.sleep};
   ovPersist();armSyncToast();
   ciEditing=false;
   renderCheckinCard();
   if(inited.cal)renderDayDetail(state.calSel);
   if(!reduced)botaniRain({kinds:['petal','sparkle'],n:9});
   haptic(12);
-  toast('Check-in tersimpan',`Mood ${ciDraft.mood}/5 · energi ${ciDraft.energi}/5 · tidur ${ciDraft.sleep} jam; terlihat juga di detail hari.`,'i-check','sky');
+  toast('Check-in tersimpan',`Mood ${ciDraft.mood}/5 · energi ${ciDraft.energy}/5 · tidur ${ciDraft.sleep} jam; terlihat juga di detail hari.`,'i-check','sky');
 }
 document.addEventListener('click',e=>{
   const dot=e.target.closest('[data-ci]');
@@ -6806,8 +6909,8 @@ function coachAdjust(){
   const lvl=sc==null?null:readinessLevel(sc);
   const deloadOn=FIT&&FIT.deloadUntil&&FIT.deloadUntil>=dayKey(TODAY);
   let mult=1,sets=0,why=[];
-  if(lvl&&lvl.key==='MODERATE'){mult*=.85;sets=1;why.push('kesiapan moderat: beban −15%, −1 set')}
-  if(lvl&&lvl.key==='LOW'){mult*=.70;sets=1;why.push('kesiapan rendah: beban −30%, −1 set')}
+  if(lvl&&lvl.key==='MODERATE'){mult*=.85;sets=1;why.push('kesiapan moderat: beban −15%, −1 repetisi target')} /* v3.04.1 · copy diselaraskan dgn implementasi (target reps −1, bukan jumlah set) */
+  if(lvl&&lvl.key==='LOW'){mult*=.70;sets=1;why.push('kesiapan rendah: beban −30%, −1 repetisi target')}
   if(deloadOn){mult*=.5;why.push('deload: intensitas 50%')}
   return{score:sc,lvl,deloadOn,mult,sets,why};
 }
@@ -6841,7 +6944,7 @@ function plateauOf(name){
 function deloadSet(on){
   if(!FIT)FIT=fitParse(DB.settings&&DB.settings.fitness);
   const o={...FIT};
-  if(on)o.deloadUntil=dayKey(addDays(new Date(TODAY),7));
+  if(on)o.deloadUntil=dayKey(addDays(new Date(TODAY),6)); /* v3.04.1 · +6 = genap 7 hari kalender (hari-0 s.d. hari-6); dulu +7 → deload efektif 8 hari */
   else delete o.deloadUntil;
   FIT=o;
   OV.fitness=JSON.stringify(o);
@@ -6853,19 +6956,21 @@ function deloadSet(on){
 function crossTrainingAdvice(){
   const wk=dayKey(TODAY);
   const seven=WORKOUTS.filter(w=>w.kind!=='beban'&&w.date&&wk>=w.date&&w.date>dayKey(addDays(new Date(TODAY),-7)));
-  if(seven.length<4)return null;
   let run=0,maxRun=0,prev=null;
   [...seven].reverse().forEach(w=>{if(w.kind==='lari'){run=prev&&dayKey(addDays(new Date(prev+'T00:00:00'),1))===w.date?run+1:1;maxRun=Math.max(maxRun,run);prev=w.date}});
-  if(maxRun<3&&seven.length<5)return null;
+  /* v3.04.1 · ATAU sesuai kontrak "kardio ≥4×/7 hari ATAU lari 3 hari
+     berturut" — dulu gerbang ≥4 kardio dipasang SEBELUM hitung run-streak
+     sehingga pelari murni (3 sesi lari beruntun) tak pernah tersarankan. */
+  if(seven.length<4&&maxRun<3)return null;
   return{count:seven.length,maxRun};
 }
 function crossAdviceDue(){
   try{
-    const stamp='rutina.xfit.'+dayKey(TODAY).slice(0,7);
+    const stamp='rutina.xfit.'+dayKey(weekStartOf(TODAY)); /* v3.04.1 · kunci PEKAN — dulu YYYY-MM membuat saran kardio teredam hingga 31 hari */
     return localStorage.getItem(stamp)!=='1';
   }catch(_){return true}
 }
-function crossAdviceStamp(){try{localStorage.setItem('rutina.xfit.'+dayKey(TODAY).slice(0,7),'1')}catch(_){}}
+function crossAdviceStamp(){try{localStorage.setItem('rutina.xfit.'+dayKey(weekStartOf(TODAY)),'1')}catch(_){}}
 /* PROGRESSION — dipanggil setelah sesi beban tersimpan; bandingkan
    performa vs target: semua set mencapai reps target pada beban target
    → naik 2,5 kg; semua set jauh di bawah (−2 rep) → turun 10% (kualitas
@@ -6878,7 +6983,9 @@ function coachProgress(w){
     if(!sets.length)return;
     const tgt=EXTGT[name];
     const topW=Math.max(...sets.map(s=>s.weight));
-    const minTop=Math.min(...sets.filter(s=>s.weight>=topW).map(s=>s.reps));
+    const topSets=sets.filter(s=>s.weight>=topW);
+    const minTop=Math.min(...topSets.map(s=>s.reps));
+    const maxTop=Math.max(...topSets.map(s=>s.reps)); /* v3.04.1 · rep TERBAIK pada beban terberat — penurunan kini mensyaratkan SEMUA set jauh di bawah target */
     if(!tgt){
       /* gerakan baru: baseline = set terberat hari ini */
       EXTGT[name]={exercise:name,weight:roundKg(topW),reps:Math.max(1,minTop)};
@@ -6890,7 +6997,7 @@ function coachProgress(w){
       EXTGT[name]={exercise:name,weight:nw,reps:tgt.reps};
       OV.fitTgt[name]={...EXTGT[name]};
       ups.push({name,from:tgt.weight,to:nw,reps:tgt.reps});
-    }else if(minTop<=tgt.reps-2&&topW<=tgt.weight){
+    }else if(maxTop<=tgt.reps-2&&topW<=tgt.weight){ /* v3.04.1 · dulu memakai rep TERBURUK: satu set gagal langsung memicu −10% padahal set lain tercapai */
       const nw=roundKg(tgt.weight*.9);
       EXTGT[name]={exercise:name,weight:nw,reps:tgt.reps};
       OV.fitTgt[name]={...EXTGT[name]};
@@ -6986,12 +7093,12 @@ function renderCoachStrip(){
   const plats=[];
   Object.keys(EXTGT).forEach(n=>{const p=plateauOf(n);if(p)plats.push(p)});
   if(plats.length&&!a.deloadOn){
-    const names=plats.slice(0,2).map(p=>`<b>${p.name}</b>`).join(' & ');
+    const names=plats.slice(0,2).map(p=>`<b>${esc(p.name)}</b>`).join(' & '); /* v3.04.1 · nama gerakan = teks bebas pengguna — di-escape */
     msgs.push(coachMsgHTML('i-chart','honey',`Performa ${names}${plats.length>2?' (+lainnya)':''} stagnan 3 sesi terakhir. Minggu deload 50% bisa memecah kebuntuan.`,`<button type="button" class="btn btn-ghost btn-sm" data-coach-deload="on">Mulai deload 7 hari</button>`));
   }
   /* PR terbaru */
   const prEx=Object.keys(EXTGT).map(n=>({n,e:bestE1rmOf(n)})).filter(x=>x.e>0).sort((x,y)=>y.e-x.e)[0];
-  if(prEx)msgs.push(coachMsgHTML('i-sparkle','sage',`Rekor e1RM tertinggi: <b>${prEx.n} ≈ ${Math.round(prEx.e*10)/10} kg</b> — pecahkan lagi kapan pun kamu siap.`));
+  if(prEx)msgs.push(coachMsgHTML('i-sparkle','sage',`Rekor e1RM tertinggi: <b>${esc(prEx.n)} ≈ ${Math.round(prEx.e*10)/10} kg</b> — pecahkan lagi kapan pun kamu siap.`)); /* v3.04.1 · esc: nama gerakan teks bebas */
   /* guard latihan silang */
   const xt=crossTrainingAdvice();
   if(xt&&crossAdviceDue()){
@@ -7136,7 +7243,7 @@ function renderBugarHero(){
     trendTxt=d>9?` — ${d} menit lebih padat dari pekan lalu`:d<-9?` — ${Math.abs(d)} menit lebih ringan dari pekan lalu`:' — setara ritme pekan lalu';
   }
   sub.textContent=wk.ses?(FIT.weekMin?`Sasaran ${FIT.weekMin} menit pekan ini · ${pct>=100?'sasaran genap tercapai':`${pct}% tercapai`}${trendTxt}.`:`Ritme gerak pekan ini tercatat${trendTxt}.`):'Belum ada latihan pekan ini; taman bugarmu menunggu set pertama.';
-  if(bar){bar.dataset.w=pct+'%';bar.style.width=pct+'%'} /* v2.59 · lebar dipasang langsung — animateBars paintAll berjalan sebelum tab bugar dirender, tanpa ini bar hero tetap 0% */
+  if(bar){bar.dataset.w=pct+'%';animateBars(bar.parentElement)} /* v3.04.1 · sistem bar = transform scaleX sejak v2.64 — memasang width saja tak pernah terlihat; animateBars yang memasang transformnya */
   if(pill)pill.textContent=`${wk.mins}/${FIT.weekMin} menit`;
 }
 function renderBugarStats(){
@@ -7173,7 +7280,7 @@ function renderBebanCard(){
       const e1=Math.max(...cur.map(e1rmOf));
       /* v3.02 · coach — lencana PR (e1RM sesi terakhir = rekor sepanjang
          waktu) + target berikutnya dari mesin progression */
-      const best=bestE1rmOf(ex);
+      const best=bestE1rmOf(ex,w.id); /* v3.04.1 · rekor dari sesi LAIN — dulu sesi sendiri ikut dihitung sehingga set pertama gerakan baru otomatis berbadge PR */
       const isPr=e1>=best-0.001&&best>0;
       const tgt=EXTGT[ex];
       return `<div class="wk-ex">
@@ -7436,7 +7543,7 @@ function renderPlateOut(){
   out.innerHTML=`
     <div class="plate-vis">${sideVis.map(p=>`<span class="plate ${plateCls(p)}">${plateLbl(p)}</span>`).join('')}<span class="plate-bar" aria-hidden="true"></span>${sideVis.map(p=>`<span class="plate ${plateCls(p)}">${plateLbl(p)}</span>`).join('')}</div>
     <p class="plate-verdict">${exact?`Total tepat <b>${target} kg</b> — <b>${sideVis.length} piring per sisi</b>`:`Tercapai <b>${achieved} kg</b> dari ${plateLbl(target)} kg — kurang ${plateLbl(Math.round((target-achieved)*100)/100)} kg (piring terkecil 1,25 kg)`}</p>
-    <p class="plate-note">${used.length?'Piring per sisi: '+used.map(u=>`${u[1]}× ${plateLbl(u[0])} kg`).join(' + '):'Tanpa piring — barbel saja'}</p>`;
+    <p class="plate-note">${used.length?'Piring per sisi: '+used.map(u=>`${u[1]}× ${plateLbl(u[0])} kg`).join(' + ')+(sideVis.length>4?' — lebih dari 4 piring per sisi; barbel rumah umumnya memuat 3–4 piring, pertimbangkan kurangi beban':''):'Tanpa piring — barbel saja'}</p>`; /* v3.04.1 · opsi barbel 15 kg + peringatan piring berlebih */
 }
 /* alat: kalkulator 1RM (Epley — sama dgn coach) + tabel persentase */
 function renderRmOut(){
@@ -7459,12 +7566,13 @@ function renderWarmOut(){
   const work=parseFloat(String($('#warmWork').value||'').replace(',','.'));
   const bar=parseFloat(($('#plateBar')||{}).value)||20;
   if(!(work>0)){out.innerHTML='';return}
+  if(work<=bar){out.innerHTML=`<p class="plate-note" style="margin-top:10px">Beban kerja ${plateLbl(work)} kg tak melebihi barbel ${plateLbl(bar)} kg — cukup barbel saja, tanpa tangga pemanasan.</p>`;return} /* v3.04.1 · guard idem alat Piring — dulu work < bar menghasilkan anak tangga yang lebih berat dari beban kerjanya */
   const r25=v=>Math.max(bar,Math.round(v/2.5)*2.5);
   const steps=[];
   if(bar<=work*0.55)steps.push({kg:bar,reps:10,lb:'Barbel kosong — bangun pola'});
   if(work>r25(work*0.4)+0.001)steps.push({kg:r25(work*0.4),reps:5,lb:'Ringan — fokus teknik'});
-  steps.push({kg:r25(work*0.6),reps:3,lb:'Bangun ritme'});
-  steps.push({kg:r25(work*0.8),reps:2,lb:'Hampir beban kerja'});
+  if(work>r25(work*0.6)+0.001)steps.push({kg:r25(work*0.6),reps:3,lb:'Bangun ritme'}); /* v3.04.1 · jangan lewati/setara beban kerja saat work ≈ bar */
+  if(work>r25(work*0.8)+0.001)steps.push({kg:r25(work*0.8),reps:2,lb:'Hampir beban kerja'});
   const dedup=steps.filter((s,i)=>i===0||s.kg!==steps[i-1].kg);
   out.innerHTML=`
     <div class="warm-ladder">
@@ -7676,7 +7784,7 @@ function renderKaloriCard(){
   $('#kaloriTitle').textContent=`Asupan hari ini · ${kc} kkal`;
   const order=['pagi','siang','malam','camilan'];
   const verdict=sisa>0
-    ?`<div class="fd-verdict defisit"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Defisit ${sisa} kkal — jatah ${FIT.kcal} + terbakar ${burned} − asupan ${kc}. ${sisa<FIT.kcal*.2?'Jangan terlalu dalam, asup nutrisi cukup.':'Konsisten di jalur ini.'}</span></div>`
+    ?`<div class="fd-verdict defisit"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Defisit ${sisa} kkal — jatah ${FIT.kcal} + terbakar ${burned} − asupan ${kc}. ${sisa>FIT.kcal*.2?'Jangan terlalu dalam, asup nutrisi cukup.':'Konsisten di jalur ini.'}</span></div>` /* v3.04.1 · kondisi TERBALIK dulu: defisit ekstrem dipuji, defisit sehat diperingatkan */
     :sisa<0
     ?`<div class="fd-verdict surplus"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span>Surplus ${Math.abs(sisa)} kkal — asupan ${kc} melewati jatah ${FIT.kcal} + terbakar ${burned}. Gerak ekstra atau sesuaikan porsi berikutnya.</span></div>`
     :`<div class="fd-verdict pas"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Pas di jatah — ${FIT.kcal} + ${burned} − ${kc} = 0 kkal.</span></div>`;
@@ -7736,10 +7844,10 @@ function renderMutasiKal(){
           <div class="fd-sub">masuk <b style="color:var(--terra-deep)">${d.inK}</b> · terbakar <b style="color:var(--sky-deep)">${d.outK}</b> kkal</div>
           <div class="pola-bar" style="margin-top:4px;height:5px"><i data-w="${Math.round(d.inK/mx*100)}%" style="background:var(--terra)"></i></div>
         </div>
-        <span class="fd-kcal" style="color:${d.net>FIT.kcal?'var(--rose-deep)':d.net>0?'var(--honey-deep)':'var(--terra-deep)'}">${d.net>0?'+':''}${d.net}<small style="font-size:9.5px;color:var(--ink-3);font-weight:600"> kkal net</small></span>
+        <span class="fd-kcal" style="color:${d.net>FIT.kcal?'var(--rose-deep)':'var(--terra-deep)'}">${d.net>0?'+':''}${d.net}<small style="font-size:9.5px;color:var(--ink-3);font-weight:600"> kkal net</small></span>
       </div>`).join('')}
     </div>
-    <p class="t-sub" style="margin-top:10px;font-size:12px">Net positif berarti surplus (di atas kebutuhan); hijau berarti defisit. Jatah harianmu ${FIT.kcal} kkal.</p>`;
+    <p class="t-sub" style="margin-top:10px;font-size:12px">Net di atas jatah ${FIT.kcal} kkal berarti surplus; hijau berarti defisit. Jatah harianmu ${FIT.kcal} kkal.</p>`;
   animateBars(body);
 }
 
@@ -7762,7 +7870,7 @@ function renderHidrasiCard(){
   }).join('');
   if(pill)pill.textContent=`${n}/${FIT.water} gelas`;
   const pct=Math.min(100,Math.round(n/FIT.water*100));
-  const bar=$('#hyBar');if(bar){bar.dataset.w=pct+'%';bar.style.width=pct+'%'} /* v2.59 · idem bar hidrasi — transisi CSS tetap menganimasikan tiap ketukan */
+  const bar=$('#hyBar');if(bar){bar.dataset.w=pct+'%';animateBars(bar.parentElement)} /* v3.04.1 · idem bar hidrasi — transform scaleX via animateBars, transisi tetap hidup tiap ketukan */
   const note=$('#hyNote');
   if(note)note.textContent=n>=FIT.water?'Sasaran air tercapai hari ini; tubuhmu berterima kasih.':'Ketuk gelas untuk mengisi; tersimpan langsung ke hari ini.';
 }
@@ -8137,7 +8245,7 @@ const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21
 ["Telur bebek dadar","Lauk & protein","1 butir",166,null,null,null],
 ["Telur ayam kampung","Lauk & protein","1 butir",96,null,null,null],
 ["Telur ayam ras","Lauk & protein","1 butir",85,null,null,null],
-["Telur puyuh","Lauk & protein","1 butir",64,null,null,null],
+["Telur puyuh","Lauk & protein","100 g",64,null,null,null],
 ["Telur ayam ras - putih","Lauk & protein","1 butir",28,null,null,null],
 ["Rawon","Lauk & protein","1 mangkuk",180,null,null,null],
 ["Soto Betawi","Lauk & protein","1 mangkuk",405,null,null,null],
@@ -8171,7 +8279,7 @@ const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21
 ["Pisang Ambon","Buah","1 buah",108,null,null,null],
 ["Apel Malang","Buah","1 buah",57,null,null,null],
 ["Apel","Buah","1 buah",58,null,null,null],
-["Duku","Buah","1 buah",63,null,null,null],
+["Duku","Buah","100 g",63,null,null,null],
 ["Durian","Buah","1 buah",134,null,null,null],
 ["Jambu air","Buah","1 gelas",115,null,null,null],
 ["Jambu bol","Buah","1 buah",49,null,null,null],
@@ -8182,8 +8290,8 @@ const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21
 ["Pepaya","Buah","1 porsi",46,null,null,null],
 ["Pisang kepok","Buah","1 buah",109,null,null,null],
 ["Pisang raja","Buah","1 buah",120,null,null,null],
-["Rambutan","Buah","1 buah",69,null,null,null],
-["Salak","Buah","1 buah",77,null,null,null],
+["Rambutan","Buah","100 g",69,null,null,null],
+["Salak","Buah","100 g",77,null,null,null],
 ["Semangka","Buah","1 porsi",28,null,null,null],
 ["Kopi susu","Minuman","1 gelas",139,3.3,24.9,3.1],
 ["Es teh manis","Minuman","1 gelas",85,null,null,null],
@@ -8195,15 +8303,15 @@ const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21
 ["Kopi Kenangan — Kopi Susu Kenangan (reguler)","Minuman","1 gelas reguler",119,3,18,4],
 ["Kopi Kenangan — Pandan Latte","Minuman","1 gelas reguler",180,4,28,5],
 ["Kopi Kenangan — Butterscotch Latte","Minuman","1 gelas reguler",220,5,32,7],
-["Kopi Kenangan — Kopi Hitam (American style)","Minuman","1 gelas reguler",8,0,1,0],
+["Kopi Kenangan — Kopi Hitam (American style)","Minuman","1 gelas reguler",8,0,2,0],
 ["Kopi Point — Es Kopi Susu","Minuman","1 gelas",115,2,17,4],
 ["Kopi Point — Kopi Susu Gula Aren","Minuman","1 gelas",130,2,21,4],
 ["Kopi Point — Latte","Minuman","1 gelas",110,4,14,4],
-["Kopi Point — Americano","Minuman","1 gelas",10,0,2,0],
+["Kopi Point — Americano","Minuman","1 gelas",8,0,2,0],
 ["Kopi Point — Mocha","Minuman","1 gelas",185,4,28,6],
 ["Kopi Domar — Es Kopi Susu","Minuman","1 gelas",110,2,16,4],
 ["Kopi Domar — Kopi Susu Gula Aren","Minuman","1 gelas",125,2,20,4],
-["Kopi Domar — Americano","Minuman","1 gelas",10,0,2,0],
+["Kopi Domar — Americano","Minuman","1 gelas",8,0,2,0],
 ["Kopi Domar — Latte","Minuman","1 gelas",105,3,14,4],
 ["Janji Jiwa — Es Kopi Susu Jiwa","Minuman","1 gelas",140,3,21,5],
 ["Janji Jiwa — Jiwa Latte","Minuman","1 gelas",150,5,20,5],
@@ -8221,8 +8329,8 @@ const FOOD_DB=[["Nasi goreng","Nasi & makanan pokok","1 piring",552,13.8,74.3,21
 ["Torabika Duo kopi susu sachet","Minuman","1 sachet",80,1,15,2],
 ["ABC White Coffee sachet","Minuman","1 sachet",90,1,18,1.5],
 ["Luwak White Koffie sachet","Minuman","1 sachet",85,1,17,1],
-["Nescafé Classic hitam tanpa gula","Minuman","1 gelas",5,0,1,0],
-["Kopi tubruk hitam tanpa gula","Minuman","1 gelas",5,0,1,0],
+["Nescafé Classic hitam tanpa gula","Minuman","1 gelas",4,0,1,0],
+["Kopi tubruk hitam tanpa gula","Minuman","1 gelas",4,0,1,0],
 ["Kopi tubruk manis (1 sdt gula)","Minuman","1 gelas",25,0,6,0],
 ["Es kopi susu gula aren (umum)","Minuman","1 gelas",180,3,28,5],
 ["Es kopi susu pandan (umum)","Minuman","1 gelas",200,3,30,6],
@@ -8313,9 +8421,9 @@ function fillFdMeal(t){
 function saveFood(e){
   e.preventDefault();
   const name=$('#fdName').value.trim();
-  const kcal=parseInt(String($('#fdKcal').value).replace(/[^\d]/g,''),10)||0;
-  if(!name||!kcal){toast('Lengkapi dulu','Nama makanan & kalori diperlukan; makro boleh kosong.','i-x','rose');return}
   const gv=id=>{const v=parseFloat(String($(id).value).replace(',','.'));return isNaN(v)?0:Math.max(0,v)};
+  const kcal=Math.round(gv('#fdKcal')); /* v3.04.1 · desimal jujur — dulu parseInt("150,5") melempar koma → 1505 kkal (10× salah) */
+  if(!name||!kcal){toast('Lengkapi dulu','Nama makanan & kalori diperlukan; makro boleh kosong.','i-x','rose');return}
   const f={id:`local-f-${Date.now()}-${Math.floor(Math.random()*999)}`,date:$('#fdDate').value||dayKey(TODAY),meal:fdMealSel,name,kcal,
     protein:Math.round(gv('#fdProt')),carb:Math.round(gv('#fdCarb')),fat:Math.round(gv('#fdFat'))};
   FOODS.unshift(f);
@@ -8945,7 +9053,7 @@ function renderToday(){
   /* judul memakai bahasa permintaan asli: "hari ini habis berapa" */
   $('#todayTitle').textContent=keluar?`Hari ini habis ${rupiah(keluar)}`:'Belum ada pengeluaran hari ini';
   $('#todayPill').textContent=tx.length?`${tx.length} transaksi`:'belum ada catatan';
-  $('#tdDate').textContent=DOWS[(TODAY.getDay()+6)%7]+', '+tglPendek(k);
+  $('#tdDate').textContent=DOWS[(TODAY.getDay()-WS+7)%7]+', '+tglPendek(k); /* v3.04.1 · hormati weekStart Minggu — dulu rumus +6 selalu mengasumsikan pekan Senin */
   /* panel buku besar: angka + jumlah catatan + porsi dari total aliran */
   const wIn=flow?Math.round(masuk/flow*100):0,wOut=flow?Math.round(keluar/flow*100):0;
   countUp($('#tdIn'),masuk);
@@ -9679,10 +9787,10 @@ function renderTx(){
       <span class="tx-swipe sw-del" aria-hidden="true"><svg class="ic"><use href="#i-trash"/></svg>Hapus</span>
       <div class="tx-inner">
         <span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span>
-        <div class="tx-info"><b>${esc(t.description)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}${t.recurrence?' · <span class="tag-rec"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>berulang</span>':''}</small></div>
+        <div class="tx-info"><b>${esc(t.description||t.category)}</b><small>${esc(t.category)} · ${esc(srcName(t.sourceId)||'tanpa sumber')}${t.recurrence?' · <span class="tag-rec"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>berulang</span>':''}</small></div>
         <div class="tx-act">
-          <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
-          <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+          <button type="button" class="tx-btn edit" data-edit-tx="${esc(t.id)}" aria-label="Ubah transaksi ${esc(t.description||t.category)}"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+          <button type="button" class="tx-btn del" data-del-tx="${esc(t.id)}" aria-label="Hapus transaksi ${esc(t.description||t.category)}"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
         </div>
         <div class="tx-amt ${cls}">${sign}${rupiah(t.amount)}<small>${tglPendek(t.date)}</small></div>
       </div>
@@ -10003,7 +10111,7 @@ function renderDayDetail(d){
   }).join('');
   const txRows=tx.length?tx.slice(0,4).map(t=>{
     const st=t.type==='transfer'?{i:'k-transfer',c:'#64748B'}:finStyle(t.category);
-    return `<div class="dd-tx-row drillable" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0" title="Ketuk: detail transaksi"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)}</b></div>`;
+    return `<div class="dd-tx-row drillable" data-drill="tx" data-id="${esc(t.id)}" role="button" tabindex="0" title="Ketuk: detail transaksi"><span class="tx-ic" style="background:${st.c}1F;color:${st.c}"><svg class="ic" aria-hidden="true"><use href="#${st.i}"/></svg></span><span>${esc(t.description||t.category)}</span><b class="t-num" style="color:${t.type==='income'?'var(--sage-deep)':t.type==='expense'?'var(--rose-deep)':'var(--ink-3)'}">${t.type==='income'?'+':t.type==='expense'?'–':'⇄ '}${rupiah(t.amount)}</b></div>`;
   }).join('')+(tx.length>4?`<div class="t-sub" style="font-size:12px">+${tx.length-4} transaksi lainnya di tab Keuangan</div>`:''):`<div class="t-sub" style="font-size:12px;padding:6px 2px">Tidak ada transaksi tercatat.</div>`;
   $('#dayDetail').innerHTML=`
     <div class="dd-head"><span class="spot"><svg class="ill" aria-hidden="true"><use href="#${future?'ill-tidur':spotIll}"/></svg></span>
@@ -10407,6 +10515,7 @@ function closeModals(){
      tiap modal benar-benar tertutup; tak ada lagi mutasi inline body. */
   $$('.modal').forEach(m=>{
     if(!m.classList.contains('open'))return;
+    if(m.id==='modalRest')restStop(); /* v3.04.1 · tutup via latar/geser/Esc kini menghentikan timer — dulu bip & suara coach tetap menyala tersembunyi sampai habis */
     if(m.classList.contains('closing')||m.classList.contains('closing-drag')){finishClose(m);return} /* Esc kedua → selesaikan seketika */
     if(reduced){finishClose(m);return}
     m.classList.add('closing');
@@ -11145,7 +11254,9 @@ function tunasWake(){
     const trig=document.createElement('button');
     trig.type='button';trig.className='cs-trigger';trig.setAttribute('role','combobox');
     trig.setAttribute('aria-haspopup','listbox');trig.setAttribute('aria-expanded','false');
-    const aria=sel.getAttribute('aria-label');if(aria)trig.setAttribute('aria-label',aria);
+    const aria=sel.getAttribute('aria-label');
+    if(aria)trig.setAttribute('aria-label',aria);
+    else if(sel.id){const lb=document.querySelector('label[for="'+sel.id+'"]');if(lb)trig.setAttribute('aria-label',lb.textContent.replace(/\s+/g,' ').trim())} /* v3.04.1 · 5 combobox utama tanpa nama aksesibel — teks label[for] kini disalin ke pemicu */
     const menu=document.createElement('div');menu.className='cs-menu';menu.setAttribute('role','listbox');
     wrap.append(trig,menu);
     const open=()=>{
@@ -11856,6 +11967,9 @@ const afterSplash=fn=>(window.__rutinaSplash?window.__rutinaSplash.then(fn):fn()
   applyLive();
   if(tunas&&!PAINTED)afterSplash(tunasWake);
   if(!LIVE&&PAINTED)staleArm(); /* v2.42 · data basi terlihat + coba ulang otomatis */
+  /* v3.04.1 · server hidup tapi penyimpanan sesi (volatile) & jurnal kosong:
+     tanpa ini data seeded-snapshot tampil seolah LIVE tanpa penanda apa pun. */
+  if(LIVE&&DBVOL)setTimeout(()=>toast('Server memakai penyimpanan sesi','Data yang terlihat disajikan dari penyimpanan sementara; catatanmu aman di perangkat dan akan dipindah begitu database permanen tersambung.','i-leaf','honey'),2600);
   /* v2.22 · dorong jurnal lama yang belum tersinkron (mis. dari sesi offline) */
   setTimeout(()=>{syncFlush();paintSyncRow()},1100);
 })();

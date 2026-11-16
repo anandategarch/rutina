@@ -26,12 +26,35 @@ const MAX_BODY_BYTES = 2 * 1024 * 1024;
 const LOCAL_DB = resolve(process.cwd(), "db", "rutina-preview.db");
 const TMP_DB = resolve("/tmp", "rutina-preview.db"); /* v3.02 · tangga darurat lambda read-only */
 const HTML_SNAPSHOT = resolve(process.cwd(), "public", "rutina.html");
-/* v2.64 · ETag — GET kini bisa menjawab 304 saat data tak berubah: payload
-   penuh (73 KB terukur, ~192 B per transaksi baru) tak diunduh ulang di
-   tiap buka aplikasi. Revisi = boot-tag proses + penghitung POST sukses —
-   restart proses selalu menghasilkan tag baru → tak pernah salah 304. */
-const BOOT_TAG = Date.now().toString(36);
-let dataRev = 0;
+/* v2.64 · ETag — GET bisa menjawab 304 saat data tak berubah.
+   v3.04.1 · revisi disimpan DI DATABASE (tabel AppMeta, key 'rev') — dulu
+   ETag = boot-tag proses + penghitung POST modul-lokal: benar di satu
+   instance, tapi di serverless multi-instance perangkat lain bisa menerima
+   304 BASI dari instance yang belum melihat POST. Revisi bersama di DB
+   membuat 304 benar lintas instance; restart proses tak lagi mengganti
+   tag (data memang tak berubah) sehingga penghematan tetap utuh. */
+const APP_META_DDL = `CREATE TABLE IF NOT EXISTS "AppMeta"("key" TEXT PRIMARY KEY,"value" TEXT)`;
+async function readRev(client: Client): Promise<number> {
+  try {
+    const r = await client.execute({ sql: `SELECT "value" FROM "AppMeta" WHERE "key"='rev'`, args: [] });
+    return Number((r.rows[0] as { value?: unknown } | undefined)?.value ?? 0) || 0;
+  } catch {
+    /* self-healing: instance yang umurnya panjang (cache migrasi di memori)
+       belum tentu menjalankan DDL AppMeta — ciptakan lalu laporkan rev 0;
+       bumpRev berikutnya akan menaikkan revisi normal. */
+    try { await client.execute(APP_META_DDL); } catch { /* biarkan bumpRev yang mencoba lagi */ }
+    return 0;
+  }
+}
+async function bumpRev(client: Client): Promise<void> {
+  const upsert = { sql: `INSERT INTO "AppMeta"("key","value") VALUES ('rev','1') ON CONFLICT("key") DO UPDATE SET "value"=CAST(CAST("value" AS INTEGER)+1 AS TEXT)`, args: [] as InValue[] };
+  try {
+    await client.execute(upsert);
+  } catch (error) {
+    try { await client.execute(APP_META_DDL); await client.execute(upsert); }
+    catch (e) { console.error("[/api/rutina] gagal menaikkan revisi:", e, "| sebab pertama:", error); }
+  }
+}
 
 /* utilitas */
 
@@ -114,7 +137,13 @@ async function getTarget(): Promise<DbTarget> {
        EXISTS aman diputar ulang tiap boot proses). */
     if (!tursoMigrated) {
       for (const sql of DDL) {
-        try { await turso.execute(sql); } catch { /* tabel sudah ada — lanjut */ }
+        try { await turso.execute(sql); } catch (error) {
+          /* v3.04.1 · "sudah ada" wajar diabaikan; kegagalan lain (izin,
+             read-only) kini TERCATAT — dulu ditelan dan baru meledak sebagai
+             502 membingungkan di query pertama. */
+          const m = errText(error);
+          if (!/already exists|duplicate column/i.test(m)) console.error("[/api/rutina] DDL Turso:", m);
+        }
       }
       await migrateColumns(turso);
       tursoMigrated = true;
@@ -129,6 +158,7 @@ async function getTarget(): Promise<DbTarget> {
    `volatile` memberi tahu klien bahwa penyimpanan ini bisa menguap saat
    instance dingin — klien lalu TIDAK membersihkan jurnalnya sehingga
    seluruh riwayat tetap terdorong ulang ke server berikutnya. */
+const localFailed = new Set<string>(); /* v3.04.1 · path yang gagal SIAP (db korup / disk penuh) — dulu kegagalan skema hanya terdeteksi async sehingga loop tak pernah mencoba anak tangga /tmp */
 async function localTarget(reason: string | null): Promise<DbTarget> {
   if (!cachedLocal) {
     const dirs: [string, boolean][] = [
@@ -137,11 +167,13 @@ async function localTarget(reason: string | null): Promise<DbTarget> {
     ];
     let lastError: unknown = null;
     for (const [path, volatile] of dirs) {
+      if (localFailed.has(path)) continue;
       try {
         mkdirSync(dirname(path), { recursive: true });
         const client = createClient({ url: `file:${path}` });
         const ready = ensureLocalSchema(client).catch((error) => {
           console.error("[/api/rutina] gagal menyiapkan database lokal:", error);
+          localFailed.add(path);
           cachedLocal = null;
           throw error;
         });
@@ -149,6 +181,8 @@ async function localTarget(reason: string | null): Promise<DbTarget> {
         break;
       } catch (error) {
         lastError = error; /* read-only/EROFS → coba anak tangga berikutnya */
+        localFailed.add(path);
+        cachedLocal = null;
       }
     }
     if (!cachedLocal) {
@@ -199,6 +233,8 @@ const DDL: string[] = [
      digerakkan mesin double-progression di shell. */
   `CREATE TABLE IF NOT EXISTS "ReadinessLog"("date" TEXT PRIMARY KEY,"sleep" REAL,"doms" INTEGER,"stress" INTEGER,"energy" INTEGER)`,
   `CREATE TABLE IF NOT EXISTS "ExTarget"("exercise" TEXT PRIMARY KEY,"weight" REAL,"reps" INTEGER)`,
+  /* v3.04.1 · revisi data bersama — dasar ETag yang benar lintas instance */
+  `CREATE TABLE IF NOT EXISTS "AppMeta"("key" TEXT PRIMARY KEY,"value" TEXT)`,
 ];
 
 /* v2.35 · migrasi kolom Atomic Habits — ALTER per kolom; gagal "duplicate
@@ -215,7 +251,11 @@ async function migrateColumns(client: Client): Promise<void> {
   for (const [table, col] of COLUMN_MIGRATIONS) {
     try {
       await client.execute(`ALTER TABLE "${table}" ADD COLUMN "${col}" TEXT`);
-    } catch { /* kolom sudah ada — lanjut */ }
+    } catch (error) {
+      /* v3.04.1 · idem DDL — hanya "sudah ada" yang diabaikan diam-diam */
+      const m = errText(error);
+      if (!/already exists|duplicate column/i.test(m)) console.error(`[/api/rutina] migrasi kolom ${table}.${col}:`, m);
+    }
   }
 }
 
@@ -423,12 +463,6 @@ function buildInsert(cols: Set<string>, table: string, row: Record<string, unkno
 /* pembacaan */
 
 export async function GET(request: Request) {
-  /* v2.64 · 304 pintar — If-None-Match cocok → nol byte body: penghematan
-     undulan 73 KB per buka aplikasi saat data tak berubah. */
-  const etag = `W/"rutina-${BOOT_TAG}-${dataRev}"`;
-  if (request.headers.get("if-none-match") === etag) {
-    return new NextResponse(null, { status: 304, headers: { ETag: etag, "Cache-Control": "no-cache" } });
-  }
   let target: DbTarget;
   try {
     target = await getTarget();
@@ -437,6 +471,13 @@ export async function GET(request: Request) {
       { ok: false, error: "Sumber data belum siap. Muat ulang sebentar lagi." },
       { status: 503, headers: NO_STORE },
     );
+  }
+  /* v3.04.1 · 304 pintar berbasis revisi DI DATABASE (bukan memori proses):
+     cocok → nol byte body; penghematan unduhan penuh per buka aplikasi
+     saat data tak berubah — dan kini benar juga di multi-instance. */
+  const etag = `W/"rutina-${await readRev(target.client)}"`;
+  if (request.headers.get("if-none-match") === etag) {
+    return new NextResponse(null, { status: 304, headers: { ETag: etag, "Cache-Control": "no-cache" } });
   }
 
   try {
@@ -574,7 +615,7 @@ export async function GET(request: Request) {
       foodLogs: foods.rows.map((r) => ({
         id: String(r.id),
         date: dpart(r.date),
-        meal: String(r.meal ?? "snack"),
+        meal: (MEALS as readonly string[]).includes(String(r.meal)) ? String(r.meal) : "camilan", /* v3.04.1 · nilai legacy "snack" dipetakan ke "camilan" — konsisten dgn sanitizer POST */
         name: String(r.name ?? ""),
         kcal: Math.round(num(r.kcal)),
         protein: num(r.protein),
@@ -885,7 +926,7 @@ function sanitizeOverlay(input: unknown): Overlay | null {
         const r = asRecord(v);
         m[date] = {
           date,
-          sleep: clamp(num(r.sleep), 0, 16),
+          sleep: clamp(num(r.sleep), 0, 24), /* v3.04.1 · disamakan dgn klien (input 0–24 jam) — dulu clamp 16 memotong nilai diam-diam pasca-reload */
           doms: Math.round(clamp(num(r.doms), 0, 5)),
           stress: Math.round(clamp(num(r.stress), 0, 5)),
           energy: Math.round(clamp(num(r.energy), 0, 5)),
@@ -899,9 +940,10 @@ function sanitizeOverlay(input: unknown): Overlay | null {
         const exercise = str(k).slice(0, 60);
         if (!exercise) continue;
         const r = asRecord(v);
-        const weight = clamp(num(r.weight), 1, 1000);
-        const reps = Math.round(clamp(num(r.reps), 1, 500));
-        if (weight > 0 && reps > 0) m[exercise] = { exercise, weight, reps };
+        /* v3.04.1 · weight/reps 0 dilewati — dulu weight di-clamp jadi 1 kg
+           sehingga lahir baris target sampah {1 kg × 1 rep} */
+        if (num(r.weight) <= 0 || num(r.reps) <= 0) continue;
+        m[exercise] = { exercise, weight: clamp(num(r.weight), 1, 1000), reps: Math.round(clamp(num(r.reps), 1, 500)) };
       }
       return m;
     })(),
@@ -915,13 +957,22 @@ function splitKey(key: string): [string, string] {
 }
 
 export async function POST(request: Request) {
-  const size = Number(request.headers.get("content-length") ?? 0);
-  if (size > MAX_BODY_BYTES) {
+  /* v3.04.1 · batas ukuran ditegakkan pada ISI body — content-length bisa
+     absen (chunked) atau non-numerik sehingga cek header sendiri tembus. */
+  const hdrSize = Number(request.headers.get("content-length") ?? NaN);
+  if (hdrSize > MAX_BODY_BYTES) {
+    return NextResponse.json({ ok: false, error: "Lapisan catatan terlalu besar." }, { status: 413, headers: NO_STORE });
+  }
+  let raw = "";
+  try { raw = await request.text(); } catch {
+    return NextResponse.json({ ok: false, error: "Body tidak terbaca." }, { status: 400, headers: NO_STORE });
+  }
+  if (raw.length > MAX_BODY_BYTES) {
     return NextResponse.json({ ok: false, error: "Lapisan catatan terlalu besar." }, { status: 413, headers: NO_STORE });
   }
   let body: unknown;
   try {
-    body = await request.json();
+    body = JSON.parse(raw);
   } catch {
     return NextResponse.json({ ok: false, error: "Body bukan JSON yang valid." }, { status: 400, headers: NO_STORE });
   }
@@ -945,7 +996,11 @@ export async function POST(request: Request) {
       Array.isArray(b.budgets) ? (b.budgets as unknown[]) : null,
       Array.isArray(b.finCats) ? (b.finCats as unknown[]) : null,
     );
-    dataRev++; /* v2.64 · data berubah → ETag baru: GET berikutnya klien mengunduh isinya */
+    /* v3.04.1 · data berubah → revisi naik DI DATABASE: ETag baru, GET
+       berikutnya (instance mana pun) mengunduh isinya. */
+    if (Object.values(result.applied).reduce((a, b) => a + b, 0) > 0) {
+      await bumpRev(target.client);
+    }
     /* v2.64 · WAL lokal dirampingkan pasca-POST — tulisan terbatch kini
        kecil, checkpoint TRUNCATE menjaga -wal tak menumpuk antar sesi. */
     if (target.source === "local") {
@@ -1042,6 +1097,44 @@ async function applyOverlay(
         sourceId: t.sourceId, description: t.description, date: t.date,
         recurrence: t.recurrence ?? null, /* v2.37 */
       });
+    }
+  });
+
+  /* 2b · v3.04.1 · ANGGARAN & KATEGORI dari JURNAL — jalur pemulihan:
+        saat server volatile klien MEMPERTAHANKAN jurnal namun flag daftar
+        final (budgets/finCats) bisa sudah bersih; tanpa seksi ini edit
+        anggaran & penghapusan kategori selama outage hilang permanen begitu
+        Turso pulih (jurnal direplay TANPA daftar final). Idempoten: budEdit
+        menghapus kunci lama lalu upsert baris baru (rename), budAdd upsert
+        by kategori|bulan, budDel/catDel = DELETE. Ditempatkan SEBELUM
+        daftar final supaya daftar final tetap menang saat keduanya hadir. */
+  await batchRun("budJournal", (S) => {
+    const seen = new Set<string>();
+    const put = (b: BudRow) => {
+      const key = `${b.category}|${b.month}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      S.push({ sql: `INSERT OR REPLACE INTO "WeeklyBudget"("category","month","amount") VALUES (?,?,?)`, args: [mapCat(b.category), b.month, b.amount] });
+    };
+    for (const [oldKey, b] of Object.entries(ov.budEdit)) {
+      const [oc, om] = splitKey(oldKey);
+      if (!oc || !om || !b.category || !b.month) continue;
+      S.push({ sql: `DELETE FROM "WeeklyBudget" WHERE "category"=? AND "month"=?`, args: [oc, om] });
+      put(b);
+    }
+    for (const b of ov.budAdd) if (b.category && b.month) put(b);
+  });
+  await batchRun("budDel", (S) => {
+    for (const key of ov.budDel) {
+      const [c, m] = splitKey(key);
+      if (!c || !m) continue;
+      S.push({ sql: `DELETE FROM "WeeklyBudget" WHERE "category"=? AND "month"=?`, args: [c, m] });
+    }
+  });
+  await batchRun("catDel", (S) => {
+    for (const name of ov.catDel) {
+      if (!name) continue;
+      S.push({ sql: `DELETE FROM "FinanceCategory" WHERE "name"=?`, args: [name] });
     }
   });
 
