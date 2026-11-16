@@ -28,7 +28,7 @@ src/app/
 
 **`public/lab.html`** adalah perpustakaan efek CSS murni satu file (tanpa build, tanpa dependensi) yang menyertai shell:
 
-- **39 efek** dalam 8 kategori: Tombol (7), Loader (6), Teks (6), Latar (5), Kartu (5), Input (3), Toggle (3), Animasi (4).
+- **131 efek** dalam 13 kategori: Teks (23), Kartu (22), Layar (15), Tombol (13), Loader (11), Latar (10), Animasi (9), Input (7), Toggle (7), Media (4), Lencana (4), Daftar (3), Petunjuk (3).
 - Setiap kartu adalah **demo hidup** — hover/klik/fokus langsung mencoba efeknya.
 - Dialog kode menampilkan **CSS & HTML persis yang menjalankan demo** (disuntikkan runtime dari data yang sama), lengkap dengan penyorotan sintaks ringan dan tombol salin + toast.
 - Pencarian instan (pintasan `/`), filter kategori berhitung, tema visual mengikuti sistem desain Evergreen (Geist, terra/sage/honey, bayangan berlapis).
@@ -95,7 +95,7 @@ src/app/
 - **Keuangan** — transaksi + transfer antar-dompet, dompet, anggaran per kategori, peta panas pengeluaran; tiga anak tab (Analisa / Mutasi / Saldo Bank). Mutasi Transaksi (v2.43) membawa **total tiap tanggal** di kepala grup — net harian atau jumlah jenis terfilter, selalu cocok dengan baris yang tampak. **Transaksi berulang** (v2.37): pilih "Setiap bulan/minggu" saat mencatat — occurrence jatuh tempo dilahirkan otomatis dengan id deterministik (`rec-…`), hapus instance diingat per perangkat.
 - **Kalender** — catatan hari & ritme pekan; **pembanding pekan** (v2.37: hari aktif · catatan · pengeluaran vs pekan lalu) di kartu Ritme Ringkasan, dan **laporan bulanan** (v2.37) yang mengikuti bulan yang dibuka: konsistensi, top-3 kategori, anggaran, refleksi suara identitas.
 - **Wawasan** — pola, laporan, lencana.
-- **CSS Lab** — kebun efek CSS satu file (`public/lab.html`): 39 efek murni dalam 8 kategori dengan demo hidup, kode siap salin, pencarian & filter; diakses dari sidebar / tab Pengaturan.
+- **CSS Lab** — kebun efek CSS satu file (`public/lab.html`): 131 efek murni dalam 13 kategori dengan demo hidup, kode siap salin, pencarian & filter; diakses dari sidebar / tab Pengaturan.
 - **PWA** — pasang ke layar utama, offline-first.
 
 ## Menjalankan lokal

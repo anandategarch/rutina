@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rutina CSS Lab — Kebun Efek CSS</title>
-<meta name="description" content="Kebun efek CSS murni untuk Rutina: 39 efek dengan demo langsung dan kode siap salin — tombol, loader, teks, latar, kartu, input, toggle, dan animasi. Tanpa JavaScript pada tiap efek.">
+<meta name="description" content="Kebun efek CSS murni untuk Rutina: 131 efek dengan demo langsung dan kode siap salin dalam 13 kategori — tombol, loader, teks, latar, kartu, input, toggle, animasi, lencana, media, daftar, petunjuk, dan layar. Tanpa JavaScript pada tiap efek.">
 <meta name="theme-color" content="#F8FAFC">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -77,10 +77,10 @@ body{
 }
 .search:focus-within{border-color:var(--terra);box-shadow:0 0 0 3px rgba(16,185,129,.16)}
 .search svg{width:17px;height:17px;color:var(--ink-3);flex:none}
-.search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font:500 14px/1 inherit;color:var(--ink)}
+.search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font:500 14px/1 "Geist","Segoe UI",system-ui,sans-serif;color:var(--ink)}
 .search input::placeholder{color:#94A3B8}
 .search kbd{
-  flex:none;font:600 10.5px/1 inherit;color:var(--ink-3);
+  flex:none;font:600 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:var(--ink-3);
   border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
   padding:4px 7px;background:var(--surface-2);
 }
@@ -88,7 +88,7 @@ body{
   flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
   height:44px;padding:0 18px;border-radius:999px;
   background:var(--surface);border:1.5px solid var(--line);
-  font:600 13.5px/1 inherit;color:var(--ink-2);
+  font:600 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:var(--ink-2);
   transition:border-color .2s,color .2s,transform .2s,box-shadow .2s;
   order:3;
 }
@@ -134,12 +134,12 @@ body{
 .stat span{font-size:11.5px;font-weight:600;color:var(--ink-3)}
 .hero .kbd-hint{position:relative;margin-top:18px;font-size:12px;color:var(--ink-3);font-weight:500}
 .hero .kbd-hint kbd{
-  font:600 10.5px/1 inherit;border:1px solid var(--line);border-bottom-width:2px;
+  font:600 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;border:1px solid var(--line);border-bottom-width:2px;
   border-radius:6px;padding:3px 6px;background:var(--surface);color:var(--ink-2);margin:0 2px;
 }
 
 /* ---------- FILTER CHIP ---------- */
-.chips-wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+.chips-wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
 .chips{
   display:flex;gap:8px;overflow-x:auto;padding:6px 2px 14px;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -149,7 +149,7 @@ body{
   flex:none;display:inline-flex;align-items:center;gap:7px;
   height:38px;padding:0 16px;border-radius:999px;cursor:pointer;
   background:var(--surface);border:1.5px solid var(--line);
-  font:600 13px/1 inherit;color:var(--ink-2);white-space:nowrap;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;color:var(--ink-2);white-space:nowrap;
   transition:border-color .18s,color .18s,background .18s,transform .18s;
 }
 .chip:hover{border-color:var(--terra);color:var(--terra-deep)}
@@ -212,7 +212,7 @@ body{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   min-height:40px;margin-top:6px;padding:0 14px;border-radius:12px;cursor:pointer;
   background:var(--terra-softer);border:1.5px solid var(--terra-soft);
-  font:600 13px/1 inherit;color:var(--terra-deep);
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;color:var(--terra-deep);
   transition:border-color .18s,background .18s,transform .18s,box-shadow .18s;
 }
 .fx-code-btn svg{width:14px;height:14px}
@@ -256,7 +256,7 @@ dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
   display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;
   border-radius:12px;cursor:pointer;
   background:linear-gradient(135deg,#059669,#047857);border:none;color:#fff;
-  font:600 13px/1 inherit;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;
   box-shadow:0 6px 14px -6px rgba(4,120,87,.5);
   transition:transform .18s,box-shadow .18s;
 }
@@ -268,7 +268,7 @@ dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
 .dlg-tabs{display:flex;gap:6px;background:var(--surface-2);border-radius:12px;padding:4px;width:max-content}
 .dlg-tabs button{
   border:none;cursor:pointer;background:transparent;color:var(--ink-3);
-  font:600 12.5px/1 inherit;padding:9px 18px;border-radius:9px;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;padding:9px 18px;border-radius:9px;
   transition:background .18s,color .18s,box-shadow .18s;
 }
 .dlg-tabs button.active{background:var(--surface);color:var(--terra-deep);box-shadow:var(--shadow-sm)}
@@ -302,7 +302,7 @@ dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
   transform:translateX(-50%) translateY(16px);
   display:flex;align-items:center;gap:9px;
   background:rgba(6,78,59,.94);color:#ECFDF5;
-  font:600 13px/1 inherit;padding:13px 19px;border-radius:999px;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;padding:13px 19px;border-radius:999px;
   box-shadow:0 12px 32px rgba(15,23,42,.3),inset 0 0 0 1px rgba(255,255,255,.14);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   opacity:0;pointer-events:none;
@@ -352,7 +352,7 @@ dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
       </a>
       <div class="search" role="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Cari efek: neon, glitch, gradien, flip…" aria-label="Cari efek CSS" autocomplete="off">
+        <input id="q" type="search" placeholder="Cari efek: neon, marquee, ombak, bintang, tooltip, jam pasir…" aria-label="Cari efek CSS" autocomplete="off">
         <kbd aria-hidden="true">/</kbd>
       </div>
       <a class="open-app" href="/rutina.html" target="_blank" rel="noopener">
@@ -370,10 +370,10 @@ dialog#dlg[open]{display:block;animation:dlgIn .3s var(--ease)}
       Evergreen CSS Lab
     </span>
     <h1>Kebun <em>Efek CSS</em> Rutina</h1>
-    <p class="sub">Perpustakaan efek CSS murni bertema taman botani — setiap kartu adalah demo hidup, dan setiap kode bisa langsung disalin-tempel. Tanpa JavaScript pada tiap efek.</p>
+    <p class="sub">Perpustakaan efek CSS murni bertema taman botani — setiap kartu adalah demo hidup, dan setiap kode bisa langsung disalin-tempel. Dari tombol hingga layar penuh, semuanya tanpa JavaScript.</p>
     <div class="stats">
-      <div class="stat"><b id="stFx">39</b><span>efek siap pakai</span></div>
-      <div class="stat"><b id="stCat">8</b><span>kategori</span></div>
+      <div class="stat"><b id="stFx">131</b><span>efek siap pakai</span></div>
+      <div class="stat"><b id="stCat">13</b><span>kategori</span></div>
       <div class="stat"><b>0</b><span>baris JS per efek</span></div>
       <div class="stat"><b>100%</b><span>salin-tempel</span></div>
     </div>
@@ -448,7 +448,12 @@ const CATS = {
   kartu:{label:'Kartu',color:'#0369A1',soft:'#E0F2FE'},
   input:{label:'Input',color:'#BE185D',soft:'#FCE7F3'},
   toggle:{label:'Toggle',color:'#7E22CE',soft:'#F3E8FF'},
-  animasi:{label:'Animasi',color:'#334155',soft:'#E2E8F0'}
+  animasi:{label:'Animasi',color:'#334155',soft:'#E2E8F0'},
+  lencana:{label:'Lencana',color:'#9A3412',soft:'#FFEDD5'},
+  media:{label:'Media',color:'#155E75',soft:'#CFFAFE'},
+  daftar:{label:'Daftar',color:'#166534',soft:'#DCFCE7'},
+  tooltip:{label:'Petunjuk',color:'#881337',soft:'#FFE4E6'},
+  layar:{label:'Layar',color:'#A21CAF',soft:'#FBE8FF'}
 };
 
 const FX = [
@@ -464,7 +469,7 @@ const FX = [
   cursor:pointer;
   padding:15px 32px;
   border-radius:14px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#FFFFFF;
   background:linear-gradient(120deg,#10B981,#22C55E,#84CC16,#10B981);
   background-size:300% 100%;
@@ -497,7 +502,7 @@ const FX = [
   cursor:pointer;
   padding:15px 32px;
   border-radius:14px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#ECFDF5;
   background:#064E3B;
   transition:transform .2s;
@@ -532,7 +537,7 @@ const FX = [
   cursor:pointer;
   padding:15px 32px;
   border-radius:14px;
-  font:700 15px/1 inherit;
+  font:700 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   letter-spacing:.02em;
   color:#6EE7B7;
   background:#052E22;
@@ -564,7 +569,7 @@ const FX = [
   cursor:pointer;
   padding:15px 32px;
   border-radius:14px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#FFFFFF;
   background:#047857;
   box-shadow:0 6px 0 #065F46,0 16px 22px -10px rgba(4,120,87,.55);
@@ -616,7 +621,7 @@ const FX = [
   background:#FFFFFF;
   border-radius:14px;
   padding:14px 30px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#0F172A;
 }
 @keyframes fxConicSpin{
@@ -637,7 +642,7 @@ const FX = [
   cursor:pointer;
   padding:15px 32px;
   border-radius:14px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#FFFFFF;
   background:#0F766E;
   transition:background .2s;
@@ -675,7 +680,7 @@ const FX = [
   cursor:pointer;
   padding:13px 30px;
   border-radius:14px;
-  font:600 15px/1 inherit;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
   color:#047857;
   background:transparent;
   transition:color .3s;
@@ -2095,6 +2100,4218 @@ const FX = [
 }`,
   html:
 `<div class="fx-leaf-scene"><i class="fx-leaf"></i></div>`
+},
+
+/* ---------------- TOMBOL — LANJUTAN ---------------- */
+{
+  id:'fx-arrow-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Panah Meluncur',
+  desc:'Jarak teks dan panah melebar saat kursor datang, lalu panah meluncur ke depan menunjukkan arah.',
+  css:
+`.fx-arrow-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  border:none;cursor:pointer;
+  padding:15px 30px;border-radius:14px;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#065F46;
+  background:#ECFDF5;
+  box-shadow:inset 0 0 0 1.5px #A7F3D0;
+  transition:gap .3s cubic-bezier(.22,1,.36,1),background .25s,color .25s,box-shadow .25s;
+}
+.fx-arrow-btn svg{width:17px;height:17px;flex:none;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.fx-arrow-btn:hover{
+  gap:12px;background:#D1FAE5;color:#064E3B;
+  box-shadow:inset 0 0 0 1.5px #6EE7B7,0 8px 18px -8px rgba(4,120,87,.35);
+}
+.fx-arrow-btn:hover svg{transform:translateX(4px)}
+.fx-arrow-btn:active{transform:scale(.97)}`,
+  html:
+`<button class="fx-arrow-btn" type="button">Lanjutkan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>`
+},
+{
+  id:'fx-trace-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Bingkai Tertelusuri',
+  desc:'Cincin gradien konik berputar menyala di sekeliling tombol, menelusuri batasnya seperti jalur taman.',
+  css:
+`.fx-trace-wrap{
+  position:relative;display:inline-block;padding:2px;border-radius:16px;overflow:hidden;
+}
+.fx-trace-wrap::before{
+  content:"";position:absolute;inset:-45%;
+  background:conic-gradient(#10B981,#F59E0B,#84CC16,#38BDF8,#10B981);
+  animation:fxTraceSpin 3.2s linear infinite;
+  opacity:0;transition:opacity .3s;
+}
+.fx-trace-btn{
+  position:relative;z-index:1;border:none;cursor:pointer;
+  padding:14px 30px;border-radius:14px;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#ECFDF5;background:#064E3B;
+  transition:color .25s,letter-spacing .25s;
+}
+.fx-trace-wrap:hover::before{opacity:1}
+.fx-trace-wrap:hover .fx-trace-btn{color:#A7F3D0;letter-spacing:.02em}
+@keyframes fxTraceSpin{to{transform:rotate(1turn)}}`,
+  html:
+`<span class="fx-trace-wrap"><button class="fx-trace-btn" type="button">Buka Pro</button></span>`
+},
+{
+  id:'fx-liquid-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Isi Cair Naik',
+  desc:'Cairan hijau membanjir dari dasar tombol dengan bibir bergelombang, menenggelamkan permukaannya.',
+  css:
+`.fx-liquid-btn{
+  position:relative;isolation:isolate;overflow:hidden;
+  border:none;cursor:pointer;
+  padding:15px 32px;border-radius:14px;
+  font:700 15px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#047857;
+  background:#ECFDF5;
+  box-shadow:inset 0 0 0 1.5px #6EE7B7;
+  transition:color .25s .1s,box-shadow .3s;
+}
+.fx-liquid-btn::before{
+  content:"";position:absolute;left:-25%;top:105%;z-index:-1;
+  width:150%;height:230%;
+  background:linear-gradient(180deg,#34D399,#059669);
+  border-radius:42% 58% 0 0/30% 22% 0 0;
+  transition:top .55s cubic-bezier(.22,1,.36,1),border-radius .55s;
+}
+.fx-liquid-btn:hover{
+  color:#ECFDF5;
+  box-shadow:inset 0 0 0 1.5px #059669,0 10px 22px -10px rgba(4,120,87,.5);
+}
+.fx-liquid-btn:hover::before{top:-65%;border-radius:58% 42% 0 0/46% 34% 0 0}`,
+  html:
+`<button class="fx-liquid-btn" type="button">Mulai Perjalanan</button>`
+},
+{
+  id:'fx-flipswap-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Teks Bertukar',
+  desc:'Dua label bertumpuk vertikal; kursor menggulirkannya berganti seperti papan jadwal stasiun.',
+  css:
+`.fx-flipswap-btn{
+  border:none;cursor:pointer;padding:0;
+  border-radius:14px;overflow:hidden;
+  background:#064E3B;
+  box-shadow:0 8px 18px -8px rgba(4,120,87,.45);
+}
+.fx-flipswap-track{display:flex;flex-direction:column;transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.fx-flipswap-track span{
+  display:flex;align-items:center;justify-content:center;
+  height:50px;padding:0 32px;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;white-space:nowrap;
+}
+.fx-flipswap-track span:first-child{color:#ECFDF5}
+.fx-flipswap-track span:last-child{color:#6EE7B7}
+.fx-flipswap-btn:hover .fx-flipswap-track{transform:translateY(-50px)}`,
+  html:
+`<button class="fx-flipswap-btn" type="button">
+  <span class="fx-flipswap-track">
+    <span>Simpan Rutinitas</span>
+    <span>Tersimpan!</span>
+  </span>
+</button>`
+},
+{
+  id:'fx-jelly-btn', cat:'tombol', hint:'klik', dark:false,
+  title:'Tombol Kenyal',
+  desc:'Bayangan tebal menjadi landasan; hover membuatnya bergoyang kenyal, klik menekannya ke bawah.',
+  css:
+`.fx-jelly-btn{
+  border:none;cursor:pointer;
+  padding:15px 32px;border-radius:18px;
+  font:700 15px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#FFFFFF;
+  background:linear-gradient(180deg,#4ADE80,#16A34A);
+  box-shadow:0 6px 0 #15803D,0 14px 24px -10px rgba(21,128,61,.55);
+  transition:box-shadow .1s,transform .1s;
+}
+.fx-jelly-btn:hover{animation:fxJellyWob .65s cubic-bezier(.22,1,.36,1)}
+.fx-jelly-btn:active{
+  transform:translateY(5px);
+  box-shadow:0 1px 0 #15803D,0 6px 12px -8px rgba(21,128,61,.5);
+}
+@keyframes fxJellyWob{
+  0%{transform:scale(1,1)}
+  28%{transform:scale(1.06,.92)}
+  52%{transform:scale(.96,1.05)}
+  74%{transform:scale(1.02,.98)}
+  100%{transform:scale(1,1)}
+}`,
+  html:
+`<button class="fx-jelly-btn" type="button">Selesaikan</button>`
+},
+{
+  id:'fx-icon-btn', cat:'tombol', hint:'hover', dark:false,
+  title:'Ikon Berputar',
+  desc:'Tombol ikon bundar yang miring dan berputar penuh saat disentuh, dengan pantulan empuk saat ditekan.',
+  css:
+`.fx-icon-btn{
+  width:58px;height:58px;border-radius:19px;border:none;cursor:pointer;
+  display:grid;place-items:center;color:#047857;background:#D1FAE5;
+  box-shadow:inset 0 0 0 1.5px #A7F3D0,0 6px 14px -8px rgba(4,120,87,.4);
+  transition:background .25s,color .25s,transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.fx-icon-btn svg{width:23px;height:23px;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.fx-icon-btn:hover{
+  background:#059669;color:#ECFDF5;transform:rotate(-8deg) scale(1.06);
+  box-shadow:inset 0 0 0 1.5px #047857,0 12px 22px -8px rgba(4,120,87,.55);
+}
+.fx-icon-btn:hover svg{transform:rotate(360deg)}
+.fx-icon-btn:active{transform:scale(.9)}`,
+  html:
+`<button class="fx-icon-btn" type="button" aria-label="Tambah kebiasaan">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+</button>`
+},
+
+/* ---------------- LOADER — LANJUTAN ---------------- */
+{
+  id:'fx-bounce-scene', cat:'loader', hint:'otomatis', dark:false,
+  title:'Bola Mantul',
+  desc:'Bola hijau bermantul dengan pekukan saat menyentuh lantai, disertai bayangan yang mengikuti tingginya.',
+  css:
+`.fx-bounce-scene{
+  width:132px;height:74px;border-radius:14px;position:relative;overflow:hidden;
+  background:#F0FDF9;box-shadow:inset 0 0 0 1.5px #D1FAE5;
+}
+.fx-bounce-ball{
+  position:absolute;bottom:10px;left:50%;margin-left:-9px;
+  width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#6EE7B7,#059669);
+  animation:fxBallHop .85s cubic-bezier(.37,0,.63,1) infinite alternate;
+}
+.fx-bounce-shadow{
+  position:absolute;bottom:6px;left:50%;width:26px;height:6px;margin-left:-13px;
+  border-radius:50%;background:rgba(4,120,87,.25);
+  animation:fxBallShadow .85s cubic-bezier(.37,0,.63,1) infinite alternate;
+}
+@keyframes fxBallHop{
+  0%{transform:translateY(0) scale(1.15,.85)}
+  90%{transform:translateY(-34px) scale(.95,1.06)}
+  100%{transform:translateY(-36px) scale(.95,1.06)}
+}
+@keyframes fxBallShadow{
+  0%{transform:scale(1);opacity:.45}
+  100%{transform:scale(.55);opacity:.15}
+}`,
+  html:
+`<div class="fx-bounce-scene">
+  <div class="fx-bounce-shadow"></div>
+  <div class="fx-bounce-ball"></div>
+</div>`
+},
+{
+  id:'fx-hourglass', cat:'loader', hint:'otomatis', dark:false,
+  title:'Jam Pasir',
+  desc:'Pasir kuning madu turun dari ruang atas mengisi ruang bawah, lalu jam berputar memulai siklus baru.',
+  css:
+`.fx-hourglass{
+  position:relative;width:46px;height:62px;
+  animation:fxHGTurn 3.4s cubic-bezier(.6,0,.4,1) infinite;
+}
+.fx-hourglass::before,.fx-hourglass::after{
+  content:"";position:absolute;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,#FCD34D,#F59E0B);
+}
+.fx-hourglass::before{
+  top:0;clip-path:polygon(0 0,100% 0,50% 100%);
+  animation:fxHGTop 3.4s linear infinite;
+}
+.fx-hourglass::after{
+  bottom:0;clip-path:polygon(50% 0,100% 100%,0 100%);
+  animation:fxHGBot 3.4s linear infinite;
+}
+@keyframes fxHGTop{0%{transform:scaleY(1)}70%{transform:scaleY(.12)}90%,100%{transform:scaleY(.05)}}
+@keyframes fxHGBot{0%,8%{transform:scaleY(.05)}70%{transform:scaleY(.85)}95%,100%{transform:scaleY(1)}}
+@keyframes fxHGTurn{0%,42%{transform:rotate(0)}52%,90%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}`,
+  html:
+`<div class="fx-hourglass" role="img" aria-label="Memuat"></div>`
+},
+{
+  id:'fx-batt', cat:'loader', hint:'otomatis', dark:false,
+  title:'Baterai Mengisi',
+  desc:'Tingkat baterai terisi penuh lalu berkedip terang sebelum siklus mengulang — pas untuk status sinkron.',
+  css:
+`.fx-batt{display:flex;align-items:center}
+.fx-batt-body{
+  width:80px;height:32px;border-radius:9px;
+  border:2.5px solid #059669;padding:3.5px;
+  display:flex;align-items:center;overflow:hidden;
+  background:#F6FEF9;
+}
+.fx-batt-nub{
+  display:block;width:6px;height:14px;margin-left:3px;
+  border-radius:0 4px 4px 0;background:#059669;
+}
+.fx-batt-level{
+  display:block;height:100%;width:0;border-radius:4px;
+  background:linear-gradient(90deg,#6EE7B7,#10B981);
+  animation:fxBattFill 2.9s cubic-bezier(.6,.05,.4,.95) infinite;
+}
+@keyframes fxBattFill{
+  0%{width:3%;opacity:1}
+  75%{width:97%;opacity:1}
+  92%{width:97%;opacity:0}
+  93%{width:3%;opacity:0}
+  100%{width:3%;opacity:1}
+}`,
+  html:
+`<span class="fx-batt">
+  <span class="fx-batt-body"><span class="fx-batt-level"></span></span>
+  <span class="fx-batt-nub"></span>
+</span>`
+},
+{
+  id:'fx-water', cat:'loader', hint:'otomatis', dark:false,
+  title:'Gelas Bergelombang',
+  desc:'Kotak membulat yang berputar perlahan menciptakan ilusi permukaan air yang bergelombang dalam gelas.',
+  css:
+`.fx-water{
+  width:78px;height:78px;border-radius:50%;position:relative;overflow:hidden;
+  background:#E0F7F4;
+  box-shadow:inset 0 0 0 2.5px #99F6E4,inset 0 -14px 22px -8px rgba(13,148,136,.18);
+}
+.fx-water i{
+  position:absolute;left:50%;top:38%;
+  display:block;width:150%;aspect-ratio:1/1;margin-left:-75%;
+  border-radius:44%;
+  background:linear-gradient(180deg,#5EEAD4,#0D9488);
+  opacity:.9;
+  animation:fxWaterSpin 5.2s linear infinite;
+}
+@keyframes fxWaterSpin{to{transform:rotate(360deg)}}`,
+  html:
+`<div class="fx-water" role="img" aria-label="Memuat"><i></i></div>`
+},
+{
+  id:'fx-morph', cat:'loader', hint:'otomatis', dark:false,
+  title:'Bentuk Berubah',
+  desc:'Bentuk bermorfosis dari kotak ke lingkaran lalu daun, sambil berputar satu putaran penuh.',
+  css:
+`.fx-morph{
+  width:48px;height:48px;
+  background:linear-gradient(135deg,#6EE7B7,#059669);
+  box-shadow:0 10px 22px -8px rgba(4,120,87,.45);
+  animation:fxMorph 4.8s cubic-bezier(.45,0,.55,1) infinite;
+}
+@keyframes fxMorph{
+  0%,15%{border-radius:10px;transform:rotate(0)}
+  33%,48%{border-radius:50%;transform:rotate(120deg)}
+  66%,81%{border-radius:10px 50% 10px 50%;transform:rotate(240deg)}
+  100%{border-radius:10px;transform:rotate(360deg)}
+}`,
+  html:
+`<div class="fx-morph" role="img" aria-label="Memuat"></div>`
+},
+
+/* ---------------- TEKS — LANJUTAN ---------------- */
+{
+  id:'fx-3d-txt', cat:'teks', hint:'hover', dark:false,
+  title:'Teks Timbul',
+  desc:'Lapisan bayangan bertumpuk memberi kesan timbul tiga dimensi; kursor mengangkatnya lebih tinggi lagi.',
+  css:
+`.fx-3d-txt{
+  font:800 34px/1.1 "Geist","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em;color:#059669;
+  text-shadow:
+    0 1px 0 #10B981,
+    0 2px 0 #047857,
+    0 3px 0 #065F46,
+    0 4px 0 #064E3B,
+    0 7px 14px rgba(4,120,87,.38);
+  cursor:default;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),text-shadow .25s;
+}
+.fx-3d-txt:hover{
+  transform:translateY(-4px);
+  text-shadow:
+    0 2px 0 #10B981,
+    0 4px 0 #047857,
+    0 6px 0 #065F46,
+    0 8px 0 #064E3B,
+    0 14px 24px rgba(4,120,87,.45);
+}`,
+  html:
+`<span class="fx-3d-txt">Tumbuh</span>`
+},
+{
+  id:'fx-outline-txt', cat:'teks', hint:'hover', dark:false,
+  title:'Garis Terisi',
+  desc:'Huruf berongga bergaris sage terisi warna solid dan merenggang perlahan saat kursor menyentuhnya.',
+  css:
+`.fx-outline-txt{
+  font:800 37px/1.1 "Geist","Segoe UI",system-ui,sans-serif;letter-spacing:.01em;
+  color:transparent;
+  -webkit-text-stroke:2px #059669;
+  cursor:default;
+  transition:color .45s,letter-spacing .45s,-webkit-text-stroke-width .3s;
+}
+.fx-outline-txt:hover{
+  color:#10B981;letter-spacing:.05em;-webkit-text-stroke-width:2.6px;
+}`,
+  html:
+`<span class="fx-outline-txt">Rutina</span>`
+},
+{
+  id:'fx-stagger-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Huruf Melompat',
+  desc:'Setiap huruf melompat bergantian dengan jeda berurutan — seperti tangga nada kebiasaan pagi.',
+  css:
+`.fx-stagger-txt{display:inline-flex;font:800 33px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#065F46}
+.fx-stagger-txt i{
+  font-style:normal;display:inline-block;
+  animation:fxLetHop 2s cubic-bezier(.22,1,.36,1) infinite;
+}
+.fx-stagger-txt i:nth-child(2){animation-delay:.09s}
+.fx-stagger-txt i:nth-child(3){animation-delay:.18s}
+.fx-stagger-txt i:nth-child(4){animation-delay:.27s}
+.fx-stagger-txt i:nth-child(5){animation-delay:.36s}
+.fx-stagger-txt i:nth-child(6){animation-delay:.45s}
+@keyframes fxLetHop{
+  0%,58%,100%{transform:translateY(0)}
+  22%{transform:translateY(-14px)}
+  36%{transform:translateY(3px)}
+  46%{transform:translateY(-5px)}
+}`,
+  html:
+`<span class="fx-stagger-txt"><i>R</i><i>u</i><i>t</i><i>i</i><i>n</i><i>a</i></span>`
+},
+{
+  id:'fx-word-rot', cat:'teks', hint:'otomatis', dark:false,
+  title:'Kata Bergilir',
+  desc:'Daftar kebiasaan bergilir naik satu per satu seperti papan pengumuman di bandara.',
+  css:
+`.fx-word-label{
+  font:600 12px/1 "Geist","Segoe UI",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:#64748B;margin-bottom:10px;text-align:center;
+}
+.fx-word-rot{
+  overflow:hidden;height:1.3em;
+  font:800 26px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#047857;
+}
+.fx-word-track{
+  display:flex;flex-direction:column;
+  animation:fxWordUp 8s cubic-bezier(.7,0,.3,1) infinite;
+}
+.fx-word-track span{height:1.3em;white-space:nowrap}
+@keyframes fxWordUp{
+  0%,12%{transform:translateY(0)}
+  20%,32%{transform:translateY(-1.3em)}
+  40%,52%{transform:translateY(-2.6em)}
+  60%,72%{transform:translateY(-3.9em)}
+  80%,92%{transform:translateY(-5.2em)}
+  100%{transform:translateY(-5.2em)}
+}`,
+  html:
+`<div>
+  <p class="fx-word-label">Hari ini saya</p>
+  <div class="fx-word-rot">
+    <div class="fx-word-track">
+      <span>minum air</span>
+      <span>jalan pagi</span>
+      <span>baca buku</span>
+      <span>meditasi</span>
+      <span>tidur cukup</span>
+      <span>minum air</span>
+    </div>
+  </div>
+</div>`
+},
+{
+  id:'fx-mask-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Terungkap Celah',
+  desc:'Teks terungkap oleh celah yang membuka dari kiri, menahan sejenak, lalu menutup ke kanan.',
+  css:
+`.fx-mask-txt{
+  font:800 30px/1.15 "Geist","Segoe UI",system-ui,sans-serif;color:#0F766E;white-space:nowrap;
+  clip-path:inset(0 100% 0 0);
+  animation:fxMaskReveal 3.4s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes fxMaskReveal{
+  0%{clip-path:inset(0 100% 0 0)}
+  38%,62%{clip-path:inset(0 0 0 0)}
+  92%,100%{clip-path:inset(0 0 0 100%)}
+}`,
+  html:
+`<span class="fx-mask-txt">Tumbuh perlahan</span>`
+},
+{
+  id:'fx-shimmer-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Kelip Perak',
+  desc:'Cahaya keperakan menyapu huruf abu-abu terus-menerus — nuansa pemuatan yang tenang dan elegan.',
+  css:
+`.fx-shimmer-txt{
+  font:800 32px/1.15 "Geist","Segoe UI",system-ui,sans-serif;white-space:nowrap;
+  background:linear-gradient(100deg,#94A3B8 30%,#F8FAFC 50%,#94A3B8 70%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:fxShimmerSweep 2.8s linear infinite;
+}
+@keyframes fxShimmerSweep{
+  from{background-position:220% 0}
+  to{background-position:-220% 0}
+}`,
+  html:
+`<span class="fx-shimmer-txt">Menyemai...</span>`
+}
+,
+
+/* ---------------- LATAR — LANJUTAN ---------------- */
+{
+  id:'fx-fireflies', cat:'latar', hint:'otomatis', dark:true,
+  title:'Kunang-Kunang',
+  desc:'Titik-titik kuning berpendar melayang naik perlahan di kebun malam yang gelap, masing-masing dengan ritmenya sendiri.',
+  css:
+`.fx-fireflies{
+  position:relative;width:230px;height:148px;border-radius:18px;overflow:hidden;
+  background:radial-gradient(130% 110% at 50% 0%,#0E2A1B,#04120C 78%);
+  box-shadow:inset 0 0 0 1px rgba(110,231,183,.14);
+}
+.fx-ff{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:#FDE68A;
+  box-shadow:0 0 9px 3px rgba(253,230,138,.5);
+  opacity:0;
+  animation:fxFFDrift 6.5s ease-in-out infinite;
+}
+.fx-ff:nth-child(1){left:14%;top:56%;animation-duration:7s}
+.fx-ff:nth-child(2){left:33%;top:30%;animation-delay:1.4s;animation-duration:6s}
+.fx-ff:nth-child(3){left:55%;top:62%;animation-delay:2.8s;animation-duration:7.5s}
+.fx-ff:nth-child(4){left:72%;top:34%;animation-delay:1s;animation-duration:5.6s}
+.fx-ff:nth-child(5){left:86%;top:58%;animation-delay:4s;animation-duration:6.8s}
+@keyframes fxFFDrift{
+  0%{opacity:0;transform:translate(0,0) scale(.5)}
+  15%{opacity:1}
+  50%{opacity:.75;transform:translate(20px,-26px) scale(1)}
+  85%{opacity:.3;transform:translate(-12px,-40px) scale(.85)}
+  100%{opacity:0;transform:translate(6px,-52px) scale(.4)}
+}`,
+  html:
+`<div class="fx-fireflies">
+  <i class="fx-ff"></i><i class="fx-ff"></i><i class="fx-ff"></i><i class="fx-ff"></i><i class="fx-ff"></i>
+</div>`
+},
+{
+  id:'fx-rain', cat:'latar', hint:'otomatis', dark:true,
+  title:'Gerimis Malam',
+  desc:'Gerimis tipis biru jatuh di latar malam, tiap tetes dengan kecepatan dan jeda yang berbeda.',
+  css:
+`.fx-rain{
+  position:relative;width:230px;height:148px;border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#0F172A,#1E293B);
+  box-shadow:inset 0 0 0 1px rgba(125,211,252,.12);
+}
+.fx-rain i{
+  position:absolute;top:-30px;width:1.6px;height:22px;border-radius:2px;
+  background:linear-gradient(180deg,transparent,#7DD3FC);
+  animation:fxRainFall 1.15s linear infinite;
+}
+.fx-rain i:nth-child(1){left:8%}
+.fx-rain i:nth-child(2){left:22%;animation-delay:.45s;height:16px}
+.fx-rain i:nth-child(3){left:34%;animation-delay:.2s}
+.fx-rain i:nth-child(4){left:47%;animation-delay:.7s;height:18px}
+.fx-rain i:nth-child(5){left:58%;animation-delay:.1s}
+.fx-rain i:nth-child(6){left:70%;animation-delay:.55s;height:16px}
+.fx-rain i:nth-child(7){left:82%;animation-delay:.3s}
+.fx-rain i:nth-child(8){left:92%;animation-delay:.8s;height:18px}
+@keyframes fxRainFall{to{transform:translateY(190px)}}`,
+  html:
+`<div class="fx-rain">
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</div>`
+},
+{
+  id:'fx-mesh', cat:'latar', hint:'otomatis', dark:false,
+  title:'Jala Warna',
+  desc:'Empat bintik gradien saling menjauh dan mendekat perlahan membentuk jala warna taman yang lembut.',
+  css:
+`.fx-mesh{
+  width:230px;height:148px;border-radius:18px;
+  background:
+    radial-gradient(42% 56% at 24% 28%,rgba(16,185,129,.75),transparent 72%),
+    radial-gradient(46% 60% at 76% 24%,rgba(251,191,36,.6),transparent 72%),
+    radial-gradient(52% 62% at 62% 84%,rgba(45,212,191,.55),transparent 72%),
+    radial-gradient(42% 52% at 14% 82%,rgba(163,230,53,.5),transparent 72%),
+    #ECFDF5;
+  animation:fxMeshDrift 9s ease-in-out infinite alternate;
+}
+@keyframes fxMeshDrift{
+  to{background-position:10% -9%,-12% 11%,7% -12%,-11% 9%,0 0}
+}`,
+  html:
+`<div class="fx-mesh" role="img" aria-label="Jala gradien warna taman"></div>`
+},
+{
+  id:'fx-waves', cat:'latar', hint:'otomatis', dark:false,
+  title:'Ombak Bergulir',
+  desc:'Dua lapis ombak teal bergulir berlawanan arah di dasar latar, lahir dari kotak membulat yang berputar.',
+  css:
+`.fx-waves{
+  position:relative;width:230px;height:148px;border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#F0FDFA,#CCFBF1);
+}
+.fx-waves i{
+  position:absolute;left:-25%;bottom:-14%;
+  display:block;width:150%;aspect-ratio:1;
+  border-radius:44%;
+}
+.fx-waves i:first-child{
+  background:rgba(45,212,191,.4);
+  animation:fxWaveRoll 7.5s linear infinite;
+}
+.fx-waves i:last-child{
+  bottom:-26%;background:rgba(13,148,136,.45);
+  animation:fxWaveRoll 4.8s linear infinite reverse;
+}
+@keyframes fxWaveRoll{to{transform:rotate(360deg)}}`,
+  html:
+`<div class="fx-waves"><i></i><i></i></div>`
+},
+{
+  id:'fx-noise', cat:'latar', hint:'otomatis', dark:false,
+  title:'Butiran Film',
+  desc:'Butiran film halus dari SVG turbulence yang bergetar — tekstur analog untuk antarmuka modern.',
+  css:
+`.fx-noise{
+  position:relative;width:230px;height:148px;border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,#ECFDF5,#A7F3D0);
+  display:grid;place-items:center;
+}
+.fx-noise::before{
+  content:"";position:absolute;inset:-60%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+  animation:fxGrain .8s steps(4) infinite;
+}
+.fx-noise b{
+  position:relative;z-index:1;
+  font:700 15px/1.4 "Geist","Segoe UI",system-ui,sans-serif;color:#065F46;letter-spacing:.02em;
+}
+@keyframes fxGrain{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-12%,8%)}
+  50%{transform:translate(8%,-12%)}
+  75%{transform:translate(-6%,-7%)}
+  100%{transform:translate(0,0)}
+}`,
+  html:
+`<div class="fx-noise"><b>Rutina</b></div>`
+},
+
+/* ---------------- KARTU — LANJUTAN ---------------- */
+{
+  id:'fx-spot-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Sorot Berputar',
+  desc:'Lingkaran cahaya hijau berkeliaran pelan di permukaan kartu gelap begitu kursor datang.',
+  css:
+`.fx-spot-card{
+  position:relative;overflow:hidden;
+  width:200px;padding:20px 22px;border-radius:18px;
+  background:#0B1220;color:#E2E8F0;
+  box-shadow:inset 0 0 0 1px rgba(148,163,184,.16);
+}
+.fx-spot-card::before{
+  content:"";position:absolute;top:-34px;left:-34px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.42),transparent 68%);
+  filter:blur(4px);
+  opacity:0;transition:opacity .35s;
+}
+.fx-spot-card b{position:relative;display:block;font:700 16px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#F8FAFC}
+.fx-spot-card span{position:relative;display:block;margin-top:6px;font:500 12.5px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+.fx-spot-card:hover::before{opacity:1;animation:fxSpotRoam 4.6s ease-in-out infinite}
+@keyframes fxSpotRoam{
+  0%{transform:translate(0,0)}
+  30%{transform:translate(84px,44px)}
+  60%{transform:translate(30px,78px)}
+  100%{transform:translate(0,0)}
+}`,
+  html:
+`<div class="fx-spot-card">
+  <b>Mode Fokus</b>
+  <span>Arahkan kursor dan biarkan sorotan berpatroli menelusuri kartu.</span>
+</div>`
+},
+{
+  id:'fx-cap-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Keterangan Meluncur',
+  desc:'Panel keterangan meluncur naik dari dasar kartu, membuka deskripsi yang tadinya tersembunyi.',
+  css:
+`.fx-cap-card{
+  position:relative;width:212px;height:140px;border-radius:18px;overflow:hidden;cursor:pointer;
+  background:linear-gradient(140deg,#6EE7B7,#10B981 55%,#047857);
+  box-shadow:0 12px 26px -12px rgba(4,120,87,.5);
+}
+.fx-cap-card::before{
+  content:"";position:absolute;right:16px;top:16px;width:46px;height:46px;
+  border-radius:0 100% 0 100%;background:rgba(255,255,255,.22);
+}
+.fx-cap-cap{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:12px 16px 15px;
+  background:linear-gradient(180deg,transparent,rgba(2,44,34,.88));
+  transform:translateY(calc(100% - 46px));
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.fx-cap-cap b{display:block;font:700 15px/1.2 "Geist","Segoe UI",system-ui,sans-serif;color:#ECFDF5}
+.fx-cap-cap p{
+  margin-top:6px;font:500 12px/1.55 "Geist","Segoe UI",system-ui,sans-serif;color:#A7F3D0;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .3s .08s,transform .3s .08s;
+}
+.fx-cap-card:hover .fx-cap-cap{transform:translateY(0)}
+.fx-cap-card:hover .fx-cap-cap p{opacity:1;transform:translateY(0)}`,
+  html:
+`<div class="fx-cap-card">
+  <div class="fx-cap-cap">
+    <b>Taman Pagi</b>
+    <p>Sarapan madu, secangkir teh, dan lima menit menatap embun di daun.</p>
+  </div>
+</div>`
+},
+{
+  id:'fx-holo', cat:'kartu', hint:'hover', dark:false,
+  title:'Kilau Holografik',
+  desc:'Pelangi holografik berputar lembut di balik kabur, menyalakan kartu teal saat disentuh.',
+  css:
+`.fx-holo{
+  position:relative;width:196px;height:126px;border-radius:18px;overflow:hidden;cursor:pointer;
+  background:linear-gradient(120deg,#0F3D3A,#134E4A 50%,#0F3D3A);
+  display:grid;place-items:center;
+  box-shadow:inset 0 0 0 1px rgba(94,234,212,.22),0 12px 26px -12px rgba(19,78,74,.5);
+}
+.fx-holo::before{
+  content:"";position:absolute;inset:-45%;
+  background:conic-gradient(from 0deg,rgba(255,255,255,.35),rgba(94,234,212,.16),rgba(253,224,71,.22),rgba(244,114,182,.15),rgba(129,140,248,.16),rgba(255,255,255,.35));
+  filter:blur(15px);
+  opacity:0;transition:opacity .35s;
+  animation:fxHoloTurn 5.5s linear infinite;
+}
+.fx-holo b{position:relative;font:700 16px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#CCFBF1;letter-spacing:.03em}
+.fx-holo:hover::before{opacity:1}
+@keyframes fxHoloTurn{to{transform:rotate(360deg)}}`,
+  html:
+`<div class="fx-holo"><b>Lencana Langka</b></div>`
+},
+{
+  id:'fx-gb-card', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Bingkai Pelangi',
+  desc:'Bingkai gradien konik terus berputar mengelilingi kartu gelap — gaya populer untuk konten istimewa.',
+  css:
+`.fx-gb-wrap{
+  position:relative;display:inline-block;padding:1.6px;border-radius:19px;overflow:hidden;isolation:isolate;
+}
+.fx-gb-wrap::before{
+  content:"";position:absolute;inset:-120%;z-index:-1;
+  background:conic-gradient(#10B981,#FDE68A,#38BDF8,#C4B5FD,#FB7185,#10B981);
+  animation:fxGBTurn 4.2s linear infinite;
+}
+.fx-gb-card{
+  border-radius:17.6px;background:#0B1220;
+  padding:19px 22px;color:#E2E8F0;
+}
+.fx-gb-card b{display:block;font:700 15.5px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#F8FAFC}
+.fx-gb-card span{display:block;margin-top:5px;font:500 12px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+@keyframes fxGBTurn{to{transform:rotate(360deg)}}`,
+  html:
+`<span class="fx-gb-wrap">
+  <span class="fx-gb-card">
+    <b>Pencapaian Baru</b>
+    <span>30 hari tanpa putus.</span>
+  </span>
+</span>`
+},
+{
+  id:'fx-grow-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Melar Saat Sentuh',
+  desc:'Kartu melebar saat di-hover, membuka baris rincian yang tadinya terlipat rapi di dalamnya.',
+  css:
+`.fx-grow-card{
+  width:178px;border-radius:18px;background:#FFFFFF;
+  padding:16px 18px;cursor:pointer;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 6px 16px -8px rgba(15,23,42,.08);
+  transition:width .38s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-grow-card b{display:block;font:700 15.5px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A;white-space:nowrap}
+.fx-grow-card .fx-grow-sub{display:block;margin-top:4px;font:500 12px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;white-space:nowrap}
+.fx-grow-extra{
+  max-height:0;opacity:0;overflow:hidden;margin-top:0;
+  transition:max-height .42s cubic-bezier(.22,1,.36,1),opacity .3s .06s,margin-top .42s;
+}
+.fx-grow-extra p{
+  font:500 12px/1.55 "Geist","Segoe UI",system-ui,sans-serif;color:#475569;
+  border-top:1px dashed #E2E8F0;margin-top:11px;padding-top:10px;
+}
+.fx-grow-card:hover{
+  width:212px;
+  box-shadow:inset 0 0 0 1px #A7F3D0,0 16px 32px -12px rgba(4,120,87,.2);
+}
+.fx-grow-card:hover .fx-grow-extra{max-height:64px;opacity:1;margin-top:2px}`,
+  html:
+`<div class="fx-grow-card">
+  <b>Ritual Pagi</b>
+  <span class="fx-grow-sub">4 kebiasaan aktif</span>
+  <div class="fx-grow-extra">
+    <p>Terakhir rampung pukul 06.42 — rentetan terpanjang bulan ini.</p>
+  </div>
+</div>`
+},
+
+/* ---------------- INPUT — LANJUTAN ---------------- */
+{
+  id:'fx-otp', cat:'input', hint:'fokus', dark:false,
+  title:'Kotak Sandi',
+  desc:'Barisan kotak sandi: yang terisi berona sage, kotak aktif melompat dengan cincin fokus hijau.',
+  css:
+`.fx-otp{display:flex;gap:9px}
+.fx-otp input{
+  width:43px;height:52px;text-align:center;
+  border-radius:12px;border:1.6px solid #E2E8F0;background:#F8FAFC;
+  font:700 19px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#065F46;
+  caret-color:#10B981;
+  transition:border-color .2s,background .2s,box-shadow .2s,transform .2s;
+}
+.fx-otp input:nth-child(1),.fx-otp input:nth-child(2){
+  border-color:#A7F3D0;background:#ECFDF5;
+}
+.fx-otp input:focus{
+  outline:none;border-color:#10B981;background:#FFFFFF;
+  box-shadow:0 0 0 3.5px rgba(16,185,129,.18);
+  transform:translateY(-3px);
+}`,
+  html:
+`<div class="fx-otp">
+  <input type="text" inputmode="numeric" maxlength="1" value="4" aria-label="Digit 1">
+  <input type="text" inputmode="numeric" maxlength="1" value="2" aria-label="Digit 2">
+  <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+  <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+  <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+</div>`
+},
+{
+  id:'fx-range', cat:'input', hint:'klik', dark:false,
+  title:'Penggeser Tunas',
+  desc:'Penggeser kustom dengan jejak hijau dan kenop bundar yang membesar lembut saat disentuh.',
+  css:
+`.fx-range-wrap{display:flex;flex-direction:column;gap:10px;width:222px}
+.fx-range-head{display:flex;justify-content:space-between;align-items:center}
+.fx-range-head b{font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-range-head span{
+  font:700 12px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#047857;
+  background:#D1FAE5;border-radius:99px;padding:5px 10px;
+}
+.fx-range{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:9px;border-radius:99px;cursor:pointer;
+  background:linear-gradient(90deg,#10B981 0 62%,#E2E8F0 62%);
+  outline:none;
+}
+.fx-range::-webkit-slider-thumb{
+  -webkit-appearance:none;width:23px;height:23px;border-radius:50%;
+  background:#FFFFFF;border:2.5px solid #10B981;
+  box-shadow:0 2px 8px rgba(4,120,87,.35);
+  transition:transform .18s,box-shadow .18s;
+}
+.fx-range::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.fx-range:active::-webkit-slider-thumb{transform:scale(1.3);box-shadow:0 0 0 6px rgba(16,185,129,.15)}
+.fx-range::-moz-range-thumb{
+  width:23px;height:23px;border-radius:50%;
+  background:#FFFFFF;border:2.5px solid #10B981;
+  box-shadow:0 2px 8px rgba(4,120,87,.35);
+  transition:transform .18s;
+}`,
+  html:
+`<div class="fx-range-wrap">
+  <div class="fx-range-head"><b>Target gelas air</b><span>8</span></div>
+  <input class="fx-range" type="range" min="0" max="100" value="62" aria-label="Target gelas air">
+</div>`
+},
+{
+  id:'fx-vfield', cat:'input', hint:'fokus', dark:false,
+  title:'Kolom Sehat',
+  desc:'Kolom email menunjukkan keadaan sehat atau sakit seketika — ikonnya muncul dengan pantulan kecil.',
+  css:
+`.fx-vfields{display:flex;flex-direction:column;gap:12px;width:222px}
+.fx-vfield{position:relative}
+.fx-vfield input{
+  width:100%;height:46px;border-radius:12px;
+  padding:0 42px 0 15px;
+  border:1.6px solid #E2E8F0;background:#FFFFFF;
+  font:500 14px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A;
+  transition:border-color .25s,background .25s,box-shadow .25s;
+}
+.fx-vfield input::placeholder{color:#94A3B8}
+.fx-vfield input:focus{
+  outline:none;border-color:#10B981;
+  box-shadow:0 0 0 3.5px rgba(16,185,129,.16);
+}
+.fx-vfield input:not(:placeholder-shown):valid{border-color:#10B981;background:#F6FEF9}
+.fx-vfield input:not(:placeholder-shown):invalid{border-color:#F87171;background:#FEF7F7}
+.fx-vmark{
+  position:absolute;right:13px;top:50%;
+  transform:translateY(-50%) scale(0);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-vmark svg{width:19px;height:19px;display:block}
+.fx-vok svg{color:#059669}
+.fx-vwarn svg{color:#DC2626}
+.fx-vfield input:not(:placeholder-shown):valid ~ .fx-vok{transform:translateY(-50%) scale(1)}
+.fx-vfield input:not(:placeholder-shown):invalid ~ .fx-vwarn{transform:translateY(-50%) scale(1)}`,
+  html:
+`<div class="fx-vfields">
+  <div class="fx-vfield">
+    <input type="email" placeholder="surel@taman.id" value="bunga@taman.id" aria-label="Email valid">
+    <span class="fx-vmark fx-vok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span>
+  </div>
+  <div class="fx-vfield">
+    <input type="email" placeholder="surel@taman.id" value="bunga-taman" aria-label="Email tidak valid">
+    <span class="fx-vmark fx-vwarn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13"/><path d="M12 16.5h.01"/></svg></span>
+  </div>
+</div>`
+},
+{
+  id:'fx-drop', cat:'input', hint:'hover', dark:false,
+  title:'Area Unggah',
+  desc:'Bingkai putus-putus yang mengangkat diri dengan ikon mengambang-naik saat kursor mampir.',
+  css:
+`.fx-drop{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  width:222px;padding:21px 18px 18px;border-radius:16px;cursor:pointer;
+  border:2px dashed #A7F3D0;background:#F6FEF9;
+  transition:border-color .25s,background .25s,transform .25s,box-shadow .25s;
+}
+.fx-drop-ic{
+  width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  background:#D1FAE5;color:#047857;
+}
+.fx-drop-ic svg{width:21px;height:21px}
+.fx-drop b{font:600 13.5px/1.35 "Geist","Segoe UI",system-ui,sans-serif;color:#065F46;text-align:center}
+.fx-drop small{font:500 11.5px/1.45 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;text-align:center}
+.fx-drop:hover{
+  border-color:#10B981;background:#ECFDF5;transform:translateY(-3px);
+  box-shadow:0 12px 24px -12px rgba(4,120,87,.25);
+}
+.fx-drop:hover .fx-drop-ic{animation:fxDropBob .8s ease-in-out infinite}
+@keyframes fxDropBob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}`,
+  html:
+`<div class="fx-drop" role="button" tabindex="0">
+  <span class="fx-drop-ic">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V5M7.5 9.5 12 5l4.5 4.5"/><path d="M4.5 16.5v2a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2"/></svg>
+  </span>
+  <b>Tarik foto ke sini</b>
+  <small>atau ketuk untuk memilih berkas (maks 2 MB)</small>
+</div>`
+}
+,
+
+/* ---------------- TOGGLE — LANJUTAN ---------------- */
+{
+  id:'fx-power', cat:'toggle', hint:'klik', dark:false,
+  title:'Saklar Daya',
+  desc:'Tombol daya cekung yang menyala hijau dengan cincin pantulan saat dinyalakan — ikonnya ikut berputar.',
+  css:
+`.fx-power{position:relative;display:inline-block;cursor:pointer}
+.fx-power input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.fx-power-disc{
+  display:grid;place-items:center;width:66px;height:66px;border-radius:50%;
+  background:#E2E8F0;color:#94A3B8;
+  box-shadow:inset 0 3px 6px rgba(15,23,42,.14),inset 0 -3px 5px rgba(255,255,255,.75);
+  transition:background .35s,color .35s,box-shadow .35s,transform .15s;
+}
+.fx-power-disc svg{width:27px;height:27px;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.fx-power input:checked + .fx-power-disc{
+  background:#10B981;color:#FFFFFF;
+  box-shadow:0 0 0 6px rgba(16,185,129,.16),0 10px 22px -8px rgba(16,185,129,.6),inset 0 -3px 5px rgba(4,120,87,.4);
+}
+.fx-power input:checked + .fx-power-disc svg{transform:rotate(100deg)}
+.fx-power input:active + .fx-power-disc{transform:scale(.92)}`,
+  html:
+`<label class="fx-power">
+  <input type="checkbox">
+  <span class="fx-power-disc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 3v8"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>
+  </span>
+</label>`
+},
+{
+  id:'fx-bmark', cat:'toggle', hint:'klik', dark:false,
+  title:'Penanda Halaman',
+  desc:'Pita penanda terisi madu dari atas ke bawah begitu ditandai, dengan tekanan empuk saat diklik.',
+  css:
+`.fx-bmark{position:relative;display:inline-block;cursor:pointer}
+.fx-bmark input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.fx-bmark svg{
+  display:block;width:46px;height:58px;overflow:visible;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-bmark path{
+  fill:none;stroke:#94A3B8;stroke-width:2;
+  transition:fill .3s,stroke .3s;
+}
+.fx-bmark:hover svg{transform:translateY(-3px)}
+.fx-bmark input:active + svg{transform:scale(.82)}
+.fx-bmark input:checked + svg path{fill:#F59E0B;stroke:#D97706}`,
+  html:
+`<label class="fx-bmark">
+  <input type="checkbox">
+  <svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4.5 2.5h15v25L12 22 4.5 27.5z"/></svg>
+</label>`
+},
+{
+  id:'fx-star', cat:'toggle', hint:'klik', dark:false,
+  title:'Bintang Berkelip',
+  desc:'Deretan bintang berkelip lembut dengan bayangan emas; klik untuk menyalakan warnanya satu per satu.',
+  css:
+`.fx-rate{display:inline-flex;gap:5px}
+.fx-star{position:relative;cursor:pointer;display:block}
+.fx-star input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.fx-star svg{
+  display:block;width:33px;height:33px;
+  fill:#E2E8F0;stroke:#CBD5E1;stroke-width:1.4;
+  transition:fill .22s,stroke .22s,transform .25s cubic-bezier(.34,1.56,.64,1);
+  animation:fxStarTw 3.2s ease-in-out infinite;
+}
+.fx-star:nth-child(2) svg{animation-delay:.35s}
+.fx-star:nth-child(3) svg{animation-delay:.7s}
+.fx-star:nth-child(4) svg{animation-delay:1.05s}
+.fx-star:nth-child(5) svg{animation-delay:1.4s}
+.fx-star:hover svg{transform:scale(1.2) rotate(-7deg)}
+.fx-star input:active + svg{transform:scale(.78)}
+.fx-star input:checked + svg{fill:#FBBF24;stroke:#F59E0B;animation:none}
+@keyframes fxStarTw{
+  0%,100%{filter:drop-shadow(0 0 0 rgba(251,191,36,0))}
+  50%{filter:drop-shadow(0 2px 6px rgba(251,191,36,.55))}
+}`,
+  html:
+`<span class="fx-rate">
+  <label class="fx-star"><input type="checkbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 9.3l6.2-.9z"/></svg></label>
+  <label class="fx-star"><input type="checkbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 9.3l6.2-.9z"/></svg></label>
+  <label class="fx-star"><input type="checkbox" checked><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 9.3l6.2-.9z"/></svg></label>
+  <label class="fx-star"><input type="checkbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 9.3l6.2-.9z"/></svg></label>
+  <label class="fx-star"><input type="checkbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 9.3l6.2-.9z"/></svg></label>
+</span>`
+},
+{
+  id:'fx-lock', cat:'toggle', hint:'klik', dark:false,
+  title:'Gembok Kebiasaan',
+  desc:'Gembok dengan lengkung yang berayun terbuka dan badan yang menghijau saat tidak dikunci.',
+  css:
+`.fx-lock{position:relative;display:inline-block;cursor:pointer}
+.fx-lock input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.fx-lock svg{
+  display:block;width:56px;height:62px;overflow:visible;
+  transition:transform .15s;
+}
+.fx-lock .fx-shackle{
+  fill:none;stroke:#64748B;stroke-width:5.5;stroke-linecap:round;
+  transform-origin:17px 28px;
+  transition:stroke .3s,transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-lock .fx-lockbox{fill:#475569;transition:fill .3s}
+.fx-lock .fx-keyhole{fill:#E2E8F0;transition:fill .3s}
+.fx-lock input:checked ~ svg .fx-shackle{stroke:#10B981;transform:rotate(-35deg) translate(-2px,-1px)}
+.fx-lock input:checked ~ svg .fx-lockbox{fill:#10B981}
+.fx-lock input:checked ~ svg .fx-keyhole{fill:#ECFDF5}
+.fx-lock input:active ~ svg{transform:scale(.9)}`,
+  html:
+`<label class="fx-lock">
+  <input type="checkbox">
+  <svg viewBox="0 0 56 62" aria-hidden="true">
+    <path class="fx-shackle" d="M17 30v-8a11 11 0 0 1 22 0v8"/>
+    <rect class="fx-lockbox" x="9" y="30" width="38" height="26" rx="8"/>
+    <g class="fx-keyhole"><circle cx="28" cy="41" r="4.2"/><rect x="26.2" y="43" width="3.6" height="8" rx="1.8"/></g>
+  </svg>
+</label>`
+},
+
+/* ---------------- ANIMASI — LANJUTAN ---------------- */
+{
+  id:'fx-marquee', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Teks Berjalan',
+  desc:'Jalur teks berjalan tanpa henti dengan tepi yang memudar di kedua sisi — dua salinan identik menjahitnya mulus.',
+  css:
+`.fx-marquee{
+  width:225px;overflow:hidden;padding:11px 0;border-radius:12px;
+  background:#064E3B;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.fx-marquee-track{display:flex;width:max-content;animation:fxMarqueeRun 8.5s linear infinite}
+.fx-marquee-track span{
+  display:inline-block;padding-right:34px;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#A7F3D0;white-space:nowrap;
+}
+@keyframes fxMarqueeRun{to{transform:translateX(-50%)}}`,
+  html:
+`<div class="fx-marquee">
+  <div class="fx-marquee-track">
+    <span>minum air • jalan pagi • membaca • meditasi • olahraga •</span>
+    <span>minum air • jalan pagi • membaca • meditasi • olahraga •</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-acc', cat:'animasi', hint:'klik', dark:false,
+  title:'Lipatan Ramping',
+  desc:'Harmonika yang membuka mulus lewat transisi grid-template-rows dan pemilih :has — tanpa JavaScript sama sekali.',
+  css:
+`.fx-acc{
+  width:222px;border-radius:16px;overflow:hidden;background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 8px 20px -12px rgba(15,23,42,.1);
+}
+.fx-acc-item + .fx-acc-item{border-top:1px solid #F1F5F9}
+.fx-acc-head{
+  position:relative;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:13px 16px;cursor:pointer;
+  font:600 13.5px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#334155;
+  transition:color .2s,background .2s;
+}
+.fx-acc-head:hover{color:#047857;background:#F6FEF9}
+.fx-acc-head input{position:absolute;opacity:0;pointer-events:none}
+.fx-acc-head svg{
+  width:15px;height:15px;flex:none;color:#94A3B8;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fx-acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1)}
+.fx-acc-body > div{overflow:hidden}
+.fx-acc-body p{padding:0 16px 14px;font:400 12.5px/1.55 "Geist","Segoe UI",system-ui,sans-serif;color:#475569}
+.fx-acc-item:has(input:checked) .fx-acc-body{grid-template-rows:1fr}
+.fx-acc-item:has(input:checked) .fx-acc-head{color:#047857}
+.fx-acc-item:has(input:checked) .fx-acc-head svg{transform:rotate(180deg)}`,
+  html:
+`<div class="fx-acc">
+  <div class="fx-acc-item">
+    <label class="fx-acc-head">
+      <input type="checkbox" checked>
+      Kebiasaan pagi
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </label>
+    <div class="fx-acc-body"><div><p>Minum segelas air, rentangkan badan, lalu tatap matahari lima menit.</p></div></div>
+  </div>
+  <div class="fx-acc-item">
+    <label class="fx-acc-head">
+      <input type="checkbox">
+      Waktu terbaik
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </label>
+    <div class="fx-acc-body"><div><p>Rentetan paling lengket bila dimulai tepat setelah bangun tidur.</p></div></div>
+  </div>
+</div>`
+},
+{
+  id:'fx-bell', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Lonceng Berdenting',
+  desc:'Lonceng madu berayun kiri-kanan dengan pemukul yang ikut bergoyang mengikutinya.',
+  css:
+`.fx-bell-scene{
+  width:108px;height:108px;border-radius:50%;
+  display:grid;place-items:center;
+  background:radial-gradient(circle at 32% 26%,#FEF3C7,#FFFBEB);
+}
+.fx-bell{
+  width:52px;height:52px;color:#B45309;
+  transform-origin:50% 12%;
+  animation:fxBellRing 3s ease-in-out infinite;
+}
+.fx-bell svg{width:100%;height:100%;display:block}
+.fx-bell-clap{
+  transform-box:fill-box;transform-origin:50% 0;
+  animation:fxBellClap 3s ease-in-out infinite;
+}
+@keyframes fxBellRing{
+  0%,8%,100%{transform:rotate(0)}
+  3%{transform:rotate(13deg)}
+  12%{transform:rotate(-11deg)}
+  20%{transform:rotate(7deg)}
+  28%{transform:rotate(-5deg)}
+  36%{transform:rotate(2.5deg)}
+  44%{transform:rotate(-1.5deg)}
+}
+@keyframes fxBellClap{
+  0%,8%,100%{transform:translateX(0)}
+  3%{transform:translateX(3.5px)}
+  12%{transform:translateX(-3px)}
+  20%{transform:translateX(2px)}
+  28%{transform:translateX(-1.2px)}
+}`,
+  html:
+`<div class="fx-bell-scene">
+  <div class="fx-bell">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3a6 6 0 0 1 6 6v3.4c0 1 .5 1.9 1.3 2.5.5.4.2 1.1-.4 1.1H5.1c-.6 0-.9-.7-.4-1.1.8-.6 1.3-1.5 1.3-2.5V9a6 6 0 0 1 6-6z"/>
+      <path class="fx-bell-clap" d="M9.8 19a2.4 2.4 0 0 0 4.4 0"/>
+    </svg>
+  </div>
+</div>`
+},
+{
+  id:'fx-rocket', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Roket Meluncur',
+  desc:'Roket bergetar penuh semangat dengan lidah api yang menari dan bintang yang berkelip di sekelilingnya.',
+  css:
+`.fx-rocket-scene{
+  width:124px;height:124px;border-radius:50%;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 50% 28%,#E0F2FE,#F0F9FF);
+}
+.fx-rocket-scene::before,.fx-rocket-scene::after{
+  content:"";position:absolute;width:3px;height:3px;border-radius:50%;background:#7DD3FC;
+  animation:fxTwinkleBlink 1.8s ease-in-out infinite;
+}
+.fx-rocket-scene::before{top:26%;left:22%}
+.fx-rocket-scene::after{top:44%;right:18%;animation-delay:.9s}
+.fx-rocket{
+  position:absolute;left:50%;top:46%;
+  animation:fxRocketVib .16s linear infinite;
+}
+.fx-rocket svg{width:46px;height:46px;display:block}
+.fx-flame{
+  transform-box:fill-box;transform-origin:50% 0;
+  animation:fxFlameFlick .24s ease-in-out infinite alternate;
+}
+@keyframes fxRocketVib{
+  0%{transform:translate(-50%,-50%)}
+  25%{transform:translate(calc(-50% + .8px),calc(-50% - .5px))}
+  50%{transform:translate(calc(-50% - .7px),calc(-50% + .6px))}
+  75%{transform:translate(calc(-50% + .5px),calc(-50% + .8px))}
+  100%{transform:translate(-50%,-50%)}
+}
+@keyframes fxFlameFlick{
+  from{transform:scaleY(.6);opacity:.75}
+  to{transform:scaleY(1.12);opacity:1}
+}
+@keyframes fxTwinkleBlink{
+  0%,100%{opacity:.25}
+  50%{opacity:1}
+}`,
+  html:
+`<div class="fx-rocket-scene">
+  <div class="fx-rocket">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 2.5c2.9 2.1 4.3 5.2 4.3 8.9v5.1H7.7v-5.1c0-3.7 1.4-6.8 4.3-8.9z"/>
+      <circle cx="12" cy="9.2" r="1.9"/>
+      <path d="M7.7 12.6 5 16.9l2.7 1.3zM16.3 12.6l2.7 4.3-2.7 1.3z"/>
+      <path class="fx-flame" d="M10.3 17.2h3.4L12 21.6z" fill="#FBBF24" stroke="#F59E0B"/>
+    </svg>
+  </div>
+</div>`
+},
+{
+  id:'fx-sprout', cat:'animasi', hint:'otomatis', dark:false,
+  title:'Tunas Bertumbuh',
+  desc:'Batang tumbuh dari gundukan tanah lalu sepasang daun membuka — siklus kehidupan kebun yang berulang.',
+  css:
+`.fx-sprout-scene{position:relative;width:132px;height:122px}
+.fx-soil{
+  position:absolute;bottom:18px;left:50%;transform:translateX(-50%);
+  display:block;width:92px;height:26px;border-radius:999px;
+  background:linear-gradient(180deg,#A16207,#78350F);
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.25);
+}
+.fx-stem{
+  position:absolute;bottom:40px;left:50%;margin-left:-2px;
+  display:block;width:4px;height:0;border-radius:4px;
+  background:linear-gradient(180deg,#22C55E,#15803D);
+  animation:fxStemGrow 5s cubic-bezier(.22,1,.36,1) infinite;
+}
+.fx-sprout-leaf{
+  position:absolute;display:block;width:26px;height:26px;
+  opacity:0;transform:scale(0);
+  animation:fxSproutLeaf 5s cubic-bezier(.22,1,.36,1) infinite;
+}
+.fx-sprout-leaf.l{
+  bottom:66px;left:calc(50% - 25px);
+  transform-origin:100% 100%;
+  border-radius:0 100% 0 100%;
+  background:linear-gradient(135deg,#4ADE80,#16A34A);
+}
+.fx-sprout-leaf.r{
+  bottom:78px;left:calc(50% - 1px);
+  transform-origin:0 100%;
+  border-radius:100% 0 100% 0;
+  background:linear-gradient(225deg,#34D399,#059669);
+}
+@keyframes fxStemGrow{
+  0%,8%{height:0}
+  42%{height:46px}
+  88%{height:46px;opacity:1}
+  100%{height:46px;opacity:0}
+}
+@keyframes fxSproutLeaf{
+  0%,30%{opacity:0;transform:scale(0)}
+  42%,86%{opacity:1;transform:scale(1)}
+  96%,100%{opacity:0;transform:scale(1)}
+}`,
+  html:
+`<div class="fx-sprout-scene">
+  <span class="fx-soil"></span>
+  <span class="fx-stem"></span>
+  <span class="fx-sprout-leaf l"></span>
+  <span class="fx-sprout-leaf r"></span>
+</div>`
+}
+,
+
+/* ---------------- LENCANA (BARU) ---------------- */
+{
+  id:'fx-status', cat:'lencana', hint:'otomatis', dark:false,
+  title:'Titik Status Hidup',
+  desc:'Lencana status dengan titik yang terus memancar — hijau untuk aktif, madu untuk waktu istirahat.',
+  css:
+`.fx-status-row{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.fx-status{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 17px;border-radius:999px;background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 5px 14px -6px rgba(15,23,42,.1);
+  font:600 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A;
+}
+.fx-status-dot{
+  position:relative;width:10px;height:10px;border-radius:50%;
+  background:#10B981;flex:none;
+}
+.fx-status-dot::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;background:inherit;
+  animation:fxStatusPing 1.9s cubic-bezier(0,0,.2,1) infinite;
+}
+.fx-status.amber .fx-status-dot{background:#F59E0B}
+@keyframes fxStatusPing{
+  0%{transform:scale(1);opacity:.75}
+  75%,100%{transform:scale(3);opacity:0}
+}`,
+  html:
+`<div class="fx-status-row">
+  <span class="fx-status"><span class="fx-status-dot"></span>Sedang aktif</span>
+  <span class="fx-status amber"><span class="fx-status-dot"></span>Waktu istirahat</span>
+</div>`
+},
+{
+  id:'fx-notif', cat:'lencana', hint:'hover', dark:false,
+  title:'Lencana Hitung',
+  desc:'Penghitung merah memantul di sudut ikon setiap beberapa detik, menuntut perhatian dengan sopan.',
+  css:
+`.fx-notif{
+  position:relative;display:inline-grid;place-items:center;
+  width:58px;height:58px;border-radius:19px;cursor:pointer;
+  background:#ECFDF5;color:#047857;
+  box-shadow:inset 0 0 0 1.5px #A7F3D0;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s;
+}
+.fx-notif svg{width:25px;height:25px}
+.fx-notif b{
+  position:absolute;top:-7px;right:-7px;
+  min-width:24px;height:24px;padding:0 7px;
+  border-radius:99px;background:#EF4444;color:#FFFFFF;
+  font:700 12.5px/24px "Geist","Segoe UI",system-ui,sans-serif;text-align:center;
+  box-shadow:0 0 0 3.5px #F8FAFC;
+  animation:fxNotifKick 3.4s cubic-bezier(.34,1.56,.64,1) infinite;
+}
+.fx-notif:hover{transform:translateY(-3px);background:#D1FAE5}
+@keyframes fxNotifKick{
+  0%,14%,22%,100%{transform:scale(1)}
+  18%{transform:scale(1.35)}
+}`,
+  html:
+`<span class="fx-notif">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 1 6 6v3.4c0 1 .5 1.9 1.3 2.5.5.4.2 1.1-.4 1.1H5.1c-.6 0-.9-.7-.4-1.1.8-.6 1.3-1.5 1.3-2.5V9a6 6 0 0 1 6-6z"/><path d="M9.8 19a2.4 2.4 0 0 0 4.4 0"/></svg>
+  <b>7</b>
+</span>`
+},
+{
+  id:'fx-streak', cat:'lencana', hint:'otomatis', dark:false,
+  title:'Rentetan Berapi',
+  desc:'Lencana rentetan madu dengan kilau yang menyapu permukaannya — perayaan untuk hari-hari berturut-turut.',
+  css:
+`.fx-streak{
+  position:relative;display:inline-flex;align-items:center;gap:9px;overflow:hidden;
+  padding:12px 19px;border-radius:14px;cursor:default;
+  background:linear-gradient(135deg,#F59E0B,#D97706);
+  color:#FFFBEB;font:700 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  box-shadow:0 9px 20px -8px rgba(180,83,9,.55),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.fx-streak svg{width:17px;height:17px;flex:none}
+.fx-streak::after{
+  content:"";position:absolute;top:0;left:-75%;width:45%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);
+  animation:fxStreakSheen 3.2s ease-in-out infinite;
+}
+@keyframes fxStreakSheen{
+  0%,60%{left:-75%}
+  90%,100%{left:140%}
+}`,
+  html:
+`<span class="fx-streak">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+  12 hari berapi
+</span>`
+},
+{
+  id:'fx-tag', cat:'lencana', hint:'hover', dark:false,
+  title:'Label Lepas-Pas',
+  desc:'Label yang mengangkat diri saat di-hover, dengan tombol tutup yang berputar merah saat akan dibuang.',
+  css:
+`.fx-tags{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:214px}
+.fx-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 10px 9px 15px;border-radius:999px;
+  background:#FFFFFF;
+  box-shadow:inset 0 0 0 1.4px #E2E8F0;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#334155;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s,background .22s,color .22s;
+}
+.fx-tag:hover{
+  transform:translateY(-2px);background:#F6FEF9;
+  box-shadow:inset 0 0 0 1.4px #A7F3D0;color:#065F46;
+}
+.fx-tag-x{
+  display:grid;place-items:center;width:21px;height:21px;border-radius:50%;
+  border:none;cursor:pointer;flex:none;
+  background:#F1F5F9;color:#64748B;
+  transition:background .2s,color .2s,transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-tag-x svg{width:11px;height:11px}
+.fx-tag-x:hover{background:#FEE2E2;color:#DC2626;transform:rotate(90deg) scale(1.1)}`,
+  html:
+`<div class="fx-tags">
+  <span class="fx-tag">pagi<button class="fx-tag-x" type="button" aria-label="Hapus label pagi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>
+  <span class="fx-tag">gerak<button class="fx-tag-x" type="button" aria-label="Hapus label gerak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>
+  <span class="fx-tag">tenang<button class="fx-tag-x" type="button" aria-label="Hapus label tenang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>
+</div>`
+},
+
+/* ---------------- MEDIA (BARU) ---------------- */
+{
+  id:'fx-zoom', cat:'media', hint:'hover', dark:false,
+  title:'Zum Perlahan',
+  desc:'Foto taman zum perlahan dengan sedikit rotasi — bingkainya tetap diam menahan luapan. Ganti src dengan fotomu sendiri.',
+  css:
+`.fx-zoom{
+  width:208px;height:138px;border-radius:18px;overflow:hidden;cursor:zoom-in;
+  box-shadow:0 12px 28px -14px rgba(4,120,87,.45);
+}
+.fx-zoom img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .65s cubic-bezier(.22,1,.36,1);
+}
+.fx-zoom:hover img{transform:scale(1.16) rotate(1.2deg)}`,
+  html:
+`<div class="fx-zoom">
+  <img src="/illustrations/hero-bg-habits.svg" alt="Barisan pot terracotta dengan tunas dan kupu-kupu">
+</div>`
+},
+{
+  id:'fx-duo', cat:'media', hint:'hover', dark:false,
+  title:'Dwiwarna',
+  desc:'Foto berfilter dua warna sage yang kembali penuh warna begitu kursor menyentuhnya — trik blend-mode yang ringan.',
+  css:
+`.fx-duo{
+  position:relative;width:208px;height:138px;border-radius:18px;overflow:hidden;cursor:pointer;
+  box-shadow:0 12px 28px -14px rgba(15,23,42,.3);
+}
+.fx-duo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.08) brightness(.92);
+  transition:filter .5s,transform .5s cubic-bezier(.22,1,.36,1);
+}
+.fx-duo::after{
+  content:"";position:absolute;inset:0;
+  background:#0D9488;
+  mix-blend-mode:color;
+  transition:opacity .5s;
+}
+.fx-duo:hover::after{opacity:0}
+.fx-duo:hover img{filter:none;transform:scale(1.05)}`,
+  html:
+`<div class="fx-duo">
+  <img src="/illustrations/card-sakura.svg" alt="Cabang sakura meruncing dengan kelopak bergradasi">
+</div>`
+},
+{
+  id:'fx-kb', cat:'media', hint:'otomatis', dark:false,
+  title:'Pan-Zum Ken Burns',
+  desc:'Kamera virtual melakukan pan dan zum pelan bolak-balik — gerakan sinematik klasik tanpa video apa pun.',
+  css:
+`.fx-kb{
+  width:208px;height:138px;border-radius:18px;overflow:hidden;
+  box-shadow:0 12px 28px -14px rgba(15,23,42,.3);
+}
+.fx-kb img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  animation:fxKenBurns 12s ease-in-out infinite alternate;
+}
+@keyframes fxKenBurns{
+  from{transform:scale(1.02) translate(0,0)}
+  to{transform:scale(1.24) translate(-4%,3.5%)}
+}`,
+  html:
+`<div class="fx-kb">
+  <img src="/illustrations/hero-bg-growth.svg" alt="Langit pagi bercahaya di atas empat band perbukitan pohon">
+</div>`
+},
+{
+  id:'fx-pol', cat:'media', hint:'hover', dark:false,
+  title:'Polaroid Terangkat',
+  desc:'Foto polaroid bertempel lakban kuning yang terangkat, membesar, dan menegak saat di-hover.',
+  css:
+`.fx-pol{
+  position:relative;display:inline-block;margin:0;width:168px;cursor:pointer;
+  background:#FFFFFF;
+  padding:10px 10px 15px;border-radius:7px;
+  transform:rotate(-3.5deg);
+  box-shadow:0 8px 18px -8px rgba(15,23,42,.3);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+}
+.fx-pol::before{
+  content:"";position:absolute;top:-11px;left:50%;
+  transform:translateX(-50%) rotate(-2deg);
+  width:56px;height:20px;border-radius:3px;
+  background:rgba(253,230,138,.8);
+  box-shadow:0 1px 3px rgba(0,0,0,.14);
+}
+.fx-pol-img{display:block;width:100%;height:98px;border-radius:3px;overflow:hidden}
+.fx-pol-img img{width:100%;height:100%;object-fit:cover;display:block}
+.fx-pol figcaption{
+  margin-top:9px;text-align:center;
+  font:italic 500 12.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;
+}
+.fx-pol:hover{
+  transform:rotate(1.5deg) translateY(-7px) scale(1.03);
+  box-shadow:0 20px 38px -12px rgba(15,23,42,.36);
+}`,
+  html:
+`<figure class="fx-pol">
+  <span class="fx-pol-img"><img src="/illustrations/card-apel.svg" alt="Buah apel merah dengan kelopak sage"></span>
+  <figcaption>taman pagi</figcaption>
+</figure>`
+},
+
+/* ---------------- DAFTAR (BARU) ---------------- */
+{
+  id:'fx-tasks', cat:'daftar', hint:'hover', dark:false,
+  title:'Gelombang Tugas',
+  desc:'Barisan tugas bergeser bergelombang satu per satu saat kursor menyapu wadahnya — jeda bertingkat menciptakan riak.',
+  css:
+`.fx-tasks{display:flex;flex-direction:column;gap:8px;width:212px}
+.fx-task{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 13px;border-radius:12px;background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #EEF2F6;
+  transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .3s,background .3s;
+}
+.fx-task i{
+  position:relative;width:19px;height:19px;border-radius:6px;
+  border:2px solid #CBD5E1;flex:none;
+  transition:background .25s,border-color .25s;
+}
+.fx-task.done i{background:#10B981;border-color:#10B981}
+.fx-task.done i::after{
+  content:"";position:absolute;left:4px;top:4.5px;width:7px;height:4px;
+  border-left:2.4px solid #FFFFFF;border-bottom:2.4px solid #FFFFFF;
+  transform:rotate(-45deg);
+}
+.fx-task span{font:500 13.5px/1.25 "Geist","Segoe UI",system-ui,sans-serif;color:#334155;transition:color .25s}
+.fx-task.done span{
+  color:#94A3B8;
+  text-decoration:line-through;
+  text-decoration-color:#10B981;text-decoration-thickness:2px;
+}
+.fx-tasks:hover .fx-task{transform:translateX(7px)}
+.fx-tasks:hover .fx-task:nth-child(2){transition-delay:.06s}
+.fx-tasks:hover .fx-task:nth-child(3){transition-delay:.12s}
+.fx-task:hover{background:#ECFDF5;box-shadow:inset 0 0 0 1px #A7F3D0}`,
+  html:
+`<div class="fx-tasks">
+  <div class="fx-task done"><i></i><span>Minum 8 gelas air</span></div>
+  <div class="fx-task done"><i></i><span>Baca 10 halaman</span></div>
+  <div class="fx-task"><i></i><span>Meditasi 5 menit</span></div>
+</div>`
+},
+{
+  id:'fx-rows', cat:'daftar', hint:'hover', dark:false,
+  title:'Baris Meluncur',
+  desc:'Setiap baris meluncur ke kanan dengan bilah aksen sage yang tumbuh dari tepi kiri dan ikon yang berona.',
+  css:
+`.fx-rows{
+  width:212px;border-radius:16px;overflow:hidden;background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 8px 22px -12px rgba(15,23,42,.12);
+}
+.fx-row{
+  position:relative;display:flex;align-items:center;gap:11px;
+  padding:13px 15px;
+  transition:background .22s,padding-left .32s cubic-bezier(.22,1,.36,1);
+}
+.fx-row + .fx-row{border-top:1px solid #F1F5F9}
+.fx-row::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;
+  background:linear-gradient(180deg,#34D399,#059669);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+}
+.fx-row:hover{background:#F6FEF9;padding-left:22px}
+.fx-row:hover::before{transform:scaleY(1)}
+.fx-row svg{width:17px;height:17px;color:#64748B;flex:none;transition:color .2s}
+.fx-row:hover svg{color:#059669}
+.fx-row span{font:500 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#334155}`,
+  html:
+`<div class="fx-rows">
+  <div class="fx-row">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3.5 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2.5-6 6-10z"/></svg>
+    <span>Minum 8 gelas</span>
+  </div>
+  <div class="fx-row">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 17H6.5A2.5 2.5 0 0 0 4 19.5"/></svg>
+    <span>Baca 20 menit</span>
+  </div>
+  <div class="fx-row">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+    <span>Tidur 21.30</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-nav', cat:'daftar', hint:'hover', dark:false,
+  title:'Menu Bertunas',
+  desc:'Pil navigasi putih bermunculan dengan pantulan pegas di atas wadah keabu-abuan — ganti span dengan tautan aslimu.',
+  css:
+`.fx-nav{
+  display:inline-flex;gap:4px;padding:5px;border-radius:15px;
+  background:#F1F5F9;
+  box-shadow:inset 0 0 0 1px #E2E8F0;
+  isolation:isolate;
+}
+.fx-nav span{
+  position:relative;display:inline-block;cursor:pointer;
+  padding:9px 11px;border-radius:11px;
+  font:600 12.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;
+  transition:color .25s;
+}
+.fx-nav span::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:11px;
+  background:#FFFFFF;
+  box-shadow:0 1px 3px rgba(15,23,42,.12),0 0 0 1px #E2E8F0;
+  transform:scale(.72);opacity:0;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .2s;
+}
+.fx-nav span:hover{color:#065F46}
+.fx-nav span:hover::before{transform:scale(1);opacity:1}`,
+  html:
+`<nav class="fx-nav" aria-label="Rentang waktu">
+  <span tabindex="0">Hari</span>
+  <span tabindex="0">Minggu</span>
+  <span tabindex="0">Bulan</span>
+  <span tabindex="0">Tahun</span>
+</nav>`
+},
+
+/* ---------------- PETUNJUK / TOOLTIP (BARU) ---------------- */
+{
+  id:'fx-tip', cat:'tooltip', hint:'hover', dark:false,
+  title:'Petunjuk Di Atas',
+  desc:'Gelembung petunjuk bermunculan dengan pantulan pegas dan panah kecil — muncul juga saat fokus papan tuts.',
+  css:
+`.fx-tip{padding-top:66px}
+.fx-tip-btn{
+  position:relative;border:none;cursor:pointer;
+  padding:13px 24px;border-radius:12px;
+  font:600 14px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#ECFDF5;
+  background:#064E3B;
+  box-shadow:0 6px 16px -8px rgba(4,120,87,.5);
+}
+.fx-tip-bubble{
+  position:absolute;bottom:calc(100% + 13px);left:50%;
+  width:max-content;max-width:200px;
+  padding:10px 14px;border-radius:11px;
+  background:#0F172A;color:#F1F5F9;
+  font:500 12.5px/1.5 "Geist","Segoe UI",system-ui,sans-serif;
+  text-align:center;
+  opacity:0;pointer-events:none;
+  transform:translateX(-50%) translateY(8px) scale(.94);
+  transform-origin:bottom center;
+  transition:opacity .22s,transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-tip-bubble::after{
+  content:"";position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);
+  border:6.5px solid transparent;border-top-color:#0F172A;
+}
+.fx-tip-btn:hover .fx-tip-bubble,
+.fx-tip-btn:focus-visible .fx-tip-bubble{
+  opacity:1;transform:translateX(-50%) translateY(0) scale(1);
+}`,
+  html:
+`<div class="fx-tip">
+  <button class="fx-tip-btn" type="button">Apa itu rentetan?
+    <span class="fx-tip-bubble" role="tooltip">Hari-hari berturut-turut tanpa putus menjaga kebiasaan.</span>
+  </button>
+</div>`
+},
+{
+  id:'fx-tip2', cat:'tooltip', hint:'hover', dark:false,
+  title:'Petunjuk Menyamping',
+  desc:'Petunjuk meluncur masuk dari sisi kanan ikon dengan panah penghubung — cocok untuk bilah alat vertikal.',
+  css:
+`.fx-tips{display:flex;flex-direction:column;gap:13px;align-items:flex-start}
+.fx-tip2{position:relative;display:inline-block}
+.fx-tip2-btn{
+  position:relative;display:grid;place-items:center;
+  width:47px;height:47px;border-radius:14px;
+  border:none;cursor:pointer;
+  background:#ECFDF5;color:#047857;
+  box-shadow:inset 0 0 0 1.5px #A7F3D0;
+  transition:background .2s,transform .2s;
+}
+.fx-tip2-btn svg{width:20px;height:20px}
+.fx-tip2-btn:hover{background:#D1FAE5;transform:translateY(-2px)}
+.fx-tip2-pop{
+  position:absolute;left:calc(100% + 13px);top:50%;
+  width:max-content;max-width:150px;
+  padding:8px 12px;border-radius:10px;
+  background:#0F766E;color:#CCFBF1;
+  font:500 12px/1.5 "Geist","Segoe UI",system-ui,sans-serif;
+  opacity:0;pointer-events:none;
+  transform:translateY(-50%) translateX(-10px);
+  transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.fx-tip2-pop::after{
+  content:"";position:absolute;right:100%;top:50%;
+  transform:translateY(-50%);
+  border:6px solid transparent;border-right-color:#0F766E;
+}
+.fx-tip2-btn:hover .fx-tip2-pop,
+.fx-tip2-btn:focus-visible .fx-tip2-pop{
+  opacity:1;transform:translateY(-50%) translateX(0);
+}`,
+  html:
+`<div class="fx-tips">
+  <span class="fx-tip2">
+    <button class="fx-tip2-btn" type="button" aria-label="Tandai selesai">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+      <span class="fx-tip2-pop" role="tooltip">Tandai kebiasaan selesai</span>
+    </button>
+  </span>
+  <span class="fx-tip2">
+    <button class="fx-tip2-btn" type="button" aria-label="Ingatkan saya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 1 6 6v3.4c0 1 .5 1.9 1.3 2.5.5.4.2 1.1-.4 1.1H5.1c-.6 0-.9-.7-.4-1.1.8-.6 1.3-1.5 1.3-2.5V9a6 6 0 0 1 6-6z"/><path d="M9.8 19a2.4 2.4 0 0 0 4.4 0"/></svg>
+      <span class="fx-tip2-pop" role="tooltip">Ingatkan setiap pukul 07.00</span>
+    </button>
+  </span>
+  <span class="fx-tip2">
+    <button class="fx-tip2-btn" type="button" aria-label="Mode malam">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+      <span class="fx-tip2-pop" role="tooltip">Redupkan saat senja</span>
+    </button>
+  </span>
+</div>`
+},
+{
+  id:'fx-hc', cat:'tooltip', hint:'hover', dark:false,
+  title:'Kartu Profil Melayang',
+  desc:'Kartu profil mini melayang naik di atas tombol pengguna, lengkap dengan kepala gradien dan statistik kebiasaan.',
+  css:
+`.fx-hc{padding-top:212px}
+.fx-hc-anchor{
+  position:relative;display:inline-flex;align-items:center;gap:11px;cursor:pointer;
+  padding:9px 17px 9px 9px;border-radius:999px;
+  background:#FFFFFF;
+  box-shadow:inset 0 0 0 1.4px #E2E8F0;
+  border:none;
+  font:600 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A;
+  transition:box-shadow .25s,transform .25s cubic-bezier(.22,1,.36,1);
+}
+.fx-hc-anchor:hover{box-shadow:inset 0 0 0 1.4px #A7F3D0;transform:translateY(-2px)}
+.fx-hc-ava{
+  width:38px;height:38px;border-radius:50%;flex:none;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#34D399,#059669);
+  color:#ECFDF5;font:700 14px/1 "Geist","Segoe UI",system-ui,sans-serif;
+}
+.fx-hc-pop{
+  position:absolute;bottom:calc(100% + 13px);left:50%;
+  width:204px;border-radius:17px;overflow:hidden;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 20px 44px -14px rgba(15,23,42,.24);
+  opacity:0;pointer-events:none;
+  transform:translateX(-50%) translateY(12px);
+  transition:opacity .25s,transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fx-hc-pop-hd{display:block;height:44px;background:linear-gradient(120deg,#6EE7B7,#10B981 60%,#047857)}
+.fx-hc-pop-ava{
+  display:grid;place-items:center;
+  width:46px;height:46px;border-radius:50%;
+  margin:-23px 0 0 14px;
+  background:linear-gradient(135deg,#34D399,#059669);
+  color:#ECFDF5;font:700 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  border:3.5px solid #FFFFFF;
+}
+.fx-hc-pop-bd{display:block;padding:7px 14px 12px}
+.fx-hc-pop-bd b{display:block;font:700 14.5px/1.3 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-hc-pop-bd small{display:block;margin-top:2px;font:500 11.5px/1.4 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B}
+.fx-hc-stats{display:flex;gap:8px;margin-top:11px}
+.fx-hc-stat{
+  flex:1;text-align:center;border-radius:11px;
+  background:#F6FEF9;box-shadow:inset 0 0 0 1px #D1FAE5;
+  padding:8px 4px;
+}
+.fx-hc-stat b{display:block;font:700 14.5px/1.2 "Geist","Segoe UI",system-ui,sans-serif;color:#047857}
+.fx-hc-stat span{
+  display:block;margin-top:2px;
+  font:600 10px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.fx-hc-anchor:hover .fx-hc-pop,
+.fx-hc-anchor:focus-visible .fx-hc-pop{
+  opacity:1;transform:translateX(-50%) translateY(0);
+}`,
+  html:
+`<div class="fx-hc">
+  <button class="fx-hc-anchor" type="button">
+    <span class="fx-hc-ava">SR</span>
+    Sari Rahayu
+    <span class="fx-hc-pop" role="tooltip">
+      <span class="fx-hc-pop-hd"></span>
+      <span class="fx-hc-pop-ava">SR</span>
+      <span class="fx-hc-pop-bd">
+        <b>Sari Rahayu</b>
+        <small>Penjaga kebiasaan · 132 hari</small>
+        <span class="fx-hc-stats">
+          <span class="fx-hc-stat"><b>27</b><span>rentetan</span></span>
+          <span class="fx-hc-stat"><b>89%</b><span>lengkap</span></span>
+          <span class="fx-hc-stat"><b>12</b><span>kebiasaan</span></span>
+        </span>
+      </span>
+    </span>
+  </button>
+</div>`
+},
+
+/* ---------------- KARTU — LANJUTAN 2 ---------------- */
+{
+  id:'fx-photo-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Foto Keterangan Meluncur',
+  desc:'Foto membesar lembut di dalam bingkai, lalu baris keterangan tambahan meluncur terbuka di bawah judul.',
+  css:
+`.fx-photo-card{
+  position:relative;
+  width:232px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 14px 28px -14px rgba(15,23,42,.22);
+}
+.fx-photo-card .ph{
+  height:138px;
+  display:grid;
+  place-items:center;
+  color:#065F46;
+  background:
+    radial-gradient(60px 60px at 78% 22%,rgba(255,255,255,.35),transparent 60%),
+    linear-gradient(135deg,#A7F3D0,#34D399 45%,#059669);
+  transition:transform .55s cubic-bezier(.22,1,.36,1);
+}
+.fx-photo-card .ph svg{width:36px;height:36px;opacity:.85}
+.fx-photo-card figcaption{padding:12px 14px 13px}
+.fx-photo-card figcaption b{display:block;font:600 14.5px/1.25 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-photo-card figcaption span{
+  display:block;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  margin-top:0;
+  font:500 12px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;
+  transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s .05s,margin-top .4s;
+}
+.fx-photo-card:hover .ph{transform:scale(1.07)}
+.fx-photo-card:hover figcaption span{max-height:44px;opacity:1;margin-top:3px}`,
+  html:
+`<figure class="fx-photo-card">
+  <div class="ph">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+  </div>
+  <figcaption>
+    <b>Bedeng Sage</b>
+    <span>12 tanaman herbal — terakhir disiram pukul 06.15 pagi ini.</span>
+  </figcaption>
+</figure>`
+},
+{
+  id:'fx-stack-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Tumpukan Mengipas',
+  desc:'Tiga kartu bertumpuk saling mengipas ke samping saat disentuh — cocok untuk galeri berlapis.',
+  css:
+`.fx-stack-card{position:relative;width:196px;height:118px}
+.fx-stack-card .layer{
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 8px 16px -8px rgba(15,23,42,.14);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font:600 12.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.fx-stack-card .layer svg{width:22px;height:22px;color:#047857}
+.fx-stack-card .l1{transform:rotate(-5deg) translateY(9px);z-index:1}
+.fx-stack-card .l2{transform:rotate(3deg) translateY(3px);z-index:2}
+.fx-stack-card .l3{z-index:3}
+.fx-stack-card:hover .l1{transform:rotate(-14deg) translate(-32px,7px)}
+.fx-stack-card:hover .l2{transform:rotate(-6deg) translate(-15px,3px)}
+.fx-stack-card:hover .l3{transform:rotate(2deg) translate(3px,0)}`,
+  html:
+`<div class="fx-stack-card">
+  <div class="layer l1">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-8"/><path d="M12 14C12 10.5 9.4 8 5.8 7.8 5.6 11.4 8.2 14 12 14z"/><path d="M12 12c0-3 2.3-5.2 5.4-5.4C17.4 9.7 15 12 12 12z"/></svg>
+    Tunas
+  </div>
+  <div class="layer l2">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    Cahaya
+  </div>
+  <div class="layer l3">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.7S6 9.3 6 13.5a6 6 0 0 0 12 0C18 9.3 12 2.7 12 2.7z"/></svg>
+    Siram
+  </div>
+</div>`
+},
+{
+  id:'fx-ribbon-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Pita Sudut Diskon',
+  desc:'Pita madu terpasang melayang di sudut kanan atas kartu produk; kartu terangkat saat disentuh.',
+  css:
+`.fx-ribbon-card{
+  position:relative;
+  width:208px;
+  overflow:hidden;
+  border-radius:16px;
+  background:#FFFFFF;
+  padding:17px 18px 15px;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 8px 18px -10px rgba(15,23,42,.14);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-ribbon-card:hover{
+  transform:translateY(-6px);
+  box-shadow:inset 0 0 0 1px #A7F3D0,0 22px 38px -14px rgba(4,120,87,.26);
+}
+.fx-ribbon-card .rib{
+  position:absolute;
+  top:21px;
+  right:-28px;
+  width:120px;
+  padding:6px 0;
+  text-align:center;
+  transform:rotate(45deg);
+  background:linear-gradient(90deg,#F59E0B,#FBBF24);
+  color:#7C2D12;
+  font:700 10px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.09em;
+  box-shadow:0 4px 10px -3px rgba(245,158,11,.55);
+}
+.fx-ribbon-card .pict{
+  width:44px;height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  margin-bottom:11px;
+  background:linear-gradient(135deg,#ECFDF5,#D1FAE5);
+  color:#047857;
+}
+.fx-ribbon-card .pict svg{width:23px;height:23px}
+.fx-ribbon-card b{display:block;font:700 15px/1.25 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-ribbon-card .price{display:flex;align-items:center;gap:7px;margin-top:7px;flex-wrap:wrap}
+.fx-ribbon-card .price b{font-size:17px;color:#047857}
+.fx-ribbon-card .price s{font:500 11.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+.fx-ribbon-card .price small{margin-left:auto;font:600 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#B45309;background:#FEF3C7;border-radius:99px;padding:4px 7px}`,
+  html:
+`<div class="fx-ribbon-card">
+  <span class="rib">HEMAT 30%</span>
+  <div class="pict">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-8"/><path d="M12 14C12 10.5 9.4 8 5.8 7.8 5.6 11.4 8.2 14 12 14z"/><path d="M12 12c0-3 2.3-5.2 5.4-5.4C17.4 9.7 15 12 12 12z"/></svg>
+  </div>
+  <b>Paket Benih Sage</b>
+  <div class="price">
+    <b>Rp48.000</b>
+    <s>Rp69.000</s>
+    <small>3 hari</small>
+  </div>
+</div>`
+},
+{
+  id:'fx-credit-card', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Kartu Bank Berkilau',
+  desc:'Kartu pembayaran terapung pelan dengan sapuan cahaya diagonal menyilang permukaannya tiap beberapa detik.',
+  css:
+`.fx-credit-card{
+  position:relative;
+  width:238px;
+  height:148px;
+  border-radius:18px;
+  padding:18px;
+  overflow:hidden;
+  color:#ECFDF5;
+  background:
+    radial-gradient(120px 120px at 85% -10%,rgba(167,243,208,.25),transparent 60%),
+    linear-gradient(135deg,#065F46,#059669 52%,#10B981);
+  box-shadow:0 18px 34px -12px rgba(4,120,87,.45);
+  animation:fxCreditFloat 5s ease-in-out infinite;
+}
+.fx-credit-card::after{
+  content:"";
+  position:absolute;
+  inset:-45% -65%;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.28) 50%,transparent 58%);
+  transform:translateX(-70%);
+  animation:fxCreditSheen 4.2s ease-in-out infinite;
+}
+.fx-credit-card .fx-cc-bank{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font:700 11px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.14em;
+}
+.fx-credit-card .fx-cc-chip{
+  width:34px;height:25px;
+  border-radius:6px;
+  margin-top:16px;
+  background:
+    repeating-linear-gradient(90deg,rgba(124,45,18,.28) 0 2px,transparent 2px 7px),
+    linear-gradient(135deg,#FDE68A,#F59E0B);
+}
+.fx-credit-card .num{
+  margin-top:13px;
+  font:600 15px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.13em;
+  color:#F0FDF9;
+}
+.fx-credit-card .row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:13px;
+  font:600 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+}
+.fx-credit-card .row b{color:#F0FDF9;font-weight:600}
+@keyframes fxCreditFloat{
+  0%,100%{transform:rotate(-2deg) translateY(0)}
+  50%{transform:rotate(-2deg) translateY(-6px)}
+}
+@keyframes fxCreditSheen{
+  0%,55%{transform:translateX(-70%)}
+  85%,100%{transform:translateX(70%)}
+}`,
+  html:
+`<div class="fx-credit-card">
+  <div class="fx-cc-bank"><span>RUTINA PAY</span><span>ECO</span></div>
+  <div class="fx-cc-chip"></div>
+  <div class="num">•••• •••• •••• 1998</div>
+  <div class="row">
+    <span>SARI RAHAYU</span>
+    <span>BERLAKU <b>12/28</b></span>
+  </div>
+</div>`
+},
+{
+  id:'fx-ticket-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Tiket Sobekan',
+  desc:'Tiket dua bagian dengan lubang sobekan asli — ditambat dengan radial-gradient dan mask-composite, bukan gambar.',
+  css:
+`.fx-ticket-card{
+  display:flex;
+  width:240px;
+  cursor:pointer;
+  color:#F0FDF9;
+  border-radius:14px;
+  background:linear-gradient(120deg,#047857,#059669);
+  box-shadow:0 12px 26px -10px rgba(4,120,87,.42);
+  transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s;
+  -webkit-mask:
+    radial-gradient(circle 7px at 59px 0,transparent 6.4px,#000 7px),
+    radial-gradient(circle 7px at 59px 100%,transparent 6.4px,#000 7px),
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:source-in;
+  mask:
+    radial-gradient(circle 7px at 59px 0,transparent 6.4px,#000 7px),
+    radial-gradient(circle 7px at 59px 100%,transparent 6.4px,#000 7px),
+    linear-gradient(#000 0 0);
+  mask-composite:intersect;
+}
+.fx-ticket-card:hover{
+  transform:translateY(-5px) rotate(-1.4deg);
+  box-shadow:0 20px 36px -12px rgba(4,120,87,.52);
+}
+.fx-ticket-card .stub{
+  width:59px;
+  display:grid;
+  place-items:center;
+  border-right:2px dashed rgba(240,253,249,.5);
+}
+.fx-ticket-card .stub span{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font:700 11px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.34em;
+  color:#A7F3D0;
+}
+.fx-ticket-card .body{flex:1;padding:13px 15px 12px}
+.fx-ticket-card .body small{
+  display:block;
+  font:700 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.16em;
+  color:#A7F3D0;
+}
+.fx-ticket-card .body b{
+  display:block;
+  margin-top:5px;
+  font:700 15.5px/1.2 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#FFFFFF;
+}
+.fx-ticket-card .meta{display:flex;gap:15px;margin-top:9px}
+.fx-ticket-card .meta span{
+  display:block;
+  font:700 8.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.1em;
+  color:#6EE7B7;
+  text-transform:uppercase;
+}
+.fx-ticket-card .meta b{
+  display:block;
+  margin-top:3px;
+  font:600 12px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#F0FDF9;
+}`,
+  html:
+`<div class="fx-ticket-card">
+  <div class="stub"><span>RUTINA</span></div>
+  <div class="body">
+    <small>MALAM BUNGA</small>
+    <b>Pesta Kebun Musim Semi</b>
+    <div class="meta">
+      <div><span>Tanggal</span><b>16 AGU</b></div>
+      <div><span>Pintu</span><b>19.00</b></div>
+      <div><span>Kursi</span><b>B4</b></div>
+    </div>
+  </div>
+</div>`
+},
+{
+  id:'fx-stat-card', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Kartu Statistik Tumbuh',
+  desc:'Dua batang progres tumbuh dan menyusut berirama menampilkan capaian mingguan kebun.',
+  css:
+`.fx-stat-card{
+  width:226px;
+  border-radius:16px;
+  background:#FFFFFF;
+  padding:16px;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 10px 22px -12px rgba(15,23,42,.14);
+}
+.fx-stat-card .head{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.fx-stat-card .head .ic{
+  width:36px;height:36px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#ECFDF5,#D1FAE5);
+  color:#047857;
+}
+.fx-stat-card .head .ic svg{width:19px;height:19px}
+.fx-stat-card .head b{display:block;font:700 13.5px/1.2 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-stat-card .head small{display:block;margin-top:2px;font:500 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+.fx-stat-card .track{margin-bottom:11px}
+.fx-stat-card .track:last-child{margin-bottom:0}
+.fx-stat-card .lbl{
+  display:flex;
+  justify-content:space-between;
+  font:600 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#64748B;
+  margin-bottom:5px;
+}
+.fx-stat-card .lbl b{color:#047857}
+.fx-stat-card .bar{
+  height:8px;
+  border-radius:99px;
+  background:#F1F5F9;
+  overflow:hidden;
+}
+.fx-stat-card .bar i{
+  display:block;
+  height:100%;
+  border-radius:99px;
+  transform-origin:left;
+}
+.fx-stat-card .bar.a i{
+  background:linear-gradient(90deg,#34D399,#059669);
+  animation:fxStatGrowA 3.6s cubic-bezier(.65,0,.35,1) infinite;
+}
+.fx-stat-card .bar.b i{
+  background:linear-gradient(90deg,#FDE68A,#F59E0B);
+  animation:fxStatGrowB 3.6s cubic-bezier(.65,0,.35,1) .25s infinite;
+}
+@keyframes fxStatGrowA{
+  0%{transform:scaleX(.06)}
+  35%{transform:scaleX(.88)}
+  72%{transform:scaleX(.88)}
+  100%{transform:scaleX(.06)}
+}
+@keyframes fxStatGrowB{
+  0%{transform:scaleX(.06)}
+  35%{transform:scaleX(.62)}
+  72%{transform:scaleX(.62)}
+  100%{transform:scaleX(.06)}
+}`,
+  html:
+`<div class="fx-stat-card">
+  <div class="head">
+    <span class="ic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+    </span>
+    <div>
+      <b>Kebun minggu ini</b>
+      <small>senin — minggu, 16 juni</small>
+    </div>
+  </div>
+  <div class="track">
+    <div class="lbl"><span>Kebiasaan rampung</span><b>88%</b></div>
+    <div class="bar a"><i></i></div>
+  </div>
+  <div class="track">
+    <div class="lbl"><span>Target air harian</span><b>62%</b></div>
+    <div class="bar b"><i></i></div>
+  </div>
+</div>`
+},
+{
+  id:'fx-peel-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Sudut Terlipat',
+  desc:'Sudut kanan bawah kartu dokumen terlipat membuka saat disentuh — seperti membuka amplop berita.',
+  css:
+`.fx-peel-card{
+  position:relative;
+  width:216px;
+  overflow:hidden;
+  border-radius:16px;
+  background:linear-gradient(150deg,#FFFFFF,#F0FDF4);
+  padding:17px 18px 16px;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 10px 22px -12px rgba(15,23,42,.14);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-peel-card:hover{
+  transform:translateY(-4px);
+  box-shadow:inset 0 0 0 1px #A7F3D0,0 20px 36px -14px rgba(4,120,87,.24);
+}
+.fx-peel-card::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:48px;
+  height:48px;
+  background:linear-gradient(225deg,#FFFFFF 48%,#FDE68A 52%,#F59E0B);
+  clip-path:polygon(100% 0,0 100%,100% 100%);
+  transform:scale(0);
+  transform-origin:100% 100%;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+  filter:drop-shadow(-3px -3px 5px rgba(180,83,9,.28));
+}
+.fx-peel-card:hover::after{transform:scale(1)}
+.fx-peel-card small{
+  display:block;
+  font:700 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.16em;
+  color:#059669;
+  text-transform:uppercase;
+}
+.fx-peel-card b{
+  display:block;
+  margin-top:6px;
+  font:700 15px/1.3 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+}
+.fx-peel-card .ln{
+  height:7px;
+  border-radius:99px;
+  background:#F1F5F9;
+  margin-top:9px;
+}
+.fx-peel-card .ln.s1{width:92%}
+.fx-peel-card .ln.s2{width:78%}
+.fx-peel-card .ln.s3{width:60%}`,
+  html:
+`<div class="fx-peel-card">
+  <small>Laporan Mingguan</small>
+  <b>Ringkasan Kebun #24</b>
+  <div class="ln s1"></div>
+  <div class="ln s2"></div>
+  <div class="ln s3"></div>
+</div>`
+},
+{
+  id:'fx-side-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Aksen Sisi Tumbuh',
+  desc:'Garis aksen hijau tumbuh dari atas ke bawah di sisi kartu, dan panah meluncur maju mengajak membuka.',
+  css:
+`.fx-side-card{
+  position:relative;
+  width:230px;
+  overflow:hidden;
+  border-radius:14px;
+  background:#FFFFFF;
+  padding:15px 17px;
+  box-shadow:inset 0 0 0 1px #E2E8F0;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-side-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:16%;
+  bottom:16%;
+  width:4px;
+  border-radius:0 4px 4px 0;
+  background:linear-gradient(#10B981,#84CC16);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform .34s cubic-bezier(.22,1,.36,1);
+}
+.fx-side-card:hover{
+  transform:translateX(5px);
+  box-shadow:inset 0 0 0 1px #A7F3D0,0 14px 28px -14px rgba(4,120,87,.22);
+}
+.fx-side-card:hover::before{transform:scaleY(1)}
+.fx-side-card small{
+  display:block;
+  font:700 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.16em;
+  color:#94A3B8;
+  text-transform:uppercase;
+}
+.fx-side-card b{
+  display:block;
+  margin:6px 0 4px;
+  font:700 15px/1.3 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+}
+.fx-side-card p{font:500 12px/1.55 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B}
+.fx-side-card .go{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:11px;
+  font:600 12.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#047857;
+}
+.fx-side-card .go svg{width:14px;height:14px;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.fx-side-card:hover .go svg{transform:translateX(6px)}`,
+  html:
+`<div class="fx-side-card">
+  <small>Catatan</small>
+  <b>Jurnal Kebun Harian</b>
+  <p>Tulis perkembangan tanaman, cuaca, dan rasa syukur hari ini.</p>
+  <span class="go">
+    Buka jurnal
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+  </span>
+</div>`
+},
+{
+  id:'fx-frame-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Jendela Pemandangan Zoom',
+  desc:'Pemandangan bukit dan matahari memperbesar perlahan di balik jendela kartu saat kursor datang.',
+  css:
+`.fx-frame-card{
+  width:230px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 12px 26px -14px rgba(15,23,42,.18);
+}
+.fx-frame-card .win{
+  position:relative;
+  height:130px;
+  overflow:hidden;
+}
+.fx-frame-card .scene{
+  position:absolute;
+  inset:-16%;
+  background:
+    radial-gradient(46px 46px at 72% 30%,#FDE68A 38%,rgba(253,230,138,0) 60%),
+    linear-gradient(180deg,#A7F3D0 0%,#D9F99D 46%,#4D7C0F 46.5%,#365314 100%);
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.fx-frame-card .scene::after{
+  content:"";
+  position:absolute;
+  left:-8%;
+  right:-8%;
+  bottom:-34%;
+  height:70%;
+  border-radius:50%;
+  background:#3F6212;
+}
+.fx-frame-card:hover .scene{transform:scale(1.15)}
+.fx-frame-card .bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 14px;
+}
+.fx-frame-card .bar b{font:600 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-frame-card .bar span{
+  font:700 9px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.1em;
+  color:#4D7C0F;
+  background:#ECFCCB;
+  border-radius:99px;
+  padding:5px 9px;
+}`,
+  html:
+`<div class="fx-frame-card">
+  <div class="win"><div class="scene"></div></div>
+  <div class="bar">
+    <b>Pandang Bukit Sage</b>
+    <span>HDR</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-profile-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Kartu Profil Penjaga',
+  desc:'Banner gradien, avatar madu yang membesar dengan cincin sage, dan baris statistik kebun.',
+  css:
+`.fx-profile-card{
+  width:222px;
+  overflow:hidden;
+  border-radius:18px;
+  background:#FFFFFF;
+  text-align:center;
+  box-shadow:inset 0 0 0 1px #E2E8F0,0 12px 26px -14px rgba(15,23,42,.16);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-profile-card:hover{
+  transform:translateY(-5px);
+  box-shadow:inset 0 0 0 1px #A7F3D0,0 22px 38px -14px rgba(4,120,87,.24);
+}
+.fx-profile-card .banner{
+  height:56px;
+  background:linear-gradient(120deg,#34D399,#10B981 55%,#047857);
+}
+.fx-profile-card .ava{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  margin:-31px auto 0;
+  display:grid;
+  place-items:center;
+  border:4px solid #FFFFFF;
+  background:linear-gradient(135deg,#FEF3C7,#F59E0B);
+  color:#7C2D12;
+  font:700 20px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.fx-profile-card:hover .ava{
+  transform:scale(1.07);
+  box-shadow:0 0 0 5px #ECFDF5,0 0 0 6.5px #A7F3D0;
+}
+.fx-profile-card h4{margin-top:8px;font:700 15px/1.2 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-profile-card .role{margin-top:3px;font:500 11px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+.fx-profile-card .nums{
+  display:flex;
+  gap:6px;
+  margin:13px 14px 14px;
+}
+.fx-profile-card .nums div{
+  flex:1;
+  border-radius:11px;
+  padding:8px 4px;
+  background:#F6FEF9;
+  box-shadow:inset 0 0 0 1px #D1FAE5;
+}
+.fx-profile-card .nums b{display:block;font:700 14.5px/1.2 "Geist","Segoe UI",system-ui,sans-serif;color:#047857}
+.fx-profile-card .nums span{
+  display:block;
+  margin-top:2px;
+  font:600 9px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.05em;
+  color:#64748B;
+  text-transform:uppercase;
+}`,
+  html:
+`<div class="fx-profile-card">
+  <div class="banner"></div>
+  <div class="ava">SR</div>
+  <h4>Sari Rahayu</h4>
+  <div class="role">Penjaga Kebun · sejak 2023</div>
+  <div class="nums">
+    <div><b>27</b><span>rentetan</span></div>
+    <div><b>132</b><span>hari</span></div>
+    <div><b>12</b><span>tanaman</span></div>
+  </div>
+</div>`
+},
+{
+  id:'fx-toast-card', cat:'kartu', hint:'otomatis', dark:false,
+  title:'Toast Notifikasi',
+  desc:'Kartu notifikasi gelap meluncur turun, menetap, lalu naik pergi — siklus lembut tanpa JavaScript.',
+  css:
+`.fx-toast-wrap{
+  position:relative;
+  width:238px;
+  height:118px;
+  display:grid;
+  justify-items:center;
+  align-content:start;
+  overflow:hidden;
+}
+.fx-toast-card{
+  display:flex;
+  gap:11px;
+  width:238px;
+  border-radius:15px;
+  padding:12px 13px;
+  background:#0F172A;
+  box-shadow:0 18px 36px -14px rgba(2,6,23,.55);
+  opacity:0;
+  transform:translateY(-18px) scale(.96);
+  animation:fxToastSlide 5s cubic-bezier(.22,1,.36,1) infinite;
+}
+.fx-toast-card .ic{
+  flex:none;
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:rgba(52,211,153,.16);
+  color:#34D399;
+}
+.fx-toast-card .ic svg{width:18px;height:18px}
+.fx-toast-card b{display:block;font:600 13px/1.25 "Geist","Segoe UI",system-ui,sans-serif;color:#F8FAFC}
+.fx-toast-card p{margin:3px 0 0;font:400 11px/1.45 "Geist","Segoe UI",system-ui,sans-serif;color:#94A3B8}
+.fx-toast-card .x{
+  margin-left:auto;
+  align-self:flex-start;
+  color:#475569;
+  font:600 13px/1 "Geist","Segoe UI",system-ui,sans-serif;
+}
+@keyframes fxToastSlide{
+  0%{opacity:0;transform:translateY(-18px) scale(.96)}
+  9%{opacity:1;transform:translateY(0) scale(1)}
+  78%{opacity:1;transform:translateY(0) scale(1)}
+  88%,100%{opacity:0;transform:translateY(-18px) scale(.96)}
+}`,
+  html:
+`<div class="fx-toast-wrap">
+  <div class="fx-toast-card">
+    <span class="ic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+    </span>
+    <div>
+      <b>Tersimpan!</b>
+      <p>Kebiasaan "minum air" dicatat 06.15.</p>
+    </div>
+    <span class="x">✕</span>
+  </div>
+</div>`
+},
+{
+  id:'fx-quote-card', cat:'kartu', hint:'hover', dark:false,
+  title:'Kartu Kutipan',
+  desc:'Tanda kutip raksasa berputar dan menghangat warnanya saat kartu ulasan disentuh.',
+  css:
+`.fx-quote-card{
+  position:relative;
+  width:238px;
+  border-radius:18px;
+  padding:20px 17px 15px;
+  background:linear-gradient(160deg,#FFFFFF,#F0FDF4);
+  box-shadow:inset 0 0 0 1px #D1FAE5,0 12px 26px -14px rgba(4,120,87,.22);
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.fx-quote-card:hover{transform:translateY(-4px) rotate(-.6deg)}
+.fx-quote-card .mark{
+  position:absolute;
+  top:2px;
+  left:13px;
+  font:700 62px/1 Georgia,"Times New Roman",serif;
+  color:#A7F3D0;
+  transition:color .3s,transform .38s cubic-bezier(.22,1,.36,1);
+}
+.fx-quote-card:hover .mark{color:#F59E0B;transform:rotate(-9deg) scale(1.1)}
+.fx-quote-card blockquote{
+  position:relative;
+  font:500 12.5px/1.6 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#334155;
+  font-style:italic;
+}
+.fx-quote-card .stars{margin-top:10px;color:#F59E0B;font:700 12px/1 "Geist","Segoe UI",system-ui,sans-serif;letter-spacing:3px}
+.fx-quote-card footer{
+  margin-top:9px;
+  font:600 11px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#94A3B8;
+}`,
+  html:
+`<div class="fx-quote-card">
+  <span class="mark" aria-hidden="true">"</span>
+  <blockquote>Sejak rutin menanam tiap subuh, pagiku terasa lebih panjang dan tenang.</blockquote>
+  <div class="stars" aria-label="5 dari 5 bintang">★★★★★</div>
+  <footer>— Sari, penjaga kebun</footer>
+</div>`
+},
+
+/* ---------------- TEKS — LANJUTAN 2 ---------------- */
+{
+  id:'fx-blur-in-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Dari Kabut Ke Fokus',
+  desc:'Huruf-huruf bernapas: mulai berkabur dan renggang, lalu mengunci tajam di tengah siklusnya.',
+  css:
+`.fx-blur-in-txt{
+  font:700 32px/1.15 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  text-align:center;
+  animation:fxBlurFocus 3.4s ease-in-out infinite;
+}
+@keyframes fxBlurFocus{
+  0%,100%{opacity:.08;filter:blur(11px);letter-spacing:.24em}
+  45%,64%{opacity:1;filter:blur(0);letter-spacing:.01em}
+}`,
+  html:
+`<div class="fx-blur-in-txt">JERNIH</div>`
+},
+{
+  id:'fx-rise-words', cat:'teks', hint:'otomatis', dark:false,
+  title:'Kata Naik Bergantian',
+  desc:'Tiga kata masuk dan keluar dari jendela terpotong secara bergantian — pengganti rotator kata berbasis JS.',
+  css:
+`.fx-rise-words{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  font-family:"Geist","Segoe UI",system-ui,sans-serif;
+}
+.fx-rise-words .pre{font:500 17px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B}
+.fx-rise-words .win{
+  position:relative;
+  width:128px;
+  height:34px;
+  overflow:hidden;
+}
+.fx-rise-words .win i{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  font-style:normal;
+  font-weight:700;
+  font-size:23px;
+  color:#047857;
+  animation:fxWordsRise 7.5s cubic-bezier(.65,0,.35,1) infinite;
+}
+.fx-rise-words .win i:nth-child(2){animation-delay:2.5s}
+.fx-rise-words .win i:nth-child(3){animation-delay:5s}
+@keyframes fxWordsRise{
+  0%{transform:translateY(115%);opacity:0}
+  7%{transform:translateY(0);opacity:1}
+  33%{transform:translateY(0);opacity:1}
+  40%,100%{transform:translateY(-115%);opacity:0}
+}`,
+  html:
+`<div class="fx-rise-words">
+  <span class="pre">Kebun</span>
+  <span class="win">
+    <i>disiram</i>
+    <i>disiangi</i>
+    <i>dipupuk</i>
+  </span>
+</div>`
+},
+{
+  id:'fx-rainbow-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Spektrum Berputar',
+  desc:'Gradien multi warna di dalam huruf terus berputar rona memakai filter hue-rotate.',
+  css:
+`.fx-rainbow-txt{
+  font:800 31px/1.2 "Geist","Segoe UI",system-ui,sans-serif;
+  background:linear-gradient(92deg,#10B981,#84CC16,#FBBF24,#FB7185,#38BDF8,#10B981);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:fxHueSpin 6s linear infinite;
+}
+@keyframes fxHueSpin{to{filter:hue-rotate(360deg)}}`,
+  html:
+`<div class="fx-rainbow-txt">Taman Pelangi</div>`
+},
+{
+  id:'fx-extrude-txt', cat:'teks', hint:'hover', dark:false,
+  title:'Ekstrusi Tertekan',
+  desc:'Huruf ekstrusi 3D tujuh lapis; kursor menekannya masuk seakan menyentuh karet tebal.',
+  css:
+`.fx-extrude-txt{
+  font:800 34px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#065F46;
+  cursor:default;
+  user-select:none;
+  text-shadow:
+    1px 1px 0 #059669,2px 2px 0 #059669,3px 3px 0 #059669,
+    4px 4px 0 #059669,5px 5px 0 #059669,6px 6px 0 #059669,
+    7px 7px 14px rgba(4,120,87,.4);
+  transition:transform .22s cubic-bezier(.22,1,.36,1),text-shadow .22s;
+}
+.fx-extrude-txt:hover{
+  transform:translate(6px,6px);
+  text-shadow:
+    1px 1px 0 #059669,2px 2px 0 #059669,3px 3px 0 #059669,
+    3px 3px 10px rgba(4,120,87,.3);
+}`,
+  html:
+`<div class="fx-extrude-txt">TUMBUH</div>`
+},
+{
+  id:'fx-emboss-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Letterpress Timbul',
+  desc:'Teks timbul klasik gaya cetak: bayangan terang di kiri-atas dan gelap di kanan-bawah di atas permukaan sage.',
+  css:
+`.fx-emboss-txt{
+  width:216px;
+  height:88px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#86EFAC,#4ADE80);
+  animation:fxEmbossDrift 6s ease-in-out infinite;
+}
+.fx-emboss-txt b{
+  font:800 27px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#62D68F;
+  text-shadow:
+    -1px -1px 1px rgba(255,255,255,.8),
+    2px 2px 2px rgba(6,78,59,.42);
+}
+@keyframes fxEmbossDrift{
+  0%,100%{filter:brightness(1) saturate(1)}
+  50%{filter:brightness(1.09) saturate(1.12)}
+}`,
+  html:
+`<div class="fx-emboss-txt"><b>TIMBUL</b></div>`
+},
+{
+  id:'fx-flip-letters', cat:'teks', hint:'otomatis', dark:false,
+  title:'Huruf Berbalik 3D',
+  desc:'Setiap huruf jatuh mengipas dari sumbu X secara berurutan lalu terbang pergi — berjalan terus.',
+  css:
+`.fx-flip-letters{
+  display:flex;
+  font:800 26px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#065F46;
+  perspective:420px;
+}
+.fx-flip-letters span{
+  display:inline-block;
+  transform-origin:50% 100%;
+  animation:fxLetFlip 3.8s cubic-bezier(.22,1,.36,1) infinite;
+}
+.fx-flip-letters span:nth-child(1){animation-delay:0s}
+.fx-flip-letters span:nth-child(2){animation-delay:.08s}
+.fx-flip-letters span:nth-child(3){animation-delay:.16s}
+.fx-flip-letters span:nth-child(4){animation-delay:.24s}
+.fx-flip-letters span:nth-child(5){animation-delay:.32s}
+.fx-flip-letters span:nth-child(6){animation-delay:.4s}
+.fx-flip-letters span:nth-child(7){animation-delay:.48s}
+.fx-flip-letters span:nth-child(8){animation-delay:.56s}
+.fx-flip-letters span:nth-child(9){animation-delay:.64s}
+@keyframes fxLetFlip{
+  0%{transform:rotateX(-95deg);opacity:0}
+  12%,68%{transform:rotateX(0);opacity:1}
+  82%,100%{transform:rotateX(95deg);opacity:0}
+}`,
+  html:
+`<div class="fx-flip-letters" aria-label="BERTUMBUH">
+  <span>B</span><span>E</span><span>R</span><span>T</span><span>U</span><span>M</span><span>B</span><span>U</span><span>H</span>
+</div>`
+},
+{
+  id:'fx-jelly-txt', cat:'teks', hint:'otomatis', dark:false,
+  title:'Gelombang Jelly',
+  desc:'Huruf-huruf menggeliat lembut seperti agar-agar — squash dan stretch berjalan bergelombang.',
+  css:
+`.fx-jelly-txt{
+  display:flex;
+  gap:2px;
+  font:800 29px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#047857;
+}
+.fx-jelly-txt span{
+  display:inline-block;
+  animation:fxJellySq 2.2s ease-in-out infinite;
+}
+.fx-jelly-txt span:nth-child(2){animation-delay:.07s}
+.fx-jelly-txt span:nth-child(3){animation-delay:.14s}
+.fx-jelly-txt span:nth-child(4){animation-delay:.21s}
+.fx-jelly-txt span:nth-child(5){animation-delay:.28s}
+.fx-jelly-txt span:nth-child(6){animation-delay:.35s}
+@keyframes fxJellySq{
+  0%,100%{transform:scale(1,1)}
+  25%{transform:scale(1.18,.8)}
+  45%{transform:scale(.85,1.14)}
+  62%{transform:scale(1.06,.95)}
+  78%{transform:scale(.97,1.03)}
+}`,
+  html:
+`<div class="fx-jelly-txt" aria-label="RUTINA">
+  <span>R</span><span>U</span><span>T</span><span>I</span><span>N</span><span>A</span>
+</div>`
+},
+{
+  id:'fx-strike-list', cat:'teks', hint:'hover', dark:false,
+  title:'Daftar Tercoret',
+  desc:'Arahkan kursor ke butir belanja dan garis coret merah menyapu dari kiri — kepuasan menyelesaikan urusan.',
+  css:
+`.fx-strike-list{width:212px}
+.fx-strike-list h5{
+  font:700 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.16em;
+  color:#94A3B8;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.fx-strike-list ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+.fx-strike-list li{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font:500 14.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  cursor:pointer;
+  transition:color .3s;
+}
+.fx-strike-list li .box{
+  flex:none;
+  width:19px;
+  height:19px;
+  border-radius:6px;
+  box-shadow:inset 0 0 0 1.6px #CBD5E1;
+  display:grid;
+  place-items:center;
+  color:transparent;
+  background:#FFFFFF;
+}
+.fx-strike-list li.done .box{
+  background:#A7F3D0;
+  box-shadow:inset 0 0 0 1.6px #34D399;
+  color:#065F46;
+  font:700 11px/1 "Geist","Segoe UI",system-ui,sans-serif;
+}
+.fx-strike-list li::after{
+  content:"";
+  position:absolute;
+  left:29px;
+  right:0;
+  top:50%;
+  height:2.5px;
+  border-radius:3px;
+  background:#EF4444;
+  transform:translateY(-50%) scaleX(0);
+  transform-origin:left;
+  transition:transform .34s cubic-bezier(.22,1,.36,1);
+}
+.fx-strike-list li:hover{color:#94A3B8}
+.fx-strike-list li:hover::after{transform:translateY(-50%) scaleX(1)}`,
+  html:
+`<div class="fx-strike-list">
+  <h5>Belanja Kebun</h5>
+  <ul>
+    <li class="done"><span class="box">✓</span>Cabai rawit</li>
+    <li><span class="box"></span>Bawang daun</li>
+    <li><span class="box"></span>Pupuk kompos 1 kg</li>
+  </ul>
+</div>`
+},
+{
+  id:'fx-dbl-underline', cat:'teks', hint:'hover', dark:false,
+  title:'Garis Bawah Ganda',
+  desc:'Dua garis bawah beda warna dan arah tumbuh bersamaan saat judul disentuh — aksen kecil yang elegan.',
+  css:
+`.fx-dbl-underline{
+  position:relative;
+  display:inline-block;
+  font:700 25px/1.35 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  cursor:pointer;
+}
+.fx-dbl-underline::before,
+.fx-dbl-underline::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  border-radius:4px;
+  transform:scaleX(0);
+}
+.fx-dbl-underline::before{
+  bottom:-4px;
+  background:#10B981;
+  transform-origin:right;
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.fx-dbl-underline::after{
+  bottom:-12px;
+  background:#F59E0B;
+  transform-origin:left;
+  transition:transform .3s cubic-bezier(.22,1,.36,1) .08s;
+}
+.fx-dbl-underline:hover::before{transform:scaleX(1);transform-origin:left}
+.fx-dbl-underline:hover::after{transform:scaleX(1);transform-origin:right}`,
+  html:
+`<span class="fx-dbl-underline">Panduan Menanam</span>`
+},
+{
+  id:'fx-tracking', cat:'teks', hint:'otomatis', dark:false,
+  title:'Merenggang Bernapas',
+  desc:'Jarak antar huruf melebar dan mengunci rapat perlahan, seperti napas dalam — tenang dan meditatif.',
+  css:
+`.fx-tracking{
+  font:600 21px/1.4 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#334155;
+  white-space:nowrap;
+  animation:fxTrackBreath 5.5s ease-in-out infinite;
+}
+@keyframes fxTrackBreath{
+  0%,100%{letter-spacing:.02em;opacity:.7}
+  50%{letter-spacing:.32em;opacity:1}
+}`,
+  html:
+`<div class="fx-tracking">pelan-pelan tumbuh</div>`
+},
+{
+  id:'fx-fire-txt', cat:'teks', hint:'otomatis', dark:true,
+  title:'Membara',
+  desc:'Teks berkobar dengan tumpukan bayangan jingga yang bergoyang dan berkedip terang di latar gelap.',
+  css:
+`.fx-fire-txt{
+  font:800 34px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#FDE68A;
+  text-align:center;
+  text-shadow:
+    0 -2px 6px rgba(253,224,71,.65),
+    0 -5px 12px #F59E0B,
+    0 -9px 22px #EA580C,
+    0 -14px 36px rgba(234,88,12,.55);
+  animation:fxFireWave 1.5s ease-in-out infinite alternate;
+}
+@keyframes fxFireWave{
+  from{transform:skewX(-2.5deg) scale(1,1);filter:brightness(1)}
+  to{transform:skewX(3deg) scale(1.03,1.06);filter:brightness(1.25)}
+}`,
+  html:
+`<div class="fx-fire-txt">MEMBARA</div>`
+},
+
+/* ---------------- LAYAR — KATEGORI BARU ---------------- */
+{
+  id:'fx-bootscr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Layar Boot',
+  desc:'Layar pembuka aplikasi: logo berdenyut, pita progres terisi, lalu seluruh siklus mengulang tenang.',
+  css:
+`.fx-bootscr{
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+}
+.fx-bootscr .logo{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  color:#ECFDF5;
+  background:linear-gradient(135deg,#10B981,#047857);
+  box-shadow:0 8px 16px -6px rgba(16,185,129,.5);
+  animation:fxBootPop 3s ease-in-out infinite;
+}
+.fx-bootscr .logo svg{width:24px;height:24px}
+.fx-bootscr b{
+  font:800 17px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.3em;
+  margin-left:.3em;
+  color:#0F172A;
+}
+.fx-bootscr .bar{
+  width:134px;
+  height:5px;
+  border-radius:99px;
+  background:#F1F5F9;
+  overflow:hidden;
+}
+.fx-bootscr .bar i{
+  display:block;
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#34D399,#059669);
+  transform-origin:left;
+  animation:fxBootFill 3s cubic-bezier(.65,0,.35,1) infinite;
+}
+.fx-bootscr small{
+  font:500 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#94A3B8;
+  animation:fxBootFade 3s linear infinite;
+}
+@keyframes fxBootPop{
+  0%{transform:scale(.78);opacity:.4}
+  13%{transform:scale(1);opacity:1}
+}
+@keyframes fxBootFill{
+  0%{transform:scaleX(0)}
+  60%{transform:scaleX(1)}
+  82%{transform:scaleX(1)}
+  94%,100%{transform:scaleX(0)}
+}
+@keyframes fxBootFade{
+  0%,10%{opacity:0}
+  24%,72%{opacity:1}
+  90%,100%{opacity:0}
+}`,
+  html:
+`<div class="fx-bootscr">
+  <div class="logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5C4.5 11 9 5.5 19.5 4.5c-.5 10-4.5 15-15 15z"/><path d="M4.5 19.5C8 14 11 11 15.5 8.5"/></svg>
+  </div>
+  <b>RUTINA</b>
+  <div class="bar"><i></i></div>
+  <small>menyiapkan kebun…</small>
+</div>`
+},
+{
+  id:'fx-404scr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Layar 404',
+  desc:'Halaman tidak ditemukan dalam versi mini: angka gradien terapung, percik bintang berputar, tombol pulang.',
+  css:
+`.fx-404scr{
+  position:relative;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(170deg,#FFFFFF,#ECFDF5);
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+}
+.fx-404scr .code{
+  font:800 54px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:-.02em;
+  background:linear-gradient(120deg,#047857,#10B981 60%,#65A30D);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:fx404Bob 3.4s ease-in-out infinite;
+}
+.fx-404scr p{
+  font:500 12px/1.5 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#475569;
+  text-align:center;
+  max-width:172px;
+}
+.fx-404scr .home{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:8px;
+  padding:9px 17px;
+  border-radius:99px;
+  background:#047857;
+  color:#ECFDF5;
+  font:600 12px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  box-shadow:0 8px 16px -8px rgba(4,120,87,.5);
+}
+.fx-404scr .home svg{width:13px;height:13px}
+.fx-404scr .spark{
+  position:absolute;
+  width:8px;
+  height:8px;
+  color:#FBBF24;
+  animation:fx404Spark 3.6s ease-in-out infinite;
+}
+.fx-404scr .s1{left:26px;top:36px}
+.fx-404scr .s2{right:34px;top:60px;animation-delay:1.1s}
+.fx-404scr .s3{left:52px;bottom:42px;animation-delay:2.2s}
+@keyframes fx404Bob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@keyframes fx404Spark{
+  0%,100%{transform:scale(.5) rotate(0deg);opacity:.3}
+  50%{transform:scale(1.15) rotate(30deg);opacity:1}
+}`,
+  html:
+`<div class="fx-404scr">
+  <span class="spark s1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.4L19.3 10l-5.4 1.9L12 17.3l-1.9-5.4L4.7 10l5.4-1.6z"/></svg></span>
+  <span class="spark s2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.4L19.3 10l-5.4 1.9L12 17.3l-1.9-5.4L4.7 10l5.4-1.6z"/></svg></span>
+  <span class="spark s3" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.4L19.3 10l-5.4 1.9L12 17.3l-1.9-5.4L4.7 10l5.4-1.6z"/></svg></span>
+  <div class="code">404</div>
+  <p>Halaman ini seperti benih yang belum ditanam.</p>
+  <span class="home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10.5 9-7 9 7"/><path d="M5 9.5V20h14V9.5"/></svg>
+    Kembali pulang
+  </span>
+</div>`
+},
+{
+  id:'fx-offlinescr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Layar Offline',
+  desc:'Awan terputus mengapung naik-turun dan tombol coba lagi memancarkan denyut sabar menunggu jaringan.',
+  css:
+`.fx-offlinescr{
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:14px 20px;
+  text-align:center;
+}
+.fx-offlinescr .cloud{
+  width:62px;
+  height:46px;
+  color:#94A3B8;
+  animation:fxOffBob 3.2s ease-in-out infinite;
+}
+.fx-offlinescr .cloud svg{width:100%;height:100%}
+.fx-offlinescr b{font:700 14px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#0F172A}
+.fx-offlinescr p{font:500 11.5px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#64748B;max-width:180px}
+.fx-offlinescr .retry{
+  position:relative;
+  margin-top:8px;
+  padding:9px 19px;
+  border-radius:99px;
+  background:linear-gradient(135deg,#059669,#047857);
+  color:#ECFDF5;
+  font:600 12px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  box-shadow:0 8px 16px -8px rgba(4,120,87,.5);
+}
+.fx-offlinescr .retry::before{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:99px;
+  border:2px solid rgba(16,185,129,.45);
+  animation:fxOffPing 2s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes fxOffBob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+@keyframes fxOffPing{
+  0%{transform:scale(.92);opacity:1}
+  80%,100%{transform:scale(1.22);opacity:0}
+}`,
+  html:
+`<div class="fx-offlinescr">
+  <div class="cloud">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 18a4.5 4.5 0 0 0 .9-8.9A7 7 0 0 0 5 10.5 4 4 0 0 0 6 18.4"/><path d="M4 4l16 16"/></svg>
+  </div>
+  <b>Koneksi terputus</b>
+  <p>Periksa jaringan — kebunmu aman di perangkat.</p>
+  <span class="retry">Coba lagi</span>
+</div>`
+},
+{
+  id:'fx-termscr', cat:'layar', hint:'otomatis', dark:true,
+  title:'Jendela Terminal',
+  desc:'Terminal mengetik perintah, mencetak hasil, lalu membersihkan layar dan mengulang — murni steps() dan delay.',
+  css:
+`.fx-termscr{
+  width:252px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#0B1220;
+  box-shadow:0 0 0 1px #1E293B,0 18px 40px -18px rgba(2,6,23,.65);
+  font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+}
+.fx-termscr .tbar{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 11px;
+  background:#0F172A;
+  border-bottom:1px solid #1E293B;
+}
+.fx-termscr .tbar i{width:9px;height:9px;border-radius:50%;background:#334155}
+.fx-termscr .tbar i:nth-child(1){background:#F87171}
+.fx-termscr .tbar i:nth-child(2){background:#FBBF24}
+.fx-termscr .tbar i:nth-child(3){background:#34D399}
+.fx-termscr .tbar span{
+  margin-left:6px;
+  font:500 10px/1 ui-monospace,Menlo,Consolas,monospace;
+  color:#64748B;
+}
+.fx-termscr .tbody{
+  min-height:122px;
+  padding:12px 13px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.fx-termscr .ln{
+  font:500 10.5px/1.5 ui-monospace,Menlo,Consolas,monospace;
+  white-space:nowrap;
+}
+.fx-termscr .cmd{
+  width:0;
+  overflow:hidden;
+  color:#6EE7B7;
+  animation:fxTermType 7s steps(21,end) infinite;
+}
+.fx-termscr .ok{color:#94A3B8;opacity:0;animation:fxTermL2 7s linear infinite}
+.fx-termscr .done{color:#6EE7B7;opacity:0;animation:fxTermL3 7s linear infinite}
+.fx-termscr .done .tick{color:#34D399}
+.fx-termscr .cur{
+  display:inline-block;
+  width:7px;
+  height:13px;
+  margin-left:2px;
+  vertical-align:-2px;
+  background:#34D399;
+  animation:fxTermCur 1s steps(2) infinite;
+}
+@keyframes fxTermType{
+  0%{width:0;opacity:1}
+  27%{width:21ch}
+  88%{width:21ch;opacity:1}
+  93%,100%{width:21ch;opacity:0}
+}
+@keyframes fxTermL2{
+  0%,31%{opacity:0}
+  37%,88%{opacity:1}
+  93%,100%{opacity:0}
+}
+@keyframes fxTermL3{
+  0%,42%{opacity:0}
+  48%,88%{opacity:1}
+  93%,100%{opacity:0}
+}
+@keyframes fxTermCur{50%{opacity:0}}`,
+  html:
+`<div class="fx-termscr">
+  <div class="tbar"><i></i><i></i><i></i><span>rutina — kebun</span></div>
+  <div class="tbody">
+    <div class="ln cmd">$ rutina tanam --besok</div>
+    <div class="ln ok">menyemai 12 kebiasaan baru…</div>
+    <div class="ln done"><span class="tick">✓</span> kebun siap dalam 342ms<span class="cur"></span></div>
+  </div>
+</div>`
+},
+{
+  id:'fx-crtscr', cat:'layar', hint:'otomatis', dark:true,
+  title:'Layar CRT Fosfor',
+  desc:'Monitor hijau retro: garis pemindaian, pita cahaya bergulir, kedip tabung, dan vignette sudut.',
+  css:
+`.fx-crtscr{
+  position:relative;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(120% 100% at 50% 40%,#042418,#02120B 75%);
+  box-shadow:0 0 0 1px #1E293B,0 18px 40px -18px rgba(2,6,23,.7);
+}
+.fx-crtscr .msg{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:9px;
+  animation:fxCRTFlick 2.4s steps(1) infinite;
+}
+.fx-crtscr .msg b{
+  font:700 19px/1 "Courier New",monospace;
+  letter-spacing:.15em;
+  color:#4ADE80;
+  text-shadow:0 0 8px rgba(74,222,128,.8),0 0 22px rgba(34,197,94,.5);
+}
+.fx-crtscr .msg small{
+  font:600 9.5px/1 "Courier New",monospace;
+  letter-spacing:.28em;
+  color:#22C55E;
+  opacity:.85;
+}
+.fx-crtscr::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);
+}
+.fx-crtscr::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-70px;
+  height:70px;
+  background:linear-gradient(180deg,transparent,rgba(110,231,183,.13),transparent);
+  animation:fxCRTRoll 3.4s linear infinite;
+}
+.fx-crtscr .vig{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(140% 120% at 50% 50%,transparent 58%,rgba(0,0,0,.55));
+}
+@keyframes fxCRTFlick{
+  0%,100%{opacity:1}
+  8%{opacity:.85}
+  12%{opacity:1}
+  54%{opacity:.92}
+  58%{opacity:1}
+}
+@keyframes fxCRTRoll{to{transform:translateY(308px)}}`,
+  html:
+`<div class="fx-crtscr">
+  <div class="msg">
+    <b>TAMAN DIGITAL</b>
+    <small>SISTEM V1.6</small>
+  </div>
+  <span class="vig"></span>
+</div>`
+},
+{
+  id:'fx-lockscr', cat:'layar', hint:'otomatis', dark:true,
+  title:'Layar Kunci Ponsel',
+  desc:'Ponsel mini terkunci: jam tipis, tanggal, ikon gembok, dan kilau lembut menyapu kaca layar.',
+  css:
+`.fx-lockscr{
+  position:relative;
+  width:156px;
+  height:278px;
+  border-radius:26px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:16px 12px 11px;
+  color:#E7F9F0;
+  background:
+    radial-gradient(110px 70px at 70% 12%,rgba(52,211,153,.18),transparent 60%),
+    linear-gradient(165deg,#0B2B20,#04120C 62%,#020604);
+  box-shadow:0 0 0 1px #1E293B,0 22px 46px -18px rgba(2,6,23,.75),inset 0 0 0 3px rgba(0,0,0,.55);
+}
+.fx-lockscr::after{
+  content:"";
+  position:absolute;
+  inset:-40% -55%;
+  background:linear-gradient(115deg,transparent 44%,rgba(255,255,255,.08) 50%,transparent 56%);
+  transform:translateX(-70%);
+  animation:fxLockSheen 4.6s ease-in-out infinite;
+}
+.fx-lockscr .notch{
+  position:absolute;
+  top:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:50px;
+  height:15px;
+  border-radius:99px;
+  background:#020604;
+  z-index:2;
+}
+.fx-lockscr .status{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  margin-top:2px;
+  font:600 7.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+}
+.fx-lockscr .batt{
+  width:15px;
+  height:7.5px;
+  border:1px solid #A7F3D0;
+  border-radius:2.5px;
+  position:relative;
+}
+.fx-lockscr .batt::after{
+  content:"";
+  position:absolute;
+  inset:1px 4px 1px 1px;
+  border-radius:1.5px;
+  background:#A7F3D0;
+}
+.fx-lockscr .clock{
+  margin-top:36px;
+  font:300 42px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#F0FDF9;
+  letter-spacing:-.02em;
+}
+.fx-lockscr .date{
+  margin-top:5px;
+  font:500 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+}
+.fx-lockscr .lockico{
+  margin-top:30px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(167,243,208,.13);
+  color:#A7F3D0;
+}
+.fx-lockscr .lockico svg{width:14px;height:14px}
+.fx-lockscr .hintbar{
+  margin-top:12px;
+  font:500 8.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#7C9F92;
+}
+.fx-lockscr .quick{display:flex;gap:12px;margin-top:12px}
+.fx-lockscr .quick i{
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(231,249,240,.12);
+  color:#CFEDE0;
+}
+.fx-lockscr .quick svg{width:12px;height:12px}
+.fx-lockscr .homebar{
+  margin-top:auto;
+  width:72px;
+  height:4px;
+  border-radius:99px;
+  background:rgba(240,253,249,.4);
+}
+@keyframes fxLockSheen{
+  0%,55%{transform:translateX(-70%)}
+  88%,100%{transform:translateX(70%)}
+}`,
+  html:
+`<div class="fx-lockscr">
+  <span class="notch"></span>
+  <div class="status"><span>06.28</span><span class="batt"></span></div>
+  <div class="clock">06:28</div>
+  <div class="date">Senin, 16 Juni</div>
+  <div class="lockico">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+  </div>
+  <div class="hintbar">sentuh untuk membuka</div>
+  <div class="quick">
+    <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 6 13h5l-1 9 8-12h-5z"/></svg></i>
+    <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5h3l5-3.5v14l-5-3.5H4z"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6"/></svg></i>
+  </div>
+  <div class="homebar"></div>
+</div>`
+},
+{
+  id:'fx-browserscr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Jendela Peramban',
+  desc:'Mockup peramban lengkap: titik lalu lintas, bilah alamat termuat progres, dan konten kerangka berkilau.',
+  css:
+`.fx-browserscr{
+  width:252px;
+  border-radius:14px;
+  overflow:hidden;
+  background:#FFFFFF;
+  box-shadow:0 0 0 1px #E2E8F0,0 16px 34px -16px rgba(15,23,42,.3);
+}
+.fx-browserscr .bar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  background:#F8FAFC;
+  border-bottom:1px solid #EEF2F6;
+}
+.fx-browserscr .dots{display:flex;gap:4.5px}
+.fx-browserscr .dots i{width:8px;height:8px;border-radius:50%}
+.fx-browserscr .dots i:nth-child(1){background:#FCA5A5}
+.fx-browserscr .dots i:nth-child(2){background:#FCD34D}
+.fx-browserscr .dots i:nth-child(3){background:#86EFAC}
+.fx-browserscr .url{
+  position:relative;
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  height:25px;
+  padding:0 10px;
+  border-radius:99px;
+  background:#FFFFFF;
+  box-shadow:inset 0 0 0 1px #E2E8F0;
+  overflow:hidden;
+}
+.fx-browserscr .url svg{width:10px;height:10px;color:#059669;flex:none}
+.fx-browserscr .url b{font:500 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#475569}
+.fx-browserscr .url::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,#A7F3D0,#34D399);
+  opacity:.3;
+  transform:scaleX(0);
+  transform-origin:left;
+  animation:fxURLFill 4s ease-in-out infinite;
+}
+.fx-browserscr .view{
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.fx-browserscr .sk{
+  border-radius:8px;
+  background:linear-gradient(90deg,#F1F5F9 25%,#F8FAFC 45%,#F1F5F9 65%);
+  background-size:220% 100%;
+  animation:fxBSkim 1.4s linear infinite;
+}
+.fx-browserscr .sk.h{height:72px}
+.fx-browserscr .sk.r1{height:11px;width:84%}
+.fx-browserscr .sk.r2{height:11px;width:66%}
+.fx-browserscr .sk.r3{height:11px;width:74%}
+@keyframes fxURLFill{
+  0%{transform:scaleX(0);opacity:.3}
+  35%{transform:scaleX(1);opacity:.3}
+  68%{transform:scaleX(1);opacity:.3}
+  78%,100%{transform:scaleX(1);opacity:0}
+}
+@keyframes fxBSkim{to{background-position:-120% 0}}`,
+  html:
+`<div class="fx-browserscr">
+  <div class="bar">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <span class="url">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/></svg>
+      <b>kebun.rutina.app</b>
+    </span>
+  </div>
+  <div class="view">
+    <div class="sk h"></div>
+    <div class="sk r1"></div>
+    <div class="sk r2"></div>
+    <div class="sk r3"></div>
+  </div>
+</div>`
+},
+{
+  id:'fx-mainscr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Layar Pemeliharaan',
+  desc:'Dua roda gigi berputar berlawanan arah di atas latar madu — halaman "sedang diperbaiki" yang ramah.',
+  css:
+`.fx-mainscr{
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  background:linear-gradient(170deg,#FFFBEB,#FEF3C7);
+  box-shadow:0 0 0 1px #FDE68A,0 18px 40px -18px rgba(180,83,9,.35);
+}
+.fx-mainscr .gears{display:flex;align-items:center}
+.fx-mainscr .gear{
+  position:relative;
+  flex:none;
+  display:grid;
+  place-items:center;
+}
+.fx-mainscr .gear::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:11px;
+  height:11px;
+  margin:-5.5px 0 0 -5.5px;
+  border-radius:3px;
+  background:#B45309;
+  box-shadow:
+    0 -19px 0 #B45309,
+    0 19px 0 #B45309,
+    19px 0 0 #B45309,
+    -19px 0 0 #B45309,
+    13.5px -13.5px 0 #B45309,
+    13.5px 13.5px 0 #B45309,
+    -13.5px -13.5px 0 #B45309,
+    -13.5px 13.5px 0 #B45309;
+}
+.fx-mainscr .gear i{
+  position:relative;
+  display:block;
+  border-radius:50%;
+  background:linear-gradient(145deg,#D97706,#92400E);
+  box-shadow:inset 0 0 0 4px #B45309,0 4px 10px -3px rgba(180,83,9,.45);
+}
+.fx-mainscr .g1{width:50px;height:50px;animation:fxGearA 7s linear infinite}
+.fx-mainscr .g1 i{width:34px;height:34px}
+.fx-mainscr .g2{width:36px;height:36px;margin-left:-6px;margin-top:20px;animation:fxGearB 5s linear infinite reverse}
+.fx-mainscr .g2 i{width:24px;height:24px}
+.fx-mainscr .g2::before{
+  width:8px;
+  height:8px;
+  margin:-4px 0 0 -4px;
+  border-radius:2.5px;
+  box-shadow:
+    0 -14px 0 #B45309,
+    0 14px 0 #B45309,
+    14px 0 0 #B45309,
+    -14px 0 0 #B45309,
+    10px -10px 0 #B45309,
+    10px 10px 0 #B45309,
+    -10px -10px 0 #B45309,
+    -10px 10px 0 #B45309;
+}
+.fx-mainscr b{margin-top:6px;font:700 14px/1 "Geist","Segoe UI",system-ui,sans-serif;color:#78350F}
+.fx-mainscr p{font:500 10.5px/1.5 "Geist","Segoe UI",system-ui,sans-serif;color:#92400E;opacity:.85}
+.fx-mainscr .pill{
+  margin-top:2px;
+  font:700 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#B45309;
+  background:#FDE68A;
+  border-radius:99px;
+  padding:6px 12px;
+}
+@keyframes fxGearA{to{transform:rotate(360deg)}}
+@keyframes fxGearB{to{transform:rotate(-360deg)}}`,
+  html:
+`<div class="fx-mainscr">
+  <div class="gears">
+    <span class="gear g1"><i></i></span>
+    <span class="gear g2"><i></i></span>
+  </div>
+  <b>Pemeliharaan singkat</b>
+  <p>Kebun kembali dibuka pukul 21.00 WIB.</p>
+  <span class="pill">est. 25 menit</span>
+</div>`
+},
+{
+  id:'fx-loginscr', cat:'layar', hint:'fokus', dark:false,
+  title:'Layar Masuk Aurora',
+  desc:'Kartu kaca di atas latar aurora yang mengalir — coba klik kolomnya dan lihat cincin fokus terra menyala.',
+  css:
+`.fx-loginscr{
+  position:relative;
+  width:252px;
+  border-radius:18px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  padding:20px 0;
+  background:linear-gradient(160deg,#065F46,#022C22);
+  box-shadow:0 18px 40px -18px rgba(2,44,34,.6);
+}
+.fx-loginscr .aur1,.fx-loginscr .aur2{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(26px);
+  opacity:.55;
+}
+.fx-loginscr .aur1{
+  width:150px;
+  height:150px;
+  left:-42px;
+  top:-42px;
+  background:#34D399;
+  animation:fxLogA 7s ease-in-out infinite alternate;
+}
+.fx-loginscr .aur2{
+  width:130px;
+  height:130px;
+  right:-32px;
+  bottom:-38px;
+  background:#FBBF24;
+  animation:fxLogB 8s ease-in-out infinite alternate;
+}
+.fx-loginscr .card{
+  position:relative;
+  width:198px;
+  border-radius:16px;
+  padding:14px 14px 13px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+  box-shadow:0 18px 36px -14px rgba(2,44,34,.5);
+}
+.fx-loginscr .card h5{
+  font:700 13.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  text-align:center;
+}
+.fx-loginscr .card label{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  font:600 9px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.06em;
+  color:#64748B;
+  text-transform:uppercase;
+}
+.fx-loginscr .card input{
+  height:31px;
+  border-radius:9px;
+  border:1.5px solid #E2E8F0;
+  background:#FFFFFF;
+  padding:0 10px;
+  font:500 11.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#0F172A;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.fx-loginscr .card input:focus{
+  border-color:#10B981;
+  box-shadow:0 0 0 3px rgba(16,185,129,.18);
+}
+.fx-loginscr .card .go{
+  height:32px;
+  border:none;
+  border-radius:9px;
+  background:linear-gradient(135deg,#059669,#047857);
+  color:#FFFFFF;
+  font:600 12px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  cursor:pointer;
+  box-shadow:0 8px 16px -8px rgba(4,120,87,.5);
+  transition:transform .2s,box-shadow .2s;
+}
+.fx-loginscr .card .go:hover{transform:translateY(-1px);box-shadow:0 12px 20px -8px rgba(4,120,87,.55)}
+.fx-loginscr .card small{
+  text-align:center;
+  font:500 9.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#94A3B8;
+}
+@keyframes fxLogA{to{transform:translate(34px,26px) scale(1.15)}}
+@keyframes fxLogB{to{transform:translate(-28px,-22px) scale(1.2)}}`,
+  html:
+`<div class="fx-loginscr">
+  <span class="aur1"></span>
+  <span class="aur2"></span>
+  <div class="card">
+    <h5>Masuk Kebun</h5>
+    <label>Surel
+      <input type="email" value="sari@kebun.id">
+    </label>
+    <label>Kata sandi
+      <input type="password" value="kebun123">
+    </label>
+    <button class="go" type="button">Masuk</button>
+    <small>Lupa kata sandi?</small>
+  </div>
+</div>`
+},
+{
+  id:'fx-countscr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Hitung Mundur Odometer',
+  desc:'Angka detik bergulir seperti odometer mekanis memakai steps(), dan titik dua berkedip tiap detik.',
+  css:
+`.fx-countscr{
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  background:linear-gradient(170deg,#FFFFFF,#F0FDF4);
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+}
+.fx-countscr .lbl{
+  font:700 10px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.26em;
+  color:#047857;
+  text-transform:uppercase;
+}
+.fx-countscr .odo{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.fx-countscr .dgt{
+  position:relative;
+  width:33px;
+  height:46px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#064E3B;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.3),0 6px 12px -6px rgba(6,78,59,.5);
+}
+.fx-countscr .dgt::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.32),transparent 26%,transparent 74%,rgba(0,0,0,.32));
+  pointer-events:none;
+}
+.fx-countscr .dgt>b{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font:700 20px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+}
+.fx-countscr .strip{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  animation:fxOdoRoll 10s steps(10) infinite;
+}
+.fx-countscr .strip b{
+  height:46px;
+  display:grid;
+  place-items:center;
+  font:700 20px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+}
+.fx-countscr .colon{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  padding:0 1px;
+}
+.fx-countscr .colon i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#047857;
+  animation:fxColonBlink 1s steps(2) infinite;
+}
+.fx-countscr small{
+  font:500 10.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#64748B;
+}
+@keyframes fxOdoRoll{to{transform:translateY(-460px)}}
+@keyframes fxColonBlink{50%{opacity:.25}}`,
+  html:
+`<div class="fx-countscr">
+  <div class="lbl">Pembukaan Taman</div>
+  <div class="odo">
+    <span class="dgt"><b>0</b></span>
+    <span class="dgt"><b>9</b></span>
+    <span class="colon"><i></i><i></i></span>
+    <span class="dgt"><b>5</b></span>
+    <span class="dgt"><b>9</b></span>
+    <span class="colon"><i></i><i></i></span>
+    <span class="dgt">
+      <span class="strip">
+        <b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b>
+      </span>
+    </span>
+  </div>
+  <small>hingga gerbang timur dibuka</small>
+</div>`
+},
+{
+  id:'fx-matrixscr', cat:'layar', hint:'otomatis', dark:true,
+  title:'Hujan Digital',
+  desc:'Kolom-kolom aksara jatuh dengan kecepatan berbeda dan pudar di tepi — nuansa matriks tanpa satu baris JS.',
+  css:
+`.fx-matrixscr{
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  gap:13px;
+  padding:11px 13px;
+  background:#010A06;
+  box-shadow:0 0 0 1px #1E293B,0 18px 40px -18px rgba(2,6,23,.8);
+}
+.fx-matrixscr .col{
+  position:relative;
+  flex:1;
+  overflow:hidden;
+  font:600 12px/14px "Courier New",monospace;
+}
+.fx-matrixscr .col::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(1,10,6,.9),transparent 22%,transparent 70%,rgba(1,10,6,.95));
+  pointer-events:none;
+}
+.fx-matrixscr .strip{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  text-align:center;
+  color:#10B981;
+  animation:fxMxFall linear infinite;
+}
+.fx-matrixscr .strip b{display:block;font-weight:600}
+.fx-matrixscr .c1 .strip{animation-duration:3.2s;color:#34D399}
+.fx-matrixscr .c2 .strip{animation-duration:2.3s;animation-delay:-1.2s;opacity:.75}
+.fx-matrixscr .c3 .strip{animation-duration:4.1s;animation-delay:-.6s;color:#4ADE80}
+.fx-matrixscr .c4 .strip{animation-duration:2.8s;animation-delay:-2s;opacity:.6}
+.fx-matrixscr .c5 .strip{animation-duration:3.7s;animation-delay:-1.6s;color:#34D399}
+@keyframes fxMxFall{to{transform:translateY(-50%)}}`,
+  html:
+`<div class="fx-matrixscr">
+  <span class="col c1"><span class="strip"><b>0</b><b>1</b><b>ﾊ</b><b>0</b><b>ﾐ</b><b>1</b><b>0</b><b>ｼ</b><b>1</b><b>0</b><b>0</b><b>1</b><b>ﾓ</b><b>0</b><b>1</b><b>0</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b></span></span>
+  <span class="col c2"><span class="strip"><b>1</b><b>0</b><b>ﾋ</b><b>1</b><b>0</b><b>ｰ</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b></span></span>
+  <span class="col c3"><span class="strip"><b>0</b><b>ｳ</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b></span></span>
+  <span class="col c4"><span class="strip"><b>1</b><b>0</b><b>1</b><b>0</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b></span></span>
+  <span class="col c5"><span class="strip"><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b><b>1</b><b>0</b></span></span>
+</div>`
+},
+{
+  id:'fx-nightscr', cat:'layar', hint:'otomatis', dark:true,
+  title:'Layar Langit Malam',
+  desc:'Pemandangan malam lengkap: bintang berkedip, bulan sabit bercahaya, komet menyapu, dan siluet perbukitan.',
+  css:
+`.fx-nightscr{
+  position:relative;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#0B1220 0%,#0D1A26 55%,#0A1F16 100%);
+  box-shadow:0 0 0 1px #1E293B,0 18px 40px -18px rgba(2,6,23,.75);
+}
+.fx-nightscr .stars,.fx-nightscr .stars2{
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#FFFFFF;
+  top:18px;
+  left:22px;
+}
+.fx-nightscr .stars{
+  box-shadow:
+    34px 14px 0 #FDE68A,72px -6px 0 #FFF,110px 22px 0 #FDE68A,
+    148px 4px 0 #FFF,186px 18px 0 #FDE68A,214px -2px 0 #FFF,
+    8px 52px 0 #FFF,52px 66px 0 #FDE68A,96px 48px 0 #FFF,
+    140px 62px 0 #FFF,178px 56px 0 #FDE68A,224px 48px 0 #FFF,
+    26px 92px 0 #FDE68A,78px 100px 0 #FFF,130px 88px 0 #FFF,196px 96px 0 #FDE68A;
+  animation:fxNightTw 3s ease-in-out infinite;
+}
+.fx-nightscr .stars2{
+  box-shadow:
+    58px 30px 0 #FFF,132px 36px 0 #FDE68A,206px 66px 0 #FFF,
+    20px 76px 0 #FDE68A,104px 74px 0 #FFF,168px 104px 0 #FFF;
+  animation:fxNightTw 3s ease-in-out 1.5s infinite;
+}
+.fx-nightscr .moon{
+  position:absolute;
+  right:38px;
+  top:26px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#FEF9C3,#FDE68A 62%,#FACC15);
+  box-shadow:0 0 26px rgba(253,230,138,.5);
+}
+.fx-nightscr .moon::after{
+  content:"";
+  position:absolute;
+  right:-8px;
+  top:-6px;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  background:#0D1A26;
+}
+.fx-nightscr .comet{
+  position:absolute;
+  top:20px;
+  left:-72px;
+  width:66px;
+  height:2px;
+  border-radius:99px;
+  background:linear-gradient(90deg,#FFFFFF,transparent);
+  transform:rotate(13deg);
+  opacity:0;
+  animation:fxComet 4.6s ease-in infinite 1s;
+}
+.fx-nightscr .hill1,.fx-nightscr .hill2{
+  position:absolute;
+  border-radius:50%;
+}
+.fx-nightscr .hill1{
+  left:-28%;
+  bottom:-46px;
+  width:150%;
+  height:88px;
+  background:#08130E;
+}
+.fx-nightscr .hill2{
+  right:-34%;
+  bottom:-54px;
+  width:140%;
+  height:84px;
+  background:#0A1A12;
+}
+.fx-nightscr .cap{
+  position:absolute;
+  left:15px;
+  bottom:13px;
+  font:600 9.5px/1.5 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#A7F3D0;
+  opacity:.9;
+}
+@keyframes fxNightTw{
+  0%,100%{opacity:1}
+  50%{opacity:.35}
+}
+@keyframes fxComet{
+  0%{transform:translate(0,0) rotate(13deg);opacity:0}
+  5%{opacity:1}
+  22%{transform:translate(200px,50px) rotate(13deg);opacity:0}
+  100%{transform:translate(200px,50px) rotate(13deg);opacity:0}
+}`,
+  html:
+`<div class="fx-nightscr">
+  <span class="stars"></span>
+  <span class="stars2"></span>
+  <span class="moon"></span>
+  <span class="comet"></span>
+  <span class="hill1"></span>
+  <span class="hill2"></span>
+  <span class="cap">Selamat malam, penjaga kebun.</span>
+</div>`
+},
+{
+  id:'fx-splitscr', cat:'layar', hint:'hover', dark:false,
+  title:'Layar Terbagi Pagi-Malam',
+  desc:'Pembatas layar bergeser mulus saat kursor datang: sisi pagi menyusut, sisi malam meluas menempati panggung.',
+  css:
+`.fx-splitscr{
+  display:flex;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+  cursor:pointer;
+}
+.fx-splitscr .side{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:3px;
+  padding:14px;
+  overflow:hidden;
+  transition:flex-grow .55s cubic-bezier(.22,1,.36,1),flex-shrink .55s cubic-bezier(.22,1,.36,1);
+}
+.fx-splitscr .am{
+  flex:1 1 0%;
+  background:linear-gradient(170deg,#FEF3C7,#FBBF24 75%,#F59E0B);
+  color:#78350F;
+  border-right:3px solid #FFFFFF;
+}
+.fx-splitscr .pm{
+  flex:1 1 0%;
+  background:linear-gradient(190deg,#0B1220,#065F46 80%,#047857);
+  color:#A7F3D0;
+}
+.fx-splitscr .side svg{width:19px;height:19px;margin-bottom:auto}
+.fx-splitscr .side b{font:700 14.5px/1 "Geist","Segoe UI",system-ui,sans-serif}
+.fx-splitscr .side small{font:500 10px/1.3 "Geist","Segoe UI",system-ui,sans-serif;opacity:.8}
+.fx-splitscr:hover .am{flex-grow:.5}
+.fx-splitscr:hover .pm{flex-grow:2.2}`,
+  html:
+`<div class="fx-splitscr">
+  <div class="side am">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <b>Pagi</b>
+    <small>06.00 — siram & pupuk</small>
+  </div>
+  <div class="side pm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <b>Malam</b>
+    <small>21.00 — tanam benih</small>
+  </div>
+</div>`
+},
+{
+  id:'fx-wipescr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Transisi Wipe Layar',
+  desc:'Panel malam menyapu masuk lalu keluar mengganti pemandangan — transisi layar penuh dengan tepi madu.',
+  css:
+`.fx-wipescr{
+  position:relative;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+}
+.fx-wipescr .day{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(38px 38px at 74% 26%,#FDE68A 36%,rgba(253,230,138,0) 58%),
+    linear-gradient(180deg,#A7F3D0 0%,#ECFDF5 54%,#065F46 54.5%,#047857);
+}
+.fx-wipescr .night{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  transform:translateX(-101%);
+  border-right:4px solid #F59E0B;
+  background:
+    radial-gradient(26px 26px at 70% 24%,#FEF9C3 40%,rgba(254,249,195,0) 62%),
+    linear-gradient(180deg,#0B1220 0%,#0D221A 54%,#0A1F16 54.5%,#062B1F);
+  animation:fxWipePan 6.5s cubic-bezier(.65,0,.35,1) infinite;
+}
+.fx-wipescr .lbl{position:relative;z-index:2}
+.fx-wipescr .lbl b{
+  display:block;
+  font:800 16px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.02em;
+}
+.fx-wipescr .lbl small{
+  display:block;
+  margin-top:5px;
+  font:600 9px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  opacity:.75;
+}
+.fx-wipescr .day .lbl{text-align:center;color:#064E3B}
+.fx-wipescr .night .lbl{text-align:center;color:#A7F3D0;opacity:0;animation:fxWipeLbl 6.5s ease-in-out infinite}
+@keyframes fxWipeLbl{
+  0%,33%{opacity:0}
+  41%,57%{opacity:1}
+  63%,100%{opacity:0}
+}
+@keyframes fxWipePan{
+  0%{transform:translateX(-101%)}
+  34%{transform:translateX(0)}
+  62%{transform:translateX(0)}
+  100%{transform:translateX(101%)}
+}`,
+  html:
+`<div class="fx-wipescr">
+  <div class="day">
+    <div class="lbl">
+      <b>Taman Pagi</b>
+      <small>sirama pertama 06.00</small>
+    </div>
+  </div>
+  <div class="night">
+    <div class="lbl">
+      <b>Taman Malam</b>
+      <small>istirahat 21.00</small>
+    </div>
+  </div>
+</div>`
+},
+{
+  id:'fx-curtainscr', cat:'layar', hint:'otomatis', dark:false,
+  title:'Tirai Pembuka',
+  desc:'Sepasang tirai terra bergaris membuka pemandangan musim semi, menahannya sejenak, lalu menutup kembali.',
+  css:
+`.fx-curtainscr{
+  position:relative;
+  width:252px;
+  aspect-ratio:3/2;
+  border-radius:18px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  box-shadow:0 0 0 1px #E2E8F0,0 18px 40px -18px rgba(15,23,42,.3);
+  background:
+    radial-gradient(40px 40px at 50% 30%,#FDE68A 34%,rgba(253,230,138,0) 60%),
+    linear-gradient(180deg,#D9F99D 0%,#ECFCCB 52%,#4D7C0F 52.5%,#365314);
+}
+.fx-curtainscr .ttl{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
+}
+.fx-curtainscr .ttl small{
+  display:block;
+  font:700 8.5px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  letter-spacing:.24em;
+  color:#3F6212;
+  text-transform:uppercase;
+}
+.fx-curtainscr .ttl b{
+  display:block;
+  margin-top:6px;
+  font:800 17px/1 "Geist","Segoe UI",system-ui,sans-serif;
+  color:#14532D;
+}
+.fx-curtainscr .cl,.fx-curtainscr .cr{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:51%;
+  z-index:3;
+  background:
+    repeating-linear-gradient(90deg,rgba(2,44,34,.16) 0 3px,transparent 3px 15px),
+    repeating-linear-gradient(90deg,#047857 0 12px,#059669 12px 24px);
+  box-shadow:inset 0 -18px 30px rgba(2,44,34,.4);
+}
+.fx-curtainscr .cl{
+  left:0;
+  border-right:4px solid #065F46;
+  animation:fxCurtL 6.5s cubic-bezier(.65,0,.35,1) infinite;
+}
+.fx-curtainscr .cr{
+  right:0;
+  border-left:4px solid #065F46;
+  animation:fxCurtR 6.5s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes fxCurtL{
+  0%{transform:translateX(0)}
+  30%{transform:translateX(-97%)}
+  66%{transform:translateX(-97%)}
+  94%,100%{transform:translateX(0)}
+}
+@keyframes fxCurtR{
+  0%{transform:translateX(0)}
+  30%{transform:translateX(97%)}
+  66%{transform:translateX(97%)}
+  94%,100%{transform:translateX(0)}
+}`,
+  html:
+`<div class="fx-curtainscr">
+  <div class="ttl">
+    <small>Pembukaan</small>
+    <b>Musim Semi</b>
+  </div>
+  <span class="cl"></span>
+  <span class="cr"></span>
+</div>`
 }
 ];
 
