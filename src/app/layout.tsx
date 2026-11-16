@@ -1,11 +1,32 @@
 import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { Providers } from "@/components/rutina/providers";
+import { Toaster } from "@/components/ui/sonner";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Rutina",
+  title: "Rutina — Personal Coach Digital",
   description:
-    "Rutina — pelacak kebiasaan & keuangan harian dalam satu tampilan yang tenang.",
-  applicationName: "Rutina",
-  manifest: "/manifest.json",
+    "Logbook latihan pintar dengan auto-progression (progressive overload), readiness score harian, deteksi plateau & deload, timer istirahat, dan AI coach pribadi.",
+  keywords: [
+    "Rutina",
+    "fitness",
+    "workout log",
+    "progressive overload",
+    "personal coach",
+    "gym tracker",
+  ],
+  icons: { icon: "/rutina.svg" },
 };
 
 export const viewport: Viewport = {
@@ -15,14 +36,19 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-/* Cangkang minimal: aplikasi sesungguhnya adalah PWA satu file
-   public/rutina.html (meregistrasi sw.js sendiri); route "/" hanya
-   membungkusnya dalam iframe, dan /api/rutina menjadi jembatan data
-   (baca-tulis) ke Turso / SQLite lokal. */
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="id">
-      <body>{children}</body>
+    <html lang="id" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
+      >
+        <Providers>{children}</Providers>
+        <Toaster position="top-center" richColors closeButton />
+      </body>
     </html>
   );
 }
