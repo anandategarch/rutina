@@ -61,3 +61,6 @@ server.log
 
 # contoh env boleh masuk repo
 !.env.example
+
+# hasil alat sesi (scratch)
+tool-results/
