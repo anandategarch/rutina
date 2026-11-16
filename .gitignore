@@ -58,3 +58,6 @@ server.log
 # internal tooling & catatan agen
 /.zscripts/
 /agent-ctx/
+
+# contoh env boleh masuk repo
+!.env.example
