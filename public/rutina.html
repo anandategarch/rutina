@@ -10,6 +10,21 @@
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Arsip versi: satu baris per versi, hanya kendala yang masih mengikat.
      Narasi lengkap tiap versi ada di README.md dan riwayat git repo. -->
+<!-- v3.04 PULAU BARBEL — tab Bugar · pane Latihan kini selengkap aplikasi
+     fitness profesional untuk GYM RUMAH PAKAI BARBEL: (1) PROGRAM LATIHAN —
+     4 template terpandu (Barbel 5×5 A/B, Atas-Bawah 4×/pekan, Dorong-Tarik-
+     Kaki 6×/pekan, Barbel Saja tanpa bangku/rak) + tombol Mulai yang membuka
+     form Catat latihan TERISI gerakan hari terpilih (target coach ikut
+     pra-isi, catatan & durasi terpasang); (2) PUSTAKA GERAKAN — 31 gerakan
+     barbel rumah (dada/punggung/kaki/bahu/lengan/inti/seluruh badan) dgn
+     cari + saring otot, detail langkah-langkah, tip coach, kesalahan umum,
+     alat & level, PR pribadi + tombol Catat set; (3) REKOR GERAKAN — papan
+     PR e1RM per gerakan + modal riwayat lengkap per sesi; (4) ALAT BARBEL —
+     kalkulator pemuat piring (per sisi, warna standar IWF), kalkulator 1RM
+     Epley + tabel persentase 95-65%, tangga pemanasan otomatis (bar → 40/
+     60/80% dibulat 2,5 kg) + pintasan timer istirahat. Semua binding pakai
+     DELEGASI ke wadah kekal (pola v3.02.1); datalist form latihan diperkaya
+     31 nama pustaka. -->
 <!-- v3.03 MASTER MAKANAN INDONESIA (179 item) + NERACA HARIAN: (1) tab
      Asupan kini mencari dari master makanan milik pengguna (140 item,
      sumber penuh: public/data/master-makanan-indonesia.json) + 39 kopi &
@@ -530,6 +545,114 @@ body.musim-dingin{--season-wash:radial-gradient(170px 120px at 100% 0,rgba(224,2
 .macro-bars{display:grid;gap:8px;margin-top:12px}
 .macro-lab{display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;margin-bottom:3px}
 .macro-lab small{color:var(--ink-3);font-weight:600}
+
+/* v3.04 · PULAU BARBEL — program, pustaka gerakan, rekor, alat barbel */
+.lib-search-wrap{position:relative;margin-bottom:10px}
+.lib-search-wrap .ic{position:absolute;left:12px;top:50%;translate:0 -50%;width:16px;height:16px;color:var(--ink-3);pointer-events:none}
+.lib-search-wrap input{width:100%;padding-left:38px}
+.lib-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.lib-chips::-webkit-scrollbar{display:none}
+.lib-chip{flex:none;min-height:40px;padding:0 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:12px;font-weight:700;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;transition:border-color .18s,color .18s,background .18s}
+.lib-chip .ill{width:19px;height:19px}
+.lib-chip:hover{border-color:var(--terra);color:var(--terra-deep)}
+.lib-chip.active{background:var(--terra-strong);border-color:var(--terra-strong);color:#FFFFFF}
+.lib-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:560px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.lib-row{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface-2);overflow:hidden;transition:border-color .18s}
+.lib-row.open{border-color:var(--terra)}
+.lib-row-head{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;min-height:56px;width:100%;text-align:left;background:none;border:0}
+.lib-row-head:hover .lib-row-name{color:var(--terra-deep)}
+.lib-row-ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px;background:var(--surface);box-shadow:inset 0 0 0 1px rgba(16,24,40,.045)}
+.lib-row-ic .ill{width:26px;height:26px}
+.lib-row-main{flex:1;min-width:0}
+.lib-row-name{display:block;font-weight:700;font-size:13.5px;color:var(--ink)} /* v3.04.1 · display:block — span inline lolos dari ellipsis & menindih badge level */
+.lib-row-sub{display:block;font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lvl{display:inline-flex;padding:2px 8px;border-radius:999px;font-size:9.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.lvl-1{background:var(--sage-soft);color:var(--sage-deep)}
+.lvl-2{background:var(--honey-soft);color:var(--honey-deep)}
+.lvl-3{background:var(--terra-soft);color:var(--terra-deep)}
+.lib-detail{padding:2px 12px 12px;border-top:1px dashed var(--line-soft)}
+.lib-desc{font-size:12.5px;color:var(--ink-2);margin:9px 0 8px;line-height:1.55}
+.lib-steps{margin:0;padding-left:17px;font-size:12px;color:var(--ink-2);line-height:1.65}
+.lib-steps li{margin-bottom:2px}
+.lib-note{display:flex;gap:7px;align-items:flex-start;font-size:11.5px;line-height:1.55;padding:8px 10px;border-radius:10px;margin-top:8px}
+.lib-note .ic{width:14px;height:14px;flex:none;margin-top:2px}
+.lib-note.tip{background:var(--sage-soft);color:var(--sage-deep)}
+.lib-note.mist{background:var(--rose-soft);color:var(--rose-deep)}
+.lib-meta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.lib-meta-chips .pill{padding:4px 10px;font-size:10.5px}
+.lib-act{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+/* program latihan */
+.prog-row{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface-2);margin-bottom:8px;overflow:hidden;transition:border-color .18s}
+.prog-row.open{border-color:var(--terra)}
+.prog-head{display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer;width:100%;text-align:left;background:none;border:0;min-height:56px}
+.prog-head:hover .prog-name{color:var(--terra-deep)}
+.prog-ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px;background:var(--surface);box-shadow:inset 0 0 0 1px rgba(16,24,40,.045)}
+.prog-ic .ill{width:26px;height:26px}
+.prog-main{flex:1;min-width:0}
+.prog-name{display:block;font-weight:700;font-size:13.5px;color:var(--ink)}
+.prog-sub{display:block;font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:2px}
+.prog-detail{padding:0 12px 12px;border-top:1px dashed var(--line-soft)}
+.prog-desc{font-size:12px;color:var(--ink-2);line-height:1.55;margin:9px 0}
+.prog-days{display:grid;gap:8px}
+.prog-day{border:1px solid var(--line-soft);border-radius:12px;background:var(--surface);padding:10px 11px}
+.prog-day-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.prog-day-name{font-weight:800;font-size:12.5px}
+.prog-ex{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:4px 0;border-bottom:1px solid var(--line-soft);color:var(--ink-2)}
+.prog-ex:last-child{border-bottom:none}
+.prog-ex b{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.prog-note{display:flex;gap:7px;align-items:flex-start;font-size:11px;color:var(--ink-3);background:var(--surface-2);border-radius:10px;padding:8px 10px;margin-top:9px;line-height:1.5}
+.prog-note .ic{width:13px;height:13px;flex:none;margin-top:2px}
+/* rekor & riwayat gerakan */
+.pr-scroll{max-height:320px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.pr-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line-soft);cursor:pointer;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0;min-height:48px}
+.pr-row:last-child{border-bottom:none}
+.pr-row:hover .pr-name{color:var(--terra-deep)}
+.pr-ic{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:12px;background:var(--surface-2)}
+.pr-ic .ill{width:24px;height:24px}
+.pr-main{flex:1;min-width:0}
+.pr-name{display:block;font-weight:700;font-size:13px;color:var(--ink)}
+.pr-sub{display:block;font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:1px}
+.pr-e1{text-align:right;flex:none}
+.pr-e1 .n{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--terra-deep);font-variant-numeric:tabular-nums}
+.pr-e1 small{display:block;font-size:9.5px;color:var(--ink-3);font-weight:700;letter-spacing:.02em}
+.exh-sum{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.exh-sum .pill{background:var(--surface-2);color:var(--ink-2)}
+.exh-row{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface-2);padding:9px 11px;margin-bottom:8px}
+.exh-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px}
+.exh-date{font-weight:800;font-size:12.5px}
+.exh-sets{display:flex;flex-wrap:wrap;gap:5px}
+.exh-set{font-size:11px;font-weight:700;background:var(--surface);border:1px solid var(--line-soft);border-radius:999px;padding:3px 9px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.exh-sub{display:flex;gap:8px;flex-wrap:wrap;font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:6px}
+/* alat barbel */
+.tool-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:4px}
+.tool-out-label{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.plate-vis{display:flex;align-items:center;justify-content:center;gap:3px;margin:12px 0 6px;flex-wrap:wrap}
+.plate{min-width:30px;height:32px;border-radius:6px;display:grid;place-items:center;color:#FFFFFF;font-size:10.5px;font-weight:800;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),inset 0 6px 0 rgba(255,255,255,.07);font-variant-numeric:tabular-nums}
+.plate.p25{background:#B0392F}
+.plate.p20{background:#33628F}
+.plate.p15{background:#B98A1F}
+.plate.p10{background:#4E7D57}
+.plate.p5{background:#DAD5CA;color:#57534E}
+.plate.p2{background:#4A4A4A}
+.plate.p125{background:#837E77}
+.plate-bar{width:46px;height:9px;border-radius:5px;background:linear-gradient(180deg,#C7C2B8,#8A857C 55%,#6E6961);flex:none}
+.plate-verdict{text-align:center;font-size:12px;font-weight:700;color:var(--ink-2)}
+.plate-verdict b{color:var(--terra-deep);font-variant-numeric:tabular-nums}
+.plate-note{text-align:center;font-size:10.5px;color:var(--ink-3);font-weight:600;margin-top:4px}
+.rm-hero{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:12px 0 4px}
+.rm-hero .n{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--terra-deep);font-variant-numeric:tabular-nums;line-height:1}
+.rm-hero small{font-size:12px;color:var(--ink-3);font-weight:700}
+.rm-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.rm-tbl th{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.rm-tbl td{padding:7px 8px;border-bottom:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
+.rm-tbl tr:last-child td{border-bottom:none}
+.rm-tbl td b{color:var(--terra-deep)}
+.warm-ladder{margin-top:10px}
+.warm-set{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line-soft);font-size:12.5px}
+.warm-set:last-child{border-bottom:none}
+.warm-no{width:26px;height:26px;border-radius:9px;background:var(--surface-2);display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink-2);flex:none}
+.warm-kg{font-family:var(--font-display);font-weight:700;color:var(--terra-deep);font-variant-numeric:tabular-nums;flex:none;min-width:44px}
+.warm-rep{color:var(--ink-3);font-weight:700;flex:none}
 
 /* tubuh: hidrasi gelas */
 .hy-glasses{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
@@ -1822,7 +1945,7 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
 .rv.rv-in{animation:rvIn .55s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--rv,0)*70ms)}
 @keyframes rvIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 /* 4 · thumb seg menggeser — tombol aktif tak lagi mengecat blok */
-.seg{position:relative}
+.seg{position:relative;overflow:hidden} /* v3.04 · overflow:hidden — thumb absolut yang basi setelah resize tak lagi menonjol keluar kontainer */
 .seg-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:9px;background:var(--terra-strong);box-shadow:var(--shadow-sm);opacity:0;transition:left .34s cubic-bezier(.3,1.2,.4,1),width .34s cubic-bezier(.3,1.2,.4,1),opacity .18s;z-index:0}
 .seg-thumb.on{opacity:1}
 .seg button{position:relative;z-index:1;background:transparent}
@@ -3291,6 +3414,46 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
     <div id="rdBody"></div>
   </div>
 
+  <!-- PROGRAM LATIHAN (v3.04) — template program barbel profesional untuk
+       gym rumah: 5×5, Atas-Bawah, Dorong-Tarik-Kaki, Barbel Saja. Satu
+       ketuk "Mulai" membuka form latihan terisi gerakan hari terpilih. -->
+  <div class="card card-pad" id="programCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art em"><svg class="ill" aria-hidden="true"><use href="#ill-gym-full"/></svg></span>
+        <div>
+          <div class="eyebrow">Gym rumah · barbel</div>
+          <h3 class="h-serif">Program latihan</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="progPill">4 program</span>
+    </div>
+    <p class="t-sub" style="margin-bottom:10px">Pilih program, buka harinya, ketuk <b>Mulai</b> — form latihan terisi otomatis lengkap dengan target coach.</p>
+    <div id="progBody"></div>
+  </div>
+
+  <!-- PUSTAKA GERAKAN (v3.04) — database 31 gerakan barbel rumah: cari &
+       saring per otot, buka detail untuk langkah, tip coach, kesalahan
+       umum, PR & riwayat; langsung catat set dari sini. -->
+  <div class="card card-pad" id="libCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art sage"><svg class="ill" aria-hidden="true"><use href="#ill-kompas"/></svg></span>
+        <div>
+          <div class="eyebrow">Jelajahi</div>
+          <h3 class="h-serif">Pustaka gerakan</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="libPill">–</span>
+    </div>
+    <div class="lib-search-wrap">
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" id="libSearch" autocomplete="off" placeholder="Cari gerakan: squat, row, press…" aria-label="Cari gerakan">
+    </div>
+    <div class="lib-chips" id="libChips" role="group" aria-label="Saring otot"></div>
+    <div id="libBody"></div>
+  </div>
+
   <!-- BUKU BEBAN (v2.58) — sesi terakhir per gerakan: set × rep × kg,
        volume tonase, dan PEMBANDING vs sesi sebelumnya (naik/turun/flat). -->
   <div class="card card-pad ill-dumbel" id="bebanCard">
@@ -3305,6 +3468,84 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
       <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="bebanPill">–</span>
     </div>
     <div id="bebanBody"><div class="t-sub">memuat…</div></div>
+  </div>
+
+  <!-- REKOR & RIWAYAT GERAKAN (v3.04) — papan PR e1RM per gerakan: PR,
+       jumlah sesi, terakhir dilatih; satu ketuk membuka riwayat lengkap. -->
+  <div class="card card-pad" id="prCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art honey"><svg class="ill" aria-hidden="true"><use href="#ill-piala"/></svg></span>
+        <div>
+          <div class="eyebrow">Papan rekor</div>
+          <h3 class="h-serif">Rekor gerakan</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="prPill">–</span>
+    </div>
+    <div id="prBody"><div class="t-sub">memuat…</div></div>
+  </div>
+
+  <!-- ALAT BARBEL (v3.04) — tiga kalkulator gym rumah: (1) pemuat piring
+       per sisi dengan warna piring standar, (2) kalkulator 1RM + tabel
+       persentase untuk program, (3) tangga pemanasan otomatis. -->
+  <div class="card card-pad" id="toolCard">
+    <div class="card-head">
+      <div class="ch-title">
+        <span class="head-art sky"><svg class="ill" aria-hidden="true"><use href="#ill-beban"/></svg></span>
+        <div>
+          <div class="eyebrow">Kalkulator</div>
+          <h3 class="h-serif">Alat barbel</h3>
+        </div>
+      </div>
+      <span class="pill" style="background:var(--surface-2);color:var(--ink-2)" id="toolPill">3 alat</span>
+    </div>
+    <div class="seg" role="group" aria-label="Alat barbel" id="toolSeg">
+      <button type="button" class="active" data-tool="plate" aria-pressed="true">Piring</button>
+      <button type="button" data-tool="rm" aria-pressed="false">1RM</button>
+      <button type="button" data-tool="warm" aria-pressed="false">Pemanasan</button>
+    </div>
+
+    <div id="toolPlate" style="margin-top:12px">
+      <div class="field-row">
+        <div class="field">
+          <label for="plateTarget">Beban target (kg)</label>
+          <div class="money"><span>kg</span><input type="text" id="plateTarget" inputmode="decimal" autocomplete="off" placeholder="60"></div>
+        </div>
+        <div class="field">
+          <label for="plateBar">Barbelmu</label>
+          <select id="plateBar">
+            <option value="20" selected>Barbel Olimpiade 20 kg</option>
+            <option value="10">Barbel 10 kg</option>
+            <option value="7">Barbel 7 kg</option>
+            <option value="5">Barbel mini 5 kg</option>
+          </select>
+        </div>
+      </div>
+      <div id="plateOut"></div>
+    </div>
+
+    <div id="toolRm" style="margin-top:12px" hidden>
+      <div class="field-row">
+        <div class="field">
+          <label for="rmWeight">Beban (kg)</label>
+          <div class="money"><span>kg</span><input type="text" id="rmWeight" inputmode="decimal" autocomplete="off" placeholder="60"></div>
+        </div>
+        <div class="field">
+          <label for="rmReps">Repetisi tercapai</label>
+          <div class="money"><span>rep</span><input type="text" id="rmReps" inputmode="numeric" autocomplete="off" placeholder="5"></div>
+        </div>
+      </div>
+      <div id="rmOut"></div>
+    </div>
+
+    <div id="toolWarm" style="margin-top:12px" hidden>
+      <div class="field">
+        <label for="warmWork">Beban kerja hari ini (kg)</label>
+        <div class="money"><span>kg</span><input type="text" id="warmWork" inputmode="decimal" autocomplete="off" placeholder="80"></div>
+      </div>
+      <div id="warmOut"></div>
+    </div>
   </div>
 
   <!-- JALAN · LARI · KOMBINASI (v2.58) — daftar sesi kardio dengan
@@ -4239,6 +4480,19 @@ kbd{min-width:27px;height:27px;padding:0 7px;display:inline-grid;place-items:cen
   </div>
 </div>
 
+<!-- MODAL: RIWAYAT GERAKAN (v3.04) — seluruh sesi yang memuat satu
+     gerakan, terbaru dulu: tanggal, set, tonase, e1RM terbaik, lencana PR. -->
+<div class="modal" id="modalExHist" role="dialog" aria-modal="true" aria-labelledby="exhTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><div class="eyebrow">Riwayat gerakan</div><h3 class="h-serif" id="exhTitle">Gerakan</h3></div>
+      <button class="icon-btn" data-close aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sheet-body" id="exhBody"></div>
+  </div>
+</div>
+
 <!-- MODAL: ASUPAN (v2.58) -->
 <div class="modal" id="modalFood" role="dialog" aria-modal="true" aria-labelledby="fdTitle">
   <div class="modal-backdrop" data-close></div>
@@ -4799,7 +5053,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
    tab Pengaturan. v3.01: audit gradasi & tema — ramp bahaya pink disatukan
    ke merah, kepala kartu arus kas pindah keluarga cream-sage, indigo & pink
    pensiun dari seluruh permukaan. */
-const APP_VERSION='v3.03';
+const APP_VERSION='v3.04';
 $$('.app-ver,#setVersion').forEach(el=>{el.textContent=APP_VERSION;el.setAttribute('title','Rutina '+APP_VERSION)});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* v2.64 · PAINT_QUIET — pemisah jalur "data berubah" vs "tampilan berpindah".
@@ -6937,6 +7191,361 @@ function renderBebanCard(){
     </div>`;
 }
 
+/* =====================================================================
+   v3.04 · PULAU BARBEL — gym rumah profesional: program terpandu,
+   pustaka 31 gerakan, papan rekor per gerakan, alat barbel (kalkulator
+   piring · 1RM · pemanasan). Semua binding pakai DELEGASI ke wadah kekal
+   (pelajaran v3.02.1) — render ulang tidak memutus pendengar.
+   ===================================================================== */
+/* EX_LIB — baris: [nama, kelompok otot, detail otot, level 1-3, alat,
+   pola, deskripsi, "langkah|langkah|langkah", tip coach, kesalahan umum] */
+const EX_LIB=[
+["Bench Press","Dada","Dada · Triceps · Bahu depan",2,"Barbel + Bangku","Dorong","Gerakan dada utama: menekan barbel dari posisi terlentang di bangku datar.","Berbaring, mata tepat di bawah barbel, kaki menapak kuat|Cengkeraman sedikit lebih lebar bahu, turunkan barbel terkendali ke tengah dada|Dorong ke atas sampai lengan lurus tanpa mengunci siku keras","Turunkan pelan 2-3 detik; barbel menyentuh dada dengan lembut, bukan memantul.","Siku membuka 90° dari badan → bahu tertekuk; jaga sudut ±45° dari tubuh."],
+["Incline Bench Press","Dada","Dada atas · Bahu depan",2,"Barbel + Bangku","Dorong","Menekan barbel di bangku miring 30-45° — fokus dada bagian atas.","Atur bangku miring 30-45°, punggung & pinggul menempel|Tarik bahu ke belakang, cengkeraman sedikit lebih lebar bahu|Turunkan barbel ke tulang selangka, dorong ke atas mengikuti garis miring","Jaga sudut siku konsisten dari atas ke bawah; jangan ubah lintasan mendadak di dasar.","Beban terlalu berat membuat punggung melengkung dari bangku."],
+["Close-Grip Bench Press","Dada","Dada · Triceps",2,"Barbel + Bangku","Dorong","Varian bench dengan cengkeraman selebar bahu — beban pindah ke triceps.","Cengkeraman selebar bahu, pergelangan lurus di atas siku|Turunkan barbel ke bawah dada/ulu hati|Dorong ke atas, siku bergerak dekat badan","Fokus siku menempel gerakan; rasakan triceps bekerja di puncak.","Cengkeraman terlalu sempit melukai pergelangan — cukup selebar bahu."],
+["Floor Press","Dada","Dada · Triceps",1,"Barbel","Dorong","Bench press versi lantar — sempurna untuk gym rumah tanpa bangku; jangkauan lebih pendek, siku berhenti di lantai.","Terlentang di matras, lutut ditekuk, kaki menapak|Cengkeraman sedikit lebih lebar bahu, barbel di atas dada|Turunkan sampai lengan belakang menyentuh lantar, jeda 1 detik, dorong kembali","Jeda di lantar membuang momentum — otot bekerja murni.","Menjepit siku terlalu rapat membuat bahu tidak nyaman."],
+["Push-Up","Dada","Dada · Triceps · Inti",1,"Tanpa Alat","Dorong","Gerakan dorong klasik tanpa alat — pemanasan dada atau latihan utama pemula.","Tumpuan tangan sedikit lebih lebar bahu, badan lurus seperti papan|Turunkan dada mendekati lantar, siku ±45° dari badan|Dorong sampai lengan lurus tanpa mengangkat pinggul","Jaga pinggul sejajar bahu sepanjang gerakan; inti tetap kencang.","Pinggul turun atau naik — gerakan jadi setengahnya."],
+["Barbell Row","Punggung","Punggung · Bisep",2,"Barbel","Tarik","Menarik barbel ke perut dari posisi membungkuk — pembangun punggung tebal utama.","Berdiri, kaki selebar pinggul, bungkuk ±45°, punggung datar|Tarik barbel ke pusar, siku melewati badan|Turunkan terkendali tanpa mengubah sudut badan","Dada tegak; tarik dengan siku dan himpit tulang belikat — bukan tangan.","Mengangkat dengan lengan bengkok + punggung membulat — turunkan beban 20%."],
+["Romanian Deadlift","Punggung","Punggung bawah · Hamstring",2,"Barbel","Angkat","Deadlift kaki hampir lurus: barbel turun ke tengah kering — peregangan hamstring sekaligus penguat punggung bawah.","Berdiri tegak, barbel menempel paha|Dorong pinggul ke belakang, barbel menyusuri paha turun ke tengah kering|Pinggul maju kembali berdiri, punggung selalu datar","Rasakan tarikan di belakang paha; lutut tetap sedikit menekuk.","Barbel menjauh dari kaki — punggung membulat; jarak harus menempel paha."],
+["Pendlay Row","Punggung","Punggung · Bisep",3,"Barbel","Tarik","Row eksplosif: barbel menyentuh lantar tiap repetisi — kekuatan punggung murni.","Posisi bungkuk punggung datar, barbel di lantar|Tarik barbel ke dada bawah satu gerakan cepat|Turunkan ke lantar, ulangi dari nol","Badan tetap sejajar tanpa naik-turun; setiap repetisi dimulai dari diam.","Mengayun badan untuk membantu tarikan — kurangi beban."],
+["Rack Pull","Punggung","Punggung atas · Trapezius",2,"Barbel + Rak","Angkat","Deadlift dengan titik awal di rak setinggi atas lutut — beban sangat berat untuk punggung atas & genggaman.","Atur penyangga rak setinggi atas lutut|Berdiri tegap, tarik barbel ke atas pinggul, dada maju|Tahan 1 detik berdiri penuh, turunkan ke penyangga","Genggaman campur (satu telapak balik) bila genggaman ganda kalah berat.","Berubah jadi shrug — tarik dengan seluruh badan, bukan bahu saja."],
+["Pull-Up","Punggung","Punggung lebar · Bisep",3,"Bar Gantung","Tarik","Menarik badan naik di bar gantung — raja punggung lebar; bar pintu cukup di rumah.","Gantung, cengkeraman sedikit lebih lebar bahu|Tarik badan sampai dagu melewati bar, dada mendekat ke bar|Turunkan terkendali sampai lengan lurus","Picit bar dengan tangan; bayangkan siku turun ke saku belakang.","Mengayun kaki membuat setengah gerakan — badan kaku seperti papan."],
+["Barbell Shrug","Punggung","Trapezius",1,"Barbel","Tarik","Mengangkat bahu lurus ke atas dengan barbel di tangan — trapezius tebal.","Berdiri tegak, barbel menggantung di depan paha|Angkat bahu lurus ke telinga tanpa menekuk siku|Tahan 1 detik di atas, turunkan perlahan","Gerakan hanya di bahu; kepala tetap netral, pandangan ke depan.","Memutar bahu melingkar — risiko cedera; gerak lurus saja."],
+["Back Squat","Kaki","Kaki · Glute · Inti",2,"Barbel + Rak","Squat","Raja latihan kaki: barbel di belakang leher, badan turun sampai pinggul sejajar lutut.","Barbel istirahat di trapezius, kaki selebar bahu, jari kaki sedikit keluar|Turunkan pinggul ke belakang-bawah sampai paha sejajar lantai atau lebih dalam|Dorong tumit, berdiri kembali dengan dada tegak","Lutut mengikuti arah jari kaki; berat tertumpu di tengah telapak.","Lutut jatuh ke dalam atau tumit terangkat — turunkan beban, perbaiki posisi."],
+["Front Squat","Kaki","Kaki depan · Inti",3,"Barbel + Rak","Squat","Squat dengan barbel di depan bahu — punggung lebih tegak, tekanan ke otot depan paha.","Barbel istirahat di depan bahu, siku tinggi menghadap atas|Turunkan mantap, dada & siku tetap tinggi|Berdiri dengan mendorong lantar","Siku selalu menghadap atas; barbel menempel leher bagian depan.","Siku turun → barbel menggelinding ke depan; latih kelenturan pergelangan dulu."],
+["Zercher Squat","Kaki","Kaki · Inti · Punggung atas",3,"Barbel","Squat","Squat memeluk barbel di lipatan siku — tanpa rak; inti & punggung bekerja ekstra.","Barbel dipeluk di lipatan siku, rapat ke badan|Turunkan pinggul sambil menjaga dada tegak|Berdiri dengan mendorong tumit","Siku rapat badan; mulai dari barbel kosong untuk membiasakan posisi.","Beban terlalu jauh dari badan — punggung bawah langsung protes."],
+["Bulgarian Split Squat","Kaki","Glute · Kaki",2,"Barbel","Squat","Squat satu kaki, kaki belakang bertumpu di kursi/sofa — pembakar glute tanpa beban besar.","Satu kaki belakang di atas kursi, barbel di tangan atau belakang leher|Turunkan sampai paha depan sejajar lantar|Dorong tumit depan, berdiri kembali","Badan condong sedikit ke depan untuk glute; tegak untuk paha depan.","Langkah terlalu pendek — lutut depan melampaui jari kaki."],
+["Barbell Lunge","Kaki","Glute · Kaki",1,"Barbel","Squat","Melangkah maju-menurun dengan barbel — kaki bergantian, keseimbangan ikut terlatih.","Barbel di belakang leher atau digantung di tangan|Melangkah maju satu kaki, turunkan lutut belakang mendekati lantar|Dorong kaki depan kembali berdiri","Langkah cukup panjang agar lutut depan aman; badan tegak.","Membungkuk ke depan — beban menjauh dari garis tubuh."],
+["Hip Thrust","Kaki","Glute · Hamstring",1,"Barbel + Bangku","Angkat","Mendorong pinggul ke atas dengan punggung bersandar bangku — glute terisolasi maksimal.","Punggung atas di tepi bangku, barbel di lipatan paha (handuk sebagai bantalan)|Dorong tumit, angkat pinggul sampai badan membentuk garis datar|Tahan 1 detik di puncak, turunkan perlahan","Dagu ke dada, mata ke depan-bawah; picit glute di puncak.","Pinggul melengkung berlebihan — berhenti tepat di garis datar."],
+["Barbell Calf Raise","Kaki","Betis",1,"Barbel","Dorong","Berdiri mengangkat tumit dengan barbel di tangan — betis terlatih langsung.","Berdiri dengan tumit menggantung di tepi tangga/buku tebal|Angkat tumit setinggi mungkin|Turunkan perlahan sampai betis tererejang penuh","Jeda 1 detik di puncak; jangkauan penuh turun-naik.","Memantul cepat — membuang setengah repetisi; perlambat."],
+["Overhead Press","Bahu","Bahu · Triceps · Inti",2,"Barbel","Dorong","Menekan barbel dari bahu ke atas kepala sambil berdiri — bahu & stabilitas seluruh badan.","Barbel di depan bahu, cengkeraman sedikit lebih lebar bahu|Kencangkan inti & glute, dorong barbel ke atas sampai telinga sejajar lengan|Turunkan kembali ke bahu terkendali","Kepala mundur sedikit agar barbel lewat dagu, lalu maju kembali; badan kaku.","Punggung melengkung → tekanan lumbar; kurangi beban, kencangkan inti."],
+["Push Press","Bahu","Bahu · Kaki",2,"Barbel","Dorong","Overhead press dibantu hentakan kecil lutut — beban lebih berat dari OHP murni.","Barbel di depan bahu|Tekuk lutut sedikit, ledakkan kaki ke lantar serentak dengan tekanan lengan|Kunci lengan di atas, badan kembali lurus","Waktunya harus serentak: kaki meledak, lengan melanjutkan.","Hentakan terlalu besar → barbel lepas dari garis; kuncinya halus."],
+["Seated Overhead Press","Bahu","Bahu · Triceps",1,"Barbel + Bangku","Dorong","OHP sambil duduk bersandar — kaki tak ikut menolong, bahu bekerja penuh.","Duduk bersandar 85-90°, barbel di depan bahu|Dorong ke atas sampai lengan lurus|Turunkan terkendali ke bahu","Tanpa bersandar penuh bila inti ingin ikut terlatih.","Dada terlalu terbuka saat bersandar — barbel jatuh ke belakang."],
+["Barbell Curl","Lengan","Bisep",1,"Barbel","Tarik","Melipat siku mengangkat barbel — gerakan bisep paling murni.","Berdiri, cengkeraman selebar bahu, telapak menghadap atas|Lipat siku angkat barbel ke bahu tanpa menggeser siku|Turunkan penuh sampai lengan lurus","Siku menempel rusuk; 2 detik turun lebih berharga dari angkatan cepat.","Mengayun punggung untuk memompa — beban turun 20%."],
+["Reverse Curl","Lengan","Lengan bawah · Bisep",1,"Barbel","Tarik","Curl dengan telapak menghadap bawah — lengan bawah & genggaman ikut menguat.","Cengkeraman telapak bawah, selebar bahu|Angkat barbel dengan siku tetap di tempat|Turunkan perlahan","Genggaman sekuat mungkin; beban lebih ringan dari curl biasa.","Beban menyamai curl biasa — bentuk pasti rusak."],
+["Skull Crusher","Lengan","Triceps",2,"Barbel + Bangku","Dorong","Extensi triceps terlentang: barbel turun ke dahi — triceps panjang terlatih.","Terlentang di bangku, lengan lurus ke atas, cengkeraman rapat|Tekuk siku, turunkan barbel ke arah dahi|Luruskan kembali tanpa menggeser lengan atas","Hanya siku yang bergerak; lengan atas vertikal seperti patung.","Siku melebar ke samping — gerakan jadi bench press sebagian."],
+["Barbell Side Bend","Inti","Perut samping",1,"Barbel","Tarik","Memiringkan badan sambil memegang barbel satu tangan — otot perut samping terisolasi.","Berdiri, barbel di tangan kanan, tangan kiri di pinggang|Miringkan badan ke kiri terkendali|Kembali tegak; ganti sisi setelah set selesai","Pinggul tetap diam; gerakan hanya dari batang badan.","Memegang barbel dua tangan bersamaan — saling meniadakan, gerakan jadi nol."],
+["Barbell Ab Rollout","Inti","Perut lurus",3,"Barbel","Dorong","Menggulung barbel keluar-masuk sambil berlutut — perut bekerja seperti papan dinamis.","Berlutut, kedua tangan memegang barbel yang menggelinding di lantar|Gulung barbel ke depan sampai badan hampir datar|Tarik kembali ke posisi berlutut tegak","Punggung tidak boleh turun (anti-lengkung); buang napas saat menggulung","Menjangkau terlalu jauh sejak awal — mulai dari jarak pendek."],
+["Deadlift","Seluruh badan","Glute · Punggung · Inti",2,"Barbel","Angkat","Mengangkat barbel dari lantar — gerakan paling jujur: seluruh badan bekerja serentak.","Barbel di atas tengah kaki, cengkeraman sedikit lebih lebar dari kaki|Dada tegak, punggung datar, dorong kaki ke lantar sementara pinggul maju|Berdiri penuh, kunci pinggul tanpa mengangkat bahu","Barbel menyusuri kaki sepanjang jalan; dorong lantar — jangan menarik barbel.","Pinggul terbang duluan → punggung membulat; turunkan beban 15%."],
+["Sumo Deadlift","Seluruh badan","Glute · Paha dalam",2,"Barbel","Angkat","Deadlift kaki lebar, cengkeraman di dalam lutut — lintasan lebih pendek, paha dalam terlibat.","Kaki lebar ±1,5× bahu, jari kaki keluar 30-45°|Cengkeraman rapat di dalam lutut|Dorong lantar ke arah luar, pinggul lurus ke depan","Lutut mengikuti arah jari kaki; dada unggul dari pinggul.","Berubah jadi squat — pinggul turun terlalu dalam."],
+["Power Clean","Seluruh badan","Kaki · Punggung · Bahu",3,"Barbel","Angkat","Mengangkat barbel dari lantar ke bahu dengan ledakan pinggul — kekuatan eksplosif klasik.","Posisi deadlift, punggung datar|Ledakkan pinggul, barbel meluncur di depan paha|Putar siku ke bawah, terima barbel di bahu","Lengan hanya tali — tenaga dari pinggul; latih pola dengan barbel kosong dulu.","Menarik dengan lengan sejak bawah — momen eksplosif hilang."],
+["Thruster","Seluruh badan","Kaki · Bahu · Inti",2,"Barbel","Dorong","Front squat + overhead press jadi satu gerakan mengalir — pembakar & pembangun tenaga total.","Barbel di depan bahu, turunkan ke squat|Berdiri eksplosif, lanjutkan tenaga mendorong barbel ke atas|Turunkan kembali ke bahu, langsung squat berikutnya","Satu gerakan mengalir: kaki memberi makan lengan; jangan berhenti di tengah.","Memisah jadi dua gerakan terpisah — ritme hilang, tenaga terbuang."],
+["Clean & Press","Seluruh badan","Seluruh badan",3,"Barbel","Angkat","Power clean dilanjut overhead press — gerakan angkat berat klasik pra-Olimpiade.","Angkat barbel ke bahu (clean)|Stabilkan sejenak, dorong ke atas kepala|Turunkan ke bahu, lalu ke lantar","Ritme panjang napas; jeda wajar di bahu tiap repetisi.","Menggabung terlalu cepat tanpa stabilisasi — bentuk rusak di tekanan."]
+];
+const EX_LV={1:'Pemula',2:'Menengah',3:'Mahir'};
+const MUSCLE_META=[{k:'Dada',ic:'#ill-gym-dada'},{k:'Punggung',ic:'#ill-gym-punggung'},{k:'Kaki',ic:'#ill-gym-kaki'},{k:'Bahu',ic:'#ill-gym-bahu'},{k:'Lengan',ic:'#ill-gym-lengan'},{k:'Inti',ic:'#ill-gym-perut'},{k:'Seluruh badan',ic:'#ill-gym-full'}];
+const MUSCLE_IC=Object.fromEntries(MUSCLE_META.map(m=>[m.k,m.ic]));
+const muscleIconOf=k=>MUSCLE_IC[k]||'#ill-gym-full';
+/* PROG_DB — hari: [nama gerakan, set, repetisi]; alat cukup barbel+rak+bangku */
+const PROG_DB=[
+{id:'sl5x5',name:'Barbel 5×5',ic:'#ill-gym-full',level:'Pemula → Menengah',freq:'3×/pekan',dur:45,focus:'Kekuatan dasar',
+ desc:'Klasik kekuatan rumahan: tiga gerakan besar per sesi, bergantian Hari A/B (cth: Sen·Rab·Jum). Mulai ringat, naik pelan — bentuk dulu, beban kemudian.',
+ prog:'Naik 2,5 kg tiap sesi selama semua repetisi tercapai (deadlift boleh 5 kg); terjebak 3 sesi → turun 10% & bangun ulang. Coach Rutina membantu via double progression.',
+ days:[{label:'Hari A',rest:'2–3 mnt',ex:[['Back Squat',5,5],['Bench Press',5,5],['Barbell Row',5,5]]},
+       {label:'Hari B',rest:'2–3 mnt',ex:[['Back Squat',5,5],['Overhead Press',5,5],['Deadlift',1,5]]}]},
+{id:'ul',name:'Atas–Bawah',ic:'#ill-gym-bahu',level:'Pemula → Menengah',freq:'4×/pekan',dur:50,focus:'Otot merata',
+ desc:'Belah pekan: dua hari badan atas, dua hari badan bawah (cth: Sen·Sel·Kam·Jum). Volume lebih banyak per otot — jembatan dari 5×5 ke program lanjutan.',
+ prog:'Naik 2,5 kg saat semua set tercapai dua sesi berturut; gerakan kecil (curl, calf) naik 1,25–2,5 kg.',
+ days:[{label:'Hari Atas',rest:'90 dtk',ex:[['Bench Press',4,6],['Barbell Row',4,6],['Seated Overhead Press',3,8],['Barbell Curl',3,10],['Skull Crusher',3,10]]},
+       {label:'Hari Bawah',rest:'90 dtk',ex:[['Back Squat',4,6],['Romanian Deadlift',3,8],['Bulgarian Split Squat',3,10],['Barbell Calf Raise',4,12]]}]},
+{id:'ppl',name:'Dorong–Tarik–Kaki',ic:'#ill-kompas',level:'Menengah → Mahir',freq:'6×/pekan',dur:60,focus:'Volume & otot',
+ desc:'Rotasi tiga hari: Dorong (dada-bahu-triceps), Tarik (punggung-bisep), Kaki — masing-masing 2× seminggu. Volume terbesar; butuh pemulihan rapi.',
+ prog:'Gerakan besar naik 2,5 kg saat semua set tercapa; gerakan bantu ikut naik begitu repetisi puncak tercapai semua set.',
+ days:[{label:'Dorong',rest:'90 dtk',ex:[['Bench Press',4,6],['Overhead Press',4,8],['Incline Bench Press',3,10],['Skull Crusher',3,10]]},
+       {label:'Tarik',rest:'90 dtk',ex:[['Deadlift',4,5],['Barbell Row',4,8],['Pull-Up',4,8],['Barbell Curl',3,12]]},
+       {label:'Kaki',rest:'2 mnt',ex:[['Back Squat',5,5],['Front Squat',3,8],['Romanian Deadlift',3,8],['Barbell Calf Raise',4,12]]}]},
+{id:'min',name:'Barbel Saja',ic:'#ill-beban',level:'Pemula',freq:'3×/pekan',dur:40,focus:'Sarana minimal',
+ desc:'Tanpa bangku & tanpa rak — cukup barbel + matras. Semua gerakan aman dimulai dari lantar; pilihan jujur untuk gym rumah paling sederhana.',
+ prog:'Naik 2,5 kg saat semua set tercapa; Zercher & deadlift naik pelan 2,5 kg tanpa terkecuali.',
+ days:[{label:'Hari A',rest:'90 dtk',ex:[['Zercher Squat',4,8],['Floor Press',4,8],['Barbell Row',4,8],['Barbell Curl',3,12]]},
+       {label:'Hari B',rest:'90 dtk',ex:[['Deadlift',3,5],['Overhead Press',4,8],['Bulgarian Split Squat',3,10],['Barbell Side Bend',3,12]]}]}
+];
+/* status UI pustaka & program (tak perlu tersimpan — sesi peramban) */
+let libQ='',libMuscle='Semua',libOpen=-1,progOpen=null,toolSel='plate';
+const PLATES_AVAIL=[25,20,15,10,5,2.5,1.25];
+
+/* statistik ringkas satu gerakan: sesi, PR e1RM, terakhir */
+function exStatOf(name){
+  const ss=WORKOUTS.filter(w=>w.kind==='beban'&&w.sets&&w.sets.some(s=>s.exercise===name));
+  const best=ss.length?Math.max(...ss.map(w=>Math.max(...w.sets.filter(s=>s.exercise===name).map(s=>e1rmOf(s))))):0;
+  return{ses:ss.length,best,last:ss[0]?ss[0].date:null};
+}
+/* buka form latihan terisi daftar gerakan (+ catatan & durasi) — coach
+   tetap menjalankan pra-isi target di addExBlock */
+function openWorkoutWithEx(names,note,dur){
+  resetWorkoutModal('beban');
+  const list=$('#wkExList');if(list)list.innerHTML='';
+  (names||[]).forEach(n=>addExBlock(n));
+  if(note)$('#wkNote').value=note;
+  if(dur)$('#wkDur').value=String(dur);
+  openModal('modalWorkout');
+}
+/* modal riwayat satu gerakan: seluruh sesi terbaru dulu + lencana PR */
+function openExHist(name){
+  const body=$('#exhBody'),title=$('#exhTitle');if(!body)return;
+  const ss=WORKOUTS.filter(w=>w.kind==='beban'&&w.sets&&w.sets.some(s=>s.exercise===name));
+  if(title)title.textContent=name;
+  if(!ss.length){
+    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Belum ada sesi dengan gerakan ini — catat set pertama dari pustaka atau tombol Catat latihan.</span></div>`;
+    openModal('modalExHist');return;
+  }
+  const best=Math.max(...ss.map(w=>Math.max(...w.sets.filter(s=>s.exercise===name).map(s=>e1rmOf(s)))));
+  const ton=ss.reduce((a,w)=>a+w.sets.filter(s=>s.exercise===name).reduce((x,s)=>x+s.reps*s.weight,0),0);
+  body.innerHTML=`
+    <div class="exh-sum">
+      <span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)">PR e1RM ≈ ${Math.round(best*10)/10} kg</span>
+      <span class="pill">${ss.length} sesi</span>
+      <span class="pill">${Math.round(ton)} kg tonase total</span>
+    </div>
+    ${ss.map(w=>{
+      const sets=w.sets.filter(s=>s.exercise===name);
+      const e1=Math.max(...sets.map(s=>e1rmOf(s)));
+      const t=sets.reduce((a,s)=>a+s.reps*s.weight,0);
+      const isPr=e1>=best-0.001;
+      return `<div class="exh-row">
+        <div class="exh-top">
+          <span class="exh-date">${tglPendek(w.date)}</span>
+          ${isPr?'<span class="pill" style="background:var(--terra-softer);color:var(--terra-deep);padding:3px 10px;font-size:10.5px">PR</span>':''}
+        </div>
+        <div class="exh-sets">${sets.map(s=>`<span class="exh-set">${s.reps}×${s.weight} kg</span>`).join('')}</div>
+        <div class="exh-sub"><span>${Math.round(t)} kg tonase</span><span>e1RM ≈ ${Math.round(e1*10)/10} kg</span>${w.note?`<span>“${esc(w.note)}”</span>`:''}</div>
+      </div>`;
+    }).join('')}`;
+  openModal('modalExHist');
+}
+
+/* render: program latihan (akordeon; "Mulai" = form terisi hari terpilih) */
+function renderProgramCard(){
+  const body=$('#progBody');if(!body)return;
+  body.innerHTML=PROG_DB.map(p=>{
+    const open=progOpen===p.id;
+    const sesCount=WORKOUTS.filter(w=>w.note&&w.note.includes('Program '+p.name)).length;
+    return `<div class="prog-row${open?' open':''}">
+      <button type="button" class="prog-head" data-prog="${p.id}" aria-expanded="${open}">
+        <span class="prog-ic"><svg class="ill" aria-hidden="true"><use href="${p.ic}"/></svg></span>
+        <span class="prog-main">
+          <span class="prog-name">${esc(p.name)}</span>
+          <span class="prog-sub">${esc(p.level)} · ${esc(p.freq)} · ±${p.dur} mnt</span>
+        </span>
+        ${sesCount?`<span class="pill" style="flex:none;background:var(--sage-soft);color:var(--sage-deep)">${sesCount} sesi</span>`:''}
+        <svg class="ic" aria-hidden="true" style="flex:none;color:var(--ink-3)"><use href="#i-chev-${open?'u':'d'}"/></svg>
+      </button>
+      ${open?`<div class="prog-detail">
+        <p class="prog-desc">${esc(p.desc)}</p>
+        <div class="prog-days">
+          ${p.days.map((d,di)=>`<div class="prog-day">
+            <div class="prog-day-head">
+              <span class="prog-day-name">${esc(d.label)} <small style="color:var(--ink-3);font-weight:600">· istirahat ${esc(d.rest)}</small></span>
+              <button type="button" class="btn btn-primary btn-sm" data-prog-start="${p.id}|${di}"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Mulai</button>
+            </div>
+            ${d.ex.map(x=>`<div class="prog-ex"><span>${esc(x[0])}</span><b>${x[1]} × ${x[2]}</b></div>`).join('')}
+          </div>`).join('')}
+        </div>
+        <div class="prog-note"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span>${esc(p.prog)}</span></div>
+      </div>`:''}
+    </div>`;
+  }).join('');
+}
+/* render: chip saring otot pustaka */
+function renderLibChips(){
+  const wrap=$('#libChips');if(!wrap)return;
+  wrap.innerHTML=[{k:'Semua',ic:'#ill-gym-full'},...MUSCLE_META].map(m=>
+    `<button type="button" class="lib-chip${m.k===libMuscle?' active':''}" data-lib-muscle="${m.k}" aria-pressed="${m.k===libMuscle}"><svg class="ill" aria-hidden="true"><use href="${m.ic}"/></svg>${m.k}</button>`).join('');
+}
+/* render: daftar gerakan (saring otot + cari; detail = akordeon) */
+function renderLibList(){
+  const body=$('#libBody');if(!body)return;
+  const q=libQ.trim().toLowerCase();
+  const hits=EX_LIB.map((e,i)=>({e,i})).filter(({e})=>
+    (libMuscle==='Semua'||e[1]===libMuscle)&&
+    (!q||(e[0]+' '+e[2]+' '+e[4]+' '+e[5]).toLowerCase().includes(q)));
+  const pill=$('#libPill');
+  if(pill)pill.textContent=hits.length?`${hits.length} gerakan`:'0 gerakan';
+  if(!hits.length){
+    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><span>Tidak ada gerakan yang cocok — coba kata lain atau saring “Semua”.</span></div>`;
+    return;
+  }
+  body.innerHTML=`<div class="lib-list">${hits.map(({e,i})=>{
+    const open=i===libOpen;
+    const st=exStatOf(e[0]);
+    return `<div class="lib-row${open?' open':''}">
+      <button type="button" class="lib-row-head" data-lib-idx="${i}" aria-expanded="${open}">
+        <span class="lib-row-ic"><svg class="ill" aria-hidden="true"><use href="${muscleIconOf(e[1])}"/></svg></span>
+        <span class="lib-row-main">
+          <span class="lib-row-name">${esc(e[0])}</span>
+          <span class="lib-row-sub">${esc(e[1])} · ${esc(e[2])}</span>
+        </span>
+        <span class="lvl lvl-${e[3]}">${EX_LV[e[3]]}</span>
+        <svg class="ic" aria-hidden="true" style="flex:none;color:var(--ink-3)"><use href="#i-chev-${open?'u':'d'}"/></svg>
+      </button>
+      ${open?`<div class="lib-detail">
+        <p class="lib-desc">${esc(e[6])}</p>
+        <ol class="lib-steps">${String(e[7]).split('|').map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+        <div class="lib-note tip"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>${esc(e[8])}</span></div>
+        <div class="lib-note mist"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><b>Kesalahan umum:</b> ${esc(e[9])}</span></div>
+        <div class="lib-meta-chips">
+          <span class="pill">${esc(e[4])}</span>
+          <span class="pill">Pola ${esc(e[5])}</span>
+          ${st.ses?`<span class="pill" style="background:var(--terra-soft);color:var(--terra-deep)">PR e1RM ≈ ${Math.round(st.best*10)/10} kg</span><span class="pill">${st.ses} sesi · terakhir ${tglPendek(st.last)}</span>`:'<span class="pill">Belum pernah dicatat</span>'}
+        </div>
+        <div class="lib-act">
+          <button type="button" class="btn btn-primary btn-sm" data-lib-add="${i}"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Catat set</button>
+          ${st.ses?`<button type="button" class="btn btn-ghost btn-sm" data-lib-hist="${i}"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Riwayat</button>`:''}
+        </div>
+      </div>`:''}
+    </div>`;
+  }).join('')}</div>`;
+}
+/* render: papan rekor per gerakan (urut e1RM) */
+function renderPrCard(){
+  const body=$('#prBody');if(!body)return;
+  const names=[...new Set(WORKOUTS.filter(w=>w.kind==='beban').flatMap(w=>(w.sets||[]).map(s=>s.exercise)))];
+  const pill=$('#prPill');
+  if(!names.length){
+    if(pill)pill.textContent='belum ada rekor';
+    body.innerHTML=`<div class="today-note"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span>Rekor lahir setelah set beban pertama dicatat — e1RM tiap gerakan dipantau otomatis di sini.</span></div>`;
+    return;
+  }
+  const rows=names.map(n=>({n,...exStatOf(n)})).sort((a,b)=>b.best-a.best);
+  if(pill)pill.textContent=`${rows.length} gerakan · PR top ${Math.round(rows[0].best)} kg`;
+  body.innerHTML=`<div class="pr-scroll">${rows.map(r=>{
+    const libHit=EX_LIB.find(e=>e[0]===r.n);
+    return `<button type="button" class="pr-row" data-pr-ex="${esc(r.n)}">
+      <span class="pr-ic"><svg class="ill" aria-hidden="true"><use href="${muscleIconOf(libHit?libHit[1]:'')}"/></svg></span>
+      <span class="pr-main"><span class="pr-name">${esc(r.n)}</span><span class="pr-sub">${r.ses} sesi · terakhir ${tglPendek(r.last)}</span></span>
+      <span class="pr-e1"><span class="n">${Math.round(r.best*10)/10}</span><small>kg · e1RM PR</small></span>
+    </button>`;
+  }).join('')}</div>
+  <p class="plate-note" style="text-align:left;margin-top:8px">Ketuk gerakan untuk membuka riwayat lengkap per sesi.</p>`;
+}
+/* alat: pemuat piring — piring per sisi dgn warna standar + verdict */
+const plateCls=p=>p===25?'p25':p===20?'p20':p===15?'p15':p===10?'p10':p===5?'p5':p===2.5?'p2':'p125';
+const plateLbl=p=>String(p).replace('.',',');
+function renderPlateOut(){
+  const out=$('#plateOut');if(!out)return;
+  const target=parseFloat(String($('#plateTarget').value||'').replace(',','.'));
+  const bar=parseFloat(($('#plateBar')||{}).value)||20;
+  if(!(target>0)){out.innerHTML='';return}
+  if(target<bar){out.innerHTML=`<p class="plate-note" style="margin-top:10px">Target ${target} kg tak sampai berat barbelmu (${bar} kg) — cukup barbel saja.</p>`;return}
+  let side=(target-bar)/2,rest=Math.round(side*1000)/1000;
+  const used=[];
+  for(const p of PLATES_AVAIL){const n=Math.floor((rest+0.001)/p);if(n>0){used.push([p,n]);rest=Math.round((rest-p*n)*1000)/1000}}
+  const exact=rest<0.001;
+  const achieved=bar+2*used.reduce((a,u)=>a+u[0]*u[1],0);
+  const sideVis=used.flatMap(u=>Array.from({length:u[1]},()=>u[0]));
+  out.innerHTML=`
+    <div class="plate-vis">${sideVis.map(p=>`<span class="plate ${plateCls(p)}">${plateLbl(p)}</span>`).join('')}<span class="plate-bar" aria-hidden="true"></span>${sideVis.map(p=>`<span class="plate ${plateCls(p)}">${plateLbl(p)}</span>`).join('')}</div>
+    <p class="plate-verdict">${exact?`Total tepat <b>${target} kg</b> — <b>${sideVis.length} piring per sisi</b>`:`Tercapai <b>${achieved} kg</b> dari ${plateLbl(target)} kg — kurang ${plateLbl(Math.round((target-achieved)*100)/100)} kg (piring terkecil 1,25 kg)`}</p>
+    <p class="plate-note">${used.length?'Piring per sisi: '+used.map(u=>`${u[1]}× ${plateLbl(u[0])} kg`).join(' + '):'Tanpa piring — barbel saja'}</p>`;
+}
+/* alat: kalkulator 1RM (Epley — sama dgn coach) + tabel persentase */
+function renderRmOut(){
+  const out=$('#rmOut');if(!out)return;
+  const kg=parseFloat(String($('#rmWeight').value||'').replace(',','.'));
+  const reps=parseInt(String($('#rmReps').value||'').replace(/[^\d]/g,''),10)||0;
+  if(!(kg>0)||!(reps>0)){out.innerHTML='';return}
+  if(reps>15){out.innerHTML=`<p class="plate-note" style="margin-top:10px">Estimasi paling akurat di bawah 15 repetisi — catat set 1–12 rep lalu hitung lagi.</p>`;return}
+  const rm=e1rmWR(kg,reps);
+  const TBL=[[95,2],[90,4],[85,6],[80,8],[75,10],[70,12],[65,15]];
+  out.innerHTML=`
+    <div class="rm-hero"><span class="n">${Math.round(rm*10)/10}</span><small>kg · 1RM estimasi</small></div>
+    <p class="plate-note">Rumus Epley — sama yang dipakai coach untuk lencana PR &amp; target.</p>
+    <table class="rm-tbl"><thead><tr><th>% 1RM</th><th>Beban</th><th>Estimasi rep</th></tr></thead>
+      <tbody>${TBL.map(t=>`<tr><td><b>${t[0]}%</b></td><td>${Math.round(rm*t[0]/100*10)/10} kg</td><td>~${t[1]} rep</td></tr>`).join('')}</tbody></table>`;
+}
+/* alat: tangga pemanasan otomatis (bar → 40/60/80% dibulat 2,5 kg) */
+function renderWarmOut(){
+  const out=$('#warmOut');if(!out)return;
+  const work=parseFloat(String($('#warmWork').value||'').replace(',','.'));
+  const bar=parseFloat(($('#plateBar')||{}).value)||20;
+  if(!(work>0)){out.innerHTML='';return}
+  const r25=v=>Math.max(bar,Math.round(v/2.5)*2.5);
+  const steps=[];
+  if(bar<=work*0.55)steps.push({kg:bar,reps:10,lb:'Barbel kosong — bangun pola'});
+  if(work>r25(work*0.4)+0.001)steps.push({kg:r25(work*0.4),reps:5,lb:'Ringan — fokus teknik'});
+  steps.push({kg:r25(work*0.6),reps:3,lb:'Bangun ritme'});
+  steps.push({kg:r25(work*0.8),reps:2,lb:'Hampir beban kerja'});
+  const dedup=steps.filter((s,i)=>i===0||s.kg!==steps[i-1].kg);
+  out.innerHTML=`
+    <div class="warm-ladder">
+      ${dedup.map((s,i)=>`<div class="warm-set"><span class="warm-no">${i+1}</span><span class="warm-kg">${plateLbl(s.kg)} kg</span><span class="warm-rep">${s.reps} rep</span><span style="color:var(--ink-2)">${esc(s.lb)}</span></div>`).join('')}
+      <div class="warm-set"><span class="warm-no"><svg class="ic" style="width:13px;height:13px;color:var(--terra-deep)" aria-hidden="true"><use href="#i-target"/></svg></span><span class="warm-kg">${plateLbl(work)} kg</span><span class="warm-rep">set kerja</span><span style="color:var(--ink-2)">Selamat bekerja!</span></div>
+    </div>
+    <div class="hy-act" style="margin-top:10px">
+      <button type="button" class="btn btn-primary btn-sm" data-open-modal="modalRest"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Mulai timer istirahat</button>
+    </div>
+    <p class="plate-note" style="text-align:left">Istirahat 45–60 dtk antar pemanasan · beban dibulatkan ke piring 2,5 kg · barbel ${plateLbl(bar)} kg (ubah di alat Piring).</p>`;
+}
+/* alat: pindah kalkulator */
+function setTool(t){
+  toolSel=t;
+  $$('#toolSeg button').forEach(b=>{const on=b.dataset.tool===t;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
+  [['plate','#toolPlate'],['rm','#toolRm'],['warm','#toolWarm']].forEach(([k,sel])=>{const el=$(sel);if(el)el.hidden=k!==t});
+  syncSegThumb($('#toolSeg'));
+  if(t==='plate')renderPlateOut();else if(t==='rm')renderRmOut();else renderWarmOut();
+}
+/* delegasi v3.04 — dipasang SEKALI ke wadah kekal; render ulang aman */
+function barbellBind(){
+  const lib=$('#libCard');
+  if(lib&&!lib.dataset.bound){
+    lib.dataset.bound='1';
+    const inp=$('#libSearch');
+    if(inp)inp.addEventListener('input',()=>{libQ=inp.value;libOpen=-1;renderLibList()});
+    lib.addEventListener('click',e=>{
+      const chip=e.target.closest('[data-lib-muscle]');
+      if(chip){libMuscle=chip.dataset.libMuscle;libOpen=-1;renderLibChips();renderLibList();return}
+      const add=e.target.closest('[data-lib-add]');
+      if(add){const ex=EX_LIB[+add.dataset.libAdd];if(ex)openWorkoutWithEx([ex[0]]);return}
+      const hist=e.target.closest('[data-lib-hist]');
+      if(hist){const ex=EX_LIB[+hist.dataset.libHist];if(ex)openExHist(ex[0]);return}
+      const head=e.target.closest('[data-lib-idx]');
+      if(head){const i=+head.dataset.libIdx;libOpen=libOpen===i?-1:i;renderLibList()}
+    });
+  }
+  const prog=$('#programCard');
+  if(prog&&!prog.dataset.bound){
+    prog.dataset.bound='1';
+    prog.addEventListener('click',e=>{
+      const start=e.target.closest('[data-prog-start]');
+      if(start){
+        const [pid,diS]=start.dataset.progStart.split('|');
+        const p=PROG_DB.find(x=>x.id===pid);if(!p)return;
+        const d=p.days[+diS];if(!d)return;
+        openWorkoutWithEx(d.ex.map(x=>x[0]),`Program ${p.name} · ${d.label}`,p.dur);
+        haptic(12);
+        return;
+      }
+      const head=e.target.closest('[data-prog]');
+      if(head){progOpen=progOpen===head.dataset.prog?null:head.dataset.prog;renderProgramCard()}
+    });
+  }
+  const pr=$('#prCard');
+  if(pr&&!pr.dataset.bound){
+    pr.dataset.bound='1';
+    pr.addEventListener('click',e=>{
+      const row=e.target.closest('[data-pr-ex]');
+      if(row)openExHist(row.dataset.prEx);
+    });
+  }
+  const tool=$('#toolCard');
+  if(tool&&!tool.dataset.bound){
+    tool.dataset.bound='1';
+    tool.addEventListener('click',e=>{
+      const seg=e.target.closest('[data-tool]');
+      if(seg)setTool(seg.dataset.tool);
+    });
+    const pt=$('#plateTarget');if(pt)pt.addEventListener('input',renderPlateOut);
+    const pb=$('#plateBar');if(pb)pb.addEventListener('change',()=>{renderPlateOut();renderWarmOut()});
+    const rw=$('#rmWeight');if(rw)rw.addEventListener('input',renderRmOut);
+    const rr=$('#rmReps');if(rr)rr.addEventListener('input',renderRmOut);
+    const ww=$('#warmWork');if(ww)ww.addEventListener('input',renderWarmOut);
+  }
+  /* datalist form latihan diperkaya dari nama pustaka */
+  const dl=$('#wkExListOpts');
+  if(dl&&!dl.dataset.bound){dl.dataset.bound='1';EX_LIB.forEach(e=>{const o=document.createElement('option');o.value=e[0];dl.appendChild(o)})}
+  renderLibChips();
+}
+
 /* render: kardio (jalan/lari/kombinasi) + pace */
 function renderKardioCard(){
   const body=$('#kardioBody');if(!body)return;
@@ -7243,6 +7852,7 @@ function saveSasaran(reset){
 /* render master + refresh */
 function renderBugar(){
   renderBugarHero();renderBugarStats();renderBebanCard();renderKardioCard();
+  renderProgramCard();renderLibList();renderPrCard(); /* v3.04 · pulau barbel — program, pustaka, rekor */
   renderFitCharts();renderFitTarget();
   renderKaloriCard();renderMutasiKal();
   renderHidrasiCard();renderBeratCard();renderPulihCard();fillSasaran();
@@ -7254,7 +7864,7 @@ function goBugarSection(sec){
   state.bugarSection=sec;
   $$('#bugarTabs .fin-tab').forEach(b=>{const on=b.dataset.bugarSection===sec;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
   $$('[data-bugar-pane]').forEach(p=>{p.hidden=p.dataset.bugarPane!==sec});
-  if(sec==='latihan')renderFitCharts(); /* ukuran kontainer valid saat tampak */
+  if(sec==='latihan'){renderFitCharts();syncSegThumb($('#toolSeg'))} /* ukuran kontainer valid saat tampak; v3.04 · thumb alat barbel ikut pas posisi */
 }
 if(typeof state==='object'&&!state.bugarSection)state.bugarSection='latihan';
 
@@ -7819,6 +8429,7 @@ if($('#restRestart'))$('#restRestart').addEventListener('click',()=>restStart(90
 if($('#restSkip'))$('#restSkip').addEventListener('click',()=>{restStop();closeModals();toast('Istirahat selesai','Kamu yang pegang kendali — kembali latihan kapan pun siap.','i-check','sage')});
 if($('#formFood'))$('#formFood').addEventListener('submit',saveFood);
 fdSearchBind(); /* v3.03 · master makanan — pencari asupan (delegasi, sekali pasang) */
+barbellBind(); /* v3.04 · pulau barbel — program/pustaka/rekor/alat (delegasi, sekali pasang) */
 if($('#bugarTabs'))$('#bugarTabs').addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
     const tabs=$$('#bugarTabs .fin-tab');
@@ -9869,7 +10480,7 @@ function syncSegThumb(seg){
   th.style.left=act.offsetLeft+'px';
   th.style.width=act.offsetWidth+'px';
 }
-window.addEventListener('resize',()=>{$$('.modal.open .seg').forEach(syncSegThumb)},{passive:true});
+window.addEventListener('resize',()=>{$$('.modal.open .seg').forEach(syncSegThumb);if(!$('#bugar-pane-latihan')?.hidden)syncSegThumb($('#toolSeg'))},{passive:true}); /* v3.04 · thumb alat barbel ikut disinkronkan saat ukuran jendela berubah */
 document.addEventListener('keydown',e=>{
   if(e.key!=='Escape')return;
   /* panel pintasan menangani Esc-nya sendiri — jangan sekali tekan
